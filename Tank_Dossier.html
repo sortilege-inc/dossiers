@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tank — X-FRONT Dossier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Special+Elite&family=Share+Tech+Mono&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #1a1008;
+    --paper:     #f5e8c8;
+    --paper-dark:#e0cea0;
+    --ink:       #1a1008;
+    --magenta:   #e0157a;
+    --magenta-d: #b0106a;
+    --yellow:    #f5c800;
+    --yellow-d:  #c8a000;
+    --red:       #c8281e;
+    --white:     #f5e8c8;
+    --rule:      rgba(26,16,8,0.25);
+    --rule-mag:  rgba(224,21,122,0.35);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+    font-family: 'Barlow Condensed', sans-serif;
+    color: var(--ink);
+    padding: 2rem 1rem;
+    min-height: 100vh;
+  }
+
+  /* OUTER FRAME */
+  .outer-frame {
+    max-width: 860px;
+    margin: 0 auto;
+    border: 3px solid var(--magenta);
+    box-shadow:
+      0 0 0 6px var(--bg),
+      0 0 0 8px var(--yellow),
+      0 0 40px rgba(224,21,122,0.35),
+      inset 0 0 0 3px var(--yellow);
+    position: relative;
+  }
+
+  /* BANNER STRIP */
+  .banner-strip {
+    background: var(--yellow);
+    padding: 0;
+    line-height: 0;
+    border-bottom: 4px solid var(--magenta);
+  }
+  .banner-strip img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 90px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* STENCIL TAPE TOP */
+  .tape-top {
+    background: var(--magenta);
+    text-align: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    color: var(--yellow);
+    padding: 0.35rem 1rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--yellow-d);
+  }
+
+  /* MAIN DOCUMENT */
+  .document {
+    background: var(--paper);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    padding: 2rem 2.5rem 3rem;
+    position: relative;
+  }
+
+  /* SPRAY-PAINT CORNER MARKS */
+  .corner { position: absolute; font-size: 1.2rem; color: var(--magenta); opacity: 0.5; line-height: 1; }
+  .corner.tl { top: 10px; left: 10px; }
+  .corner.tr { top: 10px; right: 10px; }
+  .corner.bl { bottom: 10px; left: 10px; }
+  .corner.br { bottom: 10px; right: 10px; }
+
+  /* ── HEADER ────────────────────────────── */
+  .header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem 2rem;
+    align-items: start;
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
+    position: relative;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -7px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--magenta);
+  }
+
+  .portrait-wrap {
+    width: 160px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .portrait-wrap img {
+    width: 160px;
+    height: 200px;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    border: 2px solid var(--ink);
+    filter: contrast(1.05) saturate(0.9);
+  }
+  .portrait-stamp {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    background: var(--magenta);
+    color: var(--yellow);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    padding: 0.15rem 0.4rem;
+    text-transform: uppercase;
+    border: 1px solid var(--yellow-d);
+  }
+
+  .header-text { padding-top: 0.25rem; }
+
+  .codename-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--magenta);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+
+  h1.codename {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 5rem;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+  }
+  h1.codename::after {
+    content: 'TANK';
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    color: var(--magenta);
+    z-index: -1;
+    opacity: 0.35;
+  }
+
+  .real-name {
+    font-family: 'Special Elite', cursive;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-top: 0.4rem;
+    border-left: 3px solid var(--magenta);
+    padding-left: 0.6rem;
+  }
+
+  .vitals-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.75rem;
+    margin-top: 0.75rem;
+  }
+  .vital-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    background: var(--ink);
+    color: var(--yellow);
+    padding: 0.15rem 0.5rem;
+    text-transform: uppercase;
+  }
+  .vital-tag.pink {
+    background: var(--magenta);
+    color: var(--paper);
+  }
+
+  .affil-line {
+    margin-top: 0.75rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--magenta);
+    border-top: 1px solid var(--rule);
+    padding-top: 0.5rem;
+  }
+
+  /* ── SECTION LAYOUT ─────────────────────── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  section {
+    margin-bottom: 1.75rem;
+  }
+
+  .section-head {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink);
+    padding: 0.3rem 0.75rem 0.25rem;
+    margin-bottom: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-head .pip {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--magenta);
+    flex-shrink: 0;
+  }
+
+  p, .prose { font-size: 1rem; font-weight: 400; line-height: 1.55; color: var(--ink); }
+
+  .drop-cap::first-letter {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 3.2rem;
+    line-height: 0.8;
+    float: left;
+    margin-right: 0.2rem;
+    color: var(--magenta);
+  }
+
+  /* ── STATS GRID ─────────────────────────── */
+  .stats-cluster {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin: 0.75rem 0;
+  }
+  .stat-block {
+    border: 1.5px solid var(--ink);
+    background: white;
+    text-align: center;
+    padding: 0.5rem 0.25rem 0.4rem;
+    position: relative;
+  }
+  .stat-block.highlight {
+    border-color: var(--magenta);
+    background: rgba(224,21,122,0.06);
+  }
+  .stat-block .s-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--magenta);
+    margin-bottom: 0.2rem;
+  }
+  .stat-block .s-score {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .stat-block .s-def {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: #666;
+    margin-top: 0.1rem;
+  }
+
+  /* HP/Focus cluster */
+  .resource-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin: 0.75rem 0;
+  }
+  .resource-block {
+    border: 2px solid var(--ink);
+    padding: 0.75rem;
+    background: var(--paper-dark);
+    position: relative;
+  }
+  .resource-block::before {
+    content: attr(data-label);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--magenta);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .resource-block .r-val {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .resource-block .r-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: #777;
+    margin-top: 0.2rem;
+  }
+
+  /* speed pills */
+  .speed-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 0.5rem 0;
+  }
+  .speed-pill {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    background: var(--paper-dark);
+    border: 1px solid var(--ink);
+    padding: 0.2rem 0.6rem;
+    text-transform: uppercase;
+  }
+  .speed-pill span { color: var(--magenta); font-weight: 700; font-size: 0.85rem; }
+
+  /* damage row */
+  .dmg-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin: 0.5rem 0;
+  }
+  .dmg-block {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-left: 3px solid var(--magenta);
+    padding-left: 0.5rem;
+    line-height: 1.3;
+  }
+  .dmg-block .dval { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 1.3rem; color: var(--magenta); }
+
+  /* ── TRAITS & TAGS ─────────────────────── */
+  .traits-tags-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .trait-item {
+    border-left: 3px solid var(--yellow-d);
+    padding: 0.5rem 0.75rem;
+    background: rgba(245,200,0,0.08);
+    margin-bottom: 0.6rem;
+  }
+  .trait-item .t-name {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+  .trait-item p { font-size: 0.88rem; line-height: 1.45; }
+
+  .tag-item {
+    border-left: 3px solid var(--magenta);
+    padding: 0.4rem 0.65rem;
+    background: rgba(224,21,122,0.06);
+    margin-bottom: 0.5rem;
+  }
+  .tag-item .tag-name {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--magenta);
+    margin-bottom: 0.15rem;
+  }
+  .tag-item p { font-size: 0.88rem; line-height: 1.4; }
+
+  /* ── POWERS ────────────────────────────── */
+  .power-card {
+    border: 1.5px solid var(--ink);
+    margin-bottom: 0.85rem;
+    background: white;
+    position: relative;
+  }
+  .power-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--magenta);
+  }
+  .power-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem 0.4rem 1rem;
+    border-bottom: 1px solid var(--rule);
+    background: rgba(26,16,8,0.04);
+  }
+  .power-name {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+  }
+  .power-meta {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    color: var(--magenta);
+    text-transform: uppercase;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .power-body {
+    padding: 0.6rem 0.75rem 0.6rem 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* ── PSYCH PROFILE ─────────────────────── */
+  .psych-item {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px dotted var(--rule);
+    padding-bottom: 0.75rem;
+  }
+  .psych-item:last-child { border-bottom: none; }
+  .psych-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--magenta);
+    padding-top: 0.1rem;
+    line-height: 1.4;
+  }
+  .psych-text { font-size: 0.92rem; line-height: 1.5; }
+
+  /* ── FOOTER TAPE ───────────────────────── */
+  .footer-tape {
+    background: var(--ink);
+    border-top: 3px solid var(--magenta);
+    padding: 0.5rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-tape span {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--yellow);
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  /* ── HORIZONTAL RULE ───────────────────── */
+  .hr-mag {
+    border: none;
+    border-top: 1px solid var(--rule-mag);
+    margin: 1.25rem 0;
+  }
+
+  /* GRUNGE STAMP */
+  .stamp {
+    display: inline-block;
+    font-family: 'Special Elite', cursive;
+    font-size: 1.4rem;
+    color: var(--red);
+    border: 3px solid var(--red);
+    padding: 0.1rem 0.5rem;
+    transform: rotate(-4deg);
+    opacity: 0.75;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 0.25rem;
+  }
+
+  @media (max-width: 640px) {
+    .document { padding: 1.5rem 1.2rem 2rem; }
+    .header { grid-template-columns: 1fr; }
+    .portrait-wrap { width: 120px; }
+    .portrait-wrap img { width: 120px; height: 150px; }
+    h1.codename { font-size: 3.5rem; }
+    .stats-cluster { grid-template-columns: repeat(3, 1fr); }
+    .two-col { grid-template-columns: 1fr; }
+    .traits-tags-grid { grid-template-columns: 1fr; }
+    .psych-item { grid-template-columns: 1fr; gap: 0.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="outer-frame">
+
+  <!-- BANNER -->
+  <div class="banner-strip">
+    <img src="x-front_banner.png" alt="X-FRONT — Direct Action for Mutant Liberation">
+  </div>
+
+  <!-- TAPE TOP -->
+  <div class="tape-top">Operative Dossier &nbsp;///&nbsp; Classified — Cell Eyes Only &nbsp;///&nbsp; File: XF-003</div>
+
+  <div class="document">
+    <span class="corner tl">+</span>
+    <span class="corner tr">+</span>
+    <span class="corner bl">+</span>
+    <span class="corner br">+</span>
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="portrait-wrap">
+        <img src="tank.png" alt="Tank">
+        <div class="portrait-stamp">XF-003</div>
+      </div>
+      <div class="header-text">
+        <div class="codename-label">// Operative Codename //</div>
+        <h1 class="codename">Tank</h1>
+        <div class="real-name">Toya Terrence</div>
+        <div class="vitals-row">
+          <span class="vital-tag">5'10"</span>
+          <span class="vital-tag">185 lbs</span>
+          <span class="vital-tag pink">Non-binary</span>
+          <span class="vital-tag">Brown Eyes</span>
+          <span class="vital-tag">Black Hair</span>
+          <span class="vital-tag">Age 22</span>
+        </div>
+        <div class="vitals-row">
+          <span class="vital-tag pink">Origin: Mutant</span>
+          <span class="vital-tag">Occupation: Educator</span>
+          <span class="vital-tag">Size: Medium</span>
+        </div>
+        <div class="affil-line">X-FRONT &nbsp;·&nbsp; Co-Founder &nbsp;·&nbsp; Direct Action Cell</div>
+        <div class="stamp">Rank 3 / Karma 3</div>
+      </div>
+    </div>
+
+    <!-- HISTORY + PERSONALITY -->
+    <div class="two-col">
+      <section>
+        <h2 class="section-head"><span class="pip"></span>History</h2>
+        <p class="drop-cap">Toya attended the mutant pride march in Tallahassee hoping to keep a low profile — but when things started getting rough and the police refused to step up, they did. No hesitation.</p>
+        <hr class="hr-mag">
+        <p>Having faced the seeming failure of protesting and petitioning, Toya used that rejection as fuel. They channeled it into the founding of X-FRONT alongside Tabitha, transforming disillusionment into infrastructure. The movement is their answer to every door that was closed.</p>
+      </section>
+
+      <section>
+        <h2 class="section-head"><span class="pip"></span>Psych Profile</h2>
+        <div class="psych-item">
+          <div class="psych-label">Goal</div>
+          <div class="psych-text">The freedom to act with the power of the group behind them — while resisting being told what to do by anyone inside or outside that group.</div>
+        </div>
+        <div class="psych-item">
+          <div class="psych-label">Barrier</div>
+          <div class="psych-text">The volatile mix at X-FRONT's core demands self-control, confidence, and clarity. Ambiguity and recklessness pull in different directions, impede progress, and breed frustration.</div>
+        </div>
+        <div class="psych-item">
+          <div class="psych-label">Pattern</div>
+          <div class="psych-text">As eldest and co-founder, Toya presumes authority and resists accountability. The chip on their shoulder is load-bearing.</div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ABILITY SCORES -->
+    <section>
+      <h2 class="section-head"><span class="pip"></span>Ability Scores</h2>
+      <div class="stats-cluster">
+        <div class="stat-block">
+          <div class="s-label">Melee</div>
+          <div class="s-score">4</div>
+          <div class="s-def">DEF 14 / +4</div>
+        </div>
+        <div class="stat-block highlight">
+          <div class="s-label">Resilience</div>
+          <div class="s-score">5</div>
+          <div class="s-def">DEF 15 / +5</div>
+        </div>
+        <div class="stat-block">
+          <div class="s-label">Agility</div>
+          <div class="s-score">2</div>
+          <div class="s-def">DEF 12 / +2</div>
+        </div>
+        <div class="stat-block">
+          <div class="s-label">Vigilance</div>
+          <div class="s-score">2</div>
+          <div class="s-def">DEF 12 / +2</div>
+        </div>
+        <div class="stat-block">
+          <div class="s-label">Ego</div>
+          <div class="s-score">2</div>
+          <div class="s-def">DEF 12 / +2</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HEALTH / FOCUS / SPEED / DAMAGE -->
+    <div class="two-col">
+      <section>
+        <h2 class="section-head"><span class="pip"></span>Durability</h2>
+        <div class="resource-grid">
+          <div class="resource-block" data-label="Health">
+            <div class="r-val">60</div>
+            <div class="r-sub">DMG Reduction: –1</div>
+          </div>
+          <div class="resource-block" data-label="Focus">
+            <div class="r-val">150</div>
+            <div class="r-sub">DMG Reduction: —</div>
+          </div>
+        </div>
+        <div class="speed-row">
+          <div class="speed-pill">Run <span>5</span></div>
+          <div class="speed-pill">Climb <span>3</span></div>
+          <div class="speed-pill">Swim <span>3</span></div>
+          <div class="speed-pill">Jump <span>3</span></div>
+          <div class="speed-pill">Initiative <span>+5</span></div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-head"><span class="pip"></span>Damage Output</h2>
+        <div class="dmg-row">
+          <div class="dmg-block">
+            <div class="dval">d×3+0</div>
+            Melee
+          </div>
+          <div class="dmg-block">
+            <div class="dval">d×3+4</div>
+            Agility
+          </div>
+          <div class="dmg-block">
+            <div class="dval">d×3+2</div>
+            Ego / Logic
+          </div>
+        </div>
+        <p style="font-size:0.82rem; margin-top:0.6rem; opacity:0.7;">All listed as dMarvel × Multiplier (3) + Ability Bonus</p>
+      </section>
+    </div>
+
+    <!-- POWERS -->
+    <section>
+      <h2 class="section-head"><span class="pip"></span>Powers & Abilities</h2>
+
+      <div class="power-card">
+        <div class="power-header">
+          <div class="power-name">Inspiration</div>
+          <div class="power-meta">Standard · 1 Round</div>
+        </div>
+        <div class="power-body">An ally in earshot gains an edge on all action checks until the start of Tank's next turn.</div>
+      </div>
+
+      <div class="power-card">
+        <div class="power-header">
+          <div class="power-name">Sturdy 1</div>
+          <div class="power-meta">Permanent · Passive</div>
+        </div>
+        <div class="power-body">Tank's body is so sturdy they have Health Damage Reduction 1 at all times.</div>
+      </div>
+
+      <div class="power-card">
+        <div class="power-header">
+          <div class="power-name">Battle Plan</div>
+          <div class="power-meta">Standard · 1 Round · Cost: 10 Focus</div>
+        </div>
+        <div class="power-body">Inspires allies in earshot (up to Vigilance). Each inspired ally gains an edge on all action checks until the start of Tank's next turn.</div>
+      </div>
+
+      <div class="power-card">
+        <div class="power-header">
+          <div class="power-name">Focus Fire</div>
+          <div class="power-meta">Standard · Concentration · Cost: 10 Focus</div>
+        </div>
+        <div class="power-body">Calls out an enemy in line of sight. Inspired allies (up to Vigilance) gain an edge on all action checks against that specific target.</div>
+      </div>
+
+      <div class="power-card">
+        <div class="power-header">
+          <div class="power-name">Keep Moving</div>
+          <div class="power-meta">Reaction · Instant</div>
+        </div>
+        <div class="power-body"><strong>Trigger:</strong> An ally in line of sight and earshot is demoralized or stunned. The demoralized or stunned condition immediately ends.</div>
+      </div>
+
+      <div class="power-card">
+        <div class="power-header">
+          <div class="power-name">On Your Feet</div>
+          <div class="power-meta">Reaction · Instant · Cost: 5 Focus</div>
+        </div>
+        <div class="power-body"><strong>Trigger:</strong> An ally in line of sight and earshot is knocked prone. All prone allies within earshot who are able to immediately stand up for free. Allies unable to stand for any reason are unaffected.</div>
+      </div>
+
+      <div class="power-card">
+        <div class="power-header">
+          <div class="power-name">Rally On Me</div>
+          <div class="power-meta">Standard · Instant · Cost: 10 Focus · Once Per Battle</div>
+        </div>
+        <div class="power-body">Affected allies (up to Vigilance) in earshot can each move toward Tank at half speed. If within Tank's reach at move's end, they recover Focus equal to 5 × Tank's Rank.</div>
+      </div>
+    </section>
+
+    <!-- TRAITS & TAGS -->
+    <section>
+      <h2 class="section-head"><span class="pip"></span>Traits & Tags</h2>
+      <div class="traits-tags-grid">
+
+        <div>
+          <div class="trait-item">
+            <div class="t-name">Abrasive</div>
+            <p>Rubs people the wrong way — trouble on Ego checks to persuade, but an edge on Ego checks to intimidate.</p>
+          </div>
+          <div class="trait-item">
+            <div class="t-name">Audience</div>
+            <p>Many follow Tank's work. An Ego check can rally their audience for information or material support; TN set by the Narrator.</p>
+          </div>
+          <div class="trait-item">
+            <div class="t-name">Connections (Community)</div>
+            <p>Can call on contacts for clues, information, or resources via an Ego check. TN set by the favor requested.</p>
+          </div>
+          <div class="trait-item">
+            <div class="t-name">Fearless</div>
+            <p>Extremely brave. Edge on any action checks required to deal with fear.</p>
+          </div>
+          <div class="trait-item">
+            <div class="t-name">Font of Information</div>
+            <p>Edge on Logic checks involving knowledge.</p>
+          </div>
+          <div class="trait-item">
+            <div class="t-name">Fresh Eyes</div>
+            <p>Has their own way of doing things — often strange to those around them, but valuable. Edge on Logic checks when faced with something for the first time.</p>
+          </div>
+          <div class="trait-item">
+            <div class="t-name">Presence</div>
+            <p>Commands attention on demand. Edge on Ego checks involving getting people to pay attention or voluntarily do things.</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="tag-item">
+            <div class="tag-name">Hounded</div>
+            <p>Member of a group of people persecuted simply for being who they are.</p>
+          </div>
+          <div class="tag-item">
+            <div class="tag-name">X-Gene</div>
+            <p>Carries the mutant genes that cause the development of superhuman powers. All that implies.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /document -->
+
+  <!-- FOOTER TAPE -->
+  <div class="footer-tape">
+    <span>X-Front — Direct Action for Mutant Liberation</span>
+    <span>Do not distribute — burn after reading</span>
+    <span>File XF-003 — Tank</span>
+  </div>
+
+</div><!-- /outer-frame -->
+</body>
+</html>

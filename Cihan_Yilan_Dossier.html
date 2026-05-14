@@ -1,0 +1,1009 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Cihan Yilan, Vizier of Ughardi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment:     #f2e8d0;
+    --parchment-dk:  #e0d0b0;
+    --parchment-dkr: #c8b88a;
+    --ink:           #2a1a0a;
+    --ink-soft:      #4a3520;
+    --ink-faint:     #7a6040;
+    --rule:          #b89a60;
+    --rule-soft:     #d4ba80;
+    --crimson:       #8b1a1a;
+    --crimson-deep:  #5c0f0f;
+    --crimson-light: #c03030;
+    --gold:          #b8860b;
+    --gold-light:    #d4a82a;
+    --gold-pale:     #e8cc80;
+    --sand:          #d4a878;
+    --shadow:        rgba(42, 26, 10, 0.18);
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: #1a0f05;
+    color: var(--ink);
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(184,134,11,0.18) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgba(139,26,26,0.14) 0%, transparent 50%);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  /* MAIN DOCUMENT */
+  .document {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--parchment);
+    padding: 0;
+    position: relative;
+    box-shadow:
+      0 0 0 1px var(--rule),
+      0 4px 6px rgba(0,0,0,0.3),
+      0 16px 40px rgba(0,0,0,0.55),
+      inset 0 0 80px rgba(184,134,11,0.08);
+  }
+
+  /* Aged parchment texture gradient overlay */
+  .document::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse at 0% 0%, rgba(139,26,26,0.06) 0%, transparent 40%),
+      radial-gradient(ellipse at 100% 100%, rgba(139,26,26,0.05) 0%, transparent 40%),
+      radial-gradient(ellipse at 50% 50%, rgba(42,26,10,0.04) 0%, transparent 60%);
+    z-index: 0;
+  }
+
+  .document-inner {
+    position: relative;
+    z-index: 1;
+    padding: 3.5rem 4rem 4rem;
+    border: 1px solid var(--parchment-dkr);
+    margin: 1rem;
+  }
+
+  /* BORDER ORNAMENT */
+  .border-top, .border-bot {
+    height: 6px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--gold) 8%,
+      var(--crimson) 25%,
+      var(--gold) 50%,
+      var(--crimson) 75%,
+      var(--gold) 92%,
+      transparent 100%);
+    margin: 0 1rem;
+  }
+  .border-top { margin-top: 0; }
+  .border-bot { margin-bottom: 0; }
+
+  /* CORNER ORNAMENTS */
+  .corner {
+    position: absolute;
+    width: 28px; height: 28px;
+    border-color: var(--gold);
+    border-style: solid;
+  }
+  .corner.tl { top: 5px; left: 5px; border-width: 2px 0 0 2px; }
+  .corner.tr { top: 5px; right: 5px; border-width: 2px 2px 0 0; }
+  .corner.bl { bottom: 5px; left: 5px; border-width: 0 0 2px 2px; }
+  .corner.br { bottom: 5px; right: 5px; border-width: 0 2px 2px 0; }
+
+  /* EYEBROW / FILE HEADER */
+  .eyebrow {
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.35em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  /* TITLE BLOCK */
+  header.title-block {
+    text-align: center;
+    border-bottom: 2px solid var(--rule);
+    padding-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+  header.title-block::after {
+    content: "";
+    display: block;
+    width: 120px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0.8rem auto 0;
+  }
+
+  h1.character-name {
+    font-family: "Cinzel Decorative", serif;
+    font-weight: 400;
+    font-size: 2.6rem;
+    line-height: 1.1;
+    margin: 0.25rem 0 0.3rem;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+  .name-accent {
+    color: var(--crimson-deep);
+  }
+  .epithets {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    margin: 0.25rem 0 1rem;
+  }
+  .vitals-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0 1.8rem;
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    margin-top: 0.75rem;
+  }
+  .vitals-row span {
+    border-left: 1px solid var(--rule-soft);
+    padding-left: 1.5rem;
+  }
+  .vitals-row span:first-child { border-left: none; padding-left: 0; }
+
+  /* SECTION HEADERS */
+  section { margin-bottom: 2.5rem; }
+  h2.section-title {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.82rem;
+    letter-spacing: 0.32em;
+    color: var(--crimson-deep);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule-soft);
+    padding-bottom: 0.4rem;
+    margin: 0 0 1.25rem;
+    position: relative;
+  }
+  h2.section-title::before {
+    content: "✦";
+    color: var(--gold);
+    margin-right: 0.6rem;
+    font-size: 0.7rem;
+  }
+  h3.subhead {
+    font-family: "Cinzel", serif;
+    font-weight: 400;
+    font-size: 0.95rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin: 1.5rem 0 0.4rem;
+  }
+
+  p { margin: 0 0 0.9rem; }
+  em { color: var(--ink-soft); font-style: italic; }
+  strong { font-weight: 600; color: var(--ink); }
+
+  /* PULL QUOTE / MAXIM */
+  blockquote.maxim {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--crimson-deep);
+    border-left: 3px solid var(--gold);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin: 1.5rem 0 1.5rem 0;
+    background: rgba(184,134,11,0.05);
+  }
+  blockquote.maxim .attribution {
+    display: block;
+    font-size: 0.82rem;
+    font-style: normal;
+    color: var(--ink-faint);
+    font-family: "Cinzel", serif;
+    letter-spacing: 0.14em;
+    margin-top: 0.4rem;
+  }
+
+  /* TABLES */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75rem 0 1.25rem;
+    font-size: 0.95rem;
+  }
+  table.dossier-table th {
+    text-align: left;
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    padding: 0.45rem 0.75rem;
+    border-bottom: 1.5px solid var(--rule);
+  }
+  table.dossier-table td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--parchment-dkr);
+    vertical-align: top;
+  }
+  table.dossier-table td:first-child {
+    font-family: "Cinzel", serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+    padding-right: 1rem;
+    letter-spacing: 0.06em;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+
+  /* RELATIONS */
+  .relation {
+    margin-bottom: 1.5rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--parchment-dkr);
+  }
+  .relation:hover { border-left-color: var(--gold); }
+  .relation .name {
+    font-family: "Cinzel", serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: 0.06em;
+    margin-bottom: 0.2rem;
+  }
+  .relation .name .role {
+    font-family: "IM Fell English", serif;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ink-faint);
+    font-size: 0.9rem;
+    letter-spacing: 0;
+  }
+  .relation .name .marker {
+    display: inline-block;
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    color: var(--parchment);
+    background: var(--crimson-deep);
+    padding: 0.1rem 0.5rem;
+    margin-left: 0.6rem;
+    vertical-align: middle;
+  }
+  .relation .name .marker.neutral { background: var(--gold); color: var(--ink); }
+  .relation .name .marker.ally    { background: #2a4a2a; }
+  .relation .name .marker.hostile { background: var(--crimson-deep); }
+  .relation .text {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+
+  /* FIELD NOTE (GM annotation) */
+  blockquote.field-note {
+    font-family: "Crimson Text", serif;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-faint);
+    background: rgba(42,26,10,0.06);
+    border: 1px dashed var(--parchment-dkr);
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+  }
+  blockquote.field-note .attribution {
+    display: block;
+    font-family: "Cinzel", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    margin-top: 0.4rem;
+    text-transform: uppercase;
+  }
+
+  /* INTERCEPTED LETTER */
+  .letter-block {
+    border: 1px solid var(--rule);
+    background: rgba(255,255,245,0.6);
+    padding: 1.5rem 2rem;
+    margin: 1.25rem 0;
+    position: relative;
+  }
+  .letter-block::before {
+    content: "INTERCEPTED CORRESPONDENCE";
+    position: absolute;
+    top: -0.55rem;
+    left: 1.5rem;
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    background: var(--parchment);
+    padding: 0 0.5rem;
+    color: var(--crimson-deep);
+  }
+  .letter-text {
+    font-family: "IM Fell English", serif;
+    font-size: 0.96rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .letter-pavish {
+    font-family: "Crimson Text", serif;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--ink-faint);
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .letter-pavish .label {
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  /* TAROT READING */
+  .cards-row {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  .card {
+    flex: 1;
+    border: 1px solid var(--rule);
+    padding: 0.75rem 1rem;
+    background: rgba(92,15,15,0.04);
+    text-align: center;
+  }
+  .card .card-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--crimson-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .card .card-gloss {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+
+  /* STAT BLOC */
+  .stat-bloc {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule-soft);
+    padding: 0.6rem 0.75rem;
+    background: rgba(42,26,10,0.04);
+  }
+  .stat-cell .label {
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.15rem;
+  }
+  .stat-cell .value {
+    font-family: "Cinzel", serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .stat-cell .gloss {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+
+  /* ORNAMENTAL DIVIDER */
+  .ornament {
+    text-align: center;
+    color: var(--gold);
+    font-size: 1rem;
+    letter-spacing: 0.5rem;
+    margin: 1.5rem 0;
+    user-select: none;
+  }
+
+  /* DROP CAP */
+  .drop-cap::first-letter {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 3.2rem;
+    line-height: 0.8;
+    float: left;
+    padding: 0.25rem 0.6rem 0 0;
+    color: var(--crimson-deep);
+  }
+
+  /* TIMELINE */
+  .timeline { margin: 1rem 0; }
+  .tl-entry {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: 0 1rem;
+    margin-bottom: 0.75rem;
+    align-items: start;
+  }
+  .tl-date {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    text-align: right;
+    padding-top: 0.18rem;
+    border-right: 2px solid var(--parchment-dkr);
+    padding-right: 1rem;
+  }
+  .tl-text {
+    font-size: 0.95rem;
+    padding-left: 0.5rem;
+  }
+
+  /* FOOTER */
+  footer.doc-footer {
+    border-top: 1px solid var(--rule-soft);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 680px) {
+    .document-inner { padding: 2rem 1.5rem; }
+    h1.character-name { font-size: 1.8rem; }
+    .stat-bloc { grid-template-columns: repeat(2, 1fr); }
+    .cards-row { flex-direction: column; }
+    .tl-entry { grid-template-columns: 1fr; }
+    .tl-date { text-align: left; border-right: none; border-bottom: 1px solid var(--parchment-dkr); padding-right: 0; padding-bottom: 0.2rem; margin-bottom: 0.2rem; }
+  }
+
+  /* PORTRAIT */
+  .portrait-block {
+    text-align: center;
+    margin: 0 0 2.5rem;
+  }
+  .portrait-block img {
+    max-width: 320px;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--rule);
+    box-shadow:
+      0 2px 8px rgba(42,26,10,0.25),
+      inset 0 0 0 4px var(--parchment);
+    padding: 5px;
+    background: var(--parchment-dk);
+  }
+  .portrait-caption {
+    font-family: "Cinzel", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.6rem;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="document">
+  <div class="border-top"></div>
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <div class="document-inner">
+
+    <!-- HEADER -->
+    <div class="eyebrow">Skai Holt &amp; Ughardi Campaign · Intelligence Dossier · Active Subject</div>
+
+    <header class="title-block">
+      <p class="epithets">Vizier of Ughardi &middot; Servant of the Serref &middot; Builder of the Lani Span</p>
+      <h1 class="character-name"><span class="name-accent">Cihan</span> Yilan</h1>
+      <p class="epithets" style="margin-bottom:0;"><em>"Yours ever in service" — his signature, and his warning</em></p>
+      <div class="vitals-row">
+        <span>Title: Vizier</span>
+        <span>Allegiance: Ughardi / the Serref</span>
+        <span>Level: 6</span>
+        <span>Status: Active — Location Unknown</span>
+      </div>
+    </header>
+
+
+    <!-- PORTRAIT -->
+    <section id="portrait">
+      <h2 class="section-title">Portrait</h2>
+      <div class="portrait-block">
+        <img src="cihan.png" alt="Portrait of Cihan Yilan, Vizier of Ughardi">
+        <div class="portrait-caption">Cihan Yilan &middot; Vizier of Ughardi &middot; True form: Naga</div>
+      </div>
+    </section>
+
+    <!-- I. OVERVIEW -->
+    <section id="overview">
+      <h2 class="section-title">I. Overview</h2>
+      <p class="drop-cap">Cihan Yilan is a vizier in the service of the Serref of Ughardi, currently operating far beyond his nation's formal borders in the city of Skudderby and its surrounding territories. He is a pragmatist of the first order — a man who measures every person, institution, and obstacle as a resource to be leveraged, circumvented, or simply ignored when its resistance is too expensive. He is not cruel for its own sake; he is, if anything, indifferent. The harm he causes is incidental to his objectives, and he finds the idea that his goals should be limited by the concerns of people who have no leverage over him genuinely puzzling.</p>
+      <p>His current mission involves advancing Ughardi interests in Greater Skai through a bridge-construction project over the Lani tributary near Ul-Tanat, a scheme that required forged documents, diplomatic manipulation, secured labor from foreign guilds, and the quiet neutralization of Ughardi officials who refused to cooperate. He has accomplished all of this and considers the setbacks he has encountered to be ordinary friction, not failure.</p>
+      <p>The party has encountered him and, by all accounts, does not like him. One player-character has already taken an opportunity to do something actively harmful to his interests. He is aware that he has made enemies in Skudderby; he does not consider this a serious problem.</p>
+
+      <blockquote class="maxim">
+        Water flows where it must.
+        <span class="attribution">— Cihan's reported philosophy on elemental resistance to his construction project</span>
+      </blockquote>
+    </section>
+
+    <!-- II. VITAL STATISTICS -->
+    <section id="stats">
+      <h2 class="section-title">II. Known Particulars</h2>
+
+      <h3 class="subhead">True Nature &amp; Disguise</h3>
+      <p>Cihan is a <strong>naga</strong>. In public — within Skudderby, at the construction site, and in all diplomatic settings — he presents as a <strong>noble human on horseback</strong>. The disguise is apparently maintained through magic or naga shapeshifting ability. His saddlebags (which cause no encumbrance) are consistent with a character who genuinely travels mounted; his letter of introduction and calligraphy set are the toolkit of the human nobleman persona. The horse, and what it conceals, should be treated as a permanent layer of the deception. Very few people in Skai Holt know what Cihan actually looks like.</p>
+
+      <div class="stat-bloc">
+        <div class="stat-cell">
+          <div class="label">True Form</div>
+          <div class="value">Naga</div>
+          <div class="gloss">Publicly unknown</div>
+        </div>
+        <div class="stat-cell">
+          <div class="label">Cover Identity</div>
+          <div class="value">Noble Human</div>
+          <div class="gloss">Mounted; always on horseback</div>
+        </div>
+        <div class="stat-cell">
+          <div class="label">Character Level</div>
+          <div class="value">6</div>
+          <div class="gloss">Spellcasting: CHA-based</div>
+        </div>
+        <div class="stat-cell">
+          <div class="label">Official Title</div>
+          <div class="value">Vizier / Envoy</div>
+          <div class="gloss">Envoy of the Serref of Ughardi</div>
+        </div>
+        <div class="stat-cell">
+          <div class="label">Current Project</div>
+          <div class="value">Lani Span</div>
+          <div class="gloss">Bridge over Lani tributary</div>
+        </div>
+        <div class="stat-cell">
+          <div class="label">Health Status</div>
+          <div class="value">Infected</div>
+          <div class="gloss">Minor ferrosis exposure; pre-Fade</div>
+        </div>
+      </div>
+
+      <table class="dossier-table">
+        <thead><tr><th>Attribute</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td>Language</td><td>Speaks standard languages of the region; co-inventor of Pavish, a cipher-language used for sensitive correspondence. Pavish may share formative grammatical roots with Thieves' Cant.</td></tr>
+          <tr><td>Mobility</td><td>Currently in transit for official Serref diplomatic business. Unreachable by ordinary channels, but his network can relay messages. He maintains that "your messengers will always be able to reach me."</td></tr>
+          <tr><td>Ferrosis</td><td>Was infected before he met Fade. Exposure appears small/early-stage. He has shown no urgency about treatment; the grey alien Xeric Umqun has privately pressed him to curtail the disease and received no satisfying response.</td></tr>
+          <tr><td>Construction Plans</td><td>Maintains two sets — one for Skudderby/Skai audiences that conceals the full scope of the project, and one for Ughardi workers showing the complete design. Division of labor across water minimizes contact between labor pools.</td></tr>
+          <tr><td>Leave of Absence</td><td>He has been granted a leave of absence by the Serref along with travel papers, ostensibly to seek treatment for a magical curse. His stated purpose of treatment is consistent with what little he has disclosed about his "personal business." The Serref's influence is limited outside her province.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- III. MECHANICAL PROFILE -->
+    <section id="mechanics">
+      <h2 class="section-title">III. Mechanical Profile</h2>
+      <p>The following is drawn from the Front and Back sheets of Cihan's character file (<em>Cihan_Yilan_Level_6</em>). He is a custom-system character built on two homebrew classes and a full naga racial suite. The sheet is dense; this section covers all mechanically significant elements.</p>
+
+      <h3 class="subhead">Core Statistics</h3>
+      <div class="stat-bloc">
+        <div class="stat-cell"><div class="label">STR</div><div class="value">7 (−2)</div><div class="gloss">Save: −2</div></div>
+        <div class="stat-cell"><div class="label">DEX</div><div class="value">14 (+2)</div><div class="gloss">Save: +5 ●</div></div>
+        <div class="stat-cell"><div class="label">CON</div><div class="value">12 (+1)</div><div class="gloss">Save: +1</div></div>
+        <div class="stat-cell"><div class="label">INT</div><div class="value">14 (+2)</div><div class="gloss">Save: +5 ●</div></div>
+        <div class="stat-cell"><div class="label">WIS</div><div class="value">12 (+1)</div><div class="gloss">Save: +1</div></div>
+        <div class="stat-cell"><div class="label">CHA</div><div class="value">12 (+1)</div><div class="gloss">Save: +4 ●</div></div>
+      </div>
+      <div class="stat-bloc">
+        <div class="stat-cell"><div class="label">PHY (Phyresis)</div><div class="value">2</div><div class="gloss">Ferrosis corruption stat</div></div>
+        <div class="stat-cell"><div class="label">HP</div><div class="value">31 (+6 temp)</div><div class="gloss">Hit Dice: 4d8 + 3d8</div></div>
+        <div class="stat-cell"><div class="label">AC</div><div class="value">12</div><div class="gloss">No armour worn; DEX-based</div></div>
+        <div class="stat-cell"><div class="label">Initiative</div><div class="value">+2</div><div class="gloss">DEX modifier</div></div>
+        <div class="stat-cell"><div class="label">Move</div><div class="value">35 ft</div><div class="gloss">+35 ft swim (naga)</div></div>
+        <div class="stat-cell"><div class="label">Prof. Bonus</div><div class="value">+3</div><div class="gloss">Level 6 total</div></div>
+      </div>
+
+      <h3 class="subhead">Classes — Shinobi (Infiltrator) 3 / Courtier (Diplomat) 3</h3>
+      <p>Cihan splits his six levels equally between two homebrew classes. The combination is precisely what his political-operative role demands: the Shinobi provides physical covert capability and lethal ambush potential; the Courtier provides the social manipulation toolkit. Neither class alone would make him what he is.</p>
+
+      <table class="dossier-table">
+        <thead><tr><th>Class Feature</th><th>Mechanical Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Merciless Strike</td><td>+1d4 damage per condition the target is suffering, max 2d4. This rewards status-stacking — his shuriken applying Distracted, his Constriction grapple, etc. all compound into burst damage.</td></tr>
+          <tr><td>Ninjitsu (DEX-based)</td><td>Separate attack modifier and save DC: Ninjitsu attack = proficiency + DEX; Ninjitsu save DC = 8 + proficiency + DEX. At current stats: attack +5, save DC 13.</td></tr>
+          <tr><td>Expert Prowler</td><td>Climbing costs no extra movement. Advantage on Stealth when 10+ ft above or below all targets. Moves silently across rooftops.</td></tr>
+          <tr><td>Ninja Tools (2 prepared)</td><td>Two tools prepared per long rest from a full list. Currently has <strong>Smoke Screen</strong> and <strong>Venom Vial</strong> prepared. Both are expendable on use.</td></tr>
+          <tr><td>Nimble</td><td>Once per turn when leaving a hostile creature's reach: spend 15 ft of movement to force an INT save. On failure, target gains Disoriented (can't make opportunity attacks) until end of Cihan's next turn.</td></tr>
+          <tr><td>Acute Recall</td><td>Perfect recall of troop numbers, patrol routes, layouts, and document contents seen at least once. Can perfectly imitate mannerisms and regional speech patterns from anyone observed.</td></tr>
+          <tr><td>Hide in Plain Sight</td><td>Proficiency in CHA saves. CHA modifier added to Stealth in crowds. Double proficiency when impersonating anyone observed for 5+ minutes. DC for observers to spot flaws in his façade +5.</td></tr>
+          <tr><td>Overwhelming Assault</td><td>When attacking a creature unaware of him, viewing him as an ally, or in the first round of combat: target makes a WIS save or is <em>stunned</em> until end of its next turn. This is why engaging him in the open is far safer than being surprised by him.</td></tr>
+          <tr><td>Intrigue Dice (4d6)</td><td>Pool of dice fueling Courtier rhetorical flourishes. Recover half on short rest, all on long rest. Recover 1 die per result of 1 rolled when spending dice.</td></tr>
+          <tr><td>Strategic Opening</td><td>Once per round when he attacks or uses a flourish: exposes a weakness. Next allied hit against that target gains +3 (proficiency) bonus damage.</td></tr>
+          <tr><td>Stirring Words</td><td>Proficiency in CHA saves (stacks with Hide in Plain Sight). When all intrigue dice are spent, can still use Timely Advice (rolling d4).</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="subhead">Rhetorical Flourishes</h3>
+      <p>Cihan has at minimum 3 flourishes from his Courtier class plus 2 more from his Background feat (<em>Keen Study: +1 intrigue die, +2 flourishes</em>). The following are confirmed on sheet:</p>
+      <table class="dossier-table">
+        <thead><tr><th>Flourish</th><th>Type</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Timely Advice</td><td>Support, Reaction</td><td>When an ally is attacked or forced to save: spend 1+ intrigue dice (up to proficiency), ally gains bonus to AC or save equal to highest die result.</td></tr>
+          <tr><td>Rustling of Leaves</td><td>Intuition, Bonus Action</td><td>Spend 1+ intrigue dice; CHA (Persuasion) + highest die vs target's passive Perception. On success: learn one clue (their most valued possession, resistances/immunities, save modifiers, CR/levels, or legendary actions). Roll 8+: two clues. Roll 10+: three clues. This is how he reads people. This is how he knew Nizaj Amut was manipulable.</td></tr>
+          <tr><td>Truth Burns Through Lies</td><td>Intuition, Reaction</td><td>When he succeeds on an INT/CHA/WIS save: spend 1+ intrigue dice; chosen creatures (up to highest die result) gain advantage on their next INT/CHA/WIS check or save. Roll 8+: they also gain advantage on passive Perception for the encounter.</td></tr>
+          <tr><td>Careful Cadence</td><td>Support, Bonus Action</td><td>Pass a covert message to up to WIS mod allies who can perceive him; word count = highest die + WIS. Sleight of Hand + highest die vs passive Perception to hide that any message was passed at all.</td></tr>
+          <tr><td>Move as Your Own Piece</td><td>Scheme, Action</td><td>Spend action + 1+ intrigue dice; CHA (Deception) + highest die vs target's passive Perception. On success: choose one of the target's actions — <em>it immediately takes that action</em>, with targets Cihan selects. This is his most dangerous combat ability and the mechanical expression of how he operates politically: making people do things that serve his ends, using their own capabilities against them.</td></tr>
+          <tr><td>Align Interests</td><td>Scheme, Action</td><td>Spend action + 1+ intrigue dice; CHA (Persuasion) + highest die (with advantage if he knows the target's motivation, +2 per gathered clue) vs passive Perception +5. On success: target is Charmed until harmed. On failure: target is Provoked (disadvantage attacking anyone but Cihan) until end of its next turn. Once per long rest per target.</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="subhead">Naga Racial Features</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Feature</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Serpentine Charming</td><td>Passive illusory identity — appears as another species (noble human on horseback) without active concentration. Creatures who <em>suspect</em> him must make Investigation or Perception DC 12 + proficiency (DC 15 at current level) to pierce it. He can change the details after a long rest. This is not a spell. It cannot be dispelled. Detection requires active suspicion and a meaningful roll.</td></tr>
+          <tr><td>Expanded Senses</td><td>Advantage on Perception checks relying on smell. Sees heat sources within 30 ft as silhouettes (yellow to red). Feels vibrations within 30 ft if sharing a contact surface — advantage on passive Perception (+5) against stealthy ground-based approaches. Does not apply to flying or incorporeal creatures.</td></tr>
+          <tr><td>Constriction</td><td>CON +1 (already included). +5 to contested STR rolls to maintain a grapple. At end of a grappled creature's turn: bludgeoning damage = proficiency bonus (currently 3). His STR is poor (7) for initiating grapples, but once he has a hold, the bonus is substantial.</td></tr>
+          <tr><td>The Unity</td><td>During a rest: instead of resting benefits, send a telepathic message to one known creature at any distance. This is how his network functions at range. The Serref can always be reached.</td></tr>
+          <tr><td>Amphibious</td><td>Can breathe while submerged in clean fresh water.</td></tr>
+          <tr><td>Cold-Blooded</td><td>Disadvantage on checks and saves to resist extreme cold. Vulnerable to cold damage. A notable tactical vulnerability.</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="subhead">Phyresis — the Ferrosis Mechanic</h3>
+      <p>Cihan's ferrosis infection is tracked as a custom stat: <strong>PHY 2</strong>. This is a corruption mechanic with escalating benefits and costs. At PHY 2 he has access to Tier 1 and Tier 2 Phyrexian abilities, but must pass a Phyresis check (DC 10 using a chosen stat, subtracting his PHY from the die) to use them safely. Failure imposes exhaustion, stat damage, or PHY increase. On long rests, he can forgo recovery to maintain access without checking.</p>
+      <table class="dossier-table">
+        <thead><tr><th>Feature</th><th>Tier</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Phyrexian Spellcasting</td><td>—</td><td>Spell slots = number of hit dice; may cast spells up to level PHY (currently 2). Higher levels cost extra hit dice. Alternate cost: roll 1 hit die and take double that + PHY as damage instead of spending the die.</td></tr>
+          <tr><td>Heat Vision</td><td>1</td><td>Cast Heat Metal without components; target must be visible within range. Requires maintained concentration and a sustained stare; while active, Cihan has disadvantage on Perception and attacks not in his line of sight gain advantage against him.</td></tr>
+          <tr><td>Gradually Succumb</td><td>1</td><td>Choose a stat not yet chosen — use PHY in place of that ability modifier going forward.</td></tr>
+          <tr><td>Costly Success</td><td>1</td><td>After rolling a saving throw, can take damage to the relevant stat to increase the die result by that amount.</td></tr>
+          <tr><td>Fueled by Ferrosis</td><td>2</td><td>Ignore disadvantage from exhaustion when making checks using PHY.</td></tr>
+          <tr><td>Like Calls to Like</td><td>2</td><td>Disadvantage on WIS/INT/CHA saves to resist other creatures under phyresis influence. A vulnerability that could be exploited if the party encounters other infected.</td></tr>
+          <tr><td>Beguiling Voice</td><td>2 (Corrupted Power)</td><td>Gained via Latent Potence when bloodied or reduced to 0. Advantage on CHA/PHY checks against targets whose motivations he knows. Can cast Hold Entity and Charm Entity once per day each.</td></tr>
+          <tr><td>Chitinous Carapace</td><td>1 (Phyrexian Feat)</td><td>When unarmored, AC 16 against damage from the back.</td></tr>
+          <tr><td>Latent Potence</td><td>2 (Phyrexian Feat)</td><td>When bloodied or reduced to 0 HP: gain +1 PHY, regain 2d8 HP, and gain a corrupted power (Beguiling Voice) until end of encounter. Once per long rest. This means he gets harder to stop the closer to death he is — and more corrupted each time he uses it.</td></tr>
+        </tbody>
+      </table>
+      <blockquote class="field-note">
+        PHY 2 is low but functional. The ferrosis mechanic creates a character who is tempted toward corruption precisely when under pressure. Latent Potence makes him more dangerous at 0 HP. Each use of that feature increases PHY. The disease is, mechanically, a slow transformation with incentives to lean into it.
+        <span class="attribution">— Sheet analysis</span>
+      </blockquote>
+
+      <h3 class="subhead">Skills (Proficient)</h3>
+      <p>Arcana +5, Deception +4, History +5, Insight +4, Intimidation +4, Investigation +5, Perception +4, Persuasion +4, Sleight of Hand +5. Passive Insight 14, Passive Investigation 15, Passive Perception 14. His strongest skills are all information-gathering and social manipulation. He has poor Athletics (−2) due to STR 7 — he does not fight with brute force.</p>
+
+      <h3 class="subhead">Weapons</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Weapon</th><th>Hit</th><th>Damage</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Naginata</td><td>+5</td><td>1d10 S</td><td>Defensive, finesse, reach, two-handed. His primary melee weapon. Reach means he can strike and pull back before conventional fighters close.</td></tr>
+          <tr><td>Shuriken ×10</td><td>+5</td><td>1d4 P</td><td>Ammunition, range 15/60, finesse, light. When proficient in ninja tools and a hit lands: target suffers Distracted (−2 AC, removed on being hit). Feeds Merciless Strike.</td></tr>
+          <tr><td>Sling</td><td>+1</td><td>1d4 B</td><td>Range 30/120. Low priority ranged option — his sling attack roll (+1) is worse than his shuriken (+5).</td></tr>
+          <tr><td>Swordbreaker</td><td>+1</td><td>1d4 B</td><td>Defensive, light, snaring (DC 10). On hit, instead of damage: force STR or DEX save or target becomes Restrained. Utility over damage.</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="subhead">Ninja Tools (Current)</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Tool</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Smoke Screen</td><td>Creates obscuring smoke. Exact mechanics per the Shinobi tool list; functions as an area concealment tool — consistent with a character who values escape routes and cover.</td></tr>
+          <tr><td>Venom Vial</td><td>A poison delivery device. Likely coats a weapon or is introduced to food/drink. Consistent with his operational style: conditions applied at range or in advance, not in open combat.</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="subhead">Character Identity (Sheet Roleplay Fields)</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Field</th><th>Text</th><th>Significance</th></tr></thead>
+        <tbody>
+          <tr><td>Personality Trait</td><td>"Scribe. I write constantly; letters, journals, etc."</td><td>Explains the calligraphy set, invisible ink, contacts journal, and Pavish correspondence. Writing is both his cover and his actual operational infrastructure.</td></tr>
+          <tr><td>Ideal</td><td>"Information is a Weapon. Always learn more than you divulge. Use asymmetries of information as leverage."</td><td>The philosophical core. Rustling of Leaves, Acute Recall, and his contacts journal are all mechanical expressions of this ideal.</td></tr>
+          <tr><td>Bond</td><td>"Leave of Absence. Granted by the Serref and travel papers to seek treatment for a magical curse. My responsibilities await me. I remain in touch but my lord's influence is limited outside of her province."</td><td>The "magical curse" is his cover story for being a naga, his ferrosis infection, or both. The bond also establishes that the Serref's reach is limited here — Cihan has more autonomy in Skai than he would at home.</td></tr>
+          <tr><td>Flaw</td><td>"Unimpeachable. I will never admit fault, and will ensure someone else takes the blame."</td><td>This is not flavour text. It is the engine behind the Urreek framing, the Nizaj signature trap, and the near-certainty that the Pickling Guild's bill will land on someone other than Cihan. His flaw is also his core operational method.</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="subhead">Equipment &amp; Wealth</h3>
+      <p>Total encumbrance with pack: 44.4 lbs (light threshold 35 lbs — lightly encumbered). Total wealth: 15 GP. His resources are institutional, not personal.</p>
+      <table class="dossier-table">
+        <thead><tr><th>Item</th><th>Wt.</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Infiltrator's Equipment</td><td>25 lbs</td><td>25 GP value. His operational core — covert entry, surveillance, document forgery capability.</td></tr>
+          <tr><td>Invisible Ink Set</td><td>5 lbs</td><td>The Pavish cipher infrastructure. Letters that look blank to anyone else.</td></tr>
+          <tr><td>Journal (contacts)</td><td>2 lbs</td><td>The most dangerous item on his person if lost. His entire network in one place.</td></tr>
+          <tr><td>Calligraphy Set</td><td>5 lbs</td><td>Cover as scribe; also used to forge documents with precision.</td></tr>
+          <tr><td>Letter of Introduction</td><td>0.1 lbs</td><td>The noble human cover document.</td></tr>
+          <tr><td>Saddlebags (no enc.)</td><td>3 lbs</td><td>No encumbrance penalty — mounted storage. Central to the horseback disguise.</td></tr>
+          <tr><td>Shuriken ×10</td><td>2.5 lbs</td><td>Primary ranged weapon. See weapons table.</td></tr>
+          <tr><td>Sling Bullets ×10</td><td>2.5 lbs</td><td>Secondary ranged ammunition.</td></tr>
+          <tr><td>Belt Pouch / Bandoleer</td><td>2 lbs</td><td>Standard carry; bandoleer likely holds shuriken.</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="subhead">Threat Assessment</h3>
+      <p>Do not underestimate him in a direct confrontation. His Overwhelming Assault stun in round one, followed by Merciless Strike compounding on that stunned condition, followed by a shuriken Distracted debuff feeding further Merciless Strike damage, is a meaningful damage chain. Move as Your Own Piece can force an enemy to attack their own ally. His Serpentine Charming means the party may not know they are in range until it is too late. Latent Potence makes him harder to neutralize at low HP — and more corrupted each time. His cold vulnerability is the clearest tactical opening.</p>
+      <p>His real danger remains political. His contacts journal, the Pavish correspondence network, Align Interests, and his Unimpeachable flaw mean that even a decisive physical victory against him will likely result in someone else — probably someone the party cares about — bearing the consequences.</p>
+    </section>
+
+    <!-- III. PSYCHOLOGY & OPERATING METHOD -->
+    <section id="psych">
+      <h2 class="section-title">IV. Psychology &amp; Operating Method</h2>
+      <p>Cihan respects power and firm obstacles, but his first instinct when encountering either is not confrontation — it is circumvention. He will find the clever way around. He places a high value on leverage and very little value on sentiment. He is not easily rattled by complications because he expects complications; they are the texture of the work, not evidence that something has gone wrong.</p>
+      <p>He has no apparent ideology beyond Ughardian interest and his own advancement within that system. He does not hate Greater Skai; he simply treats it as a space to operate in. Local populations, their customs, their treaties with elemental spirits, their spiritual claims on land — these are variables to manage, not obligations to honor. He will make <em>concessions</em> to workers' superstitions when the cost of doing so is low, but he will not let them become impediments.</p>
+      <p>His most characteristic move under pressure is the threat that demonstrates superior resolve: when water spirits warned his workers off the Lani tributary construction site, his instinct was not to withdraw but to suggest building an upstream dam. The message is clear — <em>if you want this tributary to remain, leave us alone.</em> Whether he would have followed through is an open question; what matters is that he was willing to say it and mean it.</p>
+
+      <blockquote class="field-note">
+        Cihan is not involved [in the quarry dispute] except in the initial arrangement, and as the velvet-gloved fist should pressure be necessary to maintain production targets or protect the industry/property.
+        <span class="attribution">— GM Notes, October 2023</span>
+      </blockquote>
+
+      <h3 class="subhead">On Territorial Disputes</h3>
+      <p>When operating in legally contested territory — particularly the disputed quarry believed to fall under Skai Holt claim — his diplomatic position is elegant in its cynicism: Ughardi citizens are merely employing Skai Holt citizens and improving their economy. It is not a diplomatic incident unless Skai Holt authorities attempt to physically remove property or shut down operations. This is not an argument he believes; it is an argument he uses because it is hard to counter without escalation.</p>
+
+      <h3 class="subhead">On Manipulation of Officials</h3>
+      <p>He is skilled at maneuvering people into positions where they have already done the thing, and all that remains is the consequences. The former head of Ul-Tanat — a Skai Holt contact of the party's thief — was manipulated into issuing official orders that were deliberately crafted to be interpretable as treasonous. She did not know this at the time. Cihan co-designed the situation with the Serref's permission, and then helped execute it. The result: she is wanted for treason, there is an extradition order across Greater Skai, and Ughardi is now pursuing her. This is not extraordinary cruelty to him. It is effective work.</p>
+    </section>
+
+    <!-- IV. CURRENT OPERATIONS -->
+    <section id="ops">
+      <h2 class="section-title">V. Current Operations &amp; Known Schemes</h2>
+
+      <h3 class="subhead">The Lani Span Project</h3>
+      <p>Cihan's primary operation is the construction of a bridge across the Lani tributary near Ul-Tanat, within what are generally recognized as Ughardi borders. The project was stalled by the refusal of Nizaj Amut, the disgruntled satrap of Ul-Tanat, to provide official authorization. Cihan resolved this by forging Nizaj's signature and sending letters of confirmation to the Serref — meaning Nizaj is now publicly on record as having approved a project he opposed. He cannot easily repudiate it without implicating himself.</p>
+      <p>To secure the additional labor and materials the project requires, Cihan found influence within the Pickling Guild in Skudderby. He supplied the guild — specifically Elder Beorn, and through him Beorn's protégé Ikemba — with kruthik brains in exchange for support in finding workers. The documentation for all worker hirings bears Nizaj Amut's (forged) signature.</p>
+      <p>Pay rates for workers sourced through Skudderby are reportedly better than what Nizaj is known to offer from his own resources, which has helped secure labor and creates a favorable public impression of Ughardi management practices in the region.</p>
+
+      <h3 class="subhead">Post-Elemental Apocalypse Status</h3>
+      <p>While Cihan was away on official Serref diplomatic business, the elemental forces whose ancient compact with the land had been violated by the construction project acted. The party had delivered Cihan's ultimatum to them; they took the party's side and gave three days' warning before action. That warning was honored. All Skai personnel evacuated. Then the elementals destroyed everything — every building thrown down, every worker not previously departed dead, all materials scattered or ruined.</p>
+      <p>On his return, Cihan received this news along with an official statement from the Pickling Guild withdrawing support until the safety hazard is resolved, and billing him for lost materials and labor hours. The satrap of Ul-Tanat seized on the catastrophe to publicly blame Cihan for the deaths of Ughardi citizens and to claim this proved the project was unjustifiable from the start.</p>
+      <p>The GM's summary of Cihan's likely reaction: <em>"Well you know that this means war."</em></p>
+
+      <h3 class="subhead">The Disputed Quarry</h3>
+      <p>Cihan identified a quarry optimal for the bridge-building project on land with a legally ambiguous claim: technically within grounds that could be interpreted as Ughardi-usable, but historically claimed by Skai Holt, which had discontinued quarrying there due to what it views as superstitious concerns about something disturbed below. Cihan has moved to exploit this. His strategy: employ Skai Holt locals at favorable wages, making their economic wellbeing dependent on Ughardi continuing to operate there. This makes Skai Holt enforcement politically costly.</p>
+
+      <h3 class="subhead">Extradition of Urreek</h3>
+      <p>The former head of Ul-Tanat — known as Urreek, contact of the party's thief and cousin of the party's ranger — is wanted across all of Greater Skai on an extradition order that Ughardi has secured broad agreement on. Ughardi soldiers and spies operating in Skudderby in connection with Cihan's project are actively seeking her. She has gone to ground. The party has been asked to find her a way out. If Ughardians find and capture her and the party intervenes, the consequences could escalate into an incident between Ughardi and Skudderby guild leadership.</p>
+    </section>
+
+    <!-- V. INTERCEPTED LETTER -->
+    <section id="letter">
+      <h2 class="section-title">VI. Intercepted Correspondence</h2>
+      <p>The following letter was composed by Cihan and translated into Pavish — a cipher-language he and at least one collaborator use for sensitive communication. The Pavish copy was the version that entered circulation; the English draft is reproduced here for reference. Decoding the Pavish original requires either a natural 20 Thieves' Cant check (yields the gist and decryption clues) or extended study with access to both versions.</p>
+
+      <div class="letter-block">
+        <div class="letter-text">
+          Most excellent suzerain, may daylight ever shine upon you.<br><br>
+          My personal business has been paused by necessity and opportunity. I have found influence in the Pickling Guild in Skudderby, and we now have an agreement, signed by none other than Nizaj Amut, supporting the construction of the bridge across the Lani tributary. Greater Skai is fielding labor and materials to complement our own in Ul-Tanat.<br><br>
+          My own needs require further time and research, and I will be away for a time yet, but your messengers will always be able to reach me.<br><br>
+          Yours ever in service,<br>
+          <strong>Cihan, vizier of Ughardi</strong>
+        </div>
+        <div class="letter-pavish">
+          <span class="label">Pavish (cipher) version — recovered copy</span>
+          Most ćä sözira, mëyi dok lët śën oń më. Oyi biznalë äz stolo eń opalorańa. O mam saportyo eń Pickling Guild eń Skudderby ä kö mam agralëńata, stńdä ba Nizaj Amut, ońë saportyo prodök bŕoń akoŕo Lani Rëwa. Grata Skai äz mam läbir ä matëra eń Ul-Tanat. O mam tëme ä ŕësirć, ä o äz go, boa mëyi mesinjë go eń o. Mëyi eń servalë, Cihan, lëdir eń Ughardhi
+        </div>
+      </div>
+
+      <blockquote class="field-note">
+        The only person with a realistic hope of decoding this is the thief, Zalia — Thieves' Cant and Pavish appear to share formative grammatical elements. Even a natural 20 yields only the gist and clues for later decipherment. A natural 1 yields utter incomprehension. Except on a nat 1, she will likely recognize the words "Ughardi" and "Cihan."
+        <span class="attribution">— GM Design Note</span>
+      </blockquote>
+    </section>
+
+    <!-- VI. KEY RELATIONSHIPS -->
+    <section id="relations">
+      <h2 class="section-title">VII. Key Relationships</h2>
+
+      <div class="relation">
+        <div class="name">The Serref <span class="role">&mdash; ultimate principal, distant authority</span><span class="marker neutral">Ughardi Power</span></div>
+        <div class="text">Cihan operates with the Serref's authorization and keeps him informed via Pavish correspondence. The Serref permitted the manipulation of Ul-Tanat's former governor as an official act. His messengers can always reach Cihan, no matter where the vizier travels. The exact nature of Cihan's "personal business" — which is apparently separate from his official duties and involves "further time and research" — has not been disclosed to the Serref in the recovered letter.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Nizaj Amut <span class="role">&mdash; subverted satrap, unwilling co-signer</span><span class="marker hostile">Ughardi Official</span></div>
+        <div class="text">The disgruntled satrap of Ul-Tanat who initially refused to authorize the Lani Span project. Cihan resolved this by forging his signature on authorization documents and sending confirmations to the Serref — Nizaj cannot repudiate the project without implicating himself in what would appear to be deception of his own suzerain. He has been trying to delay the project and seized on the elemental disaster to publicly blame Cihan. He is described as the holder of a politically worthless territory, given to him after Serref Ozogham publicly shamed him. He is obsessed with gathering intelligence on his rivals' schemes in order to undercut them, but is constantly operating from a position of weakness. A skilled manipulator could play him without difficulty — Cihan reportedly had no real trouble.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Elder Beorn &amp; Ikemba <span class="role">&mdash; Pickling Guild contacts, deal-holders</span><span class="marker neutral">Skudderby Guild</span></div>
+        <div class="text">Elder Beorn is a senior figure in the Pickling Guild; Ikemba is his protégé and a Guild Artisan. Cihan secured their support for the Lani Span by supplying kruthik brains — a substance of significance to the Guild's research into ferrosis. The arrangement was formalized with forged authorization documents. Ikemba has been proposed internally as a possible Guild ambassador to the construction site to keep Skudderby interests represented on the ground. He and Beorn agreed to meet Cihan for dinner to discuss matters further. Their support is now formally suspended pending resolution of the elemental safety issue, and they have billed Cihan for losses.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Xeric Umqun <span class="role">&mdash; grey alien ultroloth, disease-interested third party</span><span class="marker">Unknown Faction</span></div>
+        <div class="text">A grey alien whom Cihan had previously met, alongside Fade. Xeric approached Cihan during his journey to the capitol on official Serref business and expressed displeasure at Cihan's lack of effort to curtail the ferrosis outbreak, arguing it was in everyone's best interest to address it expediently. Cihan's response was apparently unsatisfying. The nature of Xeric's stake in the disease's containment is unclear, but the creature clearly has one.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Urreek <span class="role">&mdash; former Ul-Tanat governor, now wanted fugitive</span><span class="marker hostile">Extradition Target</span></div>
+        <div class="text">The former head of Ul-Tanat, a contact of the thief Zalia and cousin to the party's ranger. Cihan co-designed, with the Serref's permission, a scheme to remove her from power by maneuvering her into voluntarily issuing official orders that were constructed to be interpretable as treasonous. She is now wanted for treason across all of Greater Skai under an extradition order Ughardi has secured broadly. Ughardi operatives in Skudderby — present because of Cihan's activities — are actively hunting her. She has gone into hiding. The party has been recruited to help her escape.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">The Party <span class="role">&mdash; active antagonists (player characters)</span><span class="marker hostile">Hostile</span></div>
+        <div class="text">The players — and particularly Carolyn's character — have developed a strong personal dislike of Cihan. He has been described as an example of "who not to give information to." In one session, an inadvertent opportunity arose to do something actively harmful to his interests; Carolyn's character took it without hesitation. The party delivered his ultimatum to the river spirits and then sided with them. They have been involved in the protection of Urreek and are directly working against his interests on multiple fronts.</div>
+      </div>
+
+    </section>
+
+    <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+    <!-- VII. NIZAJ AMUT — CARD READING -->
+    <section id="nizaj">
+      <h2 class="section-title">VIII. Appendix — Nizaj Amut — Nizaj Amut Tarot Reading</h2>
+      <p>Three cards were drawn for Nizaj Amut to characterize his psychology and circumstances for GM use. They inform how Cihan has been able to manipulate him and suggest his likely behavior going forward.</p>
+
+      <div class="cards-row">
+        <div class="card">
+          <div class="card-name">Untrustworthy Mirror</div>
+          <div class="card-gloss">He practically breathes lies like fae — perfectly true and completely misleading. His honesty is always technically accurate and always weaponized.</div>
+        </div>
+        <div class="card">
+          <div class="card-name">Hidden Moon</div>
+          <div class="card-gloss">His true desire is to see the schemes of those he wishes to stop or outdo — to gain intelligence that lets him undercut their gains or capture them for himself.</div>
+        </div>
+        <div class="card">
+          <div class="card-name">Banished Serpent</div>
+          <div class="card-gloss">He was publicly shamed by Serref Ozogham and exiled to a politically worthless territory. He plays from behind and hates it — which makes him susceptible to anyone who can offer him a glimpse of what he craves.</div>
+        </div>
+      </div>
+
+      <blockquote class="field-note">
+        Cihan wouldn't have had any real trouble [manipulating Nizaj]. It's hard to do that when you're constantly playing from behind. A well-placed person who has any skill in manipulation can play him.
+        <span class="attribution">— GM Notes</span>
+      </blockquote>
+    </section>
+
+    <!-- VIII. OPERATIONAL TIMELINE -->
+    <section id="timeline">
+      <h2 class="section-title">IX. Reconstructed Operational Timeline</h2>
+      <div class="timeline">
+        <div class="tl-entry">
+          <div class="tl-date">Prior to campaign</div>
+          <div class="tl-text">Cihan is infected with ferrosis through some as-yet-uncharacterized small exposure. The source is unclear but likely lies further within Ughardi territory than Ul-Tanat.</div>
+        </div>
+        <div class="tl-entry">
+          <div class="tl-date">Early campaign</div>
+          <div class="tl-text">Arrives in Skudderby. Meets Fade and, separately, Xeric Umqun. Begins cultivating influence in the Pickling Guild. Establishes contact with Elder Beorn via kruthik brain supply.</div>
+        </div>
+        <div class="tl-entry">
+          <div class="tl-date">Guild agreement secured</div>
+          <div class="tl-text">Forges Nizaj Amut's signature on authorization documents for the Lani Span. Sends confirmations to the Serref. Secures Guild agreement for labor and materials.</div>
+        </div>
+        <div class="tl-entry">
+          <div class="tl-date">Construction active</div>
+          <div class="tl-text">Lani tributary construction begins. River spirits begin aggressive interactions with workers near the water. Cihan is not impressed; he threatens to build an upstream dam and continues operations.</div>
+        </div>
+        <div class="tl-entry">
+          <div class="tl-date">Party involvement</div>
+          <div class="tl-text">Party is asked to deliver Cihan's ultimatum to the elemental forces. They discover the spirits have an ancient compact protecting this land. They side with the spirits, who give a three-day warning.</div>
+        </div>
+        <div class="tl-entry">
+          <div class="tl-date">Diplomatic departure</div>
+          <div class="tl-text">Cihan is called away on official Serref diplomatic business. Leaves authority with a trusted overseer. Intercepted by Xeric Umqun en route, who presses him on ferrosis. Cihan's response unsatisfactory.</div>
+        </div>
+        <div class="tl-entry">
+          <div class="tl-date">Elemental apocalypse</div>
+          <div class="tl-text">Five days after Cihan's departure: localized elemental catastrophe destroys the construction site entirely. All remaining workers (those who did not heed the warning) are dead. Skai personnel had already evacuated.</div>
+        </div>
+        <div class="tl-entry">
+          <div class="tl-date">Aftermath</div>
+          <div class="tl-text">Pickling Guild formally suspends support and submits a bill for losses. Satrap of Ul-Tanat publicly blames Cihan. Cihan receives all of this while still on diplomatic business and is described as treating it as a declaration of war.</div>
+        </div>
+        <div class="tl-entry">
+          <div class="tl-date">Ongoing</div>
+          <div class="tl-text">Ughardi soldiers and spies in Skudderby — brought there by Cihan's operation — continue hunting Urreek. Quarry dispute ongoing. The tainted ferrosis supply chain (likely from deeper Ughardi territory) has not been addressed. Cihan remains at large.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IX. FERROSIS NOTE -->
+    <section id="ferrosis">
+      <h2 class="section-title">X. Note on Ferrosis</h2>
+      <p>Cihan was exposed to ferrosis before meeting Fade. The exposure appears small; there are no reports of symptoms. His response to Xeric Umqun's direct pressure to curtail the disease was inadequate by Xeric's measure, though what he said specifically is not recorded.</p>
+      <p>A tainted shipment of some substance, traced to Ughardi, is believed to be part of a larger spread of the disease — potentially originating not from Ul-Tanat but from further inside Ughardi territory. Cihan's operations brought Ughardi presence to Skudderby; there is a question of whether that presence also brought ferrosis vectors, intentionally or otherwise.</p>
+      <p>The Pickling Guild is aware of ferrosis in the Brine Coves and is in internal conflict about how to respond. Cihan's party-supplied kruthik brains — which Zalia had a vision about during her time in the hive — are connected to this research. He supplied something that now sits at the center of a spreading health crisis he appears uninterested in resolving.</p>
+
+      <blockquote class="field-note">
+        Carolyn's character is very concerned about the fact that everyone she's seen who wants to know about ferrosis also seems to be an asshole or else completely misguided about what exactly is important here. Cihan was an example to her of who not to give the info to.
+        <span class="attribution">— GM Notes, July 2023</span>
+      </blockquote>
+    </section>
+
+    <!-- X. GM NOTES / HOOKS -->
+    <section id="hooks">
+      <h2 class="section-title">XI. Active Story Threads &amp; GM Hooks</h2>
+
+      <table class="dossier-table">
+        <thead><tr><th>Thread</th><th>Current State &amp; Implications</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Lani Span Rebuild</td>
+            <td>Cihan now has grounds for a grievance with both the Pickling Guild and the river spirits. His nature suggests he will look for leverage — the river spirits' ancient compact is an unknown variable he may now try to investigate and exploit. Ikemba could be sent as a Guild envoy to the site, providing a party foothold on the ground. Quarry monsters unearthed during rebuilding could cause work stoppages and labor unrest.</td>
+          </tr>
+          <tr>
+            <td>Urreek Rescue</td>
+            <td>Ughardi operatives are actively hunting her. If the party intervenes against them, this could escalate into a formal incident between Ughardi officials and Skudderby guild leadership, with broader political fallout. Her capture means extradition to Merv, the Ughardi capital, and execution.</td>
+          </tr>
+          <tr>
+            <td>Ferrosis Source</td>
+            <td>The tainted supply is believed to originate deeper in Ughardi than Ul-Tanat. Cihan's operations connect to this supply chain. His indifference to the disease, combined with his movement of goods and people across the border, may make him an unwitting — or deliberate — vector.</td>
+          </tr>
+          <tr>
+            <td>Two Sets of Plans</td>
+            <td>Cihan maintains distinct construction plans for Skai/Skudderby audiences and Ughardi workers. The hidden information in the Ughardi version — what the bridge is actually designed for, what it conceals — has not been disclosed. This is a live mystery.</td>
+          </tr>
+          <tr>
+            <td>Xeric Umqun</td>
+            <td>The grey alien has now approached both the party and Cihan independently over ferrosis. Its goals remain opaque. It pressed Cihan and found him unsatisfactory; it may now consider the party more useful instruments for its objectives.</td>
+          </tr>
+          <tr>
+            <td>Cihan's "Personal Business"</td>
+            <td>The Pavish letter explicitly distinguishes Cihan's official Serref work from unnamed "personal business" requiring "further time and research." This is not disclosed to the Serref. What he is actually researching — possibly related to ferrosis, possibly something else entirely — is unestablished.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="ornament">— &nbsp; ✦ &nbsp; —</div>
+
+    <footer class="doc-footer">
+      <span>Skai Holt &amp; Ughardi · Intelligence File</span>
+      <span>Cihan Yilan &middot; Vizier &middot; Active</span>
+      <span>Compiled from GM notes, session logs &amp; intercepted correspondence</span>
+    </footer>
+
+  </div><!-- /document-inner -->
+  <div class="border-bot"></div>
+</div><!-- /document -->
+
+</body>
+</html>
+
