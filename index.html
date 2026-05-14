@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Player Character Dossiers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f4efe5;
+    --paper-dark: #e8e0cf;
+    --ink: #1f1d1a;
+    --ink-soft: #4a463f;
+    --ink-faint: #7a7468;
+    --accent: #6b8caf;
+    --accent-deep: #3d5a7a;
+    --gold: #a88a4a;
+    --gold-deep: #7e6432;
+    --crimson: #8b3a3a;
+    --rule: #c9bfa8;
+    --rule-soft: #d8d0bd;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "EB Garamond", "Cormorant Garamond", Georgia, serif;
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(168, 138, 74, 0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgba(107, 140, 175, 0.05) 0%, transparent 50%);
+    min-height: 100vh;
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  .page {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  header.masthead {
+    text-align: center;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 1.75rem;
+    margin-bottom: 2.25rem;
+    position: relative;
+  }
+  header.masthead::before {
+    content: "";
+    position: absolute;
+    top: -1.25rem; left: 50%; transform: translateX(-50%);
+    width: 220px; height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--accent-deep) 20%,
+      var(--gold) 50%,
+      var(--accent-deep) 80%,
+      transparent 100%);
+  }
+  header.masthead::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 1rem auto 0;
+  }
+  .eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.4em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  h1.masthead-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 3rem;
+    line-height: 1.05;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.02em;
+  }
+  .masthead-sub {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+
+  /* FILTER BAR */
+  .filters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem 1.5rem;
+    max-width: 760px;
+    margin: 0 auto 2.25rem;
+    padding: 1.25rem 1.5rem;
+    background: rgba(232, 224, 207, 0.45);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    position: relative;
+  }
+  .filters::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%, var(--gold) 50%, transparent 100%);
+  }
+  .filter {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .filter label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+  .filter-input-wrap {
+    position: relative;
+  }
+  .filter input {
+    width: 100%;
+    font-family: "EB Garamond", serif;
+    font-size: 1.05rem;
+    padding: 0.55rem 2.2rem 0.55rem 0.75rem;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+  .filter input:focus {
+    border-color: var(--accent-deep);
+  }
+  .filter .clear-btn {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--ink-faint);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0.15rem 0.4rem;
+    line-height: 1;
+    visibility: hidden;
+    font-family: "EB Garamond", serif;
+  }
+  .filter .clear-btn.visible {
+    visibility: visible;
+  }
+  .filter .clear-btn:hover { color: var(--crimson); }
+
+  .suggestions {
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0; right: 0;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-top: 1px solid var(--accent-deep);
+    box-shadow: 0 4px 14px rgba(31, 29, 26, 0.12);
+    max-height: 240px;
+    overflow-y: auto;
+    z-index: 10;
+    display: none;
+  }
+  .suggestions.open { display: block; }
+  .suggestion {
+    padding: 0.5rem 0.8rem;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .suggestion:last-child { border-bottom: none; }
+  .suggestion:hover,
+  .suggestion.active {
+    background: var(--paper-dark);
+    color: var(--ink);
+  }
+  .suggestion .match {
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  .suggestion.empty {
+    color: var(--ink-faint);
+    font-style: italic;
+    cursor: default;
+  }
+  .suggestion.empty:hover { background: transparent; color: var(--ink-faint); }
+
+  .result-count {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 1.5rem;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.75rem;
+  }
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    box-shadow: 0 1px 2px rgba(31, 29, 26, 0.05);
+  }
+  .card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      var(--accent-deep) 0%,
+      var(--gold) 50%,
+      var(--accent-deep) 100%);
+    opacity: 0.85;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(31, 29, 26, 0.15);
+    border-color: var(--gold);
+  }
+  .card-image {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--paper-dark);
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: sepia(0.05) saturate(0.95);
+  }
+  .card-image.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      linear-gradient(135deg, var(--paper-dark) 0%, var(--paper) 100%);
+    color: var(--ink-faint);
+  }
+  .card-image .monogram {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 400;
+    font-size: 4.5rem;
+    letter-spacing: 0.05em;
+    color: var(--gold-deep);
+    opacity: 0.55;
+    line-height: 1;
+  }
+  .card-body {
+    padding: 1rem 1.1rem 1.25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.4rem;
+  }
+  .card-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.45rem;
+    line-height: 1.15;
+    margin: 0 0 0.5rem;
+    color: var(--ink);
+  }
+  .card-name .given {
+    font-style: italic;
+    color: var(--accent-deep);
+  }
+  .card-subtitle {
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin: 0 0 0.85rem;
+    line-height: 1.35;
+  }
+  .card-meta {
+    margin-top: auto;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--rule-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .meta-row {
+    display: flex;
+    font-size: 0.85rem;
+    line-height: 1.3;
+  }
+  .meta-row .meta-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    width: 72px;
+    flex-shrink: 0;
+    padding-top: 0.18rem;
+  }
+  .meta-row .meta-value {
+    color: var(--ink-soft);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    font-size: 1.1rem;
+    grid-column: 1 / -1;
+  }
+
+  footer.colophon {
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 1.5rem 0.75rem 3rem; }
+    h1.masthead-title { font-size: 2.25rem; }
+    .filters { grid-template-columns: 1fr; padding: 1rem; }
+    .grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 1rem; }
+    .card-name { font-size: 1.2rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <header class="masthead">
+      <div class="eyebrow">Player Character Dossiers</div>
+      <h1 class="masthead-title">The Register</h1>
+      <p class="masthead-sub">A standing list of player-characters across systems and campaigns.</p>
+    </header>
+
+    <div class="filters">
+      <div class="filter" data-field="system">
+        <label for="filter-system">Game System</label>
+        <div class="filter-input-wrap">
+          <input type="text" id="filter-system" autocomplete="off" placeholder="Start typing&hellip;" spellcheck="false">
+          <button type="button" class="clear-btn" aria-label="Clear system filter">&times;</button>
+          <div class="suggestions" id="suggestions-system" role="listbox"></div>
+        </div>
+      </div>
+      <div class="filter" data-field="campaign">
+        <label for="filter-campaign">Campaign</label>
+        <div class="filter-input-wrap">
+          <input type="text" id="filter-campaign" autocomplete="off" placeholder="Start typing&hellip;" spellcheck="false">
+          <button type="button" class="clear-btn" aria-label="Clear campaign filter">&times;</button>
+          <div class="suggestions" id="suggestions-campaign" role="listbox"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-count" id="result-count"></div>
+
+    <main class="grid" id="grid"></main>
+
+    <footer class="colophon">Confidential &middot; for the table</footer>
+  </div>
+
+<script>
+  // ----- Character roster -----
+  // Edit this array to add, remove, or correct entries.
+  const characters = [
+    {
+      name: 'Doji <span class="given">Setsuna</span>',
+      plain: 'Doji Setsuna',
+      file: 'Setsuna Dossier.html',
+      image: 'doji_setsuna.png',
+      eyebrow: 'Crane Clan',
+      subtitle: 'Emerald Magistrate &middot; Personal Advisor to the Imperial Envoy',
+      system: 'Legend of the Five Rings (5e)',
+      campaign: 'The Fragile Peace'
+    },
+    {
+      name: 'Ikoma no Hosokawa <span class="given">Ota</span>',
+      plain: 'Ikoma no Hosokawa Ota',
+      file: 'Ota_Dossier.html',
+      image: 'ikoma_no_hosokawa_ota-portrait.png',
+      eyebrow: 'Lion Clan &middot; Hosokawa',
+      subtitle: 'Bushi by role, monk by formation &mdash; sworn to Ikoma Kenji',
+      system: 'Legend of the Five Rings (5e)',
+      campaign: 'City of the Rich Frog'
+    },
+    {
+      name: '<span class="given">Tiphaine</span> merc\'h Riwall',
+      plain: "Tiphaine merc'h Riwall",
+      file: 'Tiphaine Dossier.html',
+      image: 'tiphaine.png',
+      eyebrow: 'Squire of the Wolves of Vagon',
+      subtitle: 'Breton-Roman, age 14 &mdash; daughter of a slain knight',
+      system: 'Pendragon 6e',
+      campaign: 'The Quest for the Dragon Banner: Aurelius Ambrosius &amp; The War For Logres'
+    },
+    {
+      name: 'Squire <span class="given">Llwyd</span> &ldquo;Paun&rdquo;',
+      plain: 'Squire Llwyd "Paun"',
+      file: 'Paun Dossier.html',
+      image: 'paun-portrait.png',
+      eyebrow: 'Squire of the Wolves of Vagon',
+      subtitle: 'Cymric Belgae, age 17 &mdash; the Peacock, son of a rebel knight',
+      system: 'Pendragon 6e',
+      campaign: 'The Quest for the Dragon Banner: Aurelius Ambrosius &amp; The War For Logres'
+    },
+    {
+      name: '<span class="given">Kaia</span> kW',
+      plain: 'Kaia kW',
+      file: 'Kaia kW Dossier.html',
+      image: 'kogarashi.png',
+      eyebrow: 'Edgerunner &middot; Night City',
+      subtitle: 'Vocalist of Homeschool Dropouts &mdash; ship-born, M&#257;ori-speaking',
+      system: 'Cyberpunk RED',
+      campaign: 'Preem Chooms'
+    },
+    {
+      name: 'Havildar <span class="given">Bhimbahadur</span> Pun',
+      plain: 'Havildar Bhimbahadur Pun',
+      file: 'Bhimbahadur Pun Dossier.html',
+      image: null,
+      monogram: 'BP',
+      eyebrow: 'Ex-Gurkha &middot; 5th Rifles',
+      subtitle: 'London orderly, 1884&ndash;present &mdash; IOM (3rd Class)',
+      system: 'Pulp Cthulhu / Cthulhu by Gaslight',
+      campaign: 'Masks of Nyarlathotep: Empire of Shadows'
+    }
+  ];
+
+  // ----- Render -----
+  const gridEl = document.getElementById('grid');
+  const countEl = document.getElementById('result-count');
+  const sysInput = document.getElementById('filter-system');
+  const campInput = document.getElementById('filter-campaign');
+  const sysSugg = document.getElementById('suggestions-system');
+  const campSugg = document.getElementById('suggestions-campaign');
+
+  function cardHTML(c) {
+    const img = c.image
+      ? `<div class="card-image"><img src="${encodeURI(c.image)}" alt="Portrait of ${c.plain}" loading="lazy"></div>`
+      : `<div class="card-image placeholder"><span class="monogram">${c.monogram || c.plain.charAt(0)}</span></div>`;
+    return `
+      <a class="card" href="${encodeURI(c.file)}">
+        ${img}
+        <div class="card-body">
+          <div class="card-eyebrow">${c.eyebrow}</div>
+          <h2 class="card-name">${c.name}</h2>
+          <p class="card-subtitle">${c.subtitle}</p>
+          <div class="card-meta">
+            <div class="meta-row"><span class="meta-label">System</span><span class="meta-value">${c.system}</span></div>
+            <div class="meta-row"><span class="meta-label">Campaign</span><span class="meta-value">${c.campaign}</span></div>
+          </div>
+        </div>
+      </a>`;
+  }
+
+  function render() {
+    const sysQ = sysInput.value.trim().toLowerCase();
+    const campQ = campInput.value.trim().toLowerCase();
+    const filtered = characters.filter(c =>
+      (!sysQ || c.system.toLowerCase().includes(sysQ)) &&
+      (!campQ || c.campaign.toLowerCase().includes(campQ))
+    );
+    if (filtered.length === 0) {
+      gridEl.innerHTML = `<div class="empty-state">No dossiers match the current filters.</div>`;
+    } else {
+      gridEl.innerHTML = filtered.map(cardHTML).join('');
+    }
+    const total = characters.length;
+    countEl.textContent = filtered.length === total
+      ? `${total} ${total === 1 ? 'dossier' : 'dossiers'} on file`
+      : `${filtered.length} of ${total} shown`;
+  }
+
+  // ----- Autocomplete -----
+  function uniqueValues(field) {
+    return [...new Set(characters.map(c => c[field]))].sort((a, b) => a.localeCompare(b));
+  }
+
+  function highlight(value, query) {
+    if (!query) return value;
+    const i = value.toLowerCase().indexOf(query.toLowerCase());
+    if (i === -1) return value;
+    return value.slice(0, i) +
+      `<span class="match">${value.slice(i, i + query.length)}</span>` +
+      value.slice(i + query.length);
+  }
+
+  function setupAutocomplete(input, suggEl, field) {
+    const all = uniqueValues(field);
+    let activeIdx = -1;
+    const clearBtn = input.parentElement.querySelector('.clear-btn');
+
+    function refreshSuggestions() {
+      const q = input.value.trim().toLowerCase();
+      const matches = q
+        ? all.filter(v => v.toLowerCase().includes(q))
+        : all;
+      activeIdx = -1;
+      if (matches.length === 0) {
+        suggEl.innerHTML = `<div class="suggestion empty">No matches</div>`;
+      } else {
+        suggEl.innerHTML = matches.map((v, i) =>
+          `<div class="suggestion" role="option" data-value="${v.replace(/"/g, '&quot;')}" data-idx="${i}">${highlight(v, q)}</div>`
+        ).join('');
+      }
+    }
+
+    function open() {
+      refreshSuggestions();
+      suggEl.classList.add('open');
+    }
+    function close() {
+      suggEl.classList.remove('open');
+      activeIdx = -1;
+    }
+
+    input.addEventListener('focus', open);
+    input.addEventListener('input', () => {
+      clearBtn.classList.toggle('visible', input.value.length > 0);
+      refreshSuggestions();
+      suggEl.classList.add('open');
+      render();
+    });
+    input.addEventListener('keydown', (e) => {
+      const items = [...suggEl.querySelectorAll('.suggestion:not(.empty)')];
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (!suggEl.classList.contains('open')) open();
+        if (items.length === 0) return;
+        activeIdx = (activeIdx + 1) % items.length;
+        updateActive(items);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (items.length === 0) return;
+        activeIdx = activeIdx <= 0 ? items.length - 1 : activeIdx - 1;
+        updateActive(items);
+      } else if (e.key === 'Enter') {
+        if (activeIdx >= 0 && items[activeIdx]) {
+          e.preventDefault();
+          selectValue(items[activeIdx].dataset.value);
+        } else {
+          close();
+        }
+      } else if (e.key === 'Escape') {
+        close();
+        input.blur();
+      }
+    });
+
+    function updateActive(items) {
+      items.forEach((el, i) => el.classList.toggle('active', i === activeIdx));
+      if (items[activeIdx]) {
+        items[activeIdx].scrollIntoView({ block: 'nearest' });
+      }
+    }
+
+    suggEl.addEventListener('mousedown', (e) => {
+      const item = e.target.closest('.suggestion');
+      if (!item || item.classList.contains('empty')) return;
+      e.preventDefault(); // keep focus
+      selectValue(item.dataset.value);
+    });
+
+    function selectValue(v) {
+      input.value = v;
+      clearBtn.classList.add('visible');
+      close();
+      render();
+    }
+
+    clearBtn.addEventListener('click', () => {
+      input.value = '';
+      clearBtn.classList.remove('visible');
+      close();
+      render();
+      input.focus();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!input.parentElement.contains(e.target)) close();
+    });
+  }
+
+  setupAutocomplete(sysInput, sysSugg, 'system');
+  setupAutocomplete(campInput, campSugg, 'campaign');
+  render();
+</script>
+</body>
+</html>

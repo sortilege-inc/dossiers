@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Ikoma no Hosokawa Ota</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f3ead7;
+    --paper-dark: #e6d9b6;
+    --ink: #1c1612;
+    --ink-soft: #463a2c;
+    --ink-faint: #76695a;
+    --lion-gold: #b48a2c;
+    --lion-gold-deep: #7a5a14;
+    --lion-bronze: #a35a1f;
+    --scorpion-crimson: #8a1c1c;
+    --scorpion-deep: #4f0f0f;
+    --scorpion-shadow: #2a0a0a;
+    --rule: #c2b187;
+    --rule-soft: #d3c5a0;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "EB Garamond", "Cormorant Garamond", Georgia, serif;
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 12%, rgba(180, 138, 44, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 82% 88%, rgba(138, 28, 28, 0.05) 0%, transparent 55%);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  .document {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 4rem 4.5rem 5rem;
+    box-shadow:
+      0 1px 2px rgba(28, 22, 18, 0.10),
+      0 8px 32px rgba(28, 22, 18, 0.14);
+    position: relative;
+    border: 1px solid var(--rule);
+  }
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg,
+      var(--scorpion-shadow) 0%,
+      var(--scorpion-crimson) 20%,
+      var(--lion-gold) 50%,
+      var(--scorpion-crimson) 80%,
+      var(--scorpion-shadow) 100%);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--rule) 20%,
+      var(--lion-gold) 50%,
+      var(--rule) 80%,
+      transparent 100%);
+  }
+
+  /* HEADER */
+  header.title-block {
+    text-align: center;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 2rem;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+  header.title-block::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 1px;
+    background: var(--lion-gold);
+    margin: 1rem auto 0;
+  }
+  .eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 3.3rem;
+    line-height: 1.05;
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+  .character-name .of {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink-faint);
+    font-size: 0.7em;
+  }
+  .character-name .given {
+    font-style: italic;
+    color: var(--lion-gold-deep);
+  }
+  .character-name .small {
+    font-size: 0.5em;
+    color: var(--ink-faint);
+    font-style: italic;
+    display: block;
+    margin-top: 0.5rem;
+    letter-spacing: 0.04em;
+  }
+  .epithets {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    margin: 0.5rem 0 1rem;
+  }
+  .vitals {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-soft);
+  }
+  .vitals span {
+    border-left: 1px solid var(--rule);
+    padding-left: 1.25rem;
+  }
+  .vitals span:first-child { border-left: none; padding-left: 0; }
+
+  /* PORTRAIT */
+  .portrait-block {
+    text-align: center;
+    margin: 0 0 2rem;
+  }
+  .portrait-block img {
+    max-width: 280px;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--ink);
+    box-shadow:
+      0 2px 8px rgba(28, 22, 18, 0.18),
+      inset 0 0 0 4px var(--paper);
+    padding: 4px;
+    background: var(--scorpion-shadow);
+  }
+  .portrait-caption {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.75rem;
+  }
+
+  /* SECTIONS */
+  section {
+    margin-bottom: 3rem;
+  }
+  h2.section-title {
+    font-family: "Cormorant SC", serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.32em;
+    color: var(--scorpion-deep);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.5rem;
+    margin: 0 0 1.5rem;
+    position: relative;
+  }
+  h2.section-title::before {
+    content: "§";
+    color: var(--lion-gold);
+    margin-right: 0.6rem;
+    font-style: italic;
+    font-family: "EB Garamond", serif;
+    font-weight: 400;
+  }
+  h3.subhead {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+    color: var(--lion-gold-deep);
+    margin: 1.5rem 0 0.5rem;
+    font-style: italic;
+  }
+  h4.entry-label {
+    font-family: "Cormorant SC", serif;
+    font-weight: 500;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 1rem 0 0.25rem;
+  }
+
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0.5rem 0 1rem 1.5rem; padding: 0; }
+  li { margin-bottom: 0.4rem; }
+  em { color: var(--ink-soft); }
+  strong { font-weight: 600; color: var(--ink); }
+
+  /* DROP CAPITAL */
+  .drop-cap::first-letter {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 3.4rem;
+    line-height: 0.85;
+    float: left;
+    padding: 0.3rem 0.6rem 0 0;
+    color: var(--scorpion-deep);
+    font-weight: 500;
+  }
+
+  /* PULL-QUOTES */
+  blockquote.maxim {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.22rem;
+    line-height: 1.5;
+    color: var(--lion-gold-deep);
+    border-left: 3px solid var(--lion-gold);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin: 1.5rem 0;
+    background: rgba(180, 138, 44, 0.05);
+  }
+  blockquote.maxim .attribution {
+    display: block;
+    font-size: 0.85rem;
+    font-style: normal;
+    color: var(--ink-faint);
+    font-family: "Cormorant SC", serif;
+    letter-spacing: 0.15em;
+    margin-top: 0.5rem;
+  }
+  blockquote.maxim.scorpion {
+    color: var(--scorpion-deep);
+    border-left-color: var(--scorpion-crimson);
+    background: rgba(138, 28, 28, 0.05);
+  }
+
+  /* TABLES */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.93rem;
+  }
+  table.dossier-table th {
+    text-align: left;
+    font-family: "Cormorant SC", serif;
+    font-weight: 500;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  table.dossier-table td {
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  table.dossier-table td:first-child {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    color: var(--ink);
+    padding-right: 1rem;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+
+  /* STAT GRID */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+  .stat-cell {
+    text-align: center;
+    padding: 0.75rem 0.5rem;
+    border: 1px solid var(--rule);
+    background: rgba(255, 255, 255, 0.35);
+  }
+  .stat-cell .label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+  .stat-cell .value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.7rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .stat-cell .gloss {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    margin-top: 0.3rem;
+  }
+  .stat-cell.stance-active {
+    border-color: var(--lion-gold);
+    background: rgba(180, 138, 44, 0.10);
+  }
+  .stat-cell.stance-active .value { color: var(--lion-gold-deep); }
+
+  /* SOCIAL STATS */
+  .social-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .social-cell {
+    border: 1px solid var(--rule);
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.35);
+  }
+  .social-cell .label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .social-cell .value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    color: var(--lion-gold-deep);
+    font-weight: 500;
+    line-height: 1;
+  }
+  .social-cell .delta {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 0.25rem;
+  }
+
+  /* STRIFE GAUGE */
+  .strife-gauge {
+    margin: 1rem 0 0;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--scorpion-crimson);
+    background: rgba(138, 28, 28, 0.04);
+  }
+  .strife-gauge .label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--scorpion-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .strife-gauge .bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 0.5rem;
+  }
+  .strife-gauge .pip {
+    flex: 1;
+    height: 14px;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+  }
+  .strife-gauge .pip.filled {
+    background: var(--scorpion-crimson);
+  }
+  .strife-gauge .note {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+  }
+
+  /* TWO-COLUMN */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 1rem 0;
+  }
+
+  /* CALL-OUT */
+  .callout {
+    border: 1px solid var(--lion-gold);
+    border-left: 4px solid var(--lion-gold-deep);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: rgba(180, 138, 44, 0.06);
+  }
+  .callout .label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--lion-gold-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout.scorpion {
+    border-color: var(--scorpion-crimson);
+    border-left-color: var(--scorpion-deep);
+    background: rgba(138, 28, 28, 0.05);
+  }
+  .callout.scorpion .label { color: var(--scorpion-deep); }
+
+  /* RELATIONSHIP CARDS */
+  .relations-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .relation {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .relation:last-child { border-bottom: none; }
+  .relation .name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.12rem;
+    color: var(--ink);
+    margin-bottom: 0.15rem;
+  }
+  .relation .name .role {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    font-weight: 400;
+  }
+  .relation .name .marker {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--lion-gold-deep);
+    margin-left: 0.6rem;
+  }
+  .relation .name .marker.scorpion {
+    color: var(--scorpion-deep);
+  }
+  .relation .text {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin-top: 0.25rem;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    border-left: 2px solid var(--lion-gold);
+    padding-left: 1.5rem;
+    margin: 1rem 0 1rem 0.5rem;
+  }
+  .timeline-entry {
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .timeline-entry::before {
+    content: "";
+    position: absolute;
+    left: -1.85rem;
+    top: 0.5rem;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--lion-gold);
+  }
+  .timeline-entry.scorpion::before {
+    background: var(--scorpion-crimson);
+    border-color: var(--scorpion-deep);
+  }
+  .timeline-entry .when {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+  .timeline-entry .what {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+  }
+  .timeline-entry .detail {
+    font-size: 0.93rem;
+    color: var(--ink-soft);
+  }
+
+  /* TOC */
+  nav.toc {
+    border: 1px solid var(--rule);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 3rem;
+    background: rgba(255, 255, 255, 0.35);
+    columns: 2;
+    column-gap: 2rem;
+  }
+  nav.toc .toc-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    column-span: all;
+  }
+  nav.toc ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: toc;
+    font-family: "EB Garamond", serif;
+  }
+  nav.toc ol li {
+    counter-increment: toc;
+    font-size: 0.93rem;
+    margin-bottom: 0.3rem;
+    break-inside: avoid;
+  }
+  nav.toc ol li::before {
+    content: counter(toc, upper-roman) ". ";
+    color: var(--lion-gold-deep);
+    font-style: italic;
+    margin-right: 0.3rem;
+  }
+  nav.toc a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px dotted transparent;
+    transition: border-color 0.2s;
+  }
+  nav.toc a:hover { border-bottom-color: var(--scorpion-crimson); }
+
+  /* FOOTER */
+  footer.colophon {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  footer.colophon::before {
+    content: "❖";
+    display: block;
+    color: var(--lion-gold);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    letter-spacing: normal;
+  }
+
+  /* PRINT */
+  @media print {
+    body { background: white; padding: 0; }
+    .document { box-shadow: none; padding: 1in; max-width: none; }
+  }
+
+  /* MOBILE */
+  @media (max-width: 700px) {
+    body { padding: 1rem 0.5rem; }
+    .document { padding: 2rem 1.5rem 3rem; }
+    h1.character-name { font-size: 2.3rem; }
+    .two-col { grid-template-columns: 1fr; gap: 0; }
+    .stat-grid { grid-template-columns: repeat(5, 1fr); gap: 0.25rem; }
+    .stat-cell { padding: 0.5rem 0.25rem; }
+    .stat-cell .value { font-size: 1.3rem; }
+    .social-grid { grid-template-columns: 1fr; }
+    nav.toc { columns: 1; }
+    .vitals { gap: 0.75rem; font-size: 0.7rem; }
+    .vitals span { border-left: none; padding-left: 0; }
+    .portrait-block img { max-width: 220px; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+
+  <header class="title-block">
+    <div class="eyebrow">Confidential Character Dossier · City of the Rich Frog</div>
+    <h1 class="character-name">
+      Ikoma <span class="of">no</span> Hosokawa <span class="given">Ota</span>
+      <span class="small">adopted of the Hosokawa &middot; sworn to Ikoma Kenji &middot; born to a name now unspoken</span>
+    </h1>
+    <p class="epithets">of the Lion Clan, by adoption · once of the Scorpion, by birth · novice of the Yogo Penitent Order, released · bushi by role, monk by formation · bound at character creation, untested in play</p>
+    <div class="vitals">
+      <span>Lion Clan</span>
+      <span>Hosokawa, by adoption</span>
+      <span>Yogo Penitent Order · Rank 1</span>
+      <span>Honor 38</span>
+      <span>Glory 42</span>
+      <span>Status 35</span>
+    </div>
+  </header>
+
+  <div class="portrait-block">
+    <img src="ikoma_no_hosokawa_ota-portrait.png" alt="Portrait of Ikoma no Hosokawa Ota">
+    <div class="portrait-caption">Ota at readiness · the golden sash &middot; the yari at first grip</div>
+  </div>
+
+  <nav class="toc">
+    <div class="toc-label">Contents</div>
+    <ol>
+      <li><a href="#identity">Identity &amp; Standing</a></li>
+      <li><a href="#mechanical">Mechanical Profile</a></li>
+      <li><a href="#disposition">Operating Disposition</a></li>
+      <li><a href="#interior">Interior Architecture</a></li>
+      <li><a href="#household">Bonds &amp; Household</a></li>
+      <li><a href="#concealments">What He Carries Hidden</a></li>
+      <li><a href="#timeline">Life Timeline</a></li>
+      <li><a href="#environment">Operational Environment</a></li>
+      <li><a href="#trajectory">Possible Trajectories</a></li>
+    </ol>
+  </nav>
+
+  <section id="identity">
+    <h2 class="section-title">I. Identity &amp; Standing</h2>
+
+    <p class="drop-cap">Ikoma no Hosokawa Ota is a samurai in the service of Ikoma Kenji, formally adopted into the Hosokawa vassal family of the Lion clan. He was born and raised among the Scorpion, of the Yogo family, and trained in the Yogo Penitent Order — a monastic sect of the Brotherhood of Shinsei to which the irredeemable are sent to seek redemption through service. He has been released from the monastery, but the formation is permanent. His role is bushi; his school is something other than what bushi usually means. He has not yet been played in the field.</p>
+
+    <h4 class="entry-label">Physical Description</h4>
+    <p>Ota is a tall, broad-shouldered man in the early prime of life, with the heavy build of one who has done labor as well as drill. His skin is warm-toned and weathered; his hair is long, dark, drawn up into a high knot in the samurai style with strands habitually escaping at the temples; he wears a short, deliberate moustache and a small chin-beard. His eyes are dark and steady, set in a face that has learned the cost of expression and rations it. He dresses for work rather than display: a simple white kimono of good cloth, a red sash about the waist, and over the shoulder a heavy golden sash worked with fine red thread — the one extravagance, and one that does not belong to the Hosokawa palette. His yari is the same. The sash on the yari matches the sash he wears. He notices when others notice. He never explains.</p>
+
+    <h4 class="entry-label">Manner of Presence</h4>
+    <p>He is grounded, in the technical sense: he <em>responds</em> to provocations rather than reacting to them, and his responses are considered — though sometimes that consideration occurs in fractions of a second. He speaks little, and what he says is weighed before it leaves him. Under pressure his voice does not rise; his bearing does not falter; he becomes harder to read rather than easier. He is courteous but not warm. He will not be touched by others while disregulated or in physiological distress, and he positions himself in rooms so that he will not have to be. He stands the way the Penitent Order taught him to stand. Earth is his default stance and his default posture in conversation alike.</p>
+
+    <h3 class="subhead">Current Obligation &amp; Drive</h3>
+
+    <blockquote class="maxim">
+      Ikoma Kenji sought out the Yogo monastery. He has felt cornered by his beloved brother, who refuses to recognize reality. Kenji needs an ally who can help him overcome his aversion to conflict — and, if needed, initiate that conflict.
+      <span class="attribution">Current giri &mdash; the debt that bought him out of the monastery</span>
+    </blockquote>
+
+    <blockquote class="maxim scorpion">
+      Ota longs to be a peacemaker, but does not have the liberty to contest his lord's framing nor leave his lord's service to serve others more in keeping with his desire.
+      <span class="attribution">Current ninjō &mdash; the wish his role cannot accommodate</span>
+    </blockquote>
+
+    <h3 class="subhead">Standing Personal Convictions</h3>
+
+    <blockquote class="maxim">
+      Bushidō is something one must strive for, and must fail at.
+      <span class="attribution">Foundational disposition &mdash; his answer to the question of the Code</span>
+    </blockquote>
+
+    <blockquote class="maxim scorpion">
+      Let death come, if it must, before I am made to do the irreversible thing.
+      <span class="attribution">From Step 20 &mdash; the death he hopes for</span>
+    </blockquote>
+  </section>
+
+  <section id="mechanical">
+    <h2 class="section-title">II. Mechanical Profile</h2>
+
+    <h3 class="subhead">Rings</h3>
+    <div class="stat-grid">
+      <div class="stat-cell stance-active"><div class="label">Earth</div><div class="value">2</div><div class="gloss">stance &amp; ground</div></div>
+      <div class="stat-cell"><div class="label">Water</div><div class="value">1</div><div class="gloss">soft &mdash; a known vulnerability</div></div>
+      <div class="stat-cell"><div class="label">Fire</div><div class="value">1</div><div class="gloss">soft &mdash; he does not burn easily</div></div>
+      <div class="stat-cell"><div class="label">Air</div><div class="value">3</div><div class="gloss">deflection &amp; concealment</div></div>
+      <div class="stat-cell"><div class="label">Void</div><div class="value">3</div><div class="gloss">the monastery's gift</div></div>
+    </div>
+    <p><em>An unusual distribution for a bushi: Air and Void each at 3, Earth at 2, Water and Fire each at 1. The Penitent Order shows clearly in the dice — a build optimised for endurance and spiritual leverage rather than for striking pools or social charm. Earth is his standing stance; Void powers the school ability and most of the rituals; Air carries his concealments. The two soft rings are the mechanical record of who he was not allowed to become.</em></p>
+
+    <h3 class="subhead">Derived Values</h3>
+    <table class="dossier-table">
+      <tr><td>Endurance</td><td>6 &nbsp;<em>(Earth + Fire)</em></td></tr>
+      <tr><td>Composure</td><td>6 &nbsp;<em>(Earth + Water)</em></td></tr>
+      <tr><td>Focus</td><td>4 &nbsp;<em>(Fire + Air)</em></td></tr>
+      <tr><td>Vigilance</td><td>2 &nbsp;<em>(Water + Air) / 2</em></td></tr>
+      <tr><td>Void points (max)</td><td>3</td></tr>
+    </table>
+
+    <h3 class="subhead">Social Standing</h3>
+    <div class="social-grid">
+      <div class="social-cell">
+        <div class="label">Honor</div>
+        <div class="value">38</div>
+        <div class="delta">below the Hosokawa floor; the heritage cost is visible</div>
+      </div>
+      <div class="social-cell">
+        <div class="label">Glory</div>
+        <div class="value">42</div>
+        <div class="delta">a name not yet made; a name once unmade</div>
+      </div>
+      <div class="social-cell">
+        <div class="label">Status</div>
+        <div class="value">35</div>
+        <div class="delta">a samurai's basic standing, no more</div>
+      </div>
+    </div>
+
+    <div class="strife-gauge">
+      <div class="label">Carried Strife &mdash; 5 of 6</div>
+      <div class="bar">
+        <div class="pip filled"></div>
+        <div class="pip filled"></div>
+        <div class="pip filled"></div>
+        <div class="pip filled"></div>
+        <div class="pip filled"></div>
+        <div class="pip"></div>
+      </div>
+      <div class="note">He carries five strife at creation. He is one push from unmasking. This is not a fresh sheet; this is the sheet of a man arriving at his post already most of the way to his limit. Whoever sits across the table from him in the first scene of play will be sitting across from a man whose composure is a wire pulled almost to its breaking note.</div>
+    </div>
+
+    <h3 class="subhead">School, Role, Stance</h3>
+    <table class="dossier-table">
+      <tr>
+        <td>Role</td>
+        <td>Bushi.</td>
+      </tr>
+      <tr>
+        <td>School</td>
+        <td>Yogo Penitent Order &mdash; Rank 1. A Scorpion-clan monastic sect of the Brotherhood of Shinsei, training those who have committed the unbearable to seek redemption through service. The school's ability is <em>Oath of Sacrifice</em>: once per scene, after he defends against damage or suffers a critical strike, he may <strong>unleash</strong> his current kihō, ending its enhancement and resolving its burst as though he had bonus successes equal to his school rank plus the fatigue received or the severity of the strike. Subsequent uses in the same scene cost 1 Void point apiece.</td>
+      </tr>
+      <tr>
+        <td>Default Stance</td>
+        <td>Earth.</td>
+      </tr>
+      <tr>
+        <td>Bushidō &mdash; paramount</td>
+        <td>Honor.</td>
+      </tr>
+      <tr>
+        <td>Bushidō &mdash; less significant</td>
+        <td>Compassion. <em>The tension between these two is the engine of the character: honor he serves; compassion he longs to serve and cannot reach.</em></td>
+      </tr>
+    </table>
+
+    <h3 class="subhead">Techniques</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Technique</th><th>Type</th><th>Function</th></tr></thead>
+      <tr><td>Oath of Sacrifice</td><td>School Ability</td><td>Once per scene (more by Void): unleash kihō burst on a defensive trigger, scaled by harm received.</td></tr>
+      <tr><td>Veiled Menace Style</td><td>Kata (Void)</td><td>One-handed melee or unarmed attack: against an unaware or Disoriented target, deliver a critical strike scaled by opportunity. The Penitent Order's argument that the monk's hand is also the assassin's hand.</td></tr>
+      <tr><td>Snapping Branch Strike</td><td>Kata (Earth, Fitness)</td><td>Blunt weapon or polearm: TN 3 Fitness (Earth) check; on success, 5 + bonus damage with deadliness 2, and on opportunity may push the target one band per pair spent. <em>Uncle Ota's gift.</em></td></tr>
+      <tr><td>Divination</td><td>Ritual (Void, Theology)</td><td>Downtime: TN 2 Theology (Void) targeting one character to see an omen of their near future, granting a kept ring set on their next check in a chosen skill group.</td></tr>
+      <tr><td>Threshold Barrier</td><td>Ritual (Void/any, Theology)</td><td>Downtime: TN 2 Theology check to bar a threshold against a class of being chosen by ring (spirits, Tainted, undead, animals, humans). The Penitent Order's wards, made portable.</td></tr>
+    </table>
+
+    <h3 class="subhead">Distinctions, Adversities, Passions, Anxieties</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Type</th><th>Trait</th></tr></thead>
+      <tr><td>Distinction</td><td><strong>Support of the Yogo</strong> &mdash; he was released from the Order, not severed from it. The monasteries will receive him; their hospitality, libraries, healers, and stables are open to him; on checks of rapport with members of the Order, he rerolls up to two dice.</td></tr>
+      <tr><td>Distinction</td><td><strong>Ardent Leader</strong> &mdash; he speaks with a confidence that is hard to ignore. People hear him, even when they outrank him; people are not, however, obliged to obey, and his words may carry consequences he did not intend.</td></tr>
+      <tr><td>Adversity</td><td><strong>Whispers of Doom</strong> &mdash; he is known, but not for the right reasons. Those who do not know him personally assume the people around him will perish, even if he himself walks on. The shape of the rumour is correct. The reason given for it is not.</td></tr>
+      <tr><td>Passion</td><td><strong>Generosity</strong> &mdash; he delights in selecting and preparing a gift that is a perfect match for the recipient. The same eye that taught him to read a person for harm now reads them for kindness.</td></tr>
+      <tr><td>Anxiety</td><td><strong>Dark Secret</strong> &mdash; if his secret were ever to surface, his glory would collapse and his status with it, and his ancestors and descendants would be disgraced alongside him. Mechanically tracked from his first day in play. After any check to assert his will over himself or others, he receives 3 strife; the first time per scene, he gains a Void point.</td></tr>
+      <tr><td>Anxiety</td><td><strong>Claustrophobia</strong> &mdash; he refuses to enter enclosed spaces with no easy exit, and is distracted and anxious when he must. After any check requiring him to enter such a space, he receives 3 strife (and on the first time per scene, gains a Void point). <em>He buried his sister alive. He has not buried himself since.</em></td></tr>
+    </table>
+
+    <h3 class="subhead">Notable Equipment</h3>
+    <ul>
+      <li><strong>Yari, with the golden sash</strong> &mdash; readied at start. The sash on the haft is bold gold worked with fine red thread; it matches the one at his waist; it is not Hosokawa colour. It is the first thing strangers notice about him.</li>
+      <li><strong>Animal Helm (Lion)</strong> &mdash; the visible marker of his association with the Ikoma family. Wargear: while leading a cohort in mass battle, if he is removed by Cut Off the Head, the cohort's panic is halved.</li>
+      <li><strong>Knife &middot; shuriken (3) &middot; whip</strong> &mdash; the concealable tools of a man who learned where to hit before he learned where to stand.</li>
+      <li><strong>Common Clothes</strong> &mdash; physical armour 1. He is not in armour at start.</li>
+      <li><strong>Omamori (Boon of Kisshōten)</strong> &mdash; once per session, by spending a Void point, he counts as having either Dangerous Allure or Kisshōten's Blessing until end of scene.</li>
+      <li><strong>Lantern (personal) &middot; traveling pack</strong> &mdash; furoshiki-wrapped: blanket, bowl, chopsticks, four days' rations, flint and tinder.</li>
+      <li><strong>Wealth</strong>: 200 zeni.</li>
+    </ul>
+  </section>
+
+  <section id="disposition">
+    <h2 class="section-title">III. Operating Disposition</h2>
+
+    <p>Ota's mechanical sheet says <em>bushi</em> and his school sheet says <em>monk</em>; the character at the table is the join. The Penitent Order trained him to stand still under provocation, to wait, and to act only when action was necessary. The Hosokawa adoption gave him a banner. Ikoma Kenji's service gave him a direction. He has the polearm of his uncle, the kata of the Order, and the rituals of a temple acolyte. He has not yet been asked to use any of it in earnest in his new name.</p>
+
+    <h3 class="subhead">In a Court</h3>
+    <p>He is not a courtier and does not pretend to be. His Courtesy is unranked; his Performance is one, his Culture is one. What he has, instead, is <strong>Ardent Leader</strong> and three Air — he will be heard when he speaks. The combination is interesting and dangerous: he can land a sentence in a room of his betters that they cannot quite dismiss, but he cannot manage the consequence after it lands. His role at court is best as Kenji's grounded second, the one who says the one true thing when everyone else has been talking around it.</p>
+
+    <h3 class="subhead">In the Field</h3>
+    <p>The yari is his primary weapon, gripped two-handed, range two. <em>Snapping Branch Strike</em> from Uncle Ota gives him a reliable Earth-stance opener that combines damage and positioning. Earth stance bars him from taking criticals on his sheet so long as his fatigue allows it; <em>Oath of Sacrifice</em> turns the criticals that do land into the launch mechanism for his kihō burst. He fights like the Order taught: absorb, hold, release. He is not a duellist. He is a man who waits to be struck and then answers.</p>
+
+    <h3 class="subhead">In a Sacred Place</h3>
+    <p>This is where the Penitent Order training shows most clearly and where the rest of the party will be most surprised. He can perform <em>Divination</em> on a Theology (Void) check; he can ward thresholds against five categories of being, including humans, by his Void; he reads omens, he prepares wards, he keeps fasts. The Hosokawa do not know he can do this. Kenji does. The monastery does not have to be told.</p>
+
+    <h3 class="subhead">When Pressed Beyond Composure</h3>
+    <p>Strife 5 of 6 at the opening bell. His giri requires him to be available to Kenji as an initiator of conflict; his ninjō recoils from initiating any. The first scene that puts pressure on this seam will spend his last point of composure and unmask him. The Penitent Order taught him what to do when unmasked: he sits down, he meditates, he removes himself from the situation, and he does not allow anyone to lay a hand on him while he is regulating. He will, at need, walk away from his lord's table to do this. Kenji knows. Others do not.</p>
+  </section>
+
+  <section id="interior">
+    <h2 class="section-title">IV. Interior Architecture</h2>
+
+    <p>The interior is organised around a single buried fact and the disciplines that have grown over it. He is a man who has done something he cannot undo and has been given a way to keep living. The way is service. The price of the way is that the doing is permanent and the living is provisional.</p>
+
+    <h3 class="subhead">What He Was Taught at the Monastery</h3>
+    <p>Yogo Kitohime, his teacher, never asked him what he had done. She never judged him. She knew his burden intimately, the way he came to know hers. What she gave him, instead, was a discipline: the present, not the past. Breath, not history. The Order's argument is that the soul that has done the irredeemable thing must learn to live in the moment after the thing, and the moment after that, and to refuse the gravity that wants to pull the soul back to the moment of the thing itself. He has not mastered this. He has practised it for years. He can do it for hours at a time. He cannot yet do it through a full day of court.</p>
+
+    <h3 class="subhead">What He Cannot Undo</h3>
+    <div class="callout scorpion">
+      <div class="label">The fact behind the Dark Secret</div>
+      <p>He buried his sister alive. He tries not to remember. He cannot help it. Part of him cannot shake the horror; part of him refuses to allow himself ever again to be similarly trapped. This is the seed of his Claustrophobia. It is the seed of his refusal to be touched in distress. It is the seed of the death he hopes for in Step 20 — to be killed before he is required to do anything similar a second time, in the service of his current lord.</p>
+    </div>
+
+    <h3 class="subhead">What He Hopes For</h3>
+    <p>To be a peacemaker. To select and prepare the right gift for the right recipient. To stand still in the middle of a storm and let the storm pass over him. To die before he is asked to do the one thing he cannot bear to do twice. To deserve, eventually, the name his uncle gave him. None of these hopes are compatible with his giri to Kenji as currently written. He knows this. He serves anyway.</p>
+
+    <h3 class="subhead">The Tension That Defines Him</h3>
+    <blockquote class="maxim">
+      Honor paramount, Compassion less significant.
+      <span class="attribution">Sheet</span>
+    </blockquote>
+    <p>He has placed Honor above Compassion deliberately. Not because he loves Honor more — he does not — but because Compassion, in his life so far, has been the door he has been told to close. The Order taught him discipline before mercy. His lord requires service before sentiment. The Hosokawa adoption gave him a name to keep from disgracing. He has decided that he will discharge Honor's debts first, and reach for Compassion only inside what Honor permits. The gap between the two is where his character will be played.</p>
+  </section>
+
+  <section id="household">
+    <h2 class="section-title">V. Bonds &amp; Household</h2>
+
+    <div class="relations-grid">
+
+      <div class="relation">
+        <div class="name">Ikoma Kenji <span class="role">&mdash; his lord, his liberator, the man whose service is his giri</span><span class="marker">Lion · Ikoma</span></div>
+        <div class="text">It was Kenji who sought out the Yogo monastery. It was Kenji who arranged Ota's release from the Order, the formal adoption into the Hosokawa, and the legal entry into the Lion clan. Kenji is described on Ota's sheet as feeling cornered by a beloved brother who refuses to recognize reality; Kenji needs an ally who can help him overcome his aversion to conflict, and, if needed, initiate that conflict for him. Ota is that ally. The relationship is structured rather than warm. Kenji has spent something on him and expects a return. Ota will provide it. What Ota feels about Kenji privately has not been recorded; what he <em>does</em> for Kenji is the whole of his current life.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Kenji's brother <span class="role">&mdash; named adversary, unnamed in the file</span><span class="marker">Lion · Ikoma</span></div>
+        <div class="text">The person who refuses to recognize reality, and against whom Ota is being positioned as Kenji's instrument of necessary conflict. The dossier does not name him. He is the future scene Ota's giri is pointed at. The shape of the eventual confrontation &mdash; whether it is courtly, martial, ritual, or something else &mdash; is a question for play.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Yogo Kitohime <span class="role">&mdash; teacher, monastery, his only safe witness</span><span class="marker scorpion">Scorpion · Yogo · Penitent Order</span></div>
+        <div class="text">The monk who trained him at the Yogo Penitent Order. She never asked what he had done; she focused him on the present rather than the past. She knew his burden the way he came to know hers &mdash; the Penitent Order is a place where everyone has done the thing, and no one talks about it, and the silence is the medicine. Ota's <strong>Support of the Yogo</strong> distinction means that the monastery remains open to him: hospitality, libraries, healers, stables. Kitohime is not on his sheet by name as a Bond, but she is the person to whom, in the dossier, the phrase <em>he need but ask</em> is attached.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Uncle Ota <span class="role">&mdash; namesake, polearm master, missing in service</span><span class="marker scorpion">Scorpion · Yogo</span></div>
+        <div class="text">An accomplished polearm master who was delighted to teach his young namesake what he could. He left on his lord's business when Ota was a young teen and never returned. Whether he died in service, was disappeared by his lord, or chose not to return is unknown to Ota. <em>Snapping Branch Strike</em> on the technique list is his lesson, preserved. The yari grip is his. The honor cost on the heritage roll (-5) suggests the manner of the uncle's disappearance was not clean &mdash; or that Ota carrying the name openly is itself a small infraction against someone's reckoning. The dossier marks the heritage with the same name. The young man has inherited both the skill and a question he has not been able to ask.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">His sister <span class="role">&mdash; named only to himself, the buried one</span><span class="marker scorpion">Scorpion · Yogo</span></div>
+        <div class="text">The fact behind the Dark Secret. As a child, before any of this happened, he and his sister were close enough that they made many of their own theatre productions around the home, sparked by what little professional theatre they had seen. The bond was real. What followed unmade it. The Order received him afterwards; the family did not. Her name does not appear on the sheet. She is present as the gravity at the centre of his Anxieties and the second clause of his Step-20 death wish.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">The Hosokawa <span class="role">&mdash; his adoptive vassal family, polite, wary</span><span class="marker">Lion · Hosokawa</span></div>
+        <div class="text">A vassal family of the Lion, under the Ikoma. They received Ota at Kenji's instigation. The reasons for the adoption were made opaque to them: they do not know who Ota was, and they cannot help but believe there is darkness in the arrangement, and sometimes they can see that darkness in his eyes. They have given him their name and the legal status that comes with it. They have not given him their trust. His <strong>Whispers of Doom</strong> adversity is sourced here as much as anywhere &mdash; the rumour among the Hosokawa is not that he is bad luck for himself; the rumour is that he is bad luck for those near him. The rumour is not wrong about the shape of the situation. It is wrong about why.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">The Scorpion Clan &mdash; the relationship he no longer has <span class="role">&mdash; severed, but not safely</span><span class="marker scorpion">Scorpion · former</span></div>
+        <div class="text">When the monastery released Ota into Kenji's service, the release was full. There is no formal Scorpion claim on him; the Hosokawa adoption was made to close the legal door. That does not mean the Scorpion will not, someday, try to reinsert themselves. The Yogo family in particular knows what was done and who did it. The Order knows. Some lord, somewhere in Ryoko Owari or its dependencies, may yet have an interest in a former Yogo who learned the Penitent disciplines and now wears the Lion's helm. The campaign door is open.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="concealments">
+    <h2 class="section-title">VI. What He Carries Hidden</h2>
+
+    <p>Ota's bushidō register is Honor paramount. He is not, by formation, a liar &mdash; the Penitent Order does not train deception, it trains stillness &mdash; but he is by necessity an extremely careful manager of what is known about him by whom. A partial inventory of what most people around him do not yet know:</p>
+
+    <ul>
+      <li><strong>That he was born Yogo.</strong> The Hosokawa adoption was made specifically to close this door. The legal record will support him. The face and the formation may not, to a careful observer of Scorpion training.</li>
+      <li><strong>That he is a graduate of the Yogo Penitent Order.</strong> The school's existence is not a secret; that one of its products is now an Ikoma vassal in the City of the Rich Frog is something a knowledgeable Scorpion would find very interesting.</li>
+      <li><strong>The act behind his Dark Secret.</strong> No one outside the Order and Kenji knows the specifics. He will not say. The Anxiety will pull strife from him in any scene that probes near it.</li>
+      <li><strong>That he can perform divinations and ward thresholds.</strong> The Hosokawa do not expect a bushi to do these things. The first time he does, openly, will be an event. He will likely do it because someone needed it done.</li>
+      <li><strong>That his namesake uncle's disappearance is a private wound.</strong> The young Ota has not been able to ask the question. He keeps the polearm grip. He keeps the name. He does not raise the subject.</li>
+      <li><strong>That his death wish is specific.</strong> He hopes to be killed before he is required to do, in Kenji's service, something irreversible and terrible. He has not told Kenji this. Kenji may have guessed.</li>
+      <li><strong>The bold golden sash on the yari and at his waist.</strong> It is not Hosokawa colour. It is described in the dossier as <em>unusual for the Hosokawa</em>. He has not explained its provenance. The dossier does not say either. It may matter that it goes unexplained.</li>
+    </ul>
+  </section>
+
+  <section id="timeline">
+    <h2 class="section-title">VII. Life Timeline</h2>
+
+    <p><em>Specific dates are not on the sheet; the order is. What follows is the chronology the file implies, reconstructed from the answers to the twenty questions and the heritage roll.</em></p>
+
+    <div class="timeline">
+
+      <div class="timeline-entry scorpion">
+        <div class="when">Childhood &mdash; Yogo lands</div>
+        <div class="what">Born Yogo, with a sister, in a household where theatre was rare</div>
+        <div class="detail">As a child he did not get to see much theatre; what little he did witness sparked his imagination, and he and his sister made many of their own productions around their home. The bond between them was the formative one of his early life. The Performance skill on his sheet is the residue of those games.</div>
+      </div>
+
+      <div class="timeline-entry scorpion">
+        <div class="when">Adolescence</div>
+        <div class="what">Uncle Ota teaches the polearm</div>
+        <div class="detail">His namesake uncle, an accomplished polearm master, took delight in teaching what he could to the young namesake. <em>Snapping Branch Strike</em> on the technique sheet is the residue of those lessons. Then his uncle left on his lord's business and did not return. Whether killed, disappeared, or detained is unknown to Ota. He has not asked. He has kept the grip.</div>
+      </div>
+
+      <div class="timeline-entry scorpion">
+        <div class="when">The Hinge</div>
+        <div class="what">He buries his sister alive</div>
+        <div class="detail">The act behind the Dark Secret. The file does not give the circumstances &mdash; whether forced by an order, mistaken for necessary, undertaken in fear, or done by his own decision. What the file gives is that he remembers it, tries not to, and refuses to be similarly trapped himself. This is the moment after which everything else is consequence.</div>
+      </div>
+
+      <div class="timeline-entry scorpion">
+        <div class="when">After the Hinge</div>
+        <div class="what">Entry into the Yogo Penitent Order</div>
+        <div class="detail">By the Order's rule, those who have committed the unbearable may plead their case to the Order; if the Order judges the cause it can be set against to serve the good of Rokugan by its own cryptic measure, it accepts them and sends them out, even unto death, in service of that cause. Ota was accepted. He was trained. Yogo Kitohime never asked what he had done. He grieved his greatest humiliation, dedicated himself to the monastic arts, and found excellence in the practice of air kihō.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Recent past</div>
+        <div class="what">Ikoma Kenji arrives at the monastery</div>
+        <div class="detail">Kenji sought out the Yogo monastery in search of an ally. The file does not say how Kenji learned of Ota specifically; it says only that Kenji came, that the cause Kenji presented was the conflict with his brother, and that the Order judged it served the good of Rokugan. Ota was released to Kenji's service. The release was full: no Scorpion claim, no further obligation to the Order beyond the Support distinction.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Just before play</div>
+        <div class="what">Formal adoption into the Hosokawa</div>
+        <div class="detail">Kenji had the Hosokawa, a vassal family under the Ikoma, formally adopt Ota and bring him into the Lion clan legally. The reasons were made opaque to the family. Ota became <em>Ikoma no Hosokawa Ota</em>. The Lion helm was issued. The legal door behind him was closed.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">The opening of play</div>
+        <div class="what">A man arriving at his post, five strife already carried</div>
+        <div class="detail">He stands in Lion colours, with a Scorpion's training, a monk's stillness, and a sister's grave behind him. He has not yet been asked to do the thing he was brought here to do.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="environment">
+    <h2 class="section-title">VIII. Operational Environment</h2>
+
+    <p>Ota's theatre is the City of the Rich Frog &mdash; Toshi sano Kanemochi Kaeru &mdash; and the contested ground of the three-clan neutrality that holds it together. The Lion are the city's deepest investors and the largest presence; the Dragon hold the Shrine district and dispute the Lion's primacy at every opportunity; the Unicorn have, in the last decade, made the violet roofs of their district multiply quietly. The Kaeru-otokodate keep order, with their own loose definition of it. The Scorpion are not formally present in force, but Ryoko Owari is downriver, the trade is brisk, and the recent appointment of a Scorpion as Emerald Magistrate of the city is a matter the other clans have not stopped grumbling about.</p>
+
+    <h3 class="subhead">The Lion in the City</h3>
+    <p>Ota's adopted clan dominates by numbers and longest investment. Akodo Minami, a relatively young samurai-ko, holds the highest Lion rank in the city. The Ikoma are present in the city's archival and historical apparatus; the city's history is in considerable part the history they have written. Ota's role within the Lion presence is as Kenji's man &mdash; that is, as the Ikoma's man, attached to a specific intra-Ikoma project rather than to the wider clan's positioning.</p>
+
+    <h3 class="subhead">The Scorpion at the Edge</h3>
+    <p>The clan he was born into is not formally garrisoned here, but its interests run through the city via the Emerald Magistrate's office and the Ryoko Owari river trade. For Ota personally, the Scorpion's absence-by-presence is the question. He has been formally adopted out. The Order has formally released him. The legal door is closed. Whether the Scorpion or the Yogo or some interested party in the Order itself will respect that closure for as long as Ota's presence is operationally useful to them is the open question of his backstory's second act.</p>
+
+    <h3 class="subhead">The City Itself</h3>
+    <p>A river-trade hub, three-clan-contested, run politically by a delicate Imperial neutrality and practically by the Kaeru-otokodate. Opium dens are discovered and shuttered every few months; merchants are fined; the magistrate is swift in form and slow in consequence. The city is exactly the kind of place where a man with Ota's particular set of skills — quiet, polite, capable of standing very still while watching very carefully — disappears into the architecture until he is needed. Whoever needs him first will set the second act in motion.</p>
+  </section>
+
+  <section id="trajectory">
+    <h2 class="section-title">IX. Possible Trajectories</h2>
+
+    <p><em>He has not been played yet. What follows is not prediction but a sketch of the lanes the character can grow into, given his sheet and his situation. The campaign will choose among them, or invent others.</em></p>
+
+    <h3 class="subhead">The Quiet Threads</h3>
+    <ul>
+      <li><strong>Becoming Hosokawa in the eyes of the Hosokawa.</strong> The family received him on Kenji's word, with no explanation. <em>Whispers of Doom</em> follows him at adoption; the family watches for the darkness they have been told to expect. The slow arc of earning their trust, or failing to earn it, is the most reliable character development on the sheet. Each scene of demonstrated competence chips at the rumour. Each scene of demonstrated stillness in the face of pressure builds the alternative reputation he could have.</li>
+      <li><strong>Establishing what kind of bushi he actually is.</strong> The Order trained him in stillness and unleash; Uncle Ota taught him the polearm; the Ikoma helm puts him in mass combat. The first battle in which he is asked to lead a cohort will reveal whether <em>Ardent Leader</em> is the dominant trait or whether the Order's quietism is. The lion helm halves cohort panic if he is removed — a mechanical hint that the campaign has imagined him being removed.</li>
+      <li><strong>Practising peacemaking inside what Kenji permits.</strong> His ninjō is to be a peacemaker; his giri is to be Kenji's initiator of conflict. The space between is the space he will live in. Every scene in which he resolves a thing without violence buys him a small private victory; every scene in which Kenji requires him to escalate spends it. Whether he ends the campaign closer to his ninjō or closer to his giri is the central question of his interior.</li>
+      <li><strong>The gift-giver's eye.</strong> Generosity is on his sheet as a Passion and it is mechanically real: he can find the right gift for the right recipient and remove three strife by doing so. In a court-and-trade city like the Rich Frog this is not a small ability. The same eye that learned to read a person for harm now reads them for kindness. The compound of the two readings is uncomfortably effective.</li>
+    </ul>
+
+    <h3 class="subhead">The Loud Threads</h3>
+    <ul>
+      <li><strong>The conflict Kenji needs initiated.</strong> The named giri target is a brother of Kenji's who refuses to recognize reality. The dossier does not say who; it does not say what shape the conflict will take. This is the scene the campaign has already been waiting for. When it lands, Ota's giri will require him to be the instrument, and his ninjō will recoil. The strife at five-of-six exists for this moment.</li>
+      <li><strong>The Scorpion reaching back.</strong> The release was full. The Hosokawa adoption closed the legal door. None of this prevents the Scorpion from finding the door inconvenient and looking for a window. A former Yogo with Penitent Order training, now legally an Ikoma vassal under a Hosokawa name in a three-clan city, is an asset; the asset will be tested. The first time someone says <em>Yogo</em> in his hearing and means him personally will be a scene.</li>
+      <li><strong>The Dark Secret surfacing.</strong> Mechanically tracked from day one. If it surfaces, his glory collapses and his status with it; the disgrace extends to ancestors and descendants. The campaign has a pressure point here that it has not yet used. When it does, the question is whether the bonds he has built by then can hold against the unmasking.</li>
+      <li><strong>The death he hopes for.</strong> Step 20 records that he hopes his death is fated before he is forced into doing something irreversible and terrible on behalf of his lord. This is a player flag: he is asking, on his behalf, for the campaign to either kill him cleanly before that scene or to find a route around it. A campaign that takes the flag seriously will play either resolution honestly.</li>
+    </ul>
+
+    <h3 class="subhead">The Tested Edges</h3>
+    <ul>
+      <li><strong>The first time he must enter a confined space.</strong> Claustrophobia is on his sheet. Three strife per scene that requires it, plus a Void on the first occurrence. The campaign will eventually present a cellar, a tomb, a cave, a closed palanquin. He will go in if he must. The strife load will compound with whatever else is happening in that scene. This is one of the cleanest mechanical pressure points on the build.</li>
+      <li><strong>The first time he is touched while disregulated.</strong> He refuses to be touched by others while disregulated or in physiological distress. The campaign will, by accident or design, breach this — a fellow PC reaching to steady him in a moment of crisis, an opponent grabbing him, a healer trying to render aid. The scene that follows the breach is one of the character-defining inflection points the sheet predicts.</li>
+      <li><strong>The first time someone asks him directly what he did.</strong> The Order never asked. Kenji presumably knows but did not require him to recount. The campaign will, sooner or later, place someone in front of him &mdash; an enemy, a stranger, a fellow PC he has come to trust &mdash; who will ask. He is Honor-paramount; he is not a fluent liar; the Order trained stillness, not deceit. What he answers will tell him something about himself he does not yet know.</li>
+    </ul>
+
+    <h3 class="subhead">What He Will Not Be</h3>
+    <p>He will not be a swaggering Ikoma boast-keeper. The family's tradition is loud; his formation is quiet, and the boast-keeping skills are not on his sheet (Performance 1; Courtesy 0). The lion helm is a fact, not a posture.</p>
+    <p>He will not be a duellist. His Fire is 1; his Melee is 1. The yari is his answer to violence, and the Order's answer to violence is to wait for it and absorb it rather than to seek it. He fights well when fought; he does not fight first.</p>
+    <p>He will not be untouched by what is coming. He arrives at his post already five-strife-deep, carrying a Dark Secret, hoping for a clean death, sworn to a man whose project he privately disagrees with. The campaign is going to press on every one of those things. What is left at the end is what he becomes &mdash; or what he leaves behind for the Hosokawa to remember.</p>
+
+    <div class="callout">
+      <div class="label">From Step 20 of Character Creation</div>
+      <p>Ota hopes that his death is fated before he is forced into doing something irreversible and terrible on behalf of his lord. The player has written the death wish into the build. It is a request. It is also a warning. The character is asking the campaign to find him a way out before the door closes a second time.</p>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    Dossier compiled · City of the Rich Frog · Year of the Snake
+  </footer>
+
+</div>
+</body>
+</html>
