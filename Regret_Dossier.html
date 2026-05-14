@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regret — X-FRONT Dossier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Special+Elite&family=Share+Tech+Mono&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:           #080c08;
+    --paper:        #eeeae0;
+    --paper-dark:   #dcdacc;
+    --paper-mid:    #e4e0d4;
+    --ink:          #0e140e;
+    --green:        #2a7a48;
+    --green-d:      #1a5a30;
+    --green-l:      #3a9a5a;
+    --sage:         #6a9a78;
+    --sage-l:       #9ab8a4;
+    --silver:       #a0a8a4;
+    --silver-l:     #c8d0cc;
+    --violet:       #5a4a88;
+    --violet-l:     #8870b8;
+    --rule:         rgba(14,20,14,0.18);
+    --rule-green:   rgba(42,122,72,0.25);
+    --rule-violet:  rgba(90,74,136,0.3);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse at 30% 70%, rgba(42,122,72,0.07) 0%, transparent 55%),
+      radial-gradient(ellipse at 70% 20%, rgba(90,74,136,0.06) 0%, transparent 50%);
+    font-family: 'Barlow Condensed', sans-serif;
+    color: var(--ink);
+    padding: 2rem 1rem;
+    min-height: 100vh;
+  }
+
+  /* OUTER FRAME — green / violet: nature + mind */
+  .outer-frame {
+    max-width: 860px;
+    margin: 0 auto;
+    border: 3px solid var(--green);
+    box-shadow:
+      0 0 0 6px var(--bg),
+      0 0 0 8px var(--violet),
+      0 0 55px rgba(42,122,72,0.2),
+      inset 0 0 0 3px var(--violet);
+    position: relative;
+  }
+
+  /* BANNER */
+  .banner-strip {
+    background: #f5c800;
+    padding: 0;
+    line-height: 0;
+    border-bottom: 4px solid var(--green-d);
+  }
+  .banner-strip img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 90px;
+    object-fit: cover;
+    object-position: center;
+    filter: hue-rotate(60deg) saturate(0.9);
+  }
+
+  /* TAPE */
+  .tape-top {
+    background: var(--green-d);
+    text-align: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    color: var(--sage-l);
+    padding: 0.35rem 1rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--green);
+  }
+
+  /* DOCUMENT */
+  .document {
+    background: var(--paper);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    padding: 2rem 2.5rem 3rem;
+    position: relative;
+  }
+
+  .corner { position: absolute; font-size: 1.2rem; color: var(--green); opacity: 0.4; line-height: 1; }
+  .corner.tl { top: 10px; left: 10px; }
+  .corner.tr { top: 10px; right: 10px; }
+  .corner.bl { bottom: 10px; left: 10px; }
+  .corner.br { bottom: 10px; right: 10px; }
+
+  /* ── HEADER ─────────────────────────────── */
+  .header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem 2rem;
+    align-items: start;
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
+    position: relative;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -7px; left: 0;
+    width: 100%; height: 2px;
+    background: var(--green);
+  }
+
+  .portrait-wrap {
+    width: 170px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .portrait-wrap img {
+    width: 170px;
+    height: 225px;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    border: 2px solid var(--ink);
+    filter: contrast(1.04) saturate(0.88);
+  }
+  /* violet left bar — marks the telepathic mind power */
+  .portrait-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -6px;
+    width: 4px; height: 100%;
+    background: var(--violet);
+  }
+  .portrait-stamp {
+    position: absolute;
+    bottom: -4px; right: -4px;
+    background: var(--green-d);
+    color: var(--sage-l);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    padding: 0.15rem 0.4rem;
+    text-transform: uppercase;
+    border: 1px solid var(--green);
+  }
+
+  .header-text { padding-top: 0.25rem; }
+
+  .codename-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--green);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+
+  h1.codename {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 5rem;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+  }
+  h1.codename::after {
+    content: 'REGRET';
+    position: absolute;
+    left: 4px; top: 4px;
+    color: var(--violet);
+    z-index: -1;
+    opacity: 0.22;
+  }
+
+  .real-name {
+    font-family: 'Special Elite', cursive;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-top: 0.4rem;
+    border-left: 3px solid var(--green);
+    padding-left: 0.6rem;
+  }
+
+  .vitals-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.75rem;
+    margin-top: 0.75rem;
+  }
+  .vital-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    background: var(--ink);
+    color: var(--sage-l);
+    padding: 0.15rem 0.5rem;
+    text-transform: uppercase;
+  }
+  .vital-tag.green  { background: var(--green-d); color: var(--sage-l); }
+  .vital-tag.violet { background: var(--violet);  color: #e8e0f8; }
+  .vital-tag.warn   { background: #886030;         color: white; }
+
+  .affil-line {
+    margin-top: 0.75rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green);
+    border-top: 1px solid var(--rule);
+    padding-top: 0.5rem;
+  }
+
+  .stamp {
+    display: inline-block;
+    font-family: 'Special Elite', cursive;
+    padding: 0.1rem 0.5rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 0.35rem;
+    margin-right: 0.5rem;
+    font-size: 1.05rem;
+  }
+  .stamp.rank   { color: var(--green-d);  border: 3px solid var(--green-d);  transform: rotate(2deg);  opacity: 0.75; }
+  .stamp.runaway{ color: var(--violet);   border: 3px solid var(--violet-l); transform: rotate(-3deg); opacity: 0.8; }
+
+  /* ── SECTIONS ───────────────────────────── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 2rem;
+    margin-bottom: 1.5rem;
+  }
+  section { margin-bottom: 1.75rem; }
+
+  .section-head {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink);
+    padding: 0.3rem 0.75rem 0.25rem;
+    margin-bottom: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-head .pip         { display: inline-block; width: 6px; height: 6px; background: var(--green);  flex-shrink: 0; }
+  .section-head .pip.violet  { background: var(--violet); }
+  .section-head .pip.sage    { background: var(--sage); }
+
+  p, .prose { font-size: 1rem; font-weight: 400; line-height: 1.55; color: var(--ink); }
+
+  .drop-cap::first-letter {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 3.2rem;
+    line-height: 0.8;
+    float: left;
+    margin-right: 0.2rem;
+    color: var(--green);
+  }
+
+  .hr-green  { border: none; border-top: 1px solid var(--rule-green);  margin: 1.25rem 0; }
+  .hr-violet { border: none; border-top: 1px solid var(--rule-violet); margin: 1.25rem 0; }
+
+  /* ETHICAL CRISIS BOX — violet, introspective */
+  .ethics-box {
+    border: 1.5px solid var(--violet-l);
+    background: rgba(90,74,136,0.07);
+    padding: 0.75rem 1rem;
+    margin: 0.85rem 0;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    position: relative;
+  }
+  .ethics-box::before {
+    content: attr(data-label);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--violet-l);
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  /* RESCUE NOTE */
+  .rescue-box {
+    border: 1.5px dashed var(--green);
+    background: rgba(42,122,72,0.06);
+    padding: 0.65rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .rescue-box::before {
+    content: attr(data-label);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--green);
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+
+  /* ── STATS ──────────────────────────────── */
+  .stats-cluster {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin: 0.75rem 0;
+  }
+  .stat-block {
+    border: 1.5px solid var(--ink);
+    background: white;
+    text-align: center;
+    padding: 0.5rem 0.25rem 0.4rem;
+  }
+  .stat-block.high    { border-color: var(--green);  background: rgba(42,122,72,0.07); }
+  .stat-block.psychic { border-color: var(--violet);  background: rgba(90,74,136,0.07); border-width: 2px; }
+  .stat-block.low     { border-color: #bbb; background: rgba(0,0,0,0.03); }
+  .stat-block .s-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.2rem;
+  }
+  .stat-block.high .s-label    { color: var(--green); }
+  .stat-block.psychic .s-label { color: var(--violet); }
+  .stat-block.low .s-label     { color: #999; }
+  .stat-block .s-score {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .stat-block.psychic .s-score { font-size: 2.4rem; }
+  .stat-block.low .s-score     { color: #aaa; }
+  .stat-block .s-def {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: #666;
+    margin-top: 0.1rem;
+  }
+
+  /* RESOURCES */
+  .resource-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin: 0.75rem 0;
+  }
+  .resource-block {
+    border: 2px solid var(--ink);
+    padding: 0.75rem;
+    background: var(--paper-dark);
+  }
+  .resource-block::before {
+    content: attr(data-label);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .resource-block.warn   { border-color: #886030; }
+  .resource-block.warn::before { color: #886030; }
+  .resource-block.strong { border-color: var(--violet); }
+  .resource-block.strong::before { color: var(--violet); }
+  .resource-block .r-val {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .resource-block.warn .r-val   { color: #886030; }
+  .resource-block.strong .r-val { color: var(--violet); }
+  .resource-block .r-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: #777;
+    margin-top: 0.2rem;
+  }
+
+  /* SPEED */
+  .speed-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 0.5rem 0;
+  }
+  .speed-pill {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    background: var(--paper-dark);
+    border: 1px solid var(--ink);
+    padding: 0.2rem 0.6rem;
+    text-transform: uppercase;
+  }
+  .speed-pill span { color: var(--green); font-weight: 700; font-size: 0.85rem; }
+
+  /* DAMAGE */
+  .dmg-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin: 0.5rem 0;
+  }
+  .dmg-block {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-left: 3px solid var(--sage);
+    padding-left: 0.5rem;
+    line-height: 1.3;
+  }
+  .dmg-block .dval {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--violet);
+  }
+  .dmg-note {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--sage);
+    margin-top: 0.4rem;
+    border-left: 2px solid var(--sage);
+    padding-left: 0.5rem;
+    line-height: 1.4;
+  }
+
+  /* ── POWER CARDS ────────────────────────── */
+  .power-card {
+    border: 1.5px solid var(--ink);
+    margin-bottom: 0.85rem;
+    background: white;
+    position: relative;
+  }
+  .power-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--violet);
+  }
+  .power-card.link::before    { background: var(--green); }
+  .power-card.combat::before  { background: var(--sage); }
+
+  .power-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem 0.4rem 1rem;
+    border-bottom: 1px solid var(--rule);
+    background: rgba(14,20,14,0.04);
+  }
+  .power-name {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+  }
+  .power-type {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--violet);
+  }
+  .power-card.link .power-type   { color: var(--green); }
+  .power-card.combat .power-type { color: var(--sage); }
+  .power-meta {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    color: #777;
+    text-transform: uppercase;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .power-body {
+    padding: 0.6rem 0.75rem 0.6rem 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* telepathy section labels */
+  .tele-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding-top: 1rem;
+    margin: 1.25rem 0 0.6rem;
+    border-top: 1px solid var(--rule);
+  }
+  .tele-label.link   { color: var(--green);  border-top-color: var(--rule-green); }
+  .tele-label.mind   { color: var(--violet); border-top-color: var(--rule-violet); }
+  .tele-label.combat { color: var(--sage);   border-top-color: rgba(106,154,120,0.3); }
+
+  /* ethical concerns inline note */
+  .ethics-inline {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--violet);
+    background: rgba(90,74,136,0.05);
+    border-left: 3px solid var(--violet-l);
+    padding: 0.4rem 0.75rem;
+    margin-top: 0.5rem;
+    line-height: 1.5;
+  }
+
+  /* ── TRAITS & TAGS ──────────────────────── */
+  .traits-tags-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .trait-item {
+    border-left: 3px solid var(--sage-l);
+    padding: 0.5rem 0.75rem;
+    background: rgba(106,154,120,0.09);
+    margin-bottom: 0.6rem;
+  }
+  .trait-item .t-name {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+  .trait-item p { font-size: 0.88rem; line-height: 1.45; }
+  .trait-item.violet-trait { border-left-color: var(--violet-l); background: rgba(90,74,136,0.07); }
+
+  .tag-item {
+    border-left: 3px solid var(--green);
+    padding: 0.4rem 0.65rem;
+    background: rgba(42,122,72,0.07);
+    margin-bottom: 0.5rem;
+  }
+  .tag-item .tag-name {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--green-d);
+    margin-bottom: 0.15rem;
+  }
+  .tag-item p { font-size: 0.88rem; line-height: 1.4; }
+  .tag-item.warn-tag { border-left-color: #886030; background: rgba(136,96,48,0.07); }
+  .tag-item.warn-tag .tag-name { color: #886030; }
+
+  /* ── PSYCH PROFILE ──────────────────────── */
+  .psych-item {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px dotted var(--rule);
+    padding-bottom: 0.75rem;
+  }
+  .psych-item:last-child { border-bottom: none; }
+  .psych-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    padding-top: 0.1rem;
+    line-height: 1.4;
+  }
+  .psych-text { font-size: 0.92rem; line-height: 1.5; }
+
+  /* ── FOOTER ─────────────────────────────── */
+  .footer-tape {
+    background: var(--green-d);
+    border-top: 3px solid var(--green);
+    padding: 0.5rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-tape span {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--sage-l);
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+
+  @media (max-width: 640px) {
+    .document { padding: 1.5rem 1.2rem 2rem; }
+    .header { grid-template-columns: 1fr; }
+    .portrait-wrap { width: 140px; }
+    .portrait-wrap img { width: 140px; height: 180px; }
+    h1.codename { font-size: 3.5rem; }
+    .stats-cluster { grid-template-columns: repeat(3, 1fr); }
+    .two-col, .traits-tags-grid { grid-template-columns: 1fr; }
+    .psych-item { grid-template-columns: 1fr; gap: 0.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="outer-frame">
+
+  <div class="banner-strip">
+    <img src="x-front_banner.png" alt="X-FRONT — Direct Action for Mutant Liberation">
+  </div>
+
+  <div class="tape-top">Operative Dossier &nbsp;///&nbsp; Classified — Cell Eyes Only &nbsp;///&nbsp; File: XF-006</div>
+
+  <div class="document">
+    <span class="corner tl">+</span>
+    <span class="corner tr">+</span>
+    <span class="corner bl">+</span>
+    <span class="corner br">+</span>
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="portrait-wrap">
+        <img src="regret.png" alt="Regret — Mohamed Salem">
+        <div class="portrait-stamp">XF-006</div>
+      </div>
+
+      <div class="header-text">
+        <div class="codename-label">// Operative Codename //</div>
+        <h1 class="codename">Regret</h1>
+        <div class="real-name">Mohamed Salem</div>
+        <div class="vitals-row">
+          <span class="vital-tag">5'10"</span>
+          <span class="vital-tag">168 lbs</span>
+          <span class="vital-tag green">Male</span>
+          <span class="vital-tag">Brown Eyes</span>
+          <span class="vital-tag">Black Hair</span>
+          <span class="vital-tag warn">Age 16</span>
+        </div>
+        <div class="vitals-row">
+          <span class="vital-tag green">Origin: Mutant</span>
+          <span class="vital-tag">Occupation: Adventurer</span>
+          <span class="vital-tag violet">Telepathy</span>
+        </div>
+        <div class="affil-line">X-FRONT &nbsp;·&nbsp; Member &nbsp;·&nbsp; Houston, TX &nbsp;·&nbsp; &lt; 1 Year</div>
+        <span class="stamp rank">Rank 2 / Karma 2</span>
+        <span class="stamp runaway">Left Home — Houston</span>
+      </div>
+    </div>
+
+    <!-- HISTORY + PERSONALITY -->
+    <div class="two-col">
+      <section>
+        <h2 class="section-head"><span class="pip"></span>History</h2>
+        <p class="drop-cap">Mohamed left home in Houston before he could be kicked out. His parents still don't know he's a mutant — he fled on his own terms, or as close to his own terms as a sixteen-year-old can manage.</p>
+
+        <div class="ethics-box" data-label="// Self-Assessment — Power Conflict //">
+          He feels deeply conflicted about his telepathic power, which he regards as inherently coercive. He left home in part out of fear that he couldn't trust his parents' acceptance of him — and in part because he didn't trust what he might unconsciously do with a mind-reader's reach in a home that might reject him.
+        </div>
+
+        <hr class="hr-green">
+        <p>Been with X-FRONT less than a year. Supportive of Toya's leadership from the start. Participated directly in the rescue operation that brought Hermes out of the conversion camp.</p>
+
+        <div class="rescue-box" data-label="// Notable Op — Sanctuary Hills Extraction //">
+          Active participant in the operation to extract Hermes Montoya (XF-005) from Sanctuary Hills Youth Reformation Campus. Four months prior to current operations.
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-head"><span class="pip violet"></span>Psych Profile</h2>
+        <div class="psych-item">
+          <div class="psych-label">Personality</div>
+          <div class="psych-text">Deeply emotionally intelligent. Balanced between emotion and intellect. Soft-spoken, but speaks and acts decisively when it matters.</div>
+        </div>
+        <div class="psych-item">
+          <div class="psych-label">Goal</div>
+          <div class="psych-text">Has genuine hope for a world of mutant-human acceptance. Sees X-FRONT's direct action as a temporary necessity — and looks forward to the day it can be disbanded.</div>
+        </div>
+        <div class="psych-item">
+          <div class="psych-label">Barrier</div>
+          <div class="psych-text">The present is not that time. The injustices that X-FRONT exists to confront cannot wait for gradual resolution. He holds both truths simultaneously, and that tension is the weight he carries.</div>
+        </div>
+        <div class="psych-item">
+          <div class="psych-label">Power Guilt</div>
+          <div class="psych-text">Considers telepathy coercive by nature. Has ongoing ethical concerns about using it — even in combat, even against enemies. Uses it anyway, because the alternative is worse.</div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ABILITY SCORES -->
+    <section>
+      <h2 class="section-head"><span class="pip violet"></span>Ability Scores</h2>
+      <div class="stats-cluster">
+        <div class="stat-block low">
+          <div class="s-label">Melee</div>
+          <div class="s-score">1</div>
+          <div class="s-def">DEF 11 / +1</div>
+        </div>
+        <div class="stat-block low">
+          <div class="s-label">Agility</div>
+          <div class="s-score">1</div>
+          <div class="s-def">DEF 11 / +1</div>
+        </div>
+        <div class="stat-block high">
+          <div class="s-label">Resilience</div>
+          <div class="s-score">3</div>
+          <div class="s-def">DEF 13 / +3</div>
+        </div>
+        <div class="stat-block high">
+          <div class="s-label">Vigilance</div>
+          <div class="s-score">4</div>
+          <div class="s-def">DEF 14 / +4</div>
+        </div>
+        <div class="stat-block psychic">
+          <div class="s-label">Ego / Logic</div>
+          <div class="s-score">3</div>
+          <div class="s-def">DEF 13 / +3</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DURABILITY / SPEED -->
+    <div class="two-col">
+      <section>
+        <h2 class="section-head"><span class="pip"></span>Durability</h2>
+        <div class="resource-grid">
+          <div class="resource-block warn" data-label="Health — Low">
+            <div class="r-val">30</div>
+            <div class="r-sub">DMG Reduction: —</div>
+          </div>
+          <div class="resource-block strong" data-label="Focus — Telepathic Reserve">
+            <div class="r-val">90</div>
+            <div class="r-sub">DMG Reduction: —</div>
+          </div>
+        </div>
+        <div class="speed-row">
+          <div class="speed-pill">Run <span>5</span></div>
+          <div class="speed-pill">Climb <span>3</span></div>
+          <div class="speed-pill">Swim <span>3</span></div>
+          <div class="speed-pill">Jump <span>3</span></div>
+          <div class="speed-pill">Initiative <span>+3</span></div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-head"><span class="pip"></span>Damage Output</h2>
+        <div class="dmg-row">
+          <div class="dmg-block">
+            <div class="dval">d×2+1</div>
+            Melee
+          </div>
+          <div class="dmg-block">
+            <div class="dval">d×2+1</div>
+            Agility
+          </div>
+          <div class="dmg-block">
+            <div class="dval">d×2+4</div>
+            Ego
+          </div>
+          <div class="dmg-block">
+            <div class="dval">d×2+3</div>
+            Logic
+          </div>
+        </div>
+        <div class="dmg-note">
+          All telepathic attacks deal Focus damage, not Health damage.<br>
+          Primary threat: Ego/Logic attacks against targets' mental defenses.
+        </div>
+      </section>
+    </div>
+
+    <!-- POWERS -->
+    <section>
+      <h2 class="section-head"><span class="pip violet"></span>Telepathy Powers</h2>
+
+      <div class="ethics-inline">
+        "I don't want to be in anyone's head without their consent. The fact that I can doesn't mean I should. But sometimes the world makes the choice before I do."
+      </div>
+
+      <!-- LINK TIER -->
+      <div class="tele-label link">◈ Connection — Establishing the Link</div>
+
+      <div class="power-card link">
+        <div class="power-header">
+          <div class="power-name">Telepathic Link</div>
+          <div class="power-type">Telepathy · Link</div>
+          <div class="power-meta">Standard · Concentration · Unlimited Range (same dimension)</div>
+        </div>
+        <div class="power-body">
+          Communicate telepathically with one person at a time — verbal, visual, or complex (e.g. location data). Must have previously met or seen the target. If the target doesn't wish to communicate, they can automatically tune him out.<br><br>
+          <strong>To force a link:</strong> Logic check vs. target's Vigilance defense. On failure: cannot attempt communication with that target for the rest of the day. On success: can communicate for the duration of concentration. On Fantastic success: target cannot shut him out for the rest of the day.
+        </div>
+      </div>
+
+      <!-- MIND TIER -->
+      <div class="tele-label mind">◈ Mind — Reading &amp; Interrogation</div>
+
+      <div class="power-card">
+        <div class="power-header">
+          <div class="power-name">Mind Reading</div>
+          <div class="power-type">Telepathy · Mind</div>
+          <div class="power-meta">Standard · 1 Round · Requires Telepathic Link</div>
+        </div>
+        <div class="power-body">Logic check vs. target's Logic defense. On success: read the target's surface thoughts. On Fantastic success: ask a single simple question — get the answer from the target's mind directly.</div>
+      </div>
+
+      <div class="power-card">
+        <div class="power-header">
+          <div class="power-name">Mind Interrogation</div>
+          <div class="power-type">Telepathy · Mind</div>
+          <div class="power-meta">Standard · 1 Round · Cost: 5 Focus · Requires Telepathic Link</div>
+        </div>
+        <div class="power-body">Logic check vs. target's Logic defense. On success: ask a single simple question — get the answer from the target's mind. On Fantastic success: extract more complex information.</div>
+      </div>
+
+      <!-- COMBAT TIER -->
+      <div class="tele-label combat">◈ Combat — Psychic Attacks</div>
+
+      <div class="power-card combat">
+        <div class="power-header">
+          <div class="power-name">Mental Punch</div>
+          <div class="power-type">Telepathy · Combat</div>
+          <div class="power-meta">Standard · Instant · Melee Attack</div>
+        </div>
+        <div class="power-body">Melee attack against a target. On success: inflicts regular <strong>Focus damage</strong> (not Health). On Fantastic success: double Focus damage, and target is <strong>Stunned for one round</strong>.</div>
+      </div>
+
+      <div class="power-card combat">
+        <div class="power-header">
+          <div class="power-name">Telepathic Blast</div>
+          <div class="power-type">Telepathy · Combat</div>
+          <div class="power-meta">Standard · Instant · Cost: 5 Focus · Ranged (line of sight)</div>
+        </div>
+        <div class="power-body">Logic attack against a target in line of sight. On success: regular <strong>Focus damage</strong>. On Fantastic success: double Focus damage and target is <strong>Stunned for one round</strong>.</div>
+      </div>
+    </section>
+
+    <!-- TRAITS & TAGS -->
+    <section>
+      <h2 class="section-head"><span class="pip sage"></span>Traits & Tags</h2>
+      <div class="traits-tags-grid">
+        <div>
+          <div class="trait-item">
+            <div class="t-name">Connections (Mutants)</div>
+            <p>Edge on Ego checks to call on mutant contacts for clues, information, or resources. TN set by the favor requested.</p>
+          </div>
+          <div class="trait-item">
+            <div class="t-name">Dealmaker</div>
+            <p>Skilled at negotiation. Edge on action checks involving making deals.</p>
+          </div>
+          <div class="trait-item">
+            <div class="t-name">Fearless</div>
+            <p>Extremely brave. Edge on any action checks required to deal with fear.</p>
+          </div>
+          <div class="trait-item violet-trait">
+            <div class="t-name">Fresh Eyes</div>
+            <p>Has their own way of doing things — unusual to others, but brings new perspectives. Edge on Logic checks when faced with something for the first time.</p>
+          </div>
+          <div class="trait-item violet-trait">
+            <div class="t-name">Iron Will</div>
+            <p>Enemies have trouble on attacks to control the character's mind or influence behaviour. Edge on checks to break free of mind control or compulsions.</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="tag-item">
+            <div class="tag-name">Black Market Access</div>
+            <p>Knows how and where to acquire hard-to-find and potentially illegal things.</p>
+          </div>
+          <div class="tag-item">
+            <div class="tag-name">Hounded</div>
+            <p>Member of a group persecuted simply for being who they are.</p>
+          </div>
+          <div class="tag-item">
+            <div class="tag-name">X-Gene</div>
+            <p>Carries the mutant genes that cause the development of superhuman powers. Family unaware of mutant status.</p>
+          </div>
+          <div class="tag-item warn-tag">
+            <div class="tag-name">Young · Under 18 · Minor</div>
+            <p>Must report in to parents or guardians on a regular basis if possible. Left home voluntarily — guardianship situation complicated.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /document -->
+
+  <div class="footer-tape">
+    <span>X-Front — Direct Action for Mutant Liberation</span>
+    <span>Do not distribute — burn after reading</span>
+    <span>File XF-006 — Regret</span>
+  </div>
+
+</div>
+</body>
+</html>

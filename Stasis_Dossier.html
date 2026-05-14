@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stasis — X-FRONT Dossier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Special+Elite&family=Share+Tech+Mono&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:           #0a0800;
+    --paper:        #f2ede0;
+    --paper-dark:   #e0d8c4;
+    --paper-mid:    #e8e2d0;
+    --ink:          #180f00;
+    --red:          #c42018;
+    --red-d:        #961008;
+    --red-l:        #e03828;
+    --ember:        #e86010;
+    --ember-l:      #f08030;
+    --sand:         #c8a860;
+    --sand-l:       #e0c888;
+    --frost:        #b8d0e0;
+    --rule:         rgba(24,15,0,0.2);
+    --rule-red:     rgba(196,32,24,0.28);
+    --rule-ember:   rgba(232,96,16,0.25);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse at 50% 0%, rgba(232,96,16,0.1) 0%, transparent 55%),
+      repeating-linear-gradient(
+        -60deg,
+        transparent,
+        transparent 30px,
+        rgba(196,32,24,0.02) 30px,
+        rgba(196,32,24,0.02) 31px
+      );
+    font-family: 'Barlow Condensed', sans-serif;
+    color: var(--ink);
+    padding: 2rem 1rem;
+    min-height: 100vh;
+  }
+
+  /* OUTER FRAME — red/ember/sand: warmth edged with danger */
+  .outer-frame {
+    max-width: 860px;
+    margin: 0 auto;
+    border: 3px solid var(--red);
+    box-shadow:
+      0 0 0 6px var(--bg),
+      0 0 0 8px var(--ember),
+      0 0 55px rgba(196,32,24,0.28),
+      inset 0 0 0 3px var(--ember);
+    position: relative;
+  }
+
+  /* BANNER */
+  .banner-strip {
+    background: #f5c800;
+    padding: 0;
+    line-height: 0;
+    border-bottom: 4px solid var(--red-d);
+  }
+  .banner-strip img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 90px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* TAPE — deep red */
+  .tape-top {
+    background: var(--red-d);
+    text-align: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    color: var(--sand-l);
+    padding: 0.35rem 1rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--red);
+  }
+
+  /* DOCUMENT */
+  .document {
+    background: var(--paper);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+    padding: 2rem 2.5rem 3rem;
+    position: relative;
+  }
+
+  /* CORNER MARKS */
+  .corner { position: absolute; font-size: 1.2rem; color: var(--ember); opacity: 0.45; line-height: 1; }
+  .corner.tl { top: 10px; left: 10px; }
+  .corner.tr { top: 10px; right: 10px; }
+  .corner.bl { bottom: 10px; left: 10px; }
+  .corner.br { bottom: 10px; right: 10px; }
+
+  /* ── HEADER ─────────────────────────────── */
+  .header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem 2rem;
+    align-items: start;
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
+    position: relative;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -7px; left: 0;
+    width: 100%; height: 2px;
+    background: var(--red);
+  }
+
+  .portrait-wrap {
+    width: 175px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .portrait-wrap img {
+    width: 175px;
+    height: 250px;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    border: 2px solid var(--ink);
+    filter: contrast(1.05) saturate(0.9);
+  }
+  /* ember left bar */
+  .portrait-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -6px;
+    width: 4px; height: 100%;
+    background: var(--ember);
+  }
+  /* rescue/extraction stamp — different flavour for this character */
+  .portrait-wrap::after {
+    content: 'EXTRACTED';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: var(--ember);
+    color: white;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.3em;
+    text-align: center;
+    padding: 0.15rem 0;
+    text-transform: uppercase;
+  }
+  .portrait-stamp {
+    position: absolute;
+    top: -4px; right: -4px;
+    background: var(--red-d);
+    color: var(--sand-l);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    padding: 0.15rem 0.4rem;
+    text-transform: uppercase;
+    border: 1px solid var(--red);
+  }
+
+  .header-text { padding-top: 0.25rem; }
+
+  .codename-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+
+  h1.codename {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 5rem;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+  }
+  h1.codename::after {
+    content: 'STASIS';
+    position: absolute;
+    left: 4px; top: 4px;
+    color: var(--red);
+    z-index: -1;
+    opacity: 0.28;
+  }
+
+  .real-name {
+    font-family: 'Special Elite', cursive;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-top: 0.4rem;
+    border-left: 3px solid var(--red);
+    padding-left: 0.6rem;
+  }
+
+  .vitals-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.75rem;
+    margin-top: 0.75rem;
+  }
+  .vital-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    background: var(--ink);
+    color: var(--sand-l);
+    padding: 0.15rem 0.5rem;
+    text-transform: uppercase;
+  }
+  .vital-tag.red { background: var(--red-d); color: var(--sand-l); }
+  .vital-tag.ember { background: var(--ember); color: white; }
+  .vital-tag.warn { background: var(--red); color: white; }
+
+  .affil-line {
+    margin-top: 0.75rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red);
+    border-top: 1px solid var(--rule);
+    padding-top: 0.5rem;
+  }
+
+  .stamp {
+    display: inline-block;
+    font-family: 'Special Elite', cursive;
+    padding: 0.1rem 0.5rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 0.35rem;
+    margin-right: 0.5rem;
+  }
+  .stamp.rank { color: var(--red-d); border: 3px solid var(--red-d); transform: rotate(2deg); opacity: 0.75; font-size: 1.1rem; }
+  .stamp.minor { color: var(--ember); border: 3px solid var(--ember); transform: rotate(-3deg); opacity: 0.82; font-size: 1rem; }
+
+  /* ── SECTIONS ───────────────────────────── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 2rem;
+    margin-bottom: 1.5rem;
+  }
+  section { margin-bottom: 1.75rem; }
+
+  .section-head {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink);
+    padding: 0.3rem 0.75rem 0.25rem;
+    margin-bottom: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-head .pip {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--red);
+    flex-shrink: 0;
+  }
+  .section-head .pip.ember { background: var(--ember); }
+  .section-head .pip.sand  { background: var(--sand); }
+
+  p, .prose { font-size: 1rem; font-weight: 400; line-height: 1.55; color: var(--ink); }
+
+  .drop-cap::first-letter {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 3.2rem;
+    line-height: 0.8;
+    float: left;
+    margin-right: 0.2rem;
+    color: var(--red);
+  }
+
+  .hr-red { border: none; border-top: 1px solid var(--rule-red); margin: 1.25rem 0; }
+
+  /* CAMP CALLOUT — the darkest box in any dossier so far */
+  .camp-box {
+    border: 2px solid var(--red);
+    background: rgba(196,32,24,0.06);
+    padding: 0.75rem 1rem;
+    margin: 0.85rem 0;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    position: relative;
+  }
+  .camp-box::before {
+    content: attr(data-label);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--red);
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  /* RESCUE CALLOUT — ember, positive framing */
+  .rescue-box {
+    border: 1.5px dashed var(--ember);
+    background: rgba(232,96,16,0.06);
+    padding: 0.65rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    position: relative;
+  }
+  .rescue-box::before {
+    content: attr(data-label);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ember);
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+
+  /* ── STATS ──────────────────────────────── */
+  .stats-cluster {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin: 0.75rem 0;
+  }
+  .stat-block {
+    border: 1.5px solid var(--ink);
+    background: white;
+    text-align: center;
+    padding: 0.5rem 0.25rem 0.4rem;
+  }
+  .stat-block.high {
+    border-color: var(--ember);
+    background: rgba(232,96,16,0.07);
+  }
+  .stat-block.low {
+    border-color: #bbb;
+    background: rgba(0,0,0,0.03);
+  }
+  .stat-block.tiny {
+    border-color: var(--red);
+    background: rgba(196,32,24,0.06);
+    border-width: 2px;
+  }
+  .stat-block .s-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 0.2rem;
+  }
+  .stat-block.tiny .s-label { color: var(--red); }
+  .stat-block.low .s-label  { color: #888; }
+  .stat-block .s-score {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .stat-block.tiny .s-score { color: var(--red); }
+  .stat-block.low .s-score  { color: #999; }
+  .stat-block .s-def {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: #666;
+    margin-top: 0.1rem;
+  }
+  .stat-note {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.78rem;
+    color: var(--ember);
+    text-align: center;
+    margin-top: 0.3rem;
+    opacity: 0.85;
+  }
+
+  /* RESOURCES */
+  .resource-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin: 0.75rem 0;
+  }
+  .resource-block {
+    border: 2px solid var(--ink);
+    padding: 0.75rem;
+    background: var(--paper-dark);
+  }
+  .resource-block::before {
+    content: attr(data-label);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ember);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .resource-block.critical { border-color: var(--red); border-width: 2px; }
+  .resource-block.critical::before { color: var(--red); }
+  .resource-block.rich { border-color: var(--ember); }
+  .resource-block.rich::before { color: var(--ember); font-weight: 600; }
+  .resource-block .r-val {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .resource-block.critical .r-val { color: var(--red); }
+  .resource-block.rich .r-val     { color: var(--ember); }
+  .resource-block .r-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: #777;
+    margin-top: 0.2rem;
+  }
+
+  /* SPEED */
+  .speed-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 0.5rem 0;
+  }
+  .speed-pill {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    background: var(--paper-dark);
+    border: 1px solid var(--ink);
+    padding: 0.2rem 0.6rem;
+    text-transform: uppercase;
+  }
+  .speed-pill span { color: var(--ember); font-weight: 700; font-size: 0.85rem; }
+  .speed-pill.low-note span { color: var(--red); }
+
+  /* DAMAGE */
+  .dmg-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin: 0.5rem 0;
+  }
+  .dmg-block {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-left: 3px solid var(--ember);
+    padding-left: 0.5rem;
+    line-height: 1.3;
+  }
+  .dmg-block .dval {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--red-d);
+  }
+  .dmg-note {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--sand);
+    margin-top: 0.4rem;
+    border-left: 2px solid var(--sand);
+    padding-left: 0.5rem;
+    line-height: 1.4;
+  }
+
+  /* ── POWER CARDS ────────────────────────── */
+  .power-card {
+    border: 1.5px solid var(--ink);
+    margin-bottom: 0.85rem;
+    background: white;
+    position: relative;
+  }
+  .power-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--ember);
+  }
+  .power-card.velocity::before { background: var(--red); width: 5px; }
+  .power-card.passive::before  { background: var(--sand); }
+
+  .power-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem 0.4rem 1rem;
+    border-bottom: 1px solid var(--rule);
+    background: rgba(24,15,0,0.04);
+  }
+  .power-name {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+  }
+  .power-type {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ember);
+  }
+  .power-card.velocity .power-type { color: var(--red-d); font-weight: 600; }
+  .power-card.passive  .power-type { color: var(--sand); }
+  .power-meta {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    color: #777;
+    text-transform: uppercase;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .power-body {
+    padding: 0.6rem 0.75rem 0.6rem 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* velocity sub-header */
+  .velocity-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--red-d);
+    border-top: 1px solid var(--rule-red);
+    padding-top: 1rem;
+    margin: 1.25rem 0 0.6rem;
+  }
+
+  /* flavour blurb for Velocity power */
+  .velocity-flavour {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--red-d);
+    background: rgba(196,32,24,0.05);
+    border: 1px solid var(--rule-red);
+    border-left: 4px solid var(--red);
+    padding: 0.65rem 1rem;
+    margin-bottom: 0.85rem;
+    line-height: 1.55;
+  }
+
+  /* ── TRAITS & TAGS ──────────────────────── */
+  .traits-tags-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .trait-item {
+    border-left: 3px solid var(--sand);
+    padding: 0.5rem 0.75rem;
+    background: rgba(200,168,96,0.1);
+    margin-bottom: 0.6rem;
+  }
+  .trait-item .t-name {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+  .trait-item p { font-size: 0.88rem; line-height: 1.45; }
+  .trait-item.concern { border-left-color: var(--red); background: rgba(196,32,24,0.06); }
+
+  .tag-item {
+    border-left: 3px solid var(--ember);
+    padding: 0.4rem 0.65rem;
+    background: rgba(232,96,16,0.07);
+    margin-bottom: 0.5rem;
+  }
+  .tag-item .tag-name {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 0.15rem;
+  }
+  .tag-item p { font-size: 0.88rem; line-height: 1.4; }
+  .tag-item.warn-tag { border-left-color: var(--red); background: rgba(196,32,24,0.06); }
+  .tag-item.warn-tag .tag-name { color: var(--red); }
+  .tag-item.mentor-tag { border-left-color: var(--sand); background: rgba(200,168,96,0.1); }
+  .tag-item.mentor-tag .tag-name { color: var(--sand); }
+
+  /* ── PSYCH PROFILE ──────────────────────── */
+  .psych-item {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px dotted var(--rule);
+    padding-bottom: 0.75rem;
+  }
+  .psych-item:last-child { border-bottom: none; }
+  .psych-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ember);
+    padding-top: 0.1rem;
+    line-height: 1.4;
+  }
+  .psych-text { font-size: 0.92rem; line-height: 1.5; }
+
+  /* ── FOOTER ─────────────────────────────── */
+  .footer-tape {
+    background: var(--red-d);
+    border-top: 3px solid var(--red);
+    padding: 0.5rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-tape span {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--sand-l);
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+
+  @media (max-width: 640px) {
+    .document { padding: 1.5rem 1.2rem 2rem; }
+    .header { grid-template-columns: 1fr; }
+    .portrait-wrap { width: 140px; }
+    .portrait-wrap img { width: 140px; height: 200px; }
+    h1.codename { font-size: 3.5rem; }
+    .stats-cluster { grid-template-columns: repeat(3, 1fr); }
+    .two-col, .traits-tags-grid { grid-template-columns: 1fr; }
+    .psych-item { grid-template-columns: 1fr; gap: 0.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="outer-frame">
+
+  <div class="banner-strip">
+    <img src="x-front_banner.png" alt="X-FRONT — Direct Action for Mutant Liberation">
+  </div>
+
+  <div class="tape-top">Operative Dossier &nbsp;///&nbsp; Classified — Cell Eyes Only &nbsp;///&nbsp; File: XF-005</div>
+
+  <div class="document">
+    <span class="corner tl">+</span>
+    <span class="corner tr">+</span>
+    <span class="corner bl">+</span>
+    <span class="corner br">+</span>
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="portrait-wrap">
+        <img src="stasis.png" alt="Stasis — Hermes Montoya">
+        <div class="portrait-stamp">XF-005</div>
+      </div>
+
+      <div class="header-text">
+        <div class="codename-label">// Operative Codename //</div>
+        <h1 class="codename">Stasis</h1>
+        <div class="real-name">Hermes Montoya</div>
+        <div class="vitals-row">
+          <span class="vital-tag">5'3"</span>
+          <span class="vital-tag">107 lbs</span>
+          <span class="vital-tag red">Male</span>
+          <span class="vital-tag">Brown Eyes</span>
+          <span class="vital-tag">Brown Hair</span>
+          <span class="vital-tag warn">Age 14</span>
+        </div>
+        <div class="vitals-row">
+          <span class="vital-tag ember">Size: Small</span>
+          <span class="vital-tag red">Origin: Mutant</span>
+          <span class="vital-tag">Occupation: Student</span>
+        </div>
+        <div class="vitals-row">
+          <span class="vital-tag">Burn Scars — Forearms</span>
+        </div>
+        <div class="affil-line">X-FRONT &nbsp;·&nbsp; Member &nbsp;·&nbsp; Rescued Operative &nbsp;·&nbsp; Arizona</div>
+        <span class="stamp rank">Rank 2 / Karma 2</span>
+        <span class="stamp minor">Under 18 · Minor</span>
+      </div>
+    </div>
+
+    <!-- HISTORY + PERSONALITY -->
+    <div class="two-col">
+      <section>
+        <h2 class="section-head"><span class="pip"></span>History</h2>
+        <p class="drop-cap">Hermes grew up in an evangelical Latino family in Arizona. When his X-gene expressed at 13, the family's pastor at River of God Church attempted to "pray it away."</p>
+        <div class="camp-box" data-label="// Sanctuary Hills Youth Reformation Campus — INVOLUNTARY //">
+          When prayer failed, the pastor recommended the Sanctuary Hills Youth Reformation Campus — a mutant conversion therapy facility in the Arizona desert. Hermes' parents voluntarily committed him. He was held for an indeterminate period. The burn scars on his forearms date to this period.
+        </div>
+        <div class="rescue-box" data-label="// Extraction — X-FRONT Operation //">
+          Hermes was extracted from the camp with direct assistance from X-FRONT four months prior to current operations. He has been under the mentorship of Toya and Tabitha since.
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-head"><span class="pip ember"></span>Psych Profile</h2>
+        <div class="psych-item">
+          <div class="psych-label">Night Terror</div>
+          <div class="psych-text">Wakes up in the night terrified of being taken again. The fear is not abstract — it has a specific shape and address.</div>
+        </div>
+        <div class="psych-item">
+          <div class="psych-label">Goal</div>
+          <div class="psych-text">Moving past the trauma. Allowing that horrible experience to energize action rather than paralyze it.</div>
+        </div>
+        <div class="psych-item">
+          <div class="psych-label">Barrier</div>
+          <div class="psych-text">The feelings of loss are overwhelming. Unprocessed grief and anger are inaccessible because the panic is in the way. Hard to appreciate what he does have.</div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ABILITY SCORES -->
+    <section>
+      <h2 class="section-head"><span class="pip"></span>Ability Scores</h2>
+      <div class="stats-cluster">
+        <div class="stat-block">
+          <div class="s-label">Melee</div>
+          <div class="s-score">2</div>
+          <div class="s-def">DEF 14* / +2</div>
+        </div>
+        <div class="stat-block high">
+          <div class="s-label">Agility</div>
+          <div class="s-score">3</div>
+          <div class="s-def">DEF 14* / +3</div>
+        </div>
+        <div class="stat-block high">
+          <div class="s-label">Resilience</div>
+          <div class="s-score">4</div>
+          <div class="s-def">DEF 14 / +4</div>
+        </div>
+        <div class="stat-block">
+          <div class="s-label">Vigilance</div>
+          <div class="s-score">1</div>
+          <div class="s-def">DEF 11 / +1</div>
+        </div>
+        <div class="stat-block low">
+          <div class="s-label">Ego / Logic</div>
+          <div class="s-score">0</div>
+          <div class="s-def">DEF 10 / +0</div>
+        </div>
+      </div>
+      <p class="stat-note">* Small size adds +1 to both Melee and Agility defenses &nbsp;·&nbsp; Initiative modifier: +4 (edge via Situation Awareness)</p>
+    </section>
+
+    <!-- DURABILITY / SPEED -->
+    <div class="two-col">
+      <section>
+        <h2 class="section-head"><span class="pip"></span>Durability</h2>
+        <div class="resource-grid">
+          <div class="resource-block critical" data-label="Health — Critical">
+            <div class="r-val">10</div>
+            <div class="r-sub">DMG Reduction: — · Extremely fragile</div>
+          </div>
+          <div class="resource-block rich" data-label="Focus — High">
+            <div class="r-val">115</div>
+            <div class="r-sub">DMG Reduction: —</div>
+          </div>
+        </div>
+        <div class="speed-row">
+          <div class="speed-pill low-note">Run <span>4</span></div>
+          <div class="speed-pill">Climb <span>2</span></div>
+          <div class="speed-pill">Swim <span>2</span></div>
+          <div class="speed-pill">Jump <span>2</span></div>
+          <div class="speed-pill">Initiative <span>+4E</span></div>
+        </div>
+        <p style="font-size:0.8rem;margin-top:0.4rem;opacity:0.65;">Run speed –1 from Small size. Initiative edge via Situation Awareness.</p>
+      </section>
+
+      <section>
+        <h2 class="section-head"><span class="pip"></span>Damage Output</h2>
+        <div class="dmg-row">
+          <div class="dmg-block">
+            <div class="dval">d×2+2</div>
+            Melee
+          </div>
+          <div class="dmg-block">
+            <div class="dval">d×2+3</div>
+            Agility
+          </div>
+          <div class="dmg-block">
+            <div class="dval">d×2+1</div>
+            Ego
+          </div>
+          <div class="dmg-block">
+            <div class="dval">d×2+0</div>
+            Logic
+          </div>
+        </div>
+        <div class="dmg-note">
+          Low raw damage — power set is control-based, not damage-based.<br>
+          Elemental Grab (Ego attack) and Paralysis are the primary threat vectors.
+        </div>
+      </section>
+    </div>
+
+    <!-- POWERS -->
+    <section>
+      <h2 class="section-head"><span class="pip sand"></span>Powers & Abilities</h2>
+
+      <div class="power-card passive">
+        <div class="power-header">
+          <div class="power-name">Evasion</div>
+          <div class="power-type">Passive</div>
+          <div class="power-meta">Permanent</div>
+        </div>
+        <div class="power-body">Can use Agility defense score against Melee attacks as well.</div>
+      </div>
+
+      <div class="power-card">
+        <div class="power-header">
+          <div class="power-name">Slow-Motion Dodge</div>
+          <div class="power-type">Reaction</div>
+          <div class="power-meta">Instant · Trigger: Agility attack against this character</div>
+        </div>
+        <div class="power-body">The attacking enemy has trouble on the attack roll.</div>
+      </div>
+
+      <!-- VELOCITY SECTION -->
+      <div class="velocity-label">◈ Elemental Control — Velocity</div>
+
+      <div class="velocity-flavour">
+        With a touch, Hermes can paralyze anyone or anything. A second touch releases them. The target remains fully conscious throughout — trapped in an unmoving body. External forces can still move the body; its own volition is simply gone.
+      </div>
+
+      <div class="power-card velocity">
+        <div class="power-header">
+          <div class="power-name">Elemental Burst</div>
+          <div class="power-type">Velocity · Ranged</div>
+          <div class="power-meta">Standard · Instant · Range: 10 spaces</div>
+        </div>
+        <div class="power-body">Ranged attack against an enemy in line of sight. On a success: regular damage. On a Fantastic success: double damage, and the target is <strong>Paralyzed for one round</strong>.</div>
+      </div>
+
+      <div class="power-card velocity">
+        <div class="power-header">
+          <div class="power-name">Elemental Grab</div>
+          <div class="power-type">Velocity · Control</div>
+          <div class="power-meta">Standard · Concentration · Cost: 5 Focus · Range: 5 spaces × Rank</div>
+        </div>
+        <div class="power-body">Ego attack against a target's Melee defense within 5 spaces × Rank (10 spaces at Rank 2). On a success: target is grabbed with velocity control. On a Fantastic success: target is also <strong>Pinned and Paralyzed for one round</strong>. Breaking free requires a successful Melee check against TN 20.</div>
+      </div>
+    </section>
+
+    <!-- TRAITS & TAGS -->
+    <section>
+      <h2 class="section-head"><span class="pip ember"></span>Traits & Tags</h2>
+      <div class="traits-tags-grid">
+        <div>
+          <div class="trait-item">
+            <div class="t-name">Combat Reflexes</div>
+            <p>Can react quickly in combat. Gains one additional reaction each round.</p>
+          </div>
+          <div class="trait-item">
+            <div class="t-name">Free Running</div>
+            <p>Edge on Agility checks made to perform acrobatics during a movement action.</p>
+          </div>
+          <div class="trait-item">
+            <div class="t-name">Iron Will</div>
+            <p>Enemies have trouble on attacks to control the character's mind or influence behaviour. Edge on checks to break free of mind control or other compulsions.</p>
+          </div>
+          <div class="trait-item">
+            <div class="t-name">Quick Learner</div>
+            <p>If the character fails an action check, they gain an edge on the same check if they try again on their next turn.</p>
+          </div>
+          <div class="trait-item">
+            <div class="t-name">Situation Awareness</div>
+            <p>Edge on initiative checks. Always watching for trouble.</p>
+          </div>
+          <div class="trait-item">
+            <div class="t-name">Sneaky</div>
+            <p>Edge on Agility checks when sneaking. Enemies have trouble on Vigilance checks to detect this character when invisible or hiding.</p>
+          </div>
+          <div class="trait-item concern">
+            <div class="t-name">Small</div>
+            <p>+1 to Melee and Agility defenses. –1 to Run Speed. Size: Small.</p>
+          </div>
+          <div class="trait-item concern">
+            <div class="t-name">Weakness (Psychic)</div>
+            <p>Suffers unusual harm from psychic attacks. Any psychic attack ignores all inherent damage reduction and cannot be healed by a Healing Factor.</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="tag-item">
+            <div class="tag-name">Hounded</div>
+            <p>Member of a group persecuted simply for being who they are.</p>
+          </div>
+          <div class="tag-item mentor-tag">
+            <div class="tag-name">Mentor (Toya &amp; Tabitha)</div>
+            <p>Knows two older operatives who can be consulted for advice — including about super-powers.</p>
+          </div>
+          <div class="tag-item">
+            <div class="tag-name">X-Gene</div>
+            <p>Carries the mutant genes that cause the development of superhuman powers.</p>
+          </div>
+          <div class="tag-item warn-tag">
+            <div class="tag-name">Young · Under 18 · Minor</div>
+            <p>Must report in to parents or guardians on a regular basis if possible. Legal obligations complicate operational security.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /document -->
+
+  <div class="footer-tape">
+    <span>X-Front — Direct Action for Mutant Liberation</span>
+    <span>Do not distribute — burn after reading</span>
+    <span>File XF-005 — Stasis</span>
+  </div>
+
+</div>
+</body>
+</html>
