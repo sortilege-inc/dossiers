@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Valerian de Castellane, House Guernicus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment:     #f0e8d0;
+    --parchment-mid: #e4d8b4;
+    --parchment-deep:#d5c490;
+    --ink:           #1a1510;
+    --ink-soft:      #3a3020;
+    --ink-faint:     #6a5e48;
+    --quaesitor:     #6b1a1a;   /* deep Guernicus crimson */
+    --quaesitor-mid: #952525;
+    --quaesitor-pale:#c8524a;
+    --terram:        #5a4010;   /* earth brown */
+    --terram-mid:    #7e5c1a;
+    --terram-pale:   #b8922a;
+    --slate:         #2a3545;   /* cool judicial grey-blue */
+    --slate-mid:     #3d5068;
+    --slate-pale:    #6a8aaa;
+    --gold:          #9c7a2a;
+    --gold-pale:     #c4a050;
+    --rule:          #c2a870;
+    --rule-soft:     #d8c89a;
+    --panel:         rgba(90, 64, 16, 0.05);
+    --panel-red:     rgba(107, 26, 26, 0.05);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--parchment-mid);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16.5px;
+    line-height: 1.65;
+    font-weight: 400;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse at 10% 5%,  rgba(107, 26, 26, 0.07) 0%, transparent 45%),
+      radial-gradient(ellipse at 90% 95%, rgba(42, 53, 69, 0.07)  0%, transparent 45%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    min-height: 100vh;
+    padding: 2.5rem 1rem;
+  }
+
+  .document {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    padding: 4.5rem 5rem 5.5rem;
+    box-shadow:
+      0 2px 4px rgba(26, 21, 16, 0.12),
+      0 12px 48px rgba(26, 21, 16, 0.18),
+      inset 0 0 120px rgba(90, 64, 16, 0.04);
+    position: relative;
+    border: 1px solid var(--rule);
+  }
+
+  /* Top rule — Guernicus crimson */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--quaesitor) 0%,
+      var(--quaesitor-pale) 25%,
+      var(--gold) 50%,
+      var(--quaesitor-pale) 75%,
+      var(--quaesitor) 100%);
+  }
+
+  /* Bottom rule */
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%, var(--rule) 20%, var(--gold) 50%, var(--rule) 80%, transparent 100%);
+  }
+
+  /* Corner ornaments */
+  .corner {
+    position: absolute;
+    width: 28px; height: 28px;
+    border-color: var(--quaesitor);
+    border-style: solid;
+    opacity: 0.6;
+  }
+  .corner.tl { top: 12px; left: 12px;  border-width: 1px 0 0 1px; }
+  .corner.tr { top: 12px; right: 12px; border-width: 1px 1px 0 0; }
+  .corner.bl { bottom: 12px; left: 12px;  border-width: 0 0 1px 1px; }
+  .corner.br { bottom: 12px; right: 12px; border-width: 0 1px 1px 0; }
+
+  /* ─── HEADER ─── */
+  header.title-block {
+    text-align: center;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 2.5rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+
+  .filemark {
+    display: flex;
+    justify-content: space-between;
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .eyebrow {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    color: var(--quaesitor-mid);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+
+  h1.character-name {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.1;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.04em;
+  }
+
+  .name-latin {
+    font-family: "Cinzel", serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.22em;
+    color: var(--quaesitor);
+    font-weight: 400;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .epithets {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    margin: 0 0 1.2rem;
+    line-height: 1.4;
+  }
+
+  .vitals {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 0;
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .vitals span {
+    padding: 0 1rem;
+    border-left: 1px solid var(--rule);
+    line-height: 1.8;
+  }
+  .vitals span:first-child { border-left: none; }
+  .vitals strong {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+
+  /* Portrait inset */
+  .portrait-frame {
+    float: right;
+    margin: 0 0 1.5rem 2rem;
+    width: 170px;
+  }
+  .portrait-frame img {
+    width: 100%;
+    display: block;
+    filter: sepia(35%) contrast(1.05);
+    border: 2px solid var(--rule);
+    box-shadow: 4px 4px 16px rgba(26,21,16,0.25);
+  }
+  .portrait-caption {
+    font-family: "Cinzel", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.4rem;
+    text-transform: uppercase;
+  }
+
+  /* ─── TOC ─── */
+  nav.toc {
+    background: var(--panel-red);
+    border: 1px solid var(--rule-soft);
+    border-left: 3px solid var(--quaesitor);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 2.5rem;
+    columns: 2;
+    column-gap: 2rem;
+  }
+  .toc-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    color: var(--quaesitor);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    column-span: all;
+  }
+  nav.toc ol {
+    margin: 0; padding-left: 1.2rem;
+    break-inside: avoid;
+  }
+  nav.toc li {
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin-bottom: 0.3rem;
+  }
+  nav.toc a {
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  nav.toc a:hover { color: var(--quaesitor); text-decoration: underline; }
+
+  /* ─── SECTIONS ─── */
+  section { margin-bottom: 3rem; }
+
+  h2.section-title {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.35em;
+    color: var(--quaesitor);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.45rem;
+    margin: 0 0 1.5rem;
+  }
+  h2.section-title::before {
+    content: "§ ";
+    color: var(--gold);
+    font-style: italic;
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  h3.subhead {
+    font-family: "EB Garamond", serif;
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: var(--terram-mid);
+    margin: 1.5rem 0 0.5rem;
+    font-style: italic;
+  }
+
+  h4.entry-label {
+    font-family: "Cinzel", serif;
+    font-weight: 500;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin: 1.2rem 0 0.4rem;
+  }
+
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0.5rem 0 1rem 1.5rem; padding: 0; }
+  li { margin-bottom: 0.4rem; }
+  em { color: var(--ink-soft); }
+  strong { font-weight: 600; color: var(--ink); }
+
+  /* Drop cap */
+  .drop-cap::first-letter {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 3.5rem;
+    line-height: 0.82;
+    float: left;
+    padding: 0.25rem 0.65rem 0 0;
+    color: var(--quaesitor);
+    font-weight: 700;
+  }
+
+  /* Pull quotes */
+  blockquote.maxim {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    line-height: 1.55;
+    color: var(--quaesitor);
+    border-left: 3px solid var(--quaesitor-mid);
+    padding: 0.6rem 0 0.6rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--panel-red);
+  }
+  blockquote.maxim .attribution {
+    display: block;
+    font-size: 0.82rem;
+    font-style: normal;
+    color: var(--ink-faint);
+    font-family: "Cinzel", serif;
+    letter-spacing: 0.15em;
+    margin-top: 0.5rem;
+  }
+
+  blockquote.legal {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    color: var(--slate);
+    border-left: 3px solid var(--slate-pale);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin: 1.2rem 0;
+    background: rgba(42, 53, 69, 0.04);
+  }
+
+  /* ─── TABLES ─── */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.96rem;
+  }
+  table.dossier-table th {
+    text-align: left;
+    font-family: "Cinzel", serif;
+    font-weight: 400;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--ink);
+    background: transparent;
+  }
+  table.dossier-table td {
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top;
+  }
+  table.dossier-table td:first-child {
+    font-family: "Cinzel", serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    padding-right: 1.25rem;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+  table.dossier-table tr:hover td { background: rgba(156, 122, 42, 0.04); }
+
+  /* ─── ARTS GRID ─── */
+  .arts-block {
+    margin: 1rem 0 1.5rem;
+  }
+  .arts-row {
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 0.5rem;
+    gap: 0.5rem;
+  }
+  .arts-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    width: 5.5rem;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .arts-cells {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    flex: 1;
+  }
+  .art-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 54px;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid var(--rule-soft);
+    background: var(--panel);
+    position: relative;
+  }
+  .art-cell.strong {
+    border-color: var(--terram-mid);
+    background: rgba(90, 64, 16, 0.1);
+  }
+  .art-cell.strong::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--terram-mid);
+  }
+  .art-cell.notable {
+    border-color: var(--quaesitor);
+    background: var(--panel-red);
+  }
+  .art-cell.notable::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--quaesitor);
+  }
+  .art-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .art-cell.strong .art-name { color: var(--terram); }
+  .art-cell.notable .art-name { color: var(--quaesitor); }
+  .art-score {
+    font-family: "EB Garamond", serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    line-height: 1;
+    margin-top: 0.15rem;
+  }
+  .art-cell.strong .art-score { color: var(--terram-mid); }
+  .art-cell.notable .art-score { color: var(--quaesitor-mid); }
+
+  /* ─── SPELL CARDS ─── */
+  .spell-list { margin: 0.8rem 0 1.5rem; }
+  .spell-entry {
+    display: grid;
+    grid-template-columns: 2fr 4fr 1fr;
+    gap: 0 1rem;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--rule-soft);
+    align-items: baseline;
+  }
+  .spell-entry:last-child { border-bottom: none; }
+  .spell-entry:hover { background: rgba(156,122,42,0.04); }
+  .spell-name {
+    font-family: "EB Garamond", serif;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--ink);
+    font-style: italic;
+  }
+  .spell-desc {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  .spell-meta {
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--quaesitor);
+    text-align: right;
+    white-space: nowrap;
+  }
+  .spell-entry.mastered .spell-name::after {
+    content: " ✦";
+    color: var(--gold-pale);
+    font-style: normal;
+  }
+
+  /* ─── STAT GRID ─── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .stat-cell {
+    text-align: center;
+    padding: 0.8rem 0.5rem;
+    border: 1px solid var(--rule-soft);
+    background: var(--panel);
+    position: relative;
+  }
+  .stat-cell::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--rule-soft);
+  }
+  .stat-cell.pos::before { background: var(--terram-mid); }
+  .stat-cell.neg::before { background: var(--quaesitor); }
+  .stat-cell .s-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .stat-cell .s-val {
+    font-family: "EB Garamond", serif;
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    line-height: 1;
+  }
+  .stat-cell.pos .s-val { color: var(--terram-mid); }
+  .stat-cell.neg .s-val { color: var(--quaesitor-mid); }
+  .stat-cell .s-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.2rem;
+  }
+
+  /* ─── SKILL GRID ─── */
+  .skill-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.2rem 2rem;
+    margin: 0.8rem 0 1.2rem;
+  }
+  .skill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px dotted var(--rule-soft);
+    padding: 0.2rem 0;
+  }
+  .skill-row .sk-name { font-size: 0.92rem; color: var(--ink); }
+  .skill-row .sk-val {
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin-left: 0.5rem;
+  }
+  .skill-row.high .sk-name { color: var(--terram); }
+  .skill-row.high .sk-val  { color: var(--terram-mid); }
+  .skill-row.spec .sk-name { color: var(--quaesitor); font-style: italic; }
+  .skill-row.spec .sk-val  { color: var(--quaesitor-mid); }
+
+  /* ─── CALLOUTS ─── */
+  .callout {
+    padding: 1rem 1.25rem;
+    margin: 1.2rem 0;
+    border: 1px solid var(--rule-soft);
+    background: var(--panel);
+    position: relative;
+  }
+  .callout::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--rule);
+  }
+  .callout.crimson { background: var(--panel-red); }
+  .callout.crimson::before { background: var(--quaesitor-mid); }
+  .callout.earth { background: rgba(90, 64, 16, 0.07); }
+  .callout.earth::before { background: var(--terram-mid); }
+  .callout.slate { background: rgba(42, 53, 69, 0.05); }
+  .callout.slate::before { background: var(--slate-mid); }
+  .callout .label {
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .callout.crimson .label { color: var(--quaesitor); }
+  .callout.earth .label   { color: var(--terram); }
+  .callout.slate .label   { color: var(--slate-mid); }
+
+  /* ─── LIBRARY GRID ─── */
+  .library-section { margin-bottom: 1.5rem; }
+  .lib-heading {
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule-soft);
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.7rem;
+  }
+  .lib-entry {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.3rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    align-items: baseline;
+  }
+  .lib-entry:last-child { border-bottom: none; }
+  .lib-title {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.94rem;
+    color: var(--ink);
+    flex: 1;
+  }
+  .lib-by {
+    font-size: 0.84rem;
+    color: var(--ink-soft);
+    flex: 0.9;
+  }
+  .lib-tag {
+    font-family: "Cinzel", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    white-space: nowrap;
+    text-align: right;
+    min-width: 80px;
+  }
+  .lib-tag.restricted { color: var(--quaesitor); }
+  .lib-tag.infernal   { color: var(--quaesitor-mid); font-weight: 600; }
+  .lib-tag.terram     { color: var(--terram-mid); }
+
+  /* Two column layout */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 2rem;
+  }
+
+  /* relations */
+  .relations-grid { display: flex; flex-direction: column; gap: 1rem; }
+  .relation {
+    border-left: 2px solid var(--rule-soft);
+    padding-left: 1rem;
+  }
+  .relation .rel-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+  .relation .rel-role {
+    font-family: "Cinzel", serif;
+    font-weight: 400;
+    font-size: 0.65rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+    margin-left: 0.5rem;
+  }
+  .relation .rel-status {
+    display: inline-block;
+    font-family: "Cinzel", serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.1rem 0.4rem;
+    border: 1px solid var(--quaesitor);
+    color: var(--quaesitor);
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+  .relation p { margin: 0; font-size: 0.95rem; color: var(--ink-soft); }
+
+  /* Hermetic classification bar */
+  .classification {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--quaesitor);
+    color: #f0e8d0;
+    padding: 0.4rem 1rem;
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+  .classification .seal {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+  }
+
+  /* Section divider ornament */
+  .ornament {
+    text-align: center;
+    color: var(--gold);
+    font-size: 1rem;
+    margin: 0.5rem 0 1.5rem;
+    opacity: 0.6;
+    letter-spacing: 0.5em;
+  }
+
+  /* Responsive */
+  @media (max-width: 720px) {
+    .document { padding: 2rem 1.5rem 3rem; }
+    h1.character-name { font-size: 2rem; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .skill-grid { grid-template-columns: 1fr; }
+    nav.toc { columns: 1; }
+    .two-col { grid-template-columns: 1fr; }
+    .portrait-frame { float: none; width: 140px; margin: 0 auto 1.5rem; }
+    .arts-cells { gap: 0.2rem; }
+    .art-cell { min-width: 46px; }
+    .spell-entry { grid-template-columns: 1fr; }
+    .spell-meta { text-align: left; margin-top: 0.25rem; }
+    .lib-entry { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+
+  <span class="corner tl"></span>
+  <span class="corner tr"></span>
+  <span class="corner bl"></span>
+  <span class="corner br"></span>
+
+  <!-- CLASSIFICATION BAR -->
+  <div class="classification">
+    <span>Ordo Hermeticus · Tribunal Normanniæ · Domus Guernicus</span>
+    <span class="seal">Sub sigillo Quæsitoris</span>
+    <span>Anno Domini MCCXXII</span>
+  </div>
+
+  <!-- HEADER -->
+  <header class="title-block">
+
+    <div class="filemark">
+      <span>Dossier Hermeticum · Active File</span>
+      <span>Covenant Sjórseiðr · Rhine Tribunal Dispute</span>
+    </div>
+
+    <div class="eyebrow">Quæsitor · Hoplita Primus · Tribunalis Normanniæ</div>
+
+    <h1 class="character-name">Valerian de Castellane</h1>
+    <span class="name-latin">Valerianus de Castellana · Filius Ignoti · Guernicus</span>
+
+    <p class="epithets">
+      Chief Enforcer of the Normandy Tribunal &middot; Master of the Terræ &middot; The Granite Inquisitor<br>
+      <em>Cultus Guernicus Terræ · Captain of the Adamant</em>
+    </p>
+
+    <div class="vitals">
+      <span>House<strong>Guernicus</strong></span>
+      <span>Tribunal<strong>Normandy</strong></span>
+      <span>Gauntlet<strong>~1195</strong></span>
+      <span>Station<strong>Sjórseiðr</strong></span>
+      <span>Vessel<strong>Adamant</strong></span>
+      <span>Age<strong>~47</strong></span>
+      <span>Warping<strong>4</strong></span>
+    </div>
+
+  </header>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <div class="toc-label">Contents</div>
+    <ol>
+      <li><a href="#overview">Dossier Overview</a></li>
+      <li><a href="#characteristics">Characteristics &amp; Virtues</a></li>
+      <li><a href="#arts">Hermetic Arts</a></li>
+      <li><a href="#spells">Spell Repertoire</a></li>
+      <li><a href="#abilities">Abilities &amp; Skills</a></li>
+      <li><a href="#equipment">Equipment &amp; Resources</a></li>
+      <li><a href="#situation">The Current Situation</a></li>
+      <li><a href="#relations">Significant Relationships</a></li>
+      <li><a href="#library">The Library</a></li>
+      <li><a href="#assessment">Operational Assessment</a></li>
+    </ol>
+  </nav>
+
+  <!-- I. OVERVIEW -->
+  <section id="overview">
+    <h2 class="section-title">I. Dossier Overview</h2>
+
+    <div class="portrait-frame">
+      <img src="valerian-portrait.png" alt="Valerian de Castellane" onerror="this.style.display='none'">
+      <div class="portrait-caption">Valerian · Anno 1222</div>
+    </div>
+
+    <p class="drop-cap">Valerian de Castellane is, by any practical measure, the most dangerous active Quaesitor in the Normandy Tribunal. He is not the most politically influential — that distinction belongs to magi who have spent their careers in Valnastium's corridors — but influence of that kind requires the cooperation of those being influenced. Valerian does not seek cooperation. He compels compliance, and he has the tools to do it.</p>
+
+    <p>Twenty-seven years since his gauntlet, Valerian has built a reputation that operates as a deterrent before he enters a room. The Normandy Tribunal's chief hoplite. Master of Terram, the art of stone and earth that requires patience, precision, and the willingness to be unmovable. Member of the Guernicus Terræ cult, a brotherhood of Quaesitores who believe the Code is bedrock — not to be interpreted, to be enforced. He has conducted eleven successful Wizard's Marches, personally arrested nine magi for Code violations, and his testimony has been pivotal in four Tribunal condemnations.</p>
+
+    <p>He is currently stationed at <strong>Sjórseiðr</strong>, the Norse-Hibernian covenant at the edge of the Rhine Tribunal's northern boundary. His vessel, the <em>Adamant</em>, is docked in the covenant's harbour. He came to investigate Rhine Tribunal irregularities and discovered something considerably worse than irregularities. He has not yet had the opportunity to report what he found.</p>
+
+    <blockquote class="maxim">
+      The Code is not a guideline. It is not a tradition. It is not a courtesy extended by those who have power to those who do not. It is the wall that keeps the wolves from the sheep and the sheep from one another. I am part of that wall. I do not bend.
+      <span class="attribution">— Attributed to Valerian, Tribunal session of 1215</span>
+    </blockquote>
+  </section>
+
+  <!-- II. CHARACTERISTICS -->
+  <section id="characteristics">
+    <h2 class="section-title">II. Characteristics &amp; Virtues</h2>
+
+    <h3 class="subhead">Characteristics</h3>
+
+    <div class="stat-grid">
+      <div class="stat-cell pos">
+        <div class="s-label">Int</div>
+        <div class="s-val">+3</div>
+        <div class="s-name">Intelligence</div>
+      </div>
+      <div class="stat-cell pos">
+        <div class="s-label">Per</div>
+        <div class="s-val">+2</div>
+        <div class="s-name">Perception</div>
+      </div>
+      <div class="stat-cell pos">
+        <div class="s-label">Str</div>
+        <div class="s-val">+1</div>
+        <div class="s-name">Strength</div>
+      </div>
+      <div class="stat-cell">
+        <div class="s-label">Sta</div>
+        <div class="s-val">+2</div>
+        <div class="s-name">Stamina</div>
+      </div>
+      <div class="stat-cell neg">
+        <div class="s-label">Pre</div>
+        <div class="s-val">−1</div>
+        <div class="s-name">Presence</div>
+      </div>
+      <div class="stat-cell">
+        <div class="s-label">Com</div>
+        <div class="s-val">+1</div>
+        <div class="s-name">Communication</div>
+      </div>
+      <div class="stat-cell">
+        <div class="s-label">Dex</div>
+        <div class="s-val">+0</div>
+        <div class="s-name">Dexterity</div>
+      </div>
+      <div class="stat-cell">
+        <div class="s-label">Qik</div>
+        <div class="s-val">+0</div>
+        <div class="s-name">Quickness</div>
+      </div>
+      <div class="stat-cell">
+        <div class="s-label">Siz</div>
+        <div class="s-val">+0</div>
+        <div class="s-name">Size</div>
+      </div>
+      <div class="stat-cell">
+        <div class="s-label">Age</div>
+        <div class="s-val">47</div>
+        <div class="s-name">Apparent Age</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <h4 class="entry-label">Virtues</h4>
+        <ul>
+          <li><strong>The Gift</strong> (Hermetic)</li>
+          <li><strong>Hermetic Magus</strong></li>
+          <li><strong>Puissant Terram</strong> — +3 to all Terram totals</li>
+          <li><strong>Affinity with Terram</strong> — reduced study requirements</li>
+          <li><strong>Major Magical Focus</strong> — Stone &amp; Earth</li>
+          <li><strong>Cautious Sorcerer</strong> — fewer botch dice</li>
+          <li><strong>Skilled Parens</strong> (minor)</li>
+          <li><strong>Quaesitor</strong> — legal authority within the Order</li>
+          <li><strong>Hoplite</strong> — trained enforcer, access to special resources</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="entry-label">Flaws</h4>
+        <ul>
+          <li><strong>Blatant Gift</strong> — mundanes react with deep unease</li>
+          <li><strong>Rigid Magic</strong> — cannot use Vis to boost spontaneous</li>
+          <li><strong>Driven</strong> — enforcement of the Code above all else</li>
+          <li><strong>Enemies</strong> — Rhine Tribunal faction, old Marched conspirators' kin</li>
+          <li><strong>Infamous</strong> (minor) — "The Granite Inquisitor"; feared within the Order</li>
+        </ul>
+        <h4 class="entry-label">Personality Traits</h4>
+        <ul>
+          <li>Relentless +4</li>
+          <li>Just +3</li>
+          <li>Tactful −2</li>
+          <li>Cautious +2</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout earth">
+      <div class="label">The Gift's Shadow</div>
+      <p>Valerian's Blatant Gift is, operationally, a significant constraint. Mundane sources — merchants, servants, priests — react to his presence with immediate and unmistakeable unease, even hostility. He cannot charm his way through a gate or soften a Duke's suspicion with small talk. He moves through the mundane world like a stone falls through water: purposefully, directly, and leaving turbulence behind. He has never attempted to compensate for this. In his view, the Gift is a mark of what he is. Concealing it would be a form of deception he finds beneath him.</p>
+    </div>
+  </section>
+
+  <!-- III. HERMETIC ARTS -->
+  <section id="arts">
+    <h2 class="section-title">III. Hermetic Arts</h2>
+
+    <p><em>Arts reconstructed from laboratory records, Tribunal testimony, and observed spell deployment. Scores represent estimated current values inclusive of Puissant Terram bonus where applicable.</em></p>
+
+    <div class="arts-block">
+      <div class="arts-row">
+        <div class="arts-label">Techniques</div>
+        <div class="arts-cells">
+          <div class="art-cell notable">
+            <div class="art-name">Creo</div>
+            <div class="art-score">12</div>
+          </div>
+          <div class="art-cell">
+            <div class="art-name">Intellego</div>
+            <div class="art-score">10</div>
+          </div>
+          <div class="art-cell">
+            <div class="art-name">Muto</div>
+            <div class="art-score">6</div>
+          </div>
+          <div class="art-cell notable">
+            <div class="art-name">Perdo</div>
+            <div class="art-score">14</div>
+          </div>
+          <div class="art-cell notable">
+            <div class="art-name">Rego</div>
+            <div class="art-score">16</div>
+          </div>
+        </div>
+      </div>
+      <div class="arts-row">
+        <div class="arts-label">Forms</div>
+        <div class="arts-cells">
+          <div class="art-cell">
+            <div class="art-name">Animal</div>
+            <div class="art-score">3</div>
+          </div>
+          <div class="art-cell">
+            <div class="art-name">Aquam</div>
+            <div class="art-score">3</div>
+          </div>
+          <div class="art-cell">
+            <div class="art-name">Auram</div>
+            <div class="art-score">3</div>
+          </div>
+          <div class="art-cell">
+            <div class="art-name">Corpus</div>
+            <div class="art-score">8</div>
+          </div>
+          <div class="art-cell">
+            <div class="art-name">Herbam</div>
+            <div class="art-score">2</div>
+          </div>
+          <div class="art-cell">
+            <div class="art-name">Ignem</div>
+            <div class="art-score">6</div>
+          </div>
+          <div class="art-cell">
+            <div class="art-name">Imaginem</div>
+            <div class="art-score">5</div>
+          </div>
+          <div class="art-cell">
+            <div class="art-name">Mentem</div>
+            <div class="art-score">8</div>
+          </div>
+          <div class="art-cell strong">
+            <div class="art-name">Terram</div>
+            <div class="art-score">23</div>
+          </div>
+          <div class="art-cell notable">
+            <div class="art-name">Vim</div>
+            <div class="art-score">15</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout earth">
+      <div class="label">Terram Mastery · Stone Focus</div>
+      <p>Terram 23 (including Puissant +3) with a Major Focus in Stone and Earth means Valerian's Rego Terram combat total rivals that of specialist Flambeau magi. His focus doubles his applicable score for spells directly involving stone, earth, metal, and gem — giving him effective casting totals in the mid-50s for his signature effects. He moves stone as other men move air.</p>
+    </div>
+
+    <p>His Vim score of 15 is unusually high for a Terram specialist and reflects his professional obligations: Quaesitores must be able to detect, ward against, and destroy magical effects. His Perdo Vim work is the tool of his enforcement role.</p>
+  </section>
+
+  <!-- IV. SPELL REPERTOIRE -->
+  <section id="spells">
+    <h2 class="section-title">IV. Spell Repertoire</h2>
+
+    <p><em>Non-negotiable core spells are marked with his personal seal ✦ indicating confirmed mastery. Additional mastery points distributed across the broader repertoire (approximately 50 points total).</em></p>
+
+    <h3 class="subhead">Signature &amp; Core Spells</h3>
+    <div class="spell-list">
+      <div class="spell-entry mastered">
+        <div class="spell-name">Seven-League Stride</div>
+        <div class="spell-desc">ReCo 30. Transport caster seven leagues instantly. His primary escape and rapid-response tool. Mastered — he casts this without hesitation under pressure.</div>
+        <div class="spell-meta">ReCo 30 ✦</div>
+      </div>
+      <div class="spell-entry mastered">
+        <div class="spell-name">Watching Ward</div>
+        <div class="spell-desc">ReVi 40. Contains a prepared spell that triggers on a specified condition. His signature trap and deterrent: evidence vaults, bound prisoners, and recovered contraband are frequently watched. Contains a Creo Vim variant (level 20) for deployment flexibility.</div>
+        <div class="spell-meta">ReVi 40 ✦</div>
+      </div>
+      <div class="spell-entry mastered">
+        <div class="spell-name">Opening the Intangible Tunnel</div>
+        <div class="spell-desc">ReVi 30. Creates a magical conduit along an Arcane Connection, allowing spells to be cast at extreme range. His most feared offensive capability — he can reach a target across a Tribunal.</div>
+        <div class="spell-meta">ReVi 30 ✦</div>
+      </div>
+      <div class="spell-entry mastered">
+        <div class="spell-name">Maintaining the Demanding Spell</div>
+        <div class="spell-desc">ReVi. Holds a formulaic spell in effect beyond its normal duration without concentration.</div>
+        <div class="spell-meta">ReVi var. ✦</div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Vim &amp; Investigation</h3>
+    <div class="spell-list">
+      <div class="spell-entry mastered">
+        <div class="spell-name">Add Arcane Connection</div>
+        <div class="spell-desc">CrVi 20. Creates an Arcane Connection to a target — a Quaesitor's primary tool for ensuring no one simply walks away from an investigation.</div>
+        <div class="spell-meta">CrVi 20 ✦</div>
+      </div>
+      <div class="spell-entry">
+        <div class="spell-name">Demon's Eternal Oblivion</div>
+        <div class="spell-desc">PeVi 20. Destroys Infernal Might in demons and diabolical creatures. Standard issue for an investigator who encounters infernal taint in confiscated materials.</div>
+        <div class="spell-meta">PeVi 20</div>
+      </div>
+      <div class="spell-entry">
+        <div class="spell-name">Disenchant</div>
+        <div class="spell-desc">PeVi 20. Dispels lesser enchantments. Useful for stripping magical protections during an arrest or revealing hidden effects in seized items.</div>
+        <div class="spell-meta">PeVi 20</div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Control &amp; Suppression</h3>
+    <div class="spell-list">
+      <div class="spell-entry">
+        <div class="spell-name">Call to Slumber</div>
+        <div class="spell-desc">ReMe 10. Puts a target into immediate sleep. Non-lethal arrest option for mundane witnesses and unresisting magi.</div>
+        <div class="spell-meta">ReMe 10</div>
+      </div>
+      <div class="spell-entry">
+        <div class="spell-name">Wizard's Sidestep</div>
+        <div class="spell-desc">ReIm 10. Creates a displaced image of the caster; attackers target the image, not the man. His concession to personal defence against physical threats.</div>
+        <div class="spell-meta">ReIm 10</div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Offensive</h3>
+    <div class="spell-list">
+      <div class="spell-entry">
+        <div class="spell-name">Pilum of Fire</div>
+        <div class="spell-desc">CrIg 20. Direct fire damage. Not his specialty but kept as a reliable blunt instrument when Terram effects are impractical.</div>
+        <div class="spell-meta">CrIg 20</div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Terram Arsenal (Selected)</h3>
+    <div class="spell-list">
+      <div class="spell-entry">
+        <div class="spell-name">The Unseen Porter</div>
+        <div class="spell-desc">ReTe. Moves a heavy stone or earth mass at will. Workhorse utility.</div>
+        <div class="spell-meta">ReTe var.</div>
+      </div>
+      <div class="spell-entry">
+        <div class="spell-name">Fist of Shattering</div>
+        <div class="spell-desc">PeTe. Destroys a stone or metal object. Opens doors, removes obstacles, ends sieges.</div>
+        <div class="spell-meta">PeTe var.</div>
+      </div>
+      <div class="spell-entry">
+        <div class="spell-name">Rock of Viscid Clay</div>
+        <div class="spell-desc">MuTe. Transmutes stone to clinging clay, immobilising anyone within or against it.</div>
+        <div class="spell-meta">MuTe var.</div>
+      </div>
+      <div class="spell-entry">
+        <div class="spell-name">Trap of the Entwining Vines</div>
+        <div class="spell-desc"><em>(Terram variant)</em> Stone tendrils that immobilise a target. His preferred non-lethal restraint for Hermetic arrestees.</div>
+        <div class="spell-meta">ReTe 25</div>
+      </div>
+      <div class="spell-entry">
+        <div class="spell-name">The Earth's Carbuncle</div>
+        <div class="spell-desc">CrTe. Calls a spike of stone from the earth beneath a target. Combat effect, high damage.</div>
+        <div class="spell-meta">CrTe 20</div>
+      </div>
+    </div>
+
+    <div class="callout slate">
+      <div class="label">On Mastery Distribution</div>
+      <p>Valerian holds approximately 50 mastery points across his repertoire. His confirmed masteries are Seven-League Stride, Watching Ward, Opening the Intangible Tunnel, and Add Arcane Connection — the four spells that define his ability to locate, reach, trap, and bind a target. His remaining mastery points are distributed across his Terram combat arsenal, with an emphasis on Quiet Casting and Still Casting for spells he may need to use while physically restrained or in hostile company.</p>
+    </div>
+  </section>
+
+  <!-- V. ABILITIES -->
+  <section id="abilities">
+    <h2 class="section-title">V. Abilities &amp; Skills</h2>
+
+    <div class="two-col">
+      <div>
+        <h4 class="entry-label">Academic &amp; Hermetic</h4>
+        <div class="skill-grid" style="grid-template-columns: 1fr;">
+          <div class="skill-row spec"><span class="sk-name">Code of Hermes</span><span class="sk-val">5</span></div>
+          <div class="skill-row spec"><span class="sk-name">Order of Hermes Lore</span><span class="sk-val">4</span></div>
+          <div class="skill-row high"><span class="sk-name">Magic Theory</span><span class="sk-val">7</span></div>
+          <div class="skill-row"><span class="sk-name">Parma Magica</span><span class="sk-val">6</span></div>
+          <div class="skill-row"><span class="sk-name">Finesse</span><span class="sk-val">4</span></div>
+          <div class="skill-row"><span class="sk-name">Penetration</span><span class="sk-val">4</span></div>
+          <div class="skill-row"><span class="sk-name">Concentration</span><span class="sk-val">3</span></div>
+          <div class="skill-row"><span class="sk-name">Philosophiæ</span><span class="sk-val">3</span></div>
+          <div class="skill-row"><span class="sk-name">Artes Liberales</span><span class="sk-val">3</span></div>
+          <div class="skill-row spec"><span class="sk-name">Forbidden Lore (Diedne)</span><span class="sk-val">2</span></div>
+          <div class="skill-row spec"><span class="sk-name">Infernal Lore</span><span class="sk-val">2</span></div>
+        </div>
+      </div>
+      <div>
+        <h4 class="entry-label">Practical &amp; Social</h4>
+        <div class="skill-grid" style="grid-template-columns: 1fr;">
+          <div class="skill-row high"><span class="sk-name">Latin (written &amp; spoken)</span><span class="sk-val">5</span></div>
+          <div class="skill-row"><span class="sk-name">French (Norman)</span><span class="sk-val">5</span></div>
+          <div class="skill-row"><span class="sk-name">German</span><span class="sk-val">4</span></div>
+          <div class="skill-row"><span class="sk-name">Low German / Flemish</span><span class="sk-val">3</span></div>
+          <div class="skill-row"><span class="sk-name">Awareness</span><span class="sk-val">4</span></div>
+          <div class="skill-row"><span class="sk-name">Guile</span><span class="sk-val">3</span></div>
+          <div class="skill-row"><span class="sk-name">Intrigue</span><span class="sk-val">3</span></div>
+          <div class="skill-row"><span class="sk-name">Folk Ken</span><span class="sk-val">3</span></div>
+          <div class="skill-row"><span class="sk-name">Bargain</span><span class="sk-val">2</span></div>
+          <div class="skill-row high"><span class="sk-name">Leadership</span><span class="sk-val">4</span></div>
+          <div class="skill-row"><span class="sk-name">Swim</span><span class="sk-val">2</span></div>
+        </div>
+        <h4 class="entry-label">Martial</h4>
+        <div class="skill-grid" style="grid-template-columns: 1fr;">
+          <div class="skill-row"><span class="sk-name">Single Weapon (sword)</span><span class="sk-val">4</span></div>
+          <div class="skill-row"><span class="sk-name">Brawl</span><span class="sk-val">3</span></div>
+          <div class="skill-row"><span class="sk-name">Athletics</span><span class="sk-val">3</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout crimson">
+      <div class="label">Code of Hermes 5 — Operational Significance</div>
+      <p>A Code score of 5 is the ceiling of functional expertise — it represents not merely knowledge of the Code but the ability to argue it, find its margins, expose its ambiguities, and bend its interpretations to a desired outcome while remaining technically correct. Valerian uses this not to circumvent the Code but to ensure no one else can circumvent it around him. He has heard every argument for exception, exemption, and special circumstance. He has heard them all twice.</p>
+    </div>
+  </section>
+
+  <!-- VI. EQUIPMENT & RESOURCES -->
+  <section id="equipment">
+    <h2 class="section-title">VI. Equipment &amp; Resources</h2>
+
+    <h3 class="subhead">The Adamant</h3>
+    <p>Valerian's vessel, currently docked at Sjórseiðr. A mid-sized trading cog, nominally Flemish-crewed, with a reinforced hold that has been quietly enchanted to resist both magical and physical intrusion. The name is intentional. She is not a fighting ship — she is a mobile laboratory annex, a floating evidence vault, and the fastest way to cross the Rhine Tribunal's jurisdictional boundaries without triggering the Code provisions on covenant-to-covenant transit. The crew know not to open certain doors.</p>
+
+    <table class="dossier-table">
+      <thead><tr><th>Item</th><th>Description</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Talisman</td>
+          <td>A polished granite disc, hand-sized, worn at his belt</td>
+          <td>Invested with Terram attunement; extends his stone focus</td>
+        </tr>
+        <tr>
+          <td>Arcane Connections</td>
+          <td>Sealed lead tubes, numbered and catalogued</td>
+          <td>To persons of interest; at least one to Rhine principals</td>
+        </tr>
+        <tr>
+          <td>Evidence Seals</td>
+          <td>Wax with Quaesitorial mark, Watching Ward trigger</td>
+          <td>Applied to confiscated materials; violation of seal is a Code offence</td>
+        </tr>
+        <tr>
+          <td>Field Notes</td>
+          <td>Bound vellum journal, cipher-written</td>
+          <td>Contains Rhine infiltration evidence; currently on his person</td>
+        </tr>
+        <tr>
+          <td>Longsword</td>
+          <td>Good quality mundane steel</td>
+          <td>Backup; he trusts stone more than steel</td>
+        </tr>
+        <tr>
+          <td>The Library (aboard ship)</td>
+          <td>See Section IX</td>
+          <td>Confiscated materials, professional references, research texts</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout slate">
+      <div class="label">Parma Magica</div>
+      <p>Parma 6 gives Valerian a Magic Resistance of approximately 36 before form bonuses — climbing to the high 50s when Terram effects are directed at him. Penetrating his Parma with Terram magic is functionally impossible for any magus he is likely to face in the field. His Parma covers his immediate companions when he chooses to extend it, which he does selectively and with explicit stated conditions.</p>
+    </div>
+  </section>
+
+  <!-- VII. CURRENT SITUATION -->
+  <section id="situation">
+    <h2 class="section-title">VII. The Current Situation</h2>
+
+    <div class="callout crimson">
+      <div class="label">Active Status — Sjórseiðr · Spring 1222</div>
+      <p>Valerian is present at Sjórseiðr following his escape from imprisonment at Breda, seat of the Duke of Brabant. He arrived with evidence of a Rhine Tribunal faction's infiltration of Church hierarchy in the Brabant/Rhine region — a potentially catastrophic Code violation that, if the Church discovered Hermetic involvement, would endanger the entire Order.</p>
+    </div>
+
+    <h3 class="subhead">What He Knows</h3>
+    <p>Rhine magi — associated with the Apple Gild faction and their proposal for a new Lotharingian Tribunal — have placed agents within the Church hierarchy of the Brabant and Rhine region. The goal is to facilitate the kind of open magical-mundane cooperation their proposed Tribunal would legalise. The means include forged documents, compromised mundane officials, and at least one failed apprentice (Magister Reynald de Grimbergen) who serves as a handler within the Duke of Brabant's court.</p>
+
+    <p>The trap that imprisoned him was elegant: the Rhine faction forged papal documents ordering the Duke to detain Valerian to "preserve his soul." The Duke, believing he acted on divine authority, sent agents into Flemish territory to seize him — a diplomatic provocation with its own potential for crisis. Valerian was held in Breda until a rescue operation freed him.</p>
+
+    <h3 class="subhead">The Code of Hermes Paradox</h3>
+    <blockquote class="legal">
+      <em>Quod magus ordinis non debet se immiscere in rebus Ecclesiæ nisi in extremis, et quod qui detegit vim magicam hominibus mundanis, eos in periculum ponit et totum ordinem.</em>
+      <br><br>
+      "A magus of the Order shall not involve himself in the affairs of the Church save in extremity, and he who reveals magical force to mundane men endangers them and the entire Order."
+    </blockquote>
+    <p>This is the paradox Valerian cannot solve alone. The Rhine infiltration endangers the Order if the Church discovers it. But exposing the infiltration also endangers the Order by drawing Church investigation. He cannot prosecute without proof. Proving it exists may reveal Hermetic magic to mundane investigators. His own House cannot easily rescue him from "Church charges" without appearing to prove the Rhine faction's claim that he is a dangerous agent.</p>
+
+    <p>He has allies, evidence, and the Adamant. He is waiting to see what shape the solution will take.</p>
+
+    <h3 class="subhead">The Lotharingian Angle</h3>
+    <p>Sjórseiðr holds intercepted documents regarding the Rhine secession plot — the proposal to create a new Lotharingian Tribunal with a "peripheral code" allowing greater mundane involvement. Valerian recognises that his Rhine infiltration evidence and these documents together constitute a comprehensive case against the Apple Gild faction. Separately, each is dangerous. Together, they are potentially ruinous — for the faction, and possibly for the stability of the Rhine Tribunal itself. He is calibrating how to use them.</p>
+  </section>
+
+  <!-- VIII. RELATIONS -->
+  <section id="relations">
+    <h2 class="section-title">VIII. Significant Relationships</h2>
+
+    <div class="relations-grid">
+
+      <div class="relation">
+        <div class="rel-name">The Duke of Brabant <span class="rel-role">— Unwitting Instrument</span> <span class="rel-status">Resolved</span></div>
+        <p>The Duke acted in good faith on forged documents. He is a victim of the Rhine conspiracy, not a principal. Valerian does not consider him an enemy — he considers him a diplomatic liability who needs to be managed carefully. The Duke's awareness that he violated Flemish sovereignty is its own form of leverage, and Valerian is not above using leverage.</p>
+      </div>
+
+      <div class="relation">
+        <div class="rel-name">Magister Reynald de Grimbergen <span class="rel-role">— Rhine Agent, Ducal Counsel</span> <span class="rel-status">Active Threat</span></div>
+        <p>The failed Guernicus apprentice who lost his Gift in a laboratory accident and was subsequently cultivated as a mundane asset by Rhine handlers. He presented the forged documents to the Duke and has spent a decade feeding Brabant political intelligence to his Hermetic masters. He knows everything about the conspiracy's mundane infrastructure. He is not dangerous by temperament — he prefers quiet resolutions — but he will become actively dangerous if the conspiracy is publicly threatened.</p>
+      </div>
+
+      <div class="relation">
+        <div class="rel-name">The Rhine Apple Gild Faction <span class="rel-role">— Conspirators</span> <span class="rel-status">Hostile</span></div>
+        <p>The magi who ordered his imprisonment. They wanted him silenced before the 1228 Grand Tribunal, where their Lotharingian proposal will be heard. They have not yet made a second move against him, which suggests either confidence that his evidence is insufficient or uncertainty about the political fallout of an open confrontation with the Normandy Tribunal's chief hoplite.</p>
+      </div>
+
+      <div class="relation">
+        <div class="rel-name">Sjórseiðr Covenant <span class="rel-role">— Current Hosts</span> <span class="rel-status">Cautious Alliance</span></div>
+        <p>He arrived here through necessity, not preference. His Blatant Gift makes extended cohabitation with covenfolk difficult. He is keeping his movements on the Adamant as much as possible and limiting his interactions with the covenant's sodales to what the situation requires. The intercepted Lotharingian documents are the reason for the cautious alliance: Sjórseiðr has information he needs, and he has authority they may find useful.</p>
+      </div>
+
+      <div class="relation">
+        <div class="rel-name">The Normandy Tribunal <span class="rel-role">— Nominal Authority</span> <span class="rel-status">Complicated</span></div>
+        <p>His Tribunal would, in principle, support him. In practice: rescuing a Quaesitor from "Church charges" in Imperial territory is diplomatically catastrophic; he has made enemies in his twenty-seven years of enforcement; and some of those enemies would prefer he remain where he is. He is not naive about this. He is not waiting for institutional rescue.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- IX. LIBRARY -->
+  <section id="library">
+    <h2 class="section-title">IX. The Library Aboard the Adamant</h2>
+
+    <p><em>Valerian's collection spans his long career as an investigator and enforcer. The majority of these works are confiscated materials held under Quaesitorial seal — evidence in past or pending cases, dangerous texts removed from circulation, and works seized from condemned magi. A substantial portion would be illegal in the hands of anyone without his authority to hold them. They are catalogued below by provenance.</em></p>
+
+    <div class="library-section">
+      <div class="lib-heading">Diedne Materials · Confiscated · Restricted Access</div>
+      <div class="lib-entry">
+        <span class="lib-title">Naturæ Occultæ</span>
+        <span class="lib-by">Brennus of Diedne</span>
+        <span class="lib-tag restricted">Vim Summa L8</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">De Arboribus Sacris</span>
+        <span class="lib-by">Unknown (Brythonic)</span>
+        <span class="lib-tag restricted">Tractatus</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Carmina Diedenorum</span>
+        <span class="lib-by">Multiple Authors</span>
+        <span class="lib-tag restricted">Ritual Chants</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Fragmenta Brangurigensis</span>
+        <span class="lib-by">Unknown</span>
+        <span class="lib-tag restricted">Damaged Tractatus</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Liber Tempestatum</span>
+        <span class="lib-by">Morgen of Diedne</span>
+        <span class="lib-tag restricted">Auram Summa L6</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Memoriæ Proscriptæ</span>
+        <span class="lib-by">Caradoc (Welsh)</span>
+        <span class="lib-tag restricted">Personal Journal</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Philosophia Druidica</span>
+        <span class="lib-by">Unknown</span>
+        <span class="lib-tag restricted">Tractatus</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Sacra Carnacensis</span>
+        <span class="lib-by">Unknown (Brythonic)</span>
+        <span class="lib-tag restricted">Partially Excised</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">De Mysteriis Sylvarum</span>
+        <span class="lib-by">Aedwyn of Diedne</span>
+        <span class="lib-tag restricted">Herbam Summa L4</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Ultimus Testamentum</span>
+        <span class="lib-by">Præco Diedne</span>
+        <span class="lib-tag restricted">Fragmentary</span>
+      </div>
+    </div>
+
+    <div class="library-section">
+      <div class="lib-heading">Confiscated &amp; Contraband · Infernal / Dangerous</div>
+      <div class="lib-entry">
+        <span class="lib-title">Ars Diabolica Refutata</span>
+        <span class="lib-by">Gregorius</span>
+        <span class="lib-tag infernal">⚠ Infernal Analysis</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">De Dæmonibus</span>
+        <span class="lib-by">Petrus Niger</span>
+        <span class="lib-tag infernal">⚠ Summoning Manual</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Necromantia Practica</span>
+        <span class="lib-by">Unknown</span>
+        <span class="lib-tag infernal">⚠ Evidence in March</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Pacta Infernalia</span>
+        <span class="lib-by">Multiple</span>
+        <span class="lib-tag infernal">⚠ Actual Pacts — Evidence</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Sanguis et Sacrificium</span>
+        <span class="lib-by">Unknown</span>
+        <span class="lib-tag infernal">⚠ Blood Magic</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">De Veneficiis</span>
+        <span class="lib-by">Anonymous</span>
+        <span class="lib-tag infernal">⚠ Diabolist Manual</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Bellum Iniquum</span>
+        <span class="lib-by">Unknown</span>
+        <span class="lib-tag restricted">Seized before Tribunal</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Secretum Tyranorum</span>
+        <span class="lib-by">Anonymous</span>
+        <span class="lib-tag restricted">Mundane Control Methods</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Liber Fehde</span>
+        <span class="lib-by">Unknown</span>
+        <span class="lib-tag restricted">Evidence — Three Cases</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Von den Schwarzwald Geistern</span>
+        <span class="lib-by">Anonymous (German)</span>
+        <span class="lib-tag restricted">Borderline Infernal</span>
+      </div>
+    </div>
+
+    <div class="library-section">
+      <div class="lib-heading">Terram &amp; Earth Magic · Professional Collection</div>
+      <div class="lib-entry">
+        <span class="lib-title">Elementa Terræ</span>
+        <span class="lib-by">Theophilus of Bonisagus (Greek/Latin)</span>
+        <span class="lib-tag terram">Terram Summa L14 Q11</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Erdenkraft</span>
+        <span class="lib-by">Heinrich von Freiburg (German)</span>
+        <span class="lib-tag terram">Terram Summa L12 Q10</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Stein und Stahl</span>
+        <span class="lib-by">Gunther of Verditius (German)</span>
+        <span class="lib-tag terram">Terram Tractatus L10</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Architectura Magica</span>
+        <span class="lib-by">Vergilius of Verditius</span>
+        <span class="lib-tag terram">Terram Tractatus L8</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Petra et Pulvis</span>
+        <span class="lib-by">Marcus of Tremere</span>
+        <span class="lib-tag terram">Terram Tractatus L7</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Fundamentum Firmum</span>
+        <span class="lib-by">Valerian of Guernicus</span>
+        <span class="lib-tag terram">His Own Tractatus</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Subterranea Secreta</span>
+        <span class="lib-by">Jordanus</span>
+        <span class="lib-tag terram">Tractatus</span>
+      </div>
+    </div>
+
+    <div class="library-section">
+      <div class="lib-heading">Guernicus Professional &amp; Juridical</div>
+      <div class="lib-entry">
+        <span class="lib-title">Ars Quæsitoris</span>
+        <span class="lib-by">Stentorius</span>
+        <span class="lib-tag">Code Summa L6</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">De Jure Hermetico</span>
+        <span class="lib-by">Multiple Quæsitores</span>
+        <span class="lib-tag">Rhine Code Summa L5</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Inquisitiones Notabiles</span>
+        <span class="lib-by">Multiple Authors</span>
+        <span class="lib-tag">Casebook 1100–1200</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Parma et Gladius</span>
+        <span class="lib-by">Stentorius</span>
+        <span class="lib-tag">Hoplite Tactical Guide</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Chronicon Rheni</span>
+        <span class="lib-by">Stentorius of Guernicus</span>
+        <span class="lib-tag">Rhine Enforcement History</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Gesta Tribunalis</span>
+        <span class="lib-by">Valens</span>
+        <span class="lib-tag">Wizard's Marches 1080–1180</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Protocolla Tribunalia</span>
+        <span class="lib-by">Various</span>
+        <span class="lib-tag">50 Years Rhine Sessions</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Lotharingische Fragen</span>
+        <span class="lib-by">Augustina of Confluensis</span>
+        <span class="lib-tag restricted">Secession Tractatus</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Kriegsmagie</span>
+        <span class="lib-by">Florus of Flambeau (German)</span>
+        <span class="lib-tag restricted">Contraband — Seized</span>
+      </div>
+    </div>
+
+    <div class="library-section">
+      <div class="lib-heading">General Hermetic &amp; Reference</div>
+      <div class="lib-entry">
+        <span class="lib-title">Historia Ordinis</span>
+        <span class="lib-by">Trianoma</span>
+        <span class="lib-tag">Early Order History</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">De Regionibus Magicis</span>
+        <span class="lib-by">Wanderer</span>
+        <span class="lib-tag">Rhine/Beyond Regiones</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Philosophia Naturalis</span>
+        <span class="lib-by">Aristotle (trans.)</span>
+        <span class="lib-tag">Philosophiæ Summa L7</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Medicina Hermetica</span>
+        <span class="lib-by">Hippocrates of Guernicus</span>
+        <span class="lib-tag">CrCo Tractatus L5</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Vigilantia</span>
+        <span class="lib-by">Carolus</span>
+        <span class="lib-tag">Intellego Summa L5</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Gerichtliche Zauberei</span>
+        <span class="lib-by">Adalbert of Guernicus</span>
+        <span class="lib-tag">Magical Forensics</span>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="label">Library Note — Quæsitorial Custody</div>
+      <p>Materials marked ⚠ are held under active Quaesitorial seal. Handling them without authorisation constitutes a Code violation. Several of the Diedne works are primary evidence in investigations that remain technically open pending a successor Quaesitor's review. The infernal texts have been partially annotated in Valerian's hand — not for use, but for identification, so that he can recognise their effects in the field. The distinction is one he would be prepared to defend before a Tribunal, at length.</p>
+    </div>
+  </section>
+
+  <!-- X. ASSESSMENT -->
+  <section id="assessment">
+    <h2 class="section-title">X. Operational Assessment</h2>
+
+    <h3 class="subhead">What He Is</h3>
+    <p>Valerian de Castellane is not a subtle man. He has never needed to be. His Blatant Gift makes subtlety structurally difficult; his temperament makes it personally uninteresting. He approaches the Code the way he approaches stone: it is what it is, it yields to force and precision, and anyone who tells you otherwise is selling something.</p>
+
+    <p>What he is, operationally, is extraordinary. A Rego Terram total in the mid-50s with a Wizard's Grimoire that covers mobility (Seven-League Stride), reach (Intangible Tunnel), trapping (Watching Ward, Arcane Connection), suppression (Disenchant, Demon's Eternal Oblivion), and non-lethal arrest (Call to Slumber, stone restraints) makes him arguably the most self-sufficient field operative in the Normandy Tribunal. He has never needed to be rescued before. He finds the experience instructive.</p>
+
+    <h3 class="subhead">What He Wants</h3>
+    <p>To deliver his evidence to a Tribunal that can act on it. To see the Rhine faction answer for the Church infiltration before the 1228 Grand Tribunal gives their Lotharingian proposal any legitimacy. To do this without triggering the very Church crisis he was trying to prevent. He is aware these goals are in tension.</p>
+
+    <p>He is also — though he would not express it this way — grateful. Someone came to Breda for him. He has been practicing alone for a very long time.</p>
+
+    <blockquote class="maxim">
+      Stone does not negotiate. Stone does not apologise. Stone simply is, and it remains after everything softer has been worn away.
+      <span class="attribution">— From <em>Fundamentum Firmum</em>, by Valerian of Guernicus; his own treatise on Terram in combat</span>
+    </blockquote>
+
+    <h3 class="subhead">Likely Trajectories</h3>
+    <ul>
+      <li><strong>As Ally:</strong> A grateful Quaesitor with his level of authority and resources is a political asset that most covenants would consider generational. He does not forget debts, in either direction.</li>
+      <li><strong>As Enemy:</strong> He is patient, he has Arcane Connections, and he knows the Code better than almost anyone in the Order. Making an enemy of him is not a quick problem.</li>
+      <li><strong>As Wild Card:</strong> If the Rhine crisis forces him to choose between procedural correctness and preventing a catastrophic outcome, it is not clear which way he breaks. He has spent his career believing those two things are the same. They may not be.</li>
+    </ul>
+
+    <div class="callout crimson">
+      <div class="label">File Classification — Quæsitorial Archive, Normandy</div>
+      <p>This dossier is maintained under the authority of the Normandy Tribunal Quaesitorial office. Access restricted to Quaesitores, Praeco, and appointed Hoplites. Any magus reviewing this file without authorisation is advised that the act of review has been logged. <em>Valerian maintains his own copy of this procedure.</em></p>
+    </div>
+
+  </section>
+
+  <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+</div>
+</body>
+</html>
