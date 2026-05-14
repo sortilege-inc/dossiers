@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taran — Soldier First Class — The Hearth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --cream:         #f5edd8;
+  --cream-dark:    #ecdfc4;
+  --cream-deep:    #dfd0a8;
+  --hearth:        #c0390e;
+  --hearth-deep:   #7a1f00;
+  --hearth-glow:   #e8623a;
+  --hearth-warm:   #f0a060;
+  --brass:         #9a7020;
+  --brass-bright:  #c89830;
+  --brass-deep:    #5e4010;
+  --soot:          #1e1408;
+  --soot-soft:     #3a2c18;
+  --soot-faint:    #7a6848;
+  --rule-amber:    #c8a050;
+  --rule-soft:     #dcc080;
+  --blue-suit:     #1a3a6e;
+  --blue-mid:      #2a5090;
+  --blue-bright:   #4878c0;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--cream-dark);
+  color: var(--soot);
+  font-family: "Crimson Pro", "Georgia", serif;
+  font-size: 18px;
+  line-height: 1.72;
+  font-weight: 400;
+}
+body {
+  min-height: 100vh;
+  padding: 2.5rem 1rem;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(192,57,14,0.09) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 88%, rgba(154,112,32,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 100% 80% at 50% 50%, rgba(240,160,96,0.04) 0%, transparent 70%);
+}
+
+.document {
+  max-width: 860px;
+  margin: 0 auto;
+  background: var(--cream);
+  position: relative;
+  box-shadow:
+    0 1px 1px rgba(30,20,8,0.08),
+    0 4px 12px rgba(30,20,8,0.12),
+    0 16px 48px rgba(30,20,8,0.16),
+    inset 0 0 80px rgba(90,60,10,0.04);
+  border: 1px solid var(--rule-amber);
+}
+.document::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(90,60,10,0.018) 2px, rgba(90,60,10,0.018) 3px
+  );
+  mix-blend-mode: multiply;
+}
+
+.page-rule-top {
+  height: 6px;
+  background: linear-gradient(90deg,
+    var(--hearth-deep) 0%, var(--hearth) 20%,
+    var(--hearth-warm) 50%, var(--hearth) 80%, var(--hearth-deep) 100%);
+}
+.page-rule-bottom {
+  height: 3px;
+  background: linear-gradient(90deg,
+    transparent 0%, var(--brass) 20%, var(--brass-bright) 50%, var(--brass) 80%, transparent 100%);
+}
+
+.page-inner { padding: 3.5rem 4.5rem 4.5rem; }
+
+.corner-ornament {
+  position: absolute;
+  width: 48px; height: 48px;
+  opacity: 0.5;
+  color: var(--brass);
+  font-size: 1.8rem;
+  line-height: 1;
+  pointer-events: none;
+}
+.corner-ornament.tl { top: 14px; left: 16px; }
+.corner-ornament.tr { top: 14px; right: 16px; text-align: right; }
+.corner-ornament.bl { bottom: 14px; left: 16px; }
+.corner-ornament.br { bottom: 14px; right: 16px; text-align: right; }
+
+/* ── HEADER ── */
+header.title-block {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+header.title-block::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%, var(--rule-amber) 15%, var(--brass-bright) 50%, var(--rule-amber) 85%, transparent 100%);
+  margin-top: 2rem;
+}
+
+.file-stamp {
+  display: inline-block;
+  font-family: "Cinzel", serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.5em;
+  color: var(--soot-faint);
+  text-transform: uppercase;
+  border: 1px solid var(--rule-soft);
+  padding: 0.3rem 1.2rem;
+  margin-bottom: 1.8rem;
+  background: rgba(200,152,48,0.07);
+}
+
+.suit-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.4rem;
+  font-size: 1.1rem;
+  color: var(--brass);
+  letter-spacing: 0.3em;
+}
+.suit-banner .s-heart, .suit-banner .s-diamond { color: #a02020; }
+.suit-banner .s-club, .suit-banner .s-spade { color: var(--soot); }
+.suit-banner .s-sep { color: var(--rule-amber); font-size: 0.6rem; }
+
+h1.char-name {
+  font-family: "Uncial Antiqua", "Cinzel Decorative", serif;
+  font-weight: 400;
+  font-size: 3.8rem;
+  line-height: 1.0;
+  margin: 0 0 0.4rem;
+  color: var(--soot);
+  letter-spacing: 0.04em;
+}
+.char-subtitle {
+  font-family: "Cinzel", serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.35em;
+  color: var(--hearth-deep);
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+.epithets {
+  font-family: "Crimson Pro", serif;
+  font-style: italic;
+  font-size: 1.08rem;
+  color: var(--soot-soft);
+  margin: 0.6rem 0 0;
+}
+.vitals-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0 2.2rem;
+  margin-top: 1.5rem;
+  font-family: "Cinzel", serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--soot-soft);
+}
+.vitals-row span { border-left: 1px solid var(--rule-soft); padding-left: 1.4rem; }
+.vitals-row span:first-child { border-left: none; padding-left: 0; }
+
+/* ── PORTRAIT ── */
+.portrait-aside {
+  float: right;
+  width: 200px;
+  margin: 0 0 2rem 2.5rem;
+}
+.portrait-aside img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--rule-amber);
+  filter: sepia(0.15) contrast(1.05);
+}
+.portrait-aside .p-caption {
+  font-family: "Cinzel", serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--soot-faint);
+  padding: 0.4rem 0 0.2rem;
+  border-top: 1px solid var(--rule-soft);
+  margin-top: 0.4rem;
+}
+
+/* ── SECTIONS ── */
+section { margin-bottom: 3.2rem; }
+.clearfix::after { content: ""; display: table; clear: both; }
+
+h2.section-head {
+  font-family: "Cinzel", serif;
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--hearth-deep);
+  margin: 0 0 1.5rem;
+  padding-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+h2.section-head::before, h2.section-head::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--rule-amber), var(--rule-soft));
+}
+h2.section-head::after {
+  background: linear-gradient(90deg, var(--rule-soft), var(--rule-amber));
+}
+.section-icon { color: var(--brass-bright); font-size: 0.9rem; line-height: 1; }
+
+h3.subhead {
+  font-family: "Cinzel", serif;
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--blue-suit);
+  margin: 1.8rem 0 0.6rem;
+}
+h3.subhead::after {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 1px;
+  background: var(--blue-bright);
+  margin-top: 0.3rem;
+  opacity: 0.5;
+}
+
+p { margin: 0 0 1rem; }
+ul { margin: 0.5rem 0 1rem 1.4rem; padding: 0; }
+li { margin-bottom: 0.4rem; }
+em { color: var(--soot-soft); font-style: italic; }
+strong { font-weight: 600; color: var(--soot); }
+
+.drop-cap::first-letter {
+  font-family: "Uncial Antiqua", serif;
+  font-size: 4rem;
+  line-height: 0.8;
+  float: left;
+  padding: 0.2rem 0.5rem 0 0;
+  color: var(--hearth);
+  font-weight: 400;
+}
+
+/* ── PULL QUOTES ── */
+blockquote.hearth-maxim {
+  font-family: "Crimson Pro", serif;
+  font-style: italic;
+  font-size: 1.25rem;
+  line-height: 1.55;
+  color: var(--hearth-deep);
+  margin: 1.8rem 0;
+  padding: 1rem 1.5rem 1rem 2rem;
+  position: relative;
+  background: rgba(192,57,14,0.04);
+  border-left: 3px solid var(--hearth);
+}
+blockquote.hearth-maxim::before {
+  content: "\201C";
+  font-family: "Uncial Antiqua", serif;
+  font-size: 3.5rem;
+  color: var(--hearth-warm);
+  position: absolute;
+  top: -0.5rem;
+  left: 0.5rem;
+  line-height: 1;
+  opacity: 0.5;
+}
+blockquote.hearth-maxim .attr {
+  display: block;
+  font-size: 0.78rem;
+  font-style: normal;
+  font-family: "Cinzel", serif;
+  letter-spacing: 0.18em;
+  color: var(--soot-faint);
+  margin-top: 0.6rem;
+}
+
+blockquote.brass-note {
+  font-family: "Crimson Pro", serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--brass-deep);
+  margin: 1.2rem 0;
+  padding: 0.8rem 1.2rem 0.8rem 1.5rem;
+  border-left: 3px solid var(--brass);
+  background: rgba(154,112,32,0.05);
+}
+
+/* ── TABLES ── */
+table.rec {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 1.5rem;
+  font-size: 0.95rem;
+}
+table.rec th {
+  font-family: "Cinzel", serif;
+  font-weight: 600;
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--soot-faint);
+  padding: 0.4rem 0.8rem 0.5rem;
+  border-bottom: 1.5px solid var(--soot);
+  text-align: left;
+}
+table.rec td {
+  padding: 0.55rem 0.8rem;
+  border-bottom: 1px dotted var(--rule-soft);
+  vertical-align: top;
+}
+table.rec td:first-child {
+  font-family: "Cinzel", serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--soot);
+  white-space: nowrap;
+  padding-right: 1.5rem;
+}
+table.rec tr:last-child td { border-bottom: none; }
+
+/* ── FIELD/SKILL BLOCKS ── */
+.field-cluster {
+  margin-bottom: 2rem;
+  padding: 1.2rem 1.4rem;
+  border: 1px solid var(--rule-soft);
+  background: rgba(255,255,255,0.3);
+}
+.field-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.field-name-label {
+  font-family: "Cinzel", serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--soot);
+}
+.field-suit-sym { font-size: 1.2rem; line-height: 1; }
+.field-suit-sym.hearts, .field-suit-sym.diamonds { color: #a02020; }
+.field-suit-sym.clubs, .field-suit-sym.spades { color: var(--soot); }
+.field-rank-badge {
+  margin-left: auto;
+  font-family: "Crimson Pro", serif;
+  font-style: italic;
+  font-size: 0.82rem;
+  color: var(--soot-faint);
+}
+
+.skill-row-group {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+}
+.skill-pip {
+  text-align: center;
+  padding: 0.55rem 0.2rem 0.45rem;
+  border: 1px solid var(--rule-soft);
+  background: rgba(255,255,255,0.25);
+}
+.skill-pip .sp-name {
+  font-family: "Cinzel", serif;
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--soot-faint);
+  margin-bottom: 0.3rem;
+  line-height: 1.2;
+}
+.skill-pip .sp-val {
+  font-family: "Uncial Antiqua", serif;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: var(--soot);
+}
+.skill-pip.rank-1 .sp-val { color: var(--soot-faint); }
+.skill-pip.rank-2 .sp-val { color: var(--brass-deep); }
+.skill-pip.rank-3 { border-color: var(--blue-mid); background: rgba(26,58,110,0.07); }
+.skill-pip.rank-3 .sp-val { color: var(--blue-suit); }
+.skill-pip.crowned { border-color: var(--hearth); background: rgba(192,57,14,0.07); }
+.skill-pip.crowned .sp-val { color: var(--hearth-deep); }
+.skill-pip.crowned .sp-name { color: var(--hearth); }
+
+.field-gloss {
+  font-style: italic;
+  font-size: 0.88rem;
+  color: var(--soot-faint);
+  margin-top: 0.7rem;
+  padding-top: 0.5rem;
+  border-top: 1px dotted var(--rule-soft);
+  line-height: 1.5;
+}
+
+/* ── STATUS WIDGETS ── */
+.status-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem 0 1.5rem;
+}
+.status-widget {
+  border: 1px solid var(--rule-soft);
+  padding: 0.9rem 1.1rem;
+  background: rgba(255,255,255,0.25);
+}
+.status-widget.hearth-accent { border-color: var(--hearth); }
+.status-widget .sw-label {
+  font-family: "Cinzel", serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--soot-faint);
+  margin-bottom: 0.4rem;
+}
+.status-widget .sw-value {
+  font-family: "Uncial Antiqua", serif;
+  font-size: 2.1rem;
+  color: var(--soot);
+  line-height: 1;
+}
+.status-widget.hearth-accent .sw-value { color: var(--hearth-deep); }
+.status-widget .sw-note {
+  font-style: italic;
+  font-size: 0.84rem;
+  color: var(--soot-faint);
+  margin-top: 0.3rem;
+}
+
+.pip-track { display: flex; gap: 0.22rem; flex-wrap: wrap; margin-top: 0.55rem; }
+.pip-sq {
+  width: 14px; height: 14px;
+  background: var(--blue-suit);
+  border: 1px solid var(--blue-mid);
+  display: inline-block;
+}
+.pip-sq.danger { background: var(--hearth); border-color: var(--hearth-deep); }
+.pip-sq.empty  { background: transparent; border-color: var(--rule-soft); }
+
+.decorum-track {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+  font-size: 1.2rem;
+}
+.b-on  { opacity: 1;    color: var(--blue-mid); }
+.b-off { opacity: 0.22; color: var(--soot-faint); }
+.decorum-label {
+  font-family: "Crimson Pro", serif;
+  font-style: italic;
+  font-size: 0.82rem;
+  color: var(--soot-faint);
+  margin-left: 0.5rem;
+}
+
+.ace-row { display: flex; gap: 0.7rem; margin-top: 0.7rem; }
+.ace-card {
+  width: 42px; height: 58px;
+  border: 1.5px solid var(--rule-soft);
+  background: rgba(255,255,255,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  position: relative;
+  box-shadow: 0 1px 4px rgba(30,20,8,0.12);
+}
+.ace-card.held {
+  border-color: var(--brass);
+  background: rgba(200,152,48,0.1);
+  box-shadow: 0 1px 6px rgba(154,112,32,0.2);
+}
+.ace-card.spent { opacity: 0.25; }
+.ace-card .ace-suit { display: block; line-height: 1; }
+.ace-card .ace-suit.hearts, .ace-card .ace-suit.diamonds { color: #a02020; }
+.ace-card .ace-suit.clubs, .ace-card .ace-suit.spades { color: var(--soot); }
+.ace-card .ace-a {
+  position: absolute;
+  top: 3px; left: 5px;
+  font-family: "Cinzel", serif;
+  font-size: 0.55rem;
+  color: var(--soot-faint);
+}
+
+/* ── CALLOUTS ── */
+.callout {
+  margin: 1.2rem 0;
+  padding: 1rem 1.3rem;
+  border: 1px solid var(--rule-soft);
+  background: rgba(200,152,48,0.06);
+}
+.callout.blue-callout { border-color: var(--blue-mid); background: rgba(26,58,110,0.05); }
+.callout.hearth-callout { border-color: var(--hearth); background: rgba(192,57,14,0.05); }
+.callout-head {
+  font-family: "Cinzel", serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--brass-deep);
+  margin-bottom: 0.45rem;
+}
+.callout.blue-callout .callout-head { color: var(--blue-suit); }
+.callout.hearth-callout .callout-head { color: var(--hearth-deep); }
+.callout p:last-child { margin: 0; }
+
+/* ── ITEM ENTRIES ── */
+.item-entry {
+  margin-bottom: 1.4rem;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--rule-amber);
+}
+.item-entry.weapon-entry { border-color: var(--blue-mid); }
+.item-entry.move-entry   { border-color: var(--hearth); }
+.ie-name {
+  font-family: "Cinzel", serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--soot);
+  margin-bottom: 0.1rem;
+  letter-spacing: 0.04em;
+}
+.ie-tag {
+  font-family: "Cinzel", serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--soot-faint);
+  margin-bottom: 0.3rem;
+}
+.ie-body {
+  font-size: 0.95rem;
+  color: var(--soot-soft);
+  line-height: 1.6;
+}
+
+/* ── TOC ── */
+nav.toc {
+  margin-bottom: 3rem;
+  padding: 1.1rem 1.5rem;
+  border: 1px solid var(--rule-soft);
+  background: rgba(255,255,255,0.18);
+  columns: 2;
+  column-gap: 2rem;
+}
+.toc-head {
+  font-family: "Cinzel", serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--brass-deep);
+  column-span: all;
+  margin-bottom: 0.6rem;
+}
+nav.toc ol { margin: 0; padding: 0 0 0 1.1rem; font-size: 0.9rem; }
+nav.toc li { margin-bottom: 0.25rem; }
+nav.toc li::marker { color: var(--brass); font-style: italic; }
+nav.toc a { color: var(--soot); text-decoration: none; border-bottom: 1px dotted transparent; }
+nav.toc a:hover { border-bottom-color: var(--hearth); }
+
+/* ── COLOPHON ── */
+footer.colophon {
+  margin-top: 4rem;
+  text-align: center;
+  font-family: "Cinzel", serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--soot-faint);
+  padding-top: 1.5rem;
+  border-top: 1px dotted var(--rule-soft);
+}
+footer.colophon::before {
+  content: "♣  ♥  ♦  ♠";
+  display: block;
+  font-size: 0.9rem;
+  letter-spacing: 0.5em;
+  color: var(--rule-amber);
+  margin-bottom: 0.8rem;
+}
+
+@media (max-width: 680px) {
+  .page-inner { padding: 2rem 1.5rem 3rem; }
+  h1.char-name { font-size: 2.6rem; }
+  .portrait-aside { float: none; width: 160px; margin: 0 auto 1.5rem; display: block; }
+  .skill-row-group { grid-template-columns: repeat(3, 1fr); }
+  .status-grid { grid-template-columns: 1fr; }
+  nav.toc { columns: 1; }
+  .vitals-row { font-size: 0.58rem; gap: 0.4rem; }
+  .vitals-row span { border-left: none; padding-left: 0; }
+}
+</style>
+</head>
+<body>
+<div class="document">
+  <div class="page-rule-top"></div>
+
+  <span class="corner-ornament tl">♣</span>
+  <span class="corner-ornament tr">♠</span>
+  <span class="corner-ornament bl">♥</span>
+  <span class="corner-ornament br">♦</span>
+
+  <div class="page-inner">
+
+    <!-- HEADER -->
+    <header class="title-block">
+      <div class="file-stamp">Personnel File &nbsp;·&nbsp; The Hearth Guard &nbsp;·&nbsp; Filed in Good Order</div>
+      <div class="suit-banner">
+        <span class="s-heart">♥</span><span class="s-sep">—</span>
+        <span class="s-club">♣</span><span class="s-sep">—</span>
+        <span class="s-diamond">♦</span><span class="s-sep">—</span>
+        <span class="s-spade">♠</span>
+      </div>
+      <h1 class="char-name">Taran</h1>
+      <div class="char-subtitle">Boggart &ensp;·&ensp; Soldier, First Class &ensp;·&ensp; of the Hearth</div>
+      <p class="epithets">guardian of thresholds &middot; the one who stayed &middot; braver than he looks, and he looks quite brave</p>
+      <div class="vitals-row">
+        <span>Folk: Boggart</span>
+        <span>Homeland: The Hearth</span>
+        <span>Profession: Soldier</span>
+        <span>Vocation: First Class</span>
+        <span>Tongue: Housian</span>
+      </div>
+    </header>
+
+    <!-- TOC -->
+    <nav class="toc">
+      <div class="toc-head">Contents</div>
+      <ol>
+        <li><a href="#s-who">Who He Is</a></li>
+        <li><a href="#s-numbers">Numbers &amp; Measures</a></li>
+        <li><a href="#s-fields">Fields &amp; Skills</a></li>
+        <li><a href="#s-contract">His Contract</a></li>
+        <li><a href="#s-traits">Traits &amp; Move</a></li>
+        <li><a href="#s-gear">Arms &amp; Effects</a></li>
+        <li><a href="#s-soul">Soul &amp; Disposition</a></li>
+        <li><a href="#s-memory">The Prologue Memory</a></li>
+      </ol>
+    </nav>
+
+    <!-- I. WHO HE IS -->
+    <section id="s-who" class="clearfix">
+      <h2 class="section-head"><span class="section-icon">♣</span> Who He Is <span class="section-icon">♣</span></h2>
+
+      <div class="portrait-aside">
+        <img src="taran.jpg" alt="Taran, Soldier First Class" onerror="this.style.display='none'">
+        <div class="p-caption">Taran &middot; with his Halberd Key</div>
+      </div>
+
+      <p class="drop-cap">Taran is a Boggart, which means he is made of much the same substance as the house itself — its stubbornness, its weight, its refusal to simply fall over when things get difficult. Boggarts are not graceful creatures, not in the courtly sense. What they are is <em>present</em> — reliably, inconveniently, exactly-where-you-need-them present — whenever something needs holding up or holding back.</p>
+
+      <p>He is a Soldier, First Class. The rank was earned; it did not arrive with his folk. He is posted to the Hearth — the warm, lit, central place from which the household takes its heat — and he has served it long enough to be trusted with a Halberd Key, which is both a weapon and an emblem of an older order, when the great gates of the Hearth were kept by soldiers who could fight at the threshold <em>and</em> open the lock if they had to.</p>
+
+      <p>He has no coins and a grappling hook. His prologue memory reads like something scratched into the inside cover of a soldier's manual: <em>Being scared is part of being brave.</em> He means it. He earned it from rats.</p>
+
+      <table class="rec">
+        <thead><tr><th>Field</th><th>Entry</th></tr></thead>
+        <tbody>
+          <tr><td>Folk</td><td>Boggart — large, durable, iron-blooded, bound by their word</td></tr>
+          <tr><td>Homeland</td><td>The Hearth — the household's warm heart, the origin of its light</td></tr>
+          <tr><td>Profession</td><td>Soldier — drilled, ranked, accounted for in the guard-rolls</td></tr>
+          <tr><td>Vocation</td><td>First Class — above ordinary; he has been noticed and promoted</td></tr>
+          <tr><td>Language</td><td>Housian — the tongue of the household's folk</td></tr>
+          <tr><td>Contract</td><td>Dear to the Hearth (Hereditary)</td></tr>
+          <tr><td>Coins</td><td>Zero — not a lucrative post, but an honest one</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- II. NUMBERS -->
+    <section id="s-numbers">
+      <h2 class="section-head"><span class="section-icon">♦</span> Numbers &amp; Measures <span class="section-icon">♦</span></h2>
+
+      <h3 class="subhead">Stress</h3>
+      <div class="status-grid">
+        <div class="status-widget hearth-accent">
+          <div class="sw-label">Stress Pool</div>
+          <div class="sw-value">12 / 12</div>
+          <div class="pip-track">
+            <span class="pip-sq"></span><span class="pip-sq"></span><span class="pip-sq"></span><span class="pip-sq"></span>
+            <span class="pip-sq"></span><span class="pip-sq"></span><span class="pip-sq"></span><span class="pip-sq"></span>
+            <span class="pip-sq danger"></span><span class="pip-sq danger"></span><span class="pip-sq danger"></span><span class="pip-sq danger"></span>
+          </div>
+          <div class="sw-note">Pips 9–12 marked in hearthfire red: the danger threshold.</div>
+        </div>
+        <div class="status-widget">
+          <div class="sw-label">Terrible Things</div>
+          <div class="sw-value">None</div>
+          <div class="sw-note">The record is clean. This is what First Class looks like.</div>
+        </div>
+      </div>
+
+      <h3 class="subhead">Decorum</h3>
+      <p>Taran sits at Decorum 3 — <em>Decent.</em> The uniform is in good order, the manners serviceable for the rank. He is not Elegant, and he is not trying to be. His Juggernaut concession (see Contract) costs one Decorum level on activation, which means he carries no cushion: he can Juggernaut once without lasting sartorial damage, and after that the clothing situation becomes noticeable.</p>
+      <div class="decorum-track">
+        <span class="b-on">🦋</span><span class="b-on">🦋</span><span class="b-on">🦋</span>
+        <span class="b-off">🦋</span><span class="b-off">🦋</span>
+        <span class="decorum-label">3 of 5 — Decent</span>
+      </div>
+
+      <h3 class="subhead">Aces Up the Sleeve</h3>
+      <p>Two held: the Club and the Diamond. A War ace and an Academia ace — force in reserve, and unexpectedly, <em>careful thought</em> in reserve. The Heart and Spade are gone, spent on something that apparently mattered.</p>
+      <div class="ace-row">
+        <div class="ace-card held"><span class="ace-a">A</span><span class="ace-suit clubs">♣</span></div>
+        <div class="ace-card spent"><span class="ace-a">A</span><span class="ace-suit hearts">♥</span></div>
+        <div class="ace-card held"><span class="ace-a">A</span><span class="ace-suit diamonds">♦</span></div>
+        <div class="ace-card spent"><span class="ace-a">A</span><span class="ace-suit spades">♠</span></div>
+      </div>
+
+      <h3 class="subhead">Conditions</h3>
+      <p>At the time of filing: none. Not embarrassed, confused, hurt, frightened, tired, sick, poisoned, or broken. He is, at this moment, intact. <em>Endure Pain</em> and some quantity of plain stubbornness have seen to it.</p>
+    </section>
+
+    <!-- III. FIELDS & SKILLS -->
+    <section id="s-fields">
+      <h2 class="section-head"><span class="section-icon">♠</span> Fields &amp; Skills <span class="section-icon">♠</span></h2>
+
+      <p>A skill of 1 is trained. A 2 is notable. A 3 is the kind of thing other soldiers mention when you have left the room. Taran holds seven skills at 3 across four fields. The shape of it is a statement of deliberate vocation.</p>
+
+      <div class="field-cluster">
+        <div class="field-title-row">
+          <span class="field-name-label">Society</span>
+          <span class="field-suit-sym hearts">♥</span>
+          <span class="field-rank-badge">Field Rank 1</span>
+        </div>
+        <div class="skill-row-group">
+          <div class="skill-pip rank-1"><div class="sp-name">Art</div><div class="sp-val">1</div></div>
+          <div class="skill-pip rank-1"><div class="sp-name">Charm</div><div class="sp-val">1</div></div>
+          <div class="skill-pip rank-2"><div class="sp-name">Eloquence</div><div class="sp-val">2</div></div>
+          <div class="skill-pip rank-2"><div class="sp-name">Etiquette</div><div class="sp-val">2</div></div>
+          <div class="skill-pip rank-3"><div class="sp-name">Grace</div><div class="sp-val">3</div></div>
+        </div>
+        <div class="field-gloss">Grace at 3 is not curtseying-grace. It is the controlled economy of a body that has been trained to stand exactly where it is meant to stand and move without clattering. Charm stays at 1. He is not there to be liked. He is there to be reliable. The Eloquence and Etiquette are what First Class required: he knows which fork is which, and he complied.</div>
+      </div>
+
+      <div class="field-cluster">
+        <div class="field-title-row">
+          <span class="field-name-label">Academia</span>
+          <span class="field-suit-sym diamonds">♦</span>
+          <span class="field-rank-badge">Field Rank 2</span>
+        </div>
+        <div class="skill-row-group">
+          <div class="skill-pip rank-2"><div class="sp-name">Care</div><div class="sp-val">2</div></div>
+          <div class="skill-pip rank-2"><div class="sp-name">Craft</div><div class="sp-val">2</div></div>
+          <div class="skill-pip rank-2"><div class="sp-name">Culture</div><div class="sp-val">2</div></div>
+          <div class="skill-pip rank-1"><div class="sp-name">Insight</div><div class="sp-val">1</div></div>
+          <div class="skill-pip rank-2"><div class="sp-name">Investigation</div><div class="sp-val">2</div></div>
+        </div>
+        <div class="field-gloss">Even across the board, with Insight the single dip — he reads situations better than he reads people. Care at 2 is worth pausing over: there is something attentive in him that the War field doesn't fully explain. Investigation at 2 means he can work out what happened in a room, not merely respond to it.</div>
+      </div>
+
+      <div class="field-cluster">
+        <div class="field-title-row">
+          <span class="field-name-label">War</span>
+          <span class="field-suit-sym clubs">♣</span>
+          <span class="field-rank-badge">Field Rank 2</span>
+        </div>
+        <div class="skill-row-group">
+          <div class="skill-pip crowned"><div class="sp-name">Athletics</div><div class="sp-val">3</div></div>
+          <div class="skill-pip crowned"><div class="sp-name">Authority</div><div class="sp-val">3</div></div>
+          <div class="skill-pip crowned"><div class="sp-name">Fight</div><div class="sp-val">3</div></div>
+          <div class="skill-pip crowned"><div class="sp-name">Strength</div><div class="sp-val">3</div></div>
+          <div class="skill-pip crowned"><div class="sp-name">Will</div><div class="sp-val">3</div></div>
+        </div>
+        <div class="field-gloss">A clean sweep at maximum. Not an accident: a declaration. Will at 3 is not stubbornness, it is a practice — a choice made repeatedly under pressure until the muscle knows what to do when the mind has gone quiet. Authority at 3 means he can hold a line and require others to hold it with him. Braveheart makes Will effectively 4 in situations that test courage.</div>
+      </div>
+
+      <div class="callout blue-callout">
+        <div class="callout-head">The War Package, Considered</div>
+        <p>Fight 3 + Master at Arms (free re-roll on chosen weapon and all combat rolls) + Braveheart (+1 to courage and will) + Endure Pain (remove a Condition) is a coherent argument: he fights well, re-rolls when it matters, holds under adverse conditions, and ignores what the fight has cost him. He is most effective when things are already going badly. This is the deliberate design of a character who has thought about what he is for.</p>
+      </div>
+
+      <div class="field-cluster">
+        <div class="field-title-row">
+          <span class="field-name-label">Street</span>
+          <span class="field-suit-sym spades">♠</span>
+          <span class="field-rank-badge">Field Rank 1</span>
+        </div>
+        <div class="skill-row-group">
+          <div class="skill-pip rank-3"><div class="sp-name">Caution</div><div class="sp-val">3</div></div>
+          <div class="skill-pip rank-2"><div class="sp-name">Dexterity</div><div class="sp-val">2</div></div>
+          <div class="skill-pip rank-1"><div class="sp-name">Elusion</div><div class="sp-val">1</div></div>
+          <div class="skill-pip rank-2"><div class="sp-name">Exploration</div><div class="sp-val">2</div></div>
+          <div class="skill-pip rank-3"><div class="sp-name">Shoot</div><div class="sp-val">3</div></div>
+        </div>
+        <div class="field-gloss">The field rank is 1, but Caution and Shoot sit at 3 — a soldier who watches and can reach. Elusion at 1 says plainly: he is not a skulker. If found, he is found. But Caution at 3 means he has thought about whether he ought to be found, and Exploration at 2 — paired with the grappling hook in his kit — means he has thought about the architecture between here and there.</div>
+      </div>
+    </section>
+
+    <!-- IV. CONTRACT -->
+    <section id="s-contract">
+      <h2 class="section-head"><span class="section-icon">♥</span> His Contract <span class="section-icon">♥</span></h2>
+
+      <p>The contract is Hereditary. Taran did not negotiate it across a table. It arrived with him, written into whatever Boggarts are made of. The Hearth is both his homeland and his obligation. He is <em>dear</em> to it — an old-fashioned word meaning both <em>beloved</em> and <em>expensive,</em> which is appropriate.</p>
+
+      <h3 class="subhead">Concession: Juggernaut</h3>
+      <div class="callout hearth-callout">
+        <div class="callout-head">Once Per Session</div>
+        <p>Taran can go Juggernaut. He grows — up to twice his size — and his muscles go hard as numismatic metal (the brass and copper of the household's coins). While Juggernauting: <strong>War rolls are Helpful; all other actions are Hindered; +1 to all Action and Reaction Rolls in combat; all Conditions are ignored.</strong> Lasts up to 5 turns, or he can stop voluntarily. On ending: he loses one Decorum level (the clothes do not survive the expansion) and gains Tired if he doesn't already have it.</p>
+      </div>
+      <p>At Decorum 3, the Juggernaut costs him a step he cannot easily recover. It is a last resort and a final word. It is also — this matters for understanding Taran — the fear turned inside out and made into mass. The thing that makes the body want to flee, converted into force. He has done this. He will do it again if the moment requires it.</p>
+
+      <h3 class="subhead">Counterpart: Word of Honor</h3>
+      <p>If a Boggart makes an explicit promise and does not keep it, Terrible, Terrible Things follow. This is not metaphorical. The household has views on broken oaths, and those views have weight and consequences and a memory that does not clear easily.</p>
+
+      <blockquote class="hearth-maxim">
+        He does not say <em>I promise</em> lightly. When he says it, the words cost something. He makes sure they do. He makes sure they should.
+        <span class="attr">— On Boggart Word of Honor and its keepers</span>
+      </blockquote>
+
+      <p>Watch for the word <em>promise.</em> When it appears in his mouth, so does the full weight of the Hearth behind it.</p>
+    </section>
+
+    <!-- V. TRAITS & MOVE -->
+    <section id="s-traits">
+      <h2 class="section-head"><span class="section-icon">♣</span> Traits &amp; Move <span class="section-icon">♣</span></h2>
+
+      <div class="item-entry">
+        <div class="ie-name">Master at Arms</div>
+        <div class="ie-tag">Trait &nbsp;·&nbsp; Free Re-Roll</div>
+        <div class="ie-body">Choose a melee weapon — certainly the Halberd Key, which he carries in the illustration. All rolls involving that weapon get a free re-roll, and so do all Action and Reaction Rolls in combat. Not dueling weapons or keysketes; those are far too fine for his purposes, and he would bend them. The restriction is not a restriction for someone built the way he is built.</div>
+      </div>
+
+      <div class="item-entry">
+        <div class="ie-name">Braveheart</div>
+        <div class="ie-tag">Trait</div>
+        <div class="ie-body">+1 when courage or strong will is required. This is not lucky. Braveheart is what Will at 3 looks like when it has been made into a deliberate commitment. The bonus applies at precisely the worst moments — which is when a character defined by this axiom is most himself. He is not a different person when things are frightening. He is the same person, acknowledged by the rules.</div>
+      </div>
+
+      <div class="item-entry move-entry">
+        <div class="ie-name">Endure Pain <span style="color:var(--soot-faint);">♣</span></div>
+        <div class="ie-tag">Move &nbsp;·&nbsp; War Field &nbsp;·&nbsp; ♣</div>
+        <div class="ie-body">Remove a single Condition from himself. Not Broken — some damage does not yield to willpower alone. Everything else: Embarrassed, Confused, Hurt, Frightened, Tired, Sick, Poisoned. He takes the Condition, notes it, and puts it somewhere it cannot reach his hands. The move is not dramatic. You notice he did it after the fact, usually because something that should have stopped him didn't.</div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-head">The Three Together</div>
+        <p><strong>Master at Arms</strong> + <strong>Braveheart</strong> + <strong>Endure Pain</strong> = a fighter who is most dangerous when already damaged and already frightened. Most fighters become less effective under those conditions. Taran becomes the reason the others haven't run yet. This is what the selection is describing.</p>
+      </div>
+    </section>
+
+    <!-- VI. GEAR -->
+    <section id="s-gear">
+      <h2 class="section-head"><span class="section-icon">♦</span> Arms &amp; Effects <span class="section-icon">♦</span></h2>
+
+      <p>He travels practical. Nothing without a use. The Halberd Key is not decorative, even if it looks it from the outside.</p>
+
+      <div class="item-entry weapon-entry">
+        <div class="ie-name">Halberd Key</div>
+        <div class="ie-tag">Weapon &nbsp;·&nbsp; Melee &nbsp;·&nbsp; Two-Handed, Heavy, Reach Weapon &nbsp;·&nbsp; Price 3</div>
+        <div class="ie-body">A polearm with a key-bit at one extremity — long, heavy, a reach weapon that keeps the wielder at the edge of engagements and sweeps a corridor very thoroughly. Once standard issue for the battalions that kept the Hearth's gates, back when those gates were famous and the soldiers who held them were expected to fight <em>and</em> to open the lock. Now carried mostly by honour guards. Taran carries it because it is his weapon under Master at Arms, because it suits the post, and because the history of it seems to suit him.</div>
+      </div>
+
+      <div class="item-entry">
+        <div class="ie-name">Grappling Hook &amp; Line</div>
+        <div class="ie-tag">General Item &nbsp;·&nbsp; Price 2</div>
+        <div class="ie-body">The Hearth has heights, and the household has depths. A grappling hook is the equipment of a soldier who has been somewhere inconveniently vertical and had to get someone else out. His Exploration 2 supports this story: he has thought about the passages between here and there, and has planned for the parts without stairs.</div>
+      </div>
+
+      <blockquote class="brass-note">
+        No coins. No wealth noted. The First Class designation is a rank, not a salary. He guards the Hearth because the Hearth needs guarding.
+      </blockquote>
+    </section>
+
+    <!-- VII. SOUL -->
+    <section id="s-soul">
+      <h2 class="section-head"><span class="section-icon">♥</span> Soul &amp; Disposition <span class="section-icon">♥</span></h2>
+
+      <p class="drop-cap">The question one asks of a soldier is not what he can do — the sheet answers that. The question is why he keeps doing it. What sustains a Boggart First Class past the encounter with the rats, past the long night watches, past the session where the thing behind the wall turned out to be bigger than expected and the legs had opinions about the direction of the corridor?</p>
+
+      <p>For Taran, the answer is not glory — he has no coins, which means no one is paying him enough for glory to be the point. It is not ideology, precisely. The Hearth is not abstract to him; it is an actual place, warm and lit, full of actual beings who gathered there because it is supposed to be safe. His job is to make it safe. He does not especially enjoy all parts of the job. He also does not leave it.</p>
+
+      <h3 class="subhead">On Rats and the Education They Provide</h3>
+
+      <p>He has rescued people from rats. Not metaphorical rats. The household kind — real, numerous, a meaningful problem at this scale. This is where the prologue lesson was distilled. Rats are not the worst thing in the household. They are merely real, and persistent, and what they threaten is often small and without defences of its own. A First Class soldier taking a rat problem seriously is not beneath his dignity. He understood this before he understood much else about the work.</p>
+
+      <p>He was frightened during the rat rescues. He has decided to remember this accurately, rather than revising the memory into something more flattering. The fear was there. He moved through it. The acting-anyway is what is worth keeping — and the fear is part of it, because if you remove the fear you have made the courage mean less, and Taran is not interested in meaning less.</p>
+
+      <h3 class="subhead">How He Speaks</h3>
+      <p>Charm 1. He is not a charmer. He is there to be reliable, which is different from being liked, and he has made his peace with that distinction. He is slow to make explicit commitments, because the Word of Honor shapes the habits of his speech — he checks, before speaking, whether he means what he is about to say. When he has checked, and then says it, it holds.</p>
+
+      <p>Grace 3 does more of his communicating than his words do. The body says: <em>I have been here before. I am still here. This is not the worst thing I have stood in front of.</em></p>
+
+      <div class="callout blue-callout">
+        <div class="callout-head">What the Aces Say</div>
+        <p>He holds the Club and the Diamond — War in reserve, and careful thought in reserve. The absent Heart and Spade are what he has already spent. He is not reckless with his resources. He is prepared for what he does not yet know is coming, which is the only kind of preparation that matters.</p>
+      </div>
+    </section>
+
+    <!-- VIII. MEMORY -->
+    <section id="s-memory">
+      <h2 class="section-head"><span class="section-icon">♠</span> The Prologue Memory <span class="section-icon">♠</span></h2>
+
+      <blockquote class="hearth-maxim">
+        Being scared is part of being brave.
+        <span class="attr">— Taran's Prologue Memory, as he himself recorded it</span>
+      </blockquote>
+
+      <p>The Prologue Memory is the first truth the character chose to carry into play. It is not borrowed. It is the lesson extracted from experience — from the rats, the watches, the moment when the thing was larger than he had planned for — and kept deliberately, because it is accurate and because accurate lessons are worth keeping even when they are uncomfortable.</p>
+
+      <p>The lesson is not that fear should be managed or suppressed or overcome. The lesson is that fear is part of the process, inseparable from the act it precedes. You cannot be brave without something to be frightened of. The frightening thing was there. He was frightened. He did the thing anyway. Strip the fear from the account and you have not improved the story — you have falsified it.</p>
+
+      <p>This is why Braveheart is not, for Taran, a lucky trait. It is a <em>practice</em>: courage as a repeatable action, taken in the presence of fear, which is the only place courage can actually be taken.</p>
+
+      <p>The chapters after the Prologue are blank. He is early. The records have not yet caught up with what comes next.</p>
+
+      <div class="callout hearth-callout">
+        <div class="callout-head">A Note on What Follows</div>
+        <p>A character whose central axiom is about the relationship between fear and bravery will be tested on exactly that axis. The household produces things to be frightened of. It always has. The Halberd Key is heavy, the grappling hook is coiled, two aces are still in his sleeve, and the First Class rank was earned and will have to keep being earned. He is ready — or as ready as anyone gets — which is to say: he is frightened, and he is going anyway.</p>
+      </div>
+    </section>
+
+    <footer class="colophon">
+      Filed with the Hearth Guard &nbsp;·&nbsp; Taran, Boggart, Soldier First Class &nbsp;·&nbsp; Household
+    </footer>
+
+  </div>
+  <div class="page-rule-bottom"></div>
+</div>
+</body>
+</html>

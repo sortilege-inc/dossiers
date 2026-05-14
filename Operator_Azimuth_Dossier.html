@@ -1,0 +1,661 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Field Dossier — Operator Azimuth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #060c0f;
+    --bg-deep: #030608;
+    --panel: #0a1218;
+    --rule: #1a2e38;
+    --rule-soft: #102028;
+    --text: #ddeae8;
+    --text-soft: #98b8b4;
+    --text-faint: #587870;
+    --text-dim: #384848;
+    --gold: #c8960a;
+    --gold-bright: #f0b820;
+    --gold-pale: #e8d080;
+    --gold-deep: #7a5a04;
+    --amber: #d46000;
+    --amber-bright: #f07820;
+    --rust: #c03810;
+    --rust-bright: #e85030;
+
+    /* Azimuth — electric cyan/teal, force-field blue */
+    --psi: #00b8d4;
+    --psi-bright: #18e0ff;
+    --psi-pale: #80ecff;
+    --psi-deep: #006888;
+    --psi-glow: rgba(0, 184, 212, 0.25);
+
+    /* Secondary: deep indigo for the "missing chapter" undertone */
+    --void: #2838a0;
+    --void-bright: #5870d0;
+    --void-pale: #a0b0e8;
+
+    --ivory: #eef4f2;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg-deep); color: var(--text); font-family: 'IM Fell English', Georgia, serif; font-size: 15px; line-height: 1.65; }
+  body {
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(0,184,212,0.08) 0%, transparent 45%),
+      radial-gradient(ellipse at 80% 90%, rgba(200,150,10,0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 40%, rgba(40,56,160,0.06) 0%, transparent 55%);
+    min-height: 100vh; padding: 2.5rem 1rem;
+  }
+  body::before { content:''; position:fixed; top:0; left:0; right:0; bottom:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events:none; z-index:1000; opacity:0.4; }
+
+  .document { max-width:960px; margin:0 auto; background:var(--bg); padding:0; position:relative; border:1px solid var(--psi-deep); box-shadow:0 0 0 3px var(--bg-deep),0 0 0 4px var(--psi-deep),0 0 80px rgba(0,184,212,0.12),inset 0 0 80px rgba(0,0,0,0.5); }
+  .document::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,transparent 0%,var(--psi-deep) 5%,var(--psi-bright) 30%,var(--gold-bright) 50%,var(--psi-bright) 70%,var(--psi-deep) 95%,transparent 100%); }
+  .document::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:linear-gradient(90deg,transparent 0%,var(--void) 15%,var(--psi) 50%,var(--void) 85%,transparent 100%); }
+
+  .doc-inner { padding: 3rem 3.5rem 4rem; }
+
+  .document-header { border-bottom:1px solid var(--psi-deep); padding-bottom:2.5rem; margin-bottom:2.5rem; }
+  .filing-bar { display:flex; justify-content:space-between; align-items:center; font-family:'Share Tech Mono',monospace; font-size:0.68rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--text-faint); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:0.35rem 0.7rem; margin-bottom:1.8rem; background:linear-gradient(90deg,rgba(0,184,212,0.04) 0%,transparent 40%,transparent 60%,rgba(200,150,10,0.03) 100%); }
+  .filing-bar .fl { color: var(--psi-bright); }
+  .filing-bar .fr { color: var(--gold); }
+  .filing-bar .pulse { display:inline-block; width:6px; height:6px; background:var(--psi-bright); border-radius:50%; margin-right:0.5rem; box-shadow:0 0 8px var(--psi-bright); vertical-align:middle; animation:pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 8px var(--psi-bright);} 50%{opacity:0.3;box-shadow:0 0 3px var(--psi);} }
+
+  .hero { display:grid; grid-template-columns:auto 1fr; gap:2.5rem; align-items:start; }
+  .portrait-frame { width:180px; flex-shrink:0; position:relative; }
+  .portrait-frame img { width:100%; display:block; filter:sepia(0.15) contrast(1.1) saturate(0.9); }
+  .portrait-frame::before { content:''; position:absolute; top:-4px; left:-4px; right:-4px; bottom:-4px; border:1px solid var(--psi); pointer-events:none; }
+  .portrait-frame::after { content:''; position:absolute; top:-8px; left:-8px; width:16px; height:16px; border-top:2px solid var(--psi-bright); border-left:2px solid var(--psi-bright); }
+  .portrait-bracket-br { position:absolute; bottom:-8px; right:-8px; width:16px; height:16px; border-bottom:2px solid var(--gold); border-right:2px solid var(--gold); }
+
+  /* Psi rings on portrait — telekinesis flavor */
+  .portrait-ring { position:absolute; top:50%; left:50%; width:110%; padding-top:110%; margin-left:-55%; margin-top:-55%; border-radius:50%; border:1px solid rgba(0,184,212,0.18); pointer-events:none; animation:ring-rotate 12s linear infinite; }
+  .portrait-ring-2 { position:absolute; top:50%; left:50%; width:125%; padding-top:125%; margin-left:-62.5%; margin-top:-62.5%; border-radius:50%; border:1px dashed rgba(0,184,212,0.09); pointer-events:none; animation:ring-rotate 20s linear infinite reverse; }
+  @keyframes ring-rotate { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+
+  .eyebrow { font-family:'Share Tech Mono',monospace; font-size:0.7rem; letter-spacing:0.35em; color:var(--psi-bright); text-transform:uppercase; margin-bottom:0.4rem; }
+  .eyebrow .sep { color:var(--rule); margin:0 0.6em; }
+  h1.character-name { font-family:'Orbitron',sans-serif; font-weight:900; font-size:3.2rem; line-height:1.0; letter-spacing:0.04em; text-transform:uppercase; margin:0.3rem 0; color:var(--ivory); text-shadow:0 0 25px rgba(0,184,212,0.4),0 0 60px rgba(0,184,212,0.15); }
+  h1.character-name .rank { font-size:0.4em; color:var(--psi-bright); font-weight:500; letter-spacing:0.2em; display:block; margin-bottom:0.4rem; }
+  h1.character-name .subname { font-size:0.28em; font-weight:400; color:var(--text-faint); letter-spacing:0.15em; display:block; margin-top:0.5rem; font-family:'Share Tech Mono',monospace; }
+  .tagline { font-style:italic; font-size:1.05rem; color:var(--text-soft); margin:0.8rem 0 1.2rem; max-width:55ch; line-height:1.5; }
+  .vitals-row { display:flex; flex-wrap:wrap; gap:0; font-family:'Share Tech Mono',monospace; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-soft); border-top:1px solid var(--rule); padding-top:0.8rem; margin-top:1rem; }
+  .vitals-row .v { border-left:1px solid var(--rule); padding:0.15rem 1rem; white-space:nowrap; }
+  .vitals-row .v:first-child { border-left:none; padding-left:0; }
+  .vitals-row .v strong { color:var(--gold); font-weight:400; margin-left:0.4em; }
+  .vitals-row .v.hot strong { color:var(--psi-bright); }
+  .vitals-row .v.warn strong { color:var(--amber-bright); }
+  .vitals-row .v.flag strong { color:var(--void-pale); }
+
+  nav.toc { border:1px solid var(--rule); padding:1.2rem 1.5rem; margin-bottom:2.5rem; background:var(--panel); position:relative; columns:2; column-gap:2rem; }
+  nav.toc::before { content:''; position:absolute; top:-1px; left:40px; height:1px; width:50px; background:var(--psi-bright); box-shadow:0 0 8px var(--psi-bright); }
+  nav.toc .toc-label { font-family:'Orbitron',sans-serif; font-size:0.65rem; letter-spacing:0.3em; color:var(--psi-bright); text-transform:uppercase; margin-bottom:0.8rem; column-span:all; font-weight:700; }
+  nav.toc ol { list-style:none; margin:0; padding:0; counter-reset:toc; font-family:'Share Tech Mono',monospace; }
+  nav.toc ol li { counter-increment:toc; font-size:0.88rem; margin-bottom:0.3rem; break-inside:avoid; }
+  nav.toc ol li::before { content:"0" counter(toc) " "; color:var(--gold); font-size:0.85em; margin-right:0.5rem; }
+  nav.toc a { color:var(--text); text-decoration:none; transition:color 0.15s; }
+  nav.toc a:hover { color:var(--psi-bright); }
+
+  section { margin-bottom: 3rem; }
+  h2.section-title { font-family:'Orbitron',sans-serif; font-weight:700; font-size:0.8rem; letter-spacing:0.3em; color:var(--psi-bright); text-transform:uppercase; border-bottom:1px solid var(--rule); padding-bottom:0.5rem; margin:0 0 1.5rem; position:relative; text-shadow:0 0 14px rgba(0,184,212,0.4); }
+  h2.section-title::before { content:'▸'; color:var(--gold); margin-right:0.7rem; font-size:0.85em; text-shadow:0 0 8px var(--gold); }
+  h2.section-title::after { content:''; position:absolute; bottom:-1px; left:0; width:60px; height:1px; background:var(--psi-bright); box-shadow:0 0 8px var(--psi-bright); }
+  h3.subhead { font-family:'Orbitron',sans-serif; font-weight:500; font-size:0.88rem; letter-spacing:0.08em; color:var(--gold-pale); margin:1.8rem 0 0.6rem; text-transform:uppercase; }
+  h3.subhead::before { content:'// '; color:var(--psi); font-family:'Share Tech Mono',monospace; font-size:0.9em; }
+  h4.entry-label { font-family:'Orbitron',sans-serif; font-weight:700; font-size:0.68rem; letter-spacing:0.22em; color:var(--psi-bright); text-transform:uppercase; margin:1.2rem 0 0.4rem; }
+
+  p { margin:0 0 1rem; }
+  ul, ol { margin:0.5rem 0 1rem 1.5rem; padding:0; }
+  li { margin-bottom:0.4rem; }
+  em { color:var(--text-soft); font-style:italic; }
+  strong { color:var(--gold-pale); font-weight:600; }
+
+  .drop-cap::first-letter { font-family:'Orbitron',sans-serif; font-size:3.4rem; line-height:0.8; float:left; padding:0.2rem 0.5rem 0 0; color:var(--psi-bright); font-weight:900; text-shadow:0 0 24px var(--psi-glow); }
+
+  blockquote.maxim { font-style:italic; font-size:1.1rem; line-height:1.5; color:var(--psi-pale); border-left:3px solid var(--psi); padding:0.6rem 0 0.6rem 1.5rem; margin:1.5rem 0; background:linear-gradient(90deg,rgba(0,184,212,0.07) 0%,transparent 70%); text-shadow:0 0 12px rgba(0,184,212,0.12); }
+  blockquote.maxim .attribution { display:block; font-size:0.74rem; font-style:normal; color:var(--text-faint); font-family:'Share Tech Mono',monospace; letter-spacing:0.1em; margin-top:0.6rem; }
+  blockquote.field-note { font-family:'Share Tech Mono',monospace; font-size:0.88rem; color:var(--gold-pale); border-left:3px solid var(--gold); padding:0.6rem 0 0.6rem 1.5rem; margin:1.2rem 0; background:linear-gradient(90deg,rgba(200,150,10,0.06) 0%,transparent 70%); }
+  blockquote.field-note .attribution { display:block; font-size:0.72rem; color:var(--text-faint); letter-spacing:0.1em; margin-top:0.4rem; }
+  blockquote.void-note { font-family:'Share Tech Mono',monospace; font-size:0.88rem; color:var(--void-pale); border-left:3px solid var(--void-bright); padding:0.6rem 0 0.6rem 1.5rem; margin:1.2rem 0; background:linear-gradient(90deg,rgba(40,56,160,0.08) 0%,transparent 70%); }
+  blockquote.void-note .attribution { display:block; font-size:0.72rem; color:var(--text-faint); letter-spacing:0.1em; margin-top:0.4rem; }
+
+  .stat-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:0.4rem; margin:1rem 0 1.5rem; }
+  .stat-cell { text-align:center; padding:0.7rem 0.4rem; border:1px solid var(--rule); background:var(--panel); position:relative; }
+  .stat-cell::before { content:''; position:absolute; top:0; left:0; width:6px; height:1px; background:var(--psi); }
+  .stat-cell::after { content:''; position:absolute; bottom:0; right:0; width:6px; height:1px; background:var(--gold); }
+  .stat-cell .label { font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.2em; color:var(--text-faint); text-transform:uppercase; margin-bottom:0.25rem; }
+  .stat-cell .value { font-family:'Orbitron',sans-serif; font-size:1.8rem; font-weight:900; color:var(--text); line-height:1; }
+  .stat-cell.high .value { color:var(--psi-bright); text-shadow:0 0 12px rgba(0,184,212,0.5); }
+  .stat-cell.med .value { color:var(--gold-pale); }
+  .stat-cell.zero .value { color:var(--text-faint); }
+  .stat-cell .gloss { font-family:'IM Fell English',serif; font-style:italic; font-size:0.7rem; color:var(--text-faint); margin-top:0.2rem; }
+
+  .status-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.8rem; margin:1rem 0 1.5rem; }
+  .status-cell { border:1px solid var(--rule); padding:0.9rem; background:var(--panel); }
+  .status-cell .label { font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-faint); margin-bottom:0.4rem; }
+  .status-cell .value { font-family:'Orbitron',sans-serif; font-size:1.8rem; font-weight:900; color:var(--text); line-height:1; }
+  .status-cell .value .sub { font-size:0.55em; color:var(--text-faint); font-weight:400; }
+  .status-cell .note { font-style:italic; font-size:0.82rem; color:var(--text-soft); margin-top:0.4rem; }
+  .status-cell.primary { border-color:var(--psi); background:linear-gradient(135deg,rgba(0,184,212,0.09) 0%,var(--panel) 60%); }
+  .status-cell.primary .value { color:var(--psi-bright); text-shadow:0 0 10px rgba(0,184,212,0.4); }
+  .status-cell.gold { border-color:var(--gold-deep); background:linear-gradient(135deg,rgba(200,150,10,0.08) 0%,var(--panel) 60%); }
+  .status-cell.gold .value { color:var(--gold-bright); }
+  .status-cell.warn { border-color:var(--rust); background:linear-gradient(135deg,rgba(192,56,16,0.08) 0%,var(--panel) 60%); }
+  .status-cell.warn .value { color:var(--rust-bright); }
+  .bar { height:4px; background:var(--bg-deep); border:1px solid var(--rule); margin-top:0.5rem; }
+  .bar .fill { height:100%; }
+  .bar.psi .fill { background:linear-gradient(90deg,var(--psi-deep) 0%,var(--psi-bright) 100%); box-shadow:0 0 6px var(--psi); }
+  .bar.gold .fill { background:linear-gradient(90deg,var(--gold-deep) 0%,var(--gold-bright) 100%); box-shadow:0 0 6px var(--gold); }
+  .bar.warn .fill { background:linear-gradient(90deg,var(--rust) 0%,var(--amber-bright) 100%); box-shadow:0 0 6px var(--amber); }
+
+  table.dossier-table { width:100%; border-collapse:collapse; margin:1rem 0 1.5rem; font-size:0.93rem; }
+  table.dossier-table th { text-align:left; font-family:'Share Tech Mono',monospace; font-size:0.68rem; letter-spacing:0.18em; color:var(--psi-bright); text-transform:uppercase; padding:0.5rem 0.75rem; border-bottom:1px solid var(--psi); background:rgba(0,184,212,0.05); }
+  table.dossier-table td { padding:0.55rem 0.75rem; border-bottom:1px solid var(--rule-soft); vertical-align:top; }
+  table.dossier-table td:first-child { font-family:'Share Tech Mono',monospace; font-size:0.78rem; letter-spacing:0.05em; color:var(--gold-pale); white-space:nowrap; padding-right:1.5rem; }
+  table.dossier-table tr:last-child td { border-bottom:none; }
+
+  .skill-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:0.25rem 1.5rem; margin:0.8rem 0 1.2rem; }
+  .skill-row { display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px dotted var(--rule-soft); padding:0.2rem 0; }
+  .skill-row .name { font-size:0.9rem; color:var(--text); }
+  .skill-row .val { font-family:'Share Tech Mono',monospace; font-size:0.88rem; color:var(--text-soft); margin-left:0.8rem; }
+  .skill-row.sig .name { color:var(--psi-pale); }
+  .skill-row.sig .val { color:var(--psi-bright); }
+  .skill-row.high .name { color:var(--gold-pale); }
+  .skill-row.high .val { color:var(--gold-bright); }
+  .skill-row.note { font-style:italic; color:var(--text-faint); font-size:0.82rem; grid-column:1/-1; border-bottom:none; padding-top:0.1rem; display:block; }
+
+  /* ABILITY BLOCKS */
+  .ability-block { border:1px solid var(--rule); padding:1rem 1.25rem; margin:0.8rem 0; background:var(--panel); position:relative; }
+  .ability-block::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--psi); }
+  .ability-block.signature::before { background:var(--gold); }
+  .ability-block.support::before { background:var(--void-bright); }
+  .ability-block.danger::before { background:var(--rust-bright); }
+  .ability-block .ability-name { font-family:'Orbitron',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--psi-bright); margin-bottom:0.2rem; }
+  .ability-block.signature .ability-name { color:var(--gold-bright); }
+  .ability-block.support .ability-name { color:var(--void-pale); }
+  .ability-block.danger .ability-name { color:var(--amber-bright); }
+  .ability-block .ability-meta { font-family:'Share Tech Mono',monospace; font-size:0.7rem; color:var(--text-faint); letter-spacing:0.1em; margin-bottom:0.5rem; }
+  .ability-block .ability-desc { font-size:0.9rem; color:var(--text); }
+  .ability-block .strain-tag { display:inline-block; font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; padding:0.05rem 0.4rem; border:1px solid var(--rust); color:var(--rust-bright); background:rgba(192,56,16,0.08); margin-left:0.5rem; text-transform:uppercase; vertical-align:middle; }
+
+  /* CLARITY RESOURCE */
+  .clarity-resource { border:1px solid var(--psi); background:linear-gradient(135deg,rgba(0,184,212,0.09) 0%,var(--panel) 60%); padding:1rem 1.5rem; margin:1rem 0 1.5rem; position:relative; }
+  .clarity-resource::before { content:'CLARITY'; position:absolute; top:-0.65rem; left:1rem; background:var(--bg); padding:0 0.5rem; font-family:'Orbitron',sans-serif; font-size:0.65rem; letter-spacing:0.3em; color:var(--psi-bright); font-weight:700; }
+  .clarity-resource .gain-list { list-style:none; margin:0; padding:0; font-size:0.88rem; }
+  .clarity-resource .gain-list li { margin-bottom:0.4rem; padding-left:1rem; position:relative; color:var(--text-soft); }
+  .clarity-resource .gain-list li::before { content:'+'; position:absolute; left:0; color:var(--psi-bright); font-family:'Share Tech Mono',monospace; font-weight:700; }
+  .clarity-resource .gain-list li strong { color:var(--psi-pale); }
+  .clarity-resource .strain-block { margin-top:1rem; padding-top:1rem; border-top:1px solid var(--rule); font-size:0.88rem; color:var(--rust-bright); font-family:'Share Tech Mono',monospace; }
+  .clarity-resource .strain-block strong { color:var(--amber-bright); }
+
+  .callout { border:1px solid var(--psi); border-left:4px solid var(--psi-bright); padding:0.9rem 1.25rem; margin:1.5rem 0; background:linear-gradient(135deg,rgba(0,184,212,0.06) 0%,transparent 80%); }
+  .callout .label { font-family:'Share Tech Mono',monospace; font-size:0.7rem; letter-spacing:0.2em; color:var(--psi-bright); text-transform:uppercase; margin-bottom:0.4rem; }
+  .callout p:last-child { margin-bottom:0; }
+  .callout.gold { border-color:var(--gold-deep); border-left-color:var(--gold); background:linear-gradient(135deg,rgba(200,150,10,0.06) 0%,transparent 80%); }
+  .callout.gold .label { color:var(--gold); }
+  .callout.warn { border-color:var(--rust); border-left-color:var(--amber-bright); background:linear-gradient(135deg,rgba(192,56,16,0.06) 0%,transparent 80%); }
+  .callout.warn .label { color:var(--amber-bright); }
+  .callout.void { border-color:var(--void); border-left-color:var(--void-bright); background:linear-gradient(135deg,rgba(40,56,160,0.08) 0%,transparent 80%); }
+  .callout.void .label { color:var(--void-pale); }
+
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin:1rem 0; }
+
+  .relation { padding:0.9rem 0; border-bottom:1px solid var(--rule); }
+  .relation:last-child { border-bottom:none; }
+  .relation .rel-name { font-family:'Orbitron',sans-serif; font-size:0.88rem; font-weight:700; letter-spacing:0.06em; color:var(--ivory); margin-bottom:0.15rem; }
+  .relation .rel-name .role { font-family:'IM Fell English',serif; font-weight:400; font-style:italic; color:var(--text-faint); font-size:0.92rem; letter-spacing:0; }
+  .relation .rel-name .marker { font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.12em; color:var(--gold); border:1px solid var(--gold-deep); padding:0.08rem 0.4rem; margin-left:0.6rem; text-transform:uppercase; }
+  .relation .rel-name .marker.active { color:var(--psi-bright); border-color:var(--psi); }
+  .relation .rel-name .marker.void { color:var(--void-pale); border-color:var(--void-bright); }
+  .relation .rel-name .marker.open { color:var(--amber-bright); border-color:var(--amber); }
+  .relation .rel-text { font-size:0.92rem; color:var(--text-soft); margin-top:0.3rem; }
+
+  footer.colophon { margin-top:4rem; padding-top:2rem; border-top:1px solid var(--rule); text-align:center; font-family:'Share Tech Mono',monospace; font-size:0.67rem; letter-spacing:0.2em; color:var(--text-dim); text-transform:uppercase; }
+  footer.colophon .accent { color:var(--psi-bright); }
+  footer.colophon .accent2 { color:var(--gold); }
+
+  @media (max-width: 720px) {
+    .doc-inner { padding: 2rem 1.25rem 3rem; }
+    h1.character-name { font-size: 2.2rem; }
+    .hero { grid-template-columns: 1fr; }
+    .portrait-frame { width: 140px; }
+    .stat-grid { gap: 0.2rem; }
+    .stat-cell { padding: 0.5rem 0.2rem; }
+    .stat-cell .value { font-size: 1.4rem; }
+    .status-grid { grid-template-columns: 1fr; }
+    .skill-grid { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; gap: 1rem; }
+    nav.toc { columns: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+  <div class="doc-inner">
+
+    <header class="document-header">
+      <div class="filing-bar">
+        <span class="fl"><span class="pulse"></span>FILE // AZI-003 &middot; UNIT: ZENITH &middot; CLASS: TALENT / TELEKINESIS</span>
+        <span class="fr">OFFICE OF MEDIATION &middot; AXIOM BUREAU &middot; ACTIVE CASE</span>
+      </div>
+      <div class="hero">
+        <div class="portrait-frame">
+          <div class="portrait-ring"></div>
+          <div class="portrait-ring-2"></div>
+          <img src="Operator Azimuth.jpeg" alt="Operator Azimuth">
+          <div class="portrait-bracket-br"></div>
+        </div>
+        <div class="hero-text">
+          <div class="eyebrow">Field Unit Dossier <span class="sep">·</span> Psionic Specialist / Direct Action <span class="sep">·</span> Zenith</div>
+          <h1 class="character-name">
+            <span class="rank">Operator</span>
+            Azimuth
+            <span class="subname">Telekinesis Subclass &middot; Heroic Resource: Clarity &middot; Augmentation: Force &middot; Ward: Repulsive</span>
+          </h1>
+          <p class="tagline">Spec ops. She handles direct action. She doesn't carry a visible weapon because she is the weapon.</p>
+          <div class="vitals-row">
+            <span class="v">Ancestry: <strong>Memonek</strong></span>
+            <span class="v">Class: <strong>Talent</strong></span>
+            <span class="v">Level: <strong>1</strong></span>
+            <span class="v hot">Subclass: <strong>Telekinesis</strong></span>
+            <span class="v">Career: <strong>Disciple</strong></span>
+            <span class="v warn">Complication: <strong>Lucky</strong></span>
+            <span class="v flag">Incident: <strong>Near-Death</strong></span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <div class="toc-label">// Contents</div>
+      <ol>
+        <li><a href="#identity">Identity &amp; Role</a></li>
+        <li><a href="#stats">Characteristics</a></li>
+        <li><a href="#clarity">Clarity Resource &amp; Strain</a></li>
+        <li><a href="#ancestry">Memonek Traits</a></li>
+        <li><a href="#abilities">Key Abilities</a></li>
+        <li><a href="#augmentation">Augmentation &amp; Ward</a></li>
+        <li><a href="#skills">Skills &amp; Languages</a></li>
+        <li><a href="#complication">Complication — Lucky</a></li>
+        <li><a href="#worldsickness">Worldsickness Arc</a></li>
+        <li><a href="#excised">The Excised Memory</a></li>
+        <li><a href="#unit">Unit Position</a></li>
+        <li><a href="#arc">Character Arc</a></li>
+        <li><a href="#relations">Relations</a></li>
+      </ol>
+    </nav>
+
+    <!-- I. IDENTITY -->
+    <section id="identity">
+      <h2 class="section-title">I. Identity &amp; Role</h2>
+      <p class="drop-cap">Operator Azimuth is Zenith's most dangerous member in terms of raw capability. She handles direct action on the perimeter alongside Keshet — Keshet calls the play, Azimuth executes it. She does not carry a visible weapon. She is the weapon. She is a Talent of the Telekinesis subclass, and everything she affects is mediated through the psionic extension of her mind into physical space — forces applied at range, objects repositioned without contact, enemies lifted and discarded.</p>
+      <p>She is also the member of Zenith with the most turbulent biography. Mercenary life before the Office, then religious service at an institution, then a near-death experience that surgically removed her memory of having worked there at all. She did not lose her identity. She lost one specific chapter, and nobody explained why.</p>
+      <p>Her relationship to uncertainty is the most comfortable in the unit. Where Vellpryte refuses the unknown, Keshet plans around it, and Nomos narrates it into order, Azimuth simply absorbs it. Her entire operational life has been structures collapsing and things working out anyway. The Lucky complication is both mechanic and philosophy: she has learned to trust outcomes that a more cautious Memonek would find deeply uncomfortable.</p>
+      <blockquote class="maxim">
+        The plan is a hypothesis. The engagement is the test. I am comfortable with either outcome.
+        <span class="attribution">// Azimuth, pre-mission briefing transcript, Case #ZEN-001</span>
+      </blockquote>
+      <h3 class="subhead">Cultural Background</h3>
+      <p>Culture: <strong>Mercenary Band — Nomadic, Bureaucratic, Martial.</strong> Before the Office, she operated among soldiers for hire: chaotic, transactional, violent work. This gave her something most Memoneks lack — a foundational comfort with uncertainty. She has seen plans fail catastrophically and watched competent people adapt and survive. She has internalized this as a worldview.</p>
+      <p>Career: <strong>Disciple.</strong> She worked in a church, temple, or other religious institution as part of the clergy. She studied religion, timescape cosmology, and psionics. She accrued 240 project points — substantial investment in long-form research. And then a near-death experience erased the entire chapter from her accessible memory. The institution remains. Her time there does not.</p>
+    </section>
+
+    <!-- II. CHARACTERISTICS -->
+    <section id="stats">
+      <h2 class="section-title">II. Characteristics</h2>
+      <div class="stat-grid">
+        <div class="stat-cell zero"><div class="label">Might</div><div class="value">0</div><div class="gloss">Irrelevant</div></div>
+        <div class="stat-cell zero"><div class="label">Agility</div><div class="value">0</div><div class="gloss">Irrelevant</div></div>
+        <div class="stat-cell high"><div class="label">Reason</div><div class="value">+2</div><div class="gloss">Psionic output</div></div>
+        <div class="stat-cell med"><div class="label">Intuition</div><div class="value">+1</div><div class="gloss">Reads terrain</div></div>
+        <div class="stat-cell high"><div class="label">Presence</div><div class="value">+2</div><div class="gloss">High-tier control</div></div>
+      </div>
+      <p><em>Might and Agility are precisely zero — not negative, not developed, simply absent from her operational calculus. Her body is irrelevant to her function. Everything she does is mediated through Reason (psionic force output) and Presence (higher-order control — the harder target-lock abilities). Two zeros and two twos: a clean expression of what she is.</em></p>
+      <div class="status-grid">
+        <div class="status-cell primary"><div class="label">Stamina</div><div class="value">18<span class="sub"> / 18</span></div><div class="bar psi"><div class="fill" style="width:100%"></div></div><div class="note">No kit modifier</div></div>
+        <div class="status-cell gold"><div class="label">Recoveries</div><div class="value">8<span class="sub"> / 8</span></div><div class="bar gold"><div class="fill" style="width:100%"></div></div><div class="note">Full reserve</div></div>
+        <div class="status-cell warn"><div class="label">Clarity</div><div class="value">0</div><div class="bar warn"><div class="fill" style="width:0%"></div></div><div class="note">Can go negative; strain at &lt;0</div></div>
+      </div>
+      <table class="dossier-table">
+        <thead><tr><th>Stat</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Speed</td><td><strong>7</strong> — Lightning Nimbleness ancestry trait (base 5 → 7)</td></tr>
+          <tr><td>Kit</td><td><strong>None</strong> — Talent class; no kit; Force Augmentation provides +1 damage on Psionic abilities</td></tr>
+          <tr><td>Strain Threshold</td><td><strong>−3</strong> — can spend to −(1 + Reason) = −3; takes 1 damage per negative point at turn end</td></tr>
+          <tr><td>Renown</td><td><strong>0</strong> — Disciple career grants project points, not renown</td></tr>
+          <tr><td>Project Points</td><td><strong>240</strong> — from Disciple career; available for research and downtime projects</td></tr>
+          <tr><td>Wealth</td><td><strong>1</strong></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- III. CLARITY -->
+    <section id="clarity">
+      <h2 class="section-title">III. Clarity — The Heroic Resource</h2>
+      <p>Azimuth's Heroic Resource is <strong>Clarity</strong> — psionic bandwidth, the fuel of telekinetic force. Unlike Drama (which accrues through crisis) or Wrath (which accrues through combat pressure), Clarity is a metered utility: gained steadily, spent on capability, with a throttle that distinguishes her from every other member of Zenith.</p>
+      <p>She can spend Clarity she does not have. She can drive it negative. She can overclock.</p>
+      <div class="clarity-resource">
+        <ul class="gain-list">
+          <li><strong>1d3</strong> — at the start of your turn (baseline generation)</li>
+          <li><strong>+1</strong> — the first time each combat round that any creature is force moved</li>
+        </ul>
+        <div class="strain-block">
+          <strong>STRAIN:</strong> You can spend Clarity you don't have, pushing it negative to a maximum of −(1 + Reason score) = <strong>−3</strong>. At the end of each turn with negative Clarity, you take <strong>1 damage per negative point</strong> — unavoidable. This is called being <em>strained.</em> Some abilities have additional effects if used while strained. Cascading Strain (higher level) would allow her to redirect that pain outward.
+        </div>
+      </div>
+      <div class="callout warn">
+        <div class="label">◈ The Throttle</div>
+        <p>The overclock mechanic is the most important thing to understand about Azimuth's tactical role. She can spend past her resource floor to deliver output beyond standard parameters — at a cost paid in her own body. In a unit where every other resource system is clean and orderly, Azimuth's is the only one that can deliberately hurt her. Keshet calls the play. Azimuth decides how much to spend to execute it.</p>
+      </div>
+    </section>
+
+    <!-- IV. ANCESTRY -->
+    <section id="ancestry">
+      <h2 class="section-title">IV. Memonek Traits</h2>
+      <p>Azimuth selected: <strong>Keeper of Order</strong> and <strong>Lightning Nimbleness</strong>. Both are the 2-point tier options — the highest-cost traits available. She spent her entire ancestry budget on two powerful, practical abilities with no narrative decoration. This is consistent with her operational philosophy.</p>
+      <table class="dossier-table">
+        <thead><tr><th>Trait</th><th>Function</th><th>Cost</th><th>Narrative Weight</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Keeper of Order</td>
+            <td>Free triggered action — once per round, when she or an adjacent creature makes a power roll, she can remove an edge or bane, turn a double edge into an edge, or turn a double bane into a bane</td>
+            <td>2 pts</td>
+            <td>Azimuth normalizing dice is Azimuth imposing order on probability itself — an act she performs casually, intuitively, without the formal deliberation Keshet brings to the same function. Two instances of this trait in Zenith (Keshet also has it) means the unit can normalize two rolls per round.</td>
+          </tr>
+          <tr>
+            <td>Lightning Nimbleness</td>
+            <td>Speed increased to 7</td>
+            <td>2 pts</td>
+            <td>Speed 7 without a kit is exceptional. She moves faster than almost anyone on the field while carrying no visible equipment. She is the most mobile member of Zenith and the least encumbered.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p><em>Note what she did not take: Unphased (cannot be surprised), Useful Emotion, I Am Law, Systematic Mind. She chose speed and probability control over social traits, combat presence, or emotional management. She is not trying to be Vellpryte or Nomos. She is trying to be faster and more reliable than the situation.</em></p>
+      <blockquote class="field-note">
+        Azimuth was asked during a routine debrief whether she found it useful to know that probability would bend in her favor when she chose to exert herself. She considered this for approximately four seconds and then said: "I don't think of it as probability. I think of it as noticing which outcome was already going to happen." This was not followed by further elaboration.
+        <span class="attribution">// Debrief transcript, Week 2, Orden deployment &middot; Interviewer: Secretary Nomos</span>
+      </blockquote>
+    </section>
+
+    <!-- V. ABILITIES -->
+    <section id="abilities">
+      <h2 class="section-title">V. Key Abilities — Telekinesis Suite</h2>
+      <p><em>All abilities use Reason (+2) for force output or Presence (+2) for higher-order control. She has no kit, no weapon. Every mechanical action she takes is an exercise of her mind on the world.</em></p>
+
+      <h4 class="entry-label">Free Strike / Range Anchor</h4>
+      <div class="ability-block signature">
+        <div class="ability-name">Mind Spike</div>
+        <div class="ability-meta">Main Action (also free ranged strike) &middot; Psionic, Ranged 10 &middot; Telepathy &middot; No Clarity cost</div>
+        <div class="ability-desc">
+          A telepathic bolt that zaps a creature's brain. Reason-based power roll. This is her free strike — the action she takes between larger expenditures, the baseline that proves she is never not doing something. The fact that her free strike is a mental assault rather than a physical attack is a design statement: she does not punch people. She hits them with her mind and doesn't break eye contact.
+        </div>
+      </div>
+
+      <h4 class="entry-label">Subclass Signature</h4>
+      <div class="ability-block">
+        <div class="ability-name">Minor Telekinesis</div>
+        <div class="ability-meta">Maneuver &middot; Psionic, Ranged 10 &middot; No Clarity cost</div>
+        <div class="ability-desc">
+          Wisps of psychic energy move a target — self or one size-1 creature or object — up to Reason squares (2 squares at current level). Spend 2 Clarity to increase target size by 1; spend 3 to vertical slide. The most visible expression of her subclass: objects and people relocated without contact, as a maneuver, for free. She is constantly repositioning the battlefield in the margins of other actions.
+        </div>
+      </div>
+
+      <h4 class="entry-label">Reactive Defense</h4>
+      <div class="ability-block support">
+        <div class="ability-name">Repel</div>
+        <div class="ability-meta">Triggered Action &middot; Psionic, Ranged 10 &middot; Trigger: target takes damage or is force moved &middot; No Clarity cost</div>
+        <div class="ability-desc">
+          When an ally takes damage or is force moved, Azimuth halves the damage or reduces the forced movement by her Reason score. If the force move is reduced to 0, the source gets pushed back instead. This is the Telekinesis subclass's defensive anchor. She intercepts force applied to her allies and redirects or absorbs it. This is what the perimeter pairing with Keshet enables: Keshet positions, Azimuth protects.
+        </div>
+      </div>
+
+      <h4 class="entry-label">Area Denial</h4>
+      <div class="ability-block">
+        <div class="ability-name">Gravitic Burst</div>
+        <div class="ability-meta">Main Action &middot; Psionic, Area, Burst 1 &middot; Telekinesis &middot; 5 Clarity cost</div>
+        <div class="ability-desc">
+          Everyone get away from me. Reason power roll against each enemy in burst. Tier 1: 3 damage, vertical push 2. Tier 2: 6 damage, vertical push 4. Tier 3: 9 damage, vertical push 6. A clearing action — when the perimeter collapses and something gets too close, she detonates a field and everything in range goes away. The vertical component means enemies can be sent upward, not just back.
+        </div>
+      </div>
+
+      <h4 class="entry-label">Single-Target Control</h4>
+      <div class="ability-block">
+        <div class="ability-name">Levity and Gravity</div>
+        <div class="ability-meta">Main Action &middot; Psionic, Ranged 10, Strike &middot; Telekinesis &middot; 5 Clarity cost</div>
+        <div class="ability-desc">
+          She raises the target into the air, then smothers them against the ground. Reason power roll. Tier 1: 6+R damage, Might resistance or prone. Tier 2/3: escalating damage and knock-prone. A targeted takedown for anything that needs to be removed from play fast. This is Keshet calling a priority target and Azimuth answering. The target goes up, then comes down hard.
+        </div>
+      </div>
+
+      <h4 class="entry-label">Mobility Support (Moderate Cost)</h4>
+      <div class="ability-block support">
+        <div class="ability-name">Levitation Field</div>
+        <div class="ability-meta">Maneuver &middot; Psionic, Area, Burst 3 &middot; 3 Clarity cost (or 8 for 1 hour)</div>
+        <div class="ability-desc">
+          She extends her telekinetic field outward, letting allies fly. Each ally in burst 3 gains flight until start of her next turn and can immediately shift up to their speed. She shifts too. Stability drops to 0 for duration. The 8-Clarity extended version grants an hour of flight — requiring overclock if she does not have the resources. One of the most significant tactical options in the unit's kit: vertical repositioning for everyone.
+        </div>
+      </div>
+
+      <h4 class="entry-label">Perception Perk</h4>
+      <div class="ability-block>">
+        <div class="ability-name">Thingspeaker</div>
+        <div class="ability-meta">Perk — Supernatural &middot; 1 minute of contact &middot; Career: Disciple</div>
+        <div class="ability-desc">
+          When she holds an object for one uninterrupted minute, she can sense whether it bears emotional resonance. If it does, she learns the most dominant emotion associated with it — the emotional signature of whoever last cared about this thing. For an investigative unit handling contractual disputes, this ability is a quiet intelligence asset. Evidence has feelings. She reads them.
+        </div>
+      </div>
+    </section>
+
+    <!-- VI. AUGMENTATION & WARD -->
+    <section id="augmentation">
+      <h2 class="section-title">VI. Psionic Augmentation &amp; Ward</h2>
+      <p>Every Talent selects a Psionic Augmentation and a Talent Ward through meditation. These can be changed during a respite. Azimuth's current selections are <strong>Force Augmentation</strong> and <strong>Repulsive Ward</strong>.</p>
+      <div class="two-col">
+        <div>
+          <h3 class="subhead">Force Augmentation</h3>
+          <p>Her psionic pathways are tuned for output. She gains <strong>+1 damage</strong> on all Psionic abilities. No defensive or utility component — she did not take Battle Augmentation (armor/weapons), Density Augmentation (bonus Stamina), Distance Augmentation (extended range), or Speed Augmentation (faster movement). She took more force. When in doubt: more force.</p>
+          <div class="callout gold">
+            <div class="label">◈ Augmentation Note</div>
+            <p>Force Augmentation is the highest-damage-density choice and the lowest-versatility choice. It is a statement of operational philosophy: she is not trying to be harder to kill or harder to hit. She is trying to ensure that whatever she hits doesn't need to be hit again.</p>
+          </div>
+        </div>
+        <div>
+          <h3 class="subhead">Repulsive Ward</h3>
+          <p>When an attacker damages her, she can push them up to her Reason score (2 squares) away. A reactive spatial assertion: someone hits her, they move. There is no opt-in. It simply happens. This is the ward Azimuth's character demanded — it's not armor, it's not evasion, it's the telekinetic equivalent of a reflex she has developed over years of being the person who gets hit first.</p>
+          <div class="callout">
+            <div class="label">◈ Ward Note</div>
+            <p>Repulsive Ward pairs with her operational role. She is on the perimeter, close to threats. When something gets through — as things do — she doesn't absorb it passively. She puts it at a distance.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VII. SKILLS -->
+    <section id="skills">
+      <h2 class="section-title">VII. Skills &amp; Languages</h2>
+      <p><em>Azimuth's skill profile is the most operationally diverse in Zenith. It spans interpersonal reading, psionic and arcane lore, religious knowledge, combat history, and two practical mercenary skills (Gymnastics, Drive) that no one else on the team has. She is the only member who can read a person well and also knows how to drive whatever vehicle the team might acquire.</em></p>
+      <div class="two-col">
+        <div>
+          <h4 class="entry-label">Interpersonal &amp; Lore</h4>
+          <div class="skill-grid">
+            <div class="skill-row sig"><span class="name">Read Person</span><span class="val">+ Intuition</span></div>
+            <div class="skill-row sig"><span class="name">Psionics</span><span class="val">+ Reason</span></div>
+            <div class="skill-row high"><span class="name">Religion</span><span class="val">+ Reason</span></div>
+            <div class="skill-row high"><span class="name">Timescape</span><span class="val">+ Reason</span></div>
+            <div class="skill-row high"><span class="name">History</span><span class="val">+ Reason</span></div>
+            <div class="skill-row high"><span class="name">Magic</span><span class="val">+ Reason</span></div>
+            <div class="skill-row high"><span class="name">Monsters</span><span class="val">+ Reason</span></div>
+          </div>
+        </div>
+        <div>
+          <h4 class="entry-label">Mercenary Foundation</h4>
+          <div class="skill-grid">
+            <div class="skill-row"><span class="name">Gymnastics</span><span class="val">+ Agility</span></div>
+            <div class="skill-row"><span class="name">Drive</span><span class="val">+ Reason</span></div>
+            <div class="skill-row"><span class="name">Perform</span><span class="val">+ Presence</span></div>
+            <div class="skill-row note">Skills from her mercenary culture and martial upbringing. Unique to Azimuth in Zenith — no one else can drive, and no one else has Gymnastics.</div>
+          </div>
+          <h4 class="entry-label">Languages</h4>
+          <div class="skill-grid">
+            <div class="skill-row sig"><span class="name">Axiomatic</span><span class="val">Native</span></div>
+            <div class="skill-row high"><span class="name">Caelian</span><span class="val">Common (Orden)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="callout void">
+        <div class="label">◈ Religion &amp; Timescape Knowledge — The Gap</div>
+        <p>Azimuth knows Religion and Timescape at the lore level — skills accrued during her time as a Disciple. She has deep theoretical knowledge of the cosmological structure of the manifolds and the religious institutions that operate across them. She does not remember the institution where she acquired this knowledge. The knowledge remains. The context is gone. This creates an interesting investigative edge: she sometimes recognizes things about a religious situation that she cannot explain knowing.</p>
+      </div>
+    </section>
+
+    <!-- VIII. COMPLICATION -->
+    <section id="complication">
+      <h2 class="section-title">VIII. Complication — Lucky</h2>
+      <p>Azimuth has always had a lucky streak. When she leaves things in the hands of fate, she succeeds more than she fails. But luck is fickle — when she doesn't trust it, it deserts her.</p>
+      <table class="dossier-table">
+        <thead><tr><th>Aspect</th><th>Mechanic</th><th>Significance</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Lucky Benefit</td>
+            <td>When she spends a hero token to succeed on a saving throw or reroll a test, she rolls a d10. On 6+, she gains the benefit without spending the token.</td>
+            <td>Hero tokens are rare. This mechanic means she can cash one in and potentially get it back. Luck as resource conservation — the universe occasionally refunds her bets.</td>
+          </tr>
+          <tr>
+            <td>Lucky Drawback</td>
+            <td>Whenever she rolls tier 1 on a test and does not spend a hero token to reroll, she takes a bane on her next test.</td>
+            <td>If she accepts a failure without contesting it, fate punishes her reluctance. The mechanic enforces engagement: she cannot simply accept bad outcomes passively. She must either spend to fight it or pay the cost of acquiescence.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <div class="label">◈ Lucky as Philosophy</div>
+        <p>This complication is not just mechanical. It is a statement about how Azimuth moves through the world. She has spent her career in environments where outcomes were not guaranteed, and she has come to trust something that isn't quite skill and isn't quite instinct. Her teammates — especially Keshet — find this uncomfortable. You cannot plan around luck. You cannot account for it in a contingency tree. Azimuth would say that's the point.</p>
+      </div>
+    </section>
+
+    <!-- IX. WORLDSICKNESS -->
+    <section id="worldsickness">
+      <h2 class="section-title">IX. Worldsickness — Her Method</h2>
+      <p>Azimuth's strategy is <strong>absorption.</strong> She takes the hit so the structure holds. Where Vellpryte refuses emotion, Keshet suppresses it through planning, and Nomos weaponizes it through performance, Azimuth simply lets it pass through her — the way she lets physical force pass through her ward and be redirected outward.</p>
+      <p>This is either the most resilient coping strategy in Zenith or the one that will produce the most sudden catastrophic failure. She has spent her life absorbing disruptions and trusting things to work out. At some point, the worldsickness will deliver an emotional impact she cannot absorb — something that does not redirect, that stays. Her arc asks what happens when luck runs out and she finally has to reckon with what she has accumulated.</p>
+      <h3 class="subhead">Likely Manifestations</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Trigger</th><th>Response</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>A near-miss that should not have been survivable</td><td>Uncanny calm — she absorbs it and moves on in a way that disturbs her colleagues</td><td>Demonstrates her worldsickness coping strategy in action. The absence of fear where fear was warranted is itself alarming.</td></tr>
+          <tr><td>A moment where luck fails — tier 1 result at a critical juncture</td><td>The bane. She may go into overclock to compensate, paying clarity she doesn't have</td><td>The Lucky drawback as drama: she refuses the failure, pushes her resource negative, and takes damage. The system punishes refusal.</td></tr>
+          <tr><td>Something that resonates with the excised chapter</td><td>A flash of something she cannot identify — emotion without context, recognition without memory</td><td>The missing chapter surfacing sideways. She knows something she shouldn't know. She feels something she cannot explain.</td></tr>
+          <tr><td>Genuine attachment to an outcome or person</td><td>Disorientation — she has no framework for caring about a result before it happens</td><td>The most significant worldsickness episode: caring, not as retrospective response, but as anticipatory stake. She has not experienced this before.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- X. EXCISED MEMORY -->
+    <section id="excised">
+      <h2 class="section-title">X. The Excised Memory</h2>
+      <p>Azimuth's inciting incident is a near-death experience that removed from her accessible memory all record of having worked at a religious institution. This is not amnesia in the organic sense. It is surgical. The professional knowledge remains — Religion, Timescape, Psionics. The 240 project points remain. The emotional texture of the experience, the names and faces, the details of what she did there and what was done to her: gone. Someone, or something, decided she should not remember.</p>
+      <p>The Lucky complication may or may not be related. Her unusually reliable relationship with favorable outcomes began, as near as she can determine, around the same time as the gap in her memory. She cannot establish causation. She has not stopped noticing the coincidence.</p>
+      <h3 class="subhead">What Azimuth Knows</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Element</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>The institution's name</td><td>Inaccessible. She has no handle on it. If she encountered its name she might not recognize it.</td></tr>
+          <tr><td>What she did there</td><td>Unknown. Her skills suggest study and possibly active service. Religion, Timescape, Psionics — she was doing something serious.</td></tr>
+          <tr><td>The nature of the removal</td><td>Unknown. Could be psionic intervention. Could be a bargain she made and cannot remember making. Could be institutional.</td></tr>
+          <tr><td>The near-death experience itself</td><td>She knows it happened. She does not know what it was. She knows it changed something.</td></tr>
+          <tr><td>Whether she is in danger from the same source</td><td>Unknown. Likely a question worth investigating if the campaign reaches sufficient depth.</td></tr>
+          <tr><td>The Lucky streak</td><td>Possibly a residue of whatever happened at the institution. Possibly psionic conditioning. Possibly coincidence. Azimuth treats it as fact and does not interrogate the mechanism.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout void">
+        <div class="label">◈ Director Hook</div>
+        <p>The excised memory should surface through objects — she has Thingspeaker, which means she can read emotional resonance from things she handled at the institution if she encounters them again. The most powerful version: she picks up something she doesn't recognize and reads grief, fear, or devotion off it — and then realizes, slowly, that the emotion is hers. A recovered feeling without a context to put it in.</p>
+      </div>
+      <blockquote class="void-note">
+        During the Orden deployment Week 4, Azimuth held a religious token recovered from a scene for approximately three minutes without comment. When asked by Secretary Nomos what she was perceiving, she said "Determination. And something I don't have a word for yet." She set the token down carefully and moved to the next task. She did not add the encounter to her field report.
+        <span class="attribution">// Observation note, Case #ZEN-004 scene processing &middot; Author: Secretary Nomos</span>
+      </blockquote>
+    </section>
+
+    <!-- XI. UNIT POSITION -->
+    <section id="unit">
+      <h2 class="section-title">XI. Position Within Zenith</h2>
+      <p>Azimuth forms Zenith's perimeter team with Keshet. Keshet calls the play, Azimuth executes it. In the unit hierarchy, she is the throttle — the member whose capability can exceed standard parameters when the mission requires it, at personal cost. She is the element most willing to absorb a bad situation and most equipped to process it without transmitting it upward to the unit's decision-making layer.</p>
+      <div class="callout">
+        <div class="label">◈ The Perimeter Partnership</div>
+        <p>Keshet and Azimuth operate in a handler-operator pairing. Keshet provides tactical architecture and calls priority targets. Azimuth provides the force projection to execute those calls, the reactive defense to protect the perimeter, and the overclock option when standard parameters are insufficient. Keshet trusts the plan; Azimuth trusts the outcome. They disagree on which of these is actually safer.</p>
+      </div>
+      <table class="dossier-table">
+        <thead><tr><th>Colleague</th><th>Dynamic</th><th>Tension Point</th></tr></thead>
+        <tbody>
+          <tr><td>Executor Vellpryte</td><td>Professional alignment; both are direct-action operatives</td><td>Vellpryte's emotional refusal strategy concerns Azimuth — not because she judges it, but because she has seen what happens when someone in that posture finally breaks. She watches.</td></tr>
+          <tr><td>Protocol Keshet</td><td>Handler-operator pairing; operational trust</td><td>Keshet suppresses through planning and contingency. Azimuth absorbs through acceptance. They regard each other as functional but inscrutable. Keshet cannot plan around luck. Azimuth cannot explain why she trusts outcomes the way she does. This is a permanent low-level friction.</td></tr>
+          <tr><td>Secretary Nomos</td><td>Mutual operational respect; different relationships to chaos</td><td>Nomos narrates everything. Azimuth leaves things narrationless. She does something; she is done. He would make it mean something. This is not a conflict — it is a genuine difference in how they experience the world.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- XII. ARC -->
+    <section id="arc">
+      <h2 class="section-title">XII. Character Arc</h2>
+      <h3 class="subhead">The Central Question</h3>
+      <blockquote class="maxim">
+        The excised memory, the institution that took something from her, and a lucky streak that might be something else entirely.
+        <span class="attribution">// Arc summary, Zenith.md</span>
+      </blockquote>
+      <p>Azimuth's arc is structured around a missing chapter and the question of whether she wants it back. The knowledge remains; the context is gone. She functions. She is, arguably, the unit's most operationally stable member. The arc asks: is that stability genuine, or is it what's left after something essential was removed?</p>
+      <p>The Lucky streak is the most pressing narrative question. If it is a residue of psionic conditioning from the institution — a modification made to her without her consent — then it is a violation of her autonomy that she has been benefiting from without knowing it. If it is simply who she is, the complication resolves differently. Either way, the answer changes how she understands herself.</p>
+      <table class="dossier-table">
+        <thead><tr><th>Phase</th><th>Scene Type</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>Early</td><td>A mission where luck visibly bends in her favor at a critical moment</td><td>Establishes the Lucky complication as real and significant, not merely mechanical.</td></tr>
+          <tr><td>Early–Mid</td><td>First contact with an object or symbol connected to the institution</td><td>Thingspeaker activates. She reads an emotion she cannot place as someone else's. It might be hers.</td></tr>
+          <tr><td>Mid</td><td>A situation where the overclock costs her something she cannot recover quickly</td><td>She pushes past standard parameters and takes real damage. The throttle has limits.</td></tr>
+          <tr><td>Late</td><td>Direct evidence of what the institution was and what they did</td><td>She must decide whether to pursue the memory or leave the gap intact. Recovering it might change who she is.</td></tr>
+          <tr><td>Resolution</td><td>A moment requiring genuine stake — caring about an outcome before it happens</td><td>The worldsickness delivers something the absorption strategy cannot process: anticipatory attachment. She has to feel it forward, not backward.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- XIII. RELATIONS -->
+    <section id="relations">
+      <h2 class="section-title">XIII. Relations</h2>
+      <div class="relation">
+        <div class="rel-name">Executor Vellpryte <span class="role">&mdash; Senior Field Agent</span> <span class="marker active">Active</span></div>
+        <div class="rel-text">Commanding officer. Azimuth executes Vellpryte's rulings without editorializing — the most formally compliant member of the unit in terms of chain of command. She watches Vellpryte's emotional refusal strategy with something that might be concern. She has been where the absorption breaks. She suspects Vellpryte has not yet found that edge, and will.</div>
+      </div>
+      <div class="relation">
+        <div class="rel-name">Protocol Keshet <span class="role">&mdash; Field Coordinator</span> <span class="marker active">Active</span></div>
+        <div class="rel-text">Operational partner; the person who calls the play she executes. Their combined Keeper of Order gives the unit two probability normalizations per round — they impose order on dice as naturally as they impose order on scenes. Keshet cannot account for luck in their tactical models. Azimuth does not explain it. They have reached a functional truce on this point.</div>
+      </div>
+      <div class="relation">
+        <div class="rel-name">Secretary Nomos <span class="role">&mdash; Communications &amp; Support</span> <span class="marker active">Active</span></div>
+        <div class="rel-text">Mutual respect, genuine difference. Nomos turns everything into material; Azimuth leaves things unremarked. She appreciates that he evaluates her on results — he noticed the procurement negotiation and filed it accurately rather than theorizing about it. He is the most likely member of the unit to notice something is wrong with her before she does.</div>
+      </div>
+      <div class="relation">
+        <div class="rel-name">The Institution <span class="role">&mdash; Former Employer / Origin of Gap</span> <span class="marker void">Unknown</span></div>
+        <div class="rel-text">Name unknown. Nature unknown. What they did to her: unclear. What she did for them: unclear. The residue is her skill set, her project points, and possibly her luck. She carries what they gave her and does not know who gave it. This is the most significant open thread in her biography and the one she is least equipped to investigate without help.</div>
+      </div>
+      <div class="relation">
+        <div class="rel-name">The Mercenary Band <span class="role">&mdash; Culture of Origin</span> <span class="marker open">Antecedent</span></div>
+        <div class="rel-text">The foundation of her comfort with uncertainty. She spent her formative operational years in chaotic, transactional, violent work, and came out of it with a fundamental comfort with structures collapsing and things working out anyway. She does not talk about the band specifically. She carries their epistemology — outcomes over process, results over elegance — as her default operating mode.</div>
+      </div>
+    </section>
+
+    <footer class="colophon">
+      <div><span class="accent">// ZENITH UNIT RECORD — OFFICE OF MEDIATION</span></div>
+      <div style="margin-top:0.4rem;"><span class="accent2">OPERATOR AZIMUTH &middot; AZI-003 &middot; MEMONEK &middot; TALENT / TELEKINESIS &middot; LVL 1</span></div>
+      <div style="margin-top:0.4rem;">Produced for internal field reference &middot; Distribution: Unit Zenith &middot; Director access only</div>
+      <div style="margin-top:0.4rem;"><span style="color:var(--psi-bright)">⚑ ACTIVE CASE &middot; VELLOPARATHA STATUS: ABSORPTION (UNPROCESSED) &middot; OPEN FILE: EXCISED MEMORY &middot; LUCK FLAG: ORIGIN UNKNOWN</span></div>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>
+

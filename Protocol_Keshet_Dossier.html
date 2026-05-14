@@ -1,0 +1,699 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Field Dossier — Protocol Keshet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c0a;
+    --bg-deep: #040605;
+    --panel: #0d1410;
+    --rule: #1e2e24;
+    --rule-soft: #121e16;
+    --text: #ddeadd;
+    --text-soft: #96b498;
+    --text-faint: #527054;
+    --text-dim: #334438;
+    --gold: #c8960a;
+    --gold-bright: #f0b820;
+    --gold-pale: #e8d080;
+    --gold-deep: #7a5a04;
+    --amber: #d46000;
+    --amber-bright: #f07820;
+    --rust: #c03810;
+    --rust-bright: #e85030;
+
+    /* Keshet — tactical steel-green, warden/commander palette */
+    --field: #2a8050;
+    --field-bright: #40c070;
+    --field-pale: #90dca8;
+    --field-deep: #185030;
+    --field-glow: rgba(42, 128, 80, 0.2);
+
+    /* Secondary — steel grey-blue for the fallen heroes undertone */
+    --steel: #4868a0;
+    --steel-bright: #7090c8;
+    --steel-pale: #a8bce0;
+
+    /* Accent for Mark / target designation */
+    --mark: #d4a020;
+    --mark-bright: #f0c840;
+
+    --ivory: #eef4ec;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg-deep); color: var(--text); font-family: 'IM Fell English', Georgia, serif; font-size: 15px; line-height: 1.65; }
+  body {
+    background-image:
+      radial-gradient(ellipse at 10% 15%, rgba(42,128,80,0.08) 0%, transparent 45%),
+      radial-gradient(ellipse at 90% 85%, rgba(200,150,10,0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 55% 45%, rgba(72,104,160,0.05) 0%, transparent 55%);
+    min-height: 100vh; padding: 2.5rem 1rem;
+  }
+  body::before { content:''; position:fixed; top:0; left:0; right:0; bottom:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events:none; z-index:1000; opacity:0.4; }
+
+  .document { max-width:960px; margin:0 auto; background:var(--bg); padding:0; position:relative; border:1px solid var(--field-deep); box-shadow:0 0 0 3px var(--bg-deep),0 0 0 4px var(--field-deep),0 0 60px rgba(42,128,80,0.10),inset 0 0 80px rgba(0,0,0,0.5); }
+  .document::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,transparent 0%,var(--field-deep) 5%,var(--field-bright) 25%,var(--mark-bright) 50%,var(--field-bright) 75%,var(--field-deep) 95%,transparent 100%); }
+  .document::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:linear-gradient(90deg,transparent 0%,var(--steel) 20%,var(--field) 50%,var(--steel) 80%,transparent 100%); }
+
+  .doc-inner { padding: 3rem 3.5rem 4rem; }
+
+  .document-header { border-bottom:1px solid var(--field-deep); padding-bottom:2.5rem; margin-bottom:2.5rem; }
+  .filing-bar { display:flex; justify-content:space-between; align-items:center; font-family:'Share Tech Mono',monospace; font-size:0.68rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--text-faint); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:0.35rem 0.7rem; margin-bottom:1.8rem; background:linear-gradient(90deg,rgba(42,128,80,0.04) 0%,transparent 40%,transparent 60%,rgba(200,150,10,0.03) 100%); }
+  .filing-bar .fl { color: var(--field-bright); }
+  .filing-bar .fr { color: var(--gold); }
+  .filing-bar .pulse { display:inline-block; width:6px; height:6px; background:var(--field-bright); border-radius:50%; margin-right:0.5rem; box-shadow:0 0 6px var(--field-bright); vertical-align:middle; animation:pulse 2.8s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+  .hero { display:grid; grid-template-columns:auto 1fr; gap:2.5rem; align-items:start; }
+  .portrait-frame { width:180px; flex-shrink:0; position:relative; }
+  .portrait-frame img { width:100%; display:block; filter:sepia(0.1) contrast(1.08) saturate(0.95); }
+  .portrait-frame::before { content:''; position:absolute; top:-4px; left:-4px; right:-4px; bottom:-4px; border:1px solid var(--field); pointer-events:none; }
+  .portrait-frame::after { content:''; position:absolute; top:-8px; left:-8px; width:16px; height:16px; border-top:2px solid var(--field-bright); border-left:2px solid var(--field-bright); }
+  .portrait-bracket-br { position:absolute; bottom:-8px; right:-8px; width:16px; height:16px; border-bottom:2px solid var(--gold); border-right:2px solid var(--gold); }
+
+  .eyebrow { font-family:'Share Tech Mono',monospace; font-size:0.7rem; letter-spacing:0.35em; color:var(--field-bright); text-transform:uppercase; margin-bottom:0.4rem; }
+  .eyebrow .sep { color:var(--rule); margin:0 0.6em; }
+  h1.character-name { font-family:'Orbitron',sans-serif; font-weight:900; font-size:3.2rem; line-height:1.0; letter-spacing:0.04em; text-transform:uppercase; margin:0.3rem 0; color:var(--ivory); text-shadow:0 0 22px rgba(42,128,80,0.4),0 0 60px rgba(42,128,80,0.12); }
+  h1.character-name .rank { font-size:0.4em; color:var(--field-bright); font-weight:500; letter-spacing:0.2em; display:block; margin-bottom:0.4rem; }
+  h1.character-name .subname { font-size:0.28em; font-weight:400; color:var(--text-faint); letter-spacing:0.15em; display:block; margin-top:0.5rem; font-family:'Share Tech Mono',monospace; }
+  .tagline { font-style:italic; font-size:1.05rem; color:var(--text-soft); margin:0.8rem 0 1.2rem; max-width:55ch; line-height:1.5; }
+  .vitals-row { display:flex; flex-wrap:wrap; gap:0; font-family:'Share Tech Mono',monospace; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-soft); border-top:1px solid var(--rule); padding-top:0.8rem; margin-top:1rem; }
+  .vitals-row .v { border-left:1px solid var(--rule); padding:0.15rem 1rem; white-space:nowrap; }
+  .vitals-row .v:first-child { border-left:none; padding-left:0; }
+  .vitals-row .v strong { color:var(--gold); font-weight:400; margin-left:0.4em; }
+  .vitals-row .v.hot strong { color:var(--field-bright); }
+  .vitals-row .v.warn strong { color:var(--amber-bright); }
+  .vitals-row .v.steel strong { color:var(--steel-pale); }
+
+  nav.toc { border:1px solid var(--rule); padding:1.2rem 1.5rem; margin-bottom:2.5rem; background:var(--panel); position:relative; columns:2; column-gap:2rem; }
+  nav.toc::before { content:''; position:absolute; top:-1px; left:40px; height:1px; width:50px; background:var(--field-bright); box-shadow:0 0 8px var(--field-bright); }
+  nav.toc .toc-label { font-family:'Orbitron',sans-serif; font-size:0.65rem; letter-spacing:0.3em; color:var(--field-bright); text-transform:uppercase; margin-bottom:0.8rem; column-span:all; font-weight:700; }
+  nav.toc ol { list-style:none; margin:0; padding:0; counter-reset:toc; font-family:'Share Tech Mono',monospace; }
+  nav.toc ol li { counter-increment:toc; font-size:0.88rem; margin-bottom:0.3rem; break-inside:avoid; }
+  nav.toc ol li::before { content:"0" counter(toc) " "; color:var(--gold); font-size:0.85em; margin-right:0.5rem; }
+  nav.toc a { color:var(--text); text-decoration:none; transition:color 0.15s; }
+  nav.toc a:hover { color:var(--field-bright); }
+
+  section { margin-bottom: 3rem; }
+  h2.section-title { font-family:'Orbitron',sans-serif; font-weight:700; font-size:0.8rem; letter-spacing:0.3em; color:var(--field-bright); text-transform:uppercase; border-bottom:1px solid var(--rule); padding-bottom:0.5rem; margin:0 0 1.5rem; position:relative; text-shadow:0 0 12px rgba(42,128,80,0.4); }
+  h2.section-title::before { content:'▸'; color:var(--gold); margin-right:0.7rem; font-size:0.85em; text-shadow:0 0 8px var(--gold); }
+  h2.section-title::after { content:''; position:absolute; bottom:-1px; left:0; width:60px; height:1px; background:var(--field-bright); box-shadow:0 0 8px var(--field-bright); }
+  h3.subhead { font-family:'Orbitron',sans-serif; font-weight:500; font-size:0.88rem; letter-spacing:0.08em; color:var(--gold-pale); margin:1.8rem 0 0.6rem; text-transform:uppercase; }
+  h3.subhead::before { content:'// '; color:var(--field); font-family:'Share Tech Mono',monospace; font-size:0.9em; }
+  h4.entry-label { font-family:'Orbitron',sans-serif; font-weight:700; font-size:0.68rem; letter-spacing:0.22em; color:var(--field-bright); text-transform:uppercase; margin:1.2rem 0 0.4rem; }
+
+  p { margin:0 0 1rem; }
+  ul, ol { margin:0.5rem 0 1rem 1.5rem; padding:0; }
+  li { margin-bottom:0.4rem; }
+  em { color:var(--text-soft); font-style:italic; }
+  strong { color:var(--gold-pale); font-weight:600; }
+
+  .drop-cap::first-letter { font-family:'Orbitron',sans-serif; font-size:3.4rem; line-height:0.8; float:left; padding:0.2rem 0.5rem 0 0; color:var(--field-bright); font-weight:900; text-shadow:0 0 22px var(--field-glow); }
+
+  blockquote.maxim { font-style:italic; font-size:1.1rem; line-height:1.5; color:var(--field-pale); border-left:3px solid var(--field); padding:0.6rem 0 0.6rem 1.5rem; margin:1.5rem 0; background:linear-gradient(90deg,rgba(42,128,80,0.07) 0%,transparent 70%); text-shadow:0 0 12px rgba(42,128,80,0.12); }
+  blockquote.maxim .attribution { display:block; font-size:0.74rem; font-style:normal; color:var(--text-faint); font-family:'Share Tech Mono',monospace; letter-spacing:0.1em; margin-top:0.6rem; }
+  blockquote.field-note { font-family:'Share Tech Mono',monospace; font-size:0.88rem; color:var(--gold-pale); border-left:3px solid var(--gold); padding:0.6rem 0 0.6rem 1.5rem; margin:1.2rem 0; background:linear-gradient(90deg,rgba(200,150,10,0.06) 0%,transparent 70%); }
+  blockquote.field-note .attribution { display:block; font-size:0.72rem; color:var(--text-faint); letter-spacing:0.1em; margin-top:0.4rem; }
+  blockquote.memorial { font-family:'Share Tech Mono',monospace; font-size:0.88rem; color:var(--steel-pale); border-left:3px solid var(--steel-bright); padding:0.6rem 0 0.6rem 1.5rem; margin:1.2rem 0; background:linear-gradient(90deg,rgba(72,104,160,0.08) 0%,transparent 70%); }
+  blockquote.memorial .attribution { display:block; font-size:0.72rem; color:var(--text-faint); letter-spacing:0.1em; margin-top:0.4rem; }
+
+  .stat-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:0.4rem; margin:1rem 0 1.5rem; }
+  .stat-cell { text-align:center; padding:0.7rem 0.4rem; border:1px solid var(--rule); background:var(--panel); position:relative; }
+  .stat-cell::before { content:''; position:absolute; top:0; left:0; width:6px; height:1px; background:var(--field); }
+  .stat-cell::after { content:''; position:absolute; bottom:0; right:0; width:6px; height:1px; background:var(--gold); }
+  .stat-cell .label { font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.2em; color:var(--text-faint); text-transform:uppercase; margin-bottom:0.25rem; }
+  .stat-cell .value { font-family:'Orbitron',sans-serif; font-size:1.8rem; font-weight:900; color:var(--text); line-height:1; }
+  .stat-cell.high .value { color:var(--field-bright); text-shadow:0 0 10px rgba(42,128,80,0.5); }
+  .stat-cell.med .value { color:var(--gold-pale); }
+  .stat-cell.zero .value { color:var(--text-faint); }
+  .stat-cell .gloss { font-family:'IM Fell English',serif; font-style:italic; font-size:0.7rem; color:var(--text-faint); margin-top:0.2rem; }
+
+  .status-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.8rem; margin:1rem 0 1.5rem; }
+  .status-cell { border:1px solid var(--rule); padding:0.9rem; background:var(--panel); }
+  .status-cell .label { font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-faint); margin-bottom:0.4rem; }
+  .status-cell .value { font-family:'Orbitron',sans-serif; font-size:1.8rem; font-weight:900; color:var(--text); line-height:1; }
+  .status-cell .value .sub { font-size:0.55em; color:var(--text-faint); font-weight:400; }
+  .status-cell .note { font-style:italic; font-size:0.82rem; color:var(--text-soft); margin-top:0.4rem; }
+  .status-cell.primary { border-color:var(--field); background:linear-gradient(135deg,rgba(42,128,80,0.09) 0%,var(--panel) 60%); }
+  .status-cell.primary .value { color:var(--field-bright); }
+  .status-cell.gold { border-color:var(--gold-deep); background:linear-gradient(135deg,rgba(200,150,10,0.08) 0%,var(--panel) 60%); }
+  .status-cell.gold .value { color:var(--gold-bright); }
+  .bar { height:4px; background:var(--bg-deep); border:1px solid var(--rule); margin-top:0.5rem; }
+  .bar .fill { height:100%; }
+  .bar.field .fill { background:linear-gradient(90deg,var(--field-deep) 0%,var(--field-bright) 100%); box-shadow:0 0 6px var(--field); }
+  .bar.gold .fill { background:linear-gradient(90deg,var(--gold-deep) 0%,var(--gold-bright) 100%); box-shadow:0 0 6px var(--gold); }
+  .bar.mark .fill { background:linear-gradient(90deg,#7a5a04 0%,var(--mark-bright) 100%); box-shadow:0 0 6px var(--mark); }
+
+  table.dossier-table { width:100%; border-collapse:collapse; margin:1rem 0 1.5rem; font-size:0.93rem; }
+  table.dossier-table th { text-align:left; font-family:'Share Tech Mono',monospace; font-size:0.68rem; letter-spacing:0.18em; color:var(--field-bright); text-transform:uppercase; padding:0.5rem 0.75rem; border-bottom:1px solid var(--field); background:rgba(42,128,80,0.05); }
+  table.dossier-table td { padding:0.55rem 0.75rem; border-bottom:1px solid var(--rule-soft); vertical-align:top; }
+  table.dossier-table td:first-child { font-family:'Share Tech Mono',monospace; font-size:0.78rem; letter-spacing:0.05em; color:var(--gold-pale); white-space:nowrap; padding-right:1.5rem; }
+  table.dossier-table tr:last-child td { border-bottom:none; }
+
+  .skill-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:0.25rem 1.5rem; margin:0.8rem 0 1.2rem; }
+  .skill-row { display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px dotted var(--rule-soft); padding:0.2rem 0; }
+  .skill-row .name { font-size:0.9rem; color:var(--text); }
+  .skill-row .val { font-family:'Share Tech Mono',monospace; font-size:0.88rem; color:var(--text-soft); margin-left:0.8rem; }
+  .skill-row.sig .name { color:var(--field-pale); }
+  .skill-row.sig .val { color:var(--field-bright); }
+  .skill-row.high .name { color:var(--gold-pale); }
+  .skill-row.high .val { color:var(--gold-bright); }
+  .skill-row.note { font-style:italic; color:var(--text-faint); font-size:0.82rem; grid-column:1/-1; border-bottom:none; padding-top:0.1rem; display:block; }
+
+  .ability-block { border:1px solid var(--rule); padding:1rem 1.25rem; margin:0.8rem 0; background:var(--panel); position:relative; }
+  .ability-block::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--field); }
+  .ability-block.signature::before { background:var(--gold); }
+  .ability-block.core::before { background:var(--mark); }
+  .ability-block.support::before { background:var(--steel-bright); }
+  .ability-block .ability-name { font-family:'Orbitron',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--field-bright); margin-bottom:0.2rem; }
+  .ability-block.signature .ability-name { color:var(--gold-bright); }
+  .ability-block.core .ability-name { color:var(--mark-bright); }
+  .ability-block.support .ability-name { color:var(--steel-pale); }
+  .ability-block .ability-meta { font-family:'Share Tech Mono',monospace; font-size:0.7rem; color:var(--text-faint); letter-spacing:0.1em; margin-bottom:0.5rem; }
+  .ability-block .ability-desc { font-size:0.9rem; color:var(--text); }
+
+  /* FOCUS RESOURCE */
+  .focus-resource { border:1px solid var(--field); background:linear-gradient(135deg,rgba(42,128,80,0.09) 0%,var(--panel) 60%); padding:1rem 1.5rem; margin:1rem 0 1.5rem; position:relative; }
+  .focus-resource::before { content:'FOCUS'; position:absolute; top:-0.65rem; left:1rem; background:var(--bg); padding:0 0.5rem; font-family:'Orbitron',sans-serif; font-size:0.65rem; letter-spacing:0.3em; color:var(--field-bright); font-weight:700; }
+  .focus-resource .gain-list { list-style:none; margin:0; padding:0; font-size:0.88rem; }
+  .focus-resource .gain-list li { margin-bottom:0.4rem; padding-left:1rem; position:relative; color:var(--text-soft); }
+  .focus-resource .gain-list li::before { content:'+'; position:absolute; left:0; color:var(--field-bright); font-family:'Share Tech Mono',monospace; font-weight:700; }
+  .focus-resource .gain-list li strong { color:var(--field-pale); }
+
+  /* KIT COMPARISON TABLE */
+  .kit-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.6rem; margin:1rem 0 1.2rem; }
+  .kit-cell { border:1px solid var(--rule); padding:0.7rem 0.9rem; background:var(--panel); }
+  .kit-cell .kit-name { font-family:'Orbitron',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.1em; color:var(--field-bright); text-transform:uppercase; margin-bottom:0.5rem; border-bottom:1px solid var(--rule); padding-bottom:0.4rem; }
+  .kit-cell.combined .kit-name { color:var(--mark-bright); border-color:var(--mark); }
+  .kit-cell .kit-row { font-family:'Share Tech Mono',monospace; font-size:0.78rem; color:var(--text-soft); margin-bottom:0.2rem; }
+  .kit-cell .kit-row span { color:var(--gold-pale); margin-left:0.4rem; }
+
+  .callout { border:1px solid var(--field); border-left:4px solid var(--field-bright); padding:0.9rem 1.25rem; margin:1.5rem 0; background:linear-gradient(135deg,rgba(42,128,80,0.06) 0%,transparent 80%); }
+  .callout .label { font-family:'Share Tech Mono',monospace; font-size:0.7rem; letter-spacing:0.2em; color:var(--field-bright); text-transform:uppercase; margin-bottom:0.4rem; }
+  .callout p:last-child { margin-bottom:0; }
+  .callout.gold { border-color:var(--gold-deep); border-left-color:var(--gold); background:linear-gradient(135deg,rgba(200,150,10,0.06) 0%,transparent 80%); }
+  .callout.gold .label { color:var(--gold); }
+  .callout.warn { border-color:var(--rust); border-left-color:var(--amber-bright); background:linear-gradient(135deg,rgba(192,56,16,0.06) 0%,transparent 80%); }
+  .callout.warn .label { color:var(--amber-bright); }
+  .callout.steel { border-color:var(--steel); border-left-color:var(--steel-bright); background:linear-gradient(135deg,rgba(72,104,160,0.07) 0%,transparent 80%); }
+  .callout.steel .label { color:var(--steel-pale); }
+  .callout.mark { border-color:var(--mark); border-left-color:var(--mark-bright); background:linear-gradient(135deg,rgba(212,160,32,0.07) 0%,transparent 80%); }
+  .callout.mark .label { color:var(--mark-bright); }
+
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin:1rem 0; }
+
+  .relation { padding:0.9rem 0; border-bottom:1px solid var(--rule); }
+  .relation:last-child { border-bottom:none; }
+  .relation .rel-name { font-family:'Orbitron',sans-serif; font-size:0.88rem; font-weight:700; letter-spacing:0.06em; color:var(--ivory); margin-bottom:0.15rem; }
+  .relation .rel-name .role { font-family:'IM Fell English',serif; font-weight:400; font-style:italic; color:var(--text-faint); font-size:0.92rem; letter-spacing:0; }
+  .relation .rel-name .marker { font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.12em; color:var(--gold); border:1px solid var(--gold-deep); padding:0.08rem 0.4rem; margin-left:0.6rem; text-transform:uppercase; }
+  .relation .rel-name .marker.active { color:var(--field-bright); border-color:var(--field); }
+  .relation .rel-name .marker.memorial { color:var(--steel-pale); border-color:var(--steel-bright); }
+  .relation .rel-name .marker.watch { color:var(--mark-bright); border-color:var(--mark); }
+  .relation .rel-text { font-size:0.92rem; color:var(--text-soft); margin-top:0.3rem; }
+
+  footer.colophon { margin-top:4rem; padding-top:2rem; border-top:1px solid var(--rule); text-align:center; font-family:'Share Tech Mono',monospace; font-size:0.67rem; letter-spacing:0.2em; color:var(--text-dim); text-transform:uppercase; }
+  footer.colophon .accent { color:var(--field-bright); }
+  footer.colophon .accent2 { color:var(--gold); }
+
+  @media (max-width: 720px) {
+    .doc-inner { padding: 2rem 1.25rem 3rem; }
+    h1.character-name { font-size: 2.2rem; }
+    .hero { grid-template-columns: 1fr; }
+    .portrait-frame { width: 140px; }
+    .stat-grid { gap: 0.2rem; }
+    .stat-cell { padding: 0.5rem 0.2rem; }
+    .stat-cell .value { font-size: 1.4rem; }
+    .status-grid { grid-template-columns: 1fr; }
+    .skill-grid { grid-template-columns: 1fr; }
+    .kit-grid { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; gap: 1rem; }
+    nav.toc { columns: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+  <div class="doc-inner">
+
+    <header class="document-header">
+      <div class="filing-bar">
+        <span class="fl"><span class="pulse"></span>FILE // KES-004 &middot; UNIT: ZENITH &middot; CLASS: TACTICIAN / MASTERMIND</span>
+        <span class="fr">OFFICE OF MEDIATION &middot; AXIOM BUREAU &middot; ACTIVE CASE</span>
+      </div>
+      <div class="hero">
+        <div class="portrait-frame">
+          <img src="Protocol Keshet.jpeg" alt="Protocol Keshet">
+          <div class="portrait-bracket-br"></div>
+        </div>
+        <div class="hero-text">
+          <div class="eyebrow">Field Unit Dossier <span class="sep">·</span> Field Coordinator <span class="sep">·</span> Zenith</div>
+          <h1 class="character-name">
+            <span class="rank">Protocol</span>
+            Keshet
+            <span class="subname">Mastermind Subclass &middot; Heroic Resource: Focus &middot; Kits: Battlemind + Raider &middot; Two Kits</span>
+          </h1>
+          <p class="tagline">Tactical planning, perimeter coordination, battlefield control. Keshet designs the approach and coordinates positioning. Every contingency accounted for is one less variable that can make them feel something unexpected.</p>
+          <div class="vitals-row">
+            <span class="v">Ancestry: <strong>Memonek</strong></span>
+            <span class="v">Class: <strong>Tactician</strong></span>
+            <span class="v">Level: <strong>1</strong></span>
+            <span class="v hot">Subclass: <strong>Mastermind</strong></span>
+            <span class="v">Career: <strong>Warden</strong></span>
+            <span class="v warn">Complication: <strong>Self-Taught</strong></span>
+            <span class="v steel">Incident: <strong>Honor the Fallen</strong></span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <div class="toc-label">// Contents</div>
+      <ol>
+        <li><a href="#identity">Identity &amp; Role</a></li>
+        <li><a href="#stats">Characteristics</a></li>
+        <li><a href="#focus">Focus Resource</a></li>
+        <li><a href="#ancestry">Memonek Traits</a></li>
+        <li><a href="#kits">Dual Kit Configuration</a></li>
+        <li><a href="#abilities">Key Abilities</a></li>
+        <li><a href="#mastermind">Mastermind Features</a></li>
+        <li><a href="#skills">Skills &amp; Languages</a></li>
+        <li><a href="#complication">Complication — Self-Taught</a></li>
+        <li><a href="#worldsickness">Worldsickness Arc</a></li>
+        <li><a href="#fallen">The Fallen Heroes</a></li>
+        <li><a href="#unit">Unit Position</a></li>
+        <li><a href="#arc">Character Arc</a></li>
+        <li><a href="#relations">Relations</a></li>
+      </ol>
+    </nav>
+
+    <!-- I. IDENTITY -->
+    <section id="identity">
+      <h2 class="section-title">I. Identity &amp; Role</h2>
+      <p class="drop-cap">Protocol Keshet is Zenith's architect. They do not make the unit's legal rulings — that is Vellpryte. They do not read the room — that is Nomos. They do not provide the force projection — that is Azimuth. Keshet builds the plan that makes the other three effective. They survey the operational environment, designate priorities, coordinate positioning, and ensure that when Vellpryte locks down a target and Azimuth executes on the perimeter, both of them are exactly where they need to be.</p>
+      <p>They are the most traditionally Axiomatic member of Zenith — the one who has most fully retained their species' epistemic priorities. They did not acculturate to the lower planes the way the others did. They approach emotion with the same methodology they apply to tactical problems: identify the variable, contain it, plan around it. Every contingency accounted for is one less variable that can make them feel something unexpected.</p>
+      <p>Their biography carries the most explicit wound in the unit. A group of heroes came to the territory Keshet was sworn to protect. They fought alongside them. The heroes fell. The wilderness was altered beyond recovery. Keshet left to ensure it would not happen again — and has been writing plans designed to prevent it ever since. They do not describe themselves as haunted. They describe themselves as thorough.</p>
+      <blockquote class="maxim">
+        The contingency existed. I failed to execute it in time. That will not occur again.
+        <span class="attribution">// Keshet, debrief following Case #ZEN-002 — partial formation failure</span>
+      </blockquote>
+      <h3 class="subhead">Cultural Background</h3>
+      <p>Culture: <strong>Memonek — Nomadic, Communal, Academic.</strong> The most traditionally Axiomatic culture in Zenith. Nomadic means they understand movement and adaptation; communal means they think in terms of collective function; academic means they study before they act. This is the culture that produced a tactician who learned their craft in the field rather than a classroom, and who reads every battle as a problem that has a correct solution if you can think fast enough to find it.</p>
+      <p>Career: <strong>Warden.</strong> They protected a wild region from poachers and those who sought its destruction. They guided the lost, led rescue parties, and learned to read terrain the way other people read text. The wilderness they protected is gone now. They do not return to it. They redirect that skill set toward the missions that come through the Office, treating each case's operational environment as a new territory to read and protect.</p>
+      <p>Inciting Incident: <strong>Honor the Fallen.</strong> Heroes came to their land with trouble close behind. Keshet fought alongside them. It was not enough. The heroes died and the wilderness was changed forever. The decision to join the Office was a decision to be somewhere the loss could not recur — or, if it recurred, to ensure they were better prepared for it than they were that day.</p>
+    </section>
+
+    <!-- II. CHARACTERISTICS -->
+    <section id="stats">
+      <h2 class="section-title">II. Characteristics</h2>
+      <div class="stat-grid">
+        <div class="stat-cell high"><div class="label">Might</div><div class="value">+2</div><div class="gloss">The weapon arm</div></div>
+        <div class="stat-cell med"><div class="label">Agility</div><div class="value">+1</div><div class="gloss">Field mobility</div></div>
+        <div class="stat-cell high"><div class="label">Reason</div><div class="value">+2</div><div class="gloss">Tactical output</div></div>
+        <div class="stat-cell zero"><div class="label">Intuition</div><div class="value">0</div><div class="gloss">By the book</div></div>
+        <div class="stat-cell zero"><div class="label">Presence</div><div class="value">0</div><div class="gloss">Not the face</div></div>
+      </div>
+      <p><em>Two peaks — Might and Reason, both at +2 — with Agility as a functional secondary. Intuition and Presence are zero: Keshet is not reading people, not making social plays, not improvising on interpersonal instinct. They are the member of Zenith least equipped to handle an encounter that cannot be planned or struck. This is the gap that the Self-Taught complication formalizes.</em></p>
+      <div class="status-grid">
+        <div class="status-cell primary"><div class="label">Stamina</div><div class="value">30<span class="sub"> / 30</span></div><div class="bar field"><div class="fill" style="width:100%"></div></div><div class="note">21 base + 9 dual-kit (Battlemind +3, Raider +6)</div></div>
+        <div class="status-cell gold"><div class="label">Recoveries</div><div class="value">10<span class="sub"> / 10</span></div><div class="bar gold"><div class="fill" style="width:100%"></div></div><div class="note">Highest in Zenith</div></div>
+        <div class="status-cell"><div class="label">Focus</div><div class="value">0</div><div class="bar mark"><div class="fill" style="width:0%"></div></div><div class="note">Gains 2/turn + mark triggers</div></div>
+      </div>
+      <table class="dossier-table">
+        <thead><tr><th>Stat</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Speed</td><td><strong>8</strong> — base 5 + Battlemind +2 + Raider +1</td></tr>
+          <tr><td>Stability</td><td><strong>1</strong> — from Battlemind kit</td></tr>
+          <tr><td>Disengage</td><td><strong>1</strong> — from Raider kit</td></tr>
+          <tr><td>Melee Damage Bonus</td><td><strong>+3 / +3 / +3</strong> — Battlemind +2 + Raider +1 across all tiers</td></tr>
+          <tr><td>Ranged Damage Bonus</td><td><strong>+1 / +1 / +1</strong> — Raider kit only</td></tr>
+          <tr><td>Ranged Distance</td><td><strong>+5</strong> — Raider kit</td></tr>
+          <tr><td>Project Points</td><td><strong>120</strong> — from Warden career</td></tr>
+          <tr><td>Wealth</td><td><strong>1</strong></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- III. FOCUS -->
+    <section id="focus">
+      <h2 class="section-title">III. Focus — The Heroic Resource</h2>
+      <p>Keshet's Heroic Resource is <strong>Focus</strong> — the Tactician's measure of battlefield awareness, the currency of coordinated action. Unlike Drama (crisis-powered) or Clarity (metered and spillable), Focus is the most orderly resource in Zenith: a fixed 2 per turn with two conditional triggers, both of which reward executing the plan correctly. It does not spike. It does not overflow. It accumulates through competence.</p>
+      <div class="focus-resource">
+        <ul class="gain-list">
+          <li><strong>2</strong> — at the start of your turn (baseline, every turn)</li>
+          <li><strong>+1</strong> — the first time each round that you or an ally deals damage to a creature you have marked</li>
+          <li><strong>+1</strong> — the first time in a round that an ally within 10 squares uses a heroic ability</li>
+        </ul>
+      </div>
+      <div class="callout mark">
+        <div class="label">◈ The Mark Loop</div>
+        <p>Mark is the engine at the center of Keshet's resource economy. They designate a target; any damage to that target gives them Focus; they spend Focus on abilities that amplify the team's damage to that target. The loop is self-reinforcing. A well-run engagement means Keshet has exactly the Focus they need at exactly the moment Vellpryte locks the target down and Azimuth executes the takedown. The plan, when it works, is a machine.</p>
+      </div>
+    </section>
+
+    <!-- IV. ANCESTRY -->
+    <section id="ancestry">
+      <h2 class="section-title">IV. Memonek Traits</h2>
+      <p>Keshet selected: <strong>Keeper of Order</strong> and <strong>Lightning Nimbleness</strong> — the same two 2-point tier choices as Azimuth. Where Azimuth chose them for operational efficiency, Keshet chose them because a tactician needs to be everywhere the plan requires at all times, and the dice cannot be allowed to produce unplanned outcomes at critical moments.</p>
+      <table class="dossier-table">
+        <thead><tr><th>Trait</th><th>Function</th><th>Narrative Weight</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Keeper of Order</td>
+            <td>Free triggered action — once per round, remove an edge or bane on a nearby power roll, or convert a double edge/bane to a single</td>
+            <td>Keshet imposing order on probability is Keshet ensuring the plan executes as written. An unexpected bane on Vellpryte's lockdown attempt is a threat to the entire formation. They neutralize it before it can cascade.</td>
+          </tr>
+          <tr>
+            <td>Lightning Nimbleness</td>
+            <td>Speed increased to 7 (then raised further to 8 by dual kits)</td>
+            <td>Speed 8 is exceptional — tied for highest in a unit full of fast operatives. Keshet needs to reposition as the plan evolves. Their speed is the mechanism of that adaptation.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout gold">
+        <div class="label">◈ Keeper of Order — Unit Total</div>
+        <p>Zenith has two instances of Keeper of Order: Keshet and Azimuth. This gives the unit two probability normalizations per round. In a four-person team, this means no critical roll in a round is left un-reviewed. It is the mechanical expression of what Zenith is: a unit that imposes order on situations that resist it.</p>
+      </div>
+    </section>
+
+    <!-- V. KITS -->
+    <section id="kits">
+      <h2 class="section-title">V. Dual Kit Configuration</h2>
+      <p>Keshet runs two kits simultaneously: <strong>Battlemind</strong> and <strong>Raider</strong>. This is mechanically unusual and tactically deliberate — the benefits stack, producing a combined profile that is faster, tougher, and more damaging than either kit alone.</p>
+      <div class="kit-grid">
+        <div class="kit-cell">
+          <div class="kit-name">Battlemind</div>
+          <div class="kit-row">Armor: <span>Light</span></div>
+          <div class="kit-row">Weapon: <span>Medium (reflavored: sci-fi chakram)</span></div>
+          <div class="kit-row">Stamina: <span>+3</span></div>
+          <div class="kit-row">Speed: <span>+2</span></div>
+          <div class="kit-row">Stability: <span>+1</span></div>
+          <div class="kit-row">Melee Dmg: <span>+2 / +2 / +2</span></div>
+          <div class="kit-row">Signature: <span>Unmooring</span></div>
+        </div>
+        <div class="kit-cell">
+          <div class="kit-name">Raider</div>
+          <div class="kit-row">Armor: <span>Light + Shield</span></div>
+          <div class="kit-row">Weapon: <span>Light</span></div>
+          <div class="kit-row">Stamina: <span>+6</span></div>
+          <div class="kit-row">Speed: <span>+1</span></div>
+          <div class="kit-row">Melee Dmg: <span>+1 / +1 / +1</span></div>
+          <div class="kit-row">Ranged Dmg: <span>+1 / +1 / +1</span></div>
+          <div class="kit-row">Ranged Dist: <span>+5</span></div>
+          <div class="kit-row">Disengage: <span>+1</span></div>
+          <div class="kit-row">Signature: <span>Raider's Awe</span></div>
+        </div>
+        <div class="kit-cell combined">
+          <div class="kit-name">Combined</div>
+          <div class="kit-row">Stamina: <span>+9 total (30 total)</span></div>
+          <div class="kit-row">Speed: <span>+3 → Speed 8</span></div>
+          <div class="kit-row">Stability: <span>+1</span></div>
+          <div class="kit-row">Melee Dmg: <span>+3 / +3 / +3</span></div>
+          <div class="kit-row">Ranged Dmg: <span>+1 / +1 / +1</span></div>
+          <div class="kit-row">Disengage: <span>+1</span></div>
+          <div class="kit-row">Ranged Dist: <span>+5</span></div>
+        </div>
+      </div>
+      <div class="callout">
+        <div class="label">◈ Chakram Reflavor</div>
+        <p>The Raider kit's light weapon is reflavored as a sci-fi chakram. Visually consistent with the portrait — Keshet holds a glowing ring-weapon. Mechanically identical to any other light weapon; the reflavor grounds the kit in the Axiom aesthetic without changing any numbers. A warden who learned to throw things accurately at range, now throwing something that returns and crackles with field energy.</p>
+      </div>
+    </section>
+
+    <!-- VI. KEY ABILITIES -->
+    <section id="abilities">
+      <h2 class="section-title">VI. Key Abilities</h2>
+
+      <h4 class="entry-label">Core Mechanic — Constant Presence</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Mark</div>
+        <div class="ability-meta">Maneuver &middot; Ranged 10 &middot; One creature &middot; No Focus cost</div>
+        <div class="ability-desc">
+          Keshet designates a target. That creature is marked until the encounter ends, until Keshet is dying, or until Keshet marks another. When Keshet or any ally deals rolled damage to the marked target and Keshet spends 1 Focus: the damage gains +2×Reason (4 extra), or the attacker can spend a Recovery, or the attacker shifts up to Reason squares. This is the engine of everything. Every encounter, there is a marked target. Everyone knows who it is. Everything converges on them.
+        </div>
+      </div>
+
+      <h4 class="entry-label">Signature — Extraaction</h4>
+      <div class="ability-block signature">
+        <div class="ability-name">"Strike Now!"</div>
+        <div class="ability-meta">Main Action &middot; Ranged 10 &middot; One ally &middot; No Focus cost (or 5 Focus for two allies)</div>
+        <div class="ability-desc">
+          Your foe left an opening. You point this out to an ally. The target uses a signature ability as a free triggered action — a full extra action granted to a teammate, cost zero. At 5 Focus: two allies instead of one. This is what makes Keshet a force multiplier rather than simply a combatant. On any turn Keshet calls this, the unit gets an extra action. Over a full encounter, this is decisive.
+        </div>
+      </div>
+
+      <h4 class="entry-label">Subclass — Readiness</h4>
+      <div class="ability-block">
+        <div class="ability-name">Overwatch</div>
+        <div class="ability-meta">Triggered Action &middot; Ranged 10 &middot; Trigger: the target moves &middot; No Focus cost (or 1 to slow)</div>
+        <div class="ability-desc">
+          Under Keshet's direction, an ally waits for exactly the right moment to strike. When a designated creature moves, one ally makes a free strike against them at any point during that movement. Spend 1 Focus: if the target has average Reason or lower, they are also slowed. Overwatch converts the enemy's movement into the unit's action economy. Movement is threat. Keshet turns it into opportunity.
+        </div>
+      </div>
+
+      <h4 class="entry-label">Mobility Coordination</h4>
+      <div class="ability-block support">
+        <div class="ability-name">Squad! Forward!</div>
+        <div class="ability-meta">Maneuver &middot; Ranged 10 &middot; Self and two allies &middot; 3 Focus cost</div>
+        <div class="ability-desc">
+          On Keshet's command, three members of the unit move simultaneously up to their full speed. This is a repositioning tool — used when the formation needs to advance, when the perimeter needs to collapse on a target, when someone is out of position and the plan cannot execute until they aren't. Three people, coordinated movement, on a maneuver. This is Keshet's plan made physical.
+        </div>
+      </div>
+
+      <h4 class="entry-label">Mark Trigger (Resource Engine)</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Mark: Trigger (Advanced Tactics)</div>
+        <div class="ability-meta">Free Triggered Action &middot; Trigger: ally deals damage to marked target &middot; 1 Focus cost</div>
+        <div class="ability-desc">
+          When any ability deals rolled damage to Keshet's marked target, Keshet spends 1 Focus for one of: +4 damage (2×Reason), the attacker spends a Recovery, or the attacker shifts up to 2 squares. The Mastermind subclass upgrades this: the target gains 2 surges for the triggering damage, and spending 1 additional Focus increases the potency by 1. The mark is not just targeting — it is a continuous buff engine for whoever is hitting the marked creature.
+        </div>
+      </div>
+
+      <h4 class="entry-label">Melee Signature (Battlemind Kit)</h4>
+      <div class="ability-block">
+        <div class="ability-name">Unmooring</div>
+        <div class="ability-meta">Main Action &middot; Psionic, Melee 1, Strike, Weapon &middot; Kit: Battlemind</div>
+        <div class="ability-desc">
+          Keshet's weapon unleashes psionic energy that reduces the target's weight, making them significantly easier to force move. A melee strike that sets up the battlefield for force movement on subsequent turns — their own or Azimuth's. The Battlemind kit is psionic even though Keshet is not a psion; the weapon channels it. This is the self-taught approach: you use what works, regardless of whether it fits the theoretical framework.
+        </div>
+      </div>
+    </section>
+
+    <!-- VII. MASTERMIND -->
+    <section id="mastermind">
+      <h2 class="section-title">VII. Mastermind — Subclass Features</h2>
+      <p>The Mastermind subclass is characterized by encyclopedic knowledge of warfare — viewing the battlefield as a game board, seeking victory by thinking ahead of opponents. Two features define it at level 1.</p>
+      <div class="two-col">
+        <div>
+          <h3 class="subhead">Studied Commander</h3>
+          <p>Keshet's encyclopedic knowledge of battle history has direct operational applications. While present, every hero treats war and battle lore projects as one category cheaper. If given 24 hours before a combat encounter or negotiation, and possessing at least one clue about it, Keshet can make a Reason test to pre-analyze the encounter and give the unit an advantage before it begins.</p>
+          <div class="callout gold">
+            <div class="label">◈ Studied Commander in Play</div>
+            <p>The pre-encounter Reason test is one of the most significant downtime abilities in Zenith. Given preparation time, Keshet reduces the unknown. Given a clue, they build a model. Given a model, they find the contingency. This is not a separate tactical activity — it is Keshet's worldsickness coping strategy expressed as a game mechanic.</p>
+          </div>
+        </div>
+        <div>
+          <h3 class="subhead">Overwatch</h3>
+          <p>The second Mastermind feature — reactive fire coordination. When a designated creature moves, Keshet grants an ally a free strike at any point during that movement. This ability costs no Focus and activates on the enemy's action, not Keshet's. It converts the action economy equation: the enemy's turn is not safe. Every move is a potential strike.</p>
+          <div class="callout">
+            <div class="label">◈ Overwatch + Keeper of Order</div>
+            <p>The combination is significant. Overwatch creates a free strike; Keeper of Order ensures the dice on that free strike don't produce an unplanned result. A bad roll on the Overwatch strike becomes normalized. The plan executes.</p>
+          </div>
+        </div>
+      </div>
+      <div class="callout steel">
+        <div class="label">◈ Self-Taught Tension with Mastermind</div>
+        <p>Mastermind is an encyclopedic, knowledge-based subclass. Studied Commander specifically requires broad tactical education. The Self-Taught complication means Keshet's encyclopedic knowledge was not acquired through formal channels — it was built through observation, necessity, and a determination not to repeat the deaths they couldn't prevent. Their knowledge is real. The gaps in it are real. And because the knowledge was self-constructed, Keshet cannot always identify where the gaps are.</p>
+      </div>
+    </section>
+
+    <!-- VIII. SKILLS -->
+    <section id="skills">
+      <h2 class="section-title">VIII. Skills &amp; Languages</h2>
+      <p><em>Keshet's skill profile is physically capable, tactically oriented, and notably social-light. They have strong physical and strategic skills from their warden career and Memonek upbringing, but zero interpersonal skills. This creates a unit dependency: Keshet handles every problem that can be approached through terrain, planning, or force. Nomos handles everything that requires a face.</em></p>
+      <div class="two-col">
+        <div>
+          <h4 class="entry-label">Tactical &amp; Strategic</h4>
+          <div class="skill-grid">
+            <div class="skill-row sig"><span class="name">Lead</span><span class="val">+ Presence</span></div>
+            <div class="skill-row sig"><span class="name">Strategy</span><span class="val">+ Reason</span></div>
+            <div class="skill-row sig"><span class="name">Nature</span><span class="val">+ Reason</span></div>
+            <div class="skill-row high"><span class="name">Monsters</span><span class="val">+ Reason</span></div>
+            <div class="skill-row high"><span class="name">Mechanics</span><span class="val">+ Reason</span></div>
+            <div class="skill-row high"><span class="name">Endurance</span><span class="val">+ Might</span></div>
+            <div class="skill-row high"><span class="name">Sabotage</span><span class="val">+ Reason</span></div>
+          </div>
+        </div>
+        <div>
+          <h4 class="entry-label">Physical &amp; Field</h4>
+          <div class="skill-grid">
+            <div class="skill-row"><span class="name">Gymnastics</span><span class="val">+ Agility</span></div>
+            <div class="skill-row"><span class="name">Climb</span><span class="val">+ Might</span></div>
+            <div class="skill-row"><span class="name">Lift</span><span class="val">+ Might</span></div>
+            <div class="skill-row note">Perk: Danger Sense — edge on Alertness tests in natural environments; cannot be surprised outdoors; advance warning of natural disasters within 72 hours. A warden's reflex, still active.</div>
+          </div>
+          <h4 class="entry-label">Languages</h4>
+          <div class="skill-grid">
+            <div class="skill-row sig"><span class="name">Axiomatic</span><span class="val">Native</span></div>
+            <div class="skill-row high"><span class="name">Caelian</span><span class="val">Common (Orden)</span></div>
+            <div class="skill-row"><span class="name">Voll</span><span class="val">Time Raider language</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="callout warn">
+        <div class="label">⚠ Voll — Flag for Director</div>
+        <p>Keshet knows Voll, the language of the Time Raiders (kuran'zoi). This is not an obvious skill for a warden from a nomadic academic Memonek background. The ENCOUNTERS document notes that Time Raiders are a potential contact faction — former Synliroi servitor species who carry burning hatred for voiceless talkers and might trade information about Synliroi operations. If that encounter occurs, Keshet can speak to them in their own language. The question of where a warden learned it is worth pursuing.</p>
+      </div>
+    </section>
+
+    <!-- IX. COMPLICATION -->
+    <section id="complication">
+      <h2 class="section-title">IX. Complication — Self-Taught</h2>
+      <p>While their peers were learning their trades in schools, Keshet honed their capabilities in the field with nothing but instinct as a guide. What they lost in polish and theoretical grounding, they make up for in experiential power.</p>
+      <table class="dossier-table">
+        <thead><tr><th>Aspect</th><th>Mechanic</th><th>Significance</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Self-Taught Benefit</td>
+            <td>At the start of each turn during combat, Keshet can forgo gaining their Heroic Resource (Focus) until their next turn. If they do, all strikes gain a damage bonus equal to their highest characteristic score (+2) until then.</td>
+            <td>A trade: delay the resource that powers the team for personal damage output. This is a solo decision that affects collective capability. Keshet choosing to forgo Focus in a turn when Vellpryte needs a Mark trigger is Keshet choosing individual power over coordination.</td>
+          </tr>
+          <tr>
+            <td>Self-Taught Drawback</td>
+            <td>Tactical expertise is experiential and unorthodox — no formal doctrine, no institutional polish. Knowledge gaps exist that Keshet cannot always identify.</td>
+            <td>The complication's mechanical benefit is straightforward; the narrative cost is structural. They know what they've seen. They have not necessarily seen everything. The Mastermind subclass creates tension here: encyclopedic knowledge built from field experience has survivorship bias.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <div class="label">◈ Self-Taught as Drama</div>
+        <p>The benefit is designed to tempt. Forgoing Focus for personal damage is individually optimal in the moment and collectively suboptimal when the team needs the resource economy. Every time Keshet takes this trade, they are choosing the self-taught response — raw force — over the coordination their class is designed for. It is a mechanic that creates the specific failure mode Keshet's arc is about.</p>
+      </div>
+    </section>
+
+    <!-- X. WORLDSICKNESS -->
+    <section id="worldsickness">
+      <h2 class="section-title">X. Worldsickness — Their Method</h2>
+      <p>Keshet's strategy is <strong>suppression through planning.</strong> Every contingency accounted for is one less variable that can make them feel something unexpected. They approach worldsickness as a tactical problem: identify the emotional trigger, develop a countermeasure, execute the countermeasure before the emotion can become operative.</p>
+      <p>This is the most methodologically coherent coping strategy in Zenith and possibly the least sustainable. You cannot plan for everything. The lower planes produce situations that resist anticipation. And the specific event that broke Keshet once before — the fallen heroes, the unrecoverable wilderness — was itself a failure of planning. Their current strategy is a response to a wound, not a solved problem.</p>
+      <h3 class="subhead">Likely Manifestations</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Trigger</th><th>Response</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>A plan that fails despite full preparation</td><td>Intense self-interrogation — "what did I miss" — that can consume attention needed for the immediate crisis</td><td>The coping strategy collapses into the wound. They couldn't save the heroes. They couldn't save the plan. Same failure, different scale.</td></tr>
+          <tr><td>An ally in danger they cannot reach</td><td>Suppression cracks — the emotion arrives before the countermeasure does</td><td>The most significant worldsickness episode: something happens faster than the plan. Keshet experiences genuine fear without the framework of contingency to contain it.</td></tr>
+          <tr><td>Something that resembles the fallen heroes — style, voice, approach</td><td>Recognition without acknowledgment — they adjust the plan without saying why</td><td>The grief is operative without being articulated. They are protecting something. They have not named it.</td></tr>
+          <tr><td>Azimuth's Lucky streak doing something the plan didn't account for</td><td>Low-level discomfort that Keshet identifies as "an uncontrolled variable" rather than as trust</td><td>Comic register, but with an edge: Keshet's inability to accept outcomes-without-process is a worldsickness symptom they have filed as a tactical preference.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- XI. FALLEN HEROES -->
+    <section id="fallen">
+      <h2 class="section-title">XI. The Fallen Heroes</h2>
+      <p>Keshet's inciting incident is the most legible wound in Zenith. Heroes came to the territory they were sworn to protect. Trouble followed them. Keshet fought alongside them. The heroes died. The wilderness was altered beyond recovery. Keshet left to ensure it would not happen again.</p>
+      <p>They do not describe this as grief. They describe it as a dataset. They have analyzed the engagement extensively: where the formation failed, what contingencies were not prepared, what additional preparation might have changed the outcome. The analysis is thorough and unending. The emotion underneath it is the part that never comes up in briefings.</p>
+      <h3 class="subhead">What Keshet Carries</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Element</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Who the heroes were</td><td>Keshet knows. Not on record. Names not filed.</td></tr>
+          <tr><td>What they were fighting</td><td>Known to Keshet. Described in operational terms in personal logs. The emotional account has not been written.</td></tr>
+          <tr><td>Whether the outcome could have been changed</td><td>Unknown. Keshet believes yes. Keshet may be wrong. They have not stopped analyzing.</td></tr>
+          <tr><td>The wilderness itself</td><td>Gone. Keshet has not returned. They file this as "operationally irrelevant to current deployment."</td></tr>
+          <tr><td>The relationship to current planning</td><td>Direct. Every contingency they write is a contingency they did not write in time. They do not say this. It is structurally obvious.</td></tr>
+        </tbody>
+      </table>
+      <blockquote class="memorial">
+        Keshet submitted a 12-page operational review of Case #ZEN-002 following a partial formation failure in which no casualty occurred. The review identified seven points of improvement, rated each by severity, and proposed revised protocols for each. Executor Vellpryte reviewed the document and confirmed the case had been closed as a success. Keshet acknowledged this. They retained the review in their personal files. It is not the first such document.
+        <span class="attribution">// Administrative note, Case #ZEN-002 supplementary file &middot; Author: Secretary Nomos</span>
+      </blockquote>
+      <div class="callout steel">
+        <div class="label">◈ Director Hook</div>
+        <p>The fallen heroes should surface as an echo: a situation that resembles the original incident structurally, not literally. Heroes in danger in Keshet's operational area. Trouble arriving faster than the plan. The wilderness of Orden substituting for the wilderness of their warden territory. The moment when the question is not "did I prepare enough" but "can I accept that I cannot control this" — that is the scene the arc is building toward.</p>
+      </div>
+    </section>
+
+    <!-- XII. UNIT POSITION -->
+    <section id="unit">
+      <h2 class="section-title">XII. Position Within Zenith</h2>
+      <p>Keshet is Zenith's operational backbone: the member whose planning makes the other three effective, whose resource generation rewards coordination, and whose chain-of-command position places them directly between Vellpryte's authority and Azimuth's execution. They are not the most dangerous member of the unit in direct engagement. They are the member whose absence makes the unit structurally incoherent.</p>
+      <div class="callout">
+        <div class="label">◈ The Handler-Operator Pairing</div>
+        <p>Keshet and Azimuth form Zenith's perimeter pair. Keshet calls the play through Mark, "Strike Now!", and positional direction. Azimuth executes it with force projection and reactive defense. The partnership works because Azimuth trusts outcomes — she executes without second-guessing the call — and Keshet trusts Azimuth's capability even when her methods (luck, absorption) are alien to Keshet's planning philosophy.</p>
+      </div>
+      <table class="dossier-table">
+        <thead><tr><th>Colleague</th><th>Dynamic</th><th>Tension Point</th></tr></thead>
+        <tbody>
+          <tr><td>Executor Vellpryte</td><td>Clear command relationship; Keshet's tactical read feeds Vellpryte's rulings</td><td>When Keshet's tactical assessment says withdraw and Vellpryte says finish the job, Keshet executes. The conflict is internal: they disagree and comply. Over time this creates pressure.</td></tr>
+          <tr><td>Secretary Nomos</td><td>Intelligence exchange; Nomos provides social intelligence, Keshet provides tactical architecture</td><td>Nomos's improvisation and Keshet's planning exist in persistent low-level friction. Nomos produces outcomes the plan didn't account for. Keshet cannot decide whether to treat this as an asset or a variable to control.</td></tr>
+          <tr><td>Operator Azimuth</td><td>Handler-operator pair; Keshet calls, Azimuth executes</td><td>Azimuth's Lucky streak is something Keshet cannot account for. They have filed it under "favorable anomaly" and tried not to look at it too directly. This is a more sophisticated form of denial than it appears.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- XIII. ARC -->
+    <section id="arc">
+      <h2 class="section-title">XIII. Character Arc</h2>
+      <h3 class="subhead">The Central Question</h3>
+      <blockquote class="maxim">
+        The fallen heroes they couldn't save, the self-taught methods that work but lack polish, and the question of whether any plan can truly account for chaos.
+        <span class="attribution">// Arc summary, Zenith.md</span>
+      </blockquote>
+      <p>Keshet's arc is about the relationship between control and outcome. They built their entire professional identity around the belief that sufficient preparation prevents loss. The inciting incident was proof that this belief has limits. Their response was to prepare more comprehensively — to build more contingencies, study more battles, know more about the enemy before the engagement begins.</p>
+      <p>The arc resolves when Keshet encounters a situation that is genuinely unplannable — not failed planning, but a scenario where the outcome is structurally outside tactical control — and has to choose between accepting that and being present for it, or continuing to analyze in a way that prevents them from being there when the people around them need them.</p>
+      <table class="dossier-table">
+        <thead><tr><th>Phase</th><th>Scene Type</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>Early</td><td>Studied Commander succeeds — 24-hour prep, Reason test, the plan works perfectly</td><td>Validates the coping strategy and raises the stakes for when it fails. The plan working feels like evidence it always can.</td></tr>
+          <tr><td>Early–Mid</td><td>Something echoes the fallen heroes — structural resemblance, not literal repetition</td><td>The wound surfaces in a context where Keshet cannot file it as a completed case. They adjust the plan without naming why.</td></tr>
+          <tr><td>Mid</td><td>Self-Taught drawback costs the team — a gap in their experiential knowledge at a critical juncture</td><td>They were wrong about something because they learned it only from what they survived. Survivorship bias in tactical doctrine.</td></tr>
+          <tr><td>Late</td><td>A plan fails despite full preparation — the failure is not Keshet's error, it is the situation's irreducibility</td><td>The hardest scene: doing everything right and the outcome being bad anyway. Their coping strategy has no contingency for this.</td></tr>
+          <tr><td>Resolution</td><td>A moment requiring presence over planning — someone needs them there, not thinking ahead</td><td>Can they stop writing contingencies long enough to be in the room?</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- XIV. RELATIONS -->
+    <section id="relations">
+      <h2 class="section-title">XIV. Relations</h2>
+      <div class="relation">
+        <div class="rel-name">Executor Vellpryte <span class="role">&mdash; Senior Field Agent</span> <span class="marker active">Active</span></div>
+        <div class="rel-text">Commanding officer; the person who decides when Keshet's plan is executed and when it is set aside. The working relationship is functional. The professional tension is structural: Vellpryte decides, Keshet plans, and occasionally those functions are in conflict. Keshet executes regardless. Whether that compliance is loyalty or constraint is a question the arc will eventually require them to answer.</div>
+      </div>
+      <div class="relation">
+        <div class="rel-name">Secretary Nomos <span class="role">&mdash; Communications &amp; Support</span> <span class="marker active">Active</span></div>
+        <div class="rel-text">The unit's social and intelligence arm. Nomos provides information Keshet cannot gather — interpersonal data, cultural context, the things that cannot be extracted from a Reason test. Keshet values this functionally and finds it epistemically uncomfortable: you cannot build a contingency around what someone might say next in an interrogation. Nomos's improvisation is a variable Keshet has not found a way to fully integrate into their planning models.</div>
+      </div>
+      <div class="relation">
+        <div class="rel-name">Operator Azimuth <span class="role">&mdash; Psionic Specialist</span> <span class="marker watch">Handler</span></div>
+        <div class="rel-text">Keshet calls the play; Azimuth executes it. The partnership is operationally effective and philosophically alien. Azimuth trusts outcomes. Keshet trusts process. They have reached a working accommodation: Keshet names the objective and the approach, Azimuth delivers the result, and neither of them interrogates the other's underlying methodology too closely. Both are aware this is sustainable until it isn't.</div>
+      </div>
+      <div class="relation">
+        <div class="rel-name">The Fallen Heroes <span class="role">&mdash; Names Not Filed</span> <span class="marker memorial">Memorial</span></div>
+        <div class="rel-text">They came to Keshet's territory. They died there. Keshet writes their names in no official document and does not discuss them in briefings. The 12-page operational review of Case #ZEN-002 — the one Nomos filed — is one of forty-seven similar documents in Keshet's personal archive. None of them address the original incident directly. All of them are about it.</div>
+      </div>
+      <div class="relation">
+        <div class="rel-name">The Warden Territory <span class="role">&mdash; Former Charge, Now Altered</span> <span class="marker memorial">Antecedent</span></div>
+        <div class="rel-text">Gone. Keshet does not use the word "gone" — they use "operationally irrelevant to current deployment." The wilderness they spent years learning to read, protecting species whose names they knew, interpreting terrain in the way Nomos reads a face — all of it is beyond saving now. The Danger Sense perk still activates in natural environments. The instinct is intact. The place it was built for is not.</div>
+      </div>
+    </section>
+
+    <footer class="colophon">
+      <div><span class="accent">// ZENITH UNIT RECORD — OFFICE OF MEDIATION</span></div>
+      <div style="margin-top:0.4rem;"><span class="accent2">PROTOCOL KESHET &middot; KES-004 &middot; MEMONEK &middot; TACTICIAN / MASTERMIND &middot; LVL 1</span></div>
+      <div style="margin-top:0.4rem;">Produced for internal field reference &middot; Distribution: Unit Zenith &middot; Director access only</div>
+      <div style="margin-top:0.4rem;"><span style="color:var(--field-bright)">⚑ ACTIVE CASE &middot; VELLOPARATHA STATUS: SUPPRESSION (CONTINGENCY) &middot; OPEN FILE: FALLEN HEROES &middot; LANG. FLAG: VOLL</span></div>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>
+

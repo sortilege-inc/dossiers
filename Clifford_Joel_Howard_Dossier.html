@@ -1,0 +1,1377 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CASE FILE: HOWARD, CLIFFORD J. — RADIANCE DIV. 7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=IM+Fell+English:ital@0;1&family=Oswald:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --manila:       #e8dfc8;
+    --manila-dark:  #d4c8aa;
+    --manila-deep:  #b8a882;
+    --ink:          #1a1410;
+    --ink-soft:     #3d3228;
+    --ink-faint:    #7a6a55;
+    --red-stamp:    #8b1a1a;
+    --red-light:    #b02020;
+    --blue-ink:     #1a2d5a;
+    --blue-light:   #2a4080;
+    --rule:         #b8a882;
+    --rule-light:   #d4c8aa;
+    --redact:       #1a1410;
+    --paper-grain:  rgba(60,40,10,0.04);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  @keyframes flicker { 0%,100%{opacity:1} 50%{opacity:0.97} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes stampIn { from{opacity:0;transform:rotate(-8deg) scale(1.3)} to{opacity:1;transform:rotate(-8deg) scale(1)} }
+
+  body {
+    background: #6b5d45;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(0,0,0,0.03) 28px, rgba(0,0,0,0.03) 29px),
+      repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(0,0,0,0.02) 28px, rgba(0,0,0,0.02) 29px);
+    min-height: 100vh;
+    padding: 3rem 1.5rem 5rem;
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    color: var(--ink);
+  }
+
+  .document {
+    max-width: 860px;
+    margin: 0 auto;
+    background: var(--manila);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
+      linear-gradient(180deg, var(--manila) 0%, #ddd3b6 60%, var(--manila-dark) 100%);
+    box-shadow:
+      0 2px 4px rgba(0,0,0,0.3),
+      0 8px 24px rgba(0,0,0,0.25),
+      inset 0 0 80px rgba(150,110,50,0.08);
+    padding: 3rem 3.5rem 4rem;
+    position: relative;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  /* Punched holes */
+  .document::before {
+    content: "";
+    position: absolute;
+    left: 1.4rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0, transparent 80px,
+      var(--manila-deep) 80px, var(--manila-deep) 82px
+    );
+    opacity: 0.5;
+  }
+
+  /* Header punch holes */
+  .hole {
+    position: absolute;
+    left: 1.25rem;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #6b5d45;
+    border: 1px solid var(--manila-deep);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+  }
+  .hole-1 { top: 3rem; }
+  .hole-2 { top: 50%; }
+  .hole-3 { bottom: 3rem; }
+
+  /* ── HEADER BLOCK ── */
+  header.file-header {
+    border: 2px solid var(--ink);
+    padding: 1.5rem 1.5rem 1rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+    background: rgba(255,255,255,0.15);
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .agency-block {
+    flex: 1;
+  }
+
+  .agency-name {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+
+  .file-number {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.08em;
+    margin-top: 0.4rem;
+  }
+
+  h1.character-name {
+    font-family: 'Special Elite', serif;
+    font-size: 2.4rem;
+    line-height: 1.05;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    margin: 0.3rem 0 0.4rem;
+  }
+
+  .character-name .surname { font-size: 2.8rem; }
+
+  .subtitle {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.12em;
+    font-style: italic;
+    margin-bottom: 0.3rem;
+  }
+
+  /* STAMP */
+  .stamp-block {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.6rem;
+  }
+
+  .stamp {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    color: var(--red-stamp);
+    border: 3px solid var(--red-stamp);
+    padding: 0.3rem 0.7rem;
+    text-transform: uppercase;
+    opacity: 0.82;
+    transform: rotate(-8deg);
+    display: inline-block;
+    animation: stampIn 0.5s 0.4s ease both;
+    text-shadow: 1px 1px 0 rgba(139,26,26,0.2);
+    box-shadow: inset 0 0 0 1px rgba(139,26,26,0.15);
+    position: relative;
+  }
+  .stamp::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border: 1px solid rgba(139,26,26,0.3);
+    pointer-events: none;
+  }
+
+  .stamp.blue-stamp {
+    color: var(--blue-ink);
+    border-color: var(--blue-ink);
+    font-size: 0.72rem;
+    transform: rotate(3deg);
+    opacity: 0.7;
+    animation-delay: 0.6s;
+  }
+
+  /* PORTRAIT ROW */
+  .portrait-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 1.5rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 1.2rem;
+  }
+
+  .portrait-block {
+    position: relative;
+  }
+
+  .portrait-block img {
+    width: 100%;
+    display: block;
+    filter: sepia(0.6) contrast(0.9) brightness(0.95);
+    border: 1px solid var(--manila-deep);
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+  }
+
+  .portrait-caption {
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.4rem;
+    text-transform: uppercase;
+  }
+
+  .vitals-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.3rem 1.5rem;
+    align-content: start;
+  }
+
+  .vital-row {
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 1px dotted var(--rule);
+    padding-bottom: 0.25rem;
+    align-items: baseline;
+    font-size: 0.8rem;
+  }
+
+  .vital-label {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .vital-value {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.82rem;
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    margin-bottom: 2.8rem;
+  }
+
+  h2.section-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 0.68rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--ink);
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.4rem 0;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  h2.section-title .sec-num {
+    font-family: 'Courier Prime', monospace;
+    font-weight: 400;
+    font-size: 0.68rem;
+    color: var(--red-stamp);
+    letter-spacing: 0;
+  }
+
+  h3.subhead {
+    font-family: 'Special Elite', serif;
+    font-size: 1.1rem;
+    color: var(--ink);
+    margin: 1.2rem 0 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  p {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    margin-bottom: 0.9rem;
+  }
+
+  p.lead {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  /* Drop cap */
+  p.drop::first-letter {
+    font-family: 'Special Elite', serif;
+    font-size: 3.2rem;
+    line-height: 0.8;
+    float: left;
+    padding: 0.2rem 0.5rem 0 0;
+    color: var(--ink);
+  }
+
+  /* Pull quotes */
+  blockquote.dispatch {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: var(--blue-ink);
+    border: 1px solid var(--blue-light);
+    border-left: 4px solid var(--blue-ink);
+    background: rgba(26,45,90,0.04);
+    padding: 0.8rem 1rem;
+    margin: 1.2rem 0;
+    position: relative;
+  }
+
+  blockquote.dispatch::before {
+    content: "FIELD REPORT EXTRACT";
+    display: block;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--blue-ink);
+    opacity: 0.6;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+
+  blockquote.dispatch .date {
+    display: block;
+    font-size: 0.7rem;
+    opacity: 0.6;
+    margin-top: 0.5rem;
+    text-align: right;
+    font-style: italic;
+  }
+
+  blockquote.warning {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: var(--red-stamp);
+    border: 1px solid var(--red-stamp);
+    border-left: 4px solid var(--red-stamp);
+    background: rgba(139,26,26,0.04);
+    padding: 0.8rem 1rem;
+    margin: 1.2rem 0;
+  }
+
+  blockquote.warning::before {
+    content: "⚠  HANDLER NOTATION";
+    display: block;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+
+  /* STATS */
+  .characteristics-block {
+    margin: 1rem 0 1.5rem;
+  }
+
+  .char-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .char-cell {
+    border: 1px solid var(--rule);
+    background: rgba(255,255,255,0.2);
+    text-align: center;
+    padding: 0.6rem 0.3rem;
+  }
+
+  .char-cell .abbr {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .char-cell .val {
+    font-family: 'Special Elite', serif;
+    font-size: 1.5rem;
+    color: var(--ink);
+    line-height: 1;
+    display: block;
+  }
+
+  /* Derived stats row */
+  .derived-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .derived-cell {
+    border: 1px dashed var(--rule);
+    padding: 0.4rem 0.5rem;
+    text-align: center;
+  }
+
+  .derived-cell .d-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+
+  .derived-cell .d-val {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  /* Skills */
+  .skills-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 2rem;
+    margin: 1rem 0;
+  }
+
+  .skill-row {
+    display: flex;
+    align-items: baseline;
+    border-bottom: 1px dotted var(--rule-light);
+    padding: 0.22rem 0;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+  }
+
+  .skill-name {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    flex: 1;
+  }
+
+  .skill-name.prof {
+    font-style: italic;
+  }
+
+  .skill-score {
+    font-family: 'Special Elite', serif;
+    font-size: 1rem;
+    color: var(--ink);
+    font-weight: normal;
+    min-width: 2.2rem;
+    text-align: right;
+  }
+
+  .skill-score.high {
+    color: var(--blue-ink);
+    font-weight: bold;
+  }
+
+  .skill-tag {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    background: rgba(0,0,0,0.06);
+    padding: 0.05rem 0.3rem;
+    border-radius: 1px;
+    flex-shrink: 0;
+  }
+
+  /* Passions */
+  .passions-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin: 1rem 0;
+  }
+
+  .passion {
+    border-left: 3px solid var(--ink-faint);
+    padding: 0.5rem 0 0.5rem 1rem;
+  }
+
+  .passion.high { border-left-color: var(--red-stamp); }
+  .passion.med { border-left-color: var(--blue-ink); }
+
+  .passion-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .passion-name {
+    font-family: 'Special Elite', serif;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+
+  .passion-score {
+    font-family: 'Courier Prime', monospace;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--red-stamp);
+  }
+
+  .passion-desc {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--ink-faint);
+    margin: 0;
+  }
+
+  /* Hit locations */
+  .hitloc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+
+  .hitloc-cell {
+    border: 1px solid var(--rule);
+    padding: 0.5rem 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.1);
+  }
+
+  .hitloc-cell .loc-name {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+
+  .hitloc-cell .loc-hp {
+    font-family: 'Special Elite', serif;
+    font-size: 1.1rem;
+    color: var(--ink);
+  }
+
+  .hitloc-cell .loc-range {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.65rem;
+    color: var(--ink-faint);
+    display: block;
+  }
+
+  /* Equipment */
+  .equip-row {
+    display: flex;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px dotted var(--rule-light);
+    align-items: baseline;
+  }
+
+  .equip-name {
+    font-family: 'Special Elite', serif;
+    font-size: 0.95rem;
+    color: var(--ink);
+    flex: 1;
+  }
+
+  .equip-detail {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+  }
+
+  /* REDACTION */
+  .redact {
+    background: var(--redact);
+    color: transparent;
+    user-select: none;
+    display: inline;
+    padding: 0 0.1rem;
+    font-size: inherit;
+  }
+
+  /* Callout / note box */
+  .note-box {
+    border: 1px solid var(--rule);
+    border-top: 2px solid var(--ink-faint);
+    background: rgba(255,255,255,0.15);
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    position: relative;
+  }
+
+  .note-box .note-label {
+    position: absolute;
+    top: -0.55rem;
+    left: 0.8rem;
+    background: var(--manila);
+    padding: 0 0.4rem;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .note-box p { font-size: 0.82rem; margin-bottom: 0.5rem; }
+  .note-box p:last-child { margin-bottom: 0; }
+
+  /* Special points bar */
+  .points-row {
+    display: flex;
+    gap: 1.5rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+  }
+
+  .point-badge {
+    border: 1px solid var(--rule);
+    padding: 0.5rem 1rem;
+    text-align: center;
+    min-width: 100px;
+  }
+
+  .point-badge .pb-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .point-badge .pb-val {
+    font-family: 'Special Elite', serif;
+    font-size: 1.6rem;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .point-badge.special .pb-label { color: var(--red-stamp); }
+  .point-badge.special { border-color: var(--red-stamp); background: rgba(139,26,26,0.04); }
+
+  /* TOC */
+  nav.toc {
+    border: 1px dashed var(--rule);
+    padding: 1rem 1.2rem;
+    margin: 2rem 0 2.5rem;
+    background: rgba(255,255,255,0.1);
+  }
+
+  .toc-label {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.7rem;
+  }
+
+  nav.toc ol {
+    list-style: none;
+    columns: 2;
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+  }
+
+  nav.toc li {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    padding: 0.15rem 0;
+    counter-increment: toc;
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+  }
+
+  nav.toc li::before {
+    content: counter(toc, upper-roman) ".";
+    color: var(--ink-faint);
+    font-size: 0.68rem;
+    flex-shrink: 0;
+  }
+
+  nav.toc a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px dotted transparent;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  nav.toc a:hover {
+    color: var(--blue-ink);
+    border-bottom-color: var(--blue-ink);
+  }
+
+  /* Footer */
+  footer.colophon {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .colophon-text {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.68rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.08em;
+    line-height: 1.8;
+  }
+
+  .footer-stamp {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--red-stamp);
+    border: 3px solid var(--red-stamp);
+    padding: 0.3rem 0.8rem;
+    opacity: 0.55;
+    transform: rotate(4deg);
+    display: inline-block;
+  }
+
+  /* Two-column layout */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 2.5rem;
+  }
+
+  /* Underlined handwritten feel for annotations */
+  .annotation {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    color: var(--blue-ink);
+    font-size: 0.82rem;
+  }
+
+  /* Section divider ornament */
+  .ornament {
+    text-align: center;
+    color: var(--ink-faint);
+    font-size: 0.7rem;
+    letter-spacing: 0.5em;
+    margin: 2rem 0;
+    opacity: 0.5;
+  }
+
+  ul.file-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 1rem;
+  }
+
+  ul.file-list li {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    padding: 0.3rem 0;
+    border-bottom: 1px dotted var(--rule-light);
+    display: flex;
+    gap: 0.6rem;
+    align-items: baseline;
+    line-height: 1.5;
+  }
+
+  ul.file-list li::before {
+    content: "—";
+    color: var(--ink-faint);
+    flex-shrink: 0;
+  }
+
+  /* Mobile */
+  @media (max-width: 680px) {
+    body { padding: 1rem 0.5rem; }
+    .document { padding: 2rem 1.5rem 3rem; }
+    .header-top { flex-direction: column; }
+    .portrait-row { grid-template-columns: 1fr; }
+    .portrait-block img { max-width: 200px; }
+    .char-grid { grid-template-columns: repeat(4, 1fr); }
+    .derived-row { grid-template-columns: repeat(3, 1fr); }
+    .skills-layout { grid-template-columns: 1fr; }
+    .hitloc-grid { grid-template-columns: 1fr 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    nav.toc ol { columns: 1; }
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .document { box-shadow: none; max-width: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="document">
+  <div class="hole hole-1"></div>
+  <div class="hole hole-2"></div>
+  <div class="hole hole-3"></div>
+
+  <!-- ═══════════════════════ HEADER ═══════════════════════ -->
+  <header class="file-header">
+    <div class="header-top">
+      <div class="agency-block">
+        <div class="agency-name">Division Seven &nbsp;·&nbsp; Radiance Bureau &nbsp;·&nbsp; Field Operations</div>
+        <h1 class="character-name">
+          Howard, <span class="surname">Clifford Joel</span>
+        </h1>
+        <p class="subtitle">Federal Investigator &nbsp;·&nbsp; Nashoba Posting &nbsp;·&nbsp; Age 27</p>
+        <div class="file-number">
+          FILE NO. DIV7-1930-CJH-███&nbsp;&nbsp;|&nbsp;&nbsp;
+          HANDLER: AGENT <span class="redact">████████</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+          STATUS: ACTIVE / FIELD
+        </div>
+      </div>
+      <div class="stamp-block">
+        <span class="stamp">Confidential</span>
+        <span class="stamp blue-stamp">Radiance Div. 7</span>
+      </div>
+    </div>
+
+    <div class="portrait-row">
+      <div class="portrait-block">
+        <img src="clifford.png" alt="Agent Howard — Field Photograph">
+        <div class="portrait-caption">Howard, C.J. — Current Posting</div>
+      </div>
+
+      <div class="vitals-grid">
+        <div class="vital-row">
+          <span class="vital-label">Career</span>
+          <span class="vital-value">Federal Investigator</span>
+        </div>
+        <div class="vital-row">
+          <span class="vital-label">Age</span>
+          <span class="vital-value">27</span>
+        </div>
+        <div class="vital-row">
+          <span class="vital-label">Social Class</span>
+          <span class="vital-value">Urban / Poor</span>
+        </div>
+        <div class="vital-row">
+          <span class="vital-label">Handedness</span>
+          <span class="vital-value">Left</span>
+        </div>
+        <div class="vital-row">
+          <span class="vital-label">Origin</span>
+          <span class="vital-value">Boston, MA</span>
+        </div>
+        <div class="vital-row">
+          <span class="vital-label">Born Name</span>
+          <span class="vital-value">Horowitz</span>
+        </div>
+        <div class="vital-row">
+          <span class="vital-label">Assignment</span>
+          <span class="vital-value">Nashoba ("Crossfield"), MA</span>
+        </div>
+        <div class="vital-row">
+          <span class="vital-label">Duration on Post</span>
+          <span class="vital-value">~3 Months</span>
+        </div>
+        <div class="vital-row">
+          <span class="vital-label">Rationality Pts</span>
+          <span class="vital-value" style="color:var(--blue-ink)">6</span>
+        </div>
+        <div class="vital-row">
+          <span class="vital-label">Voorish Pts</span>
+          <span class="vital-value" style="color:var(--red-stamp)">0</span>
+        </div>
+        <div class="vital-row">
+          <span class="vital-label">System</span>
+          <span class="vital-value">Mythras / Weird of Hali</span>
+        </div>
+        <div class="vital-row">
+          <span class="vital-label">Affiliation</span>
+          <span class="vital-value">The Radiance (unclear)</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <div class="toc-label">Index of Contents</div>
+    <ol>
+      <li><a href="#characteristics">Characteristics &amp; Derived Attributes</a></li>
+      <li><a href="#skills">Skill Profile</a></li>
+      <li><a href="#passions">Passions &amp; Motivations</a></li>
+      <li><a href="#combat">Combat &amp; Equipment</a></li>
+      <li><a href="#background">Background &amp; Origins</a></li>
+      <li><a href="#nashoba">The Nashoba Situation</a></li>
+      <li><a href="#handler">Handler Correspondence</a></li>
+      <li><a href="#psychology">Psychological Assessment</a></li>
+      <li><a href="#questions">Open Questions</a></li>
+    </ol>
+  </nav>
+
+  <!-- ═══════════════════════ SECTION I ═══════════════════════ -->
+  <section id="characteristics">
+    <h2 class="section-title"><span class="sec-num">I.</span> Characteristics &amp; Derived Attributes</h2>
+
+    <div class="characteristics-block">
+      <div class="char-grid">
+        <div class="char-cell">
+          <span class="abbr">STR</span>
+          <span class="val">10</span>
+        </div>
+        <div class="char-cell">
+          <span class="abbr">CON</span>
+          <span class="val">12</span>
+        </div>
+        <div class="char-cell">
+          <span class="abbr">SIZ</span>
+          <span class="val">12</span>
+        </div>
+        <div class="char-cell">
+          <span class="abbr">DEX</span>
+          <span class="val">7</span>
+        </div>
+        <div class="char-cell">
+          <span class="abbr">INT</span>
+          <span class="val">12</span>
+        </div>
+        <div class="char-cell">
+          <span class="abbr">POW</span>
+          <span class="val">6</span>
+        </div>
+        <div class="char-cell">
+          <span class="abbr">CHA</span>
+          <span class="val">11</span>
+        </div>
+      </div>
+
+      <div class="derived-row">
+        <div class="derived-cell">
+          <span class="d-label">Action Points</span>
+          <span class="d-val">2</span>
+        </div>
+        <div class="derived-cell">
+          <span class="d-label">Luck Points</span>
+          <span class="d-val">2</span>
+        </div>
+        <div class="derived-cell">
+          <span class="d-label">Magic Points</span>
+          <span class="d-val">11</span>
+        </div>
+        <div class="derived-cell">
+          <span class="d-label">Tenacity</span>
+          <span class="d-val">11</span>
+        </div>
+        <div class="derived-cell">
+          <span class="d-label">Movement</span>
+          <span class="d-val">6m</span>
+        </div>
+      </div>
+
+      <div class="points-row">
+        <div class="point-badge">
+          <span class="pb-label">Rationality Points</span>
+          <span class="pb-val">6</span>
+        </div>
+        <div class="point-badge special">
+          <span class="pb-label">Voorish Points</span>
+          <span class="pb-val">0</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Hit Locations</h3>
+    <div class="hitloc-grid">
+      <div class="hitloc-cell">
+        <div>
+          <div class="loc-name">Head</div>
+          <span class="loc-range">Roll 19–20</span>
+        </div>
+        <div class="loc-hp">5</div>
+      </div>
+      <div class="hitloc-cell">
+        <div>
+          <div class="loc-name">Chest</div>
+          <span class="loc-range">Roll 10–12</span>
+        </div>
+        <div class="loc-hp">7</div>
+      </div>
+      <div class="hitloc-cell">
+        <div>
+          <div class="loc-name">Abdomen</div>
+          <span class="loc-range">Roll 7–9</span>
+        </div>
+        <div class="loc-hp">6</div>
+      </div>
+      <div class="hitloc-cell">
+        <div>
+          <div class="loc-name">Right Arm</div>
+          <span class="loc-range">Roll 13–15</span>
+        </div>
+        <div class="loc-hp">4</div>
+      </div>
+      <div class="hitloc-cell">
+        <div>
+          <div class="loc-name">Left Arm</div>
+          <span class="loc-range">Roll 16–18</span>
+        </div>
+        <div class="loc-hp">4</div>
+      </div>
+      <div class="hitloc-cell">
+        <div>
+          <div class="loc-name">Right Leg</div>
+          <span class="loc-range">Roll 1–3</span>
+        </div>
+        <div class="loc-hp">5</div>
+      </div>
+      <div class="hitloc-cell">
+        <div>
+          <div class="loc-name">Left Leg</div>
+          <span class="loc-range">Roll 4–6</span>
+        </div>
+        <div class="loc-hp">5</div>
+      </div>
+    </div>
+
+    <p class="annotation">⟶ Physically unremarkable. INT and CHA suggest capable but not commanding. Low POW is notable — this is a man not yet touched by the uncanny, or one who has been insulated from it. Low DEX: deliberate, not quick.</p>
+  </section>
+
+  <div class="ornament">· · · · ·</div>
+
+  <!-- ═══════════════════════ SECTION II ═══════════════════════ -->
+  <section id="skills">
+    <h2 class="section-title"><span class="sec-num">II.</span> Skill Profile — Training &amp; Field Assessment</h2>
+
+    <p style="font-size:0.78rem; color:var(--ink-faint); margin-bottom:1rem;">Scores shown as base + training total. Trained skills in <span style="color:var(--blue-ink); font-weight:bold;">blue</span> indicate assigned proficiencies.</p>
+
+    <h3 class="subhead">Professional &amp; Investigative</h3>
+    <div class="skills-layout">
+      <div class="skill-row">
+        <span class="skill-name prof">Investigation</span>
+        <span class="skill-tag">prof</span>
+        <span class="skill-score high">35</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name prof">Research</span>
+        <span class="skill-tag">prof</span>
+        <span class="skill-score high">40</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name prof">Bureaucracy</span>
+        <span class="skill-tag">prof</span>
+        <span class="skill-score high">20</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name prof">Courtesy</span>
+        <span class="skill-tag">prof</span>
+        <span class="skill-score high">24</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Perception</span>
+        <span class="skill-score high">25</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Insight</span>
+        <span class="skill-score high">25</span>
+      </div>
+    </div>
+
+    <h3 class="subhead">Physical &amp; Field Skills</h3>
+    <div class="skills-layout">
+      <div class="skill-row">
+        <span class="skill-name">Athletics</span>
+        <span class="skill-score high">28</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Drive</span>
+        <span class="skill-score high">28</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Brawn</span>
+        <span class="skill-score high">26</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Stealth</span>
+        <span class="skill-score high">20</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Willpower</span>
+        <span class="skill-score high">25</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Endurance</span>
+        <span class="skill-score high">8</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Swim</span>
+        <span class="skill-score high">6</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Sing</span>
+        <span class="skill-score">5</span>
+      </div>
+    </div>
+
+    <h3 class="subhead">Social &amp; Subterfuge</h3>
+    <div class="skills-layout">
+      <div class="skill-row">
+        <span class="skill-name prof">Sleight</span>
+        <span class="skill-tag">prof</span>
+        <span class="skill-score high">10</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name prof">Commerce</span>
+        <span class="skill-tag">prof</span>
+        <span class="skill-score">5</span>
+      </div>
+    </div>
+
+    <h3 class="subhead">Combat Styles</h3>
+    <div class="skills-layout">
+      <div class="skill-row">
+        <span class="skill-name">Police (Firearms, Baton)</span>
+        <span class="skill-tag">style</span>
+        <span class="skill-score high">20</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Street Fighting</span>
+        <span class="skill-tag">style</span>
+        <span class="skill-score">—</span>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <div class="note-label">Analyst's Note</div>
+      <p>Research (40) and Investigation (35) are the dominant trained skills — Howard is a man of files, cross-references, and careful inference. He finds things out. He will not necessarily prevail in a physical confrontation. Insight (25) and Perception (25) suggest he is harder to fool than he may appear.</p>
+      <p>Willpower (25) at low POW (6) is characteristic of the Radiance type: rationalist certainty as a bulwark, not spiritual resilience. The question is what happens to that certainty in Nashoba.</p>
+    </div>
+  </section>
+
+  <div class="ornament">· · · · ·</div>
+
+  <!-- ═══════════════════════ SECTION III ═══════════════════════ -->
+  <section id="passions">
+    <h2 class="section-title"><span class="sec-num">III.</span> Passions &amp; Motivating Forces</h2>
+
+    <div class="passions-block">
+      <div class="passion high">
+        <div class="passion-header">
+          <span class="passion-name">Distrust His Handler</span>
+          <span class="passion-score">40</span>
+        </div>
+        <p class="passion-desc">The strongest single drive on the sheet. Instructions from <span class="redact">████████</span> have grown increasingly difficult to square with what Howard observes in the field. The orders are darker than the situation seems to warrant. Clifford is not yet insubordinate — but the gap between what he sees and what he is told to do is widening, and this passion will not stay internal forever.</p>
+      </div>
+
+      <div class="passion med">
+        <div class="passion-header">
+          <span class="passion-name">Seek Acceptance in a Community</span>
+          <span class="passion-score">30</span>
+        </div>
+        <p class="passion-desc">The deepest wound, surfacing at second-highest intensity. Howard grew up in a household that had voluntarily severed itself from its own community — exchanging Horowitz for Howard, discarding Yiddish, burying socialism. He was raised to belong nowhere in particular. What he finds in Nashoba — a stubborn, syncretic, centuries-deep web of belonging that takes in the abandoned and the strange — is something he has never seen and cannot entirely dismiss as pathology.</p>
+      </div>
+
+      <div class="passion">
+        <div class="passion-header">
+          <span class="passion-name">Desire Maude</span>
+          <span class="passion-score">20</span>
+        </div>
+        <p class="passion-desc">The proprietor of Nashoba's only diner; organizer of the knitting circle that benefits the local orphanage. Howard eats there most mornings. She is warm, competent, and clearly a hub of the community he is investigating. He has not yet asked himself how much of his reluctance to report negatively on Nashoba is professional discretion and how much is the fact that Maude seems glad to see him.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornament">· · · · ·</div>
+
+  <!-- ═══════════════════════ SECTION IV ═══════════════════════ -->
+  <section id="combat">
+    <h2 class="section-title"><span class="sec-num">IV.</span> Combat Profile &amp; Equipment</h2>
+
+    <div class="two-col">
+      <div>
+        <h3 class="subhead">Sidearm</h3>
+        <div class="equip-row">
+          <span class="equip-name">.38 Revolver</span>
+          <span class="equip-detail">DMG 1d6</span>
+        </div>
+        <div class="equip-row" style="padding-left:1rem; border:none;">
+          <span class="equip-detail" style="color:var(--ink-faint)">AP 4 &nbsp;|&nbsp; HP 3 &nbsp;|&nbsp; Force L</span>
+        </div>
+        <div class="equip-row" style="padding-left:1rem; border:none;">
+          <span class="equip-detail" style="color:var(--ink-faint)">Range: Close 30m / Eff. 100m / Long 200m</span>
+        </div>
+        <div class="equip-row" style="padding-left:1rem; border:none;">
+          <span class="equip-detail" style="color:var(--ink-faint)">Load 3 &nbsp;|&nbsp; Cylinder 6 &nbsp;|&nbsp; Impale S</span>
+        </div>
+      </div>
+      <div>
+        <h3 class="subhead">Worn Protection</h3>
+        <div class="equip-row">
+          <span class="equip-name">Jacket (Heavy)</span>
+          <span class="equip-detail">AP 2</span>
+        </div>
+        <p style="font-size:0.78rem; color:var(--ink-faint); margin-top:0.5rem; line-height:1.6;">Standard issue heavy wool overcoat providing minimal ballistic protection. More useful against Massachusetts winters than against the things Nashoba might eventually produce.</p>
+      </div>
+    </div>
+
+    <blockquote class="warning">
+      Howard has shown competence in the Police combat style (20) and carries a sidearm. He is not primarily a weapon. His value is analytical. He should not be placed in forward engagement scenarios. He should also not be told this.
+    </blockquote>
+  </section>
+
+  <div class="ornament">· · · · ·</div>
+
+  <!-- ═══════════════════════ SECTION V ═══════════════════════ -->
+  <section id="background">
+    <h2 class="section-title"><span class="sec-num">V.</span> Background &amp; Origins</h2>
+
+    <p class="lead drop">Clifford Joel Howard was born in Boston, Massachusetts, to parents who had traveled a very long way — geographically and otherwise — from who they once were. His father and mother were, in an earlier life in Poland, Jewish socialists: participants in a tradition of radical political thought rooted in a specific community, a specific language, a specific set of hopes for the world. That tradition ended at customs.</p>
+
+    <p>The name change — Horowitz to Howard — was typical of the period: a pragmatic erasure, a toll paid for admission to the American middle class. With it went the Yiddish, the politics, the particular textures of an immigrant community's internal life. What replaced it was something more generic: Judeo-Christian values, east coast respectability, an apartment in Boston with newspapers in English. Not poverty, but not belonging either.</p>
+
+    <p>Clifford grew up largely ignorant of this history. His parents did not discuss what they had set aside; it was simply absent. He was raised in a household that had performed assimilation so thoroughly that the seams were invisible. He learned, implicitly, that the correct response to difference was to minimize it, smooth it over, move on.</p>
+
+    <div class="note-box">
+      <div class="note-label">Family Record</div>
+      <p>Parents: <span class="redact">██████</span> and <span class="redact">███████</span> Horowitz (now Howard). Immigrated via Hamburg, 1901. Naturalized 1908. Father employed as a clerk at <span class="redact">████████████</span> Insurance, Boston. No known remaining ties to Polish Jewish community. No Yiddish spoken in household. Religious observance: nominal Protestant (suspected social performance). Political affiliation: none declared.</p>
+    </div>
+
+    <p>He came to federal investigative work through a combination of aptitude and necessity. His Research and Investigation scores are the highest on the sheet. He found bureaucracy legible in a way that social belonging never quite was. The Radiance — whatever it is, precisely, and Howard himself is not entirely certain — found him useful.</p>
+  </section>
+
+  <div class="ornament">· · · · ·</div>
+
+  <!-- ═══════════════════════ SECTION VI ═══════════════════════ -->
+  <section id="nashoba">
+    <h2 class="section-title"><span class="sec-num">VI.</span> The Nashoba Situation — Field Assessment</h2>
+
+    <blockquote class="dispatch">
+      "Subject community of Nashoba (designated 'Crossfield' on official Massachusetts survey maps, designation uniformly ignored by residents) has proven more complex in direct observation than reported by prior Radiance sources. Initial assessment of dangerous cultic activity appears to rest on mischaracterization of local practices. Recommend extended observation period before any further action."
+      <span class="date">— Field Report, Month 2 of Posting</span>
+    </blockquote>
+
+    <p>Nashoba is old. Older than the county, older than the state, possibly older than the nation's collective memory of this coastline. Its people are several peoples, accumulated over centuries: indigenous communities who were here before the English, settlers who integrated rather than displaced, various arrivals since who found their way to a place that seemed, for reasons not entirely explicable, to take them in.</p>
+
+    <p>The result is a culture that is syncretic, insular, and — this is the part that keeps appearing in Howard's reports, always hedged, always qualified — apparently healthy. The community cares for children whom other communities would discard: those born with what the medical establishment calls defects, those who arrived already abandoned, those who are different in ways that Howard is struggling to find a vocabulary for. The local orphanage, organized in part by Maude through her knitting circle, is one of the largest per-capita in the state.</p>
+
+    <h3 class="subhead">The Called</h3>
+    <p>Howard was sent to Nashoba to investigate <em>the Called</em> — described in Radiance intelligence as a dangerous cult. What he has found is harder to categorize. The Called are, in the most accurate description he can manage in his reports, a celebration of fecundity. Their practices are an indirect tribute to something Howard doesn't have a name for yet, something associated with variety, abundance, and the wild proliferating fact of life in all its forms.</p>
+
+    <p>Their church — nominally Presbyterian, in the way that Nashoba is nominally anything — is notable for what it does not contain: very little mention of Christ, almost nothing of his Father. What it contains instead are meditations on creation: its variety, its strangeness, its refusal to conform to expectation. The children's service, which Howard attended once in an undercover capacity, left him unsettled in ways he has not fully written into his reports.</p>
+
+    <h3 class="subhead">The Shonokin</h3>
+    <p>Some of Nashoba's older families exhibit characteristics that do not have straightforward explanations. Howard has documented, in private notes he has not transmitted to his handler, at least three individuals with irises that appear to have vertical pupils in certain lights. He has attributed this to his reports as "unusual pigmentation effects, likely hereditary." He is not certain this is accurate. The Shonokin — an older people than the indigenous, according to local tradition, who predated everyone else in this region — are not a category he has a protocol for.</p>
+
+    <blockquote class="dispatch">
+      "The community's practice of welcoming children with physical and cognitive differences, while idiosyncratic, appears consistent with longstanding local tradition and is producing measurable positive outcomes in child welfare by any standard metric available to this investigator. I am unable to substantiate the threat designation in current field conditions."
+      <span class="date">— Field Report, Month 3 of Posting</span>
+    </blockquote>
+
+    <h3 class="subhead">The Inbreeding Question</h3>
+    <p>One of the things Howard has slowly come to understand — and which he suspects his handler either doesn't know or doesn't want him to know — is that Nashoba's practice of taking in outsiders, particularly children, serves a function beyond simple charity. The community is by nature insular; without the continued influx of new bloodlines, it would long since have faced the genetic consequences of isolation. The orphanage is not merely benevolent. It is structural. It is how Nashoba survives.</p>
+
+    <p>This is not, to Howard's increasingly complicated mind, evidence of predatory cult behavior. It is evidence of a community that found a way to remain itself across centuries. He is beginning to wonder what that looks like from the inside.</p>
+  </section>
+
+  <div class="ornament">· · · · ·</div>
+
+  <!-- ═══════════════════════ SECTION VII ═══════════════════════ -->
+  <section id="handler">
+    <h2 class="section-title"><span class="sec-num">VII.</span> Handler Correspondence — Annotated Summary</h2>
+
+    <blockquote class="warning">
+      Incoming directives from Howard's handler have escalated in urgency over the three-month posting. Initial instructions were standard investigative: observe, document, assess threat level. Recent instructions have moved toward operational language. Howard has not yet acted on these instructions. He has not yet explicitly refused them. The gap between these two positions is narrowing.
+    </blockquote>
+
+    <p>Howard's passion score for "Distrust His Handler" sits at 40 — the highest value on his sheet. This is not idle skepticism; this is a man who has seen enough to understand that his handler's picture of Nashoba does not match the place he has been living in for three months. The handler's instructions assume a community that needs to be disrupted. Howard's field evidence suggests a community that needs to be left alone.</p>
+
+    <p>What Howard does not yet fully understand is what the Radiance actually is, what it wants from Nashoba, and whether his handler's instructions represent the institution's genuine interests or something more specific — a faction, a fear, a decades-old grudge against a community that has never fit any category neatly.</p>
+
+    <ul class="file-list">
+      <li>Month 1: Standard observation directives. Document community structure, identify leadership, assess public threat.</li>
+      <li>Month 2: Escalation. Identify "inner circle" of the Called. Determine nature of "ritual activities." Howard's reports: "No evidence of illegal activity." Handler's response: "Broaden surveillance."</li>
+      <li>Month 3: Operational language introduced. References to "<span class="redact">████████████████</span> protocols." Howard has not acknowledged receipt of the most recent directive.</li>
+    </ul>
+  </section>
+
+  <div class="ornament">· · · · ·</div>
+
+  <!-- ═══════════════════════ SECTION VIII ═══════════════════════ -->
+  <section id="psychology">
+    <h2 class="section-title"><span class="sec-num">VIII.</span> Psychological Assessment — Field Analyst Notes</h2>
+
+    <p class="lead">What Clifford Howard is watching in Nashoba is a continuity of community — a thing that survives, that remembers, that takes in the people other communities reject, that has its own logic running centuries deep. He has never had this.</p>
+
+    <p>His parents traded continuity for admission. The bargain was probably rational given the alternatives. But it left Howard with no unbroken thread to follow back — no community to belong to, no tradition to stand inside of, no way of being in the world that was his by inheritance. The Radiance, with its brisk rationalism and its mission and its files, gave him a substitute: a framework, a purpose, a set of tools. He was good at the tools.</p>
+
+    <p>What Nashoba is doing — slowly, without apparent intention — is showing him that the tools don't describe everything. That the thing his parents gave up was real. That the thing Nashoba has maintained for centuries, through whatever means and whatever influences, is also real, and not obviously malevolent, and possibly worth something his handler's directives cannot account for.</p>
+
+    <h3 class="subhead">The Twin Peaks / True Detective Inversion</h3>
+    <p>The genre setup here is inverted deliberately. The detective arrives in a strange town expecting to find something wrong and finds instead something strange that is not wrong — finds, in fact, that his presence and his instructions are the most dangerous element in the equation. The community's idiosyncrasies are not symptoms. They are character. The horror, if there is one, is what his handler might do to it.</p>
+
+    <div class="note-box">
+      <div class="note-label">Analyst's Observation</div>
+      <p>Low POW (6) is the mechanical signature of a man who has been insulated from the truly uncanny. The Rationality Points (6) and zero Voorish Points confirm this: Howard is a rationalist operating in the correct mode for his professional training and his upbringing. Both are about to be tested.</p>
+      <p>The question the character poses to the campaign: <em>what happens when a man trained to find threats discovers that the only real threat is himself?</em></p>
+    </div>
+  </section>
+
+  <div class="ornament">· · · · ·</div>
+
+  <!-- ═══════════════════════ SECTION IX ═══════════════════════ -->
+  <section id="questions">
+    <h2 class="section-title"><span class="sec-num">IX.</span> Open Questions — Unresolved as of Current Date</h2>
+
+    <ul class="file-list">
+      <li>What precisely is the Radiance, and does Howard's handler represent its official position or a faction within it?</li>
+      <li>What do the Called know about what Howard is doing in Nashoba, and how long have they known it?</li>
+      <li>What is Maude's relationship to the Called? Is her warmth toward Howard calculated, genuine, or both?</li>
+      <li>The Shonokin bloodline: how many in Nashoba carry it, and what does it confer beyond the visible markers?</li>
+      <li>Howard's suppressed heritage: does Nashoba know about the Horowitz family history? Would it matter to them if they did?</li>
+      <li>The "darker and stranger orders" coming from the handler — what, specifically, is being requested, and when will Howard have to say no out loud?</li>
+      <li>Shub-Niggurath as the indirect focus of the Called: Howard doesn't yet have a name for what he's witnessing. When he gets one, what will it do to his Rationality score?</li>
+      <li>What does community membership actually look like, from the inside? Is there a path for Howard? Does he want there to be?</li>
+    </ul>
+
+    <blockquote class="dispatch">
+      "I have been in Nashoba for eleven weeks. I have not found what I was sent to find. I have found something else. I am not yet certain what to do with the difference."
+      <span class="date">— Private journal, not transmitted. Month 3.</span>
+    </blockquote>
+  </section>
+
+  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+  <footer class="colophon">
+    <div class="colophon-text">
+      RADIANCE DIVISION SEVEN &nbsp;·&nbsp; CLASSIFICATION: RESTRICTED<br>
+      File compiled: Mythras / Weird of Hali Conversion &nbsp;·&nbsp; Character by player<br>
+      <em class="annotation">Inspired by the Weird of Hali novels by John Michael Greer</em>
+    </div>
+    <div class="footer-stamp">ACTIVE</div>
+  </footer>
+
+</div>
+</body>
+</html>
+

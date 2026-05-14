@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Ygva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void:        #0a0b0e;
+    --pitch:       #10121a;
+    --deep:        #181c27;
+    --slate:       #242837;
+    --umbral:      #2f3447;
+    --dusk:        #4a5168;
+    --ash:         #7a8098;
+    --pale:        #b4b9cc;
+    --bone:        #d6d2c8;
+    --moon:        #e8e4da;
+    --moonbright:  #f3f0e8;
+    --ichor:       #c9473c;
+    --ichor-dark:  #7d1f1a;
+    --ichor-glow:  #e05a4e;
+    --verdant:     #4a7c59;
+    --verdant-dim: #2e4d38;
+    --gilded:      #9c8a52;
+    --gilded-dim:  #5e5230;
+    --rule:        rgba(148, 143, 168, 0.18);
+    --rule-bold:   rgba(148, 143, 168, 0.32);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--void);
+    color: var(--bone);
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(201, 71, 60, 0.06) 0%, transparent 45%),
+      radial-gradient(ellipse at 80% 100%, rgba(74, 124, 89, 0.05) 0%, transparent 40%),
+      radial-gradient(ellipse at 50% 50%, rgba(47, 52, 71, 0.8) 0%, transparent 80%);
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  .document {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--pitch);
+    border: 1px solid var(--rule-bold);
+    box-shadow:
+      0 0 0 1px rgba(10, 11, 14, 0.8),
+      0 4px 16px rgba(0, 0, 0, 0.5),
+      0 24px 80px rgba(0, 0, 0, 0.7),
+      inset 0 1px 0 rgba(180, 185, 204, 0.06);
+    position: relative;
+  }
+
+  /* Subtle corner runes */
+  .document::before, .document::after {
+    content: "✦";
+    position: absolute;
+    font-size: 0.65rem;
+    color: var(--dusk);
+    opacity: 0.4;
+  }
+  .document::before { top: 0.8rem; left: 0.9rem; }
+  .document::after  { bottom: 0.8rem; right: 0.9rem; }
+
+  /* ─── HEADER ─────────────────────────────────────────── */
+  .header {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 360px;
+    border-bottom: 1px solid var(--rule-bold);
+  }
+
+  .portrait-col {
+    position: relative;
+    overflow: hidden;
+    background: var(--void);
+    border-right: 1px solid var(--rule-bold);
+    flex-shrink: 0;
+  }
+
+  .portrait-col img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    opacity: 0.88;
+    filter: saturate(0.65) contrast(1.1);
+    mix-blend-mode: luminosity;
+  }
+
+  .portrait-col::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      transparent 55%,
+      var(--pitch) 100%
+    ), linear-gradient(
+      to bottom,
+      transparent 70%,
+      rgba(10,11,14,0.6) 100%
+    );
+    pointer-events: none;
+  }
+
+  .portrait-overlay-tint {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 40% 60%, rgba(201,71,60,0.08) 0%, transparent 65%);
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+
+  .title-col {
+    padding: 2.8rem 3rem 2.5rem 2.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .title-col::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--ichor-dark), transparent 70%);
+  }
+
+  .eyebrow {
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--dusk);
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 1px;
+    background: var(--ichor-dark);
+  }
+
+  .char-name {
+    font-family: "Cinzel Decorative", "Cinzel", serif;
+    font-size: 3.4rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--moonbright);
+    letter-spacing: -0.01em;
+    text-shadow:
+      0 0 60px rgba(201, 71, 60, 0.25),
+      0 2px 4px rgba(0,0,0,0.8);
+    margin-bottom: 0.5rem;
+  }
+
+  .char-epithet {
+    font-family: "Crimson Text", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ash);
+    margin-bottom: 2rem;
+  }
+
+  .identity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.1rem 1.5rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .id-pair {
+    padding: 0.3rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .id-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.56rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--dusk);
+    display: block;
+    margin-bottom: 0.1rem;
+  }
+
+  .id-value {
+    font-size: 0.95rem;
+    color: var(--pale);
+    font-weight: 600;
+  }
+
+  .header-stats-bar {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    margin-top: auto;
+  }
+
+  .stat-pill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--deep);
+    border: 1px solid var(--rule-bold);
+    border-radius: 3px;
+    padding: 0.35rem 0.75rem 0.3rem;
+    min-width: 52px;
+    position: relative;
+  }
+
+  .stat-pill.accent { border-color: rgba(201,71,60,0.35); }
+  .stat-pill.accent .stat-num { color: var(--ichor-glow); }
+
+  .stat-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.46rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dusk);
+    margin-bottom: 0.15rem;
+  }
+
+  .stat-num {
+    font-family: "Cinzel", serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--pale);
+    line-height: 1;
+  }
+
+  .stat-num.pos { color: #7fbf9f; }
+  .stat-num.neg { color: var(--ichor); }
+
+  /* ─── SECTION LAYOUT ───────────────────────────────── */
+  .body-wrap {
+    padding: 0 3rem 3.5rem;
+  }
+
+  section {
+    padding: 2.4rem 0 0;
+  }
+
+  section + section {
+    border-top: 1px solid var(--rule);
+    margin-top: 0.8rem;
+  }
+
+  .section-heading {
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ichor);
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+  .section-heading::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(201,71,60,0.3), transparent);
+  }
+
+  p {
+    margin-bottom: 0.9rem;
+    color: var(--bone);
+  }
+  p:last-child { margin-bottom: 0; }
+
+  em { color: var(--pale); font-style: italic; }
+
+  strong {
+    color: var(--moon);
+    font-weight: 600;
+  }
+
+  /* ─── TRAIT TABLE ──────────────────────────────────── */
+  .traits-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .trait-box {
+    background: var(--deep);
+    border: 1px solid var(--rule-bold);
+    border-radius: 3px;
+    padding: 0.7rem 0.4rem 0.6rem;
+    text-align: center;
+  }
+
+  .trait-box .t-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.47rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dusk);
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+
+  .trait-box .t-val {
+    font-family: "Cinzel", serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--pale);
+  }
+  .trait-box .t-val.pos { color: #7fbf9f; }
+  .trait-box .t-val.neg { color: var(--ichor); }
+  .trait-box .t-val.high { color: var(--moonbright); }
+
+  .trait-box .t-sub {
+    font-size: 0.65rem;
+    color: var(--dusk);
+    display: block;
+    margin-top: 0.25rem;
+    line-height: 1.3;
+  }
+
+  /* ─── RESOURCE BARS ────────────────────────────────── */
+  .resource-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .resource-block {
+    background: var(--deep);
+    border: 1px solid var(--rule-bold);
+    border-radius: 3px;
+    padding: 1rem 1.2rem;
+  }
+
+  .resource-block .r-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--dusk);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .pip-row {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+  }
+
+  .pip {
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+    border: 1px solid var(--rule-bold);
+    background: var(--slate);
+  }
+  .pip.filled-hp  { background: var(--ichor);    border-color: var(--ichor-dark); }
+  .pip.filled-str { background: var(--dusk);     border-color: var(--umbral); }
+  .pip.filled-hop { background: var(--gilded);   border-color: var(--gilded-dim); }
+
+  .r-numbers {
+    font-family: "Cinzel", serif;
+    font-size: 1.1rem;
+    color: var(--pale);
+    font-weight: 600;
+    margin-top: 0.35rem;
+  }
+
+  .threshold-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .threshold-item {
+    text-align: center;
+  }
+
+  .thr-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.47rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dusk);
+    display: block;
+  }
+
+  .thr-val {
+    font-family: "Cinzel", serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--pale);
+  }
+
+  /* ─── TWO-COL LAYOUT ───────────────────────────────── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 2.5rem;
+  }
+
+  /* ─── WEAPON / ARMOR CARDS ─────────────────────────── */
+  .card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .card {
+    background: var(--deep);
+    border: 1px solid var(--rule-bold);
+    border-radius: 3px;
+    padding: 0.9rem 1.1rem;
+    position: relative;
+  }
+
+  .card.primary-card {
+    border-color: rgba(201,71,60,0.3);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.25rem;
+  }
+
+  .card-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    color: var(--moon);
+    font-weight: 600;
+  }
+
+  .card-tag {
+    font-family: "Cinzel", serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dusk);
+    background: var(--slate);
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+  }
+
+  .card-sub {
+    font-size: 0.82rem;
+    color: var(--ash);
+    margin-bottom: 0.3rem;
+  }
+
+  .card-damage {
+    font-family: "Cinzel", serif;
+    font-size: 0.85rem;
+    color: var(--ichor-glow);
+    font-weight: 600;
+  }
+
+  .card-feature {
+    font-size: 0.88rem;
+    color: var(--ash);
+    font-style: italic;
+    border-top: 1px solid var(--rule);
+    margin-top: 0.5rem;
+    padding-top: 0.45rem;
+  }
+
+  /* ─── DOMAIN CARDS ─────────────────────────────────── */
+  .domain-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .domain-card {
+    background: var(--deep);
+    border: 1px solid var(--rule-bold);
+    border-radius: 3px;
+    padding: 0.9rem 1.1rem;
+  }
+
+  .domain-card.dread { border-left: 3px solid var(--ichor-dark); }
+  .domain-card.sage  { border-left: 3px solid var(--verdant-dim); }
+
+  .dc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.4rem;
+    gap: 0.5rem;
+  }
+
+  .dc-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--moon);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .dc-meta {
+    font-family: "Cinzel", serif;
+    font-size: 0.46rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--dusk);
+    white-space: nowrap;
+    margin-top: 0.1rem;
+  }
+
+  .dc-body {
+    font-size: 0.84rem;
+    color: var(--ash);
+    line-height: 1.5;
+  }
+
+  .dc-body strong { color: var(--pale); font-weight: 600; }
+  .dc-body em { font-style: italic; }
+
+  /* ─── FEATURE CARDS ────────────────────────────────── */
+  .feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .feature {
+    padding: 0.9rem 1.1rem;
+    background: var(--deep);
+    border: 1px solid var(--rule-bold);
+    border-radius: 3px;
+  }
+
+  .feature-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.73rem;
+    letter-spacing: 0.06em;
+    color: var(--moon);
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .feature-body {
+    font-size: 0.88rem;
+    color: var(--ash);
+    line-height: 1.55;
+  }
+  .feature-body strong { color: var(--pale); }
+  .feature-body em { font-style: italic; }
+
+  /* ─── EXPERIENCE ───────────────────────────────────── */
+  .exp-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .exp-table tr {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .exp-table td {
+    padding: 0.6rem 0.4rem;
+    font-size: 0.92rem;
+    vertical-align: middle;
+  }
+
+  .exp-table td:last-child {
+    text-align: right;
+    font-family: "Cinzel", serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gilded);
+    white-space: nowrap;
+    padding-left: 1rem;
+  }
+
+  .exp-pips {
+    display: flex;
+    gap: 0.25rem;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .exp-pip {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gilded);
+    border: 1px solid var(--gilded-dim);
+  }
+
+  .exp-name { color: var(--pale); }
+  .exp-desc { font-size: 0.8rem; color: var(--dusk); font-style: italic; margin-top: 0.1rem; }
+
+  /* ─── BIOGRAPHY ────────────────────────────────────── */
+  .bio-prose { max-width: 62ch; }
+
+  /* ─── INVENTORY ────────────────────────────────────── */
+  .inventory-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+  }
+
+  .inventory-list li {
+    background: var(--slate);
+    border: 1px solid var(--rule-bold);
+    border-radius: 2px;
+    padding: 0.25rem 0.65rem;
+    font-size: 0.85rem;
+    color: var(--ash);
+    font-style: italic;
+  }
+
+  /* ─── CONNECTIONS ──────────────────────────────────── */
+  .connection-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .connection {
+    padding: 0.85rem 1.1rem;
+    background: var(--deep);
+    border: 1px solid var(--rule-bold);
+    border-radius: 3px;
+  }
+
+  .conn-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    color: var(--moon);
+    margin-bottom: 0.1rem;
+  }
+
+  .conn-note {
+    font-size: 0.84rem;
+    color: var(--ash);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .conn-meta {
+    font-family: "Cinzel", serif;
+    font-size: 0.48rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dusk);
+    margin-bottom: 0.4rem;
+  }
+
+  /* ─── DIVIDER ──────────────────────────────────────── */
+  .rune-divider {
+    text-align: center;
+    color: var(--dusk);
+    font-size: 0.65rem;
+    letter-spacing: 0.5em;
+    margin: 0.5rem 0 0;
+    opacity: 0.5;
+  }
+
+  /* ─── FOOTER ───────────────────────────────────────── */
+  .doc-footer {
+    border-top: 1px solid var(--rule-bold);
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-text {
+    font-family: "Cinzel", serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dusk);
+    opacity: 0.6;
+  }
+
+  /* ─── INLINE TAGS ──────────────────────────────────── */
+  .tag {
+    display: inline-block;
+    font-family: "Cinzel", serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    margin-left: 0.4rem;
+    vertical-align: middle;
+  }
+  .tag.dread { background: rgba(201,71,60,0.15); color: var(--ichor); border: 1px solid rgba(201,71,60,0.25); }
+  .tag.sage  { background: rgba(74,124,89,0.15);  color: #7fbf9f;     border: 1px solid rgba(74,124,89,0.25); }
+  .tag.ability { background: var(--slate); color: var(--ash); border: 1px solid var(--rule-bold); }
+  .tag.spell   { background: var(--slate); color: var(--ash); border: 1px solid var(--rule-bold); }
+  .tag.vault   { background: rgba(74,124,89,0.08); color: var(--dusk); border: 1px solid var(--rule); font-style: italic; }
+
+  /* ─── RESPONSIVE ───────────────────────────────────── */
+  @media (max-width: 700px) {
+    .header { grid-template-columns: 1fr; }
+    .portrait-col { height: 280px; border-right: none; border-bottom: 1px solid var(--rule-bold); }
+    .portrait-col::after { background: linear-gradient(to bottom, transparent 55%, var(--pitch) 100%); }
+    .traits-grid { grid-template-columns: repeat(3, 1fr); }
+    .resource-row { grid-template-columns: 1fr; }
+    .two-col, .domain-grid, .connection-list { grid-template-columns: 1fr; }
+    .body-wrap { padding: 0 1.5rem 2.5rem; }
+    .title-col { padding: 1.8rem 1.5rem; }
+    .char-name { font-size: 2.4rem; }
+    .doc-footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="document">
+
+  <!-- ═══════════════ HEADER ═══════════════ -->
+  <div class="header">
+
+    <div class="portrait-col">
+      <img src="Ygva.png" alt="Ygva" onerror="this.style.display='none'">
+      <div class="portrait-overlay-tint"></div>
+    </div>
+
+    <div class="title-col">
+      <div>
+        <div class="eyebrow">Daggerheart · Age of Umbra · Campaign: Caul</div>
+        <div class="char-name">Ygva</div>
+        <div class="char-epithet">"She does not suffer fools. The mountain took that from her."</div>
+
+        <div class="identity-grid">
+          <div class="id-pair">
+            <span class="id-label">Pronouns</span>
+            <span class="id-value">She / Her</span>
+          </div>
+          <div class="id-pair">
+            <span class="id-label">Level</span>
+            <span class="id-value">5 · Tier II</span>
+          </div>
+          <div class="id-pair">
+            <span class="id-label">Heritage</span>
+            <span class="id-value">Ridgeborne Giant</span>
+          </div>
+          <div class="id-pair">
+            <span class="id-label">Class</span>
+            <span class="id-value">Witch · Moon</span>
+          </div>
+          <div class="id-pair">
+            <span class="id-label">Ancestry</span>
+            <span class="id-value">Shargan</span>
+          </div>
+          <div class="id-pair">
+            <span class="id-label">Community</span>
+            <span class="id-value">Ridgeborne</span>
+          </div>
+          <div class="id-pair">
+            <span class="id-label">Domains</span>
+            <span class="id-value">Dread · Sage</span>
+          </div>
+          <div class="id-pair">
+            <span class="id-label">Spellcast Trait</span>
+            <span class="id-value">Instinct</span>
+          </div>
+          <div class="id-pair">
+            <span class="id-label">Proficiency</span>
+            <span class="id-value">●●● ○○ · 3</span>
+          </div>
+          <div class="id-pair">
+            <span class="id-label">Age</span>
+            <span class="id-value">20</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-stats-bar">
+        <div class="stat-pill accent">
+          <span class="stat-label">Evasion</span>
+          <span class="stat-num">10</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">Armor Score</span>
+          <span class="stat-num">5</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">Minor</span>
+          <span class="stat-num">16<span style="font-size:0.6rem;color:var(--dusk)">+lvl</span></span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">Major</span>
+          <span class="stat-num">32<span style="font-size:0.6rem;color:var(--dusk)">+lvl</span></span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">Gold</span>
+          <span class="stat-num">1<span style="font-size:0.65rem;color:var(--dusk)">hf</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="body-wrap">
+
+    <!-- ═══════════════ TRAITS & RESOURCES ═══════════════ -->
+    <section>
+      <div class="section-heading">Traits &amp; Resources</div>
+
+      <div class="traits-grid">
+        <div class="trait-box">
+          <span class="t-label">Agility</span>
+          <span class="t-val neg">−1</span>
+          <span class="t-sub">Sprint · Leap · Maneuver</span>
+        </div>
+        <div class="trait-box">
+          <span class="t-label">Strength</span>
+          <span class="t-val">+3</span>
+          <span class="t-sub">Lift · Smash · Grapple</span>
+        </div>
+        <div class="trait-box">
+          <span class="t-label">Finesse</span>
+          <span class="t-val">0</span>
+          <span class="t-sub">Control · Hide · Tinker</span>
+        </div>
+        <div class="trait-box">
+          <span class="t-label">Instinct</span>
+          <span class="t-val high">+4</span>
+          <span class="t-sub">Perceive · Sense · Navigate</span>
+        </div>
+        <div class="trait-box">
+          <span class="t-label">Presence</span>
+          <span class="t-val pos">+2</span>
+          <span class="t-sub">Charm · Perform · Deceive</span>
+        </div>
+        <div class="trait-box">
+          <span class="t-label">Knowledge</span>
+          <span class="t-val">+1</span>
+          <span class="t-sub">Recall · Analyze · Comprehend</span>
+        </div>
+      </div>
+
+      <div class="resource-row">
+        <div class="resource-block">
+          <span class="r-label">Hit Points</span>
+          <div class="pip-row">
+            <div class="pip filled-hp"></div>
+            <div class="pip"></div>
+            <div class="pip"></div>
+            <div class="pip"></div>
+            <div class="pip"></div>
+            <div class="pip"></div>
+            <div class="pip"></div>
+          </div>
+          <div class="threshold-row" style="margin-top:0.7rem;">
+            <div class="threshold-item">
+              <span class="thr-label">Minor</span>
+              <span class="thr-val">16</span>
+            </div>
+            <div class="threshold-item">
+              <span class="thr-label">Major</span>
+              <span class="thr-val">32</span>
+            </div>
+            <div class="threshold-item">
+              <span class="thr-label">Severe</span>
+              <span class="thr-val">—</span>
+            </div>
+          </div>
+        </div>
+        <div class="resource-block">
+          <span class="r-label">Stress</span>
+          <div class="pip-row">
+            <div class="pip filled-str"></div>
+            <div class="pip filled-str"></div>
+            <div class="pip filled-str"></div>
+            <div class="pip"></div>
+            <div class="pip"></div>
+            <div class="pip"></div>
+          </div>
+          <div style="font-size:0.8rem;color:var(--dusk);margin-top:0.5rem;font-style:italic;">3 / 6 marked</div>
+        </div>
+        <div class="resource-block">
+          <span class="r-label">Hope</span>
+          <div class="pip-row">
+            <div class="pip filled-hop"></div>
+            <div class="pip"></div>
+            <div class="pip"></div>
+            <div class="pip"></div>
+            <div class="pip"></div>
+            <div class="pip"></div>
+          </div>
+          <div style="font-size:0.8rem;color:var(--dusk);margin-top:0.5rem;font-style:italic;">1 / 6 remaining</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ WEAPONS & ARMOR ═══════════════ -->
+    <section>
+      <div class="section-heading">Active Weapons &amp; Armor</div>
+      <div class="two-col">
+        <div class="card-list">
+          <div class="card primary-card">
+            <div class="card-header">
+              <span class="card-name">Advanced Dualstaff</span>
+              <span class="card-tag">Primary · Two-Handed</span>
+            </div>
+            <div class="card-sub">Instinct · Far Range</div>
+            <div class="card-damage">3d6 + 9 Magical</div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-name">Dagger</span>
+              <span class="card-tag">Inventory</span>
+            </div>
+            <div class="card-sub">Finesse · Melee</div>
+            <div class="card-damage">1d8 + 1 Physical</div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-name">Dualstaff</span>
+              <span class="card-tag">Inventory · Two-Handed</span>
+            </div>
+            <div class="card-sub">Instinct · Far Range</div>
+            <div class="card-damage">1d6 + 3 Magical</div>
+          </div>
+        </div>
+
+        <div class="card-list">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-name">Advanced Leather Armor</span>
+              <span class="card-tag">Active Armor · Tier III</span>
+            </div>
+            <div class="card-sub" style="margin-bottom:0.5rem;">Base Thresholds: 11 / 27 &nbsp;·&nbsp; Base Score: 5</div>
+            <div style="font-size:0.82rem;color:var(--ash);">3 slots marked</div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-name">Gambeson Armor</span>
+              <span class="card-tag">Inventory · Tier I</span>
+            </div>
+            <div class="card-sub" style="margin-bottom:0.4rem;">Base Thresholds: 5 / 11 &nbsp;·&nbsp; Base Score: 3</div>
+            <div class="card-feature">Flexible — grants +1 to Evasion.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ CLASS FEATURES ═══════════════ -->
+    <section>
+      <div class="section-heading">Class Features</div>
+
+      <div class="feature-list">
+
+        <div class="feature">
+          <div class="feature-name">
+            <span>Umbral Corruption <span class="tag dread">Class</span></span>
+          </div>
+          <div class="feature-body">
+            As Ygva accumulates scars, she is slowly consumed by the Umbra. When she deals damage, she deals extra damage equal to her number of scars. When she marks her last Hope slot with a scar, she does not retire — instead she succumbs to the Umbra's influence and <strong>charges forever into the dark</strong> to join the terrors that stalk lightless spaces.
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-name">
+            <span>Witch's Charm <span class="tag dread">Hope Feature</span></span>
+          </div>
+          <div class="feature-body">
+            When Ygva or an ally within Far range rolls a failure on an action roll, she can <strong>spend 3 Hope</strong> to change it into a success with Fear instead.
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-name">
+            <span>Hex <span class="tag dread">Class Feature</span></span>
+          </div>
+          <div class="feature-body">
+            When a creature causes Ygva or a Close ally to mark Hit Points, she can <strong>mark a Stress</strong> to <em>Hex</em> them. Action and damage rolls against a Hexed creature gain a bonus equal to her tier. Only one target may be Hexed at a time; the GM may spend Fear equal to Ygva's Spellcast trait to remove the Hex, or it drops at scene's end.
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-name">
+            <span>Commune <span class="tag dread">Class Feature · Once per Long Rest</span></span>
+          </div>
+          <div class="feature-body">
+            During a moment of calm, Ygva communes with an ancestor, deity, spirit, or otherworldly being. She asks a question, then rolls a number of d6s equal to her Spellcast trait and chooses one result: <strong>1–3</strong> a taste, scent, or sensation; <strong>4–5</strong> sounds or a vision; <strong>6</strong> she psychically experiences the scene as if she were there.
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-name">
+            <span>Nightwatcher <span class="tag">Moon Subclass · Passive</span></span>
+          </div>
+          <div class="feature-body">
+            While in moonlight, Ygva gains a <strong>+1 bonus</strong> to all Spellcast Rolls.
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-name">
+            <span>Night's Glamour <span class="tag">Moon · Foundation</span></span>
+          </div>
+          <div class="feature-body">
+            <strong>Mark a Stress</strong> to envelop herself in a magical glamour that persists until she marks a Hit Point, makes an attack, or rests. While Glamoured she can disguise herself as any similarly-sized creature she has seen, or enhance her own appearance to gain <em>advantage</em> on Presence Rolls that leverage the change.
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-name">
+            <span>Ire of Pale Light <span class="tag">Moon · Specialization</span></span>
+          </div>
+          <div class="feature-body">
+            When a <em>Hexed</em> creature within Far range fails an attack roll, they must <strong>mark a Stress</strong>.
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-name">
+            <span>Moonbeam <span class="tag">Moon · Specialization · Once per Session</span></span>
+          </div>
+          <div class="feature-body">
+            Ygva conjures a column of moonlight that illuminates the area within Close range until the end of the scene. While bathed in this light, she and her allies gain a <strong>+1 bonus to Spellcast Rolls</strong> and <em>advantage</em> on rolls to see through illusions.
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-name">
+            <span>Lunar Phases <span class="tag">Moon · Mastery</span></span>
+          </div>
+          <div class="feature-body">
+            At the start of each session, roll a d4. <strong>1 — New Moon:</strong> spend Hope to reduce Minor damage to None. <strong>2 — Waxing:</strong> +2 bonus to all damage rolls. <strong>3 — Full Moon:</strong> +2 bonus to damage thresholds. <strong>4 — Waning:</strong> +1 bonus to Evasion. The effect persists until session end.
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-name">
+            <span>Ancestry — Endurance <span class="tag ability">Giant</span></span>
+          </div>
+          <div class="feature-body">Gain an additional Hit Point slot at character creation.</div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-name">
+            <span>Ancestry — Reach <span class="tag ability">Giant</span></span>
+          </div>
+          <div class="feature-body">Treat any weapon, ability, spell, or feature with Melee range as though it has <em>Very Close</em> range instead.</div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-name">
+            <span>Community — Steady <span class="tag ability">Ridgeborne</span></span>
+          </div>
+          <div class="feature-body">Advantage on rolls to traverse dangerous cliffs and ledges, navigate harsh environments, and apply survival knowledge.</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════ DOMAIN CARDS ═══════════════ -->
+    <section>
+      <div class="section-heading">Domain Cards &amp; Vault</div>
+
+      <div class="domain-grid">
+
+        <div class="domain-card dread">
+          <div class="dc-header">
+            <div>
+              <div class="dc-meta">Dread · Lvl 1 · Ability · Recall 0</div>
+              <div class="dc-name">Voice of Dread</div>
+            </div>
+            <span class="tag dread">Active</span>
+          </div>
+          <div class="dc-body">
+            Speak directly into a target's ear. Make a <strong>Spellcast Roll</strong> against them. On a success they must <strong>mark a Stress</strong> and become temporarily <em>Vulnerable</em>.
+          </div>
+        </div>
+
+        <div class="domain-card dread">
+          <div class="dc-header">
+            <div>
+              <div class="dc-meta">Dread · Lvl 1 · Spell · Recall 1</div>
+              <div class="dc-name">Umbra Veil</div>
+            </div>
+            <span class="tag dread">Active</span>
+          </div>
+          <div class="dc-body">
+            Once per rest, when rolling with Fear: <strong>spend any number of Hope</strong> to place equal tokens here. After an attack roll against Ygva, spend tokens to impose a −1 penalty per token. All tokens clear on the next rest.
+          </div>
+        </div>
+
+        <div class="domain-card dread">
+          <div class="dc-header">
+            <div>
+              <div class="dc-meta">Dread · Lvl 4 · Spell · Recall 2</div>
+              <div class="dc-name">Summon Horror</div>
+            </div>
+            <span class="tag dread">Active</span>
+          </div>
+          <div class="dc-body">
+            Spellcast Roll against target in Far range. On success, <strong>spend a Hope</strong> to call forth an otherworldly creature dealing <strong>d10</strong> magic damage (Proficiency). Target makes Reaction Roll (12) or marks <strong>1d4 Stress</strong>. The creature then dissipates.
+          </div>
+        </div>
+
+        <div class="domain-card dread">
+          <div class="dc-header">
+            <div>
+              <div class="dc-meta">Dread · Lvl 5 · Spell · Recall 0</div>
+              <div class="dc-name">Spectral Mist</div>
+            </div>
+            <span class="tag dread">Active</span>
+          </div>
+          <div class="dc-body">
+            <strong>Mark a Stress.</strong> An eerie mist renders Ygva and all within Close range momentarily incorporeal — able to move through solid objects, immune to physical damage. Corporeality returns after passing through an object, making an action roll, or at scene's end.
+          </div>
+        </div>
+
+        <div class="domain-card sage">
+          <div class="dc-header">
+            <div>
+              <div class="dc-meta">Sage · Lvl 4 · Spell · Recall 1</div>
+              <div class="dc-name">Death Grip</div>
+            </div>
+            <span class="tag sage">Active</span>
+          </div>
+          <div class="dc-body">
+            Spellcast Roll against a target in Close range. Choose: <strong>pull</strong> them to Melee, <strong>constrict</strong> (mark 2 Stress), or <strong>vine-lash</strong> all adversaries between Ygva and target (Reaction 13 or 3d6+2 physical). On success: target is temporarily <em>Restrained</em>.
+          </div>
+        </div>
+
+        <div class="domain-card dread">
+          <div class="dc-header">
+            <div>
+              <div class="dc-meta">Dread · Lvl 2 · Spell · Recall 1</div>
+              <div class="dc-name">Siphon Essence</div>
+            </div>
+            <span class="tag vault">In Vault</span>
+          </div>
+          <div class="dc-body">
+            Spellcast Roll against target in Very Close range. Once per long rest on success: target takes <strong>d20</strong> magic damage (Proficiency); Ygva clears HP equal to HP the target marked. On success with Fear, gain +1 Proficiency for this attack.
+          </div>
+        </div>
+
+        <div class="domain-card sage">
+          <div class="dc-header">
+            <div>
+              <div class="dc-meta">Sage · Lvl 3 · Spell · Recall 1</div>
+              <div class="dc-name">Towering Stalk</div>
+            </div>
+            <span class="tag vault">In Vault</span>
+          </div>
+          <div class="dc-body">
+            Once per rest: conjure a thick climbing stalk within Close range reaching up to Far range. <strong>Alternatively</strong> — mark a Stress and make a Spellcast Roll to attack adversaries in Close range; the erupting stalk hurls them skyward dealing <strong>d8</strong> physical damage (Proficiency).
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════ EXPERIENCE ═══════════════ -->
+    <section>
+      <div class="section-heading">Experience</div>
+      <table class="exp-table">
+        <tr>
+          <td>
+            <div class="exp-name">Photographic Memory</div>
+            <div class="exp-desc">Her mentor Oshel taught in silence. Ygva learned to remember everything.</div>
+          </td>
+          <td>
+            <div class="exp-pips">
+              <div class="exp-pip"></div>
+              <div class="exp-pip"></div>
+              <div class="exp-pip"></div>
+            </div>
+            <div style="font-family:'Cinzel',serif;font-size:0.8rem;color:var(--gilded);text-align:right;margin-top:0.2rem;">+3</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="exp-name">Expelled Celsian Acolyte</div>
+            <div class="exp-desc">She attended the lector Renavir's lessons and was turned away from the Athenaeum for being a witch's apprentice.</div>
+          </td>
+          <td>
+            <div class="exp-pips">
+              <div class="exp-pip"></div>
+              <div class="exp-pip"></div>
+              <div class="exp-pip"></div>
+            </div>
+            <div style="font-family:'Cinzel',serif;font-size:0.8rem;color:var(--gilded);text-align:right;margin-top:0.2rem;">+3</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="exp-name">My Voice Carries</div>
+            <div class="exp-desc">Seven and a half feet of Shargan standing in mountain silence. When she speaks, it tends to land.</div>
+          </td>
+          <td>
+            <div class="exp-pips">
+              <div class="exp-pip"></div>
+              <div class="exp-pip"></div>
+            </div>
+            <div style="font-family:'Cinzel',serif;font-size:0.8rem;color:var(--gilded);text-align:right;margin-top:0.2rem;">+2</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="exp-name">Stubborn to a Fault</div>
+            <div class="exp-desc">She watched the gods leave. She intends to drag them back.</div>
+          </td>
+          <td>
+            <div class="exp-pips">
+              <div class="exp-pip"></div>
+              <div class="exp-pip"></div>
+            </div>
+            <div style="font-family:'Cinzel',serif;font-size:0.8rem;color:var(--gilded);text-align:right;margin-top:0.2rem;">+2</div>
+          </td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- ═══════════════ BIOGRAPHY ═══════════════ -->
+    <section>
+      <div class="section-heading">Character</div>
+
+      <div class="two-col">
+        <div>
+          <p style="font-family:'Cinzel',serif;font-size:0.56rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--dusk);margin-bottom:0.6rem;">Appearance</p>
+          <p>Ygva stands seven and a half feet tall, her Shargan frame hardened into something close to stone by ten years on the Griefcleft peaks. She dresses in layered wraps of dark fabric — heavy, wind-worn, the hems fraying like Oshel's once did — though unlike her mentor she wears no mask, leaving her face open to the cold. Her eyes carry the particular flatness of someone who has spent years measuring distance and silence in equal measure.</p>
+
+          <p style="font-family:'Cinzel',serif;font-size:0.56rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--dusk);margin-bottom:0.6rem;margin-top:1.1rem;">Manner</p>
+          <p>Severe. Not cruel — but she has no patience for wasted words, and the people of Ulmira's Step have learned this. They come to her with real problems now, having burned through the trivial ones early. She listens fully. She judges quickly. She acts without hedging. The mountain taught her that hesitation is just a slower kind of failure.</p>
+        </div>
+
+        <div>
+          <p style="font-family:'Cinzel',serif;font-size:0.56rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--dusk);margin-bottom:0.6rem;">Purpose</p>
+          <p>She knows now that this world is a shed skin — that the gods are hatching outward into other places, leaving behind a <em>caul</em>: a membrane of dying splendor, rotting slow. She does not accept this. She hunts talismans and god-touched objects, scraps of divine residue still carrying warmth. Her aim is to tether them, to bind the gods back to a shared fate with the world they made and abandoned. Most who hear this call it madness. She calls it the only honest use of her remaining time.</p>
+
+          <p style="font-family:'Cinzel',serif;font-size:0.56rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--dusk);margin-bottom:0.6rem;margin-top:1.1rem;">Kelun</p>
+          <p>Her companion since childhood — a Clank, one of the stone vessels the gods once spoke through. Kelun traveled with her into Oshel's isolation and came out changed. They have mastered rudimentary sorcery now, seemingly by accident, by way of the words Ygva recited to them over years of dark nights. She has never quite decided if that terrifies her or not. It doesn't stop her from going forward.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ HISTORY ═══════════════ -->
+    <section>
+      <div class="section-heading">History</div>
+
+      <p>Born in Ulmira's Step to Tirva and Arlen — <em>wind-marked</em> and the silent pyrehauler — Ygva grew up among the Sacred Pyre's smoke and the carved stone steps of the forgotten pilgrimage. Her older sibling Nereth left when she was ten, drawn to the horizon. Her younger sibling Sela died at three. Grief was the household's second language.</p>
+
+      <p>Her childhood circle — Mellan the scout-in-training, Sarru the future Pyrekeeper, Kelun the reawakened Clank, Vaetra the war-hungry reader, Tamros who found something inside the mountain and never explained it — scattered one by one into their callings. Ygva drifted through Renavir the lector's lessons without igniting, watching Vaetra consume history like fuel while something in herself stayed dark and quiet.</p>
+
+      <p>Then Oshel came down from her ledge. The witch walked out of the mist, sang in old Kurethik, and pointed at Ygva. No explanation. Ygva followed. Kelun came too. They lived for five years in the Griefcleft peaks, learning the weight of silence, the grammar of Umbra-touched magic, and the shape of a world where the divine was draining away. Oshel did not die. She chose the Umbra over the risk of becoming a revenant, and simply faded into it.</p>
+
+      <p>Ygva and Kelun came back down the mountain. Twenty years old. Everything already carved.</p>
+    </section>
+
+    <!-- ═══════════════ CONNECTIONS ═══════════════ -->
+    <section>
+      <div class="section-heading">Connections</div>
+      <div class="connection-list">
+        <div class="connection">
+          <div class="conn-meta">Companion · Clank · They/Them</div>
+          <div class="conn-name">Kelun</div>
+          <div class="conn-note">One of the stone figures through which gods once spoke. Reactivated decades before Ygva was born. Came down the mountain with her. Has begun, slowly and impossibly, to work magic — a sorcery no one taught and no one expected. Ygva trusts them more than anyone alive.</div>
+        </div>
+        <div class="connection">
+          <div class="conn-meta">Mentor · Witch · Shargan · Departed</div>
+          <div class="conn-name">Oshel</div>
+          <div class="conn-note">Known in Kurethik as <em>Khurai-Yn tal Vareth-Meruun ok Thalekor</em> — "She Whose Voice Shakes Hollow Earth beneath the Sleeping Fire of Thalekor." Wore a mask of black resin. Sang instead of speaking. Her shadow moved independently. She faded into the Umbra willingly, leaving no remains and no rites.</div>
+        </div>
+        <div class="connection">
+          <div class="conn-meta">Childhood Circle · Shargan · Ulmira's Step</div>
+          <div class="conn-name">Vaetra</div>
+          <div class="conn-note">Black braids, sharp eyes, short temper. Trained as a war-scholar under the lector Renavir. Wanted Ygva to take Kelun with her when she followed Oshel — her last gift. Now likely one of the settlement's most capable defenders.</div>
+        </div>
+        <div class="connection">
+          <div class="conn-meta">Childhood Circle · Lenvar · Ranger</div>
+          <div class="conn-name">Mellan</div>
+          <div class="conn-note">Became a mountain ranger in his mother's footsteps. The first to leave the circle. Pressed a smooth black river-stone with a white ring into Ygva's hand the night he went and did not wait for her to give anything back.</div>
+        </div>
+        <div class="connection">
+          <div class="conn-meta">Childhood Circle · Drakenn · Pyrekeeper</div>
+          <div class="conn-name">Sarru</div>
+          <div class="conn-note">Gravel-voiced, soot-stained, obsessed with evidence. Now a guardian and Pyrekeeper of Ulmira's Step. Argued stories with Ygva once. Now corrects them.</div>
+        </div>
+        <div class="connection">
+          <div class="conn-meta">Childhood Circle · Ribbet · Whereabouts Unknown</div>
+          <div class="conn-name">Tamros</div>
+          <div class="conn-note">Once slipped into a ravine and was saved by Ygva. Swore to repay it. Vanished, returned muddy and calm claiming to have found something inside the titan. Gone again by dawn. Ygva still has the debt filed away.</div>
+        </div>
+        <div class="connection">
+          <div class="conn-meta">Father · Pyrehauler · Ulmira's Step</div>
+          <div class="conn-name">Arlen</div>
+          <div class="conn-note">Stoic. Wears grief like stone under snow — always present, never discussed. Ygva's return from the mountain has not yet been addressed between them in any full way.</div>
+        </div>
+        <div class="connection">
+          <div class="conn-meta">Acquired Item · Enchanted</div>
+          <div class="conn-name">Talking Skull</div>
+          <div class="conn-note">An enchanted skull, capable of speech. Its provenance is unclear. Its opinions are not always welcome.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ INVENTORY ═══════════════ -->
+    <section>
+      <div class="section-heading">Carried Inventory</div>
+      <ul class="inventory-list">
+        <li>Torch</li>
+        <li>50ft of Rope</li>
+        <li>Basic Supplies</li>
+        <li>Minor Health Potion</li>
+        <li>Handcrafted Besom</li>
+        <li>Talking Skull</li>
+        <li>Dagger</li>
+        <li>Dualstaff</li>
+        <li>Gambeson Armor</li>
+      </ul>
+      <div style="margin-top:0.75rem;font-size:0.85rem;color:var(--dusk);font-style:italic;">Gold: 1 handful</div>
+    </section>
+
+    <div class="rune-divider">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+  </div><!-- /body-wrap -->
+
+  <div class="doc-footer">
+    <span class="footer-text">Daggerheart · Darrington Press 2025</span>
+    <span class="footer-text">Age of Umbra · Campaign: Caul · Level 5</span>
+    <span class="footer-text">The world is a caul. She intends to pull it tight.</span>
+  </div>
+
+</div><!-- /document -->
+
+</body>
+</html>
