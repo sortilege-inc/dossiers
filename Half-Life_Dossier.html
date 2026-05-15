@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Half-Life — X-FRONT Dossier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Special+Elite&family=Share+Tech+Mono&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:         #060a10;
+    --paper:      #e8e4d8;
+    --paper-dark: #d0cbbf;
+    --paper-mid:  #dcd7ca;
+    --ink:        #0a0e18;
+    --blue:       #2a6aad;
+    --blue-d:     #1a4a8a;
+    --blue-l:     #4488cc;
+    --steel:      #8ab0c8;
+    --ice:        #c8dce8;
+    --red:        #c01820;
+    --amber:      #d08000;
+    --rule:       rgba(10,14,24,0.2);
+    --rule-blue:  rgba(42,106,173,0.28);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(42,106,173,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(42,106,173,0.05) 0%, transparent 50%);
+    font-family: 'Barlow Condensed', sans-serif;
+    color: var(--ink);
+    padding: 2rem 1rem;
+    min-height: 100vh;
+  }
+
+  .outer-frame {
+    max-width: 860px;
+    margin: 0 auto;
+    border: 3px solid var(--blue);
+    box-shadow:
+      0 0 0 6px var(--bg),
+      0 0 0 8px var(--steel),
+      0 0 60px rgba(42,106,173,0.25),
+      inset 0 0 0 3px var(--steel);
+    position: relative;
+  }
+
+  .banner-strip {
+    background: #f0e830;
+    padding: 0;
+    line-height: 0;
+    border-bottom: 4px solid var(--blue-d);
+  }
+  .banner-strip img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 90px;
+    object-fit: cover;
+    object-position: center;
+    filter: hue-rotate(180deg) saturate(0.85);
+  }
+
+  .tape-top {
+    background: var(--blue-d);
+    text-align: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    color: var(--ice);
+    padding: 0.35rem 1rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--blue);
+  }
+
+  .document {
+    background: var(--paper);
+    background-image:
+      repeating-linear-gradient(
+        180deg,
+        transparent,
+        transparent 28px,
+        rgba(42,106,173,0.04) 28px,
+        rgba(42,106,173,0.04) 29px
+      );
+    padding: 2rem 2.5rem 3rem;
+    position: relative;
+  }
+
+  .corner { position: absolute; font-size: 1.2rem; color: var(--blue); opacity: 0.45; line-height: 1; }
+  .corner.tl { top: 10px; left: 10px; }
+  .corner.tr { top: 10px; right: 10px; }
+  .corner.bl { bottom: 10px; left: 10px; }
+  .corner.br { bottom: 10px; right: 10px; }
+
+  /* HEADER */
+  .header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem 2rem;
+    align-items: start;
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
+    position: relative;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -7px; left: 0;
+    width: 100%; height: 2px;
+    background: var(--blue);
+  }
+
+  .portrait-wrap {
+    width: 170px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .portrait-wrap img {
+    width: 170px;
+    height: 220px;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    border: 2px solid var(--ink);
+    filter: contrast(1.08) saturate(0.85);
+  }
+
+  .header-text { padding-top: 0.25rem; }
+
+  .codename-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--blue);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+
+  h1.codename {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 4.6rem;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+  }
+  h1.codename::after {
+    content: 'HALF-LIFE';
+    position: absolute;
+    left: 3px; top: 3px;
+    color: var(--blue);
+    z-index: -1;
+    opacity: 0.28;
+  }
+
+  .real-name {
+    font-family: 'Special Elite', cursive;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-top: 0.4rem;
+    border-left: 3px solid var(--blue);
+    padding-left: 0.6rem;
+  }
+
+  .vitals-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.75rem;
+    margin-top: 0.75rem;
+  }
+  .vital-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    background: var(--ink);
+    color: var(--ice);
+    padding: 0.15rem 0.5rem;
+    text-transform: uppercase;
+  }
+  .vital-tag.blue { background: var(--blue-d); color: var(--ice); }
+  .vital-tag.red { background: var(--red); color: white; }
+  .vital-tag.amber { background: var(--amber); color: white; }
+
+  .affil-line {
+    margin-top: 0.75rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--blue);
+    border-top: 1px solid var(--rule);
+    padding-top: 0.5rem;
+  }
+
+  .stamp {
+    display: inline-block;
+    font-family: 'Special Elite', cursive;
+    padding: 0.1rem 0.5rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 0.35rem;
+    color: var(--blue-d);
+    border: 3px solid var(--blue-d);
+    transform: rotate(2deg);
+    opacity: 0.75;
+    font-size: 1.1rem;
+  }
+
+  /* SECTIONS */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 2rem;
+    margin-bottom: 1.5rem;
+  }
+  section { margin-bottom: 1.75rem; }
+
+  .section-head {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink);
+    padding: 0.3rem 0.75rem 0.25rem;
+    margin-bottom: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-head .pip {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--blue);
+    flex-shrink: 0;
+  }
+  .section-head .pip.red { background: var(--red); }
+
+  p, .prose { font-size: 1rem; font-weight: 400; line-height: 1.55; color: var(--ink); }
+
+  .drop-cap::first-letter {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 3.2rem;
+    line-height: 0.8;
+    float: left;
+    margin-right: 0.2rem;
+    color: var(--blue);
+  }
+
+  .hr-blue { border: none; border-top: 1px solid var(--rule-blue); margin: 1.25rem 0; }
+
+  /* STATS — 6 ability scores */
+  .stats-cluster {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.5rem;
+    margin: 0.75rem 0;
+  }
+  .stat-block {
+    border: 1.5px solid var(--ink);
+    background: white;
+    text-align: center;
+    padding: 0.5rem 0.25rem 0.4rem;
+  }
+  .stat-block.highlight {
+    border-color: var(--blue);
+    background: rgba(42,106,173,0.07);
+  }
+  .stat-block.mega {
+    border-color: var(--blue-d);
+    background: rgba(26,74,138,0.1);
+    border-width: 2px;
+  }
+  .stat-block.low {
+    border-color: #bbb;
+    background: rgba(0,0,0,0.03);
+  }
+  .stat-block .s-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 0.2rem;
+  }
+  .stat-block.mega .s-label { color: var(--blue-d); }
+  .stat-block.low .s-label { color: #888; }
+  .stat-block .s-score {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .stat-block.mega .s-score { font-size: 2.5rem; }
+  .stat-block.low .s-score { color: #999; }
+  .stat-block .s-def {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.58rem;
+    color: #666;
+    margin-top: 0.1rem;
+  }
+  .stat-note {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.78rem;
+    color: var(--red);
+    text-align: center;
+    margin-top: 0.3rem;
+    opacity: 0.85;
+  }
+
+  /* RESOURCES */
+  .resource-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin: 0.75rem 0;
+  }
+  .resource-block {
+    border: 2px solid var(--ink);
+    padding: 0.75rem;
+    background: var(--paper-dark);
+  }
+  .resource-block::before {
+    content: attr(data-label);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blue);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .resource-block.low { border-color: var(--amber); }
+  .resource-block.low::before { color: var(--amber); }
+  .resource-block .r-val {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .resource-block.low .r-val { color: var(--amber); }
+  .resource-block .r-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: #777;
+    margin-top: 0.2rem;
+  }
+
+  .speed-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 0.5rem 0;
+  }
+  .speed-pill {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    background: var(--paper-dark);
+    border: 1px solid var(--ink);
+    padding: 0.2rem 0.6rem;
+    text-transform: uppercase;
+  }
+  .speed-pill span { color: var(--blue); font-weight: 700; font-size: 0.85rem; }
+
+  .dmg-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin: 0.5rem 0;
+  }
+  .dmg-block {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-left: 3px solid var(--blue);
+    padding-left: 0.5rem;
+    line-height: 1.3;
+  }
+  .dmg-block .dval {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--blue-d);
+  }
+
+  /* POWERS */
+  .power-card {
+    border: 1.5px solid var(--ink);
+    margin-bottom: 0.85rem;
+    background: white;
+    position: relative;
+  }
+  .power-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--blue);
+  }
+  .power-card.passive::before { background: var(--steel); }
+  .power-card.energy::before { background: var(--blue-d); width: 5px; }
+
+  .power-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem 0.4rem 1rem;
+    border-bottom: 1px solid var(--rule);
+    background: rgba(10,14,24,0.04);
+  }
+  .power-name {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+  }
+  .power-meta {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    color: #777;
+    text-transform: uppercase;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .power-body {
+    padding: 0.6rem 0.75rem 0.6rem 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .power-group-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--blue-d);
+    border-top: 1px solid var(--rule-blue);
+    padding-top: 1rem;
+    margin: 1.25rem 0 0.6rem;
+  }
+
+  /* WEAPON BOX */
+  .weapon-box {
+    display: flex;
+    gap: 1rem;
+    border: 1.5px solid var(--steel);
+    background: var(--paper-mid);
+    padding: 0.75rem 1rem;
+    margin-top: 0.5rem;
+    align-items: center;
+  }
+  .weapon-box .w-name {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: var(--ink);
+    letter-spacing: 0.06em;
+  }
+  .weapon-box .w-stat {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--blue);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 0.15rem;
+  }
+  .weapon-box .w-note {
+    font-size: 0.85rem;
+    color: #555;
+    margin-top: 0.3rem;
+    line-height: 1.4;
+  }
+
+  /* TRAITS & TAGS */
+  .traits-tags-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .trait-item {
+    border-left: 3px solid #b0a890;
+    padding: 0.5rem 0.75rem;
+    background: rgba(176,168,144,0.12);
+    margin-bottom: 0.6rem;
+  }
+  .trait-item .t-name {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+  .trait-item p { font-size: 0.88rem; line-height: 1.45; }
+
+  .tag-item {
+    border-left: 3px solid var(--blue);
+    padding: 0.4rem 0.65rem;
+    background: rgba(42,106,173,0.07);
+    margin-bottom: 0.5rem;
+  }
+  .tag-item .tag-name {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--blue-d);
+    margin-bottom: 0.15rem;
+  }
+  .tag-item p { font-size: 0.88rem; line-height: 1.4; }
+
+  /* PSYCH PROFILE */
+  .psych-item {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px dotted var(--rule);
+    padding-bottom: 0.75rem;
+  }
+  .psych-item:last-child { border-bottom: none; }
+  .psych-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue);
+    padding-top: 0.1rem;
+    line-height: 1.4;
+  }
+  .psych-text { font-size: 0.92rem; line-height: 1.5; }
+
+  /* FOOTER */
+  .footer-tape {
+    background: var(--blue-d);
+    border-top: 3px solid var(--blue);
+    padding: 0.5rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-tape span {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--ice);
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+
+  @media (max-width: 640px) {
+    .document { padding: 1.5rem 1.2rem 2rem; }
+    .header { grid-template-columns: 1fr; }
+    .portrait-wrap { width: 140px; }
+    .portrait-wrap img { width: 140px; height: 180px; }
+    h1.codename { font-size: 3.2rem; }
+    .stats-cluster { grid-template-columns: repeat(3, 1fr); }
+    .two-col, .traits-tags-grid { grid-template-columns: 1fr; }
+    .psych-item { grid-template-columns: 1fr; gap: 0.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="outer-frame">
+
+  <div class="banner-strip">
+    <img src="x-front_banner.png" alt="X-FRONT — Direct Action for Mutant Liberation">
+  </div>
+
+  <div class="tape-top">Operative Dossier &nbsp;///&nbsp; X-Front Cell Records</div>
+
+  <div class="document">
+    <span class="corner tl">+</span>
+    <span class="corner tr">+</span>
+    <span class="corner bl">+</span>
+    <span class="corner br">+</span>
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="portrait-wrap">
+        <img src="half-life.png" alt="Half-Life — Cody Kennedy">
+      </div>
+
+      <div class="header-text">
+        <div class="codename-label">// Codename //</div>
+        <h1 class="codename">Half-Life</h1>
+        <div class="real-name">Cody Kennedy</div>
+        <div class="vitals-row">
+          <span class="vital-tag">5'11"</span>
+          <span class="vital-tag">180 lbs</span>
+          <span class="vital-tag blue">Male</span>
+          <span class="vital-tag">Blue Eyes</span>
+          <span class="vital-tag">Blond Hair</span>
+          <span class="vital-tag">Age 18</span>
+        </div>
+        <div class="vitals-row">
+          <span class="vital-tag blue">Origin: Mutant</span>
+          <span class="vital-tag amber">Occupation: Criminal</span>
+          <span class="vital-tag">Size: Medium</span>
+        </div>
+        <div class="vitals-row">
+          <span class="vital-tag red">Parole Violation</span>
+        </div>
+        <div class="affil-line">Teams: X-FRONT</div>
+        <span class="stamp">Rank 2 / Karma 2</span>
+      </div>
+    </div>
+
+    <!-- HISTORY + PSYCH -->
+    <div class="two-col">
+      <section>
+        <h2 class="section-head"><span class="pip red"></span>History</h2>
+        <p class="drop-cap">Cody went to jail for assaulting a school resource officer during an altercation at his high school in Atlanta.</p>
+        <hr class="hr-blue">
+        <p>Was tried and convicted as an adult. Currently in violation of parole.</p>
+        <hr class="hr-blue">
+        <p>He has managed to avoid getting outed as a mutant so far.</p>
+      </section>
+
+      <section>
+        <h2 class="section-head"><span class="pip"></span>Psych Profile</h2>
+        <div class="psych-item">
+          <div class="psych-label">Personality</div>
+          <div class="psych-text">Aggressive, unfocused, impulsive, resentful of the state.</div>
+        </div>
+        <div class="psych-item">
+          <div class="psych-label">Goal</div>
+          <div class="psych-text">Is seeking to shake off the restrictions and constraints that has hampered him.</div>
+        </div>
+        <div class="psych-item">
+          <div class="psych-label">Barrier</div>
+          <div class="psych-text">Cody is in denial that mere "freedom from" is sufficient. His goal is purely reductive right now, but he lacks a positive vision of the future, for himself or for others.</div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ABILITY SCORES -->
+    <section>
+      <h2 class="section-head"><span class="pip"></span>Ability Scores</h2>
+      <div class="stats-cluster">
+        <div class="stat-block mega">
+          <div class="s-label">Melee</div>
+          <div class="s-score">5</div>
+          <div class="s-def">DEF 15 / +6</div>
+        </div>
+        <div class="stat-block">
+          <div class="s-label">Agility</div>
+          <div class="s-score">1</div>
+          <div class="s-def">DEF 15† / +2</div>
+        </div>
+        <div class="stat-block">
+          <div class="s-label">Resilience</div>
+          <div class="s-score">2</div>
+          <div class="s-def">DEF 12 / +2</div>
+        </div>
+        <div class="stat-block">
+          <div class="s-label">Vigilance</div>
+          <div class="s-score">1</div>
+          <div class="s-def">DEF 11 / +1</div>
+        </div>
+        <div class="stat-block">
+          <div class="s-label">Ego</div>
+          <div class="s-score">1</div>
+          <div class="s-def">DEF 11 / +1</div>
+        </div>
+        <div class="stat-block low">
+          <div class="s-label">Logic</div>
+          <div class="s-score">0</div>
+          <div class="s-def">DEF 10 / +0</div>
+        </div>
+      </div>
+      <p class="stat-note">† Agility DEF 15 via Brawling (uses Melee DEF vs Agility attacks) &nbsp;·&nbsp; Melee non-combat +6 includes Mighty 1 bonus &nbsp;·&nbsp; Agility non-combat +2 includes Accuracy 1 bonus</p>
+    </section>
+
+    <!-- DURABILITY / DAMAGE -->
+    <div class="two-col">
+      <section>
+        <h2 class="section-head"><span class="pip"></span>Durability</h2>
+        <div class="resource-grid">
+          <div class="resource-block" data-label="Health">
+            <div class="r-val">60</div>
+            <div class="r-sub">DMG Reduction: —</div>
+          </div>
+          <div class="resource-block low" data-label="Focus">
+            <div class="r-val">30</div>
+            <div class="r-sub">DMG Reduction: —</div>
+          </div>
+        </div>
+        <div class="speed-row">
+          <div class="speed-pill">Run <span>5</span></div>
+          <div class="speed-pill">Climb <span>3</span></div>
+          <div class="speed-pill">Swim <span>3</span></div>
+          <div class="speed-pill">Jump <span>3</span></div>
+          <div class="speed-pill">Initiative <span>+1</span></div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-head"><span class="pip"></span>Damage</h2>
+        <div class="dmg-row">
+          <div class="dmg-block">
+            <div class="dval">dM ×3 +5</div>
+            Melee
+          </div>
+          <div class="dmg-block">
+            <div class="dval">dM ×3 +1</div>
+            Agility
+          </div>
+          <div class="dmg-block">
+            <div class="dval">dM ×2 +1</div>
+            Ego
+          </div>
+          <div class="dmg-block">
+            <div class="dval">dM ×2 +0</div>
+            Logic
+          </div>
+        </div>
+        <p style="font-size:0.82rem; margin-top:0.6rem; opacity:0.7;">dMarvel × Multiplier + Ability Bonus &nbsp;·&nbsp; Melee mult includes +1 from Mighty 1 · Agility mult includes +1 from Accuracy 1</p>
+      </section>
+    </div>
+
+    <!-- POWERS -->
+    <section>
+      <h2 class="section-head"><span class="pip"></span>Powers</h2>
+
+      <div class="power-card passive">
+        <div class="power-header">
+          <div class="power-name">Accuracy 1</div>
+          <div class="power-meta">Permanent</div>
+        </div>
+        <div class="power-body">The character adds +1 to their Agility damage multiplier, and they gain a +1 bonus to Agility checks other than attacks.</div>
+      </div>
+
+      <div class="power-card passive">
+        <div class="power-header">
+          <div class="power-name">Brawling</div>
+          <div class="power-meta">Permanent</div>
+        </div>
+        <div class="power-body">The character can use their Melee defense score against Agility attacks too.</div>
+      </div>
+
+      <div class="power-card passive">
+        <div class="power-header">
+          <div class="power-name">Evasion</div>
+          <div class="power-meta">Permanent</div>
+        </div>
+        <div class="power-body">The character can use their Agility defense score against Melee attacks too.</div>
+      </div>
+
+      <div class="power-card passive">
+        <div class="power-header">
+          <div class="power-name">Mighty 1</div>
+          <div class="power-meta">Permanent</div>
+        </div>
+        <div class="power-body">Treat the character as one size bigger for lifting, carrying, swinging and throwing things. They also add +1 to their Melee damage multiplier, and they gain a +1 bonus to Melee checks other than attacks.</div>
+      </div>
+
+      <div class="power-group-label">◈ Elemental Control (Energy/Force)</div>
+
+      <div class="power-card energy">
+        <div class="power-header">
+          <div class="power-name">Elemental Burst</div>
+          <div class="power-meta">Standard · Instant · Range: 10 spaces</div>
+        </div>
+        <div class="power-body">The character makes a ranged attack against an enemy in line of sight. If the attack is a success, it inflicts regular damage. On a Fantastic success, the enemy takes double damage instead and becomes Blinded for 1 round.</div>
+      </div>
+
+      <div class="power-card energy">
+        <div class="power-header">
+          <div class="power-name">Elemental Blast</div>
+          <div class="power-meta">Standard · Instant · Cost: 5+ Focus · Range: 10 spaces</div>
+        </div>
+        <div class="power-body">The character makes a ranged attack with an edge at an enemy in line of sight. For this attack, add +1 to the character's Agility damage bonus for every 2 points of Focus they spend. On a success, an affected target takes that total damage. On a Fantastic success, an affected target takes double that total damage and has trouble on all actions for one round.</div>
+      </div>
+
+      <div class="power-group-label">◈ Weapons</div>
+      <div class="weapon-box">
+        <div>
+          <div class="w-name">Knife</div>
+          <div class="w-stat">Range: Reach &nbsp;·&nbsp; Damage Multiplier Bonus: +1</div>
+          <div class="w-note">Weapons add a bonus to the user's damage multiplier. This does not stack with any other damage multiplier bonus, so don't add them together. Instead, use the greater of the two.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRAITS & TAGS -->
+    <section>
+      <h2 class="section-head"><span class="pip"></span>Traits & Tags</h2>
+      <div class="traits-tags-grid">
+        <div>
+          <div class="trait-item">
+            <div class="t-name">Abrasive</div>
+            <p>The character rubs people the wrong way. This gives them trouble when trying to make Ego checks to persuade someone to help them out. It gives them an edge when they're trying to make Ego checks to intimidate someone.</p>
+          </div>
+          <div class="trait-item">
+            <div class="t-name">Connections (Criminals)</div>
+            <p>By making an Ego check, the character can call on their contact to provide help in the form of clues, information or resources. The Narrator determines the TN of the Ego check based on the favor requested.</p>
+          </div>
+          <div class="trait-item">
+            <div class="t-name">Signature Attack (Elemental Blast)</div>
+            <p>The character is known for favoring a particular kind of weapon or attack power. They have an edge when making attacks that way.</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="tag-item">
+            <div class="tag-name">Black Market Access</div>
+            <p>The character knows how and where they can buy and sell hard-to-find and potentially illegal things.</p>
+          </div>
+          <div class="tag-item">
+            <div class="tag-name">Hounded</div>
+            <p>The character is a member of a group of people who are persecuted for simply being themselves.</p>
+          </div>
+          <div class="tag-item">
+            <div class="tag-name">Streetwise</div>
+            <p>The character knows how things are handled on the street, who's in charge of various criminal enterprises and how to avoid issues with them.</p>
+          </div>
+          <div class="tag-item">
+            <div class="tag-name">X-Gene</div>
+            <p>The character has mutant genes that cause them to develop super-powers.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="footer-tape">
+    <span>X-Front — Direct Action for Mutant Liberation</span>
+    <span>Half-Life — Cody Kennedy</span>
+  </div>
+
+</div>
+</body>
+</html>
