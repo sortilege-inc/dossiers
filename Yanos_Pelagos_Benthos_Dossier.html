@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Yanos Pelagos Benthos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cinzel+Decorative:wght@400;700&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Sea-green palette */
+    --abyss:        #0a1a1f;
+    --deep:         #0f2d35;
+    --tide:         #1a4a54;
+    --sea:          #2a7a8a;
+    --seafoam:      #3da8b8;
+    --foam:         #7dd4de;
+    --pearl:        #e8f4f6;
+    --vellum:       #dff0f3;
+    --vellum-dark:  #c8e4e9;
+    --gold:         #c8a84b;
+    --gold-deep:    #8c6e28;
+    --gold-pale:    #e8d494;
+    --ink:          #0d2228;
+    --ink-soft:     #1e3d47;
+    --ink-faint:    #4a7280;
+    --rule:         #7ab8c4;
+    --rule-soft:    #a8d4da;
+    --nautilus:     #9b4e1f;   /* warm amber-orange accent */
+    --nautilus-pale:#d4883a;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--deep);
+    color: var(--ink);
+    font-family: "IM Fell English", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.68;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(42,122,138,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 90%, rgba(10,26,31,0.6) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(15,45,53,0.4) 0%, transparent 80%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 1rem;
+  }
+
+  /* ── DOCUMENT FRAME ── */
+  .document {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--vellum);
+    padding: 4rem 4.5rem 5rem;
+    box-shadow:
+      0 1px 2px rgba(10,26,31,0.25),
+      0 12px 48px rgba(10,26,31,0.5),
+      inset 0 0 0 1px rgba(122,184,196,0.3);
+    position: relative;
+    border: 1px solid var(--rule);
+    background-image:
+      radial-gradient(ellipse at 0% 0%, rgba(42,122,138,0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 100%, rgba(42,122,138,0.05) 0%, transparent 50%);
+  }
+
+  /* Top accent bar — gradient like a horizon at sea */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--abyss) 0%,
+      var(--tide) 20%,
+      var(--seafoam) 45%,
+      var(--gold) 55%,
+      var(--seafoam) 65%,
+      var(--tide) 80%,
+      var(--abyss) 100%);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%, var(--rule) 25%, var(--seafoam) 50%, var(--rule) 75%, transparent 100%);
+  }
+
+  /* ── HEADER ── */
+  header.title-block {
+    text-align: center;
+    border-bottom: 2px solid var(--tide);
+    padding-bottom: 2rem;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+  header.title-block::after {
+    content: "⚓";
+    display: block;
+    color: var(--seafoam);
+    font-size: 1.1rem;
+    margin: 1.2rem auto 0;
+    letter-spacing: 0.3em;
+    opacity: 0.7;
+  }
+
+  .eyebrow {
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.45em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  h1.character-name {
+    font-family: "Cinzel Decorative", "Cinzel", serif;
+    font-weight: 400;
+    font-size: 3rem;
+    line-height: 1.1;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.04em;
+    color: var(--abyss);
+  }
+  h1.character-name .given {
+    font-style: normal;
+    color: var(--tide);
+  }
+  h1.character-name .small {
+    font-family: "Cinzel", serif;
+    font-size: 0.32em;
+    color: var(--ink-faint);
+    font-style: normal;
+    display: block;
+    margin-top: 0.6rem;
+    letter-spacing: 0.12em;
+    font-weight: 400;
+  }
+
+  .epithets {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    margin: 0.6rem 0 1rem;
+  }
+  .epithets .warn {
+    color: var(--nautilus);
+    font-style: italic;
+  }
+
+  .vitals {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--rule-soft);
+    border-bottom: 1px solid var(--rule-soft);
+    padding: 0.7rem 0;
+  }
+  .vitals span {
+    border-left: 1px solid var(--rule);
+    padding: 0 1.2rem;
+  }
+  .vitals span:first-child { border-left: none; padding-left: 0; }
+  .vitals strong { color: var(--tide); }
+
+  /* ── PORTRAIT ── */
+  .portrait-wrap {
+    float: right;
+    margin: 0 0 1.5rem 2.5rem;
+    border: 2px solid var(--rule);
+    box-shadow:
+      0 4px 24px rgba(10,26,31,0.22),
+      inset 0 0 0 3px var(--vellum);
+    width: 230px;
+  }
+  .portrait-wrap img {
+    display: block;
+    width: 100%;
+  }
+  .portrait-caption {
+    text-align: center;
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    color: var(--ink-faint);
+    padding: 0.45rem 0;
+    background: rgba(42,122,138,0.08);
+    border-top: 1px solid var(--rule-soft);
+    text-transform: uppercase;
+  }
+
+  /* ── SECTIONS ── */
+  section { margin-bottom: 3.2rem; }
+
+  h2.section-title {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.82rem;
+    letter-spacing: 0.38em;
+    color: var(--tide);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.55rem;
+    margin: 0 0 1.5rem;
+    position: relative;
+  }
+  h2.section-title::before {
+    content: "〜";
+    color: var(--seafoam);
+    margin-right: 0.8rem;
+    font-size: 0.9em;
+    opacity: 0.8;
+  }
+
+  h3.subhead {
+    font-family: "IM Fell English", serif;
+    font-weight: 400;
+    font-size: 1.3rem;
+    color: var(--sea);
+    margin: 1.8rem 0 0.5rem;
+    font-style: italic;
+  }
+  h4.entry-label {
+    font-family: "Cinzel", serif;
+    font-weight: 500;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 1rem 0 0.25rem;
+  }
+
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0.5rem 0 1rem 1.5rem; padding: 0; }
+  li { margin-bottom: 0.4rem; }
+  em { color: var(--ink-soft); }
+  strong { font-weight: 600; color: var(--ink); }
+
+  /* ── DROP CAP ── */
+  .drop-cap::first-letter {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 3.5rem;
+    line-height: 0.82;
+    float: left;
+    padding: 0.3rem 0.65rem 0 0;
+    color: var(--tide);
+    font-weight: 400;
+  }
+
+  /* ── BLOCKQUOTES ── */
+  blockquote.maxim {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    line-height: 1.55;
+    color: var(--tide);
+    border-left: 3px solid var(--seafoam);
+    padding: 0.6rem 0 0.6rem 1.5rem;
+    margin: 1.5rem 0;
+    background: rgba(42,122,138,0.06);
+  }
+  blockquote.maxim .attribution {
+    display: block;
+    font-size: 0.82rem;
+    font-style: normal;
+    color: var(--ink-faint);
+    font-family: "Cinzel", serif;
+    letter-spacing: 0.15em;
+    margin-top: 0.5rem;
+  }
+  blockquote.scripture {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--nautilus);
+    border-left: 3px solid var(--gold);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin: 1.2rem 0;
+    background: rgba(200,168,75,0.05);
+  }
+  blockquote.scripture .attribution {
+    display: block;
+    font-size: 0.78rem;
+    font-style: normal;
+    color: var(--ink-faint);
+    font-family: "Cinzel", serif;
+    letter-spacing: 0.15em;
+    margin-top: 0.4rem;
+  }
+
+  /* ── TABLES ── */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  table.dossier-table th {
+    text-align: left;
+    font-family: "Cinzel", serif;
+    font-weight: 500;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--tide);
+  }
+  table.dossier-table td {
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top;
+  }
+  table.dossier-table td:first-child {
+    font-family: "IM Fell English", serif;
+    font-weight: 500;
+    color: var(--tide);
+    white-space: nowrap;
+    padding-right: 1.5rem;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+
+  /* ── STAT GRID (D&D ability scores) ── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .stat-cell {
+    text-align: center;
+    padding: 0.8rem 0.3rem 0.6rem;
+    border: 1px solid var(--rule);
+    background: rgba(255,255,255,0.5);
+    position: relative;
+  }
+  .stat-cell .label {
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .stat-cell .value {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 1.9rem;
+    line-height: 1;
+    color: var(--tide);
+    font-weight: 400;
+  }
+  .stat-cell .mod {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    display: block;
+    margin-top: 0.2rem;
+    letter-spacing: 0.05em;
+  }
+  .stat-cell.primary {
+    border-color: var(--seafoam);
+    background: rgba(42,122,138,0.08);
+  }
+  .stat-cell.primary .value { color: var(--sea); }
+
+  /* ── SKILL GRID ── */
+  .skill-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 2rem;
+    margin: 0.5rem 0 1.5rem;
+    font-size: 0.92rem;
+  }
+  .skill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.25rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .skill-row .skill-name {
+    font-family: "IM Fell English", serif;
+    color: var(--ink-soft);
+  }
+  .skill-row .skill-name.prof {
+    color: var(--tide);
+    font-style: italic;
+  }
+  .skill-row .skill-bonus {
+    font-family: "Cinzel", serif;
+    font-size: 0.78rem;
+    color: var(--sea);
+    font-weight: 600;
+  }
+  .skill-row .skill-bonus.exp {
+    color: var(--gold-deep);
+  }
+
+  /* ── FEATURE BLOCKS ── */
+  .feature {
+    border-left: 3px solid var(--rule);
+    padding: 0.5rem 0 0.5rem 1.2rem;
+    margin: 1rem 0;
+  }
+  .feature.warlock { border-left-color: var(--nautilus); }
+  .feature.cleric  { border-left-color: var(--seafoam); }
+  .feature-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--tide);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+  .feature.warlock .feature-name { color: var(--nautilus); }
+  .feature-tag {
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    margin-left: 0.7rem;
+  }
+
+  /* ── SPELL LIST ── */
+  .spell-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 2rem;
+    font-size: 0.92rem;
+    margin: 0.75rem 0 1.2rem;
+  }
+  .spell-entry {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.2rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .spell-name { font-family: "IM Fell English", serif; color: var(--ink-soft); }
+  .spell-src {
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+  .spell-src.warlock-src { color: var(--nautilus-pale); }
+  .spell-src.cleric-src { color: var(--seafoam); }
+
+  /* ── DIVIDER ── */
+  .wave-rule {
+    text-align: center;
+    color: var(--rule);
+    letter-spacing: 0.5em;
+    margin: 2rem 0;
+    font-size: 0.9rem;
+    opacity: 0.7;
+  }
+
+  /* ── SIDEBAR CALLOUT ── */
+  .callout {
+    background: rgba(42,122,138,0.07);
+    border: 1px solid var(--rule-soft);
+    border-left: 4px solid var(--sea);
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    font-size: 0.95rem;
+  }
+  .callout.warning {
+    background: rgba(155,78,31,0.06);
+    border-left-color: var(--nautilus);
+  }
+  .callout-title {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--sea);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .callout.warning .callout-title { color: var(--nautilus); }
+
+  /* ── TWO-COL ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  /* ── FOOTER ── */
+  footer.colophon {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  footer.colophon::before {
+    content: "〜 ⚓ 〜";
+    display: block;
+    color: var(--seafoam);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.4em;
+    opacity: 0.7;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: white; padding: 0; }
+    .document { box-shadow: none; padding: 1in; max-width: none; }
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 720px) {
+    body { padding: 1rem 0.4rem; }
+    .document { padding: 2rem 1.4rem 3rem; }
+    h1.character-name { font-size: 2rem; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .skill-grid, .spell-list, .two-col { grid-template-columns: 1fr; gap: 0; }
+    .portrait-wrap { float: none; margin: 0 auto 1.5rem; display: block; }
+    .vitals { gap: 0.5rem; font-size: 0.65rem; }
+    .vitals span { border-left: none; padding-left: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+
+  <!-- ═══════════════════ HEADER ═══════════════════ -->
+  <header class="title-block">
+    <div class="eyebrow">Character Dossier &middot; Theros Campaign &middot; Seas Above &amp; Below</div>
+    <h1 class="character-name">
+      <span class="given">Yanos</span> Pelagos Benthos
+      <span class="small">Priest of Thassa &middot; Fathomless Warlock (unknowing) &middot; Ferryman of the Deep &middot; Voyager to the Seas Above</span>
+    </h1>
+    <p class="epithets">
+      <em>Navigator by faith, deceiver by circumstance, saint and sinner of the tides</em><br>
+      <span class="warn">He heard a voice in the shell. He never thought to ask whose.</span>
+    </p>
+    <div class="vitals">
+      <span><strong>Race</strong> Triton</span>
+      <span><strong>Class</strong> Cleric 5 / Warlock 5</span>
+      <span><strong>Background</strong> Sailor</span>
+      <span><strong>Alignment</strong> Neutral Good</span>
+      <span><strong>Deity</strong> Thassa <em>(claimed)</em></span>
+      <span><strong>Patron</strong> Unknown Entity</span>
+    </div>
+  </header>
+
+  <!-- ═══════════════════ I. PORTRAIT & OVERVIEW ═══════════════════ -->
+  <section id="overview">
+    <h2 class="section-title">I. Overview</h2>
+
+    <div class="portrait-wrap">
+      <img src="yanos.png" alt="Yanos Pelagos Benthos">
+      <div class="portrait-caption">Yanos · Ferryman of the Deep</div>
+    </div>
+
+    <p class="drop-cap">Yanos Pelagos Benthos spent his life in service to the sea, believing every gift, every whispered word, every miracle that flowed through his hands was the blessing of Thassa — goddess of the wine-dark deep, she who steers the stars of sailors. He was a good priest by any measure: humble in his devotions, tireless in his service, content to guide merchant vessels through storms and see them safely home.</p>
+
+    <p>He never questioned the voice in the nautilus shell. It knew him by name. It spoke of the deep places. It told him what Thassa would want — and he did it. For years, this was sufficient.</p>
+
+    <p>The truth, which neither he nor his goddess ever fully articulated to him, is that the powers running through him were never entirely hers.</p>
+
+    <div class="callout warning">
+      <div class="callout-title">The Nautilus Problem</div>
+      Yanos carries an ornate nautilus shell through which he has received divine guidance since adolescence. The voice inside is patient, measured, and deeply knowledgeable about the sea. It is not Thassa. What it actually is remains — as of the campaign's end — unconfirmed. The Fathomless warlock subclass features that manifested in him suggest something ancient, something that predates even the Theran pantheon, something that waits at the bottom of depths no light has ever touched.
+    </div>
+
+    <p>He helped ships. He also, on occasion, helped sink them — always with a reason he could justify, always when the voice suggested the time was right, always followed by a prayer to Thassa for the drowned souls. He never connected those two halves of himself.</p>
+
+    <blockquote class="maxim">
+      The sea does not mourn what it takes. Neither should her servants.
+      <span class="attribution">Yanos — spoken at a memorial for a crew he had guided to their deaths</span>
+    </blockquote>
+  </section>
+
+  <!-- ═══════════════════ II. MECHANICAL PROFILE ═══════════════════ -->
+  <section id="mechanical">
+    <h2 class="section-title">II. Mechanical Profile</h2>
+
+    <h3 class="subhead">Ability Scores</h3>
+    <div class="stat-grid">
+      <div class="stat-cell">
+        <span class="label">Strength</span>
+        <div class="value">12</div>
+        <span class="mod">+1</span>
+      </div>
+      <div class="stat-cell primary">
+        <span class="label">Dexterity</span>
+        <div class="value">14</div>
+        <span class="mod">+2</span>
+      </div>
+      <div class="stat-cell primary">
+        <span class="label">Constitution</span>
+        <div class="value">14</div>
+        <span class="mod">+2</span>
+      </div>
+      <div class="stat-cell">
+        <span class="label">Intelligence</span>
+        <div class="value">13</div>
+        <span class="mod">+1</span>
+      </div>
+      <div class="stat-cell primary">
+        <span class="label">Wisdom</span>
+        <div class="value">18</div>
+        <span class="mod">+4</span>
+      </div>
+      <div class="stat-cell primary">
+        <span class="label">Charisma</span>
+        <div class="value">16</div>
+        <span class="mod">+3</span>
+      </div>
+    </div>
+    <p style="font-size:0.88rem;color:var(--ink-faint);font-style:italic;">Triton racial bonuses (+1 Str, +1 Con, +1 Cha) included. High Wisdom reflects genuine faith and attunement; high Charisma reflects the warlock's influence more than he knows.</p>
+
+    <h3 class="subhead">Core Statistics</h3>
+    <table class="dossier-table">
+      <tr><td>Hit Points</td><td>74 (5d8 + 5d8 + 10 Con)</td></tr>
+      <tr><td>Armor Class</td><td>15 (Shell-studded leather + Dex) / 17 with <em>Shield of Faith</em></td></tr>
+      <tr><td>Proficiency Bonus</td><td>+3</td></tr>
+      <tr><td>Saving Throws (prof.)</td><td>Wisdom +7, Charisma +6</td></tr>
+      <tr><td>Passive Perception</td><td>17</td></tr>
+      <tr><td>Speed</td><td>30 ft. / 30 ft. swim</td></tr>
+      <tr><td>Initiative</td><td>+2</td></tr>
+    </table>
+
+    <h3 class="subhead">Proficiencies &amp; Skills</h3>
+    <div class="skill-grid">
+      <div class="skill-row"><span class="skill-name prof">Arcana</span><span class="skill-bonus">+4</span></div>
+      <div class="skill-row"><span class="skill-name prof">Insight</span><span class="skill-bonus exp">+10</span></div>
+      <div class="skill-row"><span class="skill-name prof">History</span><span class="skill-bonus">+4</span></div>
+      <div class="skill-row"><span class="skill-name prof">Nature</span><span class="skill-bonus">+4</span></div>
+      <div class="skill-row"><span class="skill-name prof">Perception</span><span class="skill-bonus">+7</span></div>
+      <div class="skill-row"><span class="skill-name prof">Persuasion</span><span class="skill-bonus">+6</span></div>
+      <div class="skill-row"><span class="skill-name prof">Religion</span><span class="skill-bonus exp">+7</span></div>
+      <div class="skill-row"><span class="skill-name prof">Survival</span><span class="skill-bonus">+7</span></div>
+      <div class="skill-row"><span class="skill-name">Athletics</span><span class="skill-bonus">+1</span></div>
+      <div class="skill-row"><span class="skill-name">Stealth</span><span class="skill-bonus">+2</span></div>
+    </div>
+    <p style="font-size:0.82rem;color:var(--ink-faint);font-style:italic;">Italic = proficient. <span style="color:var(--gold-deep);">Gold</span> = expertise. Double expertise in Insight — he reads other souls with uncanny precision, even as he remains blind to his own patron.</p>
+
+    <h3 class="subhead">Racial Traits — Triton</h3>
+    <div class="feature cleric">
+      <div class="feature-name">Amphibious <span class="feature-tag">Race</span></div>
+      Can breathe air and water. Swim speed 30 ft.
+    </div>
+    <div class="feature cleric">
+      <div class="feature-name">Emissary of the Sea <span class="feature-tag">Race</span></div>
+      Can communicate simple ideas with any beast that has a swim speed. Fish speak to him freely; he has always considered this Thassa's favour.
+    </div>
+    <div class="feature cleric">
+      <div class="feature-name">Guardians of the Depths <span class="feature-tag">Race</span></div>
+      Resistance to cold damage. Ignores difficult terrain from water currents.
+    </div>
+    <div class="feature cleric">
+      <div class="feature-name">Control Air and Water <span class="feature-tag">Race · 3×/day</span></div>
+      <em>Fog Cloud</em>, <em>Gust of Wind</em>, <em>Wall of Water</em> — each once per long rest. The first gift he ever manifested; the priests of Thassa called it proof of divine favour.
+    </div>
+  </section>
+
+  <!-- ═══════════════════ III. CLERIC FEATURES ═══════════════════ -->
+  <section id="cleric">
+    <h2 class="section-title">III. Cleric — Tempest Domain (Lv 5)</h2>
+
+    <div class="callout">
+      <div class="callout-title">Divine Reading</div>
+      Yanos's cleric levels represent his sincere, genuine faith in Thassa. She does answer him — partially. The divine power of a true sea goddess flows through his Tempest domain spells, his channel divinity, his ability to call lightning. These are hers. The Eldritch Blasts, the tentacle invocations, the Fathomless tether — those are not.
+    </div>
+
+    <div class="feature cleric">
+      <div class="feature-name">Wrath of the Storm <span class="feature-tag">Cleric · Tempest · Reaction</span></div>
+      When hit by an attacker within 5 ft., deal 2d8 lightning or thunder damage (Con save for half). The storm bites back. He thinks of this as Thassa's anger defending her priest.
+    </div>
+    <div class="feature cleric">
+      <div class="feature-name">Destructive Wrath <span class="feature-tag">Channel Divinity · 1×/rest</span></div>
+      Maximize the damage of a lightning or thunder damage roll, no dice required. Yanos uses this sparingly — it feels excessive, almost cruel. He saves it for storms where mercy would insult the sea.
+    </div>
+    <div class="feature cleric">
+      <div class="feature-name">Thunderous Strike <span class="feature-tag">Cleric · Tempest · Lv 6</span></div>
+      On dealing lightning damage, can push the target 10 ft. with thunder. Mechanically elegant; narratively, the moment he fires a bolt at someone he is helping sink a ship.
+    </div>
+    <div class="feature cleric">
+      <div class="feature-name">Divine Strike <span class="feature-tag">Cleric · Lv 8</span></div>
+      Once per turn, +1d8 thunder damage on a weapon attack. His trident crackles. He calls this Thassa's touch.
+    </div>
+    <div class="feature cleric">
+      <div class="feature-name">Channel Divinity: Turn Undead <span class="feature-tag">Cleric</span></div>
+      Standard. He rarely needs it; the deep has its own dead and they are not always enemies.
+    </div>
+  </section>
+
+  <!-- ═══════════════════ IV. WARLOCK FEATURES ═══════════════════ -->
+  <section id="warlock">
+    <h2 class="section-title">IV. Warlock — The Fathomless (Lv 5)</h2>
+
+    <div class="callout warning">
+      <div class="callout-title">The Deception at the Heart of Him</div>
+      Yanos chose the warlock path believing it was an extension of his priestly calling — a deeper covenant with Thassa, a second tier of her trust. He called his pact the <em>Covenant of the Shell.</em> He referred to his Eldritch Blast as "Thassa's cold light." He has never, not once, questioned why a goddess of the sea would grant power that feels so much colder and stranger than her storms.
+    </div>
+
+    <div class="feature warlock">
+      <div class="feature-name">Tentacle of the Deep <span class="feature-tag">Warlock · Fathomless · Lv 1</span></div>
+      Bonus action: summon a spectral tentacle in a space within 60 ft. It grapples, restrains, and deals 1d8 cold damage each round. He calls it "Thassa's grasp." The other party members noticed it looked nothing like anything the cleric's holy symbol depicted.
+    </div>
+    <div class="feature warlock">
+      <div class="feature-name">Gift of the Sea <span class="feature-tag">Warlock · Fathomless · Lv 1</span></div>
+      Gains 40 ft. swim speed and the ability to breathe underwater. Stacked on top of his triton heritage. He moves through the water like something born to it — which he was — but now faster, and wrong in a way that is hard to name.
+    </div>
+    <div class="feature warlock">
+      <div class="feature-name">Oceanic Soul <span class="feature-tag">Warlock · Fathomless · Lv 6</span></div>
+      Resistance to cold damage (already from Triton, now doubled). Can also communicate with any creature that has a swim speed. More emissaries. More voices.
+    </div>
+    <div class="feature warlock">
+      <div class="feature-name">Guardian Coil <span class="feature-tag">Warlock · Fathomless · Lv 6</span></div>
+      When the summoned tentacle deals damage, can reduce incoming damage to a nearby creature by 1d8. He uses this to protect allies. He frames it as love; it is also the patron keeping its investment alive.
+    </div>
+    <div class="feature warlock">
+      <div class="feature-name">Eldritch Blast <span class="feature-tag">Warlock · Cantrip · 2 beams at Lv 5</span></div>
+      Two beams, 1d10+3 each. Manifests as pulses of cold bioluminescent light — blue-green, nothing like lightning. He calls it "the god's touch." It is not.
+    </div>
+    <div class="feature warlock">
+      <div class="feature-name">Eldritch Invocations <span class="feature-tag">Warlock · Lv 5 · 3 known</span></div>
+      <ul style="margin-top:0.5rem;">
+        <li><strong>Agonizing Blast</strong> — +Cha to Eldritch Blast damage. The cold light hits harder. Always has.</li>
+        <li><strong>Repelling Blast</strong> — Push targets 10 ft. on hit. Paired with Eldritch Blast at range, effective for keeping enemies off his crewmates.</li>
+        <li><strong>Voice of the Chain Master</strong> — Communicates through his familiar (a small nautilus creature he calls Thassa's Eye). Speaks through it, senses through it. The shell and the familiar are now the same kind of thing: conduits that are not what he believes them to be.</li>
+      </ul>
+    </div>
+    <div class="feature warlock">
+      <div class="feature-name">Pact Boon: Pact of the Chain <span class="feature-tag">Warlock · Lv 3</span></div>
+      Familiar: <em>Nautilus Sprite</em> (reflavored Imp). Small, pearlescent, utterly alien. It watches everything. It has never spoken to the party. It watches with eyes that are too many and too calm.
+    </div>
+    <div class="feature warlock">
+      <div class="feature-name">Mystic Arcanum — <em>Summon Undead</em> (6th) <span class="feature-tag">Warlock · 1×/long rest</span></div>
+      Once per long rest, summons an undead spirit — ghostly, waterlogged, tidal. He has used it exactly twice. Both times he prayed afterward. He told himself Thassa sanctioned the raising. He was not certain.
+    </div>
+
+    <h3 class="subhead">Warlock Spell Slots</h3>
+    <table class="dossier-table">
+      <tr><td>Slot Level</td><td>3rd level</td></tr>
+      <tr><td>Slots per Short Rest</td><td>2</td></tr>
+      <tr><td>Spell Save DC</td><td>14 (8 + prof + Cha)</td></tr>
+      <tr><td>Spell Attack</td><td>+6</td></tr>
+    </table>
+  </section>
+
+  <!-- ═══════════════════ V. SPELLS ═══════════════════ -->
+  <section id="spells">
+    <h2 class="section-title">V. Spells Known</h2>
+
+    <h3 class="subhead">Cleric Spells (Wisdom · DC 15 · +7 to hit)</h3>
+    <p style="font-size:0.88rem;color:var(--ink-faint);margin-bottom:0.75rem;">Cleric spell slots: 4/3/2 (1st/2nd/3rd). Tempest domain spells always prepared.</p>
+
+    <div class="spell-list">
+      <div class="spell-entry"><span class="spell-name">Fog Cloud</span><span class="spell-src cleric-src">Domain</span></div>
+      <div class="spell-entry"><span class="spell-name">Thunderwave</span><span class="spell-src cleric-src">Domain</span></div>
+      <div class="spell-entry"><span class="spell-name">Gust of Wind</span><span class="spell-src cleric-src">Domain</span></div>
+      <div class="spell-entry"><span class="spell-name">Shatter</span><span class="spell-src cleric-src">Domain</span></div>
+      <div class="spell-entry"><span class="spell-name">Call Lightning</span><span class="spell-src cleric-src">Domain</span></div>
+      <div class="spell-entry"><span class="spell-name">Sleet Storm</span><span class="spell-src cleric-src">Domain</span></div>
+      <div class="spell-entry"><span class="spell-name">Cure Wounds</span><span class="spell-src cleric-src">Prepared</span></div>
+      <div class="spell-entry"><span class="spell-name">Bless</span><span class="spell-src cleric-src">Prepared</span></div>
+      <div class="spell-entry"><span class="spell-name">Healing Word</span><span class="spell-src cleric-src">Prepared</span></div>
+      <div class="spell-entry"><span class="spell-name">Guiding Bolt</span><span class="spell-src cleric-src">Prepared</span></div>
+      <div class="spell-entry"><span class="spell-name">Shield of Faith</span><span class="spell-src cleric-src">Prepared</span></div>
+      <div class="spell-entry"><span class="spell-name">Spiritual Weapon</span><span class="spell-src cleric-src">Prepared</span></div>
+      <div class="spell-entry"><span class="spell-name">Lesser Restoration</span><span class="spell-src cleric-src">Prepared</span></div>
+      <div class="spell-entry"><span class="spell-name">Speak with Dead</span><span class="spell-src cleric-src">Prepared</span></div>
+      <div class="spell-entry"><span class="spell-name">Water Walk</span><span class="spell-src cleric-src">Prepared</span></div>
+      <div class="spell-entry"><span class="spell-name">Water Breathing</span><span class="spell-src cleric-src">Prepared</span></div>
+    </div>
+
+    <h3 class="subhead">Warlock Spells (Charisma · DC 14 · +6 to hit)</h3>
+    <p style="font-size:0.88rem;color:var(--ink-faint);margin-bottom:0.75rem;">3rd-level slots, 2×/short rest. All are tinted cold and lightless.</p>
+
+    <div class="spell-list">
+      <div class="spell-entry"><span class="spell-name">Eldritch Blast</span><span class="spell-src warlock-src">Cantrip</span></div>
+      <div class="spell-entry"><span class="spell-name">Chill Touch</span><span class="spell-src warlock-src">Cantrip</span></div>
+      <div class="spell-entry"><span class="spell-name">Armor of Agathys</span><span class="spell-src warlock-src">Warlock</span></div>
+      <div class="spell-entry"><span class="spell-name">Hunger of Hadar</span><span class="spell-src warlock-src">Warlock</span></div>
+      <div class="spell-entry"><span class="spell-name">Summon Undead (6th)</span><span class="spell-src warlock-src">Arcanum</span></div>
+      <div class="spell-entry"><span class="spell-name">Hypnotic Pattern</span><span class="spell-src warlock-src">Warlock</span></div>
+      <div class="spell-entry"><span class="spell-name">Misty Step</span><span class="spell-src warlock-src">Warlock</span></div>
+      <div class="spell-entry"><span class="spell-name">Thunder Step</span><span class="spell-src warlock-src">Warlock</span></div>
+    </div>
+
+    <div class="callout warning">
+      <div class="callout-title">Note on Hunger of Hadar</div>
+      Yanos casts this spell as a sphere of absolute cold blackness through which tentacled shapes can be glimpsed. He calls it "the abyss Thassa holds at bay." He has never examined what that framing means — that his goddess would be holding back something he is simultaneously summoning with her power.
+    </div>
+  </section>
+
+  <!-- ═══════════════════ VI. EQUIPMENT ═══════════════════ -->
+  <section id="equipment">
+    <h2 class="section-title">VI. Equipment &amp; Possessions</h2>
+
+    <table class="dossier-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>The Nautilus Shell</td>
+          <td>His holy symbol — and his Warlock spellcasting focus. He has carried it since adolescence. The voice within speaks rarely now; it no longer needs to. <em>Faintly warm to the touch despite the cold power it channels.</em></td>
+        </tr>
+        <tr>
+          <td>Trident +1</td>
+          <td>Blessed by the temple of Thassa at Meletis, its tines are carved with her wave-eye symbol. He wields it in melee when Eldritch Blasts would be disrespectful to the moment.</td>
+        </tr>
+        <tr>
+          <td>Shell-Studded Leather Armor</td>
+          <td>Crafted from deep-sea mollusc shells bound over cured hide. AC 13 + Dex. Each shell was donated by a sailor he helped cross safely. He knows their names.</td>
+        </tr>
+        <tr>
+          <td>Navigator's Charts</td>
+          <td>Two dozen hand-drawn. Covers the Siren Sea, the Laconian Gulf, and — added later in his own hand — preliminary sketches of the Astral Sea's currents, which he calls "the tides above."</td>
+        </tr>
+        <tr>
+          <td>Sailor's Pipe</td>
+          <td>Carved from driftwood. He smokes when he is thinking. He was thinking a great deal by the end of the campaign.</td>
+        </tr>
+        <tr>
+          <td>Offering Bowl</td>
+          <td>Shallow brass bowl, sea-stained. He fills it with seawater wherever he travels and prays at dawn. In the Astral Sea, he filled it with starlight-water drawn from the void-streams. He prayed over that too.</td>
+        </tr>
+        <tr>
+          <td>Letter of Introduction (Gith)</td>
+          <td>A document in the githyanki script — signed by the captain of the <em>Veridian Spear</em>, attesting that Yanos Pelagos Benthos is a Friend of the Silver Swords and may be welcomed aboard any gith vessel. He cannot read it. He keeps it folded next to his heart.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ═══════════════════ VII. BIOGRAPHY ═══════════════════ -->
+  <section id="biography">
+    <h2 class="section-title">VII. Biography &amp; Character</h2>
+
+    <div class="two-col">
+      <div>
+        <h4 class="entry-label">Appearance</h4>
+        <p>Yanos stands just over six feet, broad across the chest and shoulders in the way of tritons who have spent decades swimming against current. His scales shift between deep teal and seafoam depending on the light — vivid in sunlight, nearly black in shadow. His crest fins are amber-gold at the edges, darkening to teal at the base. He moves with the unhurried deliberateness of someone who has spent his life managing the moods of sailors and storm fronts alike.</p>
+
+        <h4 class="entry-label">Manner</h4>
+        <p>Warm, pastoral, and slightly formal in the way of priests who have dealt with frightened people for years. He speaks of the sea the way devoted people speak of family — with love that assumes no explanation is needed. He listens before he speaks. He is genuinely good company and genuinely dangerous, and both of these things are sincere.</p>
+      </div>
+      <div>
+        <h4 class="entry-label">The Ships He Guided</h4>
+        <p>Over his career, Yanos guided roughly forty merchant and fishing vessels safely across hazardous waters. He kept detailed records: the captain's name, the cargo, the storm conditions, the prayers he offered. He has these in a waterproofed journal. He can recount the details of most crossings from memory.</p>
+
+        <h4 class="entry-label">The Ships He Sank</h4>
+        <p>Three. He has records of these as well, in a separate section of the same journal, written in smaller script. He called them <em>necessary sacrifices</em> and <em>offerings to the hungry sea.</em> The voice in the shell was very clear each time. Slavers, once. A warship hunting innocents, once. The third he does not speak about.</p>
+      </div>
+    </div>
+
+    <div class="wave-rule">〜〜〜〜〜</div>
+
+    <h3 class="subhead">The Githyanki &amp; the Seas Above</h3>
+
+    <p>The campaign's final chapter brought Yanos into contact with a githyanki crew whose astral vessel, the <em>Veridian Spear</em>, had been badly damaged in a rift-crossing. The gith had no knowledge of tidal mechanics; Yanos had no knowledge of astral-ship engineering. What they discovered together was that the two problems were, at a certain level of abstraction, the same problem.</p>
+
+    <p>He spent three weeks helping them repair the hull — sealing rift-breeches with the same techniques used to repair coral-grown triton vessels, using his Water Wall and Wall of Stone to temporarily displace the void-currents while the gith worked. When the <em>Veridian Spear</em> was spaceworthy, the captain offered him passage. He accepted.</p>
+
+    <blockquote class="scripture">
+      I have spent my life carrying Thassa's bounty to sailors who cannot reach it themselves. If there are seas above, then there are sailors above who do not yet know her name. That is not a reason to stay. That is the reason to go.
+      <span class="attribution">Yanos Pelagos Benthos — to the party, at departure</span>
+    </blockquote>
+
+    <p>He departed with the githyanki into the Astral Sea. His charts — the ones depicting "the tides above" — were in his pack. His nautilus shell was warm against his chest. Somewhere in the void, something very old and very patient felt him move into its domain, and was pleased.</p>
+
+    <div class="callout warning">
+      <div class="callout-title">Open Question — Campaign's End</div>
+      Yanos never learned the truth about his warlock patron. The campaign ended before the revelation arrived. Whether this means he lives his remaining years in contented ignorance, or whether the patron eventually surfaces — in the quietest reaches of the Astral Sea, where there is nothing to pray toward except the cold — is unresolved. He is, by any measure, a good man. He is also, by any measure, a man who has been used. These things are not mutually exclusive.
+    </div>
+
+    <h3 class="subhead">Personality Traits, Bonds &amp; Flaws</h3>
+    <table class="dossier-table">
+      <thead>
+        <tr><th>Category</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Trait</td>
+          <td>Treats every crossing — whether of ocean or void — as a sacred responsibility. Lists the names of those in his care before setting out. Prays for fair passage before sleeping.</td>
+        </tr>
+        <tr>
+          <td>Trait</td>
+          <td>Deeply, quietly suspicious of gods who demand nothing. A deity that gives freely without cost is a deity concealing the cost. He learned this, and did not apply it to himself.</td>
+        </tr>
+        <tr>
+          <td>Ideal</td>
+          <td>The sea belongs to everyone. Its power is not meant to be hoarded by temples or navies or scholars. A good priest opens the water; he does not own it.</td>
+        </tr>
+        <tr>
+          <td>Bond</td>
+          <td>The forty sailors he brought safely home. He would cross any sea, any void, to protect one more.</td>
+        </tr>
+        <tr>
+          <td>Bond</td>
+          <td>The githyanki of the <em>Veridian Spear</em>, who trusted him with their ship when they had no reason to. He considers them crew now.</td>
+        </tr>
+        <tr>
+          <td>Flaw</td>
+          <td>He cannot tolerate not-knowing. If the shell speaks, he listens. If the dream recurs, it must be prophecy. If the power flows, it must be sanctioned. He has built an entire life on this assumption and has not once asked whether the assumption is earned.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ═══════════════════ VIII. ROLEPLAYING NOTES ═══════════════════ -->
+  <section id="rp-notes">
+    <h2 class="section-title">VIII. Roleplaying Notes</h2>
+
+    <h3 class="subhead">The Central Tension</h3>
+    <p>Yanos is not a villain. He is not even a compromised hero in the obvious sense. He is a genuinely faithful, genuinely good man whose faith has been parasitised so thoroughly that there is no clean seam between the genuine and the corrupted. His Tempest domain spells are Thassa's. His Fathomless features are not. He cannot feel the difference. That is the point.</p>
+
+    <p>If he were ever confronted with the truth, the primary wound would not be betrayal by an external force — it would be the realisation that he was the one who kept the deception alive by never asking.</p>
+
+    <h3 class="subhead">Navigating the Double Life</h3>
+    <p>He never experienced his ship-sinking as evil because the voice framed it as culling — removing vessels that would cause greater harm. He trusted that framing the way he trusted the tides. Confronted with the families of the third ship — the one he won't speak about — he would not have a satisfying answer. He never looked for one. Looking for answers was the thing he refused to do.</p>
+
+    <blockquote class="maxim">
+      He was the most faithful man I ever sailed with. He prayed every dawn. He knew every sailor's name. He would have died for any one of us.
+      <br><br>
+      I still don't know what he was praying to.
+      <span class="attribution">Unnamed fellow party member, post-campaign</span>
+    </blockquote>
+
+    <h3 class="subhead">In the Astral Sea</h3>
+    <p>Yanos is, by the campaign's end, genuinely happy. He has found a new frontier, new "sailors" to guide, a crew that respects him. The githyanki, who trust nothing that breathes water, trust him. He maps the void-currents with the same careful hand he used on the Laconian Gulf charts. He teaches the gith to read ocean weather the way they taught him to read rift-turbulence. He prays at dawn into his bowl of astral-water.</p>
+
+    <p>The nautilus shell still whispers sometimes. He listens. He always does.</p>
+  </section>
+
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <footer class="colophon">
+    Yanos Pelagos Benthos &middot; Triton Cleric–Warlock &middot; Theros Campaign
+    <br>
+    Tempest Domain / The Fathomless &middot; Level 10 &middot; End of Campaign
+    <br><br>
+    <em style="font-family:'IM Fell English',serif;font-style:italic;letter-spacing:0.05em;color:var(--ink-faint);">"The sea does not ask what gives her the right to take. Neither does what waits beneath her."</em>
+  </footer>
+
+</div>
+</body>
+</html>
