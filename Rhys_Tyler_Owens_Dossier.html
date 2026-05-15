@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Rhys Tyler Owens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #1a1a1a;
+    --paper-light: #222222;
+    --paper-mid: #2a2928;
+    --ink: #e8e0d0;
+    --ink-dim: #9e9590;
+    --ink-faint: #5a5652;
+    --red: #c0392b;
+    --red-bright: #e74c3c;
+    --red-dark: #7b241c;
+    --amber: #d4a017;
+    --amber-dim: #8a6a10;
+    --scratch: #3a3530;
+    --scratch-bright: #4a4540;
+    --rule: #3d3830;
+    --rule-bright: #5a5248;
+    --blood: #6b1e1e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: #111;
+    color: var(--ink);
+    font-family: "Courier Prime", "Courier New", monospace;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  body {
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 28px,
+        rgba(255,255,255,0.012) 28px,
+        rgba(255,255,255,0.012) 29px
+      ),
+      radial-gradient(ellipse at 10% 10%, rgba(192,57,43,0.08) 0%, transparent 45%),
+      radial-gradient(ellipse at 90% 90%, rgba(192,57,43,0.05) 0%, transparent 45%);
+    padding: 2rem 1rem 4rem;
+    min-height: 100vh;
+  }
+
+  .document {
+    max-width: 860px;
+    margin: 0 auto;
+    background: var(--paper);
+    position: relative;
+    border: 1px solid var(--scratch-bright);
+    box-shadow:
+      0 0 0 1px var(--scratch),
+      0 4px 8px rgba(0,0,0,0.6),
+      0 20px 60px rgba(0,0,0,0.8);
+  }
+
+  /* Worn paper texture overlay */
+  .document::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    border-radius: 0;
+  }
+
+  /* Red top stripe — like a xeroxed band flyer */
+  .top-stripe {
+    height: 6px;
+    background: var(--red);
+    position: relative;
+    z-index: 2;
+  }
+
+  .inner {
+    padding: 3rem 3.5rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ========= HEADER ========= */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    border-bottom: 2px solid var(--red-dark);
+    padding-bottom: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .header-text {}
+
+  .eyebrow {
+    font-family: "Oswald", sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.5em;
+    color: var(--red);
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .eyebrow::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--red-dark);
+  }
+
+  h1.name {
+    font-family: "Bebas Neue", "Oswald", sans-serif;
+    font-size: 4.5rem;
+    font-weight: 400;
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  h1.name span.surname {
+    color: var(--red);
+  }
+
+  .tagline {
+    font-family: "Special Elite", serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink-dim);
+    margin-top: 0.8rem;
+    border-left: 3px solid var(--red-dark);
+    padding-left: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .stat-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.3rem 1.5rem;
+    margin-top: 1.2rem;
+    font-size: 0.8rem;
+  }
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dotted var(--scratch-bright);
+    padding-bottom: 0.15rem;
+  }
+  .stat-label {
+    font-family: "Oswald", sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+  .stat-val {
+    color: var(--amber);
+    font-weight: 700;
+    font-size: 0.75rem;
+  }
+
+  /* portrait */
+  .portrait-wrap {
+    width: 180px;
+    flex-shrink: 0;
+  }
+  .portrait-frame {
+    border: 2px solid var(--scratch-bright);
+    outline: 1px solid var(--red-dark);
+    outline-offset: 4px;
+    overflow: hidden;
+    position: relative;
+    background: #111;
+  }
+  .portrait-frame img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    filter: contrast(1.1) saturate(0.85);
+  }
+  .portrait-cap {
+    font-family: "Oswald", sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 0.5rem;
+    font-weight: 300;
+  }
+
+  /* ========= SECTIONS ========= */
+  section {
+    margin-bottom: 2.8rem;
+  }
+
+  h2.section-title {
+    font-family: "Oswald", sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--red);
+    display: inline-block;
+    padding: 0.25em 1em 0.2em;
+    margin-bottom: 1.2rem;
+  }
+
+  h3.subhead {
+    font-family: "Oswald", sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-top: 1.4rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--scratch-bright);
+    padding-bottom: 0.3rem;
+  }
+
+  p {
+    margin-bottom: 0.9rem;
+    color: var(--ink);
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  /* ========= QUOTE BOX ========= */
+  .pull-quote {
+    border-left: 4px solid var(--red);
+    background: var(--paper-mid);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    position: relative;
+  }
+  .pull-quote::before {
+    content: "//";
+    font-family: "Oswald", sans-serif;
+    font-size: 3rem;
+    color: var(--red-dark);
+    position: absolute;
+    top: -0.5rem;
+    left: 0.5rem;
+    line-height: 1;
+  }
+  .pull-quote p {
+    font-family: "Special Elite", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink);
+    padding-left: 1.5rem;
+    margin: 0;
+    line-height: 1.6;
+  }
+  .pull-quote .attribution {
+    font-family: "Oswald", sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+    display: block;
+  }
+
+  /* ========= CALLOUT ========= */
+  .callout {
+    background: var(--blood);
+    border: 1px solid var(--red-dark);
+    padding: 1rem 1.4rem;
+    margin: 1.2rem 0;
+  }
+  .callout .label {
+    font-family: "Oswald", sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    color: rgba(232,224,208,0.6);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+  }
+  .callout p {
+    font-size: 0.88rem;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  /* ========= ATTRIBUTES GRID ========= */
+  .attr-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .attr-col-head {
+    font-family: "Oswald", sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--red);
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: 1px solid var(--red-dark);
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
+  }
+  .attr-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    padding: 0.1rem 0;
+    border-bottom: 1px dotted var(--scratch-bright);
+  }
+  .attr-name {
+    font-family: "Oswald", sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: var(--ink-dim);
+  }
+  .attr-dots {
+    color: var(--amber);
+    letter-spacing: 0.05em;
+    font-size: 0.9rem;
+  }
+
+  /* ========= SKILLS GRID ========= */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.3rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .skill-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.76rem;
+    border-bottom: 1px dotted var(--scratch);
+    padding: 0.1rem 0;
+  }
+  .skill-name {
+    font-family: "Oswald", sans-serif;
+    font-weight: 300;
+    color: var(--ink-dim);
+  }
+  .skill-name.active {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .skill-dots {
+    color: var(--amber);
+    font-size: 0.85rem;
+  }
+
+  /* ========= GIFTS TABLE ========= */
+  .gifts-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .gifts-table th {
+    font-family: "Oswald", sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--red);
+    text-align: left;
+    border-bottom: 1px solid var(--red-dark);
+    padding: 0.4rem 0.5rem;
+  }
+  .gifts-table td {
+    padding: 0.35rem 0.5rem;
+    border-bottom: 1px dotted var(--scratch-bright);
+    vertical-align: top;
+  }
+  .gifts-table tr:last-child td { border-bottom: none; }
+  .gift-name {
+    font-family: "Oswald", sans-serif;
+    font-weight: 500;
+    color: var(--amber);
+    white-space: nowrap;
+  }
+  .gift-pool { color: var(--ink-dim); font-size: 0.75rem; }
+  .gift-cost {
+    font-family: "Oswald", sans-serif;
+    font-size: 0.7rem;
+    color: var(--red-bright);
+    white-space: nowrap;
+  }
+  .gift-notes { color: var(--ink-dim); font-size: 0.75rem; }
+
+  /* ========= FORMS BLOCK ========= */
+  .forms-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+  }
+  .form-card {
+    background: var(--paper-mid);
+    border: 1px solid var(--scratch-bright);
+    border-left: 3px solid var(--red-dark);
+    padding: 0.8rem 1rem;
+  }
+  .form-card.crinos {
+    border-left-color: var(--red-bright);
+    background: rgba(192,57,43,0.08);
+  }
+  .form-name {
+    font-family: "Oswald", sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    font-weight: 600;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .form-cost {
+    font-size: 0.7rem;
+    color: var(--red-bright);
+    font-family: "Oswald", sans-serif;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4rem;
+  }
+  .form-stats {
+    font-size: 0.72rem;
+    color: var(--ink-dim);
+    line-height: 1.6;
+  }
+  .form-stats strong { color: var(--ink); }
+
+  /* ========= RENOWN ========= */
+  .renown-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .renown-item {
+    background: var(--paper-mid);
+    border: 1px solid var(--scratch-bright);
+    padding: 0.7rem 1rem;
+    text-align: center;
+  }
+  .renown-name {
+    font-family: "Oswald", sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    font-weight: 300;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .renown-dots {
+    font-size: 1.1rem;
+    color: var(--amber);
+  }
+
+  /* ========= TIMELINE ========= */
+  .timeline {
+    border-left: 2px solid var(--red-dark);
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+  }
+  .timeline-entry {
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .timeline-entry::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--red);
+    background: var(--paper);
+    position: absolute;
+    left: -1.95rem;
+    top: 0.35rem;
+    transform: rotate(45deg);
+  }
+  .timeline-entry.critical::before {
+    background: var(--red);
+  }
+  .when {
+    font-family: "Oswald", sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--red);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 0.15rem;
+  }
+  .what {
+    font-family: "Oswald", sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    margin-bottom: 0.3rem;
+  }
+  .detail {
+    font-size: 0.82rem;
+    color: var(--ink-dim);
+    line-height: 1.6;
+  }
+
+  /* ========= SOUNDTRACK ========= */
+  .soundtrack-list {
+    list-style: none;
+    margin-top: 0.5rem;
+  }
+  .soundtrack-list li {
+    font-family: "Special Elite", serif;
+    font-size: 0.88rem;
+    color: var(--ink-dim);
+    padding: 0.35rem 0;
+    border-bottom: 1px dotted var(--scratch-bright);
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+  }
+  .soundtrack-list li::before {
+    content: "▶";
+    color: var(--red);
+    font-size: 0.6rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .track-artist {
+    color: var(--amber);
+    font-style: normal;
+    white-space: nowrap;
+  }
+
+  /* ========= TWO-COL ========= */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  /* ========= GLABRO IMAGE SPREAD ========= */
+  .form-image-spread {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0;
+  }
+  .form-image-card {
+    border: 1px solid var(--scratch-bright);
+    outline: 1px solid var(--scratch);
+    outline-offset: 3px;
+    overflow: hidden;
+    background: #111;
+    max-width: 380px;
+    width: 100%;
+  }
+  .form-image-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    filter: contrast(1.05) saturate(0.8);
+  }
+  .form-image-label {
+    font-family: "Oswald", sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0.4rem;
+    background: var(--paper-mid);
+    border-top: 1px solid var(--scratch-bright);
+  }
+
+  /* ========= FOOTER ========= */
+  footer.colophon {
+    font-family: "Oswald", sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.5em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--scratch-bright);
+    font-weight: 300;
+  }
+
+  ul {
+    padding-left: 1.2rem;
+    margin-bottom: 0.8rem;
+  }
+  li {
+    font-size: 0.88rem;
+    color: var(--ink-dim);
+    margin-bottom: 0.3rem;
+    line-height: 1.6;
+  }
+  li strong { color: var(--ink); }
+
+  .red { color: var(--red); }
+  .amber { color: var(--amber); }
+  .dim { color: var(--ink-dim); }
+</style>
+</head>
+<body>
+
+<div class="document">
+  <div class="top-stripe"></div>
+  <div class="inner">
+
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-text">
+        <div class="eyebrow">Character Dossier &middot; Werewolf: The Apocalypse &middot; Rites of Redemption</div>
+        <h1 class="name">Rhys Tyler <span class="surname">Owens</span></h1>
+        <div class="tagline">
+          "They were safe from my rage when I lacked power."<br>
+          <em>— Aging Punk &middot; Black Furies Theurge &middot; Patron: Gorgon</em>
+        </div>
+        <div class="stat-block">
+          <div class="stat-row"><span class="stat-label">Auspice</span><span class="stat-val">Theurge</span></div>
+          <div class="stat-row"><span class="stat-label">Tribe</span><span class="stat-val">Black Furies</span></div>
+          <div class="stat-row"><span class="stat-label">Chronicle</span><span class="stat-val">Rites of Redemption</span></div>
+          <div class="stat-row"><span class="stat-label">Patron</span><span class="stat-val">Gorgon</span></div>
+          <div class="stat-row"><span class="stat-label">Touchstones</span><span class="stat-val">Gwen, Molly, Miles</span></div>
+          <div class="stat-row"><span class="stat-label">First Change</span><span class="stat-val">May 24, 2023</span></div>
+        </div>
+      </div>
+
+      <div class="portrait-wrap">
+        <div class="portrait-frame">
+          <img src="rhys.png" alt="Rhys Tyler Owens — homid form">
+        </div>
+        <div class="portrait-cap">Homid Form</div>
+      </div>
+    </header>
+
+    <!-- FORMS IMAGES -->
+    <div class="form-image-spread">
+      <div class="form-image-card">
+        <img src="rhys-glabro.png" alt="Glabro — werewolf war form">
+        <div class="form-image-label">Glabro &middot; War Form</div>
+      </div>
+    </div>
+
+    <!-- I. CONCEPT -->
+    <section>
+      <h2 class="section-title">I. Concept</h2>
+
+      <div class="pull-quote">
+        <p>The gap between his life as he dreamed it would be, and the state of the world and his life as it was, tormented Rhys — but each time he shoved those feelings under and focused on showing up for his family.</p>
+        <span class="attribution">— from the record</span>
+      </div>
+
+      <p>Rhys is a man who has spent two decades being compressed. A punk kid from the Saskatchewan prairies who believed the world could be different. A bassist who toured with bands that meant something. An activist who put his body in front of history — and lost the use of his legs for it. A father, a husband, a helpdesk drone. A man who had learned, methodically and at great cost, to hold down the rage.</p>
+
+      <p>He had gotten very good at that. Too good, maybe. And then the car hit, and Gwen went limp, and his children screamed, and something in him that had been coiled for twenty years finally let go.</p>
+
+      <p>Rhys is not a man who wanted power. He is a man who had given up on the idea that he was allowed to want anything for himself. The Garou forms have returned to him something he did not even know he had lost: the capacity to act, to matter physically, to be dangerous. That terrifies him in ways he has not finished processing.</p>
+    </section>
+
+    <!-- II. ATTRIBUTES & SKILLS -->
+    <section>
+      <h2 class="section-title">II. Attributes</h2>
+
+      <div class="attr-grid">
+        <div>
+          <div class="attr-col-head">Physical</div>
+          <div class="attr-item"><span class="attr-name">Strength</span><span class="attr-dots">●●○○○</span></div>
+          <div class="attr-item"><span class="attr-name">Dexterity</span><span class="attr-dots">●○○○○</span></div>
+          <div class="attr-item"><span class="attr-name">Stamina</span><span class="attr-dots">●●○○○</span></div>
+        </div>
+        <div>
+          <div class="attr-col-head">Social</div>
+          <div class="attr-item"><span class="attr-name">Charisma</span><span class="attr-dots">●●○○○</span></div>
+          <div class="attr-item"><span class="attr-name">Manipulation</span><span class="attr-dots">●●○○○</span></div>
+          <div class="attr-item"><span class="attr-name">Composure</span><span class="attr-dots">●●○○○</span></div>
+        </div>
+        <div>
+          <div class="attr-col-head">Mental</div>
+          <div class="attr-item"><span class="attr-name">Intelligence</span><span class="attr-dots">●●●●○</span></div>
+          <div class="attr-item"><span class="attr-name">Wits</span><span class="attr-dots">●●○○○</span></div>
+          <div class="attr-item"><span class="attr-name">Resolve</span><span class="attr-dots">●●○○○</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">III. Skills</h2>
+      <div class="skills-grid">
+        <!-- Physical -->
+        <div class="skill-item"><span class="skill-name">Athletics</span><span class="skill-dots">○○○○○</span></div>
+        <div class="skill-item"><span class="skill-name active">Brawl</span><span class="skill-dots">●●○○○</span></div>
+        <div class="skill-item"><span class="skill-name">Craft</span><span class="skill-dots">○○○○○</span></div>
+        <div class="skill-item"><span class="skill-name active">Driving</span><span class="skill-dots">●○○○○</span></div>
+        <div class="skill-item"><span class="skill-name active">Firearms</span><span class="skill-dots">●○○○○</span></div>
+        <div class="skill-item"><span class="skill-name">Larceny</span><span class="skill-dots">○○○○○</span></div>
+        <div class="skill-item"><span class="skill-name active">Melee</span><span class="skill-dots">●○○○○</span></div>
+        <div class="skill-item"><span class="skill-name active">Stealth</span><span class="skill-dots">●○○○○</span></div>
+        <div class="skill-item"><span class="skill-name">Survival</span><span class="skill-dots">○○○○○</span></div>
+        <!-- Social -->
+        <div class="skill-item"><span class="skill-name">Animal Ken</span><span class="skill-dots">○○○○○</span></div>
+        <div class="skill-item"><span class="skill-name">Etiquette</span><span class="skill-dots">○○○○○</span></div>
+        <div class="skill-item"><span class="skill-name active">Insight</span><span class="skill-dots">●●●●○</span></div>
+        <div class="skill-item"><span class="skill-name active">Intimidation</span><span class="skill-dots">●○○○○</span></div>
+        <div class="skill-item"><span class="skill-name active">Leadership</span><span class="skill-dots">●●○○○</span></div>
+        <div class="skill-item"><span class="skill-name">Performance</span><span class="skill-dots">○○○○○</span></div>
+        <div class="skill-item"><span class="skill-name active">Persuasion</span><span class="skill-dots">●●○○○</span></div>
+        <div class="skill-item"><span class="skill-name">Streetwise</span><span class="skill-dots">○○○○○</span></div>
+        <div class="skill-item"><span class="skill-name active">Subterfuge</span><span class="skill-dots">●●●●○</span></div>
+        <!-- Mental -->
+        <div class="skill-item"><span class="skill-name active">Academics</span><span class="skill-dots">●●○○○</span></div>
+        <div class="skill-item"><span class="skill-name active">Awareness</span><span class="skill-dots">●○○○○</span></div>
+        <div class="skill-item"><span class="skill-name">Finance</span><span class="skill-dots">○○○○○</span></div>
+        <div class="skill-item"><span class="skill-name active">Investigation</span><span class="skill-dots">●●○○○</span></div>
+        <div class="skill-item"><span class="skill-name">Medicine</span><span class="skill-dots">○○○○○</span></div>
+        <div class="skill-item"><span class="skill-name">Occult</span><span class="skill-dots">○○○○○</span></div>
+        <div class="skill-item"><span class="skill-name active">Politics</span><span class="skill-dots">●●○○○</span></div>
+        <div class="skill-item"><span class="skill-name">Science</span><span class="skill-dots">○○○○○</span></div>
+        <div class="skill-item"><span class="skill-name active">Technology</span><span class="skill-dots">●●○○○</span></div>
+      </div>
+    </section>
+
+    <!-- IV. GIFTS & RENOWN -->
+    <section>
+      <h2 class="section-title">IV. Gifts &amp; Rites</h2>
+
+      <table class="gifts-table">
+        <thead>
+          <tr>
+            <th>Gift / Rite</th>
+            <th>Pool</th>
+            <th>Cost</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="gift-name">Hare's Leap</td>
+            <td class="gift-pool">Strength + Glory</td>
+            <td class="gift-cost">Rage</td>
+            <td class="gift-notes">3m horizontal or 2m vertical per success</td>
+          </tr>
+          <tr>
+            <td class="gift-name">Sight from Beyond</td>
+            <td class="gift-pool">Intelligence + Wisdom</td>
+            <td class="gift-cost">—</td>
+            <td class="gift-notes">Prophetic visions; first used in Session One to locate Keith &amp; Lynn</td>
+          </tr>
+          <tr>
+            <td class="gift-name">Porcupine's Reprisal</td>
+            <td class="gift-pool">—</td>
+            <td class="gift-cost">Rage</td>
+            <td class="gift-notes">Superficial damage up to Glory</td>
+          </tr>
+          <tr>
+            <td class="gift-name">Forgetful Record</td>
+            <td class="gift-pool">Wisdom + Investigation</td>
+            <td class="gift-cost">—</td>
+            <td class="gift-notes">pg. 182</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="renown-row">
+        <div class="renown-item">
+          <span class="renown-name">Glory</span>
+          <div class="renown-dots">●●○○○</div>
+        </div>
+        <div class="renown-item">
+          <span class="renown-name">Honor</span>
+          <div class="renown-dots">○○○○○</div>
+        </div>
+        <div class="renown-item">
+          <span class="renown-name">Wisdom</span>
+          <div class="renown-dots">●○○○○</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- V. FORMS OF THE GAROU -->
+    <section>
+      <h2 class="section-title">V. Forms of the Garou</h2>
+      <p class="dim" style="font-size:0.82rem;margin-bottom:1rem;">Rhys is wheelchair-bound in homid form only. Every other form restores full mobility — a fact he has not fully come to terms with.</p>
+
+      <div class="forms-grid">
+        <div class="form-card">
+          <div class="form-name">Homid</div>
+          <div class="form-cost">Cost: Free · Silver immunity</div>
+          <div class="form-stats">Human form. Wheelchair-bound. Social interactions unrestricted. The body that couldn't walk, couldn't rage, couldn't act — for fifteen years.</div>
+        </div>
+        <div class="form-card">
+          <div class="form-name">Glabro</div>
+          <div class="form-cost">Cost: One Rage Check</div>
+          <div class="form-stats"><strong>+2 Physical dice</strong> · −2 Social dice* · Regenerate 1/Rage Check<br><em>*not Intimidation or non-humans</em><br>He walks. He can pass for human if he tries. He discovered this form in the Umbra on the day after his First Change, following the Gorgon.</div>
+        </div>
+        <div class="form-card crinos">
+          <div class="form-name">⚠ Crinos</div>
+          <div class="form-cost">Cost: Two Rage Checks · 1 Willpower/turn or frenzy</div>
+          <div class="form-stats"><strong>+4 Physical dice · +4 Health Levels</strong><br>Social &amp; Stealth: Auto-fail · Regenerate 2/Rage Check<br>Claws +3 · Bite +1 Aggravated · Causes Delirium<br><em>The form he used to rip the drunk driver from his truck. His children saw this.</em></div>
+        </div>
+        <div class="form-card">
+          <div class="form-name">Hispo</div>
+          <div class="form-cost">Cost: One Rage Check</div>
+          <div class="form-stats"><strong>+2 Physical dice**</strong> · −2 Stealth dice · Social: wolves/Garou only · Bite +1 Aggravated<br><em>**not Stealth tests</em></div>
+        </div>
+        <div class="form-card">
+          <div class="form-name">Lupus</div>
+          <div class="form-cost">Cost: Free · Silver immunity</div>
+          <div class="form-stats">Full wolf. Social: wolves/Garou only.<br><em>Used in Session One to sneak back to Laramie and confirm Gwen and the children were alive. Miles touched his snout. A child's drawing of the accident was in the trash.</em></div>
+        </div>
+        <div class="form-card" style="background:rgba(212,160,23,0.05); border-left-color: var(--amber-dim);">
+          <div class="form-name" style="color:var(--amber);">Rage Pool</div>
+          <div class="form-cost" style="color:var(--amber-dim);">Current: □□□□□ (5 max)</div>
+          <div class="form-stats">Spent on form shifts, gifts, and spending 1 Willpower/turn to avoid frenzy in Crinos.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VI. HISTORY -->
+    <section>
+      <h2 class="section-title">VI. History</h2>
+
+      <div class="timeline">
+        <div class="timeline-entry">
+          <div class="when">Early Life · Mercy, Saskatchewan</div>
+          <div class="what">Farm kid, hockey, cassette tapes</div>
+          <div class="detail">Mercy is a town that doesn't appear on most maps. He was good at hockey and bored out of his mind. A cassette from his cousin cracked something open. He started ordering from zines. Saved up for a mail-order back catalogue. The farm is still there. He has not been back.</div>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="when">Mid-1990s · Regina</div>
+          <div class="what">College drop-out; joins Barghest</div>
+          <div class="detail">Dropped out of community college the first time. After a few false starts — failed bands, failed roommates — things stuck with Barghest. He played bass. He sang backup. He was not the best musician in the band, but he was the one who held it together when things got bad, which was often.</div>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="when">Late 1990s–Early 2000s</div>
+          <div class="what">A decade on the road with Barghest</div>
+          <div class="detail">Toured with I Spy and Dayglo Abortions. The shows got better. The politics got sharper. Straight-edge, eco-political, hardcore. He believed every word he sang. That is important: he believed it. He still does.</div>
+        </div>
+
+        <div class="timeline-entry critical">
+          <div class="when">2003 · Montreal, WTO Protest</div>
+          <div class="what">Tear gas canister — tail of spine — permanent injury</div>
+          <div class="detail">The canister was fired into the crowd. It hit the tail of his spine. The lawsuit went nowhere and cost more than it recovered. The medical bills took years. He learned to live without the use of his legs. He learned to stop talking about what he had lost. He did not stop feeling it.</div>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="when">Mid-2000s · Regina</div>
+          <div class="what">Returns to finish college; meets Gwen</div>
+          <div class="detail">Gwen was from Laramie, Wyoming. She was studying nursing. She did not pity him, which was the first thing. She argued with him, which was the second. She became pregnant, and they moved south so she could have her family around her. He applied for and got his green card. He got a helpdesk job at a software company. He did not perform at a show for eleven years.</div>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="when">2014 · Laramie, Wyoming</div>
+          <div class="what">Molly is born</div>
+          <div class="detail">Seven years old now. She processes the world differently than he expects; she is more organised than either of her parents, which is terrifying.</div>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="when">2019–2022 · Laramie</div>
+          <div class="what">Miles is born; COVID; isolation</div>
+          <div class="detail">Miles is nonverbal. The outbursts were inexplicable for a long time. COVID compressed everything: Gwen worked long ICU hours, Rhys worked from home, the kids had nowhere to go. He is not sure he would have survived that period without Gwen. He is not sure he was honest with her about how close it was.</div>
+        </div>
+
+        <div class="timeline-entry critical">
+          <div class="when">May 24th, 2023 · Laramie</div>
+          <div class="what">First Change — T-bone collision</div>
+          <div class="detail">Mandatory office day. Gwen and the kids came to pick him up. A drunk driver ran the intersection. Gwen went unconscious. The kids screamed. Something in Rhys that had been coiled for twenty years let go. He tore off the seatbelt, pulled the roof apart, carried his children to safety, pulled out his wife's body — and when the terror in their eyes enraged him further, he crossed the highway and tore the driver out of his truck and threw him. And then registered that he was walking. Sirens. He ran.</div>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="when">Session One · Umbra &amp; Caern</div>
+          <div class="what">First contact with Sereen, Lenny, Charity</div>
+          <div class="detail">Sereen's pack found him. Charity guided him through an Umbral vision — a catastrophic black cloud, Devil's Playground destroyed by lightning, three seedlings becoming oaks. He cried. He raged. He shifted into Crinos and shoved Lenny before Charity calmed him. He ugly cried on the ground. He said sorry and asked to follow them. Then, in lupus form, he snuck back to Laramie and confirmed his family was alive. Miles touched his snout. A child's drawing of the accident — Rhys in crinos form, not monstrous, matter-of-fact — was in the trash.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VII. PSYCHOLOGY -->
+    <section>
+      <h2 class="section-title">VII. Psychology</h2>
+
+      <h3 class="subhead">The Compressed Man</h3>
+      <p>The central psychological fact of Rhys is twenty years of managed impotence. He is politically conscious, emotionally intelligent, and has enormous amounts of rage that he has trained himself to suppress. He is excellent at suppressing it. The suppression has been good for his family and costly to himself.</p>
+      <p>The Garou forms have done two things: they have given him back his legs, and they have given him back the capacity for violence. He does not know yet whether these are gifts or temptations. He suspects the answer is both.</p>
+
+      <h3 class="subhead">Triggers</h3>
+      <ul>
+        <li><strong>His children's fear.</strong> The terror in Molly's and Miles' eyes at the accident was the direct trigger for his First Change. This is a live wire. Anything that threatens his children or produces that specific expression will push him toward frenzy.</li>
+        <li><strong>Impotence reframed as complicity.</strong> The note he carries — <em>They were safe from my rage when I lacked power</em> — is not a boast. It is a fear. He is genuinely uncertain whether his restraint over the last twenty years was virtue or cowardice dressed up as virtue.</li>
+        <li><strong>The world being destroyed while he watches.</strong> The Umbral vision of the black cloud and the lightning strike hit him at a pre-rational level. The ecological politics he formed at eighteen are still fully operational. The Wyrm is not an abstraction to him — it is the thing he was already fighting, under a different name.</li>
+      </ul>
+
+      <h3 class="subhead">Relationships within the Pack</h3>
+      <ul>
+        <li><strong>Sereen</strong> — respects her, is slightly wary of her certainty. He is used to being the oldest and most politically seasoned person in the room. He is not used to having a pack leader.</li>
+        <li><strong>Charity</strong> — instinctive trust. She was the first person to calm him physically. He noticed that she ran after him, not Lenny. He is grateful and does not quite know how to say it.</li>
+        <li><strong>Lenny / Lenard</strong> — complicated. He sees through the cheerful bombast to someone who has probably killed a lot of people and is comfortable with it. He finds Lenny's enthusiasm for the war-form disquieting in the way a mirror can be disquieting.</li>
+        <li><strong>Keith</strong> — friction, unresolved. Keith is on his ass about everything. He has not yet decided if Keith is testing him, hates him specifically, or is like this with everyone.</li>
+      </ul>
+
+      <div class="callout">
+        <div class="label">Psychological Note</div>
+        <p>Rhys has felt incredibly disempowered and overwhelmed. The incredible power of the Garou forms has given him an outlet for the years of pent-up rage at the world and at his impotence. He has not yet resolved whether using that outlet is healing or relapse into something he does not want to be.</p>
+      </div>
+    </section>
+
+    <!-- VIII. FAMILY -->
+    <section>
+      <h2 class="section-title">VIII. Family — Touchstones</h2>
+
+      <div class="two-col">
+        <div>
+          <h3 class="subhead">Gwen (wife)</h3>
+          <p>Nurse. From Laramie. Did not pity him. Argued with him. Was unconscious at the accident. Was up and about the next day when Rhys checked on the family in lupus form. He does not know if there has been a funeral. He does not know if they think he survived. He does not know if going back would help or hurt.</p>
+        </div>
+        <div>
+          <h3 class="subhead">Molly (daughter, b. 2014)</h3>
+          <p>Seven years old. She called Miles in from the yard without seeing Rhys in the bushes. She manages the household in small ways that neither parent fully acknowledges. She drew a picture of the accident — Rhys in crinos form — and threw it in the trash. It was not monstrous. It was matter-of-fact.</p>
+        </div>
+        <div>
+          <h3 class="subhead">Miles (son, b. 2019)</h3>
+          <p>Four years old. Nonverbal. Autistic. He saw Rhys in lupus form in the yard, stood up, and walked toward him. He touched Rhys's snout. He was not afraid. This was the one moment in Session One where Rhys felt something other than dread.</p>
+        </div>
+        <div>
+          <h3 class="subhead">The Drunk Driver</h3>
+          <p>Rhys threw him across the highway. He does not know if the man is alive. He has not asked anyone to check. He is aware he has not asked and is aware of what that awareness costs him.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- IX. SOUNDTRACK -->
+    <section>
+      <h2 class="section-title">IX. Soundtrack</h2>
+      <ul class="soundtrack-list">
+        <li><span class="track-artist">Propagandhi</span> — Adventures in Zoochosis</li>
+        <li><span class="track-artist">Against Me!</span> — I Was a Teenage Anarchist</li>
+        <li><span class="track-artist">Boy Sets Fire</span> — My Life in the Knife Trade</li>
+      </ul>
+      <p style="font-size:0.8rem; color:var(--ink-faint); margin-top:0.8rem;"><em>He hasn't played bass in eleven years. His calluses are gone. He doesn't talk about this.</em></p>
+    </section>
+
+    <!-- X. TRAJECTORIES -->
+    <section>
+      <h2 class="section-title">X. Possible Trajectories</h2>
+
+      <h3 class="subhead">The Question of His Family</h3>
+      <p>He cannot go back the way he came. He does not know if he can go back at all. Miles touched his snout. Molly drew the picture. Whether his family would accept what he is — or whether contact with them puts them at greater risk from whatever the Wyrm is building in Laramie — is the thread that will pull at everything else.</p>
+
+      <h3 class="subhead">The Umbral Vision</h3>
+      <p>A black cloud. Devil's Playground destroyed by lightning. Three seedlings. He asked the spiders whether the seeds predate the disaster. The answer was that the roots precede the caern's destruction — but it's unclear if destruction is a necessary condition for growth. This will haunt him. He is the kind of man who sits with an ambiguous answer for years before acting on it.</p>
+
+      <h3 class="subhead">The Theurge's Path</h3>
+      <p>He has Sight from Beyond. He was drawn to the pattern-spider in the Umbra without being taught to be. His Insight and Subterfuge scores (both at 4) suggest a man who has always been able to read people and situations more precisely than he lets on. The Theurge's gifts suit the intelligence of someone who spent two decades watching power operate from the outside.</p>
+
+      <h3 class="subhead">The Rage and What It Costs</h3>
+      <p>He has been extremely careful, for twenty years, not to let the rage turn outward toward people who did not deserve it. He has been careful for good reasons. The Garou forms make that carefulness much harder. The first frenzy he is unable to control is the inflection point everything else bends toward.</p>
+
+      <h3 class="subhead">What He Will Not Be</h3>
+      <p>He will not be a convert. He does not do certainty. He mistrusts people who find their new community's worldview too immediately convincing, because he has seen what happens to those people. He will remain skeptical, lateral, and slightly sideways to whatever the pack expects of him — which is either the pack's greatest asset or its most persistent headache, depending on the week.</p>
+    </section>
+
+    <footer class="colophon">
+      Dossier compiled · Rites of Redemption · Laramie, Wyoming · Post-First-Change
+    </footer>
+
+  </div><!-- /inner -->
+</div><!-- /document -->
+
+</body>
+</html>
