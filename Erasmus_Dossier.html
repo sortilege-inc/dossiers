@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Erasmus the Hound, House Mercere</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment:      #f0e8d5;
+    --parchment-mid:  #e4d8be;
+    --parchment-deep: #d4c4a0;
+    --ink:            #1a1510;
+    --ink-soft:       #302818;
+    --ink-faint:      #685840;
+
+    /* Mercere / Mediterranean — terracotta, warm */
+    --mercere:        #8a2a10;   /* deep terracotta-red, the cap */
+    --mercere-mid:    #b84020;
+    --mercere-pale:   #d06840;
+    --mercere-light:  #e8a080;
+
+    /* Verdigris — Mediterranean trade, aged bronze */
+    --verd:           #1a4838;
+    --verd-mid:       #266050;
+    --verd-pale:      #409070;
+    --verd-light:     #70b898;
+
+    /* Coin gold — ledger, usury, Mercere commerce */
+    --coin:           #7a5808;
+    --coin-mid:       #a87820;
+    --coin-pale:      #c89840;
+    --coin-light:     #e0c070;
+
+    /* Infernal shadow — subtle, ink-dark */
+    --shadow:         #201828;   /* near black with purple warmth */
+    --shadow-mid:     #382840;
+    --shadow-pale:    #604858;
+    --shadow-light:   #907080;
+
+    --rule:           #b09060;
+    --rule-soft:      #cca870;
+    --panel:          rgba(138, 42, 16, 0.04);
+    --panel-verd:     rgba(26, 72, 56, 0.05);
+    --panel-coin:     rgba(122, 88, 8, 0.05);
+    --panel-shadow:   rgba(32, 24, 40, 0.06);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--parchment-mid);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16.5px;
+    line-height: 1.65;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse at 25% 0%,   rgba(138,42,16,0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 75% 100%, rgba(26,72,56,0.07)  0%, transparent 50%),
+      radial-gradient(ellipse at 50% 60%,  rgba(32,24,40,0.05)  0%, transparent 55%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='350' height='350'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='350' height='350' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    min-height: 100vh;
+    padding: 2.5rem 1rem;
+  }
+
+  .document {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    padding: 4.5rem 5rem 5.5rem;
+    box-shadow:
+      0 2px 4px rgba(26, 21, 16, 0.14),
+      0 14px 52px rgba(26, 21, 16, 0.22),
+      inset 0 0 150px rgba(32, 24, 40, 0.04);
+    position: relative;
+    border: 1px solid var(--rule);
+  }
+
+  /* Top rule — Mercere red fading to verdigris, with shadow at left edge */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--shadow) 0%,
+      var(--mercere) 15%,
+      var(--mercere-pale) 30%,
+      var(--coin-pale) 50%,
+      var(--verd-pale) 70%,
+      var(--verd) 85%,
+      var(--shadow) 100%);
+  }
+
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%, var(--rule) 20%, var(--coin-pale) 50%, var(--rule) 80%, transparent 100%);
+  }
+
+  /* Ledger-line corner marks — counting house aesthetic */
+  .corner {
+    position: absolute;
+    width: 34px; height: 34px;
+    opacity: 0.55;
+  }
+  .corner svg { width: 100%; height: 100%; }
+  .corner.tl { top: 12px; left: 12px; }
+  .corner.tr { top: 12px; right: 12px; transform: scaleX(-1); }
+  .corner.bl { bottom: 12px; left: 12px; transform: scaleY(-1); }
+  .corner.br { bottom: 12px; right: 12px; transform: scale(-1,-1); }
+
+  /* ─── HEADER ─── */
+  header.title-block {
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .ledger-rule {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.4rem;
+    color: var(--coin-mid);
+    font-size: 0.75rem;
+    letter-spacing: 0.5em;
+  }
+  .ledger-rule::before,
+  .ledger-rule::after {
+    content: "";
+    height: 1px;
+    width: 70px;
+    background: linear-gradient(90deg, transparent, var(--rule));
+  }
+  .ledger-rule::after {
+    background: linear-gradient(90deg, var(--rule), transparent);
+  }
+
+  .filemark {
+    display: flex;
+    justify-content: space-between;
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .eyebrow {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    color: var(--mercere-mid);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+
+  h1.character-name {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 2.75rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.1;
+    margin: 0 0 0.3rem;
+    letter-spacing: 0.03em;
+  }
+
+  .name-birth {
+    font-family: "Cinzel", serif;
+    font-size: 0.76rem;
+    letter-spacing: 0.2em;
+    color: var(--verd-mid);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .name-sub {
+    font-family: "Cinzel", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .epithets {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    margin: 0 0 1.2rem;
+    line-height: 1.4;
+  }
+
+  .vitals {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .vitals span {
+    padding: 0 0.9rem;
+    border-left: 1px solid var(--rule-soft);
+    line-height: 1.9;
+  }
+  .vitals span:first-child { border-left: none; }
+  .vitals strong {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+
+  /* Portrait */
+  .portrait-frame {
+    float: right;
+    margin: 0 0 1.5rem 2.2rem;
+    width: 168px;
+  }
+  .portrait-frame img {
+    width: 100%;
+    display: block;
+    filter: sepia(12%) contrast(1.05) saturate(1.0);
+    border: 2px solid var(--rule);
+    box-shadow: 4px 6px 22px rgba(26,21,16,0.32);
+  }
+  .portrait-caption {
+    font-family: "Cinzel", serif;
+    font-size: 0.56rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.45rem;
+    text-transform: uppercase;
+  }
+
+  /* ─── TOC ─── */
+  nav.toc {
+    background: var(--panel-coin);
+    border: 1px solid var(--rule-soft);
+    border-left: 3px solid var(--mercere);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 2.5rem;
+    columns: 2;
+    column-gap: 2rem;
+  }
+  .toc-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    color: var(--mercere-mid);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    column-span: all;
+  }
+  nav.toc ol { margin: 0; padding-left: 1.2rem; break-inside: avoid; }
+  nav.toc li {
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin-bottom: 0.3rem;
+  }
+  nav.toc a { color: var(--ink-soft); text-decoration: none; }
+  nav.toc a:hover { color: var(--mercere-mid); text-decoration: underline; }
+
+  /* ─── SECTIONS ─── */
+  section { margin-bottom: 3rem; }
+
+  h2.section-title {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.35em;
+    color: var(--mercere);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.45rem;
+    margin: 0 0 1.5rem;
+  }
+  h2.section-title::before {
+    content: "✦ ";
+    color: var(--coin-mid);
+    font-size: 0.85rem;
+  }
+
+  h3.subhead {
+    font-family: "EB Garamond", serif;
+    font-weight: 500;
+    font-size: 1.22rem;
+    color: var(--verd-mid);
+    margin: 1.5rem 0 0.5rem;
+    font-style: italic;
+  }
+
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0.5rem 0 1rem 1.5rem; padding: 0; }
+  li { margin-bottom: 0.4rem; }
+  em { color: var(--ink-soft); }
+  strong { font-weight: 600; color: var(--ink); }
+
+  .drop-cap::first-letter {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 3.5rem;
+    line-height: 0.8;
+    float: left;
+    padding: 0.2rem 0.65rem 0 0;
+    color: var(--mercere);
+    font-weight: 700;
+  }
+
+  blockquote.maxim {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    line-height: 1.58;
+    color: var(--mercere);
+    border-left: 3px solid var(--mercere-mid);
+    padding: 0.7rem 0 0.7rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--panel);
+  }
+  blockquote.maxim .attribution {
+    display: block;
+    font-size: 0.82rem;
+    font-style: normal;
+    color: var(--ink-faint);
+    font-family: "Cinzel", serif;
+    letter-spacing: 0.15em;
+    margin-top: 0.5rem;
+  }
+
+  blockquote.dream {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: var(--shadow-pale);
+    border-left: 3px solid var(--shadow-mid);
+    padding: 0.6rem 0 0.6rem 1.5rem;
+    margin: 1.2rem 0;
+    background: var(--panel-shadow);
+  }
+  blockquote.dream .speaker {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--shadow);
+  }
+
+  /* ─── TABLES ─── */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.96rem;
+  }
+  table.dossier-table th {
+    text-align: left;
+    font-family: "Cinzel", serif;
+    font-weight: 400;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  table.dossier-table td {
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top;
+  }
+  table.dossier-table td:first-child {
+    font-family: "Cinzel", serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    padding-right: 1.25rem;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+  table.dossier-table tr:hover td { background: rgba(122,88,8,0.04); }
+
+  /* ─── ARTS GRID ─── */
+  .arts-block { margin: 1rem 0 1.5rem; }
+  .arts-row {
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 0.5rem;
+    gap: 0.5rem;
+  }
+  .arts-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    width: 5.5rem;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .arts-cells { display: flex; flex-wrap: wrap; gap: 0.3rem; flex: 1; }
+  .art-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 54px;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid var(--rule-soft);
+    background: var(--panel);
+    position: relative;
+  }
+  .art-cell.strong {
+    border-color: var(--mercere-mid);
+    background: rgba(138, 42, 16, 0.08);
+  }
+  .art-cell.strong::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--mercere-mid);
+  }
+  .art-cell.notable {
+    border-color: var(--verd-mid);
+    background: var(--panel-verd);
+  }
+  .art-cell.notable::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--verd-mid);
+  }
+  .art-cell.corrupt {
+    border-color: var(--shadow-mid);
+    background: var(--panel-shadow);
+  }
+  .art-cell.corrupt::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--shadow-mid);
+  }
+  .art-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .art-cell.strong .art-name  { color: var(--mercere); }
+  .art-cell.notable .art-name { color: var(--verd-mid); }
+  .art-cell.corrupt .art-name { color: var(--shadow-pale); }
+  .art-score {
+    font-family: "EB Garamond", serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    line-height: 1;
+    margin-top: 0.15rem;
+  }
+  .art-cell.strong .art-score  { color: var(--mercere-mid); }
+  .art-cell.notable .art-score { color: var(--verd-pale); }
+  .art-cell.corrupt .art-score { color: var(--shadow-pale); }
+
+  /* ─── SPELL LIST ─── */
+  .spell-list { margin: 0.8rem 0 1.5rem; }
+  .spell-entry {
+    display: grid;
+    grid-template-columns: 2.3fr 3.8fr 0.9fr;
+    gap: 0 1rem;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--rule-soft);
+    align-items: baseline;
+  }
+  .spell-entry:last-child { border-bottom: none; }
+  .spell-entry:hover { background: rgba(122,88,8,0.04); }
+  .spell-name {
+    font-family: "EB Garamond", serif;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--ink);
+    font-style: italic;
+  }
+  .spell-desc { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.4; }
+  .spell-meta {
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--mercere-mid);
+    text-align: right;
+    white-space: nowrap;
+  }
+  .spell-meta.verd   { color: var(--verd-mid); }
+  .spell-meta.coin   { color: var(--coin-mid); }
+  .spell-meta.shadow { color: var(--shadow-pale); }
+
+  /* ─── STAT GRID ─── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .stat-grid.wide { grid-template-columns: repeat(5, 1fr); }
+  .stat-cell {
+    text-align: center;
+    padding: 0.8rem 0.5rem;
+    border: 1px solid var(--rule-soft);
+    background: var(--panel);
+    position: relative;
+  }
+  .stat-cell::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--rule-soft);
+  }
+  .stat-cell.pos::before { background: var(--verd-pale); }
+  .stat-cell.neg::before { background: var(--shadow-mid); }
+  .stat-cell .s-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .stat-cell .s-val {
+    font-family: "EB Garamond", serif;
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    line-height: 1;
+  }
+  .stat-cell.pos .s-val { color: var(--verd-mid); }
+  .stat-cell.neg .s-val { color: var(--shadow-pale); }
+  .stat-cell .s-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.2rem;
+  }
+
+  /* ─── SKILL GRID ─── */
+  .skill-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.2rem 2rem;
+    margin: 0.8rem 0 1.2rem;
+  }
+  .skill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px dotted var(--rule-soft);
+    padding: 0.22rem 0;
+  }
+  .skill-row .sk-name { font-size: 0.92rem; color: var(--ink); }
+  .skill-row .sk-spec {
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-left: 0.3rem;
+  }
+  .skill-row .sk-val {
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin-left: 0.5rem;
+    flex-shrink: 0;
+  }
+  .skill-row.high .sk-name { color: var(--verd); }
+  .skill-row.high .sk-val  { color: var(--verd-mid); }
+  .skill-row.spec .sk-name { color: var(--mercere); font-style: italic; }
+  .skill-row.spec .sk-val  { color: var(--mercere-mid); }
+
+  /* ─── VIRTUE / FLAW ENTRIES ─── */
+  .vf-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem 1.5rem;
+    margin: 0.8rem 0 1.5rem;
+  }
+  .vf-entry {
+    display: flex;
+    flex-direction: column;
+    border-left: 2px solid var(--rule-soft);
+    padding-left: 0.75rem;
+  }
+  .vf-entry.major-v { border-color: var(--verd-mid); }
+  .vf-entry.major-f { border-color: var(--shadow-mid); }
+  .vf-entry.minor-v { border-color: var(--verd-light); }
+  .vf-entry.minor-f { border-color: var(--mercere-light); }
+  .vf-entry.infernal { border-color: var(--shadow); border-width: 3px; }
+  .vf-name {
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .vf-entry.infernal .vf-name { color: var(--shadow); }
+  .vf-type {
+    font-family: "Cinzel", serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .vf-entry.infernal .vf-type { color: var(--shadow-pale); }
+  .vf-desc {
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    line-height: 1.4;
+    margin-top: 0.15rem;
+    font-style: italic;
+  }
+
+  /* ─── PERSONALITY BARS ─── */
+  .personality-grid {
+    margin: 0.8rem 0 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .pers-row {
+    display: grid;
+    grid-template-columns: 150px 1fr 30px;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .pers-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    text-align: right;
+  }
+  .pers-track {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    height: 18px;
+  }
+  .pers-pip {
+    width: 14px; height: 14px;
+    border: 1px solid var(--rule-soft);
+    background: var(--parchment-mid);
+    flex-shrink: 0;
+  }
+  .pers-pip.active-pos   { background: var(--verd-mid);   border-color: var(--verd); }
+  .pers-pip.active-neg   { background: var(--shadow-mid);  border-color: var(--shadow); }
+  .pers-pip.active-coin  { background: var(--coin-mid);   border-color: var(--coin); }
+  .pers-pip.center { border-color: var(--ink-faint); width: 2px; height: 22px; background: var(--ink-faint); margin: 0 3px; }
+  .pers-val {
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  /* ─── CALLOUTS ─── */
+  .callout {
+    padding: 1rem 1.25rem;
+    margin: 1.2rem 0;
+    border: 1px solid var(--rule-soft);
+    background: var(--panel);
+    position: relative;
+  }
+  .callout::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--rule);
+  }
+  .callout.red    { background: var(--panel); }
+  .callout.red::before    { background: var(--mercere-mid); }
+  .callout.green  { background: var(--panel-verd); }
+  .callout.green::before  { background: var(--verd-mid); }
+  .callout.coin   { background: var(--panel-coin); }
+  .callout.coin::before   { background: var(--coin-mid); }
+  .callout.shadow { background: var(--panel-shadow); border-color: var(--shadow-mid); }
+  .callout.shadow::before { background: var(--shadow); }
+  .callout .label {
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .callout.red .label    { color: var(--mercere-mid); }
+  .callout.green .label  { color: var(--verd-mid); }
+  .callout.coin .label   { color: var(--coin-mid); }
+  .callout.shadow .label { color: var(--shadow-pale); }
+
+  /* ─── LEDGER TABLE (for operations) ─── */
+  .ledger {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.8rem 0 1.5rem;
+    font-size: 0.93rem;
+  }
+  .ledger th {
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--coin-mid);
+    text-transform: uppercase;
+    padding: 0.4rem 0.6rem;
+    border-bottom: 1px solid var(--coin-pale);
+    text-align: left;
+    background: var(--panel-coin);
+  }
+  .ledger td {
+    padding: 0.45rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: top;
+  }
+  .ledger td:first-child {
+    font-weight: 500;
+    color: var(--ink-soft);
+  }
+  .ledger tr:last-child td { border-bottom: 1px solid var(--coin-pale); }
+  .ledger tr:hover td { background: rgba(122,88,8,0.04); }
+
+  /* ─── INFIDUS CARD ─── */
+  .infidus-card {
+    border: 1px solid var(--shadow-mid);
+    background: linear-gradient(135deg, rgba(32,24,40,0.07) 0%, rgba(32,24,40,0.03) 100%);
+    padding: 1.2rem 1.5rem;
+    margin: 1rem 0;
+    position: relative;
+  }
+  .infidus-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--shadow), var(--shadow-pale), var(--shadow));
+  }
+  .infidus-title {
+    font-family: "Cinzel", serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: var(--shadow);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .infidus-title::after {
+    content: "⬤ ⬤ ⬤";
+    font-size: 0.4rem;
+    color: var(--shadow-pale);
+    letter-spacing: 0.2em;
+  }
+
+  /* ─── ORNAMENT ─── */
+  .ornament {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--coin-mid);
+    letter-spacing: 0.6em;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 700px) {
+    .document { padding: 2.5rem 1.5rem 3rem; }
+    h1.character-name { font-size: 1.9rem; }
+    .vf-grid, .stat-grid, .skill-grid { grid-template-columns: 1fr; }
+    .stat-grid.wide { grid-template-columns: repeat(3, 1fr); }
+    nav.toc { columns: 1; }
+    .spell-entry { grid-template-columns: 1fr; }
+    .portrait-frame { float: none; width: 140px; margin: 0 auto 1.5rem; display: block; }
+    .pers-row { grid-template-columns: 110px 1fr 25px; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+
+  <!-- Counting-house corner ornaments -->
+  <div class="corner tl">
+    <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 2 L18 2 L18 4 L4 4 L4 18 L2 18 Z" fill="none" stroke="#b84020" stroke-width="1.2"/>
+      <path d="M7 7 L18 7" stroke="#a87820" stroke-width="0.7"/>
+      <path d="M7 11 L14 11" stroke="#a87820" stroke-width="0.7"/>
+      <path d="M7 7 L7 18" stroke="#266050" stroke-width="0.7"/>
+      <circle cx="7" cy="7" r="1.2" fill="#a87820"/>
+    </svg>
+  </div>
+  <div class="corner tr">
+    <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 2 L18 2 L18 4 L4 4 L4 18 L2 18 Z" fill="none" stroke="#b84020" stroke-width="1.2"/>
+      <path d="M7 7 L18 7" stroke="#a87820" stroke-width="0.7"/>
+      <path d="M7 11 L14 11" stroke="#a87820" stroke-width="0.7"/>
+      <path d="M7 7 L7 18" stroke="#266050" stroke-width="0.7"/>
+      <circle cx="7" cy="7" r="1.2" fill="#a87820"/>
+    </svg>
+  </div>
+  <div class="corner bl">
+    <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 2 L18 2 L18 4 L4 4 L4 18 L2 18 Z" fill="none" stroke="#b84020" stroke-width="1.2"/>
+      <path d="M7 7 L18 7" stroke="#a87820" stroke-width="0.7"/>
+      <path d="M7 11 L14 11" stroke="#a87820" stroke-width="0.7"/>
+      <path d="M7 7 L7 18" stroke="#266050" stroke-width="0.7"/>
+      <circle cx="7" cy="7" r="1.2" fill="#a87820"/>
+    </svg>
+  </div>
+  <div class="corner br">
+    <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 2 L18 2 L18 4 L4 4 L4 18 L2 18 Z" fill="none" stroke="#b84020" stroke-width="1.2"/>
+      <path d="M7 7 L18 7" stroke="#a87820" stroke-width="0.7"/>
+      <path d="M7 11 L14 11" stroke="#a87820" stroke-width="0.7"/>
+      <path d="M7 7 L7 18" stroke="#266050" stroke-width="0.7"/>
+      <circle cx="7" cy="7" r="1.2" fill="#a87820"/>
+    </svg>
+  </div>
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="title-block">
+    <div class="filemark">
+      <span>Sjórseiðr Covenant Archive · Founding Member</span>
+      <span>Anno Domini 1205 · Roman Tribunal</span>
+    </div>
+
+    <div class="ledger-rule">✦ ✦ ✦</div>
+
+    <div class="eyebrow">House Mercere · Gifted Line · Illegitimate Lineage</div>
+    <h1 class="character-name">Erasmus the Hound</h1>
+    <span class="name-birth">Born Erasmo il Genova · Harco, Roman Tribunal · 1177</span>
+    <span class="name-sub">Discipulus Claudii · Incrocio Covenant, Levant · Gauntlet 1197</span>
+
+    <p class="epithets">
+      Redcap — Moneylender — The Listener — Keeper of Inconvenient Knowledge<br>
+      <em>"He pays attention to what people say and how they say it. Whether he uses this to help or exploit varies by situation."</em>
+    </p>
+
+    <div class="vitals">
+      <span><strong>Age</strong>28</span>
+      <span><strong>House</strong>Mercere</span>
+      <span><strong>Lineage</strong>Odysseus (Illegitimate)</span>
+      <span><strong>Role</strong>Redcap · Usurer</span>
+      <span><strong>Arrives</strong>Bordeaux 1205</span>
+      <span><strong>Covenant</strong>Sjórseiðr</span>
+    </div>
+  </header>
+
+  <!-- ═══ TOC ═══ -->
+  <nav class="toc">
+    <div class="toc-label">Contents of This Dossier</div>
+    <ol>
+      <li><a href="#biography">Biography &amp; History</a></li>
+      <li><a href="#characteristics">Characteristics &amp; Personality</a></li>
+      <li><a href="#virtues">Virtues &amp; Flaws</a></li>
+      <li><a href="#arts">Hermetic Arts</a></li>
+      <li><a href="#abilities">Abilities</a></li>
+      <li><a href="#spells">Spells &amp; Powers</a></li>
+    </ol>
+    <ol>
+      <li><a href="#infidus">Infidus</a></li>
+      <li><a href="#operations">The Two Operations</a></li>
+      <li><a href="#mythic">Mythic Blood &amp; Magic</a></li>
+      <li><a href="#relationships">Key Relationships</a></li>
+      <li><a href="#sjorseidr">Joining Sjórseiðr</a></li>
+      <li><a href="#assessment">Assessment</a></li>
+    </ol>
+  </nav>
+
+  <!-- ═══ I. BIOGRAPHY ═══ -->
+  <section id="biography">
+    <h2 class="section-title">I. Biography &amp; History</h2>
+
+    <div class="portrait-frame">
+      <img src="erasmus.png" alt="Erasmus the Hound">
+      <div class="portrait-caption">Erasmus the Hound · Mercere · 1205</div>
+    </div>
+
+    <p class="drop-cap">Erasmo il Genova was born in 1177 at or near Harco, the Domus Magna of House Mercere, to a family with complicated connections to the House. His lineage traced to Odysseus — or so the family claimed — but not through the legitimate Mercere bloodlines recognised by senior House magi. This made him technically eligible for training while marking him as socially inferior within House politics from the beginning. The Gift manifested around age five. Claudius of Mercere, stationed at Incrocio in the Levant and needing an apprentice, took him on. Neither had better options. Both made the best of it.</p>
+
+    <h3 class="subhead">Incrocio and the Side Business (1182–1197)</h3>
+    <p>Incrocio — "Crossroads" — was a small Hermetic covenant serving primarily as waystation and message hub along Mediterranean trade routes. Its mixed population of Gifted Mercere magi, unGifted Redcaps, and covenfolk from across Mediterranean cultures gave the young Erasmus his facility with languages and his understanding of cross-cultural commercial exchange. Claudius taught him Hermetic Arts, multiple languages, and the etiquette required of a messenger who might enter any covenant in Europe.</p>
+
+    <p>What Claudius did not teach him — or chose not to — was where lending money to people in need crossed into exploitation. By age fifteen or sixteen, Erasmus had begun lending small amounts of silver to covenfolk, visiting merchants, other apprentices. By his gauntlet in 1197, he had established a reputation and was generating modest income. The rates were high. People resented paying them. He rationalised: he was providing a service, taking risk, charging fair compensation.</p>
+
+    <h3 class="subhead">Toulouse and Infidus (1199)</h3>
+    <p>Two years post-gauntlet, delivering messages near Toulouse, Erasmus had an encounter with a powerful local noble that turned dangerous the following morning. The noble, consumed by terror and guilt, intended to confess everything to his priest — and name Erasmus. The Church would burn him. The Order might not intervene for a minor Mercere over a mundane nobleman of substance.</p>
+
+    <p>That night, unable to sleep, Erasmus dreamed of a black dog.</p>
+
+    <blockquote class="dream">
+      <span class="speaker">The dog</span> sat at the foot of his bed, watching with amber eyes. <em>"He wants to tell the priests. Confess his sin. Name you as the demon."</em><br><br>
+      <em>"How?"</em> Erasmus managed.<br><br>
+      <span class="speaker">The dog:</span> <em>"Write to him. A small payment, ongoing, to demonstrate good faith. Both of you keep silent. Both of you survive. Mutual protection."</em><br><br>
+      <em>"That's blackmail."</em><br><br>
+      <span class="speaker">The dog:</span> <em>"That's survival. I'm Infidus. I can help you."</em>
+    </blockquote>
+
+    <p>He woke to find a large black mastiff sitting at the foot of his bed, watching him with amber eyes. He wrote the letter that morning. The noble paid. Has paid ever since. Infidus has accompanied Erasmus everywhere in the four years since — and the nature of what was agreed that night remains, deliberately, unexamined.</p>
+
+    <h3 class="subhead">The Pattern (1199–1205)</h3>
+    <p>The Toulouse incident established a template. Not immediately, not deliberately, but over subsequent years it recurred: identify someone with a secret they would pay to protect, offer silence as a service, frame it as mutual protection rather than coercion. By 1205 he runs two parallel operations — conventional usury and what he thinks of, when he thinks of it at all, as "blackmail-loans." The Mercere messenger role provides access, trust, mobility, and institutional protection that makes him considerably more dangerous than his physical limitations would otherwise allow.</p>
+  </section>
+
+  <!-- ═══ II. CHARACTERISTICS ═══ -->
+  <section id="characteristics">
+    <h2 class="section-title">II. Characteristics &amp; Personality</h2>
+
+    <h3 class="subhead">Characteristics</h3>
+    <div class="stat-grid wide">
+      <div class="stat-cell pos"><div class="s-label">Int</div><div class="s-val">+3</div><div class="s-name">Intelligence</div></div>
+      <div class="stat-cell pos"><div class="s-label">Pre</div><div class="s-val">+2</div><div class="s-name">Presence</div></div>
+      <div class="stat-cell pos"><div class="s-label">Com</div><div class="s-val">+2</div><div class="s-name">Communication</div></div>
+      <div class="stat-cell pos"><div class="s-label">Per</div><div class="s-val">+1</div><div class="s-name">Perception</div></div>
+      <div class="stat-cell neg"><div class="s-label">Str</div><div class="s-val">−1</div><div class="s-name">Strength</div></div>
+      <div class="stat-cell neg"><div class="s-label">Dex</div><div class="s-val">−1</div><div class="s-name">Dexterity</div></div>
+      <div class="stat-cell neg"><div class="s-label">Qik</div><div class="s-val">−1</div><div class="s-name">Quickness</div></div>
+      <div class="stat-cell neg"><div class="s-label">Sta</div><div class="s-val">−2</div><div class="s-name">Stamina</div></div>
+    </div>
+
+    <p>The clearest possible profile: exceptional social and intellectual capability combined with comprehensive physical limitation. Intelligence, Presence, and Communication at +2 and +3 describe someone who is genuinely brilliant at understanding people and making them feel understood. Stamina at −2, combined with the Tragic Stamina flaw and Poor Eyesight, describes someone who has survived entirely by ensuring confrontation never becomes the solution. He is twenty-eight and feels older.</p>
+
+    <h3 class="subhead">Physical Description</h3>
+    <p>Five feet eleven inches, lean, with the slightly hunched posture of someone who rides frequently and the persistent squint of poor eyesight in bright Mediterranean light. Olive-toned skin from Italian-Greek heritage. Hands that are surprisingly elegant — a moneylender's hands, precise with coin and quill. His face is pleasant rather than striking: regular features, brown eyes that water in bright light, brown hair kept neat and unremarkable. The habit of leaning in when speaking creates an impression of either attentiveness or invasion, depending on what the listener wants to believe. The red cap is always present.</p>
+
+    <p>A large black mastiff accompanies him everywhere. Unusually well-behaved, almost unnaturally so. Watches people with what seems like comprehension. Erasmus speaks to it in Italian, treating it as companion rather than pet.</p>
+
+    <h3 class="subhead">Personality Traits</h3>
+    <p style="font-size:0.85rem; color:var(--ink-faint); font-style:italic; margin-bottom:0.8rem;">The following traits are drawn from the character biography. They are not recorded as formal Foundry items on the character sheet.</p>
+    <div class="personality-grid">
+      <div class="pers-row">
+        <div class="pers-name">Listener</div>
+        <div class="pers-track">
+          <div class="pers-pip"></div><div class="pers-pip"></div><div class="pers-pip center"></div>
+          <div class="pers-pip active-pos"></div><div class="pers-pip active-pos"></div><div class="pers-pip"></div>
+        </div>
+        <div class="pers-val" style="color:var(--verd-mid)">+2</div>
+      </div>
+      <div class="pers-row">
+        <div class="pers-name">Carouser</div>
+        <div class="pers-track">
+          <div class="pers-pip"></div><div class="pers-pip"></div><div class="pers-pip center"></div>
+          <div class="pers-pip active-coin"></div><div class="pers-pip"></div><div class="pers-pip"></div>
+        </div>
+        <div class="pers-val" style="color:var(--coin-mid)">+1</div>
+      </div>
+      <div class="pers-row">
+        <div class="pers-name">Conflict-Averse</div>
+        <div class="pers-track">
+          <div class="pers-pip"></div><div class="pers-pip active-neg"></div><div class="pers-pip active-neg"></div>
+          <div class="pers-pip center"></div><div class="pers-pip"></div><div class="pers-pip"></div>
+        </div>
+        <div class="pers-val" style="color:var(--shadow-pale)">−2</div>
+      </div>
+    </div>
+
+    <p><strong>Listener +2:</strong> Genuinely pays attention to what people say and how they say it. This is not purely manipulation technique — he is actually interested in understanding people. What do they want? What do they fear? What motivates them? His magical focus on Motivations reflects this fundamental curiosity. He notices things others miss: the hesitation, the redirect, the too-casual tone. He has never decided whether this gift is a blessing or a curse, because the question implies it could stop being useful, which it cannot.</p>
+    <p><strong>Carouser +1:</strong> Enjoys taverns, social drinking, and the camaraderie of shared wine. Drunk people are more forgiving of that inexplicable unease the Gift produces. Useful information flows in taverns. He maintains good tolerance — Carouse ability well developed — and rarely drinks to true excess. Control is important.</p>
+    <p><strong>Conflict-Averse −2:</strong> Not cowardice. A rational assessment that open conflict is costly across every dimension his profile occupies — physical, social, institutional, reputational. He has learned to survive through ensuring all parties believe they are getting what they want, or at minimum that resistance costs more than acquiescence. When he takes risks, they are calculated. When he avoids fights, it is because he has already won by other means.</p>
+  </section>
+
+  <!-- ═══ III. VIRTUES & FLAWS ═══ -->
+  <section id="virtues">
+    <h2 class="section-title">III. Virtues &amp; Flaws</h2>
+
+    <h3 class="subhead">Virtues</h3>
+    <div class="vf-grid">
+      <div class="vf-entry major-v">
+        <span class="vf-name">The Gift</span>
+        <span class="vf-type">Major · Free · Hermetic</span>
+      </div>
+      <div class="vf-entry major-v">
+        <span class="vf-name">Mythic Blood — Odysseus</span>
+        <span class="vf-type">Major · Hermetic</span>
+        <span class="vf-desc">Direct descent from a wizard of legend. Reduces Fatigue loss on Formulaic casting that falls short by 10 or less, and grants a chosen magical feat invokable at will — in his case, <em>Odysseus' Unerring Path</em>, InTe 25, a constant passive awareness of direction and distance to any place he has visited. He cannot truly be lost. For a man whose past is what it is, this is not entirely comfortable.</span>
+      </div>
+      <div class="vf-entry minor-v">
+        <span class="vf-name">Minor Magical Focus — Motivations</span>
+        <span class="vf-type">Minor · Hermetic (Intellego Mentem)</span>
+        <span class="vf-desc">Doubled lower Art when understanding motivations, desires, or fears. Reflects his essential curiosity about why people do what they do. His most reliable magical capability.</span>
+      </div>
+      <div class="vf-entry minor-v">
+        <span class="vf-name">Boosted Magic</span>
+        <span class="vf-type">Minor · Hermetic</span>
+        <span class="vf-desc">May spend vis to increase spell parameters. Expensive but makes him more capable than his raw Art scores suggest. He uses this sparingly and deliberately.</span>
+      </div>
+      <div class="vf-entry minor-v">
+        <span class="vf-name">Gift of Tongues</span>
+        <span class="vf-type">Minor · Heroic</span>
+        <span class="vf-desc">Learns languages with exceptional speed. Combined with his Mediterranean upbringing, he speaks five languages (Italian, Latin, Greek, Arabic, with practical Levant exposure). Invaluable for a Redcap who enters any covenant in Europe.</span>
+      </div>
+      <div class="vf-entry minor-v">
+        <span class="vf-name">Messenger's Memory</span>
+        <span class="vf-type">Minor · Heroic</span>
+        <span class="vf-desc">Perfect recall of messages heard or read. Presented as an asset in his role. Also means he cannot forget things he would prefer to forget, which is its own burden.</span>
+      </div>
+      <div class="vf-entry minor-v">
+        <span class="vf-name">Tethered Magic</span>
+        <span class="vf-type">Minor · Hermetic</span>
+        <span class="vf-desc">Can transfer ongoing spells to others' control. Framed as useful delegation capability. Side effect: all his cast spells and activated items become Arcane Connections back to him — convenient for those who would track him.</span>
+      </div>
+      <div class="vf-entry minor-v">
+        <span class="vf-name">Vis Sensitivity</span>
+        <span class="vf-type">Minor · Heroic</span>
+        <span class="vf-desc">Detects vis by touch or close examination. Useful for the covenant's vis operations and for his own commercial assessments.</span>
+      </div>
+      <div class="vf-entry minor-v">
+        <span class="vf-name">Puissant Muto</span>
+        <span class="vf-type">Minor · Hermetic</span>
+        <span class="vf-desc">Adds +3 to Muto whenever the Art is used. Base score 5 becomes effective 8 in all casting and lab totals involving Muto. His strongest technique, reflecting Claudius's emphasis on practical Mercere magic — disguise, alteration, the magic of becoming something other than what one is.</span>
+      </div>
+    </div>
+
+    <h3 class="subhead">Flaws</h3>
+    <div class="vf-grid">
+      <div class="vf-entry infernal">
+        <span class="vf-name">Demonic Familiar — Infidus</span>
+        <span class="vf-type">Minor · Story</span>
+        <span class="vf-desc">Bound to a famulus — a demon possessing a black mastiff — that lends senses and masks the evil taint of his Powers. The familiar is not loyal to him; it has its own goals and may need to be bargained with or threatened. Nature of the original agreement remains ambiguous even to Erasmus. See Section VII for full treatment.</span>
+      </div>
+      <div class="vf-entry infernal">
+        <span class="vf-name">Corrupted Arts — Corpus</span>
+        <span class="vf-type">Minor · Hermetic · Tainted</span>
+        <span class="vf-desc">When using Corpus magic for a selfish or sinful action, +3 to Casting Total and may gain 5 XP. When using it neutrally or selflessly, −3 and may lose 5 XP. The magic itself has learned to prefer corruption. Any use taints his magic, causing it to appear unholy.</span>
+      </div>
+      <div class="vf-entry major-f">
+        <span class="vf-name">Susceptibility to Infernal Power</span>
+        <span class="vf-type">Minor · Hermetic</span>
+        <span class="vf-desc">Must make a Stamina roll equal to or greater than the local Infernal aura rating to avoid −1 on all rolls. Gets only half Magic Resistance against infernal effects. A consequence — or a precondition — of the Toulouse bargain. He does not examine which.</span>
+      </div>
+      <div class="vf-entry major-f">
+        <span class="vf-name">Plagued by Supernatural Entity</span>
+        <span class="vf-type">Major · Story</span>
+        <span class="vf-desc">A supernatural being interferes in his life on a regular basis — a demon trying to corrupt, an angel trying to save, or something else with its own agenda. Whether this overlaps with Infidus or represents something separate is unclear. The distinction may not matter in practice.</span>
+      </div>
+      <div class="vf-entry major-f">
+        <span class="vf-name">Tragic Stamina — Light-headedness</span>
+        <span class="vf-type">Major · Heroic</span>
+        <span class="vf-desc">Under stress, becomes dizzy and faint. Whether physical manifestation of spiritual corruption or simple constitutional weakness — he does not know. It makes sustained effort difficult and reinforces his preference for situations that never escalate.</span>
+      </div>
+      <div class="vf-entry minor-f">
+        <span class="vf-name">Illegitimate Lineage</span>
+        <span class="vf-type">Minor · Hermetic</span>
+        <span class="vf-desc">His Odysseus bloodline is not recognised by senior Mercere as legitimate. The Gift, the Redcap role, the messenger network — he has access to all of it, and social standing with none of it. This has been the background condition of his entire life.</span>
+      </div>
+      <div class="vf-entry minor-f">
+        <span class="vf-name">Usurer</span>
+        <span class="vf-type">Minor · Social Status</span>
+        <span class="vf-desc">Known reputation as moneylender at high interest rates in Mediterranean and French Tribunal circuits. The reputation follows him; some doors that would be open to a messenger are closed to this one.</span>
+      </div>
+      <div class="vf-entry minor-f">
+        <span class="vf-name">Poor Eyesight</span>
+        <span class="vf-type">Minor · General</span>
+        <span class="vf-desc">Reading fine print difficult, visual navigation unreliable, combat dangerous. He compensates through Infidus's senses and Unerring Path. Some documents he simply cannot read without help, which creates dependency on others he would prefer to avoid.</span>
+      </div>
+      <div class="vf-entry minor-f">
+        <span class="vf-name">Depraved — Minor</span>
+        <span class="vf-type">Minor · Personality</span>
+        <span class="vf-desc">A Minor Depraved sin — the specific vice left deliberately vague in this record. It is a weight he carries. He is aware of it. He has not resolved it.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ IV. ARTS ═══ -->
+  <section id="arts">
+    <h2 class="section-title">IV. Hermetic Arts</h2>
+
+    <div class="arts-block">
+      <div class="arts-row">
+        <div class="arts-label">Techniques</div>
+        <div class="arts-cells">
+          <div class="art-cell strong"><div class="art-name">Muto</div><div class="art-score">5</div></div>
+          <div class="art-cell notable"><div class="art-name">Intellego</div><div class="art-score">4</div></div>
+          <div class="art-cell notable"><div class="art-name">Rego</div><div class="art-score">4</div></div>
+          <div class="art-cell"><div class="art-name">Creo</div><div class="art-score">3</div></div>
+          <div class="art-cell"><div class="art-name">Perdo</div><div class="art-score">3</div></div>
+        </div>
+      </div>
+      <div class="arts-row">
+        <div class="arts-label">Forms</div>
+        <div class="arts-cells">
+          <div class="art-cell corrupt"><div class="art-name">Corpus</div><div class="art-score">5</div></div>
+          <div class="art-cell notable"><div class="art-name">Imaginem</div><div class="art-score">4</div></div>
+          <div class="art-cell notable"><div class="art-name">Herbam</div><div class="art-score">4</div></div>
+          <div class="art-cell notable"><div class="art-name">Animal</div><div class="art-score">4</div></div>
+          <div class="art-cell notable"><div class="art-name">Ignem</div><div class="art-score">4</div></div>
+          <div class="art-cell notable"><div class="art-name">Vim</div><div class="art-score">4</div></div>
+          <div class="art-cell"><div class="art-name">Mentem</div><div class="art-score">3</div></div>
+          <div class="art-cell"><div class="art-name">Terram</div><div class="art-score">3</div></div>
+          <div class="art-cell"><div class="art-name">Aquam</div><div class="art-score">2</div></div>
+          <div class="art-cell"><div class="art-name">Auram</div><div class="art-score">2</div></div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:0.83rem; color:var(--ink-faint); font-style:italic;">Muto base 5 → effective 8 in all totals (Puissant Muto adds +3). Corpus marked as Corrupted Arts — see Flaws.</p>
+
+    <div class="callout shadow">
+      <div class="label">Arts Note — Corrupted Corpus</div>
+      <p>Corpus at effective score 5 is Erasmus's highest Form, but it comes with the Corrupted Arts flaw: the Art has been shaped by infernal influence to favour selfish application. When he uses it to find someone for exploitation or sense vulnerability for personal gain, he casts at +3 effective score and earns experience points. When he uses it to genuinely heal or help without expectation of return, he takes −3 and loses XP already earned. The magic has been taught which way it prefers. Whether this predated Infidus or emerged from the Toulouse bargain is one of several questions he has decided not to investigate.</p>
+    </div>
+  </section>
+
+  <!-- ═══ V. ABILITIES ═══ -->
+  <section id="abilities">
+    <h2 class="section-title">V. Abilities</h2>
+
+    <div class="skill-grid">
+      <div class="skill-row high"><span class="sk-name">Language: Italian <span class="sk-spec">(Native)</span></span><span class="sk-val">5</span></div>
+      <div class="skill-row high"><span class="sk-name">Dead Language: Latin</span><span class="sk-val">4</span></div>
+      <div class="skill-row high"><span class="sk-name">Bargain</span><span class="sk-val">4</span></div>
+      <div class="skill-row high"><span class="sk-name">Survival</span><span class="sk-val">3</span></div>
+      <div class="skill-row spec"><span class="sk-name">Parma Magica <span class="sk-spec">(Corpus)</span></span><span class="sk-val">2</span></div>
+      <div class="skill-row spec"><span class="sk-name">Infernal Lore</span><span class="sk-val">2</span></div>
+      <div class="skill-row"><span class="sk-name">Guile</span><span class="sk-val">2</span></div>
+      <div class="skill-row"><span class="sk-name">Etiquette</span><span class="sk-val">2</span></div>
+      <div class="skill-row"><span class="sk-name">Carouse</span><span class="sk-val">2</span></div>
+      <div class="skill-row"><span class="sk-name">Ride</span><span class="sk-val">2</span></div>
+      <div class="skill-row"><span class="sk-name">Language: Greek</span><span class="sk-val">2</span></div>
+      <div class="skill-row"><span class="sk-name">Language: Arabic</span><span class="sk-val">2</span></div>
+      <div class="skill-row"><span class="sk-name">Code of Hermes</span><span class="sk-val">2</span></div>
+      <div class="skill-row"><span class="sk-name">Civil &amp; Canon Law</span><span class="sk-val">2</span></div>
+      <div class="skill-row"><span class="sk-name">Common Law</span><span class="sk-val">2</span></div>
+      <div class="skill-row"><span class="sk-name">Magic Theory</span><span class="sk-val">2</span></div>
+      <div class="skill-row"><span class="sk-name">Penetration</span><span class="sk-val">2</span></div>
+      <div class="skill-row"><span class="sk-name">Finesse</span><span class="sk-val">2</span></div>
+      <div class="skill-row"><span class="sk-name">Artes Liberales</span><span class="sk-val">2</span></div>
+      <div class="skill-row"><span class="sk-name">Mediterranean Lore <span class="sk-spec">(Legends)</span></span><span class="sk-val">2</span></div>
+      <div class="skill-row"><span class="sk-name">Levant Lore <span class="sk-spec">(History)</span></span><span class="sk-val">1</span></div>
+      <div class="skill-row"><span class="sk-name">Order of Hermes Lore</span><span class="sk-val">1</span></div>
+      <div class="skill-row"><span class="sk-name">Philosophiae</span><span class="sk-val">1</span></div>
+      <div class="skill-row"><span class="sk-name">Theology: Christian</span><span class="sk-val">1</span></div>
+      <div class="skill-row"><span class="sk-name">Dominion Lore</span><span class="sk-val">1</span></div>
+    </div>
+
+    <div class="callout coin">
+      <div class="label">Commercial Profile</div>
+      <p>Bargain 4 is among his strongest abilities, and the cluster of related skills around it tells the story: Italian 5, Latin 4, Greek 2, Arabic 2 for linguistic reach across the Mediterranean and Hermetic world; Guile 2, Etiquette 2, Carouse 2 for social manoeuvring; Civil and Canon Law 2, Common Law 2 for understanding contracts and the legal grey zones between them in three separate legal traditions. He understands lending, interest computation, and contract enforcement across multiple jurisdictions. This is not incidental skill. It was deliberately developed.</p>
+    </div>
+  </section>
+
+  <!-- ═══ VI. SPELLS ═══ -->
+  <section id="spells">
+    <h2 class="section-title">VI. Spells &amp; Powers</h2>
+
+    <p>His spell repertoire reflects two priorities: understanding people's inner states, and changing how he or the world appears. There is nothing here for open combat and nothing here for grand magical projects. Everything serves the messenger, the negotiator, the man who needs to know what room he's actually in.</p>
+
+    <div class="spell-list">
+      <div class="spell-entry">
+        <span class="spell-name">Odysseus' Unerring Path</span>
+        <span class="spell-desc">Mythic Blood power: knows direction and distance to any place previously visited, as a constant passive awareness. He has never been lost in his adult life. This is both a gift and a metaphor.</span>
+        <span class="spell-meta verd">InTe 25 · Constant</span>
+      </div>
+      <div class="spell-entry">
+        <span class="spell-name">Peering into the Mortal Mind</span>
+        <span class="spell-desc">Reads the complete contents of a target's mind. His most powerful spell, enhanced by his Motivations focus. He uses it rarely — the knowledge is comprehensive and rarely comfortable. Useful when subtle observation has reached its limit.</span>
+        <span class="spell-meta shadow">InMe 30</span>
+      </div>
+      <div class="spell-entry">
+        <span class="spell-name">Disguise of the New Visage</span>
+        <span class="spell-desc">Alters another's facial features. Claudius's training; practical messenger magic. Useful for people who need to arrive somewhere as someone different from who they left as.</span>
+        <span class="spell-meta">MuCo 15</span>
+      </div>
+      <div class="spell-entry">
+        <span class="spell-name">Aura of Ennobled Presence</span>
+        <span class="spell-desc">Makes the target appear more noble and authoritative. His preferred opening spell in difficult negotiations — cast on himself as needed, subtly, before a meeting begins. The distinction between this and genuine presence is one he has stopped drawing.</span>
+        <span class="spell-meta">MuIm 10</span>
+      </div>
+      <div class="spell-entry">
+        <span class="spell-name">Image Phantom</span>
+        <span class="spell-desc">Creates a moving, speaking illusion. Useful for misdirection and for demonstrations that require him not to be present.</span>
+        <span class="spell-meta">MuIm 20</span>
+      </div>
+      <div class="spell-entry">
+        <span class="spell-name">Wizard's Sidestep</span>
+        <span class="spell-desc">His image appears slightly displaced from his actual location. The one explicitly defensive spell in his repertoire, kept for situations where conflict became unavoidable despite all reasonable effort to prevent it.</span>
+        <span class="spell-meta verd">ReIm 10</span>
+      </div>
+      <div class="spell-entry">
+        <span class="spell-name">Recollection of Memories Never Quite Lived</span>
+        <span class="spell-desc">Implants a false memory. He has used this twice. He knows exactly when and on whom. He does not think about it.</span>
+        <span class="spell-meta shadow">MuMe 4</span>
+      </div>
+      <div class="spell-entry">
+        <span class="spell-name">Supple Iron and Rigid Rope</span>
+        <span class="spell-desc">Makes iron flexible or rope rigid. A versatile utility spell — useful for evading bonds, forcing open doors that should not open, and the occasional improvised tool. Practical messenger magic, characteristic of Claudius's training.</span>
+        <span class="spell-meta">MuTe 10</span>
+      </div>
+      <div class="spell-entry">
+        <span class="spell-name">Piercing Shaft of Wood</span>
+        <span class="spell-desc">Hardens a wooden shaft into a piercing weapon. The only spell in his repertoire with directly violent application. He has cast it once, in 1199 in Toulouse. He has not cast it since.</span>
+        <span class="spell-meta">MuHe 10</span>
+      </div>
+      <div class="spell-entry">
+        <span class="spell-name">Wizard's Communion</span>
+        <span class="spell-desc">Coordinates spellcasting with other magi — allows multiple casters to combine their efforts on a single spell. Useful when working with the rest of the covenant on rituals like the Aegis.</span>
+        <span class="spell-meta">MuVi 5</span>
+      </div>
+      <div class="spell-entry">
+        <span class="spell-name">Ward Against Rain</span>
+        <span class="spell-desc">Keeps rain off. A practical concession to constant travel in northern climates. He misses the Mediterranean.</span>
+        <span class="spell-meta verd">ReAu 5</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ VII. INFIDUS ═══ -->
+  <section id="infidus">
+    <h2 class="section-title">VII. Infidus</h2>
+
+    <div class="infidus-card">
+      <div class="infidus-title">Infidus · Demonic Familiar · Black Mastiff</div>
+      <div style="display:flex; gap:1.4rem; align-items:flex-start; margin-top:0.5rem;">
+        <img src="infidus.png" alt="Infidus" style="width:180px; flex-shrink:0; border:1px solid var(--shadow-mid); box-shadow:4px 5px 18px rgba(32,24,40,0.45); filter:contrast(1.08) saturate(0.85);">
+        <p style="margin:0; font-size:0.95rem; color:var(--ink-soft);">Large black mastiff. Amber eyes. Unusually well-behaved, almost unnaturally so. Watches people with apparent comprehension. Has been with Erasmus since Toulouse, 1199. Speaks in dreams when it speaks at all. In waking hours, it simply watches.</p>
+      </div>
+    </div>
+
+    <p>The Demonic Familiar bond provides Erasmus with supernatural senses he cannot supply himself — particularly useful given his poor eyesight. Infidus notices who is anxious, who is lying, who is meeting secretly. The dog masks the infernal taint on his Corrupted Arts, making his magic appear normal to most detection. It provides company in the isolation that the Gift and his other characteristics impose.</p>
+
+    <p>What it wants — what the entity that chose the form of a black mastiff actually wants from a philosophical sailing covenant in the North Sea — is genuinely unclear. It appeared to help him survive Toulouse. It has not, in four years, asked for anything explicit in return. It seems pleased by his joining Sjórseiðr, which is its own mystery.</p>
+
+    <blockquote class="maxim">
+      He has decided the dog saved his life, provides companionship in isolation, and helps him survive in a world hostile to who he is. These things are true. Whether they constitute the complete account is a question he has stopped asking.
+      <span class="attribution">— Internal note, Sjórseiðr archive</span>
+    </blockquote>
+
+    <p>Erasmus talks to Infidus in Italian when he thinks no one is listening. The dog does not answer aloud. He acts as if it does.</p>
+  </section>
+
+  <!-- ═══ VIII. OPERATIONS ═══ -->
+  <section id="operations">
+    <h2 class="section-title">VIII. The Two Operations</h2>
+
+    <p>By 1205, Erasmus runs two parallel commercial operations generating roughly equal income. They are related but distinct: not everyone he lends to is compromised, not everyone compromised becomes a borrower.</p>
+
+    <table class="ledger">
+      <tr>
+        <th>Operation</th>
+        <th>Method</th>
+        <th>Client Awareness</th>
+        <th>Status</th>
+      </tr>
+      <tr>
+        <td>Straight Usury</td>
+        <td>Loans at high interest to people with genuine need — failed harvests, medical expenses, business shortfalls. Rates are high. Repayment is reliable. People resent it and pay anyway.</td>
+        <td>Known. This is his public business — known, legal, socially distasteful but not unusual for a Mediterranean moneylender.</td>
+        <td>Ongoing. Existing debtors pay via other Redcaps. New loans made at ports and covenants encountered.</td>
+      </tr>
+      <tr>
+        <td>Blackmail-Loans</td>
+        <td>Loans to people with compromising secrets. The loan is technically voluntary; refusal means exposure. "Interest" is silence. Framed internally as mutual protection.</td>
+        <td>Unknown. Each party believes they are isolated — Erasmus ensures they cannot coordinate. The Toulouse noble has paid since 1199; several others since.</td>
+        <td>Ongoing. Erasmus is aware that joining Sjórseiðr represents a change in operating environment — whether it represents a change in operations has not been decided.</td>
+      </tr>
+    </table>
+
+    <div class="callout red">
+      <div class="label">Institutional Advantage — Mercere Role</div>
+      <p>The Redcap function provides structural advantages that make both operations considerably more dangerous than his physical limitations would otherwise permit. <strong>Access:</strong> He enters covenants legitimately, reads correspondence, learns covenant business. <strong>Trust:</strong> Redcaps are supposed to be neutral — people lower their guard. <strong>Mobility:</strong> Constant travel; victims cannot easily coordinate across wide geography. <strong>Protection:</strong> Hindering a Mercere messenger carries Order-wide consequences. Even people who suspect his activities cannot easily retaliate without proving their accusations, which requires admitting their own compromises. He did not design this system. He recognised it and used it.</p>
+    </div>
+  </section>
+
+  <!-- ═══ IX. MYTHIC BLOOD ═══ -->
+  <section id="mythic">
+    <h2 class="section-title">IX. Mythic Blood &amp; Magic</h2>
+
+    <h3 class="subhead">The Odysseus Heritage</h3>
+    <p>Erasmus's family claims descent from Odysseus — not through any of the recognised Mercere legitimate bloodlines, which is the whole problem. The manifestation is Unerring Path: a constant passive awareness of direction and distance to any place he has been. This is genuine and practically useful; it has made him an exceptionally reliable messenger in terms of navigation. It also means every place he has been remains connected to him, a thread he could follow back. There is no escape from geography.</p>
+
+    <p>The Odysseus heritage in temperament rather than bloodline: cunning over heroism, patience over force, the preference for the ten-year route home over the direct path. His parens Claudius noted, with what sounded like disappointment, that Erasmus approached problems the way Odysseus approached the Cyclops — looking for the angle, the deception, the escape that required no direct confrontation. Claudius intended this as criticism. Erasmus took it as description.</p>
+
+    <h3 class="subhead">Corrupted Arts — The Mechanism</h3>
+    <p>Corpus is his strongest Form and his most compromised one. The infernal influence — whether pre-existing or acquired at Toulouse — has shaped the Art toward selfish application. When he uses Corpus to find people for exploitation, to sense vulnerabilities for personal advantage, to serve his own interests, he casts at +3 effective score and the Art rewards him with experience points. When he uses it for genuine healing, for helping without expectation, the reverse applies: −3 penalty, loss of accumulated XP.</p>
+
+    <p>This is, in its way, comprehensive. The magic itself has been taught which way it wants to go. Whether this reflects demonic corruption of something pure, or reveals an orientation that was already present before Infidus, he does not examine. The question would require acknowledging things about the interval between the dream and the morning that he prefers to leave blurred.</p>
+  </section>
+
+  <!-- ═══ X. RELATIONSHIPS ═══ -->
+  <section id="relationships">
+    <h2 class="section-title">X. Key Relationships</h2>
+
+    <h3 class="subhead">Solving Epicurusson · Criamon · Co-Founder, Sjórseiðr</h3>
+    <p>The central tension in Erasmus's current life, and the reason he is on a ship rather than continuing his Mediterranean circuits. Solving is frustratingly immune to manipulation — he engages only philosophically, treats everyone as an intellectual equal worth debating, and appears constitutionally unable to notice social subtext. He has treated Erasmus with casual friendliness since their first meeting in Bruges in 1200, without any apparent awareness that he should be suspicious.</p>
+
+    <p>This is both refreshing and destabilising. Here is someone who sees through people's motivations as a professional habit and remains naively trusting anyway. Someone who might be, in the specific sense Erasmus finds most uncomfortable, actually good. Solving represents what Erasmus might have been without the compromises, or what he might still become if he made different choices. The cognitive dissonance is considerable and unresolved. When Solving's visions lead somewhere dangerous, Erasmus will try to protect him — and has not fully unpacked whether this is friendship, investment, or something he simply cannot categorise.</p>
+
+    <h3 class="subhead">Khalida bint Tariq · Flambeau · Co-Founder, Sjórseiðr</h3>
+    <p>Two people shaped by trauma and survival, whose paths diverged at the point where he turned toward exploitation and she turned toward protection of others. Both are outsiders who don't quite fit. Both have learned to read rooms very quickly. She is Self-Protective −2, reckless with her own safety; he is Conflict-Averse −2, careful with his. She might see through him; he might see through her. This is either the basis for mutual understanding or mutual suspicion, and 1205 is too early to know which.</p>
+
+    <h3 class="subhead">Astrid Grásula · Bjornaer · Co-Founder, Sjórseiðr</h3>
+    <p>She left her parens to find herself, uncompromised. He carries compromises everywhere. She is direct to the point of impatience; he is oblique by reflex. Her curiosity will lead her to ask questions he cannot answer easily. His Listener trait will make him genuinely useful to her — he notices things about people, including her, that she has not noticed about herself. Whether this becomes trust or suspicion depends on whether she asks the questions before or after she knows him better.</p>
+
+    <h3 class="subhead">Claudius · Parens · Incrocio, Levant</h3>
+    <p>Distant, ongoing, uncomfortable. Claudius suspects something is wrong and hasn't identified what. Erasmus has avoided the conversation since joining Sjórseiðr. The debt of a parens to a filius and vice versa weighs on him in ways he could not fully articulate — Claudius gave him training and institutional access without, apparently, noticing what he was becoming. Whether this makes Claudius culpable or merely oblivious is another question he has decided not to pursue.</p>
+
+    <h3 class="subhead">The Toulouse Noble and Other Debtors</h3>
+    <p>Frozen in mutual silence, each resenting the other, each maintaining the arrangement because the alternative is worse. None of them know about the others. All of them are, in Erasmus's private accounting, people he has harmed while telling himself he was providing a service. He does not examine this accounting often. When he does, he closes it again quickly.</p>
+  </section>
+
+  <!-- ═══ XI. JOINING ═══ -->
+  <section id="sjorseidr">
+    <h2 class="section-title">XI. Joining Sjórseiðr</h2>
+
+    <p>Erasmus arranged ship financing through Bruges contacts when Solving began actively recruiting — genuinely useful, structuring the deal cleanly, representing the covenant's interests fairly. He wants this relationship to work. He arranged the financing on the borrowing side, not the lending side. The terms are commercial rather than exploitative. He has noticed this and found it unfamiliar.</p>
+
+    <p>His reasons for joining are genuinely multiple and he cannot rank them:</p>
+
+    <ul>
+      <li><strong>Escape:</strong> Constant movement, no permanent base, the possibility of distance from established patterns before his victims coordinate.</li>
+      <li><strong>Genuine Interest:</strong> Solving's philosophical vision actually appeals — freedom from territorial obligation, service without bondage, collaborative structure. Something in Erasmus's nature responds to this.</li>
+      <li><strong>Redemption possibility:</strong> Proximity to people who are not running the same calculations he runs. Maybe Solving's naive trust is more durable than Infidus's cynical pragmatism.</li>
+      <li><strong>Loneliness:</strong> He is tired of isolation, tired of hiding, tired of transactional relationships. Solving treats him like a person worth debating. That matters more than he wants to admit.</li>
+      <li><strong>New opportunities:</strong> Isolated ports. Desperate travelers. People who need loans far from home. He would be lying if he said he hadn't noticed.</li>
+    </ul>
+
+    <p>All of these are simultaneously true. He does not know which will prevail. Infidus watched the arrangement with what appeared to be approval, which is either reassuring or deeply concerning, and he has decided not to determine which.</p>
+
+    <div class="callout green">
+      <div class="label">Current Status · Bordeaux, 1205</div>
+      <p>Erasmus arrives in Bordeaux as the last founding member to join, carrying ship financing, a network of contacts across Mediterranean and North Sea circuits, and every complication itemised above. He brings genuine commercial expertise, genuine social intelligence, and the genuine uncertainty — perhaps the most honest thing about him — of someone who does not yet know whether he is joining a covenant or escaping one, and suspects the answer is both.</p>
+    </div>
+  </section>
+
+  <!-- ═══ XII. ASSESSMENT ═══ -->
+  <section id="assessment">
+    <h2 class="section-title">XII. Assessment</h2>
+
+    <h3 class="subhead">What He Is</h3>
+    <p class="drop-cap">Erasmus the Hound is a man who has been making the pragmatic choice at every fork in the road since he was fifteen years old, and has arrived at twenty-eight in a condition that is entirely coherent, entirely functional, and genuinely troubling on examination. Each individual decision was defensible. The aggregate is something else. He knows this. He has not decided what to do with knowing it.</p>
+
+    <p>What he brings to Sjórseiðr is real: financial expertise, commercial contacts, messenger network access, social intelligence, and the specific capability of understanding what people actually want as distinct from what they say they want. The fleet needs someone who can manage covenant finances, negotiate in ports, and read a room before Solving walks into it philosophically unprepared. Erasmus can do all of this, and can do it well.</p>
+
+    <h3 class="subhead">What He Wants</h3>
+    <p>He is not certain. This uncertainty is recent — before Sjórseiðr, the answer was survival, income, and the management of ongoing complications. He is beginning to suspect those were means rather than ends, and that he has never clearly formulated the ends. Solving's Epicurean framework, which he has been absorbing in philosophical correspondence for five years, keeps suggesting that what he actually wants is tranquility — freedom from the fear and the entanglements and the web of mutual assured destruction he has been spinning for himself. The irony that he has been reading Epicurus while simultaneously building the most Epicureanly condemned life possible is not lost on him.</p>
+
+    <h3 class="subhead">Likely Trajectories</h3>
+    <ul>
+      <li><strong>Toward redemption:</strong> Solving's philosophy takes root; he begins refusing exploitative opportunities; proximity to genuinely good people changes the calculations. This is possible. It requires confronting Infidus's actual nature, which he has been avoiding.</li>
+      <li><strong>Deeper corruption:</strong> The mobile covenant provides better access; operations expand; Corrupted Arts shape more choices; the demon's purpose becomes clearer. This is also possible and requires no active choice — only continuation.</li>
+      <li><strong>Complex middle:</strong> He becomes genuinely useful to the covenant while maintaining some operations; the cognitive dissonance sharpens without resolving; he exists in a state of ongoing compromise that he manages but does not escape. This is probably most likely, because it requires the least decisive action.</li>
+    </ul>
+
+    <blockquote class="maxim">
+      He joined a covenant built on philosophical idealism with a demon for a dog and blackmail debtors across two tribunals. He wants the idealism to work. He cannot yet guarantee that wanting it is enough.
+      <span class="attribution">— Internal note, Sjórseiðr archive; author's name withheld from this record</span>
+    </blockquote>
+
+    <div class="callout shadow">
+      <div class="label">File Classification · Sjórseiðr Internal Archive — Restricted</div>
+      <p>This dossier contains information regarding ongoing Infernal entanglement and two active commercial operations of questionable legal and ethical status. Access to this record is recommended only for covenant members with direct need to know. Solving Epicurusson has read it. He returned it without annotation, which was itself an annotation. Khalida bint Tariq is the only other member who has been shown this file. She said: <em>"At least he knows what he is. That's further than most."</em> Astrid Grásula has not seen it. Whether she should is an open question.</p>
+    </div>
+  </section>
+
+  <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+</div>
+</body>
+</html>
