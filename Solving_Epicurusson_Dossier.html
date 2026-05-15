@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Solving Epicurusson, House Criamon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Norse:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment:      #eae6db;
+    --parchment-mid:  #ddd8c8;
+    --parchment-deep: #cec8b0;
+    --ink:            #141820;
+    --ink-soft:       #2a3040;
+    --ink-faint:      #5a6070;
+
+    /* Criamon — enigmatic sea-teal/slate */
+    --criamon:        #1a3a4a;   /* deep fjord */
+    --criamon-mid:    #265a72;
+    --criamon-pale:   #4a8faa;
+    --criamon-light:  #7ab8cc;
+
+    /* Aquam / sea accent */
+    --aquam:          #1e4d5c;
+    --aquam-mid:      #2e7a92;
+    --aquam-pale:     #60a8be;
+
+    /* Vim — violet-grey for raw magic */
+    --vim:            #3a2a50;
+    --vim-mid:        #5a406a;
+    --vim-pale:       #8a6a9a;
+
+    /* Warm gold — preserved from parchment tradition */
+    --gold:           #7a6020;
+    --gold-pale:      #b8902a;
+    --gold-light:     #d4b060;
+
+    --rule:           #8aacbc;
+    --rule-soft:      #aac8d8;
+    --panel:          rgba(26, 58, 74, 0.04);
+    --panel-teal:     rgba(26, 58, 74, 0.07);
+    --panel-vim:      rgba(58, 42, 80, 0.05);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--parchment-mid);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16.5px;
+    line-height: 1.65;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse at 15% 0%,   rgba(26,58,74,0.09) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 100%, rgba(58,42,80,0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(30,77,92,0.03) 0%, transparent 70%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
+    min-height: 100vh;
+    padding: 2.5rem 1rem;
+  }
+
+  .document {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--parchment);
+    padding: 4.5rem 5rem 5.5rem;
+    box-shadow:
+      0 2px 4px rgba(20, 24, 32, 0.12),
+      0 12px 48px rgba(20, 24, 32, 0.20),
+      inset 0 0 140px rgba(26, 58, 74, 0.04);
+    position: relative;
+    border: 1px solid var(--rule);
+  }
+
+  /* Top rule — Criamon teal, fading to vim at edges */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--vim) 0%,
+      var(--criamon) 20%,
+      var(--criamon-pale) 40%,
+      var(--aquam-pale) 50%,
+      var(--criamon-pale) 60%,
+      var(--criamon) 80%,
+      var(--vim) 100%);
+  }
+
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%, var(--rule) 20%, var(--criamon-pale) 50%, var(--rule) 80%, transparent 100%);
+  }
+
+  /* Corner rune-brackets — Norse feel */
+  .corner {
+    position: absolute;
+    width: 32px; height: 32px;
+    border-color: var(--criamon-pale);
+    border-style: solid;
+    opacity: 0.5;
+  }
+  .corner.tl { top: 14px; left: 14px;  border-width: 2px 0 0 2px; }
+  .corner.tr { top: 14px; right: 14px; border-width: 2px 2px 0 0; }
+  .corner.bl { bottom: 14px; left: 14px;  border-width: 0 0 2px 2px; }
+  .corner.br { bottom: 14px; right: 14px; border-width: 0 2px 2px 0; }
+  /* Inner tick marks on corners */
+  .corner.tl::after { content: ""; position: absolute; top: 6px; left: 6px; width: 6px; height: 6px; border-top: 1px solid var(--criamon-pale); border-left: 1px solid var(--criamon-pale); }
+  .corner.tr::after { content: ""; position: absolute; top: 6px; right: 6px; width: 6px; height: 6px; border-top: 1px solid var(--criamon-pale); border-right: 1px solid var(--criamon-pale); }
+
+  /* ─── HEADER ─── */
+  header.title-block {
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 2.5rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+
+  /* Decorative wave rule above title */
+  .wave-rule {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.4rem;
+    color: var(--criamon-pale);
+    font-size: 0.9rem;
+    letter-spacing: 0.4em;
+  }
+  .wave-rule::before,
+  .wave-rule::after {
+    content: "";
+    height: 1px;
+    width: 80px;
+    background: linear-gradient(90deg, transparent, var(--rule));
+  }
+  .wave-rule::after {
+    background: linear-gradient(90deg, var(--rule), transparent);
+  }
+
+  .filemark {
+    display: flex;
+    justify-content: space-between;
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .eyebrow {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    color: var(--criamon-mid);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+
+  h1.character-name {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.1;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.04em;
+  }
+
+  .name-birth {
+    font-family: "Cinzel", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    color: var(--criamon-mid);
+    font-weight: 400;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .name-latin {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    font-weight: 400;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .epithets {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    margin: 0 0 1.2rem;
+    line-height: 1.4;
+  }
+
+  .vitals {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0;
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .vitals span {
+    padding: 0 1rem;
+    border-left: 1px solid var(--rule-soft);
+    line-height: 1.9;
+  }
+  .vitals span:first-child { border-left: none; }
+  .vitals strong {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+
+  /* Portrait */
+  .portrait-frame {
+    float: right;
+    margin: 0 0 1.5rem 2.2rem;
+    width: 175px;
+  }
+  .portrait-frame img {
+    width: 100%;
+    display: block;
+    filter: sepia(20%) contrast(1.06) saturate(0.9);
+    border: 2px solid var(--rule);
+    box-shadow: 4px 6px 20px rgba(20,24,32,0.28);
+  }
+  .portrait-caption {
+    font-family: "Cinzel", serif;
+    font-size: 0.56rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.45rem;
+    text-transform: uppercase;
+  }
+
+  /* ─── TOC ─── */
+  nav.toc {
+    background: var(--panel-teal);
+    border: 1px solid var(--rule-soft);
+    border-left: 3px solid var(--criamon);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 2.5rem;
+    columns: 2;
+    column-gap: 2rem;
+  }
+  .toc-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    color: var(--criamon-mid);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    column-span: all;
+  }
+  nav.toc ol {
+    margin: 0; padding-left: 1.2rem;
+    break-inside: avoid;
+  }
+  nav.toc li {
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin-bottom: 0.3rem;
+  }
+  nav.toc a { color: var(--ink-soft); text-decoration: none; }
+  nav.toc a:hover { color: var(--criamon-mid); text-decoration: underline; }
+
+  /* ─── SECTIONS ─── */
+  section { margin-bottom: 3rem; }
+
+  h2.section-title {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.35em;
+    color: var(--criamon);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.45rem;
+    margin: 0 0 1.5rem;
+  }
+  h2.section-title::before {
+    content: "✦ ";
+    color: var(--aquam-pale);
+    font-style: normal;
+    font-family: serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  h3.subhead {
+    font-family: "EB Garamond", serif;
+    font-weight: 500;
+    font-size: 1.22rem;
+    color: var(--aquam);
+    margin: 1.5rem 0 0.5rem;
+    font-style: italic;
+  }
+
+  h4.entry-label {
+    font-family: "Cinzel", serif;
+    font-weight: 500;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin: 1.2rem 0 0.4rem;
+  }
+
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0.5rem 0 1rem 1.5rem; padding: 0; }
+  li { margin-bottom: 0.4rem; }
+  em { color: var(--ink-soft); }
+  strong { font-weight: 600; color: var(--ink); }
+
+  /* Drop cap */
+  .drop-cap::first-letter {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 3.5rem;
+    line-height: 0.8;
+    float: left;
+    padding: 0.2rem 0.65rem 0 0;
+    color: var(--criamon);
+    font-weight: 700;
+  }
+
+  /* Pull quotes */
+  blockquote.maxim {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    line-height: 1.58;
+    color: var(--criamon);
+    border-left: 3px solid var(--criamon-mid);
+    padding: 0.7rem 0 0.7rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--panel-teal);
+  }
+  blockquote.maxim .attribution {
+    display: block;
+    font-size: 0.82rem;
+    font-style: normal;
+    color: var(--ink-faint);
+    font-family: "Cinzel", serif;
+    letter-spacing: 0.15em;
+    margin-top: 0.5rem;
+  }
+
+  blockquote.letter {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    border-left: 3px solid var(--aquam-pale);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin: 1.2rem 0;
+    background: rgba(30,77,92,0.04);
+  }
+
+  /* ─── TABLES ─── */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.96rem;
+  }
+  table.dossier-table th {
+    text-align: left;
+    font-family: "Cinzel", serif;
+    font-weight: 400;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--ink);
+    background: transparent;
+  }
+  table.dossier-table td {
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top;
+  }
+  table.dossier-table td:first-child {
+    font-family: "Cinzel", serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    padding-right: 1.25rem;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+  table.dossier-table tr:hover td { background: rgba(26,58,74,0.04); }
+
+  /* ─── ARTS GRID ─── */
+  .arts-block { margin: 1rem 0 1.5rem; }
+  .arts-row {
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 0.5rem;
+    gap: 0.5rem;
+  }
+  .arts-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    width: 5.5rem;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .arts-cells {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    flex: 1;
+  }
+  .art-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 54px;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid var(--rule-soft);
+    background: var(--panel);
+    position: relative;
+  }
+  .art-cell.strong {
+    border-color: var(--aquam-mid);
+    background: rgba(26, 58, 74, 0.09);
+  }
+  .art-cell.strong::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--aquam-mid);
+  }
+  .art-cell.notable {
+    border-color: var(--vim-mid);
+    background: var(--panel-vim);
+  }
+  .art-cell.notable::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--vim-mid);
+  }
+  .art-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .art-cell.strong .art-name { color: var(--aquam); }
+  .art-cell.notable .art-name { color: var(--vim-mid); }
+  .art-score {
+    font-family: "EB Garamond", serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    line-height: 1;
+    margin-top: 0.15rem;
+  }
+  .art-cell.strong .art-score { color: var(--aquam-mid); }
+  .art-cell.notable .art-score { color: var(--vim-pale); }
+
+  /* ─── SPELL LIST ─── */
+  .spell-list { margin: 0.8rem 0 1.5rem; }
+  .spell-entry {
+    display: grid;
+    grid-template-columns: 2fr 4fr 1fr;
+    gap: 0 1rem;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--rule-soft);
+    align-items: baseline;
+  }
+  .spell-entry:last-child { border-bottom: none; }
+  .spell-entry:hover { background: rgba(26,58,74,0.04); }
+  .spell-name {
+    font-family: "EB Garamond", serif;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--ink);
+    font-style: italic;
+  }
+  .spell-desc {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  .spell-meta {
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--criamon-mid);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  /* ─── STAT GRID ─── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .stat-grid.wide { grid-template-columns: repeat(5, 1fr); }
+  .stat-cell {
+    text-align: center;
+    padding: 0.8rem 0.5rem;
+    border: 1px solid var(--rule-soft);
+    background: var(--panel);
+    position: relative;
+  }
+  .stat-cell::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--rule-soft);
+  }
+  .stat-cell.pos::before { background: var(--aquam-mid); }
+  .stat-cell.neg::before { background: var(--vim-mid); }
+  .stat-cell .s-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .stat-cell .s-val {
+    font-family: "EB Garamond", serif;
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    line-height: 1;
+  }
+  .stat-cell.pos .s-val { color: var(--aquam-mid); }
+  .stat-cell.neg .s-val { color: var(--vim-pale); }
+  .stat-cell .s-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.2rem;
+  }
+
+  /* ─── SKILL GRID ─── */
+  .skill-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.2rem 2rem;
+    margin: 0.8rem 0 1.2rem;
+  }
+  .skill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px dotted var(--rule-soft);
+    padding: 0.22rem 0;
+  }
+  .skill-row .sk-name { font-size: 0.92rem; color: var(--ink); }
+  .skill-row .sk-spec {
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-left: 0.3rem;
+  }
+  .skill-row .sk-val {
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin-left: 0.5rem;
+    flex-shrink: 0;
+  }
+  .skill-row.high .sk-name { color: var(--criamon); }
+  .skill-row.high .sk-val  { color: var(--aquam-mid); }
+  .skill-row.spec .sk-name { color: var(--vim); font-style: italic; }
+  .skill-row.spec .sk-val  { color: var(--vim-mid); }
+
+  /* ─── VIRTUE / FLAW TAGS ─── */
+  .vf-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem 1.5rem;
+    margin: 0.8rem 0 1.5rem;
+  }
+  .vf-entry {
+    display: flex;
+    flex-direction: column;
+    border-left: 2px solid var(--rule-soft);
+    padding-left: 0.75rem;
+  }
+  .vf-entry.major-v { border-color: var(--aquam-mid); }
+  .vf-entry.major-f { border-color: var(--vim-mid); }
+  .vf-entry.minor-v { border-color: var(--criamon-light); }
+  .vf-entry.minor-f { border-color: var(--vim-pale); }
+  .vf-name {
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .vf-type {
+    font-family: "Cinzel", serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .vf-desc {
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    line-height: 1.4;
+    margin-top: 0.15rem;
+    font-style: italic;
+  }
+
+  /* ─── CALLOUTS ─── */
+  .callout {
+    padding: 1rem 1.25rem;
+    margin: 1.2rem 0;
+    border: 1px solid var(--rule-soft);
+    background: var(--panel);
+    position: relative;
+  }
+  .callout::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--rule);
+  }
+  .callout.sea { background: var(--panel-teal); }
+  .callout.sea::before { background: var(--aquam-mid); }
+  .callout.enigma { background: var(--panel-vim); }
+  .callout.enigma::before { background: var(--vim-mid); }
+  .callout.warn { background: rgba(100, 70, 10, 0.06); }
+  .callout.warn::before { background: var(--gold-pale); }
+  .callout .label {
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .callout.sea .label    { color: var(--aquam-mid); }
+  .callout.enigma .label { color: var(--vim-mid); }
+  .callout.warn .label   { color: var(--gold-pale); }
+
+  /* ─── PERSONALITY BARS ─── */
+  .personality-grid {
+    margin: 0.8rem 0 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .pers-row {
+    display: grid;
+    grid-template-columns: 130px 1fr 30px;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .pers-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    text-align: right;
+  }
+  .pers-track {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    height: 18px;
+  }
+  .pers-pip {
+    width: 14px; height: 14px;
+    border: 1px solid var(--rule-soft);
+    background: var(--parchment-mid);
+    flex-shrink: 0;
+  }
+  .pers-pip.active-pos { background: var(--aquam-mid); border-color: var(--aquam); }
+  .pers-pip.active-neg { background: var(--vim-mid);   border-color: var(--vim); }
+  .pers-pip.center { border-color: var(--ink-faint); width: 2px; height: 22px; background: var(--ink-faint); margin: 0 3px; }
+  .pers-val {
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  /* ─── LIBRARY ─── */
+  .library-section { margin-bottom: 1.5rem; }
+  .lib-heading {
+    font-family: "Cinzel", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--criamon);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.6rem;
+  }
+  .lib-entry {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    padding: 0.28rem 0.5rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-size: 0.92rem;
+  }
+  .lib-entry:last-child { border-bottom: none; }
+  .lib-entry:hover { background: rgba(26,58,74,0.04); }
+  .lib-title { font-style: italic; flex: 1; }
+  .lib-by { color: var(--ink-faint); font-size: 0.83rem; white-space: nowrap; }
+  .lib-tag {
+    font-family: "Cinzel", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    color: var(--criamon-mid);
+    white-space: nowrap;
+    padding: 0.1rem 0.4rem;
+    border: 1px solid var(--rule-soft);
+    background: var(--panel-teal);
+    text-transform: uppercase;
+  }
+  .lib-tag.aquam { color: var(--aquam); background: rgba(26,58,74,0.07); border-color: var(--aquam-pale); }
+  .lib-tag.vim   { color: var(--vim-mid); background: var(--panel-vim); border-color: var(--vim-pale); }
+
+  /* ─── VIS SOURCES ─── */
+  .vis-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.7rem;
+    margin: 0.8rem 0 1.5rem;
+  }
+  .vis-card {
+    border: 1px solid var(--rule-soft);
+    padding: 0.8rem 1rem;
+    position: relative;
+    background: var(--panel);
+  }
+  .vis-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--aquam-pale);
+  }
+  .vis-card.vim-card::before { background: var(--vim-pale); }
+  .vis-title {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+  .vis-yield {
+    font-family: "EB Garamond", serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--aquam-mid);
+    margin-bottom: 0.3rem;
+  }
+  .vis-desc {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    line-height: 1.4;
+    font-style: italic;
+  }
+
+  /* ─── ORNAMENT ─── */
+  .ornament {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--criamon-pale);
+    letter-spacing: 0.6em;
+    margin-top: 3rem;
+  }
+
+  /* ─── SIGIL BOX ─── */
+  .sigil-box {
+    border: 1px solid var(--rule);
+    background: linear-gradient(135deg, rgba(26,58,74,0.06) 0%, rgba(58,42,80,0.04) 100%);
+    padding: 1.2rem 1.5rem;
+    margin: 1rem 0;
+    position: relative;
+    text-align: center;
+  }
+  .sigil-symbol {
+    font-size: 2.5rem;
+    color: var(--criamon-pale);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.3em;
+  }
+  .sigil-desc {
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 700px) {
+    .document { padding: 2.5rem 1.5rem 3rem; }
+    h1.character-name { font-size: 1.9rem; }
+    .vf-grid, .stat-grid, .skill-grid, .vis-grid { grid-template-columns: 1fr; }
+    .stat-grid.wide { grid-template-columns: repeat(3, 1fr); }
+    nav.toc { columns: 1; }
+    .spell-entry { grid-template-columns: 1fr; }
+    .portrait-frame { float: none; width: 140px; margin: 0 auto 1.5rem; display: block; }
+    .pers-row { grid-template-columns: 100px 1fr 25px; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="title-block">
+    <div class="filemark">
+      <span>Sjórseiðr Covenant Archive · Founding Member</span>
+      <span>Anno Domini 1205</span>
+    </div>
+
+    <div class="wave-rule">≋ ✦ ≋</div>
+
+    <div class="eyebrow">House Criamon · Outer Mystery of the Enigma</div>
+    <h1 class="character-name">Solving Epicurusson</h1>
+    <span class="name-birth">Born Þorleif Solvason · Kaupang, Norway · 1173</span>
+    <span class="name-latin">Discipulus Lucretii · Domus Luminis, Bruges · Gauntlet 1198</span>
+
+    <p class="epithets">
+      The Wandering Questioner — Magus of the Lumen Mare — Founder of Sjórseiðr<br>
+      <em>"He sees clearly, questions deeply, and teaches well."</em>
+    </p>
+
+    <div class="vitals">
+      <span><strong>Age</strong>32</span>
+      <span><strong>House</strong>Criamon</span>
+      <span><strong>Covenant</strong>Sjórseiðr</span>
+      <span><strong>Tribunal</strong>Novgorod / North Sea</span>
+      <span><strong>Status</strong>Founding Magus</span>
+      <span><strong>Confidence</strong>1 · [3]</span>
+    </div>
+  </header>
+
+  <!-- ═══ TOC ═══ -->
+  <nav class="toc">
+    <div class="toc-label">Contents of This Dossier</div>
+    <ol>
+      <li><a href="#biography">Biography &amp; History</a></li>
+      <li><a href="#characteristics">Characteristics &amp; Personality</a></li>
+      <li><a href="#virtues">Virtues &amp; Flaws</a></li>
+      <li><a href="#arts">Hermetic Arts</a></li>
+      <li><a href="#abilities">Abilities</a></li>
+      <li><a href="#spells">Spells &amp; Repertoire</a></li>
+    </ol>
+    <ol>
+      <li><a href="#sigil">Hermetic Sigil</a></li>
+      <li><a href="#laboratory">Shipboard Laboratory</a></li>
+      <li><a href="#library">Personal Library</a></li>
+      <li><a href="#relationships">Key Relationships</a></li>
+      <li><a href="#covenant">Sjórseiðr &amp; Covenant Vision</a></li>
+      <li><a href="#assessment">Assessment</a></li>
+    </ol>
+  </nav>
+
+  <!-- ═══ I. BIOGRAPHY ═══ -->
+  <section id="biography">
+    <h2 class="section-title">I. Biography &amp; History</h2>
+
+    <div class="portrait-frame">
+      <img src="solving.png" alt="Solving Epicurusson">
+      <div class="portrait-caption">Solving Epicurusson · Criamon · 1205</div>
+    </div>
+
+    <p class="drop-cap">Þorleif Solvason was born in 1173 in Kaupang, Norway, during the height of the Norwegian Civil Wars — a period when competing factions tore the kingdom apart and violence made a Gifted child not merely strange but actively dangerous. The Gift manifested young, perhaps age seven or eight, and in a community already fraying with suspicion, the instinctive distrust it provoked in neighbours became something worse than social difficulty. It became threat.</p>
+
+    <p>He departed Norway around age ten. The specific circumstances remain blurred — childhood trauma, Solving himself acknowledges, is a poor archivist. What he knows: a ship, cold water, a city he did not recognise, strangers who did not speak his language. He arrived in Bruges alone and speaking only Norwegian, carrying nothing.</p>
+
+    <h3 class="subhead">Discovery and Apprenticeship (1183–1198)</h3>
+    <p>Lucretius, a Criamon magus of Domus Luminis in Bruges, found the boy in circumstances that the old magus later described as almost choreographed. He recognised something beyond the raw Gift — a natural disposition toward pattern-recognition, a compulsive asking of <em>why</em> even in conditions of fear. He took the child as his apprentice and gave him a new name that honoured both qualities: <strong>Solving Epicurusson</strong>.</p>
+
+    <p>The apprenticeship lasted fifteen years and was organised around a single conviction: that Hermetic training and philosophical education were inseparable, that a magus who could not explain what he believed had not yet understood it. Lucretius grounded his student in the Enigma's fifteen foundational riddles, in Avicenna's synthesis of Aristotelian and mystical thought, and in the works of the Roman Lucretius — the atomistic materialism and Epicurean ethics of <em>De Rerum Natura</em>, which gave the apprentice both a worldview and a name.</p>
+
+    <p>Solving passed his gauntlet in 1198, age twenty-five. Lucretius's written assessment has circulated in truncated form among Rhine magi: <em>"He sees clearly, questions deeply, and teaches well. He will struggle with practical matters, for he seeks truth more than advantage. But he is truly Criamon."</em></p>
+
+    <h3 class="subhead">Valencia and Khalida (1199)</h3>
+    <p>One year post-gauntlet, Lucretius brought Solving south to the covenant of Al-Qassas in Valencia, to study Arabic philosophical texts bridging Hermetic, Islamic, and ancient Greek thought. It was Solving's first journey as a full magus, and it produced two lasting consequences: a deep familiarity with Iberian magical scholarship, and a friendship with Khalida bint Tariq, a Flambeau maga whose rigorous logical frameworks and profound knowledge of Avicenna made her, in Solving's own words, the first intellectual equal he had ever met.</p>
+
+    <blockquote class="letter">
+      "I cannot explain the mechanism, but I see shadows gathering around your home. The pattern suggests disruption from within and without. I beg you to prepare contingencies — secure what cannot be replaced, establish exits you do not need to use. The Enigma does not always permit precise warning."
+      <span style="display:block; margin-top:0.4rem; font-size:0.82rem; color:var(--ink-faint); font-style:normal; font-family:'Cinzel',serif; letter-spacing:0.15em;">— Letter from Solving to Khalida bint Tariq, c. 1201</span>
+    </blockquote>
+
+    <p>His premonitions regarding Al-Qassas proved accurate. The covenant suffered a catastrophic disruption; Khalida survived in part because she had heeded his warnings and prepared accordingly. She has not forgotten.</p>
+
+    <h3 class="subhead">The Vision and Sjórseiðr (1200–1205)</h3>
+    <p>Throughout the years following his gauntlet, Solving experienced recurring visions of the North Sea — not dramatic prophecy, but a persistent, accumulating sense that his path led north and onto water, toward something he could name only as freedom from the political entanglements that increasingly oppressed him about static covenant life. In Criamon terms he understood these as the Enigma calling him toward a truth he had not yet articulated. By 1205, the vision had become a plan, and the plan had acquired two essential collaborators.</p>
+
+    <div class="callout sea">
+      <div class="label">Current Status · Anno Domini 1205</div>
+      <p>Solving stands at age thirty-two, the principal architect of Sjórseiðr, a mobile covenant of vessels operating across the North Sea and Baltic. He captains the <em>Lumen Mare</em>, a reinforced cog serving as his sanctum, laboratory, and flagship. The covenant is newly founded; its structures are still being negotiated. The vision is clear. The execution is ongoing.</p>
+    </div>
+  </section>
+
+  <!-- ═══ II. CHARACTERISTICS ═══ -->
+  <section id="characteristics">
+    <h2 class="section-title">II. Characteristics &amp; Personality</h2>
+
+    <h3 class="subhead">Characteristics</h3>
+    <div class="stat-grid wide">
+      <div class="stat-cell pos"><div class="s-label">Int</div><div class="s-val">+3</div><div class="s-name">Intelligence</div></div>
+      <div class="stat-cell pos"><div class="s-label">Pre</div><div class="s-val">+3</div><div class="s-name">Presence</div></div>
+      <div class="stat-cell pos"><div class="s-label">Com</div><div class="s-val">+2</div><div class="s-name">Communication</div></div>
+      <div class="stat-cell"><div class="s-label">Per</div><div class="s-val">+0</div><div class="s-name">Perception</div></div>
+      <div class="stat-cell neg"><div class="s-label">Sta</div><div class="s-val">−1</div><div class="s-name">Stamina</div></div>
+      <div class="stat-cell neg"><div class="s-label">Qik</div><div class="s-val">−1</div><div class="s-name">Quickness</div></div>
+      <div class="stat-cell neg"><div class="s-label">Dex</div><div class="s-val">−2</div><div class="s-name">Dexterity</div></div>
+      <div class="stat-cell neg"><div class="s-label">Str</div><div class="s-val">−2</div><div class="s-name">Strength</div></div>
+    </div>
+
+    <p>A mind that processes abstraction with exceptional ease, a communicative presence that makes difficult ideas accessible, a physical reality that has never particularly interested him. Solving moves with deliberation rather than speed, often appearing to finish an internal argument before committing to an external action. He is left-handed — a detail some find significant and he finds irrelevant.</p>
+
+    <h3 class="subhead">Personality Traits</h3>
+    <div class="personality-grid">
+      <div class="pers-row">
+        <div class="pers-name">Generous</div>
+        <div class="pers-track">
+          <div class="pers-pip"></div><div class="pers-pip"></div><div class="pers-pip center"></div>
+          <div class="pers-pip active-pos"></div><div class="pers-pip active-pos"></div><div class="pers-pip"></div>
+        </div>
+        <div class="pers-val" style="color:var(--aquam-mid)">+2</div>
+      </div>
+      <div class="pers-row">
+        <div class="pers-name">Cryptic</div>
+        <div class="pers-track">
+          <div class="pers-pip"></div><div class="pers-pip"></div><div class="pers-pip center"></div>
+          <div class="pers-pip active-pos"></div><div class="pers-pip"></div><div class="pers-pip"></div>
+        </div>
+        <div class="pers-val" style="color:var(--aquam-mid)">+1</div>
+      </div>
+      <div class="pers-row">
+        <div class="pers-name">Savvy</div>
+        <div class="pers-track">
+          <div class="pers-pip"></div><div class="pers-pip active-neg"></div><div class="pers-pip active-neg"></div>
+          <div class="pers-pip center"></div><div class="pers-pip"></div><div class="pers-pip"></div>
+        </div>
+        <div class="pers-val" style="color:var(--vim-pale)">−2</div>
+      </div>
+    </div>
+
+    <p><strong>Generous:</strong> Solving shares knowledge and resources without calculation, and takes genuine delight in illuminating complex ideas for students. His Good Teacher virtue is not coincidental — Lucretius trained him deliberately toward it, believing true understanding requires the ability to transmit. The generosity has limits: he values sincere seeking over convenient shortcuts.</p>
+    <p><strong>Cryptic:</strong> Years studying the Enigma have given him a habit of speaking in layers. He is not always aware he is doing this, which makes it considerably more frustrating for interlocutors than if it were deliberate. Questions answered with questions. Metaphors nested inside metaphors.</p>
+    <p><strong>Savvy −2:</strong> For all his philosophical brilliance, practical political maneuvering consistently defeats him. He assumes people are generally honest, misses subtle power plays, focuses on what should be rather than what is. This is not naivety — he can describe the problem abstractly with perfect clarity. He simply cannot apply the description in real time.</p>
+  </section>
+
+  <!-- ═══ III. VIRTUES & FLAWS ═══ -->
+  <section id="virtues">
+    <h2 class="section-title">III. Virtues &amp; Flaws</h2>
+
+    <h3 class="subhead">Virtues</h3>
+    <div class="vf-grid">
+      <div class="vf-entry major-v">
+        <span class="vf-name">The Gift</span>
+        <span class="vf-type">Major · Free · Hermetic</span>
+      </div>
+      <div class="vf-entry major-v">
+        <span class="vf-name">Gentle Gift</span>
+        <span class="vf-type">Major · Hermetic</span>
+        <span class="vf-desc">Provokes none of the instinctive distrust associated with the Gift. Rare among Criamon. Significant for a man who intends to operate among mundane sailors and harbour officials.</span>
+      </div>
+      <div class="vf-entry minor-v">
+        <span class="vf-name">Good Teacher</span>
+        <span class="vf-type">Minor · General</span>
+        <span class="vf-desc">Adds +3 to Communication when instructing. Lucretius considered this not merely a virtue but a responsibility.</span>
+      </div>
+      <div class="vf-entry minor-v">
+        <span class="vf-name">Free Study</span>
+        <span class="vf-type">Minor · General</span>
+        <span class="vf-desc">May study from raw vis without the usual penalties. Practical at sea, where access to books is intermittent.</span>
+      </div>
+      <div class="vf-entry minor-v">
+        <span class="vf-name">Premonitions</span>
+        <span class="vf-type">Minor · Supernatural</span>
+        <span class="vf-desc">Receives intuitive warnings of danger or important events. Symbolic rather than literal. Has saved his life, and at least once another's.</span>
+      </div>
+      <div class="vf-entry minor-v">
+        <span class="vf-name">Second Sight</span>
+        <span class="vf-type">Minor · Supernatural</span>
+        <span class="vf-desc">Can perceive through illusions and sense regio boundaries. Both a practical ability and, in Criamon philosophy, a metaphor for seeing truth beneath surface appearance.</span>
+      </div>
+      <div class="vf-entry minor-v">
+        <span class="vf-name">Puissant Magic Theory</span>
+        <span class="vf-type">Minor · Hermetic</span>
+        <span class="vf-desc">Adds +2 to Magic Theory. Theoretical understanding matches and sometimes exceeds practical experience.</span>
+      </div>
+      <div class="vf-entry minor-v">
+        <span class="vf-name">Personal Vis Source</span>
+        <span class="vf-type">Minor · Hermetic</span>
+        <span class="vf-desc">A private source, likely connected to his Twilight experiences. Nature deliberately unspecified in this record.</span>
+      </div>
+      <div class="vf-entry minor-v">
+        <span class="vf-name">Inoffensive to Animals</span>
+        <span class="vf-type">Minor · General</span>
+        <span class="vf-desc">Animals react neutrally rather than with the distrust the Gift typically produces. Useful at sea, where a frightened horse can undo a morning's work.</span>
+      </div>
+    </div>
+
+    <h3 class="subhead">Flaws</h3>
+    <div class="vf-grid">
+      <div class="vf-entry major-f">
+        <span class="vf-name">Twilight Prone</span>
+        <span class="vf-type">Major · Hermetic</span>
+        <span class="vf-desc">Enters Twilight on a single botch die rather than two. He does not fear this — in his Criamon framework, Twilight is potential revelation. This attitude is accurate and dangerous in roughly equal measure.</span>
+      </div>
+      <div class="vf-entry major-f">
+        <span class="vf-name">Overconfident</span>
+        <span class="vf-type">Major · Personality</span>
+        <span class="vf-desc">Unshakeable faith in his premonitions and insights. When he is right — and he often is — the confidence is justified. When he is wrong, he rationalises. This flaw has no self-correcting mechanism.</span>
+      </div>
+      <div class="vf-entry major-f">
+        <span class="vf-name">Dark Secret</span>
+        <span class="vf-type">Major · Story</span>
+        <span class="vf-desc">The circumstances of his departure from Norway at age ten. He does not speak of it. The details remain unclear even to him; what he knows is that they are not entirely innocent.</span>
+      </div>
+      <div class="vf-entry minor-f">
+        <span class="vf-name">Temperate</span>
+        <span class="vf-type">Minor · Personality</span>
+        <span class="vf-desc">Does not over-indulge in sensual pleasures. Consistent with his Epicurean philosophy: true ataraxia comes from tranquility, not excess. He lives simply and finds excess aesthetically unappealing.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ IV. HERMETIC ARTS ═══ -->
+  <section id="arts">
+    <h2 class="section-title">IV. Hermetic Arts</h2>
+
+    <div class="arts-block">
+      <div class="arts-row">
+        <div class="arts-label">Techniques</div>
+        <div class="arts-cells">
+          <div class="art-cell"><div class="art-name">Creo</div><div class="art-score">3</div></div>
+          <div class="art-cell"><div class="art-name">Intellego</div><div class="art-score">4</div></div>
+          <div class="art-cell"><div class="art-name">Muto</div><div class="art-score">4</div></div>
+          <div class="art-cell"><div class="art-name">Perdo</div><div class="art-score">5</div></div>
+          <div class="art-cell"><div class="art-name">Rego</div><div class="art-score">5</div></div>
+        </div>
+      </div>
+      <div class="arts-row">
+        <div class="arts-label">Forms</div>
+        <div class="arts-cells">
+          <div class="art-cell notable"><div class="art-name">Vim</div><div class="art-score">5</div></div>
+          <div class="art-cell strong"><div class="art-name">Aquam</div><div class="art-score">5</div></div>
+          <div class="art-cell strong"><div class="art-name">Mentem</div><div class="art-score">4</div></div>
+          <div class="art-cell strong"><div class="art-name">Imaginem</div><div class="art-score">4</div></div>
+          <div class="art-cell"><div class="art-name">Auram</div><div class="art-score">3</div></div>
+          <div class="art-cell"><div class="art-name">Corpus</div><div class="art-score">2</div></div>
+          <div class="art-cell"><div class="art-name">Animal</div><div class="art-score">1</div></div>
+          <div class="art-cell"><div class="art-name">Herbam</div><div class="art-score">1</div></div>
+          <div class="art-cell"><div class="art-name">Ignem</div><div class="art-score">1</div></div>
+          <div class="art-cell"><div class="art-name">Terram</div><div class="art-score">1</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout enigma">
+      <div class="label">Magical Profile — Assessor's Note</div>
+      <p>The profile reflects his philosophical priorities precisely. Vim at 5 represents his deepest conviction: understanding raw magic itself, the substrate beneath all technique, is the beginning of genuine knowledge. Aquam at 5 is practical and thematic — the sea, the mutable, the flowing. Mentem and Imaginem reflect his interest in perception, truth, and the gap between appearance and reality. Auram is developing. Everything terrestrial is incidental. He is not a combat magus; his repertoire is built for navigation, revelation, and protection, in that order.</p>
+    </div>
+  </section>
+
+  <!-- ═══ V. ABILITIES ═══ -->
+  <section id="abilities">
+    <h2 class="section-title">V. Abilities</h2>
+
+    <div class="skill-grid">
+      <div class="skill-row high"><span class="sk-name">Enigmatic Wisdom <span class="sk-spec">(Interpreting Signs)</span></span><span class="sk-val">4</span></div>
+      <div class="skill-row high"><span class="sk-name">Magic Theory <span class="sk-spec">(Vim)</span></span><span class="sk-val">5*</span></div>
+      <div class="skill-row high"><span class="sk-name">Parma Magica <span class="sk-spec">(Auram)</span></span><span class="sk-val">5</span></div>
+      <div class="skill-row spec"><span class="sk-name">Premonitions <span class="sk-spec">(Danger)</span></span><span class="sk-val">4</span></div>
+      <div class="skill-row spec"><span class="sk-name">Second Sight <span class="sk-spec">(Illusions)</span></span><span class="sk-val">3</span></div>
+      <div class="skill-row"><span class="sk-name">Philosophiae <span class="sk-spec">(Ontology)</span></span><span class="sk-val">3</span></div>
+      <div class="skill-row"><span class="sk-name">Code of Hermes <span class="sk-spec">(Tribunal Procedures)</span></span><span class="sk-val">3</span></div>
+      <div class="skill-row"><span class="sk-name">Concentration <span class="sk-spec">(Maintaining Spells)</span></span><span class="sk-val">3</span></div>
+      <div class="skill-row"><span class="sk-name">Penetration <span class="sk-spec">(Mentem)</span></span><span class="sk-val">3</span></div>
+      <div class="skill-row"><span class="sk-name">Teaching <span class="sk-spec">(Individual Instruction)</span></span><span class="sk-val">3</span></div>
+      <div class="skill-row"><span class="sk-name">Bargain <span class="sk-spec">(Magical Items)</span></span><span class="sk-val">1</span></div>
+      <div class="skill-row"><span class="sk-name">Folk Ken <span class="sk-spec">(Scholars)</span></span><span class="sk-val">1</span></div>
+      <div class="skill-row"><span class="sk-name">Awareness <span class="sk-spec">(Spotting Hidden Details)</span></span><span class="sk-val">1</span></div>
+      <div class="skill-row"><span class="sk-name">Latin <span class="sk-spec">(Hermetic Usage)</span></span><span class="sk-val">4</span></div>
+      <div class="skill-row"><span class="sk-name">Norwegian <span class="sk-spec">(Native)</span></span><span class="sk-val">5</span></div>
+      <div class="skill-row"><span class="sk-name">Flemish <span class="sk-spec">(Bruges dialect)</span></span><span class="sk-val">3</span></div>
+    </div>
+    <p style="font-size:0.83rem; color:var(--ink-faint); font-style:italic;">* Includes +2 from Puissant Magic Theory</p>
+  </section>
+
+  <!-- ═══ VI. SPELLS ═══ -->
+  <section id="spells">
+    <h2 class="section-title">VI. Spells &amp; Repertoire</h2>
+
+    <p>His spell repertoire is almost entirely non-combative, oriented toward navigation, perception, protection from weather, and the manipulation of wind and water. The lab texts of the Sjórseiðr covenant reflect his influence heavily. Higher-level work remains undeveloped; he has prioritised breadth of magical knowledge over combat depth, a choice that serves his vision well and would serve him poorly in a Wizard's War.</p>
+
+    <h3 class="subhead">Maritime &amp; Elemental</h3>
+    <div class="spell-list">
+      <div class="spell-entry">
+        <span class="spell-name">Wind at Our Backs</span>
+        <span class="spell-desc">Maintains favourable winds for a vessel, adapting continuously to heading changes. His most-used spell, cast daily at sea.</span>
+        <span class="spell-meta">ReAu 20</span>
+      </div>
+      <div class="spell-entry">
+        <span class="spell-name">Calm the Storm</span>
+        <span class="spell-desc">Weakens a violent storm, reducing dangerous conditions to manageable ones. Does not eliminate; merely moderates.</span>
+        <span class="spell-meta">PeAu 25</span>
+      </div>
+      <div class="spell-entry">
+        <span class="spell-name">Binding the Storm's Will</span>
+        <span class="spell-desc">Reinforces sails and rigging against storm damage, hardening rope and canvas against supernatural or extreme natural stress.</span>
+        <span class="spell-meta">ReHe 15</span>
+      </div>
+      <div class="spell-entry">
+        <span class="spell-name">Call of the Deep</span>
+        <span class="spell-desc">Allows the caster to sense underwater structures, reefs, wrecks, or unusually deep formations within a moderate radius.</span>
+        <span class="spell-meta">InAq 15</span>
+      </div>
+    </div>
+
+    <h3 class="subhead">Perception &amp; Mind</h3>
+    <div class="spell-list">
+      <div class="spell-entry">
+        <span class="spell-name">Prying Eyes of the Soul</span>
+        <span class="spell-desc">Reads surface thoughts of a target. He uses this reluctantly, preferring direct conversation, and employs it primarily when he suspects active deception.</span>
+        <span class="spell-meta">InMe 15</span>
+      </div>
+      <div class="spell-entry">
+        <span class="spell-name">The Ear for Distant Voices</span>
+        <span class="spell-desc">Allows the caster to overhear conversations at a significant distance, within range of an Arcane Connection or significant landmark.</span>
+        <span class="spell-meta">InMe 15</span>
+      </div>
+      <div class="spell-entry">
+        <span class="spell-name">Calm the Tempest Within</span>
+        <span class="spell-desc">Reduces a target's strong emotions — rage, panic, grief — to manageable levels without eliminating them. A restraint spell, not a suppression.</span>
+        <span class="spell-meta">ReMe 20</span>
+      </div>
+    </div>
+
+    <h3 class="subhead">Vim &amp; Magical Infrastructure</h3>
+    <div class="spell-list">
+      <div class="spell-entry">
+        <span class="spell-name">Sense the Nature of Vis</span>
+        <span class="spell-desc">Determines the Form and rough quantity of vis in any object within sight. Essential for the Sjórseiðr's vis-gathering operations.</span>
+        <span class="spell-meta">InVi 5</span>
+      </div>
+      <div class="spell-entry">
+        <span class="spell-name">Unraveling the Fabric of Form</span>
+        <span class="spell-desc">Dispels active magical effects of a specific Form. His preferred version targets Auram effects — storm magics and weather manipulation by other casters.</span>
+        <span class="spell-meta">PeVi 10</span>
+      </div>
+    </div>
+
+    <h3 class="subhead">Illumination</h3>
+    <div class="spell-list">
+      <div class="spell-entry">
+        <span class="spell-name">Pilgrim's Lantern</span>
+        <span class="spell-desc">Creates a steady, floating light that follows the caster. Indispensable in the hold at night. His students learn this first.</span>
+        <span class="spell-meta">CrIg 10</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ VII. SIGIL ═══ -->
+  <section id="sigil">
+    <h2 class="section-title">VII. Hermetic Sigil</h2>
+
+    <div class="sigil-box">
+      <div class="sigil-symbol">≋ ∿ ≋</div>
+      <div class="sigil-desc">The Ripple and the Hum</div>
+    </div>
+
+    <p>When Solving casts, two phenomena accompany the effect. First, a <strong>ripple</strong>: a subtle undulating wave propagates outward from the point of casting, visible in air, water, or earth depending on the spell's nature — as though the magic is a stone dropped into a still surface. Second, a <strong>hum</strong>: a low, resonant sound, like a tuning fork struck against the hull of a ship, or the harmonic vibration of rigging in a particular wind. The two combine to produce a sensation that observers often describe as both calming and faintly uncanny.</p>
+
+    <p>The sigil is consistent across all his work and has been documented reliably enough to serve as identification. A Quaesitor familiar with his casting would recognise it; a witness describing "waves in the air" and "a sound like a bell heard underwater" is almost certainly describing Solving's magic.</p>
+  </section>
+
+  <!-- ═══ VIII. LABORATORY ═══ -->
+  <section id="laboratory">
+    <h2 class="section-title">VIII. Shipboard Laboratory · The <em>Lumen Mare</em></h2>
+
+    <p>The <em>Lumen Mare</em> ("Light of the Sea") is a reinforced cog serving simultaneously as Solving's sanctum, personal laboratory, and the flagship of the Sjórseiðr fleet. The laboratory occupies the forward hold, with his private quarters aft of it. Space constraints have required careful prioritisation.</p>
+
+    <table class="dossier-table">
+      <tr><th>Trait</th><th>Value</th><th>Notes</th></tr>
+      <tr><td>Size</td><td>−1</td><td>Confined to hold space; large-scale enchantments require repositioning equipment</td></tr>
+      <tr><td>Refinement</td><td>0</td><td>Basic setup; not yet improved beyond initial configuration</td></tr>
+      <tr><td>General Quality</td><td>+0</td><td>Standard; superior equipment partially offsets other limitations</td></tr>
+      <tr><td>Upkeep</td><td>+1</td><td>Moisture, salt, and motion require continuous maintenance of instruments and books</td></tr>
+      <tr><td>Safety</td><td>−2</td><td>Ship movement introduces risks; fire in a confined wooden space is not an abstract concern</td></tr>
+      <tr><td>Health</td><td>−1</td><td>Limited fresh air; below-decks conditions during poor weather are poor for extended study</td></tr>
+      <tr><td>Aesthetics</td><td>−1</td><td>Functional and Spartan; he considers this appropriate</td></tr>
+      <tr><td>Intellego Specialty</td><td>+1</td><td>The ship's magical alignment and the sea's inherent divinatory character</td></tr>
+      <tr><td>Aquam Specialty</td><td>+1</td><td>Immersion in the sea's magical resonance; consistent and reliable</td></tr>
+    </table>
+
+    <div class="callout warn">
+      <div class="label">Laboratory Note — Seasonal Constraints</div>
+      <p>Extended laboratory work is impractical during autumn and winter North Sea crossings. Solving schedules his major research projects for summer months when the ship can remain in sheltered harbour for several weeks at a time. He has developed an unusually efficient approach to interrupted laboratory seasons, which may be related to his Free Study virtue and his tolerance for unconventional study conditions.</p>
+    </div>
+  </section>
+
+  <!-- ═══ IX. LIBRARY ═══ -->
+  <section id="library">
+    <h2 class="section-title">IX. Personal Library</h2>
+
+    <p>Solving's personal books, as distinct from the Sjórseiðr covenant library. Several were gifts from Lucretius at his gauntlet; the Arabic philosophical texts were acquired in Valencia.</p>
+
+    <div class="library-section">
+      <div class="lib-heading">Philosophical &amp; Enigmatic</div>
+      <div class="lib-entry">
+        <span class="lib-title">De Rerum Natura</span>
+        <span class="lib-by">Lucretius (Roman; annotated copy)</span>
+        <span class="lib-tag">Philosophiae — Personal Reference</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">The Canon of Medicine — Excerpts</span>
+        <span class="lib-by">Avicenna (Arabic/Latin trans.)</span>
+        <span class="lib-tag">Philosophiae Tractatus Q9</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">On the Soul</span>
+        <span class="lib-by">Avicenna (trans. from Arabic)</span>
+        <span class="lib-tag">Philosophiae Tractatus Q10</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">The Fifteen Foundational Riddles</span>
+        <span class="lib-by">Lucretius of Criamon (his parens)</span>
+        <span class="lib-tag vim">Enigmatic Wisdom Tractatus Q8</span>
+      </div>
+    </div>
+
+    <div class="library-section">
+      <div class="lib-heading">Hermetic Arts — Personal Copies</div>
+      <div class="lib-entry">
+        <span class="lib-title">The Ocean's Unyielding Strength</span>
+        <span class="lib-by">Nautica of Mercere</span>
+        <span class="lib-tag aquam">Rego Summa L15 Q12</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">The Mind's Reflection in the Depths</span>
+        <span class="lib-by">Criamon Mystic (anon.)</span>
+        <span class="lib-tag vim">Mentem Summa L12 Q12</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Threads of the Eternal Cycle</span>
+        <span class="lib-by">Bonisagus school</span>
+        <span class="lib-tag">Creo Summa L6 Q21</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Dreams Beneath the Waves</span>
+        <span class="lib-by">Unknown (recovered, North Sea)</span>
+        <span class="lib-tag aquam">Intellego Tractatus Q11</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Binding the Storm's Will</span>
+        <span class="lib-by">Solving Epicurusson (his own)</span>
+        <span class="lib-tag aquam">Aquam Tractatus Q9 — Lab text included</span>
+      </div>
+    </div>
+
+    <div class="library-section">
+      <div class="lib-heading">Hermetic Reference</div>
+      <div class="lib-entry">
+        <span class="lib-title">The Compass of Law</span>
+        <span class="lib-by">Unknown</span>
+        <span class="lib-tag">Code of Hermes Summa L4 Q10</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">Illusions in the Fog</span>
+        <span class="lib-by">Merinita school</span>
+        <span class="lib-tag">Imaginem Tractatus Q10</span>
+      </div>
+      <div class="lib-entry">
+        <span class="lib-title">The Weight of Air and Water</span>
+        <span class="lib-by">Philosophiae school</span>
+        <span class="lib-tag">Philosophiae Tractatus Q10</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ X. RELATIONSHIPS ═══ -->
+  <section id="relationships">
+    <h2 class="section-title">X. Key Relationships</h2>
+
+    <h3 class="subhead">Lucretius · Parens · Domus Luminis, Bruges</h3>
+    <p>The formative relationship of his life. Lucretius gave him a name, a philosophy, a method of thinking, and fifteen years of careful instruction. Solving does not idealise his parens — he is aware of Lucretius's own blind spots, particularly his tendency toward impractical abstraction — but the debt is genuine and the affection real. They correspond regularly. Lucretius follows the development of Sjórseiðr with the satisfied attention of a man watching his most ambitious experiment proceed as hoped.</p>
+
+    <h3 class="subhead">Khalida bint Tariq · Flambeau · Co-Founder, Sjórseiðr</h3>
+    <p>His intellectual equal and the most important friendship of his adult life. Where Solving asks questions that open new avenues, Khalida provides the rigorous logical frameworks that determine which avenues lead somewhere. Where she builds precise arguments, he sees connections she has missed. She saves him from his impracticality; he opens doors she did not know existed. She has never forgotten that he warned her — accurately, at personal cost — about the danger to Al-Qassas, and that she survived partly because she trusted him. Neither of them discusses this directly. It is simply present.</p>
+
+    <blockquote class="maxim">
+      The sea does not ask where you are from. It asks only whether you are paying attention.
+      <span class="attribution">— Solving Epicurusson, to a student; transcribed by Khalida bint Tariq</span>
+    </blockquote>
+
+    <h3 class="subhead">Astrid Eriksdóttir · Co-Founder, Sjórseiðr</h3>
+    <p>His relationship with Astrid is built on mutual practical respect. He values her decisiveness — a quality chronically absent in himself — and her deep expertise in Norse maritime tradition and its intersection with the Gifted. She appreciates that he is genuinely interested in her knowledge rather than merely deploying her as a resource, and that his Gentle Gift means she can be comfortable around him, something she rarely experiences with Hermetic magi. He finds her directness a relief after years of Hermetic political obliqueness.</p>
+
+    <h3 class="subhead">The Order Generally</h3>
+    <p>Solving has no enemies of consequence, which is both a virtue and a symptom. He has spent his post-gauntlet years developing his vision rather than accumulating Hermetic alliances or antagonisms. The Bjornaer covenant at Crintera regards the fleet's vis-gathering with proprietorial suspicion. Several Rhine Tribunal magi find the mobile covenant concept philosophically incoherent. He is aware of these concerns and has so far addressed them primarily by not being in the same place long enough for them to solidify.</p>
+  </section>
+
+  <!-- ═══ XI. COVENANT VISION ═══ -->
+  <section id="covenant">
+    <h2 class="section-title">XI. Sjórseiðr &amp; The Covenant Vision</h2>
+
+    <p><strong>Sjórseiðr</strong> — from Old Norse <em>sjór</em> (sea) and <em>seiðr</em> (magic, prophecy) — is the covenant Solving has spent five post-gauntlet years conceptualising and the last year assembling. It is not a place. It is a fleet.</p>
+
+    <div class="callout sea">
+      <div class="label">Covenant Status · Spring · 1205</div>
+      <p>Currently a Weak Covenant by resource classification: a limited but curated library (three Art summae, one Ability summa, four tractatus); 200 levels of spell lab texts; four vis sources producing 4 pawns annually. The scarcity is known and deliberate — a wealthy static covenant would defeat the purpose. Resources are expected to grow through discovery, trade, and the fleet's mobile access to phenomena that fixed covenants cannot easily reach.</p>
+    </div>
+
+    <h3 class="subhead">The Philosophical Foundation</h3>
+    <p>The mobile covenant answers a specific set of problems that static covenant life creates: territorial disputes, obligations to local nobles, political entanglements with neighbouring covenants, the accumulation of enemies through mere proximity. By owning no land, Sjórseiðr creates no territorial claims to defend. By moving, it avoids being the subject of sustained political campaigns. By remaining small, it avoids the factional dynamics that large covenants inevitably produce.</p>
+
+    <p>This is not cynicism. It is, in Solving's framework, Epicurean ataraxia applied to institutional design: the removal of unnecessary sources of anxiety, so that genuine inquiry can proceed without distraction. The parallel to his personal history — the child who fled rather than fought — is one he would acknowledge if asked, and then probably spend forty-five minutes examining.</p>
+
+    <h3 class="subhead">Vis Sources of the Fleet</h3>
+    <div class="vis-grid">
+      <div class="vis-card">
+        <div class="vis-title">The Wraith-Touched Wreck</div>
+        <div class="vis-yield">1 pawn Mentem · Autumn Equinox</div>
+        <div class="vis-desc">A sunken longship, location known to the fleet, that releases ghostly wisps at the equinox. Requires controlled retrieval.</div>
+      </div>
+      <div class="vis-card">
+        <div class="vis-title">The Deepwater Bloom</div>
+        <div class="vis-yield">1 pawn Aquam · Full Moon, Summer</div>
+        <div class="vis-desc">Luminescent kelp at a ley-line crossing beneath the waves. Harvested carefully under specific lunar conditions.</div>
+      </div>
+      <div class="vis-card vim-card">
+        <div class="vis-title">The Storm-Heart Pearl</div>
+        <div class="vis-yield">1 pawn Auram · Post-Storm</div>
+        <div class="vis-desc">Formed inside a specific shell that absorbs storm energy. Irregular; the fleet must be in range when a great storm subsides.</div>
+      </div>
+      <div class="vis-card vim-card">
+        <div class="vis-title">The Whispering Fjord</div>
+        <div class="vis-yield">1 pawn Intellego · Annual</div>
+        <div class="vis-desc">A remote Norwegian fjord cave that hums with supernatural vibration. Requires a long northern voyage; contested by local spirits.</div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Covenant Hooks</h3>
+    <ul>
+      <li><strong>The Icebound Warlock:</strong> A figure encased in glacial ice has been reported, wearing robes of a long-dead House — possibly Diedne or early Criamon. The Enigma, Solving believes, has an opinion about this.</li>
+      <li><strong>Rival Claim:</strong> The Bjornaer covenant at Crintera asserts that Sjórseiðr's vis gathering constitutes theft of Baltic resources. The argument is not without merit under one reading of the Code.</li>
+      <li><strong>The Curse of the Leviathan:</strong> Something very large has appeared in multiple magi's visions independently. Solving believes this is the Enigma announcing a test. Khalida believes it may be a sea monster. Both positions remain open.</li>
+    </ul>
+  </section>
+
+  <!-- ═══ XII. ASSESSMENT ═══ -->
+  <section id="assessment">
+    <h2 class="section-title">XII. Assessment</h2>
+
+    <h3 class="subhead">What He Is</h3>
+    <p class="drop-cap">Solving Epicurusson is a philosopher who happens to be a magus, rather than the reverse. This is not a criticism. The philosophical disposition produces genuine strengths: the teaching ability, the premonitory capacity developed through decades of contemplative practice, the Vim mastery that comes from being genuinely curious about magic as a subject rather than merely as a tool. His Gentle Gift makes him uniquely suited to the mobile covenant's diplomatic requirements. A magus who does not frighten harbour officials or merchant captains is not a minor asset.</p>
+
+    <p>What he is not, and has never been, is politically functional. His Overconfident flaw and his Savvy −2 combine into a specific failure mode: he will correctly identify the deeper truth of a situation and then walk directly into its most obvious political trap while explaining why the trap doesn't matter. Khalida has prevented this from becoming catastrophic on at least three documented occasions. Whether this is sustainable at Tribunal scale remains to be seen.</p>
+
+    <h3 class="subhead">What He Wants</h3>
+    <p>He wants the covenant to become what he has imagined: a mobile centre of genuine inquiry, unencumbered by territorial obligation, capable of contributing to magical knowledge in ways static covenants cannot. He wants to understand — specifically and deeply — what his premonitions are showing him about the North Sea, about the icebound figure, about the something-large in multiple magi's visions. He wants his students to exceed him.</p>
+
+    <p>He also wants, though he would express it more obliquely, to have made the departure from Norway — the cold ship, the strange city, the years of frightened concealment — into something that was worth it.</p>
+
+    <blockquote class="maxim">
+      Epicurus taught that ataraxia — the tranquility we seek — is not found in the absence of question but in the presence of genuine inquiry. To ask clearly is already to be at peace.
+      <span class="attribution">— From Solving's teaching notes; recovered copy in Sjórseiðr archive</span>
+    </blockquote>
+
+    <h3 class="subhead">Likely Trajectories</h3>
+    <ul>
+      <li><strong>As Ally:</strong> An exceptionally capable teacher and theorist, a magus whose Premonitions have demonstrated genuine reliability, and a Criamon with the Gentle Gift and a functioning moral compass. Rare combination.</li>
+      <li><strong>As Enemy:</strong> Not particularly dangerous in direct confrontation — his spell repertoire is not built for it, his physical characteristics are poor, and he would spend the opening of a Wizard's War asking philosophical questions about its necessity. Indirectly, a motivated Solving with an accurate premonition and two capable co-founders is a different calculation.</li>
+      <li><strong>As Wild Card:</strong> If his Dark Secret surfaces — the circumstances he fled in Norway, the things he has not yet remembered clearly — it is not obvious which direction he breaks. He has spent thirty years building an identity around the departure. Learning what he actually left behind may rewrite significant parts of it.</li>
+    </ul>
+
+    <div class="callout enigma">
+      <div class="label">File Classification · Sjórseiðr Internal Archive</div>
+      <p>This dossier is maintained in the personal records of the Sjórseiðr covenant. It reflects the founding year's understanding and should be updated following any significant Twilight episode, tribunal appearance, or revelation regarding the subject's origins. Khalida bint Tariq has reviewed and approved this assessment. Astrid Eriksdóttir declined to review it on the grounds that she already knows him.</p>
+    </div>
+  </section>
+
+  <div class="ornament">≋ &nbsp; ✦ &nbsp; ≋</div>
+
+</div>
+</body>
+</html>
