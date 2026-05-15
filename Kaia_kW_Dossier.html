@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Kaia kW</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bungee+Shade&family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  /*
+    THEME: fluoro-green paper, dark ink text, hot pink + yellow accents.
+    GRIT: SVG paper-grain noise overlay, scan-line gradients, halftone dots,
+          riso misregistration (offset double print), photocopy-edge rules.
+    TYPE: Archivo Black + Bungee Shade for zine-flyer display;
+          Special Elite + Courier Prime for typewriter body/mono.
+  */
+  :root {
+    /* FLUORO GREEN PAPER — riso fluorescent green, lightened to a usable base */
+    --paper:       #c2f24a;
+    --paper-deep:  #a8e030;
+    --paper-edge:  #8fc01f;
+    --paper-stain: #6e9a18;
+
+    /* DARK INK — near-black with a green undertone, full readability on green */
+    --ink:         #161a0e;
+    --ink-mid:     #2a311a;
+    --ink-soft:    #3d4528;
+    --ink-bright:  #5a6638;
+    --ink-pale:    #7a8a55;
+
+    /* HOT PINK — riso fluorescent pink ink, now a true accent */
+    --pink:        #ff2d7a;
+    --pink-deep:   #d4145a;
+    --pink-bleed:  rgba(255, 45, 122, 0.45);
+
+    /* YELLOW — riso fluorescent yellow */
+    --yellow:      #ffd400;
+    --yellow-deep: #d9a900;
+    --yellow-bleed:rgba(255, 212, 0, 0.55);
+
+    /* RULES / SHADOW */
+    --rule:        #161a0e;
+    --rule-soft:   rgba(22, 26, 14, 0.35);
+    --shadow:      rgba(20, 20, 20, 0.22);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper-deep);
+    color: var(--ink);
+    font-family: "Special Elite", "Courier Prime", "Courier New", monospace;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  body {
+    /* base fluoro-green paper with subtle hot-spots — like sun-faded riso */
+    background-image:
+      radial-gradient(ellipse at 18% 10%, var(--paper) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 92%, var(--paper) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.10) 0%, transparent 60%);
+    background-color: var(--paper-deep);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    position: relative;
+  }
+
+  /* PAPER GRAIN — full-page SVG turbulence noise overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.55;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='340'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='3' stitchTiles='stitch' seed='7'/><feColorMatrix values='0 0 0 0 0.18  0 0 0 0 0.10  0 0 0 0 0.10  0 0 0 0.18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    background-size: 340px 340px;
+  }
+  /* SECONDARY NOISE — coarser smudge for ink texture */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.28;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='2' stitchTiles='stitch' seed='3'/><feColorMatrix values='0 0 0 0 0.6  0 0 0 0 0.2  0 0 0 0 0.3  0 0 0 0.25 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    background-size: 600px 600px;
+  }
+
+  /* DOCUMENT — slightly off-center, tilted-stack feel */
+  .document {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 3.5rem 3.5rem 4rem;
+    box-shadow:
+      2px 2px 0 var(--paper-stain),
+      4px 4px 0 rgba(0, 0, 0, 0.08),
+      0 18px 32px rgba(0, 0, 0, 0.22);
+    position: relative;
+    z-index: 2;
+    color: var(--ink);
+    /* page edge: photocopied, irregular */
+    border: 1px solid rgba(40, 30, 30, 0.6);
+  }
+
+  /* SCAN-LINE OVERLAY on document */
+  .document::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 3px,
+      rgba(22, 26, 14, 0.06) 3px,
+      rgba(22, 26, 14, 0.06) 4px
+    );
+    mix-blend-mode: multiply;
+  }
+  /* HALFTONE DOTS overlay — concentrated at corners */
+  .document::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(circle at 8% 6%, rgba(255, 45, 122, 0.22) 0, transparent 22%),
+      radial-gradient(circle at 92% 94%, rgba(255, 212, 0, 0.20) 0, transparent 24%),
+      radial-gradient(rgba(22, 26, 14, 0.45) 0.8px, transparent 1.2px);
+    background-size: auto, auto, 6px 6px;
+    background-position: 0 0, 0 0, 0 0;
+    opacity: 0.18;
+    mix-blend-mode: multiply;
+  }
+
+  /* CORNER STAPLE/REGISTRATION MARKS */
+  .reg-mark {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .reg-mark::before, .reg-mark::after {
+    content: "";
+    position: absolute;
+    background: var(--pink);
+    box-shadow: 1px 1px 0 var(--ink);
+  }
+  .reg-mark::before { left: 50%; top: 0; width: 1.5px; height: 100%; transform: translateX(-50%); }
+  .reg-mark::after  { top: 50%; left: 0; height: 1.5px; width: 100%; transform: translateY(-50%); }
+  .reg-mark.tl { top: 14px; left: 14px; }
+  .reg-mark.tr { top: 14px; right: 14px; }
+  .reg-mark.bl { bottom: 14px; left: 14px; }
+  .reg-mark.br { bottom: 14px; right: 14px; }
+
+  /* HEADER */
+  header.title-block {
+    text-align: left;
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    /* slightly rotated stamp on the corner */
+  }
+  header.title-block::after {
+    /* second hand-drawn rule below the main rule, like a misregister */
+    content: "";
+    position: absolute;
+    left: 4px;
+    right: -3px;
+    bottom: -7px;
+    height: 1.5px;
+    background: var(--pink);
+    opacity: 0.85;
+  }
+
+  .filemark {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "DM Mono", "Courier Prime", monospace;
+    font-size: 0.68rem;
+    color: var(--ink);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    border-top: 1.5px dashed var(--ink);
+    border-bottom: 1.5px dashed var(--ink);
+    padding: 0.45rem 0.6rem;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 6px,
+      rgba(255, 45, 122, 0.06) 6px,
+      rgba(255, 45, 122, 0.06) 7px
+    );
+  }
+  .filemark .left strong { color: var(--pink-deep); }
+  .filemark .right strong { color: var(--yellow-deep); }
+
+  .stamp {
+    position: absolute;
+    top: 8px;
+    right: -10px;
+    transform: rotate(7deg);
+    border: 3px solid var(--pink-deep);
+    color: var(--pink-deep);
+    padding: 0.35rem 0.85rem;
+    font-family: "Archivo Black", sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.05);
+    opacity: 0.92;
+    z-index: 4;
+    text-shadow: 1px 1px 0 rgba(20, 20, 20, 0.15);
+    box-shadow: 1px 1px 0 var(--ink);
+  }
+
+  .eyebrow {
+    font-family: "DM Mono", monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    font-weight: 500;
+  }
+  .eyebrow .sep { color: var(--pink); margin: 0 0.5em; }
+  .eyebrow .pink { color: var(--pink-deep); }
+
+  h1.character-name {
+    font-family: "Archivo Black", "Arial Black", sans-serif;
+    font-weight: 900;
+    font-size: 4.2rem;
+    line-height: 0.92;
+    margin: 0.3rem 0 0.2rem;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    text-transform: uppercase;
+    /* RISO MISREGISTRATION — pink offset behind, slight skew */
+    text-shadow:
+      3px 3px 0 var(--pink),
+      4px 4px 0 var(--pink-bleed),
+      5px 5px 0 rgba(0, 0, 0, 0.05);
+  }
+  h1.character-name .pink-print {
+    color: var(--pink-deep);
+    text-shadow:
+      2px 2px 0 var(--yellow),
+      3px 3px 0 var(--yellow-bleed);
+  }
+  h1.character-name .small {
+    display: block;
+    font-family: "Special Elite", monospace;
+    font-size: 0.22em;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: 0.16em;
+    margin-top: 0.9rem;
+    text-transform: none;
+    text-shadow: 1px 1px 0 rgba(255, 45, 122, 0.18);
+  }
+  h1.character-name .small em {
+    color: var(--pink-deep);
+    font-style: normal;
+  }
+
+  .epithets {
+    font-family: "Special Elite", monospace;
+    font-size: 1.02rem;
+    color: var(--ink);
+    margin: 0.8rem 0 1.2rem;
+    max-width: 64ch;
+    line-height: 1.5;
+    border-left: 3px solid var(--pink);
+    padding-left: 0.8rem;
+  }
+
+  .vitals {
+    display: flex;
+    gap: 0;
+    margin-top: 1.2rem;
+    flex-wrap: wrap;
+    font-family: "DM Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--ink);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .vitals span {
+    border-left: 2px solid var(--ink);
+    padding: 0.15rem 1rem;
+  }
+  .vitals span:first-child { border-left: none; padding-left: 0; }
+  .vitals span strong {
+    color: var(--pink-deep);
+    font-weight: 700;
+    margin-left: 0.4em;
+    font-size: 1.08em;
+  }
+
+  /* SECTIONS */
+  section {
+    margin-bottom: 2.8rem;
+    position: relative;
+  }
+  h2.section-title {
+    font-family: "Archivo Black", sans-serif;
+    font-weight: 900;
+    font-size: 1.55rem;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    text-transform: uppercase;
+    border-bottom: 4px solid var(--ink);
+    padding: 0.4rem 0.6rem;
+    margin: 0 0 1.3rem;
+    position: relative;
+    /* stamped headline: pink misregister + yellow halo */
+    background: var(--yellow);
+    box-shadow:
+      3px 3px 0 var(--pink),
+      4px 4px 0 var(--ink);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.08);
+    display: inline-block;
+    transform: rotate(-0.4deg);
+  }
+  h2.section-title .num {
+    color: var(--pink-deep);
+    margin-right: 0.4rem;
+    font-family: "Bungee Shade", "Archivo Black", sans-serif;
+  }
+
+  h3.subhead {
+    font-family: "Archivo Black", sans-serif;
+    font-weight: 900;
+    font-size: 1.2rem;
+    color: var(--ink);
+    margin: 1.5rem 0 0.5rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    border-bottom: 2px dashed var(--pink);
+    padding-bottom: 0.25rem;
+    display: inline-block;
+    text-shadow: 1.5px 1.5px 0 var(--pink-bleed);
+  }
+  h3.subhead::before {
+    content: ">> ";
+    color: var(--pink-deep);
+  }
+
+  h4.entry-label {
+    font-family: "Archivo Black", sans-serif;
+    font-weight: 900;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    color: var(--pink-deep);
+    text-transform: uppercase;
+    margin: 1rem 0 0.3rem;
+    text-shadow: 1px 1px 0 var(--yellow-bleed);
+  }
+
+  p { margin: 0 0 1rem; color: var(--ink); }
+  ul, ol { margin: 0.5rem 0 1rem 1.5rem; padding: 0; }
+  li { margin-bottom: 0.4rem; color: var(--ink); }
+
+  ul li::marker { color: var(--pink-deep); }
+
+  em { color: var(--ink-soft); font-style: italic; }
+  strong {
+    font-weight: 700;
+    color: var(--ink);
+    background: var(--yellow-bleed);
+    padding: 0 0.15em;
+    box-shadow: 1px 1px 0 var(--pink-bleed);
+  }
+  a {
+    color: var(--pink-deep);
+    text-decoration: underline wavy var(--pink);
+    text-underline-offset: 3px;
+  }
+
+  /* DROP CAPITAL — stenciled, riso-printed */
+  .drop-cap::first-letter {
+    font-family: "Bungee Shade", "Archivo Black", sans-serif;
+    font-size: 4.5rem;
+    line-height: 0.85;
+    float: left;
+    padding: 0.2rem 0.5rem 0 0;
+    color: var(--pink-deep);
+    font-weight: 900;
+    text-shadow: 2px 2px 0 var(--yellow);
+  }
+
+  /* MAXIM / PUNK SLOGAN */
+  blockquote.maxim {
+    font-family: "Archivo Black", sans-serif;
+    font-style: italic;
+    font-size: 1.45rem;
+    line-height: 1.25;
+    color: var(--ink);
+    border: 3px solid var(--ink);
+    border-left: 12px solid var(--pink);
+    padding: 1rem 1.2rem;
+    margin: 1.6rem 0;
+    background: var(--yellow);
+    text-transform: uppercase;
+    box-shadow: 4px 4px 0 var(--pink);
+    transform: rotate(-0.6deg);
+    text-shadow: 1.5px 1.5px 0 var(--pink-bleed);
+  }
+  blockquote.maxim .attribution {
+    display: block;
+    font-family: "DM Mono", monospace;
+    font-size: 0.72rem;
+    font-style: normal;
+    color: var(--ink);
+    letter-spacing: 0.1em;
+    margin-top: 0.6rem;
+    text-transform: uppercase;
+    text-shadow: none;
+  }
+
+  /* TRANSMISSION QUOTE — typewritten, pinned to page */
+  blockquote.transmission {
+    font-family: "Special Elite", monospace;
+    font-style: normal;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--ink);
+    border-left: 4px double var(--pink-deep);
+    border-right: 1px dashed var(--ink);
+    padding: 0.9rem 1.2rem;
+    margin: 1.2rem 0;
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 22px,
+        rgba(255, 45, 122, 0.08) 22px,
+        rgba(255, 45, 122, 0.08) 23px
+      ),
+      rgba(255, 255, 255, 0.18);
+    position: relative;
+  }
+  blockquote.transmission::before {
+    content: "✂---";
+    position: absolute;
+    top: -0.9rem;
+    left: 1.2rem;
+    font-family: "DM Mono", monospace;
+    font-size: 0.85rem;
+    color: var(--pink-deep);
+    background: var(--paper);
+    padding: 0 0.3rem;
+    letter-spacing: 0.2em;
+  }
+  blockquote.transmission .attribution {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    margin-top: 0.7rem;
+    text-transform: uppercase;
+    border-top: 1px dotted var(--ink);
+    padding-top: 0.4rem;
+  }
+
+  /* TABLES — typewriter ledger */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.92rem;
+    background: rgba(255, 255, 255, 0.10);
+    border: 2px solid var(--ink);
+    box-shadow: 3px 3px 0 var(--pink-bleed);
+  }
+  table.dossier-table th {
+    text-align: left;
+    font-family: "Archivo Black", sans-serif;
+    font-weight: 900;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    color: var(--paper);
+    text-transform: uppercase;
+    padding: 0.55rem 0.75rem;
+    background: var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+  table.dossier-table td {
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px dashed var(--ink);
+    vertical-align: top;
+    color: var(--ink);
+  }
+  table.dossier-table td:first-child {
+    font-family: "Special Elite", monospace;
+    font-weight: 700;
+    color: var(--pink-deep);
+    white-space: nowrap;
+    padding-right: 1.5rem;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+
+  /* STAT GRID — stenciled boxes */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.4rem;
+    margin: 1rem 0;
+  }
+  .stat-cell {
+    text-align: center;
+    padding: 0.7rem 0.4rem;
+    border: 2px solid var(--ink);
+    background: rgba(255, 255, 255, 0.12);
+    position: relative;
+    box-shadow: 2px 2px 0 var(--pink-bleed);
+  }
+  .stat-cell .label {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+    font-weight: 900;
+  }
+  .stat-cell .value {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1;
+    text-shadow: 2px 2px 0 var(--pink-bleed);
+  }
+  .stat-cell.high {
+    background: var(--yellow);
+  }
+  .stat-cell.high .value {
+    color: var(--pink-deep);
+    text-shadow: 2px 2px 0 var(--ink);
+  }
+  .stat-cell.low .value { color: var(--ink-pale); }
+  .stat-cell .gloss {
+    font-family: "Special Elite", monospace;
+    font-style: italic;
+    font-size: 0.72rem;
+    color: var(--ink);
+    margin-top: 0.25rem;
+  }
+
+  /* STATUS — wounded/humanity/rep */
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .status-cell {
+    border: 2px solid var(--ink);
+    padding: 0.9rem;
+    background: rgba(255, 255, 255, 0.12);
+    position: relative;
+    box-shadow: 3px 3px 0 var(--pink);
+  }
+  .status-cell .label {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: 900;
+  }
+  .status-cell .value {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 2.1rem;
+    color: var(--ink);
+    font-weight: 900;
+    line-height: 1;
+    text-shadow: 2px 2px 0 var(--pink-bleed);
+  }
+  .status-cell .value .of {
+    color: var(--ink-soft);
+    font-size: 0.55em;
+    font-weight: 400;
+  }
+  .status-cell .delta {
+    font-family: "Special Elite", monospace;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--ink);
+    margin-top: 0.4rem;
+  }
+  .status-cell.alert {
+    background: var(--pink);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .status-cell.alert .value, .status-cell.alert .label, .status-cell.alert .delta {
+    color: var(--ink);
+  }
+  .status-cell.warn {
+    background: var(--yellow);
+  }
+
+  /* BAR — hand-drawn ink fill */
+  .bar {
+    height: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1.5px solid var(--ink);
+    margin-top: 0.6rem;
+    position: relative;
+  }
+  .bar .fill {
+    height: 100%;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        var(--ink) 0,
+        var(--ink) 3px,
+        var(--ink-mid) 3px,
+        var(--ink-mid) 6px
+      );
+  }
+  .bar.warn .fill {
+    background:
+      repeating-linear-gradient(
+        45deg,
+        var(--ink) 0,
+        var(--ink) 3px,
+        var(--yellow-deep) 3px,
+        var(--yellow-deep) 6px
+      );
+  }
+  .bar.alert .fill {
+    background:
+      repeating-linear-gradient(
+        45deg,
+        var(--ink) 0,
+        var(--ink) 3px,
+        var(--pink-deep) 3px,
+        var(--pink-deep) 6px
+      );
+  }
+
+  /* SKILLS */
+  .skill-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.25rem 1.3rem;
+    margin: 1rem 0;
+  }
+  .skill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1.5px dotted var(--ink);
+    padding: 0.25rem 0;
+  }
+  .skill-row .name {
+    font-family: "Special Elite", monospace;
+    color: var(--ink);
+    font-size: 0.95rem;
+  }
+  .skill-row .val {
+    font-family: "Archivo Black", sans-serif;
+    font-weight: 900;
+    color: var(--ink);
+    margin-left: 1rem;
+    font-size: 1rem;
+  }
+  .skill-row.high .name { color: var(--ink); font-weight: 700; }
+  .skill-row.high .val {
+    color: var(--pink-deep);
+    background: var(--yellow);
+    padding: 0 0.35em;
+    box-shadow: 1.5px 1.5px 0 var(--ink);
+  }
+  .skill-row.signature .name {
+    color: var(--pink-deep);
+    font-weight: 700;
+    text-shadow: 1px 1px 0 var(--yellow-bleed);
+  }
+  .skill-row.signature .val {
+    color: var(--paper);
+    background: var(--pink-deep);
+    padding: 0 0.4em;
+    box-shadow: 1.5px 1.5px 0 var(--ink);
+  }
+  .skill-row .gloss {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.82rem;
+    margin-left: 0.4rem;
+  }
+
+  /* CALLOUTS — pasted stickers */
+  .callout {
+    border: 3px solid var(--ink);
+    border-left: 8px solid var(--pink-deep);
+    padding: 0.9rem 1.3rem;
+    margin: 1.5rem 0;
+    background: rgba(255, 255, 255, 0.22);
+    position: relative;
+    box-shadow: 4px 4px 0 var(--pink-bleed);
+    transform: rotate(-0.2deg);
+  }
+  .callout .label {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--pink-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+    font-weight: 900;
+    text-shadow: 1px 1px 0 var(--yellow-bleed);
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .callout.flag {
+    border-left-color: var(--pink);
+    background: var(--pink-bleed);
+    transform: rotate(0.4deg);
+  }
+  .callout.flag .label { color: var(--ink); background: var(--yellow); padding: 0 0.25em; }
+
+  .callout.warn {
+    border-left-color: var(--yellow-deep);
+    background: rgba(255, 212, 0, 0.35);
+    transform: rotate(0.3deg);
+  }
+  .callout.warn .label { color: var(--ink); }
+
+  /* RELATIONS */
+  .relations-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .relation {
+    padding: 0.85rem 0;
+    border-bottom: 2px dashed var(--ink);
+  }
+  .relation:last-child { border-bottom: none; }
+  .relation .name {
+    font-family: "Archivo Black", sans-serif;
+    font-weight: 900;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-bottom: 0.15rem;
+    text-transform: uppercase;
+  }
+  .relation .name .role {
+    font-family: "Special Elite", monospace;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-transform: none;
+  }
+  .relation .name .marker {
+    font-family: "DM Mono", monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: var(--ink);
+    margin-left: 0.5rem;
+    padding: 0.1rem 0.4rem;
+    text-transform: uppercase;
+    background: var(--yellow);
+    box-shadow: 1.5px 1.5px 0 var(--ink);
+    font-weight: 500;
+  }
+  .relation .name .marker.dead { color: var(--paper); background: var(--ink); }
+  .relation .name .marker.alert { color: var(--paper); background: var(--pink-deep); }
+  .relation .name .marker.unknown { color: var(--paper); background: var(--ink-mid); }
+  .relation .text {
+    font-family: "Special Elite", monospace;
+    font-size: 0.95rem;
+    color: var(--ink);
+    margin-top: 0.35rem;
+    line-height: 1.5;
+  }
+
+  /* TIMELINE — punched-card / receipt */
+  .timeline {
+    border-left: 4px solid var(--ink);
+    padding-left: 1.4rem;
+    margin: 1rem 0 1rem 0.6rem;
+    position: relative;
+  }
+  .timeline-entry {
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .timeline-entry::before {
+    content: "";
+    position: absolute;
+    left: -1.85rem;
+    top: 0.5rem;
+    width: 14px;
+    height: 14px;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+  }
+  .timeline-entry.flash::before {
+    background: var(--pink);
+    border-color: var(--ink);
+  }
+  .timeline-entry.now::before {
+    background: var(--yellow);
+    border-color: var(--ink);
+  }
+  .timeline-entry .when {
+    font-family: "DM Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: var(--pink-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+    font-weight: 500;
+  }
+  .timeline-entry .what {
+    font-family: "Archivo Black", sans-serif;
+    font-weight: 900;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+  }
+  .timeline-entry .detail {
+    font-family: "Special Elite", monospace;
+    font-size: 0.94rem;
+    color: var(--ink);
+  }
+
+  /* TOC — index card */
+  nav.toc {
+    border: 3px solid var(--ink);
+    padding: 1.1rem 1.5rem;
+    margin-bottom: 2.5rem;
+    background: var(--paper);
+    columns: 2;
+    column-gap: 2rem;
+    position: relative;
+    box-shadow: 5px 5px 0 var(--pink), 6px 6px 0 var(--ink);
+    transform: rotate(-0.5deg);
+  }
+  nav.toc::before {
+    content: "// CONTENTS //";
+    position: absolute;
+    top: -14px; left: 16px;
+    background: var(--yellow);
+    padding: 0.15rem 0.6rem;
+    font-family: "Archivo Black", sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    color: var(--ink);
+    border: 2px solid var(--ink);
+    text-transform: uppercase;
+    column-span: all;
+  }
+  nav.toc ol {
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    counter-reset: toc;
+    font-family: "Special Elite", monospace;
+  }
+  nav.toc ol li {
+    counter-increment: toc;
+    font-size: 0.95rem;
+    margin-bottom: 0.35rem;
+    break-inside: avoid;
+  }
+  nav.toc ol li::before {
+    content: counter(toc, decimal-leading-zero) ". ";
+    color: var(--pink-deep);
+    font-family: "Archivo Black", sans-serif;
+    font-size: 0.85em;
+    margin-right: 0.3rem;
+    font-weight: 900;
+  }
+  nav.toc a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1.5px dotted var(--ink);
+    transition: color 0.15s, background 0.15s;
+  }
+  nav.toc a:hover {
+    color: var(--paper);
+    background: var(--pink-deep);
+    border-bottom-color: transparent;
+  }
+
+  /* GEAR — checklist on legal pad feel */
+  .gear-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+    margin: 1rem 0;
+  }
+  .gear-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    padding: 0.5rem 0.75rem;
+    border: 1.5px solid var(--ink);
+    background: rgba(255, 255, 255, 0.16);
+    align-items: baseline;
+  }
+  .gear-row .name {
+    font-family: "Special Elite", monospace;
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 0.96rem;
+  }
+  .gear-row .name .qual {
+    color: var(--ink-soft);
+    font-style: italic;
+    font-size: 0.86rem;
+    margin-left: 0.4rem;
+    font-weight: 400;
+  }
+  .gear-row .note {
+    font-family: "DM Mono", monospace;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    font-style: italic;
+    text-align: right;
+  }
+  .gear-row .name .star {
+    color: var(--pink-deep);
+    margin-right: 0.4em;
+    font-size: 1.1em;
+  }
+
+  /* SOURCING NOTE — masking tape */
+  .source-note {
+    font-family: "Special Elite", monospace;
+    font-size: 0.85rem;
+    color: var(--ink);
+    background: rgba(255, 212, 0, 0.55);
+    border: 2px dashed var(--ink);
+    padding: 0.7rem 1rem;
+    margin: 1rem 0 1.8rem;
+    line-height: 1.55;
+    box-shadow: 3px 3px 0 var(--pink-bleed);
+    position: relative;
+    transform: rotate(-0.3deg);
+  }
+  .source-note strong { background: var(--pink); color: var(--paper); padding: 0 0.2em; }
+  .source-note::before {
+    content: "* * *";
+    position: absolute;
+    top: -10px; left: 12px;
+    background: var(--paper);
+    padding: 0 0.4rem;
+    color: var(--pink-deep);
+    font-family: "Archivo Black", sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+  }
+
+  /* COLOPHON */
+  footer.colophon {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 3px double var(--ink);
+    text-align: center;
+    font-family: "DM Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink);
+    text-transform: uppercase;
+  }
+  footer.colophon .row { margin-bottom: 0.4rem; }
+  footer.colophon .row .accent { color: var(--pink-deep); }
+  footer.colophon .row .accent2 { color: var(--ink); background: var(--yellow); padding: 0 0.2em; }
+  footer.colophon .eof {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 1.4rem;
+    color: var(--pink-deep);
+    text-shadow: 2px 2px 0 var(--yellow);
+    letter-spacing: 0.1em;
+    margin-top: 1rem;
+    transform: rotate(-1deg);
+    display: inline-block;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 720px) {
+    body { padding: 1rem 0.5rem; }
+    .document { padding: 2rem 1.2rem 3rem; }
+    h1.character-name { font-size: 2.6rem; }
+    h2.section-title { font-size: 1.15rem; }
+    .stat-grid { grid-template-columns: repeat(5, 1fr); gap: 0.2rem; }
+    .stat-cell { padding: 0.45rem 0.2rem; }
+    .stat-cell .value { font-size: 1.3rem; }
+    .status-grid { grid-template-columns: 1fr; }
+    .skill-grid { grid-template-columns: 1fr; }
+    nav.toc { columns: 1; }
+    .vitals { gap: 0.5rem; font-size: 0.64rem; }
+    .vitals span { border-left: none; padding: 0; }
+    .filemark { flex-direction: column; gap: 0.3rem; align-items: flex-start; }
+    .stamp { right: 0; top: 0; transform: rotate(4deg); font-size: 0.68rem; padding: 0.25rem 0.55rem; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+  <span class="reg-mark tl"></span><span class="reg-mark tr"></span>
+  <span class="reg-mark bl"></span><span class="reg-mark br"></span>
+
+  <header class="title-block">
+    <div class="stamp">// OPEN CASE //</div>
+    <div class="filemark">
+      <span class="left"><strong>FILE //</strong> KAIA-kW &middot; CLASS: ROCKERBOY R4</span>
+      <span class="right"><strong>CREW //</strong> PREEM CHOOMS</span>
+    </div>
+    <div class="eyebrow">Edgerunner Dossier <span class="sep">×</span> Subject <span class="pink">KAIA kW</span></div>
+    <h1 class="character-name">
+      <span class="pink-print">KAIA</span> kW
+      <span class="small">b. <em>Kai</em> (AMAB) &middot; she/her &middot; Oceania &middot; Pacific Islander &middot; Māori-speaker</span>
+    </h1>
+    <p class="epithets">vocalist of Homeschool Dropouts &middot; noise-leaning hardcore &middot; one of two known survivors of the Arasaka Ryūjin sinking &middot; recent addition to the Preem Chooms</p>
+    <div class="vitals">
+      <span>ROLE <strong>ROCKERBOY R4</strong></span>
+      <span>HP <strong>30 / 40</strong></span>
+      <span>HUM <strong>60 / 66</strong></span>
+      <span>REP <strong>3</strong></span>
+      <span>EB <strong>2,010</strong></span>
+      <span>IP <strong>215</strong></span>
+    </div>
+  </header>
+
+  <div class="source-note">
+    <strong>SOURCING.</strong> This dossier draws on the Foundry character record (stats, skills, gear, cyberware, lifepath, wealth/IP ledgers, GM-notes field) and the five session logs to date (Sessions 1&ndash;4 and "Night City Connections"). Where a detail comes from the player's setting notes but is not yet established in the character record or in play, the file flags it. Where something is unknown or unassigned, the file says so rather than filling it in.
+  </div>
+
+  <nav class="toc">
+    <ol>
+      <li><a href="#identity">Identity &amp; Standing</a></li>
+      <li><a href="#mechanical">Mechanical Profile</a></li>
+      <li><a href="#disposition">Operating Disposition</a></li>
+      <li><a href="#family">Family &amp; Origin</a></li>
+      <li><a href="#band">Homeschool Dropouts</a></li>
+      <li><a href="#crew">The Preem Chooms &amp; Contacts</a></li>
+      <li><a href="#kit">Loadout &amp; Cyberware</a></li>
+      <li><a href="#open">Open Threads &amp; Antagonists</a></li>
+      <li><a href="#timeline">Operational Timeline</a></li>
+      <li><a href="#unknowns">What the File Does Not Know</a></li>
+    </ol>
+  </nav>
+
+  <section id="identity">
+    <h2 class="section-title"><span class="num">I.</span> Identity &amp; Standing</h2>
+
+    <p class="drop-cap">Kaia kW &mdash; born Kai &mdash; is a trans Pacific Islander Rockerboy, vocalist of the Night City band Homeschool Dropouts, and a recent addition to the edgerunner crew known as the Preem Chooms. She arrived in Night City with her brother Mikey after the sinking of the Arasaka Ryūjin, the Pacific supercontainer-ship trading megacomplex where she grew up. Session record describes her in-fiction as an <em>experimental noise musician</em>; her player's setting notes describe the band as hardcore punk with metallic elements. Both descriptions stand on this file.</p>
+
+    <h4 class="entry-label">Physical Description</h4>
+    <p>Hair short and curly (lifepath); nose piercings (lifepath); gang colors of the SNCZ worn as a full kit &mdash; bottoms, top, footwear, jewelry, and contact lenses (inventory). She wears a Laser Light Street Jacket (SP 11), which counts as Light Tattoo in the Urban Flash style. BODY 4 is a small frame; her precise age is not recorded.</p>
+
+    <h4 class="entry-label">Manner of Presence</h4>
+    <p>Lifepath personality: <em>moody, rash, headstrong</em>. About people: <em>hates almost everyone</em>. Most-valued person on the lifepath: <em>yourself</em>. Most-valued possession: <em>family photograph</em>. What she values: <em>knowing state of the scene, who's who</em>.</p>
+
+    <h3 class="subhead">Standing Personal Disposition</h3>
+
+    <blockquote class="maxim">
+      Get off the street, no matter what.
+      <span class="attribution">// lifepath &mdash; life goal, recorded verbatim</span>
+    </blockquote>
+  </section>
+
+  <section id="mechanical">
+    <h2 class="section-title"><span class="num">II.</span> Mechanical Profile</h2>
+
+    <h3 class="subhead">Statistics</h3>
+    <div class="stat-grid">
+      <div class="stat-cell low"><div class="label">INT</div><div class="value">3</div><div class="gloss">low</div></div>
+      <div class="stat-cell high"><div class="label">REF</div><div class="value">8</div><div class="gloss">high</div></div>
+      <div class="stat-cell"><div class="label">DEX</div><div class="value">7</div><div class="gloss"></div></div>
+      <div class="stat-cell"><div class="label">TECH</div><div class="value">7</div><div class="gloss"></div></div>
+      <div class="stat-cell"><div class="label">COOL</div><div class="value">7</div><div class="gloss"></div></div>
+      <div class="stat-cell high"><div class="label">WILL</div><div class="value">8</div><div class="gloss">high</div></div>
+      <div class="stat-cell"><div class="label">LUCK</div><div class="value">6</div><div class="gloss">/ 6 max</div></div>
+      <div class="stat-cell"><div class="label">MOVE</div><div class="value">5</div><div class="gloss">walk 12 / run 24</div></div>
+      <div class="stat-cell"><div class="label">BODY</div><div class="value">4</div><div class="gloss">small</div></div>
+      <div class="stat-cell"><div class="label">EMP</div><div class="value">6</div><div class="gloss">/ 7 max</div></div>
+    </div>
+
+    <h3 class="subhead">Derived &amp; Status</h3>
+    <div class="status-grid">
+      <div class="status-cell warn">
+        <div class="label">Hit Points</div>
+        <div class="value">30<span class="of"> / 40</span></div>
+        <div class="bar warn"><div class="fill" style="width:75%"></div></div>
+        <div class="delta">seriously wounded threshold: 20</div>
+      </div>
+      <div class="status-cell">
+        <div class="label">Humanity</div>
+        <div class="value">60<span class="of"> / 66</span></div>
+        <div class="bar"><div class="fill" style="width:91%"></div></div>
+        <div class="delta">two pieces of cyberware installed to date</div>
+      </div>
+      <div class="status-cell alert">
+        <div class="label">Street Rep</div>
+        <div class="value">3</div>
+        <div class="bar alert"><div class="fill" style="width:30%"></div></div>
+        <div class="delta">+1 most recently &mdash; "Maelstrom choom"</div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Role &amp; Capital</h3>
+    <table class="dossier-table">
+      <tr><td>Role</td><td><strong>Rockerboy</strong>, Rank <strong>4</strong></td></tr>
+      <tr><td>Role Ability</td><td><strong>Charismatic Impact</strong></td></tr>
+      <tr><td>Wealth on hand</td><td><strong>2,010 eb</strong></td></tr>
+      <tr><td>Improvement Points (unspent)</td><td><strong>215</strong></td></tr>
+      <tr><td>Lifestyle</td><td>Housing: Cargo Container (1,000 eb/mo) &middot; Food: Kibble (100 eb/mo) &middot; Extras (100 eb/mo)</td></tr>
+      <tr><td>Standing debt</td><td>Owed Lou at the Blackout Bar 550 eb. <em>Paid in full this period</em> (wealth ledger).</td></tr>
+    </table>
+
+    <h3 class="subhead">Skills (level &gt; 0)</h3>
+
+    <h4 class="entry-label">Signature</h4>
+    <div class="skill-grid">
+      <div class="skill-row signature"><span class="name">Dance</span><span class="val">6</span></div>
+      <div class="skill-row signature"><span class="name">Play Instrument</span><span class="val">4 <span class="gloss">+2 AudioVox to Singing</span></span></div>
+      <div class="skill-row signature"><span class="name">Composition</span><span class="val">4</span></div>
+      <div class="skill-row signature"><span class="name">Streetwise</span><span class="val">5</span></div>
+    </div>
+
+    <h4 class="entry-label">High</h4>
+    <div class="skill-grid">
+      <div class="skill-row high"><span class="name">Resist Torture/Drugs</span><span class="val">5</span></div>
+      <div class="skill-row high"><span class="name">First Aid</span><span class="val">5</span></div>
+      <div class="skill-row high"><span class="name">Endurance</span><span class="val">5</span></div>
+      <div class="skill-row high"><span class="name">Lip Reading</span><span class="val">5</span></div>
+      <div class="skill-row high"><span class="name">Melee Weapon</span><span class="val">4</span></div>
+      <div class="skill-row high"><span class="name">Brawling</span><span class="val">4</span></div>
+      <div class="skill-row high"><span class="name">Evasion</span><span class="val">4</span></div>
+      <div class="skill-row high"><span class="name">Drive Land Vehicle</span><span class="val">4</span></div>
+      <div class="skill-row high"><span class="name">Local Expert (Home)</span><span class="val">4</span></div>
+      <div class="skill-row high"><span class="name">Language (Māori)</span><span class="val">4</span></div>
+      <div class="skill-row high"><span class="name">Language (Streetslang)</span><span class="val">4</span></div>
+      <div class="skill-row high"><span class="name">Athletics</span><span class="val">3</span></div>
+    </div>
+
+    <h4 class="entry-label">Baseline</h4>
+    <div class="skill-grid">
+      <div class="skill-row"><span class="name">Conversation</span><span class="val">2</span></div>
+      <div class="skill-row"><span class="name">Human Perception</span><span class="val">2</span></div>
+      <div class="skill-row"><span class="name">Persuasion</span><span class="val">2</span></div>
+      <div class="skill-row"><span class="name">Wardrobe &amp; Style</span><span class="val">2</span></div>
+      <div class="skill-row"><span class="name">Personal Grooming</span><span class="val">2</span></div>
+      <div class="skill-row"><span class="name">Perception</span><span class="val">2</span></div>
+      <div class="skill-row"><span class="name">Concentration</span><span class="val">2</span></div>
+      <div class="skill-row"><span class="name">Education</span><span class="val">2</span></div>
+      <div class="skill-row"><span class="name">Stealth</span><span class="val">2</span></div>
+      <div class="skill-row"><span class="name">Paramedic</span><span class="val">2</span></div>
+      <div class="skill-row"><span class="name">Demolitions</span><span class="val">1</span></div>
+    </div>
+
+    <div class="callout warn">
+      <div class="label">Skill-sheet note</div>
+      <p>No Handgun, Shoulder Arms, Autofire, or Archery skill is on file. Both of her on-record kills (Session 1 at the Lily Pond and Session 4 in the Combat Zone basement) were close-range shotgun blasts. Demolitions 1 was purchased after the in-fiction training arc in Session 2.</p>
+    </div>
+  </section>
+
+  <section id="disposition">
+    <h2 class="section-title"><span class="num">III.</span> Operating Disposition</h2>
+
+    <p>The lifepath answers are reproduced verbatim below.</p>
+
+    <table class="dossier-table">
+      <tr><td>Cultural Origin</td><td>Oceania</td></tr>
+      <tr><td>Family Background</td><td>Reclaimers</td></tr>
+      <tr><td>Childhood Environment</td><td>Drift Nation</td></tr>
+      <tr><td>Family Crisis</td><td>Scattered to the winds</td></tr>
+      <tr><td>Personality</td><td>Moody/rash/headstrong</td></tr>
+      <tr><td>Clothing Style</td><td>Gang colors (SNCZ)</td></tr>
+      <tr><td>Hair Style</td><td>Short and curly</td></tr>
+      <tr><td>Affectations</td><td>Nose piercings</td></tr>
+      <tr><td>Value Most</td><td>Knowing state of the scene, who's who</td></tr>
+      <tr><td>About People</td><td>Hates almost everyone</td></tr>
+      <tr><td>Valued Person</td><td>Yourself</td></tr>
+      <tr><td>Valued Possession</td><td>Family Photograph</td></tr>
+      <tr><td>Life Goal</td><td>Get off the street, no matter what</td></tr>
+      <tr><td>Friends</td><td>2 &mdash; "1 like a parent to me; 1 is someone with the same interests/goals" <em>(unassigned)</em></td></tr>
+      <tr><td>Tragic Love Affairs</td><td>"No tragic ones."</td></tr>
+      <tr><td>Enemies (lifepath)</td><td>"None as yet."</td></tr>
+    </table>
+
+    <div class="callout flag">
+      <div class="label">Tension between two canonical fields</div>
+      <p>The lifepath enemies field reads <em>"None as yet."</em> The GM-notes field on the same character record reads <em>"Critic/influencer is gunning for me."</em> Both are canonical. This dossier treats the critic/influencer as a real, named-but-unnamed antagonist (see <a href="#open">§VIII</a>) and preserves the lifepath wording verbatim above.</p>
+    </div>
+  </section>
+
+  <section id="family">
+    <h2 class="section-title"><span class="num">IV.</span> Family &amp; Origin</h2>
+
+    <p>The relevant section of the GM-notes field on the character record, in its own words:</p>
+
+    <blockquote class="transmission">
+      The Arasaka Ryūjin was a supercontainer ship that had been commandeered and turned into a megacomplex/trading hub in the Pacific. A lot of refugees from elsewhere settled in. […] Her father: Rangi, her mother Keani. She was born Kai (AMAB), and has three younger brothers (Makoa, Mikey, and Matiu). They had arrived early in the ship's reconfiguration, and ended up running a modestly successful trading stall most of her childhood. Eventually the ship was caught in the crossfire of corporate interests and sunk, and Kai (now Kaia) escaped with Mikey but they were separated from the others.
+      <span class="attribution">// character record &mdash; GM-notes field, verbatim</span>
+    </blockquote>
+
+    <p>And on Night City:</p>
+
+    <blockquote class="transmission">
+      She and Mikey ended up making it over to Night City, and hustled together. Mikey met someone and fell hard, and moved in around the same time that Kaia started really making connections on the music side. He's around somewhere but it's been months since he actually responded to a message. She hopes he's doing alright.
+      <span class="attribution">// character record &mdash; GM-notes field, verbatim</span>
+    </blockquote>
+
+    <div class="relations-grid">
+
+      <div class="relation">
+        <div class="name">Rangi <span class="role">&mdash; father</span><span class="marker unknown">separated &middot; status unstated</span></div>
+        <div class="text">Helped run the family trading stall on the Arasaka Ryūjin. Separated from Kaia and Mikey when the ship was sunk. Fate not stated in the record.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Keani <span class="role">&mdash; mother</span><span class="marker unknown">separated &middot; status unstated</span></div>
+        <div class="text">Helped run the family trading stall. Separated from Kaia and Mikey on the Ryūjin. Fate not stated.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Makoa <span class="role">&mdash; younger brother</span><span class="marker unknown">separated &middot; status unstated</span></div>
+        <div class="text">One of Kaia's three younger brothers. Did not escape with Kaia and Mikey. Fate not stated.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Mikey <span class="role">&mdash; younger brother</span><span class="marker alert">in Night City &middot; no recent reply</span></div>
+        <div class="text">Escaped the Ryūjin with Kaia; the two of them made it to Night City and hustled together. Met someone, fell hard, and moved in with them around the same time Kaia began making her music connections. He is around somewhere. It has been months since he last replied to a message.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Matiu <span class="role">&mdash; younger brother</span><span class="marker unknown">separated &middot; status unstated</span></div>
+        <div class="text">One of Kaia's three younger brothers. Did not escape with Kaia and Mikey. Fate not stated.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Family Photograph <span class="role">&mdash; valued possession</span><span class="marker">on her person</span></div>
+        <div class="text">The single most-valued possession on her lifepath. Image, year, and subjects not specified in the record.</div>
+      </div>
+
+    </div>
+
+    <h3 class="subhead">Cultural &amp; Background Notes</h3>
+    <p>The lifepath gives her cultural origin as <em>Oceania</em>, family background as <em>Reclaimers</em>, and childhood environment as <em>Drift Nation</em>. The Arasaka Ryūjin appears in the GM-notes field as a separate description. The dossier reports them as two distinct entries on the sheet rather than equating them. She speaks Māori at Language 4.</p>
+  </section>
+
+  <section id="band">
+    <h2 class="section-title"><span class="num">V.</span> Homeschool Dropouts</h2>
+
+    <p>From the GM-notes field, in its own words:</p>
+
+    <blockquote class="transmission">
+      She joined Kiloton Soundblast after a few abortive attempts with other flakes. A year in or so, Lou left, JP ODed, and Raze focused on their gang. Kaia recruited Kira, Alix, and Zara, and later Des Des after Talia was killed. Kira left for Netwatch, Alix joined a band they had done shows with and had a bit of a rivalry with, and Zara moved out east. Des Des moved to Heywood, and she again recruited, finding Nadja, Misha, and Cole, after changing the band name to Homeschool Dropouts.
+      <span class="attribution">// character record &mdash; GM-notes field, verbatim</span>
+    </blockquote>
+
+    <h3 class="subhead">Band Names</h3>
+    <table class="dossier-table">
+      <tr><td>Kiloton Soundblast</td><td>The band as Kaia joined it.</td></tr>
+      <tr><td>Homeschool Dropouts</td><td>Renamed at the point Kaia recruited Nadja, Misha, and Cole. Current name.</td></tr>
+    </table>
+
+    <h3 class="subhead">Members</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Name</th><th>Status</th></tr></thead>
+      <tr><td>Kaia kW</td><td>Vocalist. Longest-tenured member.</td></tr>
+      <tr><td>Lou (band)</td><td>In the band when Kaia joined. Left about a year later. <em>Distinct from Lou at the Blackout Bar.</em></td></tr>
+      <tr><td>JP</td><td>In the band when Kaia joined. Overdosed.</td></tr>
+      <tr><td>Raze</td><td>In the band when Kaia joined. Focused on their gang.</td></tr>
+      <tr><td>Talia</td><td>Killed. Replaced by Des Des.</td></tr>
+      <tr><td>Kira</td><td>Recruited by Kaia. Left for Netwatch.</td></tr>
+      <tr><td>Alix</td><td>Recruited by Kaia. Joined a band that the Dropouts had played with and had a bit of a rivalry with.</td></tr>
+      <tr><td>Zara</td><td>Recruited by Kaia. Moved east.</td></tr>
+      <tr><td>Des Des</td><td>Recruited by Kaia after Talia was killed. Moved to Heywood.</td></tr>
+      <tr><td>Nadja, Misha, Cole</td><td>Recruited by Kaia at the rename to Homeschool Dropouts. Current lineup alongside Kaia. <em>Roles in the lineup are not stated in the record.</em></td></tr>
+    </table>
+
+    <h3 class="subhead">Tenure</h3>
+    <p>Her tenure as vocalist is not given as an exact figure in the character record. The record describes a sequence of departures and recruitments &mdash; "a year in or so" the first wave hit, then several further rounds &mdash; consistent with her being the longest-tenured member of the current lineup by a meaningful margin. The player's working estimate is roughly four years; that figure is consistent with the record but is not in itself canonical.</p>
+
+    <h3 class="subhead">Sound &amp; Performance</h3>
+    <p>Per Session 1, the crew describes Kaia in-fiction as <em>"the experimental noise musician."</em> Per her player's setting notes, the band's working sound is hardcore punk with metallic elements, with screamed/shouted vocals processed through her AudioVox. The two descriptions live side by side on this file rather than one displacing the other. Her on-stage equipment includes the KillStrom Sonic Boom Amp, which, when linked to her instrument, can force people in the area to make a Resist Torture/Drugs check.</p>
+
+    <h3 class="subhead">The Distraction Gig (Sessions 2–3)</h3>
+    <p>For the Biotechnica job, Kaia produced a concert poster titled <strong>"Harusaka"</strong> and arranged a pop-up show across from the target building, co-billed with Candy Unicorn under Candy's manager <strong>Bluejack</strong>'s conditions. She also cut a rough music video for the gig. She finished her set before joining the rest of the crew for the infiltration.</p>
+  </section>
+
+  <section id="crew">
+    <h2 class="section-title"><span class="num">VI.</span> The Preem Chooms &amp; Contacts</h2>
+
+    <p>Only details that appear in the session record are reported here. Characterisation beyond those facts is left to play.</p>
+
+    <div class="relations-grid">
+
+      <div class="relation">
+        <div class="name">Cain (Cain Vex) <span class="role">&mdash; nomad &middot; crew</span><span class="marker">first contact</span></div>
+        <div class="text">Found Kaia asleep in the Dust Devil after a break-in (Session 1, Jan 9). Approached her with a shotgun; the encounter became a conversation about her financial situation. The crew helped her move her oversized amplifier to their apartment. Currently away on a nomad run to Nevada (Session 4). Kaia has agreed to cover his rent at McKracken's place for the back half of January, due by the 31st ("Night City Connections").</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">McKracken <span class="role">&mdash; private investigator</span><span class="marker">current host</span></div>
+        <div class="text">Drew roughly a dozen fans for Kaia at the Lily Pond in Old Japantown (Session 1). Kaia crashed at his place after being rebuffed at the Blackout Bar (Session 4). Performed inebriated at Mort's karaoke night ("Night City Connections").</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Deka <span class="role">&mdash; journalist</span><span class="marker">crew</span></div>
+        <div class="text">Buried under rubble alongside Kaia when the C9 detonated prematurely in the Combat Zone basement (Session 4). Published an article on <em>the Garden</em> during the lead-up to the Biotechnica job (Session 3). Dating Jessica Donuts ("Night City Connections").</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Shark <span class="role">&mdash; fixer</span><span class="marker">crew</span></div>
+        <div class="text">Crew fixer; intermediary with Mr. Purvis at Biotechnica. Took a sniper round during the Combat Zone exfil (Session 4). Has agreed to help find a surgeon for Kaia's cybernetic throat implant on a favours-for-work basis ("Night City Connections").</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Candy Unicorn <span class="role">&mdash; rocker &middot; collaborator</span><span class="marker alert">scene contact</span></div>
+        <div class="text">Former lead singer, now independent rocker. Met Kaia at the Lily Pond (Session 1). The Red Chrome Legion attacked the venue that night looking for her; she afterwards speculated it was retaliation for her past actions against them. Co-billed the Harusaka pop-up gig (Session 2). Released a music video that drew Netwatch censorship attention (Session 3). Reached out to Kaia on GardenBook to share jam-session clips ("Night City Connections").</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Bluejack <span class="role">&mdash; Candy Unicorn's manager</span><span class="marker">scene contact</span></div>
+        <div class="text">Agreed to Candy's collaboration on the Harusaka pop-up gig under his conditions (Session 2). Conditions not specified in the record.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Lennox Conway <span class="role">&mdash; Trauma Team medic</span><span class="marker">acquired contact</span></div>
+        <div class="text">Brought in via Shark for the cybernetic throat implant consultation ("Night City Connections"). Administered Speedheal &mdash; first to Deka, then to Kaia, lifting Kaia's serious-wound penalties. Joined Kaia, Shark, and McKracken at Mort's afterwards.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Mr. Purvis (Biotechnica) <span class="role">&mdash; client</span><span class="marker">paymaster</span></div>
+        <div class="text">Hired the crew to eliminate the street drug <em>Emerald City</em> and deliver a 30 kg sample (Session 2). Paid 1,500 eb up front and 1,000 eb on completion, plus the C9 explosives and detonator. Denied involvement in the sniper ambush during the exfil (Session 4).</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Boomer &amp; Dozer <span class="role">&mdash; Maelstrom</span><span class="marker alert">unstable</span></div>
+        <div class="text">Two Maelstrom gangers who found Kaia attempting to pick the mechanical lock on a broken van in the Combat Zone, and invited her on a joyride shooting at NCPD. A ricochet punctured a rear tire; the van went off a bridge into the river. All three surfaced; Boomer and Dozer signalled a passing boat and flipped off the NCPD ("Night City Connections"). Logged on Kaia's ledger as <em>"Maelstrom choom"</em> &mdash; the credit that took her Rep from 2 to 3.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Jessica Donuts <span class="role">&mdash; Deka's date</span><span class="marker">incoming gig</span></div>
+        <div class="text">Met Deka at Spino's. Eager to book Homeschool Dropouts for her birthday &mdash; a substantial booking, by Deka's reading. Deka has promised to arrange it ("Night City Connections"). Kaia has not yet met her.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Lou (Blackout Bar) <span class="role">&mdash; bar contact</span><span class="marker">debt cleared</span></div>
+        <div class="text">Kaia owed Lou at the Blackout Bar 550 eb (character record). She paid him in full this period (wealth ledger: "Paid off Lou"). She tried to reconnect at the bar after the Combat Zone job and was rebuffed (Session 4). <em>Not the same person as Lou the former Kiloton Soundblast member.</em></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="kit">
+    <h2 class="section-title"><span class="num">VII.</span> Loadout &amp; Cyberware</h2>
+
+    <h3 class="subhead">Performance Gear</h3>
+    <div class="gear-list">
+      <div class="gear-row">
+        <div class="name"><span class="star">★</span> KillStrom Sonic Boom Amp</div>
+        <div class="note">linked to instrument &mdash; area Resist Torture/Drugs check</div>
+      </div>
+      <div class="gear-row">
+        <div class="name">Microphone <span class="qual">electric &mdash; requires amplifier</span></div>
+        <div class="note"></div>
+      </div>
+      <div class="gear-row">
+        <div class="name">Audio Recorder</div>
+        <div class="note">24h per memory chip</div>
+      </div>
+      <div class="gear-row">
+        <div class="name">Video Camera</div>
+        <div class="note">12h per memory chip</div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Weapons</h3>
+    <div class="gear-list">
+      <div class="gear-row">
+        <div class="name">Heavy Pistol <span class="qual">poor quality</span></div>
+        <div class="note">3d6 &middot; ROF 2 &middot; mag 8 &middot; jams on natural 1 &middot; concealable</div>
+      </div>
+      <div class="gear-row">
+        <div class="name">Shotgun</div>
+        <div class="note">used point-blank, Sessions 1 and 4</div>
+      </div>
+      <div class="gear-row">
+        <div class="name">Bolt Cutter</div>
+        <div class="note">improvised melee</div>
+      </div>
+      <div class="gear-row">
+        <div class="name">Thrown Weapon</div>
+        <div class="note">on inventory</div>
+      </div>
+      <div class="gear-row">
+        <div class="name">Teargas Grenades &times; 2</div>
+        <div class="note">DV13 Resist Torture/Drugs or Damaged Eye 1 min</div>
+      </div>
+      <div class="gear-row">
+        <div class="name">Flashbang Grenade &times; 1</div>
+        <div class="note">DV15 or Damaged Eye + Damaged Ear &mdash; used at the Lily Pond (Session 1)</div>
+      </div>
+      <div class="gear-row">
+        <div class="name">Heavy Pistol Ammo &middot; basic</div>
+        <div class="note"></div>
+      </div>
+      <div class="gear-row">
+        <div class="name">Shotgun Slugs &middot; basic</div>
+        <div class="note"></div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Armor &amp; Wardrobe</h3>
+    <div class="gear-list">
+      <div class="gear-row">
+        <div class="name"><span class="star">★</span> Laser Light Street Jacket</div>
+        <div class="note">SP 11 &middot; counts as Light Tattoo (Urban Flash) &middot; electronic</div>
+      </div>
+      <div class="gear-row">
+        <div class="name">Gang Colors (SNCZ): top, bottoms, footwear, jewelry, contact lenses</div>
+        <div class="note">full kit</div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Utility</h3>
+    <div class="gear-list">
+      <div class="gear-row">
+        <div class="name">Agent</div>
+        <div class="note">+2 Library Search &middot; +2 Wardrobe &amp; Style (situational)</div>
+      </div>
+      <div class="gear-row">
+        <div class="name">Medtech Bag</div>
+        <div class="note">backs First Aid 5</div>
+      </div>
+      <div class="gear-row">
+        <div class="name">Duct Tape &middot; Handcuffs &middot; Glow Paint</div>
+        <div class="note"></div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Cyberware Installed</h3>
+    <table class="dossier-table">
+      <thead><tr><th>System</th><th>Slot</th><th>Effect</th></tr></thead>
+      <tr><td>Cyberaudio Suite</td><td>foundational</td><td>base interface for audio enhancements &middot; HL 7 + 2d6</td></tr>
+      <tr><td>AudioVox</td><td>cyberaudio internal</td><td>autotune synthesiser &middot; +2 Acting &middot; +2 Play Instrument (Singing) &middot; HL 3 + 1d6</td></tr>
+      <tr><td>External</td><td>7 slots</td><td>empty</td></tr>
+      <tr><td>Fashionware</td><td>7 slots</td><td>empty</td></tr>
+      <tr><td>Internal</td><td>6 of 7 slots remaining</td><td>1 used (AudioVox)</td></tr>
+    </table>
+
+    <div class="callout">
+      <div class="label">Pending: Cybernetic Throat Implant</div>
+      <p>Kaia is shopping for a cybernetic throat implant ("Night City Connections"). Lennox Conway has been brought in to consult; Shark has agreed to help find a surgeon on a favours-for-work basis. Not yet installed.</p>
+    </div>
+  </section>
+
+  <section id="open">
+    <h2 class="section-title"><span class="num">VIII.</span> Open Threads &amp; Antagonists</h2>
+
+    <h3 class="subhead">The Critic / Influencer</h3>
+    <p>The character record states, in the GM-notes field, that a <em>critic/influencer is gunning for her</em>. No name is given. The lifepath enemies field reads <em>"None as yet,"</em> which the dossier reads as the lifepath line not yet having been formalised into a named antagonist on the sheet. The critic/influencer is treated here as a real, active, unnamed antagonist. They have not yet been introduced on-screen.</p>
+
+    <h3 class="subhead">Mikey</h3>
+    <p>Her brother is somewhere in Night City and has not replied to a message in months (GM notes). Not yet surfaced in play.</p>
+
+    <h3 class="subhead">The Sniper at the Exfil</h3>
+    <p>During the Combat Zone exfil (Session 4) a sniper hit Shark. Mr. Purvis denied involvement. The shooter has not been identified.</p>
+
+    <h3 class="subhead">The Red Chrome Legion</h3>
+    <p>Stormed the Lily Pond looking for Candy Unicorn in Session 1. Kaia used the venue's strobe lighting against them, threw a flashbang, and killed one of them point-blank. Candy speculated the attack was retaliation for her past actions against the Legion. Whether the Legion has identified the people who fought alongside Candy that night is unresolved.</p>
+
+    <h3 class="subhead">The Maelstrom Tag</h3>
+    <p>The "Maelstrom choom" credit on Kaia's reputation ledger is a sticker some audiences may read very differently from others. Boomer and Dozer are not enemies; the question is who else now knows their faces and hers are on the same incident.</p>
+
+    <h3 class="subhead">The Jessica Donuts Booking</h3>
+    <p>A substantial offer to book Homeschool Dropouts for a corporate-adjacent birthday. Deka has promised to arrange it ("Night City Connections"). Kaia has not yet met Jessica and has not yet committed.</p>
+  </section>
+
+  <section id="timeline">
+    <h2 class="section-title"><span class="num">IX.</span> Operational Timeline</h2>
+
+    <p><em>Campaign events drawn from the five session logs. Session 1 anchors itself to January 9; the "Night City Connections" session anchors a later beat to January 14. The year of play is not stated in the materials.</em></p>
+
+    <div class="timeline">
+
+      <div class="timeline-entry">
+        <div class="when">// pre-campaign &middot; childhood</div>
+        <div class="what">The Arasaka Ryūjin</div>
+        <div class="detail">Born to Rangi and Keani aboard the Arasaka Ryūjin, a Pacific supercontainer ship turned trading hub. Three younger brothers: Makoa, Mikey, Matiu. Family ran a modestly successful trading stall.</div>
+      </div>
+
+      <div class="timeline-entry flash">
+        <div class="when">// pre-campaign &middot; the sinking</div>
+        <div class="what">The Ryūjin sinks; Kaia and Mikey escape</div>
+        <div class="detail">The ship is caught in the crossfire of corporate interests and sunk. Kaia escapes with Mikey, separated from the rest of the family.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">// pre-campaign &middot; arrival</div>
+        <div class="what">Night City with Mikey</div>
+        <div class="detail">The two siblings make it to Night City and hustle together. Mikey eventually meets someone, falls hard, and moves in with them around the same time Kaia begins making her music connections.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">// pre-campaign &middot; band</div>
+        <div class="what">Joins Kiloton Soundblast → renames to Homeschool Dropouts</div>
+        <div class="detail">Joins Kiloton Soundblast after several abortive attempts with other flakes. About a year in, the first wave of departures (Lou, JP, Raze). Recruits Kira, Alix, Zara; recruits Des Des after Talia is killed. After further departures, recruits Nadja, Misha, and Cole, and the band is renamed Homeschool Dropouts. Kaia is the longest-tenured member of the current lineup.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">// Jan 9 &middot; Session 1</div>
+        <div class="what">Found asleep in the Dust Devil</div>
+        <div class="detail">After a break-in, Kaia is found asleep in the Preem Chooms' vehicle with her amplifier. Cain approaches with a shotgun; the encounter de-escalates into a conversation about her finances. The crew helps her move the amplifier to her apartment.</div>
+      </div>
+
+      <div class="timeline-entry flash">
+        <div class="when">// Jan 9 &middot; Session 1 &middot; later</div>
+        <div class="what">The Lily Pond &mdash; Red Chrome Legion attack</div>
+        <div class="detail">McKracken draws roughly a dozen fans for Kaia in Old Japantown. She connects with Candy Unicorn. Masked Red Chrome Legion members storm the bar looking for Candy. Kaia uses the strobe lighting to disorient them, throws a flashbang, and finishes one of them at point-blank range. A bouncer is killed in the firefight; the patrons scatter.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">// Session 2 &middot; The Delirium</div>
+        <div class="what">Mr. Purvis &middot; the Biotechnica contract</div>
+        <div class="detail">At The Delirium, Purvis hires the crew to eliminate Emerald City and deliver 30 kg. 1,500 eb up front, 1,000 eb on completion; C9 and detonator provided. Kaia volunteers for demolitions training. She designs the "Harusaka" concert poster and coordinates the pop-up gig with Candy Unicorn under Bluejack's conditions. Cuts a rough music video. C9 and detonator stored at Candy's studio.</div>
+      </div>
+
+      <div class="timeline-entry flash">
+        <div class="when">// Sessions 3–4 &middot; The Old Combat Zone</div>
+        <div class="what">The job &middot; the basement &middot; the collapse</div>
+        <div class="detail">Kaia and Candy run the pop-up concert as cover; Kaia finishes her set before joining the rest of the crew at the propped-open back door. In the basement greenhouse-and-vat farm, the crew encounter Scarecrow gangers. Kaia kills one with a point-blank shotgun blast and attaches the C9 to the central vat. The C9 detonates prematurely; the building collapses; Kaia and Deka are buried under rubble. Cain and McKracken extract them while a sniper hits Shark. The crew reach a hospital.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">// Session 4 &middot; aftermath</div>
+        <div class="what">Payout &middot; rebuff at the Blackout Bar &middot; debt cleared</div>
+        <div class="detail">Purvis pays out the 1,000 eb on completion; the suitcase is not trapped. Kaia tries to get a new gig at the Blackout Bar and is rebuffed. She pays off the 550 eb she owed Lou at the Blackout Bar (wealth ledger). Cain prepares for the Nevada run; Kaia crashes at McKracken's place.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">// Jan 14 &middot; "Night City Connections"</div>
+        <div class="what">Throat implant consult &middot; covers Cain's rent</div>
+        <div class="detail">Lennox Conway, a Trauma Team medic, is brought in by Shark to consult on the cybernetic throat implant. Shark agrees to help find a surgeon on a favours-for-work basis. Kaia agrees to cover Cain's rent at McKracken's for the back half of January (due by the 31st). Candy Unicorn shares jam-session clips on GardenBook.</div>
+      </div>
+
+      <div class="timeline-entry flash">
+        <div class="when">// "Night City Connections"</div>
+        <div class="what">The broken van &middot; the Maelstrom joyride &middot; the river</div>
+        <div class="detail">Kaia tries to pick the mechanical lock on a broken van in the Combat Zone. Two Maelstrom gangers &mdash; Boomer and Dozer &mdash; appear and invite her on a joyride shooting at NCPD. A ricochet punctures a rear tire; the van goes off a bridge into the river. Kaia escapes through the passenger side. Boomer and Dozer surface, flag down a passing boat, and flip off the NCPD. Street Rep ticks to 3 on the "Maelstrom choom" credit.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">// "Night City Connections" &middot; that evening</div>
+        <div class="what">Speedheal &middot; Mort's karaoke</div>
+        <div class="detail">Lennox administers Speedheal &mdash; first to Deka, then a second dose to Kaia, lifting her serious-wound penalties. Kaia invites Lennox, Shark, and McKracken to Mort's, a dive bar known for karaoke. McKracken performs inebriated; Kaia impresses a fan who buys drinks for the table.</div>
+      </div>
+
+      <div class="timeline-entry now">
+        <div class="when">// "Night City Connections" &middot; current</div>
+        <div class="what">The Jessica Donuts booking</div>
+        <div class="detail">Deka's date with Jessica Donuts goes well. Jessica is eager to book Homeschool Dropouts for her birthday &mdash; a substantial performance, per Deka. Deka promises to arrange it. The booking is pending.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="unknowns">
+    <h2 class="section-title"><span class="num">X.</span> What the File Does Not Know</h2>
+
+    <p>An explicit list of open questions about Kaia, recorded here rather than guessed at:</p>
+
+    <ul>
+      <li><strong>When the transition from Kai to Kaia happened.</strong> The record states only that she was born Kai (AMAB) and is now Kaia.</li>
+      <li><strong>Whether her parents and other brothers survived.</strong> The record says only that they were separated from her when the Ryūjin sank.</li>
+      <li><strong>Whether Mikey is alive, and where in Night City he is.</strong> Months without a reply.</li>
+      <li><strong>Who the "critic/influencer gunning for her" is.</strong> Not yet named or staged.</li>
+      <li><strong>Who the lifepath's two friends are.</strong> One "like a parent," one "with the same interests/goals." Both unassigned.</li>
+      <li><strong>Whether Drift Nation and the Arasaka Ryūjin are the same place.</strong> Two distinct entries on the sheet; the file does not equate them.</li>
+      <li><strong>Lou.</strong> The Lou who left Kiloton Soundblast and Lou at the Blackout Bar are recorded as two different people.</li>
+      <li><strong>What instruments Nadja, Misha, and Cole play in the current Homeschool Dropouts lineup.</strong> Not stated.</li>
+      <li><strong>What the Family Photograph shows.</strong> Not stated.</li>
+      <li><strong>Who fired the sniper round at Shark during the Combat Zone exfil.</strong> Purvis denies; no other lead.</li>
+      <li><strong>The campaign year.</strong> Sessions anchor to January 9 and January 14 by date but not by year.</li>
+      <li><strong>Kaia's exact age.</strong> Not stated in the character record.</li>
+    </ul>
+  </section>
+
+  <footer class="colophon">
+    <div class="row">Dossier compiled <span class="accent">·</span> Night City <span class="accent">·</span> Preem Chooms file</div>
+    <div class="row">sources <span class="accent">·</span> Foundry character record + session logs 1–4 + "Night City Connections" <span class="accent">·</span> <span class="accent2">player-notes flagged where used</span></div>
+    <div class="eof">// END OF FILE //</div>
+  </footer>
+
+</div>
+</body>
+</html>
