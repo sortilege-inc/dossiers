@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Garin of Rohan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f3ecd5;
+    --paper-dark: #e2d8b8;
+    --ink: #221c14;
+    --ink-soft: #443a28;
+    --ink-faint: #786a4f;
+    --rohan-green: #3d5a36;
+    --rohan-green-deep: #1f3019;
+    --rohan-green-pale: #6d8a64;
+    --rohan-gold: --bronze;
+    --gold: #b08a3e;
+    --gold-deep: #79581a;
+    --gold-pale: #d4b06a;
+    --leather: #6b4824;
+    --leather-deep: #3e2810;
+    --rule: #c5b790;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "EB Garamond", "Cormorant Garamond", Georgia, serif;
+    font-size: 16px; line-height: 1.6; font-weight: 400;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(61, 90, 54, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgba(176, 138, 62, 0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(107, 72, 36, 0.03) 0%, transparent 70%);
+    min-height: 100vh; padding: 2rem 1rem;
+  }
+  .document {
+    max-width: 880px; margin: 0 auto;
+    background: var(--paper);
+    padding: 4rem 4.5rem 5rem;
+    box-shadow: 0 1px 2px rgba(34, 28, 20, 0.08), 0 8px 32px rgba(34, 28, 20, 0.14);
+    position: relative; border: 1px solid var(--rule);
+  }
+  .document::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--rohan-green-deep) 0%, var(--rohan-green) 25%, var(--gold) 50%, var(--rohan-green) 75%, var(--rohan-green-deep) 100%);
+  }
+
+  header.title-block {
+    text-align: center; border-bottom: 2px solid var(--ink);
+    padding-bottom: 2rem; margin-bottom: 3rem; position: relative;
+  }
+  header.title-block::after {
+    content: ""; display: block; width: 60px; height: 1px;
+    background: var(--gold); margin: 1rem auto 0;
+  }
+  .eyebrow {
+    font-family: "Cormorant SC", serif; font-size: 0.75rem;
+    letter-spacing: 0.4em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 1.5rem;
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    font-size: 3.5rem; line-height: 1.05; margin: 0 0 0.5rem;
+    letter-spacing: 0.02em; color: var(--ink);
+  }
+  .character-name .epithet { font-style: italic; color: var(--rohan-green-deep); }
+  .epithets {
+    font-family: "EB Garamond", serif; font-style: italic;
+    font-size: 1rem; color: var(--ink-soft); margin: 0.5rem 0 1rem;
+  }
+  .vitals {
+    display: flex; justify-content: center; gap: 2rem;
+    margin-top: 1.5rem; flex-wrap: wrap;
+    font-family: "Cormorant SC", serif; font-size: 0.78rem;
+    letter-spacing: 0.18em; color: var(--ink-soft);
+  }
+  .vitals span { border-left: 1px solid var(--rule); padding-left: 1.25rem; }
+  .vitals span:first-child { border-left: none; padding-left: 0; }
+
+  section { margin-bottom: 3rem; }
+  h2.section-title {
+    font-family: "Cormorant SC", serif; font-weight: 500;
+    font-size: 0.95rem; letter-spacing: 0.32em;
+    color: var(--rohan-green-deep); text-transform: uppercase;
+    border-bottom: 1px solid var(--rule); padding-bottom: 0.5rem;
+    margin: 0 0 1.5rem; position: relative;
+  }
+  h2.section-title::before {
+    content: "❧"; color: var(--gold); margin-right: 0.6rem;
+    font-style: normal; font-family: "EB Garamond", serif; font-weight: 400;
+  }
+  h3.subhead {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    font-size: 1.3rem; color: var(--rohan-green);
+    margin: 1.5rem 0 0.5rem; font-style: italic;
+  }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0.5rem 0 1rem 1.5rem; padding: 0; }
+  li { margin-bottom: 0.4rem; }
+  em { color: var(--ink-soft); }
+  strong { font-weight: 600; color: var(--ink); }
+
+  blockquote.maxim {
+    font-family: "Cormorant Garamond", serif; font-style: italic;
+    font-size: 1.25rem; line-height: 1.5;
+    color: var(--rohan-green-deep);
+    border-left: 3px solid var(--gold);
+    padding: 0.5rem 0 0.5rem 1.5rem; margin: 1.5rem 0;
+    background: rgba(61, 90, 54, 0.04);
+  }
+  blockquote.maxim .attribution {
+    display: block; font-size: 0.85rem; font-style: normal;
+    color: var(--ink-faint); font-family: "Cormorant SC", serif;
+    letter-spacing: 0.15em; margin-top: 0.5rem;
+  }
+
+  table.dossier-table {
+    width: 100%; border-collapse: collapse;
+    margin: 1rem 0 1.5rem; font-size: 0.92rem;
+  }
+  table.dossier-table th {
+    text-align: left; font-family: "Cormorant SC", serif; font-weight: 500;
+    font-size: 0.72rem; letter-spacing: 0.18em; color: var(--ink-faint);
+    text-transform: uppercase; padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  table.dossier-table td {
+    padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  table.dossier-table td:first-child {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    color: var(--ink); white-space: nowrap; padding-right: 1.5rem;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem; margin: 1rem 0;
+  }
+  .stat-cell {
+    text-align: center; padding: 1rem 0.5rem;
+    border: 1px solid var(--rule);
+    background: rgba(255, 255, 255, 0.4); position: relative;
+  }
+  .stat-cell .label {
+    font-family: "Cormorant SC", serif; font-size: 0.72rem;
+    letter-spacing: 0.2em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 0.35rem;
+  }
+  .stat-cell .value {
+    font-family: "Cormorant Garamond", serif; font-size: 2rem;
+    font-weight: 500; color: var(--ink-faint); line-height: 1;
+  }
+  .stat-cell .delta {
+    font-family: "EB Garamond", serif; font-style: italic;
+    font-size: 0.85rem; color: var(--ink-faint); margin-top: 0.3rem;
+  }
+
+  .small-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem; margin: 1rem 0 1.5rem;
+  }
+  .small-cell {
+    text-align: center; padding: 0.75rem 0.4rem;
+    border: 1px solid var(--rule);
+    background: rgba(255, 255, 255, 0.4);
+  }
+  .small-cell .label {
+    font-family: "Cormorant SC", serif; font-size: 0.66rem;
+    letter-spacing: 0.18em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 0.25rem;
+  }
+  .small-cell .value {
+    font-family: "Cormorant Garamond", serif; font-size: 1.4rem;
+    font-weight: 500; color: var(--ink-faint); line-height: 1;
+  }
+
+  .relations-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
+  .relation { padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+  .relation:last-child { border-bottom: none; }
+  .relation .name {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    font-size: 1.1rem; color: var(--ink); margin-bottom: 0.15rem;
+  }
+  .relation .name .role {
+    font-style: italic; color: var(--ink-soft);
+    font-size: 0.95rem; font-weight: 400;
+  }
+  .relation .name .culture {
+    font-family: "Cormorant SC", serif; font-size: 0.7rem;
+    letter-spacing: 0.15em; color: var(--leather-deep); margin-left: 0.5rem;
+  }
+  .relation .text { font-size: 0.95rem; color: var(--ink-soft); margin-top: 0.25rem; }
+
+  .timeline {
+    border-left: 2px solid var(--gold);
+    padding-left: 1.5rem; margin: 1rem 0 1rem 0.5rem;
+  }
+  .timeline-entry { margin-bottom: 1.5rem; position: relative; }
+  .timeline-entry::before {
+    content: ""; position: absolute; left: -1.85rem; top: 0.5rem;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--paper); border: 2px solid var(--gold);
+  }
+  .timeline-entry .when {
+    font-family: "Cormorant SC", serif; font-size: 0.72rem;
+    letter-spacing: 0.18em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 0.25rem;
+  }
+  .timeline-entry .what {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    font-size: 1.05rem; color: var(--ink); margin-bottom: 0.25rem;
+  }
+  .timeline-entry .detail { font-size: 0.93rem; color: var(--ink-soft); }
+
+  .callout {
+    border: 1px solid var(--gold-pale);
+    border-left: 4px solid var(--gold-deep);
+    padding: 1rem 1.5rem; margin: 1.5rem 0;
+    background: rgba(176, 138, 62, 0.07);
+  }
+  .callout .label {
+    font-family: "Cormorant SC", serif; font-size: 0.72rem;
+    letter-spacing: 0.2em; color: var(--gold-deep);
+    text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  nav.toc {
+    border: 1px solid var(--rule); padding: 1.25rem 1.5rem;
+    margin-bottom: 3rem; background: rgba(255, 255, 255, 0.4);
+    columns: 2; column-gap: 2rem;
+  }
+  nav.toc .toc-label {
+    font-family: "Cormorant SC", serif; font-size: 0.7rem;
+    letter-spacing: 0.25em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 0.6rem; column-span: all;
+  }
+  nav.toc ol {
+    list-style: none; margin: 0; padding: 0;
+    counter-reset: toc; font-family: "EB Garamond", serif;
+  }
+  nav.toc ol li {
+    counter-increment: toc; font-size: 0.93rem;
+    margin-bottom: 0.3rem; break-inside: avoid;
+  }
+  nav.toc ol li::before {
+    content: counter(toc, upper-roman) ". ";
+    color: var(--leather-deep); font-style: italic; margin-right: 0.3rem;
+  }
+  nav.toc a {
+    color: var(--ink); text-decoration: none;
+    border-bottom: 1px dotted transparent; transition: border-color 0.2s;
+  }
+  nav.toc a:hover { border-bottom-color: var(--rohan-green); }
+
+  footer.colophon {
+    margin-top: 4rem; padding-top: 2rem;
+    border-top: 1px solid var(--rule); text-align: center;
+    font-family: "Cormorant SC", serif; font-size: 0.7rem;
+    letter-spacing: 0.25em; color: var(--ink-faint); text-transform: uppercase;
+  }
+  footer.colophon::before {
+    content: "❧"; display: block; color: var(--gold);
+    font-size: 1.2rem; margin-bottom: 1rem; letter-spacing: normal;
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .document { box-shadow: none; padding: 1in; max-width: none; }
+  }
+
+  @media (max-width: 700px) {
+    body { padding: 1rem 0.5rem; }
+    .document { padding: 2rem 1.5rem 3rem; }
+    h1.character-name { font-size: 2.5rem; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
+    .stat-cell { padding: 0.6rem 0.3rem; }
+    .stat-cell .value { font-size: 1.5rem; }
+    .small-grid { grid-template-columns: repeat(2, 1fr); }
+    nav.toc { columns: 1; }
+    .vitals { gap: 0.75rem; font-size: 0.7rem; }
+    .vitals span { border-left: none; padding-left: 0; }
+    .portrait-block { grid-template-columns: 1fr; gap: 1.25rem; }
+    .portrait-block img { max-width: 260px; }
+  }
+
+  .portrait-block {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem; margin: 0 0 2.5rem; align-items: end;
+  }
+  .portrait-block figure { margin: 0; text-align: center; }
+  .portrait-block img {
+    width: 100%; max-width: 320px; height: auto;
+    border: 1px solid var(--ink);
+    box-shadow: 0 2px 10px rgba(34, 28, 20, 0.18), inset 0 0 0 4px var(--paper);
+    padding: 4px; background: var(--paper-dark);
+  }
+  .portrait-block figcaption {
+    font-family: "Cormorant SC", serif; font-size: 0.7rem;
+    letter-spacing: 0.22em; color: var(--ink-faint);
+    text-transform: uppercase; margin-top: 0.7rem;
+  }
+  .portrait-block .blurb {
+    font-family: "EB Garamond", serif; font-style: italic;
+    color: var(--ink-soft); font-size: 0.95rem;
+    padding: 0 0.5rem; text-align: left; line-height: 1.55;
+  }
+</style>
+</head>
+<body>
+<div class="document">
+
+  <header class="title-block">
+    <div class="eyebrow">Dossier &middot; Riders of Rohan</div>
+    <h1 class="character-name">Garin <span class="epithet">of Rohan</span></h1>
+    <p class="epithets">Rider Met on the Plains &middot; Whose Mare Carried Celenneth Home</p>
+    <div class="vitals">
+      <span>Riders of Rohan</span>
+      <span>Edoras</span>
+      <span>Met Book VI–VII</span>
+    </div>
+  </header>
+
+  <div class="portrait-block">
+    <figure>
+      <img src="garin.png" alt="Portrait of Garin, long blonde hair, mailed cuirass, green Rohan cloak, mounted">
+      <figcaption>Garin &middot; mailed; green-cloaked; horsed</figcaption>
+    </figure>
+    <div class="blurb">
+      <p>A Rohirrim woman: long fair hair, grey-green eyes, dark mailed cuirass under a green cloak, mounted. Of the éored that met Celenneth on the plains after Fangorn and carried her home to Edoras. Later one of Linnea's named Rohirrim friends.</p>
+    </div>
+  </div>
+
+  <nav class="toc">
+    <div class="toc-label">Contents</div>
+    <ol>
+      <li><a href="#identity">Identity &amp; Standing</a></li>
+      <li><a href="#mechanical">The Character Sheet</a></li>
+      <li><a href="#relations">Bonds &amp; Acquaintances</a></li>
+      <li><a href="#timeline">Chronicle of the Encounter</a></li>
+    </ol>
+  </nav>
+
+  <section id="identity">
+    <h2 class="section-title">I. Identity &amp; Standing</h2>
+
+    <p>Garin is a Rohirrim woman of an éored riding the plains east of Edoras. She and her fellow riders found Celenneth on the open plains in the long ride home after Fangorn &mdash; gone since Súlimë 5, returned at Cermië 1, nearly four months absent. Garin's mare carried Celenneth back to Edoras. Across the chapters of the ride, Garin fell for her quietly, and the chronicle has been clear: <em>her interest is apparently obvious to everyone except its object.</em> Celenneth did not see it. Nothing physical passed between them. Linnea later went to the stables to meet Garin before the next patrol, and the friendship that formed was named by the chronicle: <em>Linnea built friendships with Eadwyn and Garin that are genuine and mutual.</em></p>
+
+    <h3 class="subhead">Sayings of Record</h3>
+
+    <blockquote class="maxim">
+      You're as sharp as an arrow when it comes to spotting danger, but when someone pays you a compliment, you're as dull as a blunted sword.
+      <span class="attribution">To Celenneth, on the plains</span>
+    </blockquote>
+  </section>
+
+  <section id="mechanical">
+    <h2 class="section-title">II. The Character Sheet</h2>
+
+    <div class="callout">
+      <div class="label">Note on the Sheet</div>
+      <p>Garin's TOR2e character sheet is unfilled apart from her name. The fields below are shown as recorded; what the chronicle has visibly established is summarised in the prose of this dossier rather than fabricated on the sheet.</p>
+    </div>
+
+    <h3 class="subhead">Attributes</h3>
+    <div class="stat-grid">
+      <div class="stat-cell"><div class="label">Strength</div><div class="value">&mdash;</div><div class="delta"><em>Not recorded</em></div></div>
+      <div class="stat-cell"><div class="label">Heart</div><div class="value">&mdash;</div><div class="delta"><em>Not recorded</em></div></div>
+      <div class="stat-cell"><div class="label">Wits</div><div class="value">&mdash;</div><div class="delta"><em>Not recorded</em></div></div>
+    </div>
+
+    <h3 class="subhead">Stature &amp; Standing</h3>
+    <div class="small-grid">
+      <div class="small-cell"><div class="label">Valour</div><div class="value">&mdash;</div></div>
+      <div class="small-cell"><div class="label">Wisdom</div><div class="value">&mdash;</div></div>
+      <div class="small-cell"><div class="label">Fellowship</div><div class="value">&mdash;</div></div>
+      <div class="small-cell"><div class="label">Treasure</div><div class="value">&mdash;</div></div>
+    </div>
+
+    <h3 class="subhead">Endurance, Hope, Shadow</h3>
+    <div class="small-grid">
+      <div class="small-cell"><div class="label">Endurance</div><div class="value">&mdash;</div></div>
+      <div class="small-cell"><div class="label">Hope</div><div class="value">&mdash;</div></div>
+      <div class="small-cell"><div class="label">Shadow Scars</div><div class="value">&mdash;</div></div>
+      <div class="small-cell"><div class="label">Load</div><div class="value">&mdash;</div></div>
+    </div>
+
+    <h3 class="subhead">Cultural Blessing, Calling, Features</h3>
+    <table class="dossier-table">
+      <tr><td>Culture</td><td><em>Not recorded.</em> Of Rohan by the chronicle's description.</td></tr>
+      <tr><td>Cultural Blessing</td><td><em>Not recorded.</em></td></tr>
+      <tr><td>Calling</td><td><em>Not recorded.</em></td></tr>
+      <tr><td>Distinctive Features</td><td><em>Not recorded.</em></td></tr>
+      <tr><td>Shadow Path</td><td><em>Not recorded.</em></td></tr>
+    </table>
+
+    <h3 class="subhead">Combat Proficiencies, Skills, Gear</h3>
+    <p><em>Not recorded.</em></p>
+  </section>
+
+  <section id="relations">
+    <h2 class="section-title">III. Bonds &amp; Acquaintances</h2>
+
+    <div class="relations-grid">
+
+      <div class="relation">
+        <div class="name">Celenneth <span class="role">— ranger met on the plains</span><span class="culture">Rangers of the North</span></div>
+        <div class="text">Found by Garin's éored on the open plains in the long ride back to Edoras after Fangorn. Garin's mare carried her home. Garin's interest was visible to the other riders but not to Celenneth, who <em>reads threats and terrain and political necessity. Everything else requires translation.</em> Nothing physical passed between them. Celenneth later named the matter plainly to Linnea: <em>had she asked to be physical, I don't know that I would've thought to say no. Nothing about that would have felt like a betrayal to you, in my mind.</em></div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Linnea <span class="role">— Celenneth's wife; later friend</span><span class="culture">Men of Bree</span></div>
+        <div class="text">Asked Celenneth to meet her: <em>introduce us.</em> Went to the stables before the next patrol on her own initiative, <em>proactive, honest, generous in a way that comes from security rather than indifference</em> &mdash; <em>I know what we have. I don't need to fear anyone else.</em> The chronicle later named the result: <em>Linnea built friendships with Eadwyn and Garin that are genuine and mutual.</em></div>
+      </div>
+
+      <div class="relation">
+        <div class="name">The Other Riders of the Éored <span class="role">— fellow Rohirrim</span><span class="culture">Rohan</span></div>
+        <div class="text">Noticed and exchanged knowing glances. Garin's interest was, the chronicle says, <em>apparently obvious to everyone except its object.</em></div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Eadwyn <span class="role">— Rohirrim instructor; mutual friend</span><span class="culture">Rohan</span></div>
+        <div class="text">Named alongside Garin among the friendships Linnea built in Rohan that were <em>genuine and mutual.</em></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="timeline">
+    <h2 class="section-title">IV. Chronicle of the Encounter</h2>
+
+    <div class="timeline">
+
+      <div class="timeline-entry">
+        <div class="when">Book VI/VII &middot; The Plains &middot; Cermië, late summer</div>
+        <div class="what">The éored found Celenneth on the open road.</div>
+        <div class="detail">Celenneth had been gone from Edoras since Súlimë 5; it was now Cermië 1 &mdash; nearly four months. The plains after Fangorn: open sky, golden grass. The chronicle: <em>open sky, golden plains, the warmth of human company after weeks of ancient indifference.</em> Garin's mare carried Celenneth home.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book VI/VII &middot; The Ride to Edoras</div>
+        <div class="what">Teasing; the riders' glances; the line said without thinking.</div>
+        <div class="detail"><em>You're as sharp as an arrow when it comes to spotting danger, but when someone pays you a compliment, you're as dull as a blunted sword.</em> The other riders noticing and exchanging knowing glances. Celenneth, somewhere along the road: <em>I never stay in a place more than a season.</em> The old reflex speaking before the new reality caught up.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book VII &middot; Edoras &middot; The Telling</div>
+        <div class="what">Celenneth told Linnea everything.</div>
+        <div class="detail">By the fire afterward, Linnea asking <em>hold me while you tell me everything.</em> Linnea's response: <em>I didn't want you holding back.</em> The chronicle: <em>not jealousy, not performance of acceptance, but genuine interest and warmth.</em></div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book VII &middot; Edoras &middot; Linnea at the Stables</div>
+        <div class="what">Linnea introduced herself to Garin before the next patrol.</div>
+        <div class="detail">Proactive rather than defensive. <em>I know what we have. I don't need to fear anyone else.</em> The act of someone who has done the internal work of understanding what their relationship actually is and choosing to honour it on its own terms.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book VII onward &middot; Edoras</div>
+        <div class="what">A friendship.</div>
+        <div class="detail"><em>Linnea built friendships with Eadwyn and Garin that are genuine and mutual.</em></div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="colophon">
+    Dossier &middot; Edoras &middot; Late Third Age
+  </footer>
+
+</div>
+</body>
+</html>
