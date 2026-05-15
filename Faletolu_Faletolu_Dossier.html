@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Faletolu Faletolu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700;900&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --obsidian:      #0d0e10;
+    --deep-ocean:    #0a1520;
+    --ocean-mid:     #112233;
+    --ocean-pale:    #1a3a50;
+    --wave:          #1e5a78;
+    --wave-bright:   #2a7aa0;
+    --seafoam:       #4ab8c8;
+    --seafoam-pale:  #8ad4de;
+    --bone:          #e8dcc8;
+    --bone-warm:     #d4c4a0;
+    --bone-faint:    #c0aa84;
+    --tapa:          #b89060;
+    --tapa-dark:     #8a6838;
+    --ember:         #c84820;
+    --ember-bright:  #e06030;
+    --ember-pale:    #e89060;
+    --ink:           #e8dcc8;
+    --ink-soft:      #c0aa84;
+    --ink-faint:     #8a7860;
+    --rule:          #2a5070;
+    --rule-bright:   #4ab8c8;
+    --panel:         rgba(26, 58, 80, 0.35);
+    --panel-dark:    rgba(10, 21, 32, 0.55);
+    --shadow:        rgba(0, 0, 0, 0.6);
+    --glow:          rgba(74, 184, 200, 0.15);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--deep-ocean);
+    color: var(--ink);
+    font-family: "Lora", Georgia, serif;
+    font-size: 16px;
+    line-height: 1.72;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse at 0% 0%, rgba(74,184,200,0.08) 0%, transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(200,72,32,0.10) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 30%, rgba(10,21,32,0.9) 0%, transparent 80%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    min-height: 100vh;
+    padding: 2.5rem 1rem;
+  }
+
+  /* ─── TAPA PATTERN SVG background ─── */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect width='60' height='60' fill='none'/%3E%3Cpath d='M0 30h60M30 0v60' stroke='%234ab8c8' stroke-width='0.3' opacity='0.07'/%3E%3Crect x='14' y='14' width='32' height='32' fill='none' stroke='%234ab8c8' stroke-width='0.4' opacity='0.05'/%3E%3Crect x='22' y='22' width='16' height='16' fill='none' stroke='%234ab8c8' stroke-width='0.3' opacity='0.04'/%3E%3Ccircle cx='30' cy='30' r='3' fill='none' stroke='%234ab8c8' stroke-width='0.3' opacity='0.05'/%3E%3Ccircle cx='0' cy='0' r='3' fill='none' stroke='%234ab8c8' stroke-width='0.3' opacity='0.04'/%3E%3Ccircle cx='60' cy='0' r='3' fill='none' stroke='%234ab8c8' stroke-width='0.3' opacity='0.04'/%3E%3Ccircle cx='0' cy='60' r='3' fill='none' stroke='%234ab8c8' stroke-width='0.3' opacity='0.04'/%3E%3Ccircle cx='60' cy='60' r='3' fill='none' stroke='%234ab8c8' stroke-width='0.3' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .document {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--ocean-mid);
+    padding: 0;
+    box-shadow:
+      0 0 0 1px rgba(74,184,200,0.2),
+      0 0 0 3px rgba(10,21,32,0.8),
+      0 0 60px rgba(0,0,0,0.7),
+      0 0 120px rgba(74,184,200,0.06);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  /* ── top border bar ── */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--ember) 0%,
+      var(--ember-pale) 25%,
+      var(--seafoam) 50%,
+      var(--ember-pale) 75%,
+      var(--ember) 100%);
+    z-index: 10;
+  }
+
+  /* ── bottom border bar ── */
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%, var(--wave) 20%, var(--seafoam) 50%, var(--wave) 80%, transparent 100%);
+    z-index: 10;
+  }
+
+  /* ── HEADER ── */
+  .doc-header {
+    position: relative;
+    background: linear-gradient(180deg, var(--obsidian) 0%, var(--deep-ocean) 60%, var(--ocean-mid) 100%);
+    padding: 4rem 5rem 3.5rem;
+    text-align: center;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(74,184,200,0.25);
+  }
+
+  /* large koru/spiral watermark */
+  .doc-header::before {
+    content: "";
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 420px; height: 420px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath d='M100,100 m0,-70 a70,70 0 1,1 -0.1,0 Z M100,100 m0,-50 a50,50 0 1,1 -0.1,0 Z M100,100 m0,-30 a30,30 0 1,1 -0.1,0 Z' fill='none' stroke='%234ab8c8' stroke-width='0.6' opacity='0.06'/%3E%3Ccircle cx='100' cy='100' r='70' fill='none' stroke='%234ab8c8' stroke-width='0.5' opacity='0.05'/%3E%3Ccircle cx='100' cy='100' r='50' fill='none' stroke='%234ab8c8' stroke-width='0.5' opacity='0.04'/%3E%3Ccircle cx='100' cy='100' r='30' fill='none' stroke='%234ab8c8' stroke-width='0.5' opacity='0.04'/%3E%3Cpath d='M30,100 L170,100 M100,30 L100,170 M44,44 L156,156 M156,44 L44,156' stroke='%234ab8c8' stroke-width='0.3' opacity='0.04'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .filemark {
+    display: flex;
+    justify-content: space-between;
+    font-family: "Cinzel", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.3em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .eyebrow {
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.38em;
+    color: var(--seafoam);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  h1.character-name {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 3.2rem;
+    font-weight: 900;
+    color: var(--bone);
+    line-height: 1.05;
+    margin: 0 0 0.2rem;
+    letter-spacing: 0.06em;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0 40px rgba(74,184,200,0.25), 0 2px 8px rgba(0,0,0,0.7);
+  }
+
+  .name-gloss {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    color: var(--tapa);
+    text-transform: uppercase;
+    margin: 0.3rem 0 1.2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .class-line {
+    font-family: "Cinzel", serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.18em;
+    color: var(--seafoam-pale);
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+
+  .header-rule {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--rule-bright) 30%, var(--seafoam) 50%, var(--rule-bright) 70%, transparent 100%);
+    margin: 2rem 0 1.5rem;
+    opacity: 0.4;
+    position: relative;
+    z-index: 1;
+  }
+
+  .vitals {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+
+  .vital-pill {
+    background: rgba(10,21,32,0.7);
+    border: 1px solid rgba(74,184,200,0.25);
+    padding: 0.5rem 1.1rem;
+    text-align: center;
+    min-width: 80px;
+  }
+
+  .vital-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+
+  .vital-value {
+    font-family: "Cinzel", serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--bone);
+    display: block;
+  }
+
+  .vital-value.highlight { color: var(--seafoam); }
+  .vital-value.danger    { color: var(--ember-bright); }
+
+  /* ── BODY ── */
+  .doc-body {
+    padding: 3.5rem 5rem 5rem;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    margin-bottom: 3.5rem;
+    position: relative;
+  }
+
+  h2.section-title {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    color: var(--seafoam);
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(74,184,200,0.2);
+    padding-bottom: 0.6rem;
+    margin: 0 0 1.8rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+  }
+
+  h2.section-title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(74,184,200,0.2) 0%, transparent 100%);
+  }
+
+  .sec-num {
+    color: var(--tapa);
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+  }
+
+  h3.subhead {
+    font-family: "Cinzel", serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    color: var(--ember-pale);
+    text-transform: uppercase;
+    margin: 1.8rem 0 0.7rem;
+  }
+
+  p {
+    margin: 0 0 1.1rem;
+    color: var(--bone-warm);
+  }
+
+  /* ── STATS GRID ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .stat-block {
+    background: var(--panel-dark);
+    border: 1px solid rgba(74,184,200,0.15);
+    padding: 0.9rem 0.7rem;
+    text-align: center;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .stat-block:hover {
+    border-color: rgba(74,184,200,0.35);
+  }
+
+  .stat-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-score {
+    font-family: "Cinzel", serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--bone);
+    line-height: 1;
+    display: block;
+  }
+
+  .stat-score.high  { color: var(--ember-bright); }
+  .stat-score.low   { color: var(--wave-bright); opacity: 0.8; }
+
+  .stat-sub {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: 0.4rem;
+  }
+
+  .stat-sub span {
+    font-family: "Cinzel", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+
+  .stat-sub strong {
+    color: var(--seafoam-pale);
+    font-weight: 600;
+  }
+
+  /* ── COMBAT ROW ── */
+  .combat-row {
+    display: flex;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .combat-pill {
+    flex: 1;
+    min-width: 90px;
+    background: var(--panel-dark);
+    border: 1px solid rgba(74,184,200,0.15);
+    padding: 0.8rem 0.6rem;
+    text-align: center;
+  }
+
+  .combat-pill .cp-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.54rem;
+    letter-spacing: 0.25em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .combat-pill .cp-value {
+    font-family: "Cinzel", serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--bone);
+    display: block;
+  }
+
+  .combat-pill .cp-value.accent { color: var(--seafoam); }
+
+  /* ── SKILLS TABLE ── */
+  .skills-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 2rem;
+  }
+
+  .skill-group {
+    margin-bottom: 1rem;
+  }
+
+  .skill-group-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.28em;
+    color: var(--seafoam);
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(74,184,200,0.15);
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .skill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.15rem 0;
+    font-size: 0.88rem;
+    color: var(--bone-warm);
+    font-family: "Lora", serif;
+  }
+
+  .skill-row.proficient .skill-name { color: var(--bone); font-weight: 600; }
+  .skill-mod { font-family: "Cinzel", serif; font-size: 0.82rem; color: var(--seafoam-pale); font-weight: 600; }
+  .skill-mod.high { color: var(--ember-pale); }
+  .skill-mod.low  { color: var(--wave-bright); opacity: 0.7; }
+
+  /* ── SHEET ROW ── */
+  .sheet-row {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(74,184,200,0.07);
+    font-size: 0.92rem;
+  }
+
+  .sr-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    min-width: 160px;
+    flex-shrink: 0;
+  }
+
+  .sr-value { color: var(--bone-warm); }
+  .sr-value.unknown { color: var(--tapa-dark); font-style: italic; }
+
+  /* ── FEATURE ENTRY ── */
+  .feature-entry {
+    margin-bottom: 1.4rem;
+    padding-left: 1.2rem;
+    border-left: 2px solid rgba(74,184,200,0.2);
+  }
+
+  .feat-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--seafoam-pale);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+
+  /* ── CALLOUT ── */
+  .callout {
+    background: rgba(10,21,32,0.6);
+    border-left: 3px solid var(--seafoam);
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+  }
+
+  .callout.fire   { border-left-color: var(--ember-bright); }
+  .callout.warn   { border-left-color: var(--tapa); }
+
+  .callout .label {
+    font-family: "Cinzel", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.28em;
+    color: var(--seafoam);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.fire .label  { color: var(--ember-pale); }
+  .callout.warn .label  { color: var(--tapa); }
+
+  .callout p { margin: 0; font-size: 0.92rem; }
+
+  /* ── EVENT LOG ── */
+  .event-log {
+    background: var(--panel-dark);
+    border: 1px solid rgba(74,184,200,0.15);
+    margin: 1.5rem 0;
+    overflow: hidden;
+  }
+
+  .event-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10,21,32,0.7);
+    padding: 0.55rem 1.2rem;
+    border-bottom: 1px solid rgba(74,184,200,0.15);
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+
+  .event-header span:last-child { color: var(--ember-pale); }
+
+  .event-body {
+    padding: 1.4rem 1.4rem 1rem;
+  }
+
+  /* ── ORNAMENT ── */
+  .ornament {
+    text-align: center;
+    color: var(--tapa-dark);
+    font-size: 1.1rem;
+    letter-spacing: 0.5em;
+    margin: 3rem 0 2rem;
+    opacity: 0.7;
+  }
+
+  /* ── COLOPHON ── */
+  .colophon {
+    text-align: center;
+    font-family: "Cinzel", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    line-height: 2;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(74,184,200,0.1);
+  }
+
+  em { color: var(--bone); font-style: italic; }
+  strong { color: var(--bone); font-weight: 600; }
+
+  @media (max-width: 680px) {
+    .doc-header, .doc-body { padding-left: 1.5rem; padding-right: 1.5rem; }
+    h1.character-name { font-size: 2rem; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .skills-cols { grid-template-columns: 1fr; }
+    .sr-label { min-width: 120px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="document">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+
+    <div class="filemark">
+      <span>Homebrew Setting · D&amp;D 5e</span>
+      <span>Open File · Active Duty</span>
+    </div>
+
+    <div class="eyebrow">Player Character Record</div>
+
+    <h1 class="character-name">Faletolu Faletolu</h1>
+    <div class="name-gloss">"Six Houses" — Three Houses, Twice Over</div>
+
+    <div class="class-line">Barbarian 1 / Bard 1 &nbsp;·&nbsp; Soldier &nbsp;·&nbsp; Chaotic Neutral</div>
+
+    <div class="header-rule"></div>
+
+    <div class="vitals">
+      <div class="vital-pill">
+        <span class="vital-label">Hit Points</span>
+        <span class="vital-value danger">8</span>
+      </div>
+      <div class="vital-pill">
+        <span class="vital-label">Armor Class</span>
+        <span class="vital-value">10</span>
+      </div>
+      <div class="vital-pill">
+        <span class="vital-label">Initiative</span>
+        <span class="vital-value">−1</span>
+      </div>
+      <div class="vital-pill">
+        <span class="vital-label">Speed</span>
+        <span class="vital-value highlight">30 ft</span>
+      </div>
+      <div class="vital-pill">
+        <span class="vital-label">Proficiency</span>
+        <span class="vital-value highlight">+2</span>
+      </div>
+      <div class="vital-pill">
+        <span class="vital-label">Hit Dice</span>
+        <span class="vital-value">1d8</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BODY -->
+  <div class="doc-body">
+
+    <!-- I. ABILITY SCORES -->
+    <section id="stats">
+      <h2 class="section-title"><span class="sec-num">I.</span> Ability Scores &amp; Combat</h2>
+
+      <div class="stats-grid">
+
+        <div class="stat-block">
+          <span class="stat-name">Strength</span>
+          <span class="stat-score high">16</span>
+          <div class="stat-sub">
+            <span>Mod <strong>+3</strong></span>
+            <span>Save <strong>+3</strong></span>
+          </div>
+        </div>
+
+        <div class="stat-block">
+          <span class="stat-name">Intelligence</span>
+          <span class="stat-score">11</span>
+          <div class="stat-sub">
+            <span>Mod <strong>0</strong></span>
+            <span>Save <strong>0</strong></span>
+          </div>
+        </div>
+
+        <div class="stat-block">
+          <span class="stat-name">Dexterity</span>
+          <span class="stat-score low">9</span>
+          <div class="stat-sub">
+            <span>Mod <strong>−1</strong></span>
+            <span>Save <strong>+1</strong></span>
+          </div>
+        </div>
+
+        <div class="stat-block">
+          <span class="stat-name">Wisdom</span>
+          <span class="stat-score low">5</span>
+          <div class="stat-sub">
+            <span>Mod <strong>−3</strong></span>
+            <span>Save <strong>−3</strong></span>
+          </div>
+        </div>
+
+        <div class="stat-block">
+          <span class="stat-name">Constitution</span>
+          <span class="stat-score">11</span>
+          <div class="stat-sub">
+            <span>Mod <strong>0</strong></span>
+            <span>Save <strong>0</strong></span>
+          </div>
+        </div>
+
+        <div class="stat-block">
+          <span class="stat-name">Charisma</span>
+          <span class="stat-score">13</span>
+          <div class="stat-sub">
+            <span>Mod <strong>+1</strong></span>
+            <span>Save <strong>+3</strong></span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="callout warn">
+        <div class="label">Stat Note</div>
+        <p>The sheet reflects the character as originally recorded at Bard 1. The multiclass into Barbarian is the intended configuration, reflected throughout this dossier. Dexterity save proficiency (+1) and Charisma save proficiency (+3) are consistent with Bard; the Strength score (16) is the engine that the Barbarian progression will eventually amplify further.</p>
+      </div>
+
+    </section>
+
+    <!-- II. SKILLS -->
+    <section id="skills">
+      <h2 class="section-title"><span class="sec-num">II.</span> Skills</h2>
+
+      <div class="skills-cols">
+
+        <div>
+          <div class="skill-group">
+            <div class="skill-group-name">Strength +3</div>
+            <div class="skill-row proficient">
+              <span class="skill-name">Athletics</span>
+              <span class="skill-mod high">+5</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-name">Dexterity −1</div>
+            <div class="skill-row">
+              <span class="skill-name">Acrobatics</span>
+              <span class="skill-mod">+1</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Sleight of Hand</span>
+              <span class="skill-mod low">−1</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Stealth</span>
+              <span class="skill-mod low">−1</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-name">Intelligence 0</div>
+            <div class="skill-row">
+              <span class="skill-name">Arcana</span>
+              <span class="skill-mod">0</span>
+            </div>
+            <div class="skill-row proficient">
+              <span class="skill-name">History</span>
+              <span class="skill-mod">+2</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Investigation</span>
+              <span class="skill-mod">0</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Nature</span>
+              <span class="skill-mod">0</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Religion</span>
+              <span class="skill-mod">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="skill-group">
+            <div class="skill-group-name">Wisdom −3</div>
+            <div class="skill-row">
+              <span class="skill-name">Animal Handling</span>
+              <span class="skill-mod low">−3</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Insight</span>
+              <span class="skill-mod low">−3</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Medicine</span>
+              <span class="skill-mod low">−3</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Perception</span>
+              <span class="skill-mod low">−3</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Survival</span>
+              <span class="skill-mod low">−3</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-name">Charisma +1</div>
+            <div class="skill-row">
+              <span class="skill-name">Deception</span>
+              <span class="skill-mod">+1</span>
+            </div>
+            <div class="skill-row proficient">
+              <span class="skill-name">Intimidation</span>
+              <span class="skill-mod high">+3</span>
+            </div>
+            <div class="skill-row proficient">
+              <span class="skill-name">Performance</span>
+              <span class="skill-mod high">+3</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Persuasion</span>
+              <span class="skill-mod">+1</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <p>The sheet is legible. Athletics +5 and Intimidation +3 are the two columns that hold the whole structure up — one physical, one social, both expressions of the same thing. History +2 is the Soldier background doing its work. Performance +3 tells you what kind of bard he is.</p>
+
+      <p>Stealth −1. Unsurprising and correct. A man built like a palisade wall, moving like one.</p>
+
+    </section>
+
+    <!-- III. CLASS & RACE FEATURES -->
+    <section id="features">
+      <h2 class="section-title"><span class="sec-num">III.</span> Class &amp; Race Features</h2>
+
+      <p>Two class levels. The sheet records Bard 1; the multiclass into Barbarian 1 is the stated intended configuration. What both classes give at level 1 is rules-given and not invented here.</p>
+
+      <h3 class="subhead">Barbarian (Level 1) — Path of the Berserker</h3>
+
+      <div class="feature-entry">
+        <div class="feat-name">Rage</div>
+        <p>Two uses per long rest. On his turn, as a bonus action: advantage on Strength checks and saving throws, +2 bonus to damage rolls on Strength-based weapon attacks, resistance to bludgeoning, piercing, and slashing damage. Lasts up to 1 minute; ends early if he ends his turn without attacking a hostile creature or taking damage. Cannot cast or concentrate on spells while raging. At level 1, a berserker does not yet have Frenzy — that arrives at Barbarian 3. What he has is the foundation.</p>
+      </div>
+
+      <div class="feature-entry">
+        <div class="feat-name">Unarmored Defense</div>
+        <p>While not wearing armour, AC equals 10 + Dexterity modifier + Constitution modifier. With Dex −1 and Con 0, this yields AC 9 — marginally worse than the recorded AC 10, which suggests he may have been wearing light armour or that the sheet was recorded at a different configuration. The figure on the sheet (AC 10) is what is recorded.</p>
+      </div>
+
+      <h3 class="subhead">Bard (Level 1) — College Unrecorded</h3>
+
+      <div class="feature-entry">
+        <div class="feat-name">Bardic Inspiration</div>
+        <p>A number of uses per long rest equal to his Charisma modifier (1 use). One creature he can see within 60 feet gains a Bardic Inspiration die — a d6 at this level — which the recipient can roll and add to one ability check, attack roll, or saving throw within the next 10 minutes. He cannot inspire himself. At Charisma 13 (+1), he has one use per long rest. Potent conceptually; limited mechanically at this level.</p>
+      </div>
+
+      <div class="feature-entry">
+        <div class="feat-name">Spellcasting</div>
+        <p>Two cantrips known; two first-level spells known; two first-level spell slots per long rest. The specific selections are not recorded. Given the character concept — martial epic singer, haka-style performance — College of Valor is the mechanically and thematically natural home, but this was not confirmed and is not stated as fact here.</p>
+      </div>
+
+      <div class="feature-entry">
+        <div class="feat-name">Jack of All Trades</div>
+        <p>Half his proficiency bonus (+1) added to any ability check that does not already use his proficiency bonus. Fills out several of the otherwise-dead skill values on the sheet — the Acrobatics +1 is this feature at work against a −1 Dexterity modifier.</p>
+      </div>
+
+      <div class="feature-entry">
+        <div class="feat-name">Song of Rest</div>
+        <p>During a short rest, if he or any friendly creature uses hit dice to regain hit points, they can add a d6. A small sustaining function, appropriate to the role of the skald in camp as much as in battle.</p>
+      </div>
+
+      <h3 class="subhead">Soldier Background</h3>
+
+      <div class="feature-entry">
+        <div class="feat-name">Military Rank</div>
+        <p>He has a military rank from his career. Soldiers loyal to his former organisation still recognise his authority, and will defer to him in interactions. The specific organisation, rank, and context are not recorded.</p>
+      </div>
+
+      <div class="feature-entry">
+        <div class="feat-name">Proficiencies from Background</div>
+        <p>Athletics and Intimidation (confirmed on sheet). A gaming set and land vehicles are the standard Soldier background proficiency grants, though these specifics are not recorded.</p>
+      </div>
+
+      <div class="sheet-row">
+        <span class="sr-label">Weapons &amp; Equipment</span>
+        <span class="sr-value unknown">Not recorded</span>
+      </div>
+      <div class="sheet-row">
+        <span class="sr-label">Cantrips Known</span>
+        <span class="sr-value unknown">Not recorded (Bard 1 knows 2)</span>
+      </div>
+      <div class="sheet-row">
+        <span class="sr-label">Spells Known</span>
+        <span class="sr-value unknown">Not recorded (Bard 1 knows 2)</span>
+      </div>
+      <div class="sheet-row">
+        <span class="sr-label">Spell Slots</span>
+        <span class="sr-value">2 first-level slots (recovered on long rest)</span>
+      </div>
+      <div class="sheet-row">
+        <span class="sr-label">Instrument</span>
+        <span class="sr-value unknown">Not recorded; assumed percussive given character concept</span>
+      </div>
+      <div class="sheet-row">
+        <span class="sr-label">Race / Ancestry</span>
+        <span class="sr-value unknown">Not recorded</span>
+      </div>
+      <div class="sheet-row">
+        <span class="sr-label">Alignment</span>
+        <span class="sr-value">Chaotic Neutral (inferred from concept; not confirmed on sheet)</span>
+      </div>
+      <div class="sheet-row">
+        <span class="sr-label">Deity</span>
+        <span class="sr-value unknown">A trickster god — name not recorded</span>
+      </div>
+
+    </section>
+
+    <!-- IV. CONCEPT -->
+    <section id="concept">
+      <h2 class="section-title"><span class="sec-num">IV.</span> Concept &amp; Character</h2>
+
+      <h3 class="subhead">Six Houses</h3>
+      <p>The name is a statement. <em>Faletolu</em> means "three houses." He carries it twice — Faletolu Faletolu — so he is six houses, a doubled claim, a man who takes up enough space to need the name said again. Whether this is lineage, title, self-bestowed reputation, or all three, is not established. What it communicates is clear enough.</p>
+
+      <h3 class="subhead">The Skald</h3>
+      <p>He is not a bard in the lute-and-tavern sense. The model is older and louder: the warrior-singer, the man who memorises the deeds of the fallen and beats them into the living, who performs not for applause but to put iron in the blood. Think Athenian <em>paeans</em> before battle. Think the haka — a challenge that is also a declaration, a physical assertion that the body making the sound is not afraid of the body receiving it.</p>
+
+      <p>He loves epic poetry. Given the opportunity, he will hold an audience for hours with accounts of battles — his own, his forebears', anyone's — rendered with the full formal apparatus of the tradition: the boast, the catalogue of the fallen, the hero's address before the charge. The problem is that he tends to be substantially intoxicated when the battles in question occur, and his retellings blend what happened with what he hallucinated was happening, to a degree he cannot himself reliably distinguish. The result is accounts of genuine events with giants in them, or genuine giants with the dimensions slightly wrong. The epics are glorious. Their relationship to the historical record is loose.</p>
+
+      <h3 class="subhead">The Trickster</h3>
+      <p>His deity is a trickster — name unrecorded, nature implied. A god who enjoys a good insult, who takes the side of the man willing to speak plainly and profanely in public. Faletolu's most reliable income stream when times are lean is hiring himself out as an insulter-for-hire: he will confront a designated target in a public place and insult them. Eloquently. Elaborately. With genuine feeling and considerable volume. There is a craft to it. He is good at it. He does not consider it beneath him. His god, presumably, concurs.</p>
+
+      <p>The ferocious temper is real. So is the absence of grudges. He gets as good as he gives, and both are accepted as part of the same transaction. The anger burns hot and burns clean. There is no sullenness in him, no accumulation of resentment. He is the most straightforward kind of dangerous man: one who means exactly what he says at the moment he says it, including the threats.</p>
+
+      <h3 class="subhead">The Body</h3>
+      <p>Strength 16. The numbers confirm what the concept requires. He is physically enormous — a wall, a palisade, a geological feature that has learned to walk and developed opinions. The Wisdom of 5 is the other side of the same coin: he is not cautious, not perceptive in the careful sense, not interested in hesitation. What he lacks in situational awareness he compensates for in the sheer correctness of the assumption that he can take most of what the world is likely to throw at him.</p>
+
+      <p>This is not, mechanically, always accurate. He has 8 hit points.</p>
+
+      <div class="callout fire">
+        <div class="label">The Fearlessness</div>
+        <p>Player-stated: fearless to a reckless extent. This is not courage in the philosophical sense — it is not the deliberate choice to act despite fear. It is the simpler and more dangerous version: he does not experience the fear that the situation is presenting. The haka is not theatrical bravado. It is an accurate report of his internal state.</p>
+      </div>
+
+    </section>
+
+    <!-- V. EVENTS -->
+    <section id="events">
+      <h2 class="section-title"><span class="sec-num">V.</span> Notable Events of Play</h2>
+
+      <p>No specific gameplay events from this campaign have been preserved or provided. The record below is blank — not reconstructed, not inferred. What is not remembered is not written.</p>
+
+      <div class="event-log">
+        <div class="event-header">
+          <span>Event Log · Status</span>
+          <span>Unrecorded</span>
+        </div>
+        <div class="event-body">
+          <p style="margin:0; color: var(--ink-faint); font-style: italic; font-size: 0.92rem;">This campaign predates the record. Events occurred. They are not recoverable in their specifics. The dossier holds the space open rather than filling it with invention.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- VI. ASSESSMENT -->
+    <section id="assessment">
+      <h2 class="section-title"><span class="sec-num">VI.</span> Assessment</h2>
+
+      <p>The character is mechanically coherent with the concept in the ways that count. The high Strength and the Barbarian chassis give him the physical scaffolding the concept requires. The Bard gives him the mouth. The low Wisdom confirms what the concept implies: he is not a man who pauses to reconsider. The 8 hit points are the only number on the sheet that feels out of step — a man described as fearless and built like architecture should, in the intuitive sense, be harder to kill. He is not, yet. The Barbarian's hit dice will remedy this.</p>
+
+      <p>The mechanical tension is interesting. A Bard cannot cast spells while Raging. He is a man whose two class features are in fundamental conflict: the epic singer and the berserker cannot both be operating at full capacity at the same time. This is probably the correct dramatic design. The question the character poses — whether the song sustains the fury or the fury silences the song — is not one that level 1 can answer. It is the question the arc is built around.</p>
+
+      <p>The trickster deity is the wildcard. A trickster does not want a simple berserker; a trickster wants a berserker who also knows what he is doing to the room. Faletolu is both. The deity, unnamed, is presumably satisfied.</p>
+
+      <h3 class="subhead">What is known</h3>
+      <p>A name that doubles itself into a boast. A Strength score that justifies the boast. A Wisdom score that explains why the boast sometimes lands him in difficulties. A god who rewards the man willing to say the true and offensive thing in a public space. A past full of battles he remembers somewhat differently from how they occurred. A performance tradition that is also a threat display. The intended shape of an arc — skald becoming berserker, or berserker who was always also a skald — that this record cannot confirm was reached.</p>
+
+      <div class="callout warn">
+        <div class="label">File Disposition</div>
+        <p>This dossier is open. The mechanical record is drawn from the preserved character sheet. Where specifics were not retained — spells, equipment, racial traits, deity name, campaign events — this dossier says so plainly rather than inventing them. The character concept is recorded as the player provided it. The blank spaces are the honest shape of what survives.</p>
+      </div>
+
+    </section>
+
+    <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+    <footer class="colophon">
+      Homebrew Setting · D&amp;D 5e · Player Character Record · Open File<br>
+      Faletolu Faletolu · Barbarian 1 / Bard 1 · Soldier · Trickster's Devotee
+    </footer>
+
+  </div><!-- /doc-body -->
+</div><!-- /document -->
+
+</body>
+</html>

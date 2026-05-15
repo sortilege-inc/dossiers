@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Tig, Human Fighter (Battle Master) 14</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Barlow:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:           #0a0d0f;
+  --bg-raised:    #111518;
+  --bg-card:      #161b1f;
+  --bg-card-alt:  #1c2228;
+  --rule:         #2a3540;
+  --rule-bright:  #3d5060;
+
+  --iron:         #8fa8b8;
+  --iron-bright:  #b8d0e0;
+  --iron-dim:     #4a6070;
+  --iron-ghost:   rgba(143,168,184,0.08);
+
+  --blood:        #c0281a;
+  --blood-bright: #e03020;
+  --blood-dark:   #7a1410;
+  --blood-ghost:  rgba(192,40,26,0.10);
+
+  --amber:        #d4820a;
+  --amber-bright: #f0a020;
+  --amber-ghost:  rgba(212,130,10,0.10);
+
+  --text:         #ccd8e0;
+  --text-soft:    #8fa8b8;
+  --text-dim:     #4a6070;
+  --text-faint:   #2e4050;
+
+  --white:        #eef4f8;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 70% 50% at 0% 0%, rgba(192,40,26,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 70% at 100% 100%, rgba(143,168,184,0.04) 0%, transparent 55%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  min-height: 100vh;
+  padding: 0 0 5rem;
+  font-family: 'Barlow', sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+/* ── MASTHEAD ── */
+.masthead {
+  background: linear-gradient(180deg, #000 0%, var(--bg-raised) 60%, var(--bg) 100%);
+  border-bottom: 1px solid var(--rule-bright);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+.masthead::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, transparent 0, transparent 60px, rgba(143,168,184,0.015) 60px, rgba(143,168,184,0.015) 61px),
+    repeating-linear-gradient(0deg, transparent 0, transparent 60px, rgba(143,168,184,0.015) 60px, rgba(143,168,184,0.015) 61px);
+  pointer-events: none;
+}
+
+.masthead-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 3.5rem 2rem 2.5rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2.5rem;
+  align-items: start;
+  position: relative;
+}
+
+.portrait-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+.portrait-frame {
+  width: 180px;
+  height: 190px;
+  overflow: hidden;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  border: 1px solid var(--rule-bright);
+  background: var(--bg-card);
+}
+.portrait-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  filter: contrast(1.05) saturate(0.85);
+}
+.portrait-corner {
+  position: absolute;
+  width: 20px; height: 20px;
+  border-color: var(--blood);
+  border-style: solid;
+}
+.portrait-corner.tl { top: -2px; left: -2px; border-width: 2px 0 0 2px; }
+.portrait-corner.br { bottom: -2px; right: -2px; border-width: 0 2px 2px 0; }
+
+.masthead-text {
+  padding-top: 0.25rem;
+}
+.eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--blood);
+  margin-bottom: 0.6rem;
+}
+h1.character-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(5rem, 12vw, 9rem);
+  line-height: 0.88;
+  color: var(--white);
+  letter-spacing: 0.03em;
+  margin-bottom: 0.6rem;
+  text-shadow: 3px 3px 0 var(--blood-dark), 0 0 60px rgba(192,40,26,0.2);
+}
+.character-class {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--iron);
+  margin-bottom: 1.2rem;
+}
+.character-class strong {
+  color: var(--iron-bright);
+  font-weight: 600;
+}
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  border: 1px solid var(--rule-bright);
+  padding: 0.2rem 0.6rem;
+  background: var(--bg-card);
+}
+.tag.red { color: var(--blood-bright); border-color: var(--blood-dark); background: var(--blood-ghost); }
+.tag.amber { color: var(--amber-bright); border-color: var(--amber); background: var(--amber-ghost); }
+
+/* ── LAYOUT ── */
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ── SECTION HEADERS ── */
+h2.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.12em;
+  color: var(--iron-bright);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.35rem;
+  margin: 3rem 0 1.2rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+}
+h2.section-title .num {
+  color: var(--blood);
+  font-size: 1.1rem;
+}
+
+h3.subhead {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--iron-dim);
+  margin: 1.8rem 0 0.7rem;
+  border-left: 2px solid var(--blood-dark);
+  padding-left: 0.6rem;
+}
+
+/* ── STAT GRIDS ── */
+.stat-grid-6 {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.stat-cell {
+  background: var(--bg-card);
+  border: 1px solid var(--rule);
+  text-align: center;
+  padding: 0.8rem 0.3rem 0.7rem;
+  position: relative;
+}
+.stat-cell::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--rule);
+}
+.stat-cell.high::after { background: var(--blood); }
+.stat-cell .label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.stat-cell .score {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  color: var(--white);
+  line-height: 1;
+  display: block;
+}
+.stat-cell .mod {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--iron);
+  display: block;
+  margin-top: 0.15rem;
+}
+
+.core-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.core-cell {
+  background: var(--bg-card);
+  border: 1px solid var(--rule);
+  padding: 0.7rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.core-cell .c-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.2rem;
+}
+.core-cell .c-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  color: var(--amber-bright);
+  line-height: 1;
+}
+.core-cell .c-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  margin-top: 0.1rem;
+}
+
+/* ── TABLES ── */
+.dossier-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  font-size: 0.92rem;
+}
+.dossier-table thead tr {
+  background: var(--bg-card-alt);
+  border-bottom: 1px solid var(--rule-bright);
+}
+.dossier-table th {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--iron-dim);
+  padding: 0.5rem 0.7rem;
+  text-align: left;
+}
+.dossier-table td {
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+  color: var(--text);
+  line-height: 1.5;
+}
+.dossier-table tbody tr:nth-child(even) { background: rgba(255,255,255,0.015); }
+.dossier-table tbody tr:last-child td { border-bottom: none; }
+.dossier-table td strong { color: var(--iron-bright); font-weight: 600; }
+.dossier-table td em { color: var(--text-soft); font-style: italic; }
+
+/* ── SKILL GRID ── */
+.skill-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.skill-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.4rem;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.88rem;
+}
+.skill-row:nth-child(odd) { background: rgba(255,255,255,0.012); }
+.skill-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--text-faint);
+  border: 1px solid var(--rule-bright);
+}
+.skill-dot.prof { background: var(--iron); border-color: var(--iron); }
+.skill-dot.expert { background: var(--amber-bright); border-color: var(--amber); }
+.skill-name { flex: 1; color: var(--text); }
+.skill-bonus {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--iron-bright);
+  min-width: 2.2rem;
+  text-align: right;
+}
+.skill-bonus.expert { color: var(--amber-bright); }
+.skill-ability {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  min-width: 2.2rem;
+}
+
+/* ── CALLOUT ── */
+.callout {
+  background: var(--bg-card);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--iron-dim);
+  padding: 0.9rem 1.1rem;
+  margin: 0.8rem 0;
+  font-size: 0.92rem;
+}
+.callout.red { border-left-color: var(--blood); background: var(--blood-ghost); }
+.callout.amber { border-left-color: var(--amber); background: var(--amber-ghost); }
+.callout-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--iron-dim);
+  margin-bottom: 0.3rem;
+}
+.callout.red .callout-label { color: var(--blood-bright); }
+.callout.amber .callout-label { color: var(--amber-bright); }
+
+/* ── WEAPON BLOCK ── */
+.weapon-block {
+  background: var(--bg-card);
+  border: 1px solid var(--rule);
+  padding: 0.9rem 1rem;
+  margin-bottom: 0.6rem;
+}
+.weapon-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 0.2rem;
+}
+.weapon-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 0.4rem;
+}
+.weapon-stat {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+.weapon-stat .ws-label {
+  color: var(--text-dim);
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  display: block;
+  letter-spacing: 0.2em;
+}
+.weapon-stat .ws-value { color: var(--iron-bright); }
+.weapon-stat .ws-value.red { color: var(--blood-bright); }
+.weapon-desc {
+  font-size: 0.84rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
+/* ── SAVES STRIP ── */
+.saves-strip {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+.save-cell {
+  background: var(--bg-card);
+  border: 1px solid var(--rule);
+  text-align: center;
+  padding: 0.5rem 0.3rem;
+}
+.save-cell .s-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  display: block;
+  margin-bottom: 0.1rem;
+}
+.save-cell .s-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  color: var(--iron);
+  display: block;
+}
+.save-cell.prof .s-val { color: var(--amber-bright); }
+
+/* ── SEPARATOR ── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 2rem 0;
+}
+.divider.bold {
+  border-top-color: var(--rule-bright);
+}
+
+/* ── TRAIT PILL ── */
+.trait-pill {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--iron);
+  border: 1px solid var(--rule-bright);
+  padding: 0.15rem 0.55rem;
+  margin: 0.15rem 0.2rem 0.15rem 0;
+  background: var(--bg-card);
+}
+
+/* ── TWO-COL ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* ── NOTICE ── */
+.notice {
+  background: var(--bg-card-alt);
+  border: 1px dashed var(--rule-bright);
+  padding: 0.8rem 1rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+  margin-top: 0.6rem;
+  line-height: 1.5;
+}
+.notice strong { color: var(--text-soft); }
+
+/* ── FOOTER ── */
+footer.colophon {
+  max-width: 960px;
+  margin: 4rem auto 0;
+  padding: 1.5rem 2rem 0;
+  border-top: 1px solid var(--rule);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-align: center;
+  line-height: 2;
+}
+
+/* ── NAV ── */
+nav.toc {
+  background: var(--bg-card);
+  border: 1px solid var(--rule);
+  padding: 1rem 1.2rem;
+  margin: 2rem 0;
+  columns: 2;
+  column-gap: 1.5rem;
+}
+nav.toc .toc-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--blood);
+  margin-bottom: 0.6rem;
+  column-span: all;
+}
+nav.toc ol {
+  list-style: none;
+  padding: 0;
+}
+nav.toc li {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.2rem;
+  break-inside: avoid;
+}
+nav.toc a {
+  color: var(--text-soft);
+  text-decoration: none;
+}
+nav.toc a:hover { color: var(--iron-bright); }
+nav.toc .toc-num {
+  color: var(--blood);
+  margin-right: 0.4rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 720px) {
+  .masthead-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+  .portrait-frame { width: 140px; height: 150px; }
+  h1.character-name { font-size: 5rem; }
+  .stat-grid-6 { grid-template-columns: repeat(3, 1fr); }
+  .core-stats { grid-template-columns: repeat(2, 1fr); }
+  .saves-strip { grid-template-columns: repeat(3, 1fr); }
+  .skill-grid { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+  nav.toc { columns: 1; }
+}
+
+@media print {
+  body { background: white; color: black; }
+  .masthead { background: white; border-bottom: 2px solid #333; }
+  h1.character-name { color: black; text-shadow: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ MASTHEAD ═══════════════ -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="portrait-wrap">
+      <div class="portrait-frame">
+        <img src="tig.jpeg" alt="Portrait of Tig"
+             onerror="this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:Bebas Neue,sans-serif;font-size:4rem;color:#3d5060;\'>T</div>'">
+      </div>
+      <div class="portrait-corner tl"></div>
+      <div class="portrait-corner br"></div>
+    </div>
+    <div class="masthead-text">
+      <div class="eyebrow">Player Character Dossier &nbsp;·&nbsp; Convention One-Shot &nbsp;·&nbsp; D&amp;D 5th Edition</div>
+      <h1 class="character-name">Tig</h1>
+      <div class="character-class">
+        <strong>Human Fighter</strong> &nbsp;·&nbsp; Battle Master &nbsp;·&nbsp; Level 14
+      </div>
+      <div class="tag-row">
+        <span class="tag red">Battle Master</span>
+        <span class="tag">Human (Variant)</span>
+        <span class="tag amber">Level 14</span>
+        <span class="tag">City Watch / Investigator</span>
+        <span class="tag">Convention One-Shot</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════ PAGE BODY ═══════════════ -->
+<div class="page">
+
+  <nav class="toc">
+    <div class="toc-label">Contents</div>
+    <ol>
+      <li><a href="#overview"><span class="toc-num">I.</span> Overview</a></li>
+      <li><a href="#ability-scores"><span class="toc-num">II.</span> Ability Scores</a></li>
+      <li><a href="#combat"><span class="toc-num">III.</span> Combat Statistics</a></li>
+      <li><a href="#skills"><span class="toc-num">IV.</span> Skills &amp; Proficiencies</a></li>
+      <li><a href="#weapons"><span class="toc-num">V.</span> Weapons &amp; Equipment</a></li>
+      <li><a href="#class-features"><span class="toc-num">VI.</span> Class Features</a></li>
+      <li><a href="#feats"><span class="toc-num">VII.</span> Feats</a></li>
+      <li><a href="#background"><span class="toc-num">VIII.</span> Background &amp; Character</a></li>
+      <li><a href="#campaign"><span class="toc-num">IX.</span> Campaign Notes</a></li>
+    </ol>
+  </nav>
+
+  <!-- I. OVERVIEW -->
+  <section id="overview">
+    <h2 class="section-title"><span class="num">I.</span> Overview</h2>
+    <p>Tig is a 14th-level Variant Human Fighter of the Battle Master archetype, built around high-DEX dual scimitar combat and tactical superiority-dice usage. The City Watch / Investigator background situates him as a former law enforcer with an investigator's disposition. Languages spoken: Common, Abyssal, Elvish, Halfling, Undercommon.</p>
+
+    <div style="margin-top:1rem;">
+      <span class="trait-pill">Medium (Human)</span>
+      <span class="trait-pill">Humanoid</span>
+      <span class="trait-pill">Speed 30 ft.</span>
+      <span class="trait-pill">Languages: Common, Abyssal, Elvish, Halfling, Undercommon</span>
+    </div>
+  </section>
+
+  <!-- II. ABILITY SCORES -->
+  <section id="ability-scores">
+    <h2 class="section-title"><span class="num">II.</span> Ability Scores</h2>
+
+    <div class="stat-grid-6">
+      <div class="stat-cell">
+        <span class="label">Str</span>
+        <span class="score">12</span>
+        <span class="mod">+1</span>
+      </div>
+      <div class="stat-cell high">
+        <span class="label">Dex</span>
+        <span class="score">19</span>
+        <span class="mod">+4</span>
+      </div>
+      <div class="stat-cell">
+        <span class="label">Con</span>
+        <span class="score">14</span>
+        <span class="mod">+2</span>
+      </div>
+      <div class="stat-cell">
+        <span class="label">Int</span>
+        <span class="score">14</span>
+        <span class="mod">+2</span>
+      </div>
+      <div class="stat-cell">
+        <span class="label">Wis</span>
+        <span class="score">8</span>
+        <span class="mod">−1</span>
+      </div>
+      <div class="stat-cell">
+        <span class="label">Cha</span>
+        <span class="score">10</span>
+        <span class="mod">+0</span>
+      </div>
+    </div>
+
+    <p style="font-size:0.85rem; color:var(--text-soft);">Variant Human racial bonuses (+1 to two scores) and the Slasher feat's +1 to STR or DEX are factored into these final values per the character sheet.</p>
+  </section>
+
+  <!-- III. COMBAT STATISTICS -->
+  <section id="combat">
+    <h2 class="section-title"><span class="num">III.</span> Combat Statistics</h2>
+
+    <div class="core-stats">
+      <div class="core-cell">
+        <span class="c-label">Armour Class</span>
+        <span class="c-value">14</span>
+        <span class="c-sub">Leather Armor + DEX</span>
+      </div>
+      <div class="core-cell">
+        <span class="c-label">Hit Points</span>
+        <span class="c-value">116</span>
+        <span class="c-sub">Max (per sheet)</span>
+      </div>
+      <div class="core-cell">
+        <span class="c-label">Proficiency</span>
+        <span class="c-value">+5</span>
+        <span class="c-sub">Level 14</span>
+      </div>
+      <div class="core-cell">
+        <span class="c-label">Initiative</span>
+        <span class="c-value">+4</span>
+        <span class="c-sub">DEX modifier</span>
+      </div>
+    </div>
+
+    <h3 class="subhead">Saving Throws</h3>
+    <div class="saves-strip">
+      <div class="save-cell prof">
+        <span class="s-label">Str</span>
+        <span class="s-val">+6</span>
+      </div>
+      <div class="save-cell">
+        <span class="s-label">Dex</span>
+        <span class="s-val">+4</span>
+      </div>
+      <div class="save-cell prof">
+        <span class="s-label">Con</span>
+        <span class="s-val">+7</span>
+      </div>
+      <div class="save-cell">
+        <span class="s-label">Int</span>
+        <span class="s-val">+2</span>
+      </div>
+      <div class="save-cell">
+        <span class="s-label">Wis</span>
+        <span class="s-val">−1</span>
+      </div>
+      <div class="save-cell">
+        <span class="s-label">Cha</span>
+        <span class="s-val">+0</span>
+      </div>
+    </div>
+    <p style="font-size:0.8rem; color:var(--text-dim); margin-bottom:1rem;">Proficient saves (Strength, Constitution) shown in amber.</p>
+
+    <h3 class="subhead">Hit Dice</h3>
+    <p>14d10. Second Wind and other short-rest features interact with this pool.</p>
+
+    <h3 class="subhead">Movement</h3>
+    <p>Walking speed 30 ft. No other movement modes recorded on sheet.</p>
+  </section>
+
+  <!-- IV. SKILLS & PROFICIENCIES -->
+  <section id="skills">
+    <h2 class="section-title"><span class="num">IV.</span> Skills &amp; Proficiencies</h2>
+
+    <h3 class="subhead">Skill Checks</h3>
+    <p style="font-size:0.82rem; color:var(--text-dim); margin-bottom:0.7rem;">
+      ◆ Expertise (double proficiency) &nbsp;·&nbsp; ● Proficient &nbsp;·&nbsp; ○ Not proficient
+    </p>
+    <div class="skill-grid">
+      <div class="skill-row">
+        <div class="skill-dot expert"></div>
+        <span class="skill-name">Acrobatics</span>
+        <span class="skill-ability">DEX</span>
+        <span class="skill-bonus expert">+14</span>
+      </div>
+      <div class="skill-row">
+        <div class="skill-dot"></div>
+        <span class="skill-name">Animal Handling</span>
+        <span class="skill-ability">WIS</span>
+        <span class="skill-bonus">−1</span>
+      </div>
+      <div class="skill-row">
+        <div class="skill-dot"></div>
+        <span class="skill-name">Arcana</span>
+        <span class="skill-ability">INT</span>
+        <span class="skill-bonus">+2</span>
+      </div>
+      <div class="skill-row">
+        <div class="skill-dot prof"></div>
+        <span class="skill-name">Athletics</span>
+        <span class="skill-ability">STR</span>
+        <span class="skill-bonus">+6</span>
+      </div>
+      <div class="skill-row">
+        <div class="skill-dot"></div>
+        <span class="skill-name">Deception</span>
+        <span class="skill-ability">CHA</span>
+        <span class="skill-bonus">+0</span>
+      </div>
+      <div class="skill-row">
+        <div class="skill-dot prof"></div>
+        <span class="skill-name">History</span>
+        <span class="skill-ability">INT</span>
+        <span class="skill-bonus">+7</span>
+      </div>
+      <div class="skill-row">
+        <div class="skill-dot prof"></div>
+        <span class="skill-name">Insight</span>
+        <span class="skill-ability">WIS</span>
+        <span class="skill-bonus">+4</span>
+      </div>
+      <div class="skill-row">
+        <div class="skill-dot"></div>
+        <span class="skill-name">Intimidation</span>
+        <span class="skill-ability">CHA</span>
+        <span class="skill-bonus">+0</span>
+      </div>
+      <div class="skill-row">
+        <div class="skill-dot prof"></div>
+        <span class="skill-name">Investigation</span>
+        <span class="skill-ability">INT</span>
+        <span class="skill-bonus">+7</span>
+      </div>
+      <div class="skill-row">
+        <div class="skill-dot"></div>
+        <span class="skill-name">Medicine</span>
+        <span class="skill-ability">WIS</span>
+        <span class="skill-bonus">−1</span>
+      </div>
+      <div class="skill-row">
+        <div class="skill-dot"></div>
+        <span class="skill-name">Nature</span>
+        <span class="skill-ability">INT</span>
+        <span class="skill-bonus">+2</span>
+      </div>
+      <div class="skill-row">
+        <div class="skill-dot prof"></div>
+        <span class="skill-name">Perception</span>
+        <span class="skill-ability">WIS</span>
+        <span class="skill-bonus">+4</span>
+      </div>
+      <div class="skill-row">
+        <div class="skill-dot"></div>
+        <span class="skill-name">Performance</span>
+        <span class="skill-ability">CHA</span>
+        <span class="skill-bonus">+0</span>
+      </div>
+      <div class="skill-row">
+        <div class="skill-dot"></div>
+        <span class="skill-name">Persuasion</span>
+        <span class="skill-ability">CHA</span>
+        <span class="skill-bonus">+0</span>
+      </div>
+      <div class="skill-row">
+        <div class="skill-dot"></div>
+        <span class="skill-name">Religion</span>
+        <span class="skill-ability">INT</span>
+        <span class="skill-bonus">+2</span>
+      </div>
+      <div class="skill-row">
+        <div class="skill-dot"></div>
+        <span class="skill-name">Sleight of Hand</span>
+        <span class="skill-ability">DEX</span>
+        <span class="skill-bonus">+4</span>
+      </div>
+      <div class="skill-row">
+        <div class="skill-dot"></div>
+        <span class="skill-name">Stealth</span>
+        <span class="skill-ability">DEX</span>
+        <span class="skill-bonus">+4</span>
+      </div>
+      <div class="skill-row">
+        <div class="skill-dot"></div>
+        <span class="skill-name">Survival</span>
+        <span class="skill-ability">WIS</span>
+        <span class="skill-bonus">−1</span>
+      </div>
+    </div>
+
+    <p style="font-size:0.8rem; color:var(--text-dim); margin-top:0.6rem;">Acrobatics expertise granted by the <em>Prodigy</em> feat. Investigation and History proficiencies from <em>Prodigy</em> and the City Watch (Investigator variant) background respectively. One additional skill and one language from <em>Prodigy</em> not recorded on sheet — see Campaign Notes.</p>
+
+    <h3 class="subhead">Tool &amp; Armour Proficiencies</h3>
+    <div class="two-col" style="margin-top:0.5rem;">
+      <div>
+        <p><strong>Armour:</strong> Light, Medium, Heavy, Shields</p>
+        <p style="margin-top:0.5rem;"><strong>Weapons:</strong> All simple and martial weapons</p>
+      </div>
+      <div>
+        <p><strong>Tools:</strong> Alchemist's Supplies, Forgery Kit</p>
+        <p style="margin-top:0.5rem;"><strong>Saves:</strong> Strength, Constitution</p>
+      </div>
+    </div>
+
+    <h3 class="subhead">Languages</h3>
+    <p>Common · Abyssal · Elvish · Halfling · Undercommon</p>
+  </section>
+
+  <!-- V. WEAPONS & EQUIPMENT -->
+  <section id="weapons">
+    <h2 class="section-title"><span class="num">V.</span> Weapons &amp; Equipment</h2>
+
+    <h3 class="subhead">Weapons — Equipped</h3>
+
+    <div class="weapon-block">
+      <div class="weapon-name">Scimitar (×2, Dual Wielded)</div>
+      <div class="weapon-stats">
+        <div class="weapon-stat">
+          <span class="ws-label">Attack</span>
+          <span class="ws-value red">+9</span>
+        </div>
+        <div class="weapon-stat">
+          <span class="ws-label">Damage</span>
+          <span class="ws-value">1d6 + 4 slashing</span>
+        </div>
+        <div class="weapon-stat">
+          <span class="ws-label">Properties</span>
+          <span class="ws-value">Finesse, Light</span>
+        </div>
+        <div class="weapon-stat">
+          <span class="ws-label">Mastery</span>
+          <span class="ws-value">Nick</span>
+        </div>
+        <div class="weapon-stat">
+          <span class="ws-label">Weight</span>
+          <span class="ws-value">3 lb each</span>
+        </div>
+      </div>
+      <div class="weapon-desc">
+        Attack roll uses DEX (+4) + proficiency (+5) = <strong>+9</strong>. Both scimitars are equipped simultaneously and benefit from the Dual Wielder feat (+1 AC while wielding two melee weapons). The <em>Nick</em> mastery property means the extra Light-weapon attack granted by Two-Weapon Fighting can be made as part of the Attack action rather than a Bonus Action — effectively freeing Tig's Bonus Action. With Extra Attack (3 attacks at level 11) plus Nick, Tig can deliver four scimitar strikes in a single Attack action turn. Slasher feat applies to these attacks: on a hit, target speed reduced by 10 ft; on a critical hit, target has Disadvantage on all attacks until start of Tig's next turn.
+      </div>
+    </div>
+
+    <h3 class="subhead">Weapons — Carried (Unequipped)</h3>
+
+    <div class="weapon-block">
+      <div class="weapon-name">Longbow</div>
+      <div class="weapon-stats">
+        <div class="weapon-stat">
+          <span class="ws-label">Attack</span>
+          <span class="ws-value red">+9</span>
+        </div>
+        <div class="weapon-stat">
+          <span class="ws-label">Damage</span>
+          <span class="ws-value">1d8 + 4 piercing</span>
+        </div>
+        <div class="weapon-stat">
+          <span class="ws-label">Range</span>
+          <span class="ws-value">150 / 600 ft.</span>
+        </div>
+        <div class="weapon-stat">
+          <span class="ws-label">Mastery</span>
+          <span class="ws-value">Slow</span>
+        </div>
+        <div class="weapon-stat">
+          <span class="ws-label">Ammo</span>
+          <span class="ws-value">20 arrows</span>
+        </div>
+      </div>
+      <div class="weapon-desc">
+        Two-Handed, Ammunition, Heavy. <em>Slow</em> mastery: on a hit, target's Speed is reduced by 10 ft until the start of Tig's next turn (does not stack).
+      </div>
+    </div>
+
+    <div class="weapon-block">
+      <div class="weapon-name">Handaxe (×2)</div>
+      <div class="weapon-stats">
+        <div class="weapon-stat">
+          <span class="ws-label">Attack</span>
+          <span class="ws-value red">+6</span>
+        </div>
+        <div class="weapon-stat">
+          <span class="ws-label">Damage</span>
+          <span class="ws-value">1d6 + 1 slashing</span>
+        </div>
+        <div class="weapon-stat">
+          <span class="ws-label">Thrown Range</span>
+          <span class="ws-value">20 / 60 ft.</span>
+        </div>
+        <div class="weapon-stat">
+          <span class="ws-label">Mastery</span>
+          <span class="ws-value">Vex</span>
+        </div>
+      </div>
+      <div class="weapon-desc">
+        Light, Thrown. Uses STR (+1) + proficiency (+5) = <strong>+6</strong> (STR-based; not finesse). <em>Vex</em> mastery: on a hit, Advantage on the next attack roll against that creature before end of Tig's next turn.
+      </div>
+    </div>
+
+    <h3 class="subhead">Worn Armour</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Item</th><th>AC</th><th>Weight</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Leather Armor</strong></td><td>11 + DEX (= 15 base, but sheet records AC 14 — see note)</td><td>10 lb</td><td>Light armor. Stiffened boiled leather breastplate and shoulders; flexible elsewhere.</td></tr>
+      </tbody>
+    </table>
+    <div class="callout amber">
+      <div class="callout-label">AC Note</div>
+      The sheet records AC 14. Leather Armor (base 11) + DEX modifier (+4) = 15; with the Dual Wielder feat's +1 AC that rises to 16 when two weapons are wielded. The exported value of 14 may reflect the armour being flagged as unequipped at export time, or a deliberate sheet choice. Recorded here as-exported: AC 14.
+    </div>
+
+    <h3 class="subhead">General Equipment</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Item</th><th>Qty</th><th>Weight</th></tr></thead>
+      <tbody>
+        <tr><td>Backpack</td><td>1</td><td>5 lb</td></tr>
+        <tr><td>Tinderbox</td><td>1</td><td>1 lb</td></tr>
+        <tr><td>Horn (musical instrument)</td><td>1</td><td>2 lb</td></tr>
+        <tr><td>Pitons</td><td>10</td><td>2.5 lb</td></tr>
+        <tr><td>Hammer</td><td>1</td><td>3 lb</td></tr>
+        <tr><td>Rope, Hempen (50 ft.)</td><td>1</td><td>10 lb</td></tr>
+        <tr><td>Torches</td><td>10</td><td>10 lb</td></tr>
+        <tr><td>Waterskin</td><td>1</td><td>5 lb</td></tr>
+        <tr><td>Manacles (with key)</td><td>1</td><td>6 lb</td></tr>
+        <tr><td>Crowbar</td><td>1</td><td>5 lb</td></tr>
+        <tr><td>Rations (1 day each)</td><td>10</td><td>20 lb</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.85rem; color:var(--text-soft);">The manacles, horn, and crowbar are characteristic equipment of the City Watch / Investigator background.</p>
+
+    <h3 class="subhead">Wealth</h3>
+    <p>10 gp. No silver, copper, electrum, or platinum recorded.</p>
+  </section>
+
+  <!-- VI. CLASS FEATURES -->
+  <section id="class-features">
+    <h2 class="section-title"><span class="num">VI.</span> Class Features</h2>
+
+    <h3 class="subhead">Core Fighter Features (Level 14)</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Feature</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Extra Attack (×3)</strong></td>
+          <td>When taking the Attack action, Tig attacks three times. Combined with the Nick mastery property on dual scimitars, this yields four effective strikes per Attack action.</td>
+        </tr>
+        <tr>
+          <td><strong>Action Surge</strong></td>
+          <td>Once per short or long rest, take one additional action on a turn. At level 17 this becomes twice per rest; at level 14 it is still once. Can be used to double the total attack output.</td>
+        </tr>
+        <tr>
+          <td><strong>Second Wind</strong></td>
+          <td>Bonus action once per short or long rest: regain 1d10 + 14 hit points.</td>
+        </tr>
+        <tr>
+          <td><strong>Indomitable (×2)</strong></td>
+          <td>Reroll a failed saving throw, keeping the new result. Available twice between long rests (unlocked at level 13). Once per long rest at levels 9–12; twice from level 13 onward.</td>
+        </tr>
+        <tr>
+          <td><strong>Fighting Style</strong></td>
+          <td>Two Fighting Styles selected at levels 1 and 6 (plus one from the Fighting Initiate feat). Specific styles not recorded on the sheet — see Campaign Notes.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="subhead">Battle Master Archetype (Level 14)</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Feature</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Superiority Dice</strong></td>
+          <td><strong>6d10 per short or long rest.</strong> At level 14 the Battle Master has 6 superiority dice, each a d10 (upgraded from d8 at level 10). Spent to fuel Combat Maneuvers. Save DC for opposed maneuvers: <strong>DC 17</strong> (8 + proficiency +5 + STR +1 or DEX +4; if DEX-based maneuver, DC = 8 + 5 + 4 = 17).</td>
+        </tr>
+        <tr>
+          <td><strong>Combat Maneuvers (6 known)</strong></td>
+          <td>Six maneuvers selected from the Battle Master list. The specific maneuvers chosen are not recorded on the exported sheet — see Campaign Notes.</td>
+        </tr>
+        <tr>
+          <td><strong>Know Your Enemy</strong></td>
+          <td>After spending at least 1 minute observing or interacting with a creature outside of combat, learn how it compares to Tig in two of the following: STR, DEX, CON, AC, current HP, class levels (if any), Fighter levels (if any).</td>
+        </tr>
+        <tr>
+          <td><strong>Relentless</strong></td>
+          <td>If Tig has no Superiority Dice remaining at the start of his turn, he regains one. (Level 15 feature — listed here because the sheet reflects level 14; this feature unlocks at 15.)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout amber">
+      <div class="callout-label">Superiority Dice Summary</div>
+      6 dice · d10 per die · Recharge on short or long rest · Maneuver save DC 17 (DEX-based)
+    </div>
+  </section>
+
+  <!-- VII. FEATS -->
+  <section id="feats">
+    <h2 class="section-title"><span class="num">VII.</span> Feats</h2>
+
+    <p style="margin-bottom:1rem;">A level-14 Fighter receives ASI/feat slots at levels 4, 6, 8, 12, and 14, plus one from the Variant Human racial trait — six total slots. The five feats below account for five of those six slots. The sixth slot's use (ASI or additional feat) is not recorded on the sheet.</p>
+
+    <table class="dossier-table">
+      <thead><tr><th>Feat</th><th>Source</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Defensive Duelist</strong></td>
+          <td>ASI/Feat slot</td>
+          <td>Prerequisite: DEX 13+. <em>Reaction:</em> when wielding a finesse weapon and a creature hits Tig with a melee attack, add proficiency bonus (+5) to AC for that attack, potentially turning a hit into a miss.</td>
+        </tr>
+        <tr>
+          <td><strong>Dual Wielder</strong></td>
+          <td>ASI/Feat slot</td>
+          <td>+1 bonus to AC while wielding a separate melee weapon in each hand. Can use Two-Weapon Fighting with non-Light weapons. Can draw or stow two one-handed weapons per turn instead of one.</td>
+        </tr>
+        <tr>
+          <td><strong>Prodigy</strong></td>
+          <td>ASI/Feat slot</td>
+          <td><em>Human/Half-Elf/Half-Orc only.</em> Grants: one skill proficiency (not recorded), one tool proficiency (not recorded), one language proficiency (not recorded), and <strong>expertise</strong> in one already-proficient skill. Acrobatics has double proficiency (+14), marking it as the expertise choice.</td>
+        </tr>
+        <tr>
+          <td><strong>Fighting Initiate</strong></td>
+          <td>ASI/Feat slot</td>
+          <td>Prerequisite: proficiency with a martial weapon. Grants one additional Fighting Style from the Fighter list. Specific style not recorded — see Campaign Notes.</td>
+        </tr>
+        <tr>
+          <td><strong>Slasher</strong></td>
+          <td>ASI/Feat slot</td>
+          <td>+1 to STR or DEX (already factored into scores). Once per turn on a slashing damage hit: reduce target's speed by 10 ft until start of Tig's next turn. On a critical hit dealing slashing damage: target has Disadvantage on all attack rolls until start of Tig's next turn.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- VIII. BACKGROUND & CHARACTER -->
+  <section id="background">
+    <h2 class="section-title"><span class="num">VIII.</span> Background &amp; Character</h2>
+
+    <h3 class="subhead">Background: City Watch / Investigator (Variant)</h3>
+    <div class="callout">
+      <div class="callout-label">Background Feature — Watcher's Eye</div>
+      Experience enforcing the law gives Tig an instinct for local power structures. He can easily locate the nearest watch outpost or law-enforcement body in any settlement, and can just as readily identify the centres of criminal activity — though he is more welcome in one than the other.
+    </div>
+    <p style="margin-top:0.8rem;">Background skill proficiencies: <strong>Athletics, Insight</strong> (Investigator variant substitutes Investigation for Athletics; both are listed as proficient on this sheet, suggesting the Investigator variant was taken and Athletics was separately acquired). Background languages: two of choice (not specified beyond those already listed).</p>
+    <p style="margin-top:0.5rem;">Starting equipment from background: a watch uniform indicating rank, a horn for summoning assistance, a set of manacles, and 10 gp.</p>
+
+    <h3 class="subhead">Personality Traits (as recorded)</h3>
+    <div class="callout">
+      <p>"I can stare down a hell hound without flinching."</p>
+      <p style="margin-top:0.5rem;">"I'm haunted by memories of war. I can't get the images of violence out of my mind."</p>
+    </div>
+
+    <h3 class="subhead">Ideals, Bonds, Flaws</h3>
+    <div class="notice">
+      <strong>Not recorded on the exported sheet.</strong> These fields were present but left blank.
+    </div>
+
+    <h3 class="subhead">Backstory / Appearance / Allies / Enemies</h3>
+    <div class="notice">
+      <strong>Not recorded on the exported sheet.</strong> All narrative text fields were left blank.
+    </div>
+  </section>
+
+  <!-- IX. CAMPAIGN NOTES -->
+  <section id="campaign">
+    <h2 class="section-title"><span class="num">IX.</span> Campaign Notes</h2>
+
+    <div class="callout red">
+      <div class="callout-label">Convention One-Shot</div>
+      A single-session game played at convention. No adventure title, setting details, notable events, or party composition were recorded or recalled.
+    </div>
+
+    <h3 class="subhead">Unrecorded Sheet Details</h3>
+    <p>The following mechanical elements are confirmed as present on the character sheet but were not captured in the exported data and are not recalled:</p>
+    <div class="notice">
+      <strong>Fighting Styles (×3):</strong> Two class Fighting Styles (levels 1 and 6) plus one from the Fighting Initiate feat. All three choices are unrecorded.<br><br>
+      <strong>Battle Master Maneuvers (×6):</strong> The six Combat Maneuvers selected from the Battle Master list are unrecorded.<br><br>
+      <strong>Prodigy — Additional Skill, Tool &amp; Language:</strong> The feat grants one skill proficiency, one tool proficiency, and one language beyond those already listed. These three selections are unrecorded.<br><br>
+      <strong>Sixth ASI/Feat Slot:</strong> One ASI or feat slot at level 14 is unaccounted for in the recorded feat list. Its use is unrecorded.
+    </div>
+  </section>
+
+</div>
+
+<footer class="colophon">
+  Tig &nbsp;·&nbsp; Human Fighter (Battle Master) &nbsp;·&nbsp; Level 14 &nbsp;·&nbsp; Convention One-Shot<br>
+  D&amp;D 5th Edition &nbsp;·&nbsp; Statistics per exported character sheet
+</footer>
+
+</body>
+</html>

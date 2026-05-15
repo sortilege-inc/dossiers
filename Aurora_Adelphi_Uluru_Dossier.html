@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Aurora Adelphi Uluru</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment:     #e8e0d0;
+    --parchment-mid: #ddd4be;
+    --parchment-dark:#cfc4aa;
+    --ink:           #1a1a14;
+    --ink-soft:      #2e2e20;
+    --ink-faint:     #5c5c40;
+    --ink-ghost:     #8a8a68;
+
+    --grove:         #2d4a28;
+    --grove-mid:     #3e6234;
+    --grove-pale:    #5a8050;
+    --grove-faint:   #8aaa7a;
+
+    --moon:          #6a7a9a;
+    --moon-mid:      #8090b0;
+    --moon-pale:     #a0b0cc;
+    --moon-faint:    #c0cce0;
+
+    --surge:         #7a2830;
+    --surge-mid:     #9a3040;
+    --surge-pale:    #c05060;
+
+    --gold:          #8a6820;
+    --gold-pale:     #b89040;
+    --rule:          #b0a080;
+    --rule-soft:     #ccc0a0;
+    --panel:         rgba(45, 74, 40, 0.05);
+    --panel-dark:    rgba(45, 74, 40, 0.09);
+    --shadow:        rgba(26, 26, 20, 0.20);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--parchment-mid);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16.5px;
+    line-height: 1.7;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse at 12% 8%,  rgba(45, 74, 40, 0.10) 0%, transparent 50%),
+      radial-gradient(ellipse at 88% 92%, rgba(106, 122, 154, 0.09) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(45, 74, 40, 0.04) 0%, transparent 70%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    min-height: 100vh;
+    padding: 2.5rem 1rem;
+  }
+
+  .document {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--parchment);
+    padding: 4.5rem 5rem 5.5rem;
+    box-shadow:
+      0 2px 4px var(--shadow),
+      0 16px 56px rgba(26, 26, 20, 0.20),
+      inset 0 0 100px rgba(45, 74, 40, 0.03);
+    position: relative;
+    border: 1px solid var(--rule);
+    overflow: hidden;
+  }
+
+  /* Top bar: grove-to-moon gradient */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg,
+      var(--grove) 0%,
+      var(--grove-mid) 20%,
+      var(--moon-pale) 50%,
+      var(--grove-mid) 80%,
+      var(--grove) 100%);
+    z-index: 2;
+  }
+
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%, var(--rule) 20%, var(--gold-pale) 50%, var(--rule) 80%, transparent 100%);
+    z-index: 2;
+  }
+
+  .corner {
+    position: absolute;
+    width: 26px; height: 26px;
+    border-color: var(--grove-mid);
+    border-style: solid;
+    opacity: 0.5;
+    z-index: 2;
+  }
+  .corner.tl { top: 14px; left: 14px;  border-width: 1px 0 0 1px; }
+  .corner.tr { top: 14px; right: 14px; border-width: 1px 1px 0 0; }
+  .corner.bl { bottom: 14px; left: 14px;  border-width: 0 0 1px 1px; }
+  .corner.br { bottom: 14px; right: 14px; border-width: 0 1px 1px 0; }
+
+  /* ── HEADER ─────────────────────────────────────────── */
+  header.title-block {
+    text-align: center;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 2.5rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .filemark {
+    display: flex;
+    justify-content: space-between;
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .eyebrow {
+    font-family: "Cinzel", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--grove-mid);
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+
+  h1.character-name {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 2.7rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.08;
+    margin: 0 0 0.35rem;
+    letter-spacing: 0.04em;
+  }
+
+  .subtitle-line {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--moon);
+    text-transform: uppercase;
+    margin: 0.4rem 0 1rem;
+  }
+
+  .vitals {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-family: "Cinzel", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.8rem;
+  }
+  .vitals span {
+    padding: 0 1.1rem;
+    border-left: 1px solid var(--rule);
+    line-height: 2;
+  }
+  .vitals span:first-child { border-left: none; }
+  .vitals strong {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── PORTRAIT ───────────────────────────────────────── */
+  .portrait-frame {
+    float: right;
+    margin: 0 0 2rem 2.5rem;
+    width: 180px;
+    position: relative;
+    z-index: 1;
+  }
+  .portrait-frame img {
+    width: 100%;
+    display: block;
+    filter: sepia(15%) contrast(1.05) brightness(0.96);
+    border: 2px solid var(--rule);
+    box-shadow: 4px 6px 20px rgba(26, 26, 20, 0.28);
+  }
+  .portrait-caption {
+    font-family: "Cinzel", serif;
+    font-size: 0.56rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.5rem;
+    line-height: 1.6;
+  }
+
+  /* ── TOC ────────────────────────────────────────────── */
+  nav.toc {
+    background: var(--panel);
+    border: 1px solid var(--rule-soft);
+    border-left: 3px solid var(--grove-mid);
+    padding: 1.2rem 1.8rem;
+    margin-bottom: 2.8rem;
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+  nav.toc .toc-label {
+    color: var(--grove-mid);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    font-size: 0.62rem;
+    margin-bottom: 0.8rem;
+  }
+  nav.toc ol {
+    margin: 0;
+    padding-left: 1.4rem;
+    color: var(--ink-faint);
+    columns: 2;
+    column-gap: 2rem;
+  }
+  nav.toc li { margin-bottom: 0.25rem; }
+  nav.toc a { color: var(--ink-soft); text-decoration: none; }
+  nav.toc a:hover { color: var(--grove-mid); }
+
+  /* ── SECTIONS ───────────────────────────────────────── */
+  section {
+    margin-bottom: 3rem;
+    clear: both;
+    position: relative;
+    z-index: 1;
+  }
+
+  h2.section-title {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--grove-mid);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.4rem;
+  }
+  .sec-num {
+    color: var(--ink-faint);
+    margin-right: 0.5em;
+    font-weight: 400;
+  }
+
+  h3.subhead {
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 1.6rem 0 0.6rem;
+  }
+
+  p { margin: 0 0 0.9rem; }
+  ul, ol { padding-left: 1.5rem; margin: 0 0 0.9rem; }
+  li { margin-bottom: 0.35rem; }
+
+  /* ── STAT GRID ──────────────────────────────────────── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule);
+    background: var(--panel);
+    text-align: center;
+    padding: 0.6rem 0.3rem 0.5rem;
+  }
+  .stat-cell .stat-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+  .stat-cell .stat-score {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+    display: block;
+  }
+  .stat-cell .stat-mod {
+    font-family: "Cinzel", serif;
+    font-size: 0.7rem;
+    color: var(--grove-mid);
+    display: block;
+    margin-top: 0.2rem;
+    font-weight: 600;
+  }
+
+  /* ── COMBAT STATS ───────────────────────────────────── */
+  .combat-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin: 0.5rem 0 1.5rem;
+  }
+  .combat-cell {
+    border: 1px solid var(--rule);
+    background: var(--panel);
+    text-align: center;
+    padding: 0.5rem 0.3rem;
+  }
+  .combat-cell .c-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: block;
+  }
+  .combat-cell .c-val {
+    font-family: "Cinzel", serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--ink);
+    display: block;
+  }
+
+  /* ── SHEET BLOCK ────────────────────────────────────── */
+  .sheet-block {
+    border: 1px solid var(--rule);
+    background: var(--panel);
+    padding: 1.2rem 1.6rem;
+    margin: 1.2rem 0;
+  }
+  .sheet-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 1rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    align-items: baseline;
+  }
+  .sheet-row:last-child { border-bottom: none; }
+  .sheet-row .sr-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .sheet-row .sr-value { font-size: 1rem; color: var(--ink); }
+
+  /* ── SKILL TABLE ────────────────────────────────────── */
+  .skill-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 2rem;
+    margin: 0.5rem 0 1.4rem;
+  }
+  .skill-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.22rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-size: 0.95rem;
+  }
+  .skill-row .sk-bonus {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    min-width: 2.4rem;
+    text-align: right;
+    color: var(--grove-mid);
+  }
+  .skill-row .sk-bonus.neg { color: var(--surge-mid); }
+  .skill-row .sk-name { color: var(--ink); flex: 1; }
+  .skill-row .sk-name.proficient { color: var(--grove); font-weight: 600; }
+  .skill-row .sk-attr {
+    font-family: "Cinzel", serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-ghost);
+    text-transform: uppercase;
+  }
+  .skill-row .prof-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--grove-faint);
+    flex-shrink: 0;
+    margin-right: 0.1rem;
+  }
+  .skill-row .prof-dot.empty {
+    background: none;
+    border: 1px solid var(--rule);
+  }
+
+  /* ── SAVING THROWS ──────────────────────────────────── */
+  .save-row {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin: 0.4rem 0 1.2rem;
+  }
+  .save-cell {
+    border: 1px solid var(--rule);
+    background: var(--panel);
+    padding: 0.3rem 0.7rem;
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .save-cell .save-name { color: var(--ink-faint); }
+  .save-cell .save-val { color: var(--grove-mid); font-weight: 700; margin-left: 0.3rem; }
+  .save-cell .save-val.proficient { color: var(--grove); }
+
+  /* ── FEATURE ENTRIES ────────────────────────────────── */
+  .feature-entry {
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--rule-soft);
+  }
+  .feature-entry .feat-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--grove-mid);
+    margin-bottom: 0.25rem;
+  }
+  .feature-entry .feat-source {
+    font-family: "Cinzel", serif;
+    font-size: 0.56rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-ghost);
+    margin-left: 0.5rem;
+  }
+
+  /* ── SPELLS ─────────────────────────────────────────── */
+  .spell-header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin: 0.8rem 0 1.2rem;
+  }
+  .spell-stat {
+    border: 1px solid var(--rule);
+    background: var(--panel);
+    text-align: center;
+    padding: 0.5rem;
+  }
+  .spell-stat .ss-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: block;
+  }
+  .spell-stat .ss-val {
+    font-family: "Cinzel", serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: block;
+    margin-top: 0.1rem;
+  }
+  .spell-stat .ss-val.moon { color: var(--moon); }
+  .spell-stat .ss-val.grove { color: var(--grove-mid); }
+
+  .spell-block {
+    margin: 0.8rem 0;
+  }
+  .spell-level-header {
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--grove-mid);
+    border-bottom: 1px solid var(--rule-soft);
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .spell-level-header .slots {
+    font-size: 0.56rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+  }
+  .spell-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .spell-list li {
+    font-size: 0.95rem;
+    padding: 0.2rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 0;
+  }
+  .spell-list li .sp-source {
+    font-family: "Cinzel", serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-ghost);
+    text-transform: uppercase;
+  }
+  .sp-source.druid { color: var(--grove-faint); }
+  .sp-source.sorc  { color: var(--moon-pale); }
+
+  /* ── CALLOUTS ───────────────────────────────────────── */
+  .callout {
+    background: var(--panel-dark);
+    border: 1px solid var(--rule-soft);
+    border-top: 3px solid var(--grove-mid);
+    padding: 1rem 1.4rem;
+    margin: 1.4rem 0;
+    font-size: 0.97rem;
+  }
+  .callout .label {
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--grove-mid);
+    margin-bottom: 0.5rem;
+  }
+  .callout.moon-note { border-top-color: var(--moon); }
+  .callout.moon-note .label { color: var(--moon); }
+  .callout.surge-note { border-top-color: var(--surge-mid); border-left: 3px solid var(--surge-mid); }
+  .callout.surge-note .label { color: var(--surge-mid); }
+
+  /* ── EVENT LOG ──────────────────────────────────────── */
+  .event-log {
+    border: 1px solid var(--rule);
+    background: var(--parchment);
+    margin: 1.6rem 0;
+  }
+  .event-header {
+    background: var(--panel-dark);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.6rem 1.2rem;
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--grove-mid);
+    display: flex;
+    justify-content: space-between;
+  }
+  .event-body { padding: 1.2rem 1.4rem 1rem; }
+
+  /* ── WEAPONS TABLE ──────────────────────────────────── */
+  table.weapons {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.6rem 0 1.2rem;
+    font-size: 0.95rem;
+  }
+  table.weapons th {
+    font-family: "Cinzel", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: left;
+    padding: 0.35rem 0.75rem;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  table.weapons td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: top;
+  }
+  table.weapons tr:last-child td { border-bottom: none; }
+
+  /* ── PERSONALITY BLOCK ──────────────────────────────── */
+  .persona-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin: 0.5rem 0 1.4rem;
+  }
+  .persona-cell {
+    border: 1px solid var(--rule);
+    background: var(--panel);
+    padding: 0.8rem 1rem;
+  }
+  .persona-cell .p-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--grove-mid);
+    margin-bottom: 0.3rem;
+    display: block;
+  }
+  .persona-cell p { margin: 0; font-style: italic; font-size: 0.97rem; }
+
+  /* ── EQUIPMENT LIST ─────────────────────────────────── */
+  .equip-list {
+    columns: 2;
+    column-gap: 2rem;
+    padding: 0;
+    list-style: none;
+    margin: 0.5rem 0 1rem;
+  }
+  .equip-list li {
+    font-size: 0.95rem;
+    padding: 0.2rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    margin: 0;
+    break-inside: avoid;
+  }
+  .equip-list li::before {
+    content: "◦ ";
+    color: var(--grove-faint);
+  }
+
+  /* ── ORNAMENT / FOOTER ──────────────────────────────── */
+  .ornament {
+    text-align: center;
+    color: var(--rule);
+    font-size: 1.1rem;
+    letter-spacing: 0.6em;
+    margin: 2rem 0 1rem;
+  }
+
+  footer.colophon {
+    text-align: center;
+    font-family: "Cinzel", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    border-top: 1px solid var(--rule-soft);
+    padding-top: 1.4rem;
+    margin-top: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── RESPONSIVE ─────────────────────────────────────── */
+  @media (max-width: 680px) {
+    .document { padding: 3rem 1.8rem 4rem; }
+    h1.character-name { font-size: 1.9rem; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .combat-row { grid-template-columns: repeat(3, 1fr); }
+    .sheet-row { grid-template-columns: 1fr; gap: 0.2rem; }
+    .skill-cols { grid-template-columns: 1fr; }
+    .spell-list { grid-template-columns: 1fr; }
+    .persona-grid { grid-template-columns: 1fr; }
+    .equip-list { columns: 1; }
+    nav.toc ol { columns: 1; }
+    .portrait-frame { float: none; margin: 0 auto 1.5rem; display: block; width: 150px; }
+    .spell-header { grid-template-columns: 1fr; }
+    .save-row { gap: 0.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="document">
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <!-- HEADER -->
+  <header class="title-block">
+    <div class="filemark">
+      <span>Lowry Hill East D&amp;D · PC Dossier</span>
+      <span>File: Closed · Status: Concluded</span>
+    </div>
+    <div class="eyebrow">Player Character Record</div>
+    <h1 class="character-name">Aurora Adelphi Uluru</h1>
+    <p class="subtitle-line">Wild Magic Oneiromancer</p>
+    <div class="vitals">
+      <span>Race<strong>Moon Elf</strong></span>
+      <span>Class<strong>Druid 2 / Sorcerer 1</strong></span>
+      <span>Background<strong>Hermit</strong></span>
+      <span>Alignment<strong>Lawful Good</strong></span>
+      <span>XP<strong>900</strong></span>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <div class="toc-label">Index of Contents</div>
+    <ol>
+      <li><a href="#portrait">Portrait &amp; Appearance</a></li>
+      <li><a href="#sheet">Ability Scores &amp; Combat</a></li>
+      <li><a href="#skills">Skills &amp; Saving Throws</a></li>
+      <li><a href="#spells">Spellcasting</a></li>
+      <li><a href="#features">Class &amp; Race Features</a></li>
+      <li><a href="#equipment">Equipment &amp; Weapon</a></li>
+      <li><a href="#personality">Personality &amp; Character</a></li>
+      <li><a href="#backstory">Backstory</a></li>
+      <li><a href="#events">Notable Events of Play</a></li>
+    </ol>
+  </nav>
+
+  <!-- I. PORTRAIT -->
+  <section id="portrait">
+    <h2 class="section-title"><span class="sec-num">I.</span> Portrait &amp; Appearance</h2>
+
+    <div class="portrait-frame">
+      <img src="Aurora_Adelphi_Uluru.jpg" alt="Aurora Adelphi Uluru">
+      <div class="portrait-caption">
+        Aurora Adelphi Uluru<br>
+        Moon Elf · Age 33
+      </div>
+    </div>
+
+    <p>Aurora is slender, fair-skinned, with blue eyes and dark brown hair. She is 5'11" and weighs 141 lbs. Her most distinctive feature is a set of Pict-like facial tattoos — fine, angular marks that suggest a tradition of body inscription uncommon among city elves, more at home in deep-forest lineages or isolated hermitic orders.</p>
+
+    <p>She carries herself with the stillness of someone accustomed to long silence. Years of solitary hermitage have made her unhurried — not slow, but deliberate, as though she is always half-listening for something beyond the immediate room. Those who watch her closely note that her stillness sometimes crosses over into absence: there are moments when she is, for all observable purposes, somewhere else entirely.</p>
+
+    <p>Her companion is <em>Olor</em> — a boreal owl whose name translates from colloquial Elvish as <em>dream-vision</em>. The name was not chosen idly.</p>
+  </section>
+
+  <!-- II. ABILITY SCORES & COMBAT -->
+  <section id="sheet">
+    <h2 class="section-title"><span class="sec-num">II.</span> Ability Scores &amp; Combat Statistics</h2>
+
+    <div class="stat-grid">
+      <div class="stat-cell">
+        <span class="stat-name">Strength</span>
+        <span class="stat-score">8</span>
+        <span class="stat-mod">−1</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-name">Dexterity</span>
+        <span class="stat-score">14</span>
+        <span class="stat-mod">+2</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-name">Constitution</span>
+        <span class="stat-score">15</span>
+        <span class="stat-mod">+2</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-name">Intelligence</span>
+        <span class="stat-score">14</span>
+        <span class="stat-mod">+2</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-name">Wisdom</span>
+        <span class="stat-score">16</span>
+        <span class="stat-mod">+3</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-name">Charisma</span>
+        <span class="stat-score">16</span>
+        <span class="stat-mod">+3</span>
+      </div>
+    </div>
+
+    <div class="combat-row">
+      <div class="combat-cell">
+        <span class="c-label">Armour Class</span>
+        <span class="c-val">15</span>
+      </div>
+      <div class="combat-cell">
+        <span class="c-label">Initiative</span>
+        <span class="c-val">+2</span>
+      </div>
+      <div class="combat-cell">
+        <span class="c-label">Speed</span>
+        <span class="c-val">30 ft</span>
+      </div>
+      <div class="combat-cell">
+        <span class="c-label">Hit Points</span>
+        <span class="c-val">23</span>
+      </div>
+      <div class="combat-cell">
+        <span class="c-label">Proficiency</span>
+        <span class="c-val">+2</span>
+      </div>
+    </div>
+
+    <div class="callout moon-note">
+      <div class="label">Passive Wisdom (Perception)</div>
+      <p style="margin:0">15. Her passive perception exceeds her unmodified roll by 2, reflecting a life spent attending to quiet signals others miss.</p>
+    </div>
+  </section>
+
+  <!-- III. SKILLS & SAVING THROWS -->
+  <section id="skills">
+    <h2 class="section-title"><span class="sec-num">III.</span> Skills &amp; Saving Throws</h2>
+
+    <h3 class="subhead">Skills</h3>
+    <div class="skill-cols">
+      <div>
+        <div class="skill-row">
+          <span class="prof-dot empty"></span>
+          <span class="sk-bonus neg">−1</span>
+          <span class="sk-name">Athletics</span>
+          <span class="sk-attr">Str</span>
+        </div>
+        <div class="skill-row">
+          <span class="prof-dot empty"></span>
+          <span class="sk-bonus">+2</span>
+          <span class="sk-name">Acrobatics</span>
+          <span class="sk-attr">Dex</span>
+        </div>
+        <div class="skill-row">
+          <span class="prof-dot empty"></span>
+          <span class="sk-bonus">+2</span>
+          <span class="sk-name">Sleight of Hand</span>
+          <span class="sk-attr">Dex</span>
+        </div>
+        <div class="skill-row">
+          <span class="prof-dot"></span>
+          <span class="sk-bonus">+4</span>
+          <span class="sk-name proficient">Stealth</span>
+          <span class="sk-attr">Dex</span>
+        </div>
+        <div class="skill-row">
+          <span class="prof-dot empty"></span>
+          <span class="sk-bonus">+2</span>
+          <span class="sk-name">History</span>
+          <span class="sk-attr">Int</span>
+        </div>
+        <div class="skill-row">
+          <span class="prof-dot empty"></span>
+          <span class="sk-bonus">+2</span>
+          <span class="sk-name">Investigation</span>
+          <span class="sk-attr">Int</span>
+        </div>
+        <div class="skill-row">
+          <span class="prof-dot empty"></span>
+          <span class="sk-bonus">+2</span>
+          <span class="sk-name">Arcana</span>
+          <span class="sk-attr">Int</span>
+        </div>
+        <div class="skill-row">
+          <span class="prof-dot"></span>
+          <span class="sk-bonus">+4</span>
+          <span class="sk-name proficient">Nature</span>
+          <span class="sk-attr">Int</span>
+        </div>
+        <div class="skill-row">
+          <span class="prof-dot empty"></span>
+          <span class="sk-bonus">+2</span>
+          <span class="sk-name">Religion</span>
+          <span class="sk-attr">Int</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-row">
+          <span class="prof-dot"></span>
+          <span class="sk-bonus">+5</span>
+          <span class="sk-name proficient">Animal Handling</span>
+          <span class="sk-attr">Wis</span>
+        </div>
+        <div class="skill-row">
+          <span class="prof-dot empty"></span>
+          <span class="sk-bonus">+3</span>
+          <span class="sk-name">Insight</span>
+          <span class="sk-attr">Wis</span>
+        </div>
+        <div class="skill-row">
+          <span class="prof-dot"></span>
+          <span class="sk-bonus">+5</span>
+          <span class="sk-name proficient">Medicine</span>
+          <span class="sk-attr">Wis</span>
+        </div>
+        <div class="skill-row">
+          <span class="prof-dot"></span>
+          <span class="sk-bonus">+5</span>
+          <span class="sk-name proficient">Perception</span>
+          <span class="sk-attr">Wis</span>
+        </div>
+        <div class="skill-row">
+          <span class="prof-dot empty"></span>
+          <span class="sk-bonus">+3</span>
+          <span class="sk-name">Survival</span>
+          <span class="sk-attr">Wis</span>
+        </div>
+        <div class="skill-row">
+          <span class="prof-dot empty"></span>
+          <span class="sk-bonus">+3</span>
+          <span class="sk-name">Deception</span>
+          <span class="sk-attr">Cha</span>
+        </div>
+        <div class="skill-row">
+          <span class="prof-dot empty"></span>
+          <span class="sk-bonus">+3</span>
+          <span class="sk-name">Intimidation</span>
+          <span class="sk-attr">Cha</span>
+        </div>
+        <div class="skill-row">
+          <span class="prof-dot empty"></span>
+          <span class="sk-bonus">+3</span>
+          <span class="sk-name">Performance</span>
+          <span class="sk-attr">Cha</span>
+        </div>
+        <div class="skill-row">
+          <span class="prof-dot empty"></span>
+          <span class="sk-bonus">+3</span>
+          <span class="sk-name">Persuasion</span>
+          <span class="sk-attr">Cha</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Saving Throws</h3>
+    <div class="save-row">
+      <div class="save-cell"><span class="save-name">Strength</span><span class="save-val">−1</span></div>
+      <div class="save-cell"><span class="save-name">Dexterity</span><span class="save-val">+2</span></div>
+      <div class="save-cell"><span class="save-name">Constitution</span><span class="save-val">+2</span></div>
+      <div class="save-cell"><span class="save-name">Intelligence</span><span class="save-val proficient">+4</span></div>
+      <div class="save-cell"><span class="save-name">Wisdom</span><span class="save-val proficient">+5</span></div>
+      <div class="save-cell"><span class="save-name">Charisma</span><span class="save-val">+3</span></div>
+    </div>
+    <p style="font-size:0.88rem; color:var(--ink-faint); font-family:'Cinzel',serif; letter-spacing:0.08em;">Proficiency (indicated by bold green) in Intelligence and Wisdom saving throws, from the Druid class.</p>
+
+    <h3 class="subhead">Languages &amp; Tool Proficiencies</h3>
+    <div class="sheet-block">
+      <div class="sheet-row">
+        <span class="sr-label">Languages</span>
+        <span class="sr-value">Common, Elvish, Primordial, Enochian</span>
+      </div>
+      <div class="sheet-row">
+        <span class="sr-label">Tool Proficiency</span>
+        <span class="sr-value">Herbalism Kit</span>
+      </div>
+      <div class="sheet-row">
+        <span class="sr-label">Weapon Proficiencies</span>
+        <span class="sr-value">Longsword, shortsword, dagger, sickle, spear, longbow, shortbow, mace, quarterstaff, sling, javelin, club, dart, scimitar</span>
+      </div>
+      <div class="sheet-row">
+        <span class="sr-label">Armour Proficiencies</span>
+        <span class="sr-value">Light armour, medium armour, shields</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- IV. SPELLCASTING -->
+  <section id="spells">
+    <h2 class="section-title"><span class="sec-num">IV.</span> Spellcasting</h2>
+
+    <p>Aurora casts from two classes simultaneously: her druidic magic is rooted in Wisdom and the living world; her sorcery draws on Charisma and emerges unbidden from somewhere older and stranger. Both streams share the same spell save DC and attack bonus at this level.</p>
+
+    <div class="spell-header">
+      <div class="spell-stat">
+        <span class="ss-label">Spellcasting Abilities</span>
+        <span class="ss-val grove">Wisdom</span>
+        <span class="ss-val moon" style="font-size:0.85rem;">/ Charisma</span>
+      </div>
+      <div class="spell-stat">
+        <span class="ss-label">Spell Save DC</span>
+        <span class="ss-val grove">13 / 13</span>
+      </div>
+      <div class="spell-stat">
+        <span class="ss-label">Spell Attack Bonus</span>
+        <span class="ss-val moon">+5 / +5</span>
+      </div>
+    </div>
+
+    <div class="sheet-block" style="margin-bottom:1.2rem;">
+      <div class="sheet-row">
+        <span class="sr-label">1st-Level Slots</span>
+        <span class="sr-value">4 total (combined Druid + Sorcerer multiclass pool)</span>
+      </div>
+    </div>
+
+    <div class="spell-block">
+      <div class="spell-level-header">
+        <span>Cantrips</span>
+        <span class="slots">At will</span>
+      </div>
+      <ul class="spell-list">
+        <li>True Strike <span class="sp-source sorc">Sorcerer</span></li>
+        <li>Blade Ward <span class="sp-source sorc">Sorcerer</span></li>
+        <li>Ray of Frost <span class="sp-source sorc">Sorcerer</span></li>
+        <li>Guidance <span class="sp-source druid">Druid</span></li>
+        <li>Shillelagh <span class="sp-source druid">Druid</span></li>
+      </ul>
+    </div>
+
+    <div class="spell-block">
+      <div class="spell-level-header">
+        <span>1st Level</span>
+        <span class="slots">4 slots</span>
+      </div>
+      <ul class="spell-list">
+        <li>Goodberry <span class="sp-source druid">Druid</span></li>
+        <li>Speak with Animals <em style="font-size:0.8em">(ritual)</em> <span class="sp-source druid">Druid</span></li>
+        <li>Entangle <span class="sp-source druid">Druid</span></li>
+        <li>Sleep <span class="sp-source sorc">Sorcerer</span></li>
+        <li>Expeditious Retreat <span class="sp-source sorc">Sorcerer</span></li>
+      </ul>
+    </div>
+
+    <div class="callout moon-note">
+      <div class="label">Druidic Focus</div>
+      <p style="margin:0">A perforated glass orb, housing a single living <em>Tillandsia ionantha</em> — 'vilyolva' in colloquial Elvish. The orb was inherited, not created; its previous guardian died of old age, and Aurora came into possession of it in early adulthood. This is her druidic focus.</p>
+    </div>
+  </section>
+
+  <!-- V. CLASS & RACE FEATURES -->
+  <section id="features">
+    <h2 class="section-title"><span class="sec-num">V.</span> Class &amp; Race Features</h2>
+
+    <h3 class="subhead">Moon Elf</h3>
+
+    <div class="feature-entry">
+      <div class="feat-name">Fey Ancestry</div>
+      <p>Advantage on saving throws against being charmed. Magic cannot put her to sleep.</p>
+    </div>
+    <div class="feature-entry">
+      <div class="feat-name">Trance <span class="feat-source">Elf</span></div>
+      <p>Elves do not sleep. Aurora meditates for 4 hours a day — the Common word for this state is 'trance.' During meditation she can dream after a fashion; such dreams are mental exercises that have become reflexive through years of practice. After 4 hours of trance she gains the benefits of 8 hours of sleep. What constitutes a dream for Aurora has grown considerably harder to define.</p>
+    </div>
+    <div class="feature-entry">
+      <div class="feat-name">Darkvision <span class="feat-source">Elf</span></div>
+      <p>Accustomed to twilit forests and the night sky. Superior vision in dark and dim conditions: she can see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light. She cannot discern colour in darkness — only shades of grey.</p>
+    </div>
+    <div class="feature-entry">
+      <div class="feat-name">Druidic <span class="feat-source">Elf Language</span></div>
+      <p>She knows Druidic, the secret language of druids, and can use it to leave hidden messages. Others who know the language automatically spot such a message. A successful DC 15 Wisdom (Perception) check will spot its presence but not decipher it.</p>
+    </div>
+    <div class="feature-entry">
+      <div class="feat-name">Bathed in Moonlight <span class="feat-source">Moon Elf</span></div>
+      <p>She can attempt to hide when she is only obscured by dim light.</p>
+    </div>
+    <div class="feature-entry">
+      <div class="feat-name">Lunar Magic <span class="feat-source">Moon Elf</span></div>
+      <p>She knows the <em>minor illusion</em> cantrip. When she reaches 3rd level, she can cast <em>sleep</em> as a 2nd-level spell once with this trait, recovering the ability on a long rest. (Not yet reached at current level.)</p>
+    </div>
+
+    <h3 class="subhead">Druid (Level 2)</h3>
+
+    <div class="feature-entry">
+      <div class="feat-name">Wild Shape <span class="feat-source">Druid 2</span></div>
+      <p>As an action, she can magically assume the shape of a beast she has seen before. This feature is usable twice between short or long rests. Her druid level determines the beasts she can transform into: at 2nd level, any beast with a challenge rating of 1/4 or lower that has no flying or swimming speed.</p>
+      <p>Available beast forms (CR 1/4 or lower, no fly/swim): Baboon, Badger, Cat, Deer, Giant Fire Beetle, Goat, Hyena, Jackal, Lizard, Rat, Scorpion, Spider, Weasel; Camel, Giant Rat, Giant Weasel, Mastiff, Mule, Pony; Axe Beak, Boar, Draft Horse, Elk, Giant Badger, Giant Centipede, Giant Goat, Giant Lizard, Giant Wolf Spider, Panther, Riding Horse, Swarm of Rats, Wolf.</p>
+    </div>
+    <div class="feature-entry">
+      <div class="feat-name">Balm of the Summer Court <span class="feat-source">Moon Druid 2</span></div>
+      <p>She is a font of fey energy that offers respite from injury. She has a pool of fey energy represented by a number of d6s equal to her druid level (currently 2d6). As a bonus action, she can choose one creature within 120 feet and spend any number of those dice up to half her druid level. The target regains hit points equal to the total rolled, and also gains 1 temporary hit point per die spent. She regains the expended dice on a long rest.</p>
+    </div>
+    <div class="feature-entry">
+      <div class="feat-name">Discovery: Dream <span class="feat-source">Hermit Background</span></div>
+      <p>She can cast <em>Dream</em> once per day without materials, preparation, or a spell slot. If she casts it upon herself, she can communicate with her mentor.</p>
+    </div>
+
+    <h3 class="subhead">Sorcerer (Level 1) — Wild Magic Origin</h3>
+
+    <div class="feature-entry">
+      <div class="feat-name">Wild Magic Surge <span class="feat-source">Sorcerer 1</span></div>
+      <p>Immediately after she casts a sorcerer spell of 1st level or higher, the DM can have her roll a d20. On a roll of 1, she rolls on the Wild Magic Surge table, creating a random magical effect. A surge can happen once per turn. If a surge effect is itself a spell requiring concentration, it does not require concentration.</p>
+    </div>
+    <div class="feature-entry">
+      <div class="feat-name">Tides of Chaos <span class="feat-source">Sorcerer 1</span></div>
+      <p>Once per long rest, she can gain advantage on one attack roll, ability check, or saving throw. Before she regains the use of this feature, the DM can have her roll on the Wild Magic Surge table immediately after she casts a sorcerer spell of 1st level or higher — at which point she regains this feature's use.</p>
+    </div>
+  </section>
+
+  <!-- VI. EQUIPMENT & WEAPON -->
+  <section id="equipment">
+    <h2 class="section-title"><span class="sec-num">VI.</span> Equipment &amp; Weapon</h2>
+
+    <h3 class="subhead">Weapon</h3>
+    <table class="weapons">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Attack Bonus</th>
+          <th>Damage</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Scimitar</td>
+          <td>+4</td>
+          <td>1d6+2</td>
+          <td>Slashing</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="subhead">Carried Equipment</h3>
+    <ul class="equip-list">
+      <li>Explorer's Pack (59 lbs.)</li>
+      <li>Backpack</li>
+      <li>Bedroll</li>
+      <li>Mess kit</li>
+      <li>Tinderbox</li>
+      <li>10 torches</li>
+      <li>10 days of rations</li>
+      <li>Waterskin</li>
+      <li>50 ft. hempen rope</li>
+      <li>Scroll of notes from studies</li>
+      <li>Winter blanket</li>
+      <li>Common clothes</li>
+      <li>Herbalism kit</li>
+      <li>5 GP</li>
+    </ul>
+  </section>
+
+  <!-- VII. PERSONALITY & CHARACTER -->
+  <section id="personality">
+    <h2 class="section-title"><span class="sec-num">VII.</span> Personality &amp; Character</h2>
+
+    <div class="persona-grid">
+      <div class="persona-cell">
+        <span class="p-label">Personality Traits</span>
+        <p>I needed to commune with nature, far from civilisation. I am utterly serene, even in the face of disaster.</p>
+      </div>
+      <div class="persona-cell">
+        <span class="p-label">Ideal</span>
+        <p>Live and let live; meddling in the affairs of others causes only trouble.</p>
+      </div>
+      <div class="persona-cell">
+        <span class="p-label">Bond</span>
+        <p>Nothing is more important than my relationship with my mentor and order.</p>
+      </div>
+      <div class="persona-cell">
+        <span class="p-label">Flaw</span>
+        <p>I keep my own counsel, and do not readily share insights.</p>
+      </div>
+    </div>
+
+    <p>The contradiction at the centre of her character is precise: she values non-interference as an ideal and yet the thing she holds most important — her relationship with her mentor — is a relationship of total dependence. The mentor has refused explanation for what is happening to her. She has accepted this without confrontation. Her flaw and her bond are, in practice, two names for the same disposition.</p>
+  </section>
+
+  <!-- VIII. BACKSTORY -->
+  <section id="backstory">
+    <h2 class="section-title"><span class="sec-num">VIII.</span> Backstory</h2>
+
+    <h3 class="subhead">The Relic and the Forest</h3>
+    <p>In early adulthood, Aurora became heir to a peculiar relic: a glass orb, perforated, housing a single living <em>Tillandsia ionantha</em> — 'vilyolva' in colloquial Elvish. This is her druidic focus. The previous guardian had died of old age, and nothing prepared her for what was to come. That first night, meditation turned to sleep, and she encountered a person in her dream who advised her on a journey deep into the forest, and promised wisdom and strength. Upon waking, she resolved to commit to the endeavour, and spent the following decade in seclusion.</p>
+
+    <p>Every night upon meditating, the voice returned — teaching herbal lore, the secrets of animals, the cruel and compassionate ways of nature. For a decade, this was the whole shape of her life.</p>
+
+    <h3 class="subhead">The Disturbance</h3>
+    <p>A few months before the campaign begins, her dreams grew strange and troubled. This continued until she awoke suddenly to find herself surrounded by animals fallen into an enchanted sleep. When they awoke, she spoke to them and discovered that she had called them to her through her dreams. As the days passed, she occasionally found herself dropping into sleep and performing magical actions. Her mentor refused explanation — refused even to acknowledge responsibility. Increasingly she found herself acting both in sleep and whilst awake.</p>
+
+    <p>Disturbed, she journeyed out of the woods and began seeking other means to understand what was happening to her. The campaign begins here: at the edge of the forest, carrying the relic she did not ask for and the magic she did not choose, in search of an answer her mentor will not provide.</p>
+
+    <div class="callout">
+      <div class="label">On the Nature of Her Magic</div>
+      <p style="margin:0">The meeting point of Wild Magic and oneiromancy is unusual. Her druidic magic is learned, deliberate, earned through a decade of patient study. Her sorcery is not. It is older, stranger, and — if the surges are any indication — not entirely under her direction. The dreams began the disturbance. The magic followed the dreams. Whether the magic is the cause of the dreams, or the dreams are the cause of the magic, remains unresolved.</p>
+    </div>
+  </section>
+
+  <!-- IX. NOTABLE EVENTS -->
+  <section id="events">
+    <h2 class="section-title"><span class="sec-num">IX.</span> Notable Events of Play</h2>
+
+    <div class="event-log">
+      <div class="event-header">
+        <span>Event Log · I</span>
+        <span>In Combat · The Fireball</span>
+      </div>
+      <div class="event-body">
+        <h3 class="subhead" style="margin-top:0">She Fell Asleep Mid-Battle, Cast Fireball on Herself, and Survived</h3>
+
+        <p>During a combat encounter, Aurora fell asleep. This was not a tactical decision. It was not a spell effect from an enemy. She simply went under — her oneiromantic affliction asserting itself at the worst possible moment, pulling her out of waking action in the middle of a fight.</p>
+
+        <p>While asleep, she cast <em>Fireball</em> — centred on herself.</p>
+
+        <div class="callout surge-note">
+          <div class="label">Wild Magic Surge</div>
+          <p style="margin:0"><em>Fireball</em> is not on the Druid spell list, and she had no access to it as a Sorcerer 1. The most consistent reading is that this was a Wild Magic Surge — the chaotic sorcerous element asserting itself through the dream-state, selecting a spell from beyond her known repertoire. The mechanics do not cleanly accommodate this. The fiction does.</p>
+        </div>
+
+        <p>She survived. At 23 hit points with Constitution +2 and the fortitude that a decade of forest hermitage builds, she was able to absorb the blast. That she survived is the remarkable fact. That she cast it at all is the disturbing one.</p>
+
+        <div class="callout moon-note">
+          <div class="label">What This Moment Tells Us</div>
+          <p style="margin:0">She is not in control. Not of the dreams, not of the magic that follows the dreams, and not — when the two overlap — of what her sleeping self will do in the world. The gap between her waking self (serene, deliberate, a decade of cultivated stillness) and her sleeping self (capable of casting offensive area magic at point-blank range on her own position) is the essential tension of the character. The moment is absurd and it is terrifying, and she survived it, which means she had to wake up afterwards and understand what had happened. What she made of that understanding is not recorded.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+  <footer class="colophon">
+    Lowry Hill East D&amp;D · Player Character Record · Concluded<br>
+    Aurora Adelphi Uluru · Moon Elf · Druid 2 / Sorcerer 1 · Lawful Good · Wild Magic Oneiromancer
+  </footer>
+
+</div>
+</body>
+</html>

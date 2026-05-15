@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TARAN O'DAMHRI — ARTILLERIST — FIELD DOSSIER</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --iron:          #1a1c1f;
+  --iron-mid:      #242729;
+  --iron-light:    #2e3135;
+  --iron-pale:     #3c4045;
+  --steel:         #4e5560;
+  --steel-mid:     #6e7880;
+  --steel-bright:  #9aaab8;
+  --forge:         #c8500a;
+  --forge-bright:  #e8721c;
+  --forge-glow:    #f09040;
+  --forge-ember:   #f5b860;
+  --copper:        #a06820;
+  --copper-bright: #c88830;
+  --copper-pale:   #e8c878;
+  --blueprint:     #1e2d40;
+  --blueprint-line:#2a4060;
+  --rivet:         #8a7860;
+  --parchment:     #d4c8a8;
+  --white:         #e8e4dc;
+  --dim:           #7a8890;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--iron);
+  color: var(--white);
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: 15px;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+body {
+  background-color: var(--iron);
+  background-image:
+    linear-gradient(rgba(30,45,64,0.6) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30,45,64,0.6) 1px, transparent 1px),
+    linear-gradient(rgba(30,45,64,0.25) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30,45,64,0.25) 1px, transparent 1px),
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(200,80,10,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 80% 80%, rgba(160,104,32,0.07) 0%, transparent 50%);
+  background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px, 100% 100%, 100% 100%;
+  padding: 2rem 1rem 4rem;
+}
+
+/* ── DOCUMENT SHELL ── */
+.document {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--iron-mid);
+  border: 2px solid var(--copper);
+  box-shadow:
+    0 0 0 1px var(--iron-pale),
+    0 0 40px rgba(200,80,10,0.15),
+    inset 0 0 120px rgba(10,12,14,0.5);
+  position: relative;
+  animation: fadeUp 0.6s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* corner rivets */
+.document::before,
+.document::after {
+  content: "";
+  position: absolute;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, var(--copper-bright), var(--copper) 50%, #5a3a0a);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,200,100,0.3);
+  z-index: 10;
+}
+.document::before { top: 10px; left: 10px; }
+.document::after  { top: 10px; right: 10px; }
+.rivet-bl, .rivet-br {
+  position: absolute;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, var(--copper-bright), var(--copper) 50%, #5a3a0a);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,200,100,0.3);
+  z-index: 10;
+}
+.rivet-bl { bottom: 10px; left: 10px; }
+.rivet-br { bottom: 10px; right: 10px; }
+
+/* ── HEADER BAND ── */
+.header-band {
+  background: linear-gradient(180deg, var(--iron-pale) 0%, var(--iron-light) 100%);
+  border-bottom: 3px solid var(--copper);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+.header-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent 0px, transparent 8px,
+    rgba(160,104,32,0.04) 8px, rgba(160,104,32,0.04) 9px
+  );
+}
+
+.header-top {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--iron-pale);
+}
+
+.header-portrait {
+  width: 180px;
+  min-width: 180px;
+  position: relative;
+  border-right: 2px solid var(--copper);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.header-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: sepia(0.2) contrast(1.05);
+}
+.header-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 60%, rgba(200,80,10,0.25) 100%);
+  pointer-events: none;
+}
+
+.header-title {
+  flex: 1;
+  padding: 1.8rem 2rem 1.5rem;
+  position: relative;
+}
+
+.classification-tag {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  color: var(--forge);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.classification-tag::before {
+  content: "";
+  display: inline-block;
+  width: 20px; height: 1px;
+  background: var(--forge);
+}
+
+.char-name {
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: 3.2rem;
+  line-height: 0.95;
+  letter-spacing: 0.03em;
+  color: var(--white);
+  text-shadow: 0 0 30px rgba(200,80,10,0.3);
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.char-subtitle {
+  font-family: "Oswald", sans-serif;
+  font-weight: 300;
+  font-size: 1.05rem;
+  letter-spacing: 0.2em;
+  color: var(--copper-pale);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.header-meta-row {
+  display: flex;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+}
+.meta-chip {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--steel-bright);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.meta-chip .label {
+  color: var(--copper);
+  text-transform: uppercase;
+}
+
+/* ── FORGE-FIRE RULE ── */
+.forge-rule {
+  height: 4px;
+  background: linear-gradient(90deg,
+    var(--iron-light) 0%,
+    var(--copper) 15%,
+    var(--forge) 35%,
+    var(--forge-glow) 50%,
+    var(--forge) 65%,
+    var(--copper) 85%,
+    var(--iron-light) 100%);
+  position: relative;
+}
+.forge-rule::after {
+  content: "";
+  position: absolute;
+  top: -2px; left: 0; right: 0;
+  height: 8px;
+  background: inherit;
+  filter: blur(4px);
+  opacity: 0.5;
+}
+
+/* ── GEAR DIVIDER ── */
+.gear-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 2rem;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--copper);
+  text-transform: uppercase;
+}
+.gear-divider::before,
+.gear-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--copper) 30%, var(--copper) 70%, transparent);
+  opacity: 0.5;
+}
+.gear-divider .gear-icon {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* ── BODY GRID ── */
+.body-grid {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 0;
+}
+
+.main-col {
+  border-right: 1px solid var(--iron-pale);
+  padding: 1.6rem 2rem;
+}
+
+.side-col {
+  padding: 1.6rem 1.4rem;
+}
+
+/* ── SECTION HEADS ── */
+.section-head {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--forge-glow);
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--iron-pale);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.section-head::before {
+  content: "▸";
+  color: var(--forge);
+  font-size: 0.65rem;
+}
+
+/* ── ABILITY SCORES ── */
+.ability-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  margin-bottom: 1.4rem;
+}
+
+.ability-box {
+  background: var(--iron-light);
+  border: 1px solid var(--iron-pale);
+  border-top: 2px solid var(--copper);
+  padding: 0.5rem 0.3rem;
+  text-align: center;
+  position: relative;
+  transition: border-color 0.2s;
+}
+.ability-box:hover { border-color: var(--forge); }
+
+.ability-name {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  color: var(--copper);
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+.ability-score {
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: 1.7rem;
+  line-height: 1;
+  color: var(--white);
+}
+.ability-mod {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.7rem;
+  color: var(--forge-glow);
+  margin-top: 0.1rem;
+}
+
+/* ── STATS ROW ── */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 1.4rem;
+}
+.stat-box {
+  background: var(--iron-light);
+  border: 1px solid var(--iron-pale);
+  padding: 0.6rem 0.5rem;
+  text-align: center;
+}
+.stat-label {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  color: var(--copper);
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+.stat-value {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--white);
+}
+.stat-value.hp { color: var(--forge-glow); }
+
+/* ── SAVES & SKILLS ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem;
+  margin-bottom: 1.4rem;
+}
+
+.save-list, .skill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.save-item, .skill-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.68rem;
+  color: var(--steel-bright);
+  padding: 2px 0;
+}
+.save-item .pip, .skill-item .pip {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--steel);
+  flex-shrink: 0;
+}
+.save-item.proficient .pip,
+.skill-item.proficient .pip {
+  background: var(--forge);
+  border-color: var(--forge-bright);
+  box-shadow: 0 0 4px rgba(200,80,10,0.5);
+}
+.save-item .name, .skill-item .name { flex: 1; }
+.save-item .bonus, .skill-item .bonus {
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+  font-size: 0.78rem;
+  color: var(--white);
+  min-width: 28px;
+  text-align: right;
+}
+.skill-item .attr {
+  font-size: 0.58rem;
+  color: var(--dim);
+  min-width: 24px;
+}
+
+/* ── SPELLS ── */
+.spell-slots-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+.slot-box {
+  background: var(--iron-light);
+  border: 1px solid var(--iron-pale);
+  padding: 0.4rem 0.7rem;
+  text-align: center;
+  min-width: 50px;
+}
+.slot-level {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.58rem;
+  color: var(--copper);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.slot-count {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--white);
+}
+
+.spell-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.4rem;
+}
+.spell-table th {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--copper);
+  text-transform: uppercase;
+  text-align: left;
+  padding: 4px 6px;
+  border-bottom: 1px solid var(--iron-pale);
+}
+.spell-table td {
+  font-size: 0.78rem;
+  padding: 4px 6px;
+  border-bottom: 1px solid rgba(62,67,72,0.4);
+  color: var(--steel-bright);
+  vertical-align: top;
+}
+.spell-table td.name {
+  color: var(--white);
+  font-family: "Libre Baskerville", serif;
+  font-size: 0.8rem;
+}
+.spell-table td.level {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.65rem;
+  color: var(--forge-ember);
+  text-align: center;
+}
+.spell-table td.school {
+  font-size: 0.65rem;
+  font-style: italic;
+  color: var(--dim);
+}
+.spell-table tr:hover td { background: rgba(200,80,10,0.04); }
+.cantrip-row td { opacity: 0.85; }
+
+/* ── FEATURES (side col) ── */
+.feature-block {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--iron-light);
+}
+.feature-block:last-child { border-bottom: none; }
+.feature-name {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--copper-pale);
+  margin-bottom: 0.3rem;
+}
+.feature-text {
+  font-size: 0.72rem;
+  line-height: 1.55;
+  color: var(--steel-bright);
+}
+.feature-text strong {
+  color: var(--forge-ember);
+  font-weight: 700;
+}
+.feature-tag {
+  display: inline-block;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  background: var(--iron-pale);
+  border: 1px solid var(--copper);
+  color: var(--copper-pale);
+  padding: 1px 5px;
+  margin-bottom: 0.3rem;
+}
+
+/* ── CANNON PANEL ── */
+.cannon-panel {
+  background: linear-gradient(135deg, var(--iron-light) 0%, rgba(200,80,10,0.07) 100%);
+  border: 1px solid var(--forge);
+  border-left: 3px solid var(--forge-bright);
+  padding: 1rem 1.1rem;
+  margin-bottom: 1.4rem;
+  position: relative;
+  overflow: hidden;
+}
+.cannon-panel::before {
+  content: "ELDRITCH CANNON";
+  position: absolute;
+  top: 6px; right: 8px;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  color: rgba(200,80,10,0.25);
+}
+.cannon-title {
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--forge-glow);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.cannon-title::before {
+  content: "🔥";
+  font-size: 0.9rem;
+}
+.cannon-desc {
+  font-size: 0.75rem;
+  color: var(--steel-bright);
+  line-height: 1.55;
+}
+.cannon-desc strong { color: var(--forge-ember); }
+
+/* ── EQUIPMENT ── */
+.equip-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 1rem;
+}
+.equip-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.76rem;
+  color: var(--steel-bright);
+  padding: 3px 0;
+  border-bottom: 1px solid rgba(62,67,72,0.3);
+}
+.equip-item:last-child { border-bottom: none; }
+.equip-bullet {
+  color: var(--copper);
+  font-size: 0.6rem;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+.equip-item .ename {
+  flex: 1;
+  color: var(--white);
+  font-size: 0.78rem;
+}
+.equip-item .erarity {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.6rem;
+  color: var(--copper-pale);
+  white-space: nowrap;
+}
+.equip-item .eattuned {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.55rem;
+  background: var(--iron-pale);
+  color: var(--forge-ember);
+  padding: 1px 4px;
+  border: 1px solid var(--forge);
+  white-space: nowrap;
+}
+
+/* ── PROFICIENCIES ── */
+.prof-group {
+  margin-bottom: 0.8rem;
+}
+.prof-label {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--copper);
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.prof-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.prof-tag {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.62rem;
+  background: var(--iron-light);
+  border: 1px solid var(--iron-pale);
+  color: var(--steel-bright);
+  padding: 2px 6px;
+}
+
+/* ── CHARACTER SECTION ── */
+.char-traits {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.trait-box {
+  background: var(--iron-light);
+  border: 1px solid var(--iron-pale);
+  border-top: 2px solid var(--copper);
+  padding: 0.7rem 0.8rem;
+}
+.trait-label {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 0.4rem;
+}
+.trait-text {
+  font-size: 0.76rem;
+  line-height: 1.5;
+  color: var(--steel-bright);
+  font-style: italic;
+}
+
+/* ── PHYSICAL ── */
+.physical-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 1rem;
+}
+.phys-box {
+  background: var(--iron-light);
+  border: 1px solid var(--iron-pale);
+  padding: 0.45rem 0.5rem;
+  text-align: center;
+}
+.phys-label {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 0.15rem;
+}
+.phys-val {
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--white);
+}
+
+/* ── CURRENCY ── */
+.currency-row {
+  display: flex;
+  gap: 8px;
+}
+.coin {
+  flex: 1;
+  text-align: center;
+  background: var(--iron-light);
+  border: 1px solid var(--iron-pale);
+  padding: 0.4rem 0;
+}
+.coin-label {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 0.1rem;
+}
+.coin-val {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--copper-pale);
+}
+.coin.gp .coin-label { color: var(--copper-pale); }
+.coin.gp .coin-val   { color: var(--forge-ember); }
+
+/* ── HOMUNCULUS ── */
+.homunculus-block {
+  background: var(--iron-light);
+  border: 1px solid var(--iron-pale);
+  border-left: 3px solid var(--copper);
+  padding: 0.8rem 1rem;
+  margin-bottom: 1rem;
+}
+.hom-name {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--copper-pale);
+  margin-bottom: 0.2rem;
+}
+.hom-type {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: var(--dim);
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+.hom-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  margin-bottom: 0.5rem;
+}
+.hom-stat {
+  text-align: center;
+  background: var(--iron-mid);
+  padding: 3px;
+}
+.hom-stat-l {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.52rem;
+  color: var(--copper);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.hom-stat-v {
+  font-family: "Oswald", sans-serif;
+  font-size: 0.82rem;
+  color: var(--white);
+}
+.hom-desc {
+  font-size: 0.7rem;
+  color: var(--steel-bright);
+  line-height: 1.5;
+}
+
+/* ── FOOTER ── */
+.doc-footer {
+  border-top: 1px solid var(--iron-pale);
+  padding: 0.8rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--iron-light);
+}
+.footer-left {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--dim);
+  text-transform: uppercase;
+}
+.footer-right {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.6rem;
+  color: var(--copper);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ── FULL-WIDTH SECTIONS ── */
+.full-row {
+  padding: 1.4rem 2rem;
+  border-top: 1px solid var(--iron-pale);
+}
+
+/* ── SCROLL ANIMATIONS ── */
+.section-head, .ability-box, .stat-box, .cannon-panel, .feature-block {
+  animation: revealIn 0.4s ease both;
+}
+@keyframes revealIn {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+</style>
+</head>
+<body>
+<div class="document">
+  <div class="rivet-bl"></div>
+  <div class="rivet-br"></div>
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header-band">
+    <div class="header-top">
+      <div class="header-portrait">
+        <img src="taran-odamhri.jpeg" alt="Taran O'Damhri" onerror="this.style.background='#2e3135';this.style.minHeight='180px';">
+      </div>
+      <div class="header-title">
+        <div class="classification-tag">Wyldwolf Axis · Field Dossier · 5e</div>
+        <div class="char-name">Taran O'Damhri</div>
+        <div class="char-subtitle">Dwarf Artificer — Artillerist · Level 11</div>
+        <div class="header-meta-row">
+          <div class="meta-chip"><span class="label">Race</span> Dwarf (Mountain)</div>
+          <div class="meta-chip"><span class="label">Background</span> Soldier</div>
+          <div class="meta-chip"><span class="label">Age</span> 90</div>
+          <div class="meta-chip"><span class="label">Height</span> 4'11"</div>
+          <div class="meta-chip"><span class="label">Weight</span> 170 lb</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="forge-rule"></div>
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body-grid">
+
+    <!-- ── MAIN COLUMN ── -->
+    <div class="main-col">
+
+      <!-- Ability Scores -->
+      <div class="section-head">Ability Scores</div>
+      <div class="ability-grid">
+        <div class="ability-box">
+          <div class="ability-name">STR</div>
+          <div class="ability-score">11</div>
+          <div class="ability-mod">+0</div>
+        </div>
+        <div class="ability-box">
+          <div class="ability-name">DEX</div>
+          <div class="ability-score">16</div>
+          <div class="ability-mod">+3</div>
+        </div>
+        <div class="ability-box">
+          <div class="ability-name">CON</div>
+          <div class="ability-score">13</div>
+          <div class="ability-mod">+1</div>
+        </div>
+        <div class="ability-box">
+          <div class="ability-name">INT</div>
+          <div class="ability-score">14</div>
+          <div class="ability-mod">+2</div>
+        </div>
+        <div class="ability-box">
+          <div class="ability-name">WIS</div>
+          <div class="ability-score">11</div>
+          <div class="ability-mod">+0</div>
+        </div>
+        <div class="ability-box">
+          <div class="ability-name">CHA</div>
+          <div class="ability-score">11</div>
+          <div class="ability-mod">+0</div>
+        </div>
+      </div>
+
+      <!-- Combat Stats -->
+      <div class="section-head">Combat Statistics</div>
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-label">Hit Points</div>
+          <div class="stat-value hp">69</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Armour Class</div>
+          <div class="stat-value">15</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Initiative</div>
+          <div class="stat-value">+3</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Speed</div>
+          <div class="stat-value">30 ft</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Prof. Bonus</div>
+          <div class="stat-value">+4</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Spell Save DC</div>
+          <div class="stat-value">14</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Spell Atk</div>
+          <div class="stat-value">+6</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Spell Ability</div>
+          <div class="stat-value">INT</div>
+        </div>
+      </div>
+
+      <!-- Saves & Skills -->
+      <div class="two-col">
+        <div>
+          <div class="section-head">Saving Throws</div>
+          <div class="save-list">
+            <div class="save-item"><span class="pip"></span><span class="name">Strength</span><span class="bonus">+0</span></div>
+            <div class="save-item"><span class="pip"></span><span class="name">Dexterity</span><span class="bonus">+3</span></div>
+            <div class="save-item proficient"><span class="pip"></span><span class="name">Constitution</span><span class="bonus">+5</span></div>
+            <div class="save-item proficient"><span class="pip"></span><span class="name">Intelligence</span><span class="bonus">+6</span></div>
+            <div class="save-item"><span class="pip"></span><span class="name">Wisdom</span><span class="bonus">+0</span></div>
+            <div class="save-item"><span class="pip"></span><span class="name">Charisma</span><span class="bonus">+0</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-head">Skills</div>
+          <div class="skill-list">
+            <div class="skill-item"><span class="pip"></span><span class="name">Acrobatics</span><span class="attr">DEX</span><span class="bonus">+3</span></div>
+            <div class="skill-item proficient"><span class="pip"></span><span class="name">Arcana</span><span class="attr">INT</span><span class="bonus">+6</span></div>
+            <div class="skill-item proficient"><span class="pip"></span><span class="name">Athletics</span><span class="attr">STR</span><span class="bonus">+4</span></div>
+            <div class="skill-item"><span class="pip"></span><span class="name">Deception</span><span class="attr">CHA</span><span class="bonus">+0</span></div>
+            <div class="skill-item"><span class="pip"></span><span class="name">History</span><span class="attr">INT</span><span class="bonus">+2</span></div>
+            <div class="skill-item"><span class="pip"></span><span class="name">Insight</span><span class="attr">WIS</span><span class="bonus">+0</span></div>
+            <div class="skill-item proficient"><span class="pip"></span><span class="name">Intimidation</span><span class="attr">CHA</span><span class="bonus">+4</span></div>
+            <div class="skill-item"><span class="pip"></span><span class="name">Investigation</span><span class="attr">INT</span><span class="bonus">+2</span></div>
+            <div class="skill-item"><span class="pip"></span><span class="name">Medicine</span><span class="attr">WIS</span><span class="bonus">+0</span></div>
+            <div class="skill-item"><span class="pip"></span><span class="name">Nature</span><span class="attr">INT</span><span class="bonus">+2</span></div>
+            <div class="skill-item"><span class="pip"></span><span class="name">Perception</span><span class="attr">WIS</span><span class="bonus">+0</span></div>
+            <div class="skill-item"><span class="pip"></span><span class="name">Persuasion</span><span class="attr">CHA</span><span class="bonus">+0</span></div>
+            <div class="skill-item proficient"><span class="pip"></span><span class="name">Sleight of Hand</span><span class="attr">DEX</span><span class="bonus">+7</span></div>
+            <div class="skill-item"><span class="pip"></span><span class="name">Stealth</span><span class="attr">DEX</span><span class="bonus">+3</span></div>
+            <div class="skill-item"><span class="pip"></span><span class="name">Survival</span><span class="attr">WIS</span><span class="bonus">+0</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Eldritch Cannon -->
+      <div class="section-head">Artillerist — Eldritch Cannon</div>
+      <div class="cannon-panel">
+        <div class="cannon-title">Flamethrower · Explosive Cannon</div>
+        <div class="cannon-desc">
+          Each creature in a <strong>15-ft. cone</strong> must succeed on a <strong>DC 14 Dex save</strong> or take <strong>2d8 fire damage</strong> (half on success). Flammable objects in the area that aren't being worn or carried ignite.
+          <br><br>
+          <strong>Explosive Cannon (9th lvl):</strong> As an action, destroy the cannon — it explodes in a <strong>20-ft. radius</strong> around it. Each creature in that area must succeed on a <strong>DC 14 Dex save</strong> or take <strong>3d8 force damage</strong> (half on success).
+          <br><br>
+          The cannon is a <strong>Tiny object, AC 18, HP 45</strong> (5 × artificer level). It can be moved up to 15 ft. as a bonus action. Lasts <strong>1 hour</strong> or until destroyed. Created as an <strong>action</strong>; can only have one at a time (or two at 15th level). Cannon shares the caster's spell attack modifier.
+        </div>
+      </div>
+
+      <!-- Spells -->
+      <div class="section-head">Spellcasting</div>
+      <div style="margin-bottom:0.6rem;">
+        <div style="font-family:'Share Tech Mono',monospace;font-size:0.62rem;color:var(--copper);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Spell Slots</div>
+        <div class="spell-slots-row">
+          <div class="slot-box"><div class="slot-level">1st</div><div class="slot-count">4</div></div>
+          <div class="slot-box"><div class="slot-level">2nd</div><div class="slot-count">3</div></div>
+          <div class="slot-box"><div class="slot-level">3rd</div><div class="slot-count">3</div></div>
+          <div class="slot-box" style="opacity:0.35;"><div class="slot-level">4th+</div><div class="slot-count">—</div></div>
+        </div>
+      </div>
+      <table class="spell-table">
+        <thead>
+          <tr>
+            <th>Spell</th>
+            <th>Lvl</th>
+            <th>School</th>
+            <th>Cast Time</th>
+            <th>Range</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="cantrip-row">
+            <td class="name">Fire Bolt</td>
+            <td class="level">C</td>
+            <td class="school">Evocation</td>
+            <td>1 Action</td>
+            <td>120 ft</td>
+            <td>3d10 fire; ranged spell atk</td>
+          </tr>
+          <tr class="cantrip-row">
+            <td class="name">Lightning Lure</td>
+            <td class="level">C</td>
+            <td class="school">Evocation</td>
+            <td>1 Action</td>
+            <td>15 ft</td>
+            <td>Pull 10 ft + 3d8 lightning; STR save DC 14</td>
+          </tr>
+          <tr class="cantrip-row">
+            <td class="name">Thunderclap</td>
+            <td class="level">C</td>
+            <td class="school">Evocation</td>
+            <td>1 Action</td>
+            <td>5 ft</td>
+            <td>3d6 thunder, 5-ft radius; CON save DC 14</td>
+          </tr>
+          <tr>
+            <td class="name">Catapult</td>
+            <td class="level">1</td>
+            <td class="school">Transmutation</td>
+            <td>1 Action</td>
+            <td>60 ft</td>
+            <td>3d8 bludgeoning; DEX save DC 14; scales +1d8/slot</td>
+          </tr>
+          <tr>
+            <td class="name">Faerie Fire</td>
+            <td class="level">1</td>
+            <td class="school">Evocation</td>
+            <td>1 Action</td>
+            <td>60 ft</td>
+            <td>Conc., outlines in 20-ft cube; DEX save DC 14</td>
+          </tr>
+          <tr>
+            <td class="name">Continual Flame</td>
+            <td class="level">2</td>
+            <td class="school">Evocation</td>
+            <td>1 Action</td>
+            <td>Touch</td>
+            <td>Permanent torch-bright flame, no heat</td>
+          </tr>
+          <tr>
+            <td class="name">Enlarge/Reduce</td>
+            <td class="level">2</td>
+            <td class="school">Transmutation</td>
+            <td>1 Action</td>
+            <td>30 ft</td>
+            <td>Conc. 1 min; CON save DC 14 if unwilling</td>
+          </tr>
+          <tr>
+            <td class="name">Levitate</td>
+            <td class="level">2</td>
+            <td class="school">Transmutation</td>
+            <td>1 Action</td>
+            <td>60 ft</td>
+            <td>Conc. 10 min; up to 500 lb; CON save DC 14</td>
+          </tr>
+          <tr>
+            <td class="name">See Invisibility</td>
+            <td class="level">2</td>
+            <td class="school">Divination</td>
+            <td>1 Action</td>
+            <td>Self</td>
+            <td>1 hour; see invisible & ethereal</td>
+          </tr>
+          <tr>
+            <td class="name">Protection from Energy</td>
+            <td class="level">3</td>
+            <td class="school">Abjuration</td>
+            <td>1 Action</td>
+            <td>Touch</td>
+            <td>Conc. 1 hr; resistance to chosen energy type</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div><!-- /main-col -->
+
+    <!-- ── SIDE COLUMN ── -->
+    <div class="side-col">
+
+      <!-- Physical -->
+      <div class="section-head">Appearance</div>
+      <div class="physical-grid" style="margin-bottom:1rem;">
+        <div class="phys-box"><div class="phys-label">Hair</div><div class="phys-val">Black</div></div>
+        <div class="phys-box"><div class="phys-label">Eyes</div><div class="phys-val">Brown</div></div>
+        <div class="phys-box"><div class="phys-label">Skin</div><div class="phys-val">Tanned</div></div>
+      </div>
+
+      <!-- Currency -->
+      <div class="section-head">Currency</div>
+      <div class="currency-row" style="margin-bottom:1.2rem;">
+        <div class="coin"><div class="coin-label">CP</div><div class="coin-val">0</div></div>
+        <div class="coin"><div class="coin-label">SP</div><div class="coin-val">0</div></div>
+        <div class="coin"><div class="coin-label">EP</div><div class="coin-val">0</div></div>
+        <div class="coin gp"><div class="coin-label">GP</div><div class="coin-val">14</div></div>
+        <div class="coin"><div class="coin-label">PP</div><div class="coin-val">0</div></div>
+      </div>
+
+      <!-- Class Features -->
+      <div class="section-head">Class Features</div>
+
+      <div class="feature-block">
+        <div class="feature-tag">Artificer · All Levels</div>
+        <div class="feature-name">Magical Tinkering</div>
+        <div class="feature-text">Imbue a Tiny nonmagical object with a minor magical property (light, sound, image, scent). Max active objects = INT modifier.</div>
+      </div>
+
+      <div class="feature-block">
+        <div class="feature-tag">Artificer · 2nd</div>
+        <div class="feature-name">Infuse Item</div>
+        <div class="feature-text">At the end of a long rest, imbue up to <strong>4 items</strong> with artificer infusions, turning them into temporary magic items.</div>
+      </div>
+
+      <div class="feature-block">
+        <div class="feature-tag">Artificer · 3rd</div>
+        <div class="feature-name">The Right Tool for the Job</div>
+        <div class="feature-text">Spend 1 hour (during a rest) to magically create one set of artisan's tools in an unoccupied space within 5 feet.</div>
+      </div>
+
+      <div class="feature-block">
+        <div class="feature-tag">Artificer · 6th</div>
+        <div class="feature-name">Tool Expertise</div>
+        <div class="feature-text">Proficiency bonus <strong>doubled</strong> for all tool-based ability checks.</div>
+      </div>
+
+      <div class="feature-block">
+        <div class="feature-tag">Artificer · 7th</div>
+        <div class="feature-name">Flash of Genius</div>
+        <div class="feature-text">Reaction: add <strong>+2 (INT mod)</strong> to an ability check or saving throw of a creature within 30 ft. Usable <strong>2×/long rest</strong>.</div>
+      </div>
+
+      <div class="feature-block">
+        <div class="feature-tag">Artificer · 10th</div>
+        <div class="feature-name">Magic Item Adept</div>
+        <div class="feature-text">Attune up to <strong>4 magic items</strong> at once. Common/uncommon crafting costs half gold and one quarter the time.</div>
+      </div>
+
+      <div class="feature-block">
+        <div class="feature-tag">Artificer · 11th</div>
+        <div class="feature-name">Spell-Storing Item</div>
+        <div class="feature-text">After a long rest, store a 1st- or 2nd-level artificer spell in a weapon or focus. Any holder can cast it; usable <strong>4×</strong> (2 × INT mod) before it expires.</div>
+      </div>
+
+      <div class="feature-block">
+        <div class="feature-tag">Artillerist · 3rd</div>
+        <div class="feature-name">Eldritch Cannon</div>
+        <div class="feature-text">Create a magical cannon as an action. Flamethrower mode preferred — see cannon panel. Also grants proficiency with <strong>Hand Crossbow, Heavy Crossbow, Light Crossbow</strong>.</div>
+      </div>
+
+      <div class="feature-block">
+        <div class="feature-tag">Artillerist · 5th</div>
+        <div class="feature-name">Arcane Firearm</div>
+        <div class="feature-text">Designate a wand, staff, or rod as an arcane firearm. When casting artificer spells through it, add <strong>+1d8</strong> to one damage roll.</div>
+      </div>
+
+      <div class="feature-block">
+        <div class="feature-tag">Artillerist · 9th</div>
+        <div class="feature-name">Explosive Cannon</div>
+        <div class="feature-text">Cannon damage increases to <strong>2d8</strong>. Can detonate the cannon as an action — 3d8 force in a 20-ft radius (DC 14 Dex half).</div>
+      </div>
+
+      <!-- Racial Traits -->
+      <div class="section-head" style="margin-top:0.5rem;">Racial Traits · Dwarf</div>
+      <div class="feature-block">
+        <div class="feature-name">Darkvision</div>
+        <div class="feature-text">120 ft.</div>
+      </div>
+      <div class="feature-block">
+        <div class="feature-name">Dwarven Resilience</div>
+        <div class="feature-text">Resistance to poison damage. Advantage on saves vs. Poisoned condition.</div>
+      </div>
+      <div class="feature-block">
+        <div class="feature-name">Dwarven Toughness</div>
+        <div class="feature-text">+1 HP maximum per level (+11 total).</div>
+      </div>
+      <div class="feature-block">
+        <div class="feature-name">Stonecunning</div>
+        <div class="feature-text">Bonus action: gain Tremorsense 60 ft. for 10 min while on/touching stone. Usable <strong>4×/long rest</strong> (= Prof. Bonus).</div>
+      </div>
+
+      <!-- Feats -->
+      <div class="section-head">Feats</div>
+      <div class="feature-block">
+        <div class="feature-tag">Background Origin Feat</div>
+        <div class="feature-name">Savage Attacker</div>
+        <div class="feature-text">Once per turn on a weapon hit, roll damage dice twice and use either result.</div>
+      </div>
+      <div class="feature-block">
+        <div class="feature-tag">General Feat</div>
+        <div class="feature-name">Skilled</div>
+        <div class="feature-text">Proficiency in any combination of three additional skills or tools.</div>
+      </div>
+
+    </div><!-- /side-col -->
+  </div><!-- /body-grid -->
+
+  <!-- ═══ FULL-WIDTH: PROFICIENCIES ═══ -->
+  <div class="full-row">
+    <div class="gear-divider"><span class="gear-icon">⚙</span>Proficiencies &amp; Languages<span class="gear-icon">⚙</span></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;">
+      <div class="prof-group">
+        <div class="prof-label">Armour</div>
+        <div class="prof-tags">
+          <span class="prof-tag">Light</span>
+          <span class="prof-tag">Medium</span>
+          <span class="prof-tag">Shields</span>
+        </div>
+      </div>
+      <div class="prof-group">
+        <div class="prof-label">Weapons</div>
+        <div class="prof-tags">
+          <span class="prof-tag">Simple</span>
+          <span class="prof-tag">Hand Crossbow</span>
+          <span class="prof-tag">Heavy Crossbow</span>
+          <span class="prof-tag">Light Crossbow</span>
+          <span class="prof-tag">Firearms</span>
+        </div>
+      </div>
+      <div class="prof-group">
+        <div class="prof-label">Tools</div>
+        <div class="prof-tags">
+          <span class="prof-tag">Thieves' Tools</span>
+          <span class="prof-tag">Tinker's Tools</span>
+          <span class="prof-tag">Glassblower's Tools</span>
+          <span class="prof-tag">Woodcarver's Tools</span>
+          <span class="prof-tag">Weaver's Tools</span>
+          <span class="prof-tag">Three-Dragon Ante Set</span>
+          <span class="prof-tag">Vehicles (Land)</span>
+          <span class="prof-tag">Vehicles (Water)</span>
+        </div>
+      </div>
+      <div class="prof-group">
+        <div class="prof-label">Languages</div>
+        <div class="prof-tags">
+          <span class="prof-tag">Common</span>
+          <span class="prof-tag">Dwarvish</span>
+          <span class="prof-tag">Gnomish</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ FULL-WIDTH: EQUIPMENT ═══ -->
+  <div class="full-row" style="border-top:1px solid var(--iron-pale);">
+    <div class="gear-divider"><span class="gear-icon">⚙</span>Equipment &amp; Inventory<span class="gear-icon">⚙</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 2rem;">
+      <div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:0.6rem;color:var(--copper);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.5rem;">Equipped / Notable</div>
+        <div class="equip-list">
+          <div class="equip-item">
+            <span class="equip-bullet">◆</span>
+            <span class="ename">Studded Leather Armour</span>
+            <span class="erarity">Common</span>
+          </div>
+          <div class="equip-item">
+            <span class="equip-bullet">◆</span>
+            <span class="ename">Rod (Arcane Focus / Arcane Firearm)</span>
+            <span class="erarity">Common</span>
+          </div>
+          <div class="equip-item">
+            <span class="equip-bullet">◆</span>
+            <span class="ename">Ring of Spell Storing</span>
+            <span class="erarity">Rare</span>
+            <span class="eattuned">ATTUNED</span>
+          </div>
+          <div class="equip-item">
+            <span class="equip-bullet">◆</span>
+            <span class="ename">Signet Ring</span>
+            <span class="erarity">Common</span>
+          </div>
+          <div class="equip-item">
+            <span class="equip-bullet">◆</span>
+            <span class="ename">Peridot (500 gp)</span>
+            <span class="erarity">Gemstone</span>
+          </div>
+          <div class="equip-item">
+            <span class="equip-bullet">◆</span>
+            <span class="ename">Musket</span>
+            <span class="erarity">Common</span>
+          </div>
+          <div class="equip-item">
+            <span class="equip-bullet">◆</span>
+            <span class="ename">Potion of Fire Breath</span>
+            <span class="erarity">Uncommon</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:0.6rem;color:var(--copper);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.5rem;">Carried Gear</div>
+        <div class="equip-list">
+          <div class="equip-item"><span class="equip-bullet">◇</span><span class="ename">Backpack</span></div>
+          <div class="equip-item"><span class="equip-bullet">◇</span><span class="ename">Glassblower's Tools</span></div>
+          <div class="equip-item"><span class="equip-bullet">◇</span><span class="ename">Healer's Kit</span></div>
+          <div class="equip-item"><span class="equip-bullet">◇</span><span class="ename">Boomerang</span></div>
+          <div class="equip-item"><span class="equip-bullet">◇</span><span class="ename">Rope, Hempen (50 ft)</span></div>
+          <div class="equip-item"><span class="equip-bullet">◇</span><span class="ename">Crowbar</span></div>
+          <div class="equip-item"><span class="equip-bullet">◇</span><span class="ename">Tinderbox</span></div>
+          <div class="equip-item"><span class="equip-bullet">◇</span><span class="ename">Hammer + 10× Piton</span></div>
+          <div class="equip-item"><span class="equip-bullet">◇</span><span class="ename">Quiver</span></div>
+          <div class="equip-item"><span class="equip-bullet">◇</span><span class="ename">Waterskin</span></div>
+          <div class="equip-item"><span class="equip-bullet">◇</span><span class="ename">Rations ×10</span></div>
+          <div class="equip-item"><span class="equip-bullet">◇</span><span class="ename">Torches ×10</span></div>
+          <div class="equip-item"><span class="equip-bullet">◇</span><span class="ename">Traveller's Clothes</span></div>
+          <div class="equip-item"><span class="equip-bullet">◇</span><span class="ename">Three-Dragon Ante Set</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ FULL-WIDTH: HOMUNCULUS & CHARACTER ═══ -->
+  <div class="full-row" style="border-top:1px solid var(--iron-pale);">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+      <div>
+        <div class="gear-divider" style="padding:0 0 0.8rem;"><span class="gear-icon">⚙</span>Companion<span class="gear-icon">⚙</span></div>
+        <div class="homunculus-block">
+          <div class="hom-name">Pietro</div>
+          <div class="hom-type">Homunculus Servant · Tiny Construct · Wooden Monkey</div>
+          <div class="hom-stats">
+            <div class="hom-stat"><div class="hom-stat-l">AC</div><div class="hom-stat-v">13</div></div>
+            <div class="hom-stat"><div class="hom-stat-l">HP</div><div class="hom-stat-v">24</div></div>
+            <div class="hom-stat"><div class="hom-stat-l">Speed</div><div class="hom-stat-v">20/fly 30</div></div>
+            <div class="hom-stat"><div class="hom-stat-l">Saves</div><div class="hom-stat-v">DEX+6</div></div>
+            <div class="hom-stat"><div class="hom-stat-l">Perception</div><div class="hom-stat-v">+8</div></div>
+            <div class="hom-stat"><div class="hom-stat-l">Stealth</div><div class="hom-stat-v">+6</div></div>
+          </div>
+          <div class="hom-desc">
+            <strong>Force Strike (Ranged):</strong> +6 to hit, 30 ft, 1d4+4 force damage.<br>
+            <strong>Channel Magic (Reaction):</strong> Delivers touch spells from up to 120 ft away.<br>
+            <strong>Evasion:</strong> No damage on successful DEX saves; half on failed.<br>
+            Immune to poison; immune to exhaustion and poisoned condition. Understands all languages Taran speaks. Vanishes on death, leaving its heart (the infused gem/crystal).
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="gear-divider" style="padding:0 0 0.8rem;"><span class="gear-icon">⚙</span>Character<span class="gear-icon">⚙</span></div>
+        <div class="char-traits">
+          <div class="trait-box">
+            <div class="trait-label">Personality</div>
+            <div class="trait-text">Clever and unsentimental. Loves family but has long been eager to roam. Mercenary artillerist work has been his means of seeing the world.</div>
+          </div>
+          <div class="trait-box">
+            <div class="trait-label">Ideals</div>
+            <div class="trait-text">A pragmatist. Little use for moralising. Will leave others to their business so long as they leave him to his. There are some lines he will not cross.</div>
+          </div>
+          <div class="trait-box">
+            <div class="trait-label">Bonds</div>
+            <div class="trait-text">Pietro — the wooden monkey homunculus — is considered almost a pet. A rare attachment for an otherwise unsentimental dwarf.</div>
+          </div>
+          <div class="trait-box">
+            <div class="trait-label">Flaws</div>
+            <div class="trait-text">Brusque. Explains himself once at most. Others can keep up or not — their problem, not his.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <div class="forge-rule"></div>
+  <div class="doc-footer">
+    <div class="footer-left">D&amp;D 5e · Wyldwolf Axis One-Shot · Proficiency Bonus +4</div>
+    <div class="footer-right">Taran O'Damhri · Artificer 11 · Artillerist</div>
+  </div>
+
+</div><!-- /document -->
+</body>
+</html>
