@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Field Dossier — Operator Azimuth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #060c0f;
+    --bg-deep: #030608;
+    --panel: #0a1218;
+    --rule: #1a2e38;
+    --rule-soft: #102028;
+    --text: #ddeae8;
+    --text-soft: #98b8b4;
+    --text-faint: #587870;
+    --text-dim: #384848;
+    --gold: #c8960a;
+    --gold-bright: #f0b820;
+    --gold-pale: #e8d080;
+    --gold-deep: #7a5a04;
+    --amber: #d46000;
+    --amber-bright: #f07820;
+    --rust: #c03810;
+    --rust-bright: #e85030;
+    --psi: #00b8d4;
+    --psi-bright: #18e0ff;
+    --psi-pale: #80ecff;
+    --psi-deep: #006888;
+    --psi-glow: rgba(0, 184, 212, 0.25);
+    --void: #2838a0;
+    --void-bright: #5870d0;
+    --void-pale: #a0b0e8;
+    --ivory: #eef4f2;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg-deep); color: var(--text); font-family: 'IM Fell English', Georgia, serif; font-size: 15px; line-height: 1.65; }
+  body { background-image: radial-gradient(ellipse at 20% 10%, rgba(0,184,212,0.08) 0%, transparent 45%), radial-gradient(ellipse at 80% 90%, rgba(200,150,10,0.05) 0%, transparent 50%), radial-gradient(ellipse at 60% 40%, rgba(40,56,160,0.06) 0%, transparent 55%); min-height: 100vh; padding: 2.5rem 1rem; }
+  body::before { content:''; position:fixed; top:0; left:0; right:0; bottom:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events:none; z-index:1000; opacity:0.4; }
+  .document { max-width:960px; margin:0 auto; background:var(--bg); padding:0; position:relative; border:1px solid var(--psi-deep); box-shadow:0 0 0 3px var(--bg-deep),0 0 0 4px var(--psi-deep),0 0 80px rgba(0,184,212,0.12),inset 0 0 80px rgba(0,0,0,0.5); }
+  .document::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,transparent 0%,var(--psi-deep) 5%,var(--psi-bright) 30%,var(--gold-bright) 50%,var(--psi-bright) 70%,var(--psi-deep) 95%,transparent 100%); }
+  .document::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:linear-gradient(90deg,transparent 0%,var(--void) 15%,var(--psi) 50%,var(--void) 85%,transparent 100%); }
+  .doc-inner { padding: 3rem 3.5rem 4rem; }
+  .document-header { border-bottom:1px solid var(--psi-deep); padding-bottom:2.5rem; margin-bottom:2.5rem; }
+  .filing-bar { display:flex; justify-content:space-between; align-items:center; font-family:'Share Tech Mono',monospace; font-size:0.68rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--text-faint); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:0.35rem 0.7rem; margin-bottom:1.8rem; background:linear-gradient(90deg,rgba(0,184,212,0.04) 0%,transparent 40%,transparent 60%,rgba(200,150,10,0.03) 100%); }
+  .filing-bar .fl { color: var(--psi-bright); }
+  .filing-bar .fr { color: var(--gold); }
+  .filing-bar .pulse { display:inline-block; width:6px; height:6px; background:var(--psi-bright); border-radius:50%; margin-right:0.5rem; box-shadow:0 0 8px var(--psi-bright); vertical-align:middle; animation:pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 8px var(--psi-bright);} 50%{opacity:0.3;box-shadow:0 0 3px var(--psi);} }
+  .hero { display:grid; grid-template-columns:auto 1fr; gap:2.5rem; align-items:start; }
+  .portrait-frame { width:180px; flex-shrink:0; position:relative; }
+  .portrait-frame img { width:100%; display:block; filter:sepia(0.15) contrast(1.1) saturate(0.9); }
+  .portrait-frame::before { content:''; position:absolute; top:-4px; left:-4px; right:-4px; bottom:-4px; border:1px solid var(--psi); pointer-events:none; }
+  .portrait-frame::after { content:''; position:absolute; top:-8px; left:-8px; width:16px; height:16px; border-top:2px solid var(--psi-bright); border-left:2px solid var(--psi-bright); }
+  .portrait-bracket-br { position:absolute; bottom:-8px; right:-8px; width:16px; height:16px; border-bottom:2px solid var(--gold); border-right:2px solid var(--gold); }
+  .portrait-ring { position:absolute; top:50%; left:50%; width:110%; padding-top:110%; margin-left:-55%; margin-top:-55%; border-radius:50%; border:1px solid rgba(0,184,212,0.18); pointer-events:none; animation:ring-rotate 12s linear infinite; }
+  .portrait-ring-2 { position:absolute; top:50%; left:50%; width:125%; padding-top:125%; margin-left:-62.5%; margin-top:-62.5%; border-radius:50%; border:1px dashed rgba(0,184,212,0.09); pointer-events:none; animation:ring-rotate 20s linear infinite reverse; }
+  @keyframes ring-rotate { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+  .eyebrow { font-family:'Share Tech Mono',monospace; font-size:0.7rem; letter-spacing:0.35em; color:var(--psi-bright); text-transform:uppercase; margin-bottom:0.4rem; }
+  .eyebrow .sep { color:var(--rule); margin:0 0.6em; }
+  h1.character-name { font-family:'Orbitron',sans-serif; font-weight:900; font-size:3.2rem; line-height:1.0; letter-spacing:0.04em; text-transform:uppercase; margin:0.3rem 0; color:var(--ivory); text-shadow:0 0 25px rgba(0,184,212,0.4),0 0 60px rgba(0,184,212,0.15); }
+  h1.character-name .rank { font-size:0.4em; color:var(--psi-bright); font-weight:500; letter-spacing:0.2em; display:block; margin-bottom:0.4rem; }
+  h1.character-name .subname { font-size:0.28em; font-weight:400; color:var(--text-faint); letter-spacing:0.15em; display:block; margin-top:0.5rem; font-family:'Share Tech Mono',monospace; }
+  .tagline { font-style:italic; font-size:1.05rem; color:var(--text-soft); margin:0.8rem 0 1.2rem; max-width:55ch; line-height:1.5; }
+  .vitals-row { display:flex; flex-wrap:wrap; gap:0; font-family:'Share Tech Mono',monospace; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-soft); border-top:1px solid var(--rule); padding-top:0.8rem; margin-top:1rem; }
+  .vitals-row .v { border-left:1px solid var(--rule); padding:0.15rem 1rem; white-space:nowrap; }
+  .vitals-row .v:first-child { border-left:none; padding-left:0; }
+  .vitals-row .v strong { color:var(--gold); font-weight:400; margin-left:0.4em; }
+  .vitals-row .v.hot strong { color:var(--psi-bright); }
+  .vitals-row .v.warn strong { color:var(--amber-bright); }
+  .vitals-row .v.flag strong { color:var(--void-pale); }
+  nav.toc { border:1px solid var(--rule); padding:1.2rem 1.5rem; margin-bottom:2.5rem; background:var(--panel); position:relative; columns:2; column-gap:2rem; }
+  nav.toc::before { content:''; position:absolute; top:-1px; left:40px; height:1px; width:50px; background:var(--psi-bright); box-shadow:0 0 8px var(--psi-bright); }
+  nav.toc .toc-label { font-family:'Orbitron',sans-serif; font-size:0.65rem; letter-spacing:0.3em; color:var(--psi-bright); text-transform:uppercase; margin-bottom:0.8rem; column-span:all; font-weight:700; }
+  nav.toc ol { list-style:none; margin:0; padding:0; counter-reset:toc; font-family:'Share Tech Mono',monospace; }
+  nav.toc ol li { counter-increment:toc; font-size:0.88rem; margin-bottom:0.3rem; break-inside:avoid; }
+  nav.toc ol li::before { content:"0" counter(toc) " "; color:var(--gold); font-size:0.85em; margin-right:0.5rem; }
+  nav.toc a { color:var(--text); text-decoration:none; transition:color 0.15s; }
+  nav.toc a:hover { color:var(--psi-bright); }
+  section { margin-bottom: 3rem; }
+  h2.section-title { font-family:'Orbitron',sans-serif; font-weight:700; font-size:0.8rem; letter-spacing:0.3em; color:var(--psi-bright); text-transform:uppercase; border-bottom:1px solid var(--rule); padding-bottom:0.5rem; margin:0 0 1.5rem; position:relative; text-shadow:0 0 14px rgba(0,184,212,0.4); }
+  h2.section-title::before { content:'▸'; color:var(--gold); margin-right:0.7rem; font-size:0.85em; text-shadow:0 0 8px var(--gold); }
+  h2.section-title::after { content:''; position:absolute; bottom:-1px; left:0; width:60px; height:1px; background:var(--psi-bright); box-shadow:0 0 8px var(--psi-bright); }
+  h3.subhead { font-family:'Orbitron',sans-serif; font-weight:500; font-size:0.88rem; letter-spacing:0.08em; color:var(--gold-pale); margin:1.8rem 0 0.6rem; text-transform:uppercase; }
+  h3.subhead::before { content:'// '; color:var(--psi); font-family:'Share Tech Mono',monospace; font-size:0.9em; }
+  h4.entry-label { font-family:'Orbitron',sans-serif; font-weight:700; font-size:0.68rem; letter-spacing:0.22em; color:var(--psi-bright); text-transform:uppercase; margin:1.2rem 0 0.4rem; }
+  p { margin:0 0 1rem; }
+  ul, ol { margin:0.5rem 0 1rem 1.5rem; padding:0; }
+  li { margin-bottom:0.4rem; }
+  em { color:var(--text-soft); font-style:italic; }
+  strong { color:var(--gold-pale); font-weight:600; }
+  .drop-cap::first-letter { font-family:'Orbitron',sans-serif; font-size:3.4rem; line-height:0.8; float:left; padding:0.2rem 0.5rem 0 0; color:var(--psi-bright); font-weight:900; text-shadow:0 0 24px var(--psi-glow); }
+  .stat-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:0.4rem; margin:1rem 0 1.5rem; }
+  .stat-cell { text-align:center; padding:0.7rem 0.4rem; border:1px solid var(--rule); background:var(--panel); position:relative; }
+  .stat-cell::before { content:''; position:absolute; top:0; left:0; width:6px; height:1px; background:var(--psi); }
+  .stat-cell::after { content:''; position:absolute; bottom:0; right:0; width:6px; height:1px; background:var(--gold); }
+  .stat-cell .label { font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.2em; color:var(--text-faint); text-transform:uppercase; margin-bottom:0.25rem; }
+  .stat-cell .value { font-family:'Orbitron',sans-serif; font-size:1.8rem; font-weight:900; color:var(--text); line-height:1; }
+  .stat-cell.high .value { color:var(--psi-bright); text-shadow:0 0 12px rgba(0,184,212,0.5); }
+  .stat-cell.med .value { color:var(--gold-pale); }
+  .stat-cell.zero .value { color:var(--text-faint); }
+  .stat-cell .gloss { font-family:'IM Fell English',serif; font-style:italic; font-size:0.7rem; color:var(--text-faint); margin-top:0.2rem; }
+  .status-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.8rem; margin:1rem 0 1.5rem; }
+  .status-cell { border:1px solid var(--rule); padding:0.9rem; background:var(--panel); }
+  .status-cell .label { font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-faint); margin-bottom:0.4rem; }
+  .status-cell .value { font-family:'Orbitron',sans-serif; font-size:1.8rem; font-weight:900; color:var(--text); line-height:1; }
+  .status-cell .value .sub { font-size:0.55em; color:var(--text-faint); font-weight:400; }
+  .status-cell .note { font-style:italic; font-size:0.82rem; color:var(--text-soft); margin-top:0.4rem; }
+  .status-cell.primary { border-color:var(--psi); background:linear-gradient(135deg,rgba(0,184,212,0.09) 0%,var(--panel) 60%); }
+  .status-cell.primary .value { color:var(--psi-bright); text-shadow:0 0 10px rgba(0,184,212,0.4); }
+  .status-cell.gold { border-color:var(--gold-deep); background:linear-gradient(135deg,rgba(200,150,10,0.08) 0%,var(--panel) 60%); }
+  .status-cell.gold .value { color:var(--gold-bright); }
+  .status-cell.warn { border-color:var(--rust); background:linear-gradient(135deg,rgba(192,56,16,0.08) 0%,var(--panel) 60%); }
+  .status-cell.warn .value { color:var(--rust-bright); }
+  .bar { height:4px; background:var(--bg-deep); border:1px solid var(--rule); margin-top:0.5rem; }
+  .bar .fill { height:100%; }
+  .bar.psi .fill { background:linear-gradient(90deg,var(--psi-deep) 0%,var(--psi-bright) 100%); box-shadow:0 0 6px var(--psi); }
+  .bar.gold .fill { background:linear-gradient(90deg,var(--gold-deep) 0%,var(--gold-bright) 100%); box-shadow:0 0 6px var(--gold); }
+  .bar.warn .fill { background:linear-gradient(90deg,var(--rust) 0%,var(--amber-bright) 100%); box-shadow:0 0 6px var(--amber); }
+  table.dossier-table { width:100%; border-collapse:collapse; margin:1rem 0 1.5rem; font-size:0.93rem; }
+  table.dossier-table th { text-align:left; font-family:'Share Tech Mono',monospace; font-size:0.68rem; letter-spacing:0.18em; color:var(--psi-bright); text-transform:uppercase; padding:0.5rem 0.75rem; border-bottom:1px solid var(--psi); background:rgba(0,184,212,0.05); }
+  table.dossier-table td { padding:0.55rem 0.75rem; border-bottom:1px solid var(--rule-soft); vertical-align:top; }
+  table.dossier-table td:first-child { font-family:'Share Tech Mono',monospace; font-size:0.78rem; letter-spacing:0.05em; color:var(--gold-pale); white-space:nowrap; padding-right:1.5rem; }
+  table.dossier-table tr:last-child td { border-bottom:none; }
+  .skill-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:0.25rem 1.5rem; margin:0.8rem 0 1.2rem; }
+  .skill-row { display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px dotted var(--rule-soft); padding:0.2rem 0; }
+  .skill-row .name { font-size:0.9rem; color:var(--text); }
+  .skill-row .val { font-family:'Share Tech Mono',monospace; font-size:0.88rem; color:var(--text-soft); margin-left:0.8rem; }
+  .skill-row.sig .name { color:var(--psi-pale); }
+  .skill-row.sig .val { color:var(--psi-bright); }
+  .skill-row.high .name { color:var(--gold-pale); }
+  .skill-row.high .val { color:var(--gold-bright); }
+  .skill-row.note { font-style:italic; color:var(--text-faint); font-size:0.82rem; grid-column:1/-1; border-bottom:none; padding-top:0.1rem; display:block; }
+  .ability-block { border:1px solid var(--rule); padding:1rem 1.25rem; margin:0.8rem 0; background:var(--panel); position:relative; }
+  .ability-block::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--psi); }
+  .ability-block.signature::before { background:var(--gold); }
+  .ability-block.support::before { background:var(--void-bright); }
+  .ability-block.danger::before { background:var(--rust-bright); }
+  .ability-block .ability-name { font-family:'Orbitron',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--psi-bright); margin-bottom:0.2rem; }
+  .ability-block.signature .ability-name { color:var(--gold-bright); }
+  .ability-block.support .ability-name { color:var(--void-pale); }
+  .ability-block.danger .ability-name { color:var(--amber-bright); }
+  .ability-block .ability-meta { font-family:'Share Tech Mono',monospace; font-size:0.7rem; color:var(--text-faint); letter-spacing:0.1em; margin-bottom:0.5rem; }
+  .ability-block .ability-desc { font-size:0.9rem; color:var(--text); margin-bottom:0.4rem; }
+  .ability-block .tier-roll { font-family:'Share Tech Mono',monospace; font-size:0.78rem; color:var(--text-soft); margin-top:0.5rem; padding-top:0.5rem; border-top:1px dotted var(--rule); }
+  .ability-block .tier-roll .tier-label { color:var(--gold); margin-right:0.5em; }
+  .ability-block .strain-tag { display:inline-block; font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; padding:0.05rem 0.4rem; border:1px solid var(--rust); color:var(--rust-bright); background:rgba(192,56,16,0.08); margin-left:0.5rem; text-transform:uppercase; vertical-align:middle; }
+  .clarity-resource { border:1px solid var(--psi); background:linear-gradient(135deg,rgba(0,184,212,0.09) 0%,var(--panel) 60%); padding:1rem 1.5rem; margin:1rem 0 1.5rem; position:relative; }
+  .clarity-resource::before { content:'CLARITY'; position:absolute; top:-0.65rem; left:1rem; background:var(--bg); padding:0 0.5rem; font-family:'Orbitron',sans-serif; font-size:0.65rem; letter-spacing:0.3em; color:var(--psi-bright); font-weight:700; }
+  .clarity-resource .gain-list { list-style:none; margin:0; padding:0; font-size:0.88rem; }
+  .clarity-resource .gain-list li { margin-bottom:0.4rem; padding-left:1rem; position:relative; color:var(--text-soft); }
+  .clarity-resource .gain-list li::before { content:'+'; position:absolute; left:0; color:var(--psi-bright); font-family:'Share Tech Mono',monospace; font-weight:700; }
+  .clarity-resource .gain-list li strong { color:var(--psi-pale); }
+  .clarity-resource .strain-block { margin-top:1rem; padding-top:1rem; border-top:1px solid var(--rule); font-size:0.88rem; color:var(--rust-bright); font-family:'Share Tech Mono',monospace; }
+  .clarity-resource .strain-block strong { color:var(--amber-bright); }
+  .callout { border:1px solid var(--psi); border-left:4px solid var(--psi-bright); padding:0.9rem 1.25rem; margin:1.5rem 0; background:linear-gradient(135deg,rgba(0,184,212,0.06) 0%,transparent 80%); }
+  .callout .label { font-family:'Share Tech Mono',monospace; font-size:0.7rem; letter-spacing:0.2em; color:var(--psi-bright); text-transform:uppercase; margin-bottom:0.4rem; }
+  .callout p:last-child { margin-bottom:0; }
+  .callout.gold { border-color:var(--gold-deep); border-left-color:var(--gold); background:linear-gradient(135deg,rgba(200,150,10,0.06) 0%,transparent 80%); }
+  .callout.gold .label { color:var(--gold); }
+  .callout.warn { border-color:var(--rust); border-left-color:var(--amber-bright); background:linear-gradient(135deg,rgba(192,56,16,0.06) 0%,transparent 80%); }
+  .callout.warn .label { color:var(--amber-bright); }
+  .callout.void { border-color:var(--void); border-left-color:var(--void-bright); background:linear-gradient(135deg,rgba(40,56,160,0.08) 0%,transparent 80%); }
+  .callout.void .label { color:var(--void-pale); }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin:1rem 0; }
+  .relation { padding:0.9rem 0; border-bottom:1px solid var(--rule); }
+  .relation:last-child { border-bottom:none; }
+  .relation .rel-name { font-family:'Orbitron',sans-serif; font-size:0.88rem; font-weight:700; letter-spacing:0.06em; color:var(--ivory); margin-bottom:0.15rem; }
+  .relation .rel-name .role { font-family:'IM Fell English',serif; font-weight:400; font-style:italic; color:var(--text-faint); font-size:0.92rem; letter-spacing:0; }
+  .relation .rel-name .marker { font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.12em; color:var(--gold); border:1px solid var(--gold-deep); padding:0.08rem 0.4rem; margin-left:0.6rem; text-transform:uppercase; }
+  .relation .rel-name .marker.active { color:var(--psi-bright); border-color:var(--psi); }
+  .relation .rel-name .marker.void { color:var(--void-pale); border-color:var(--void-bright); }
+  .relation .rel-name .marker.open { color:var(--amber-bright); border-color:var(--amber); }
+  .relation .rel-text { font-size:0.92rem; color:var(--text-soft); margin-top:0.3rem; }
+  footer.colophon { margin-top:4rem; padding-top:2rem; border-top:1px solid var(--rule); text-align:center; font-family:'Share Tech Mono',monospace; font-size:0.67rem; letter-spacing:0.2em; color:var(--text-dim); text-transform:uppercase; }
+  footer.colophon .accent { color:var(--psi-bright); }
+  footer.colophon .accent2 { color:var(--gold); }
+  @media (max-width: 720px) {
+    .doc-inner { padding: 2rem 1.25rem 3rem; }
+    h1.character-name { font-size: 2.2rem; }
+    .hero { grid-template-columns: 1fr; }
+    .portrait-frame { width: 140px; }
+    .stat-grid { gap: 0.2rem; }
+    .stat-cell { padding: 0.5rem 0.2rem; }
+    .stat-cell .value { font-size: 1.4rem; }
+    .status-grid { grid-template-columns: 1fr; }
+    .skill-grid { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; gap: 1rem; }
+    nav.toc { columns: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+  <div class="doc-inner">
+
+    <header class="document-header">
+      <div class="filing-bar">
+        <span class="fl"><span class="pulse"></span>FILE // AZI-003 &middot; UNIT: ZENITH &middot; CLASS: TALENT / TELEKINESIS</span>
+        <span class="fr">OFFICE OF MEDIATION &middot; DIRECT ACTION</span>
+      </div>
+      <div class="hero">
+        <div class="portrait-frame">
+          <div class="portrait-ring"></div>
+          <div class="portrait-ring-2"></div>
+          <img src="/mnt/user-data/uploads/Operator_Azimuth.jpeg" alt="Operator Azimuth">
+          <div class="portrait-bracket-br"></div>
+        </div>
+        <div class="hero-text">
+          <div class="eyebrow">Field Unit Dossier <span class="sep">·</span> Psionic Specialist / Direct Action <span class="sep">·</span> Zenith</div>
+          <h1 class="character-name">
+            <span class="rank">Operator</span>
+            Azimuth
+            <span class="subname">Telekinesis Subclass &middot; Heroic Resource: Clarity &middot; Augmentation: Force &middot; Ward: Repulsive</span>
+          </h1>
+          <p class="tagline">Spec ops. She handles direct action. She doesn't carry a visible weapon because she is the weapon.</p>
+          <div class="vitals-row">
+            <span class="v">Ancestry: <strong>Memonek</strong></span>
+            <span class="v">Class: <strong>Talent</strong></span>
+            <span class="v">Level: <strong>1</strong></span>
+            <span class="v hot">Subclass: <strong>Telekinesis</strong></span>
+            <span class="v">Career: <strong>Disciple</strong></span>
+            <span class="v warn">Complication: <strong>Lucky</strong></span>
+            <span class="v flag">Incident: <strong>Near-Death</strong></span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <div class="toc-label">// Contents</div>
+      <ol>
+        <li><a href="#identity">Identity &amp; Role</a></li>
+        <li><a href="#stats">Characteristics</a></li>
+        <li><a href="#clarity">Clarity Resource &amp; Strain</a></li>
+        <li><a href="#ancestry">Memonek Traits</a></li>
+        <li><a href="#abilities">Key Abilities</a></li>
+        <li><a href="#augmentation">Augmentation &amp; Ward</a></li>
+        <li><a href="#skills">Skills &amp; Languages</a></li>
+        <li><a href="#complication">Complication — Lucky</a></li>
+        <li><a href="#worldsickness">Worldsickness Posture</a></li>
+        <li><a href="#incident">Inciting Incident — Near-Death</a></li>
+        <li><a href="#unit">Unit Position</a></li>
+        <li><a href="#arc">Character Arc</a></li>
+        <li><a href="#relations">Relations</a></li>
+      </ol>
+    </nav>
+
+    <section id="identity">
+      <h2 class="section-title">I. Identity &amp; Role</h2>
+      <p class="drop-cap">Per Zenith.md, Operator Azimuth is the unit's psionic specialist and direct-action operative. She handles direct action on the perimeter alongside Keshet — <em>"Keshet calls the play, Azimuth executes it."</em> As a Talent of the Telekinesis subclass, she can take strain to push past the normal limits of her Heroic Resource, effectively overclocking her psionic output when the situation demands performance beyond standard parameters. Per Zenith.md: <em>"She doesn't carry a visible weapon because she is the weapon."</em></p>
+      <h3 class="subhead">Cultural Background</h3>
+      <p>Culture: <strong>Mercenary Band</strong> — Nomadic, Bureaucratic, Martial. Per Zenith.md: <em>"Before the office, she operated among soldiers for hire — chaotic, transactional, violent work that gave her a foundational comfort with uncertainty that most memonek lack."</em></p>
+      <p>Career: <strong>Disciple.</strong> From the career description: <em>"You worked in a church, temple, or other religious institution as part of the clergy."</em> The career grants her Religion, Timescape, and Psionics skills, 240 Project Points, and the Thingspeaker supernatural perk.</p>
+    </section>
+
+    <section id="stats">
+      <h2 class="section-title">II. Characteristics</h2>
+      <div class="stat-grid">
+        <div class="stat-cell zero"><div class="label">Might</div><div class="value">0</div><div class="gloss">Not the body</div></div>
+        <div class="stat-cell zero"><div class="label">Agility</div><div class="value">0</div><div class="gloss">Not the body</div></div>
+        <div class="stat-cell high"><div class="label">Reason</div><div class="value">+2</div><div class="gloss">Psionic output</div></div>
+        <div class="stat-cell med"><div class="label">Intuition</div><div class="value">+1</div><div class="gloss">Reads scene</div></div>
+        <div class="stat-cell high"><div class="label">Presence</div><div class="value">+2</div><div class="gloss">Higher-order</div></div>
+      </div>
+      <p><em>Two peaks at +2 (Reason, Presence), Intuition at +1, and Might and Agility at flat zero. Every mechanical action she takes is mediated through Reason (psionic force output) or Presence (higher-order control).</em></p>
+      <div class="status-grid">
+        <div class="status-cell primary"><div class="label">Stamina</div><div class="value">18<span class="sub"> / 18</span></div><div class="bar psi"><div class="fill" style="width:100%"></div></div><div class="note">No kit modifier</div></div>
+        <div class="status-cell gold"><div class="label">Recoveries</div><div class="value">8<span class="sub"> / 8</span></div><div class="bar gold"><div class="fill" style="width:100%"></div></div><div class="note">Full reserve</div></div>
+        <div class="status-cell warn"><div class="label">Clarity</div><div class="value">0</div><div class="bar warn"><div class="fill" style="width:0%"></div></div><div class="note">Can go negative — see below</div></div>
+      </div>
+      <table class="dossier-table">
+        <thead><tr><th>Stat</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Speed</td><td><strong>7</strong> — Lightning Nimbleness ancestry trait sets Speed to 7 (verbatim)</td></tr>
+          <tr><td>Kit</td><td><strong>None</strong> — Talents do not have kits unless they take Battle Augmentation; Azimuth took Force Augmentation</td></tr>
+          <tr><td>Strain Threshold</td><td><strong>−3</strong> — formula: −(1 + Reason); 1 damage per negative point at end of turn</td></tr>
+          <tr><td>Project Points (max)</td><td><strong>240</strong> — Disciple career bonus</td></tr>
+          <tr><td>Renown</td><td><strong>0</strong></td></tr>
+          <tr><td>Wealth</td><td><strong>1</strong></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="clarity">
+      <h2 class="section-title">III. Clarity — The Heroic Resource</h2>
+      <p>The exact gain triggers, from the source:</p>
+      <div class="clarity-resource">
+        <ul class="gain-list">
+          <li><strong>1d3</strong> — at the start of your turn</li>
+          <li><strong>+1</strong> — the first time each combat round that a creature is force moved</li>
+        </ul>
+        <div class="strain-block">
+          <strong>STRAIN</strong> (verbatim): <em>You can spend clarity you don't have, pushing that Heroic Resource into negative numbers to a maximum negative value equal to 1 + your Reason score. At the end of each of your turns, you take 1 damage for each negative point of clarity. Whenever you have clarity below 0, you are strained. Some psionic abilities have additional effects if you are already strained or become strained when you use them. Strained effects can still impact you even after you are no longer strained.</em>
+        </div>
+      </div>
+    </section>
+
+    <section id="ancestry">
+      <h2 class="section-title">IV. Memonek Traits</h2>
+      <p>Azimuth selected two ancestry traits: <strong>Keeper of Order</strong> and <strong>Lightning Nimbleness</strong>.</p>
+      <table class="dossier-table">
+        <thead><tr><th>Trait</th><th>Description (verbatim)</th></tr></thead>
+        <tbody>
+          <tr><td>Keeper of Order</td><td>Your connection to Axiom, the plane of Uttermost Law, allows you to manage chaos around you.</td></tr>
+          <tr><td>Lightning Nimbleness</td><td>You can push your body to move at incredible speeds. Your Speed is 7.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout gold">
+        <div class="label">◈ Unit Note</div>
+        <p>Per Zenith.md: <em>"Two instances of Keeper of Order (Keshet and Azimuth) allow the team to normalize two rolls per round, removing banes or stripping edges."</em> Azimuth and Keshet selected the same two traits.</p>
+      </div>
+    </section>
+
+    <section id="abilities">
+      <h2 class="section-title">V. Key Abilities</h2>
+      <p><em>Listed below are the abilities Azimuth explicitly selected, plus the core auto-granted abilities of the Talent class and Telekinesis subclass at level 1.</em></p>
+
+      <h4 class="entry-label">Signature — Selected (1 of 2)</h4>
+      <div class="ability-block signature">
+        <div class="ability-name">Kinetic Grip</div>
+        <div class="ability-meta">Main Action &middot; Psionic, Ranged 10, Telekinesis &middot; One creature or object &middot; Signature (free)</div>
+        <div class="ability-desc">
+          <em>"You lift and hurl your foe away from you."</em>
+        </div>
+        <div class="tier-roll">
+          <span class="tier-label">Reason roll:</span>
+          T1: Slide 2 + R &middot; T2: Slide 4 + R &middot; T3: Slide 6 + R; prone
+          <span style="display:block; margin-top:0.3rem;"><span class="strain-tag">Strained 0</span> You must vertical push the target instead of sliding them.</span>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Signature — Selected (2 of 2)</h4>
+      <div class="ability-block signature">
+        <div class="ability-name">Optic Blast</div>
+        <div class="ability-meta">Main Action &middot; Metamorphosis, Psionic, Ranged 10, Strike &middot; One creature or object &middot; Signature (free)</div>
+        <div class="ability-desc">
+          <em>"Your eyes emit rays of powerful enervating force."</em> When targeting an object with a solid reflective surface or a creature carrying or wearing such an object (mirror, unpainted metal shield, shiny metal plate armor), Azimuth can target one additional creature or object within 3 squares of the first target.
+        </div>
+        <div class="tier-roll">
+          <span class="tier-label">Reason roll:</span>
+          T1: 2 + R damage; M&lt;[weak], prone &middot; T2: 4 + R damage; M&lt;[average], prone &middot; T3: 6 + R damage; M&lt;[strong], prone
+          <span style="display:block; margin-top:0.3rem;"><span class="strain-tag">Strained 0</span> You gain 1 surge that you can use immediately, and you take damage equal to your Reason score that can't be reduced in any way.</span>
+        </div>
+      </div>
+
+      <h4 class="entry-label">3-Clarity Ability — Selected</h4>
+      <div class="ability-block support">
+        <div class="ability-name">Precognition</div>
+        <div class="ability-meta">Main Action &middot; Chronopathy, Melee 2, Psionic &middot; Self or one ally &middot; 3 Clarity</div>
+        <div class="ability-desc">
+          <em>"You give a target a glimpse into the future so that they're ready for what comes next."</em> Ability rolls made against the target take a bane until the start of Azimuth's next turn. Whenever the target takes damage while under this effect, they can use a triggered action to make a free strike against the source of the damage.
+        </div>
+      </div>
+
+      <h4 class="entry-label">5-Clarity Ability — Selected</h4>
+      <div class="ability-block support">
+        <div class="ability-name">Inertia Soak</div>
+        <div class="ability-meta">Maneuver &middot; Psionic, Ranged 10, Telekinesis &middot; Self or one ally &middot; 5 Clarity</div>
+        <div class="ability-desc">
+          <em>"Your psionic energy surrounds the target and pushes everything else away from them."</em> The target ignores difficult terrain and takes no damage from forced movement until the start of Azimuth's next turn. Whenever the target enters a square while under this effect, they can push one adjacent creature up to Reason squares. When pushing an ally, the target can ignore that ally's stability. A creature can only be force moved this way once a turn.
+        </div>
+        <div class="tier-roll">
+          <span class="strain-tag">Strained 0</span> You are weakened (save ends). While you are weakened this way, whenever you are force moved, the forced movement distance gains a +5 bonus.
+        </div>
+      </div>
+
+      <h4 class="entry-label">Auto-Granted — Talent Class (Free Strike)</h4>
+      <div class="ability-block">
+        <div class="ability-name">Mind Spike</div>
+        <div class="ability-meta">Main Action &middot; Psionic, Ranged 10, Strike, Telepathy &middot; One creature &middot; No Clarity cost &middot; Free Strike</div>
+        <div class="ability-desc">
+          <em>"A telepathic bolt instantly zaps a creature's brain."</em>
+        </div>
+        <div class="tier-roll">
+          <span class="tier-label">Reason roll:</span>
+          T1: 2 + R psychic damage &middot; T2: 4 + R psychic damage &middot; T3: 6 + R psychic damage
+          <span style="display:block; margin-top:0.3rem;"><span class="strain-tag">Strained 0</span> The target takes an extra 2 psychic damage. You also take 2 psychic damage that can't be reduced in any way.</span>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Auto-Granted — Telekinesis Subclass</h4>
+      <div class="ability-block">
+        <div class="ability-name">Minor Telekinesis</div>
+        <div class="ability-meta">Maneuver &middot; Psionic, Ranged 10 &middot; Self or one size 1 creature or object &middot; No Clarity cost</div>
+        <div class="ability-desc">
+          <em>"Wisps of psychic energy ripple visibly from your brain as you force the target to move using only your mind."</em> Slide the target up to Reason squares (2).
+          <strong>Spend 2:</strong> the size of the creature or object you can target increases by 1 for every 2 clarity spent.
+          <strong>Spend 3:</strong> you can vertical slide the target.
+        </div>
+      </div>
+
+      <div class="ability-block">
+        <div class="ability-name">Repel</div>
+        <div class="ability-meta">Triggered Action &middot; Psionic, Ranged 10 &middot; Self or one ally &middot; No Clarity cost &middot; Trigger: target takes damage or is force moved</div>
+        <div class="ability-desc">
+          <em>"They aren't going anywhere, but you might!"</em> The target takes half the triggering damage, OR the distance of triggering forced movement is reduced by Reason squares. If the target took damage and was force moved, Azimuth chooses the effect. If the forced movement is reduced to 0 squares, the target can push the source of the forced movement up to Reason squares.
+        </div>
+      </div>
+
+      <h4 class="entry-label">Career Perk — Disciple</h4>
+      <div class="ability-block">
+        <div class="ability-name">Thingspeaker</div>
+        <div class="ability-meta">1 minute of contact &middot; Supernatural perk</div>
+        <div class="ability-desc">
+          <em>"When you hold an object in your hand for 1 uninterrupted minute, you can sense whether it bears emotional resonance. Objects with emotional resonance could include treasured gifts, murder weapons, or personal keepsakes."</em> If the Director determines the object bears emotional resonance, Azimuth learns the most dominant emotion associated with it, then receives a vision answering one of the following: what was the name of the person whose emotion is imprinted on this object; why does this emotion linger; how long has it been since the object was held by that person.
+        </div>
+      </div>
+    </section>
+
+    <section id="augmentation">
+      <h2 class="section-title">VI. Psionic Augmentation &amp; Ward</h2>
+      <p>From the class feature description: <em>"Through psionic meditation, you create pathways in your mind that enhance your statistics. Choose one of the following augmentations. You can change your augmentation along with your ward by undergoing a psionic meditation as a respite activity."</em></p>
+      <div class="two-col">
+        <div>
+          <h3 class="subhead">Selected: Force Augmentation</h3>
+          <p>From the source: <strong>+1 damage</strong> on abilities with the Psionic keyword. Azimuth did not select Battle Augmentation (armor/weapon proficiency), Density Augmentation (Stamina/Stability scaling), Distance Augmentation (range on Psionic Ranged), or Speed Augmentation (Speed/Disengage).</p>
+        </div>
+        <div>
+          <h3 class="subhead">Selected: Repulsive Ward</h3>
+          <p><em>"You surround yourself with an invisible ward of telekinetic energy."</em> <strong>Triggered action.</strong> Trigger: an adjacent creature deals damage to you. Effect: you can push your attacker up to Reason squares.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2 class="section-title">VII. Skills &amp; Languages</h2>
+      <div class="two-col">
+        <div>
+          <h4 class="entry-label">Class &amp; Subclass Skills</h4>
+          <div class="skill-grid">
+            <div class="skill-row sig"><span class="name">Read Person</span><span class="val">Class</span></div>
+            <div class="skill-row sig"><span class="name">Monsters</span><span class="val">Class</span></div>
+            <div class="skill-row sig"><span class="name">History</span><span class="val">Class (Lore)</span></div>
+            <div class="skill-row sig"><span class="name">Magic</span><span class="val">Class (Lore)</span></div>
+          </div>
+          <h4 class="entry-label">Career — Disciple</h4>
+          <div class="skill-grid">
+            <div class="skill-row high"><span class="name">Religion</span><span class="val">Career</span></div>
+            <div class="skill-row high"><span class="name">Timescape</span><span class="val">Career (Lore)</span></div>
+            <div class="skill-row high"><span class="name">Psionics</span><span class="val">Career (Lore)</span></div>
+          </div>
+        </div>
+        <div>
+          <h4 class="entry-label">Culture Skills</h4>
+          <div class="skill-grid">
+            <div class="skill-row"><span class="name">Gymnastics</span><span class="val">Nomadic</span></div>
+            <div class="skill-row"><span class="name">Perform</span><span class="val">Bureaucratic</span></div>
+            <div class="skill-row"><span class="name">Drive</span><span class="val">Martial</span></div>
+          </div>
+          <h4 class="entry-label">Languages</h4>
+          <div class="skill-grid">
+            <div class="skill-row sig"><span class="name">Axiomatic</span><span class="val">Native</span></div>
+            <div class="skill-row"><span class="name">Caelian</span><span class="val">Default</span></div>
+            <div class="skill-row"><span class="name">Mindspeech</span><span class="val">Class language slot</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="callout warn">
+        <div class="label">⚠ Mindspeech — Flag for Director</div>
+        <p>Per the ENCOUNTERS file, Mindspeech is the language of the Synliroi (Voiceless Talkers), a Tier 1 existential threat for the party. Both Nomos and Azimuth know it. Nomos acquired it via his Ivory Tower complication (dead language slot); Azimuth acquired it via the Talent class language slot. Whether this overlap is significant is for the Director to decide.</p>
+      </div>
+    </section>
+
+    <section id="complication">
+      <h2 class="section-title">VIII. Complication — Lucky</h2>
+      <p>From the complication description (verbatim): <em>"You've always had a lucky streak. When you leave things in the hands of fate, you succeed more than you fail. But luck is fickle — when you don't trust it, it deserts you."</em></p>
+      <table class="dossier-table">
+        <thead><tr><th>Aspect</th><th>Mechanic (verbatim)</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Lucky Benefit</td>
+            <td>When you spend a hero token to succeed on a saving throw or reroll a test, roll a d10. On a 6 or higher, you gain the benefit but don't spend the hero token.</td>
+          </tr>
+          <tr>
+            <td>Lucky Drawback</td>
+            <td>Whenever you obtain a tier 1 result on a test and don't spend a hero token to reroll, you take a bane on the next test you make.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="worldsickness">
+      <h2 class="section-title">IX. Worldsickness Posture</h2>
+      <p>Per Zenith.md: <em>"She's the team member most at ease when the plan collapses, because her entire life has been structures collapsing and things working out anyway. Her relationship with worldsickness is absorption — she takes the hit so the structure holds."</em></p>
+      <p>Per Zenith.md (tactical profile): <em>"Azimuth breaks this pattern — as a Talent, she can overclock into strain, pushing past her normal psionic limits when the mission requires output beyond standard parameters. She is the team's throttle."</em></p>
+    </section>
+
+    <section id="incident">
+      <h2 class="section-title">X. Inciting Incident — Near-Death Experience</h2>
+      <p>From the inciting incident (verbatim): <em>"While serving at a religious institution, you almost died in an accident. When you woke, you had lost all memory of ever having worked for the church or temple. Though the clergy encouraged you to stay, you left to forge a new path. Your sense of altruism — whether instilled in you by your past work or a part of who you naturally are — guides you in your life."</em></p>
+      <div class="callout void">
+        <div class="label">◈ Open Threads</div>
+        <p>The source establishes: an accident at a religious institution, near-death, total memory loss of her time there, the clergy's wish that she stay, her decision to leave. Per Zenith.md narrative profile: <em>"Mercenary life, then religious service at an institution, then a near-death experience that surgically excised her memory of ever having worked at the church. She didn't lose her identity — she lost one specific chapter, and nobody explained why."</em> Specifics — the institution's name, the nature of the accident, the relationship between her lost time and the present day — are for the Director to develop.</p>
+      </div>
+      <div class="callout">
+        <div class="label">◈ Thingspeaker Crossover</div>
+        <p>The Thingspeaker perk reads emotional resonance from objects, returning the dominant emotion plus a vision answering one of: the person's name, why the emotion lingers, or how long since they held it. If the Director introduces objects from her time at the institution, Thingspeaker is the mechanical path to recovery.</p>
+      </div>
+    </section>
+
+    <section id="unit">
+      <h2 class="section-title">XI. Position Within Zenith</h2>
+      <p>Per Zenith.md: <strong>"She handles direct action on the perimeter alongside Keshet — Keshet calls the play, Azimuth executes it."</strong> She is the unit's <em>"throttle"</em> — the one whose Talent-class overclock allows output beyond standard parameters when the mission requires it. Her resource economy (Clarity with strain) is the only one in Zenith that can deliberately damage the operator using it.</p>
+    </section>
+
+    <section id="arc">
+      <h2 class="section-title">XII. Character Arc</h2>
+      <p>From Zenith.md: <em>"The excised memory, the institution that took something from her, and a lucky streak that might be something else entirely."</em></p>
+      <p>The three threads correspond to specific features. The excised memory is the Near-Death Experience inciting incident. The institution is the Disciple career background plus the Religion/Timescape/Psionics skill set. The lucky streak is the Lucky complication. Whether they are causally connected is an open question for the campaign.</p>
+    </section>
+
+    <section id="relations">
+      <h2 class="section-title">XIII. Relations</h2>
+      <div class="relation">
+        <div class="rel-name">Protocol Keshet <span class="role">&mdash; Field Coordinator</span> <span class="marker active">Active</span></div>
+        <div class="rel-text">Per Zenith.md: handler-operator pair. Keshet calls the play, Azimuth executes it. They jointly manage every threat that isn't Vellpryte's designated target.</div>
+      </div>
+      <div class="relation">
+        <div class="rel-name">Executor Vellpryte <span class="role">&mdash; Senior Field Agent</span> <span class="marker active">Active</span></div>
+        <div class="rel-text">Per Zenith.md: not characterized directly in personal terms. Vellpryte is the unit's chain of command; Azimuth operates under her direction.</div>
+      </div>
+      <div class="relation">
+        <div class="rel-name">Secretary Nomos <span class="role">&mdash; Communications &amp; Support</span> <span class="marker active">Active</span></div>
+        <div class="rel-text">Per Zenith.md: not characterized directly in personal terms. Both know Mindspeech.</div>
+      </div>
+      <div class="relation">
+        <div class="rel-name">The Religious Institution <span class="role">&mdash; Origin of Memory Gap</span> <span class="marker void">Open</span></div>
+        <div class="rel-text">Per the inciting incident: a church or temple where Azimuth worked, where she nearly died, and which she left after losing all memory of her time there. Per the incident text: the clergy encouraged her to stay. Specifics undeveloped in source.</div>
+      </div>
+      <div class="relation">
+        <div class="rel-name">The Mercenary Band <span class="role">&mdash; Earlier Background</span> <span class="marker open">Antecedent</span></div>
+        <div class="rel-text">Per Zenith.md: the foundation of her comfort with uncertainty. Pre-institutional period; specifics undeveloped in source.</div>
+      </div>
+    </section>
+
+    <footer class="colophon">
+      <div><span class="accent">// ZENITH UNIT RECORD — OFFICE OF MEDIATION</span></div>
+      <div style="margin-top:0.4rem;"><span class="accent2">OPERATOR AZIMUTH &middot; AZI-003 &middot; MEMONEK &middot; TALENT / TELEKINESIS &middot; LVL 1</span></div>
+      <div style="margin-top:0.4rem;">Produced for internal field reference &middot; Distribution: Unit Zenith &middot; Director access only</div>
+      <div style="margin-top:0.4rem;"><span style="color:var(--psi-bright)">⚑ STATUS: START OF CAMPAIGN &middot; OPEN INCIDENT: NEAR-DEATH (RELIGIOUS INSTITUTION) &middot; LANG. FLAG: MINDSPEECH</span></div>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>
