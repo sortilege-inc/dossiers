@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANTAGONES — Gladiator Dossier</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crimson: #C0152A;
+    --crimson-dark: #7A0B18;
+    --crimson-bright: #E82030;
+    --gold: #C9A227;
+    --gold-light: #E8C84A;
+    --gold-dark: #8B6F19;
+    --stone: #2A2420;
+    --stone-mid: #3D3530;
+    --stone-light: #504540;
+    --parchment: #E8DCC8;
+    --parchment-dark: #C8B898;
+    --white: #F5EFE0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: #1A1410;
+    font-family: 'Cinzel', serif;
+    color: var(--white);
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* Granite texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    position: relative;
+    text-align: center;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .header-banner {
+    background: linear-gradient(180deg, var(--crimson-dark) 0%, var(--crimson) 40%, var(--crimson-dark) 100%);
+    border-top: 3px solid var(--gold);
+    border-bottom: 3px solid var(--gold);
+    padding: 6px 0;
+    letter-spacing: 0.35em;
+    font-size: 11px;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-banner::before, .header-banner::after {
+    content: '⚔';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold);
+    font-size: 14px;
+  }
+  .header-banner::before { left: 20px; }
+  .header-banner::after { right: 20px; }
+
+  .title-block {
+    background: linear-gradient(180deg, #0E0C09 0%, var(--stone) 30%, var(--stone-mid) 60%, #0E0C09 100%);
+    border-left: 5px solid var(--crimson);
+    border-right: 5px solid var(--crimson);
+    padding: 28px 20px 16px;
+    position: relative;
+  }
+
+  /* Decorative stone columns left/right */
+  .title-block::before, .title-block::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 12px;
+    background: repeating-linear-gradient(
+      180deg,
+      var(--stone-mid) 0px, var(--stone-light) 8px, var(--stone-mid) 16px
+    );
+  }
+  .title-block::before { left: -14px; }
+  .title-block::after { right: -14px; }
+
+  .epithet {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(42px, 9vw, 80px);
+    font-weight: 900;
+    color: var(--white);
+    text-shadow:
+      0 0 40px rgba(192,21,42,0.6),
+      2px 2px 0 var(--crimson-dark),
+      4px 4px 0 #4A0810;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: var(--parchment-dark);
+    letter-spacing: 0.3em;
+    font-style: italic;
+    font-family: 'IM Fell English', serif;
+  }
+
+  .gold-rule {
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold-dark), var(--gold-light), var(--gold), var(--gold-light), var(--gold-dark), transparent);
+    margin: 0;
+    border: none;
+  }
+
+  /* ── PORTRAIT + VITALS ROW ── */
+  .top-section {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 0;
+    background: #0E0C09;
+    border-left: 3px solid var(--stone-light);
+    border-right: 3px solid var(--stone-light);
+    border-bottom: 3px solid var(--stone-light);
+  }
+
+  .portrait-col {
+    position: relative;
+    overflow: hidden;
+    border-right: 3px solid var(--gold-dark);
+  }
+  .portrait-col img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    filter: sepia(20%) contrast(1.1);
+  }
+  .portrait-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.85));
+    padding: 16px 12px 10px;
+    text-align: center;
+  }
+  .portrait-label {
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .vitals-col {
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .vitals-header {
+    font-size: 9px;
+    letter-spacing: 0.5em;
+    color: var(--crimson-bright);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--stone-light);
+    padding-bottom: 6px;
+    margin-bottom: 2px;
+  }
+
+  .vital-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    padding-bottom: 5px;
+  }
+  .vital-label {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--parchment-dark);
+    text-transform: uppercase;
+    flex: 1;
+  }
+  .vital-value {
+    font-size: 13px;
+    color: var(--white);
+    font-weight: 600;
+    text-align: right;
+  }
+  .vital-value.gold { color: var(--gold-light); }
+  .vital-value.red { color: var(--crimson-bright); }
+
+  .class-badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .class-badge {
+    background: var(--crimson-dark);
+    border: 1px solid var(--crimson);
+    color: var(--white);
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    padding: 3px 10px;
+    text-transform: uppercase;
+  }
+  .class-badge span {
+    color: var(--gold-light);
+    margin-left: 4px;
+  }
+
+  /* ── SECTION WRAPPER ── */
+  .section-wrapper {
+    border-left: 3px solid var(--stone-light);
+    border-right: 3px solid var(--stone-light);
+    border-bottom: 3px solid var(--stone-light);
+    background: linear-gradient(180deg, #0E0C09, #110E0A);
+  }
+
+  .section-title {
+    background: linear-gradient(90deg, var(--crimson-dark), #5A0A14, var(--crimson-dark));
+    border-top: 1px solid var(--gold-dark);
+    border-bottom: 1px solid var(--gold-dark);
+    padding: 7px 20px;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::before, .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dark));
+  }
+  .section-title::after {
+    background: linear-gradient(90deg, var(--gold-dark), transparent);
+  }
+
+  /* ── ABILITY SCORES ── */
+  .ability-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1px;
+    padding: 1px;
+    background: var(--stone-mid);
+  }
+
+  .ability-block {
+    background: #0E0C09;
+    padding: 14px 8px 10px;
+    text-align: center;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .ability-block:hover { background: var(--stone); }
+
+  .ability-name {
+    font-size: 8px;
+    letter-spacing: 0.4em;
+    color: var(--crimson-bright);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .ability-score {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+  }
+  .ability-mod {
+    font-size: 11px;
+    color: var(--gold);
+    margin-top: 3px;
+  }
+  .ability-mod.neg { color: #999; }
+
+  /* ── LORE / BACKSTORY ── */
+  .lore-block {
+    padding: 22px 26px;
+  }
+  .lore-block p {
+    font-family: 'IM Fell English', serif;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--parchment);
+    margin-bottom: 14px;
+  }
+  .lore-block p:last-child { margin-bottom: 0; }
+  .lore-highlight {
+    color: var(--gold-light);
+    font-style: italic;
+  }
+  .lore-warning {
+    color: var(--crimson-bright);
+    font-style: italic;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    padding: 1px;
+    background: var(--stone-mid);
+  }
+  .skill-row {
+    background: #0E0C09;
+    padding: 7px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 3px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .skill-row.proficient { border-left-color: var(--gold); }
+  .skill-row:hover { background: var(--stone); }
+  .skill-name {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--parchment-dark);
+    text-transform: uppercase;
+  }
+  .skill-name.proficient { color: var(--gold-light); }
+  .skill-val {
+    font-size: 12px;
+    color: var(--white);
+    font-weight: 600;
+  }
+  .skill-pip {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--stone-light);
+    margin-right: 8px;
+    display: inline-block;
+  }
+  .skill-pip.filled { background: var(--gold); }
+
+  /* ── EQUIPMENT ── */
+  .equipment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    padding: 1px;
+    background: var(--stone-mid);
+  }
+  .equip-item {
+    background: #0E0C09;
+    padding: 10px 16px;
+    border-left: 3px solid transparent;
+  }
+  .equip-item.equipped { border-left-color: var(--crimson); }
+  .equip-name {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .equip-rarity {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+  .rarity-legendary { color: #E8A040; }
+  .rarity-rare { color: #8888FF; }
+  .rarity-very-rare { color: #CC44CC; }
+  .rarity-uncommon { color: #44CC44; }
+  .rarity-common { color: #999; }
+
+  /* ── TRAITS ── */
+  .traits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    padding: 1px;
+    background: var(--stone-mid);
+  }
+  .trait-block {
+    background: #0E0C09;
+    padding: 14px 16px;
+  }
+  .trait-label {
+    font-size: 8px;
+    letter-spacing: 0.45em;
+    color: var(--crimson-bright);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--stone-light);
+    padding-bottom: 4px;
+  }
+  .trait-text {
+    font-family: 'IM Fell English', serif;
+    font-size: 13px;
+    color: var(--parchment);
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  /* ── COMBAT STATS ── */
+  .combat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    padding: 1px;
+    background: var(--stone-mid);
+  }
+  .combat-stat {
+    background: #0E0C09;
+    text-align: center;
+    padding: 16px 8px;
+  }
+  .combat-label {
+    font-size: 8px;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .combat-value {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 28px;
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  /* ── MANAGEMENT NOTE (classified) ── */
+  .classified-block {
+    margin: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      #0A0806,
+      #0A0806 8px,
+      #0C0A07 8px,
+      #0C0A07 16px
+    );
+    border: 2px solid var(--crimson-dark);
+    border-left: 6px solid var(--crimson-bright);
+    padding: 16px 20px;
+    position: relative;
+  }
+  .classified-header {
+    font-size: 9px;
+    letter-spacing: 0.5em;
+    color: var(--crimson-bright);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .classified-header::after {
+    content: '▲ INTERNAL USE ONLY ▲';
+    font-size: 8px;
+    color: var(--crimson-dark);
+  }
+  .classified-text {
+    font-family: 'IM Fell English', serif;
+    font-size: 13px;
+    color: #CC8888;
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 18px 0 0;
+    font-size: 8px;
+    letter-spacing: 0.5em;
+    color: var(--stone-light);
+    text-transform: uppercase;
+  }
+  .footer-rule {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+    margin-bottom: 10px;
+  }
+
+  /* spacing between sections */
+  .gap { height: 3px; background: var(--crimson-dark); margin: 0; }
+
+  @media (max-width: 600px) {
+    .top-section { grid-template-columns: 1fr; }
+    .portrait-col { height: 280px; border-right: none; border-bottom: 3px solid var(--gold-dark); }
+    .ability-grid { grid-template-columns: repeat(3, 1fr); }
+    .skills-grid, .equipment-grid, .traits-grid, .combat-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-banner">Gladiatorial Registry · Sanctioned Combat Authority · Official Record</div>
+    <div class="title-block">
+      <div class="epithet">Leonin · Fighter IV / Paladin VII · Devotee of Iroas</div>
+      <div class="name">ANTAGONES</div>
+      <div class="subtitle">"The Mane of the Arena" — Champion of the Summer Circuit, Three-Season Victor</div>
+    </div>
+    <hr class="gold-rule">
+  </div>
+
+  <!-- PORTRAIT + VITALS -->
+  <div class="top-section">
+    <div class="portrait-col">
+      <img src="antagones.png" alt="Antagones" onerror="this.style.background='#1A1410';this.style.minHeight='380px'">
+      <div class="portrait-overlay">
+        <div class="portrait-label">Certified Combat Portrait</div>
+      </div>
+    </div>
+    <div class="vitals-col">
+      <div class="vitals-header">Subject Identification</div>
+
+      <div class="vital-row"><span class="vital-label">Race</span><span class="vital-value gold">Leonin</span></div>
+      <div class="vital-row"><span class="vital-label">Age</span><span class="vital-value">24</span></div>
+      <div class="vital-row"><span class="vital-label">Height</span><span class="vital-value">6′ 3″</span></div>
+      <div class="vital-row"><span class="vital-label">Weight</span><span class="vital-value">200 lbs</span></div>
+      <div class="vital-row"><span class="vital-label">Eyes</span><span class="vital-value">Brown</span></div>
+      <div class="vital-row"><span class="vital-label">Mane</span><span class="vital-value">Brown</span></div>
+      <div class="vital-row"><span class="vital-label">Movement</span><span class="vital-value gold">45 ft.</span></div>
+      <div class="vital-row"><span class="vital-label">Languages</span><span class="vital-value">Common, Leonin</span></div>
+
+      <div class="vitals-header" style="margin-top:6px;">Classification</div>
+      <div class="class-badges">
+        <div class="class-badge">Fighter <span>Lv. 4</span></div>
+        <div class="class-badge">Paladin <span>Lv. 7</span></div>
+      </div>
+
+      <div class="vital-row" style="margin-top:8px;"><span class="vital-label">Proficiency Bonus</span><span class="vital-value gold">+4</span></div>
+      <div class="vital-row"><span class="vital-label">Status</span><span class="vital-value red">Off-Roster · Adventuring</span></div>
+      <div class="vital-row"><span class="vital-label">Deity</span><span class="vital-value">Iroas, God of Victory</span></div>
+    </div>
+  </div>
+
+  <div class="gap"></div>
+
+  <!-- COMBAT STATS -->
+  <div class="section-wrapper">
+    <div class="section-title">Combat Statistics</div>
+    <div class="combat-row">
+      <div class="combat-stat">
+        <div class="combat-label">Armor Class</div>
+        <div class="combat-value">20</div>
+      </div>
+      <div class="combat-stat">
+        <div class="combat-label">Hit Points</div>
+        <div class="combat-value" style="color:var(--crimson-bright)">120</div>
+      </div>
+      <div class="combat-stat">
+        <div class="combat-label">Initiative</div>
+        <div class="combat-value">+2</div>
+      </div>
+      <div class="combat-stat">
+        <div class="combat-label">Speed</div>
+        <div class="combat-value">45</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gap"></div>
+
+  <!-- ABILITY SCORES -->
+  <div class="section-wrapper">
+    <div class="section-title">Ability Scores</div>
+    <div class="ability-grid">
+      <div class="ability-block">
+        <div class="ability-name">STR</div>
+        <div class="ability-score">9</div>
+        <div class="ability-mod neg">−1</div>
+      </div>
+      <div class="ability-block">
+        <div class="ability-name">DEX</div>
+        <div class="ability-score">15</div>
+        <div class="ability-mod">+2</div>
+      </div>
+      <div class="ability-block">
+        <div class="ability-name">CON</div>
+        <div class="ability-score">20</div>
+        <div class="ability-mod" style="color:var(--crimson-bright)">+5</div>
+      </div>
+      <div class="ability-block">
+        <div class="ability-name">INT</div>
+        <div class="ability-score">16</div>
+        <div class="ability-mod">+3</div>
+      </div>
+      <div class="ability-block">
+        <div class="ability-name">WIS</div>
+        <div class="ability-score">6</div>
+        <div class="ability-mod neg">−2</div>
+      </div>
+      <div class="ability-block">
+        <div class="ability-name">CHA</div>
+        <div class="ability-score">16</div>
+        <div class="ability-mod" style="color:var(--gold-light)">+3</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gap"></div>
+
+  <!-- BACKSTORY / LORE -->
+  <div class="section-wrapper">
+    <div class="section-title">Dossier & Circumstances</div>
+    <div class="lore-block">
+      <p>
+        <span class="lore-highlight">Antagones</span> rose from the sun-scorched training pits to become the arena's most electrifying champion — a Leonin warrior whose roar alone sent crowds into frenzied adulation. Three seasons of undefeated bouts. Sellout crowds. Merchandise hawked in every alley of the city. He was not merely a gladiator; he was an institution.
+      </p>
+      <p>
+        He is also, regrettably, <span class="lore-warning">catastrophically naive about money</span>. The management of the Crimson Coliseum — recognising that Antagones' contract renewal would cost them dearly — convened in private session. They concluded it was cheaper to manufacture a problem than pay his worth.
+      </p>
+      <p>
+        They told him he was <span class="lore-highlight">"slipping."</span> They cited fabricated reports of slower reflexes, reduced crowd enthusiasm, whisper campaigns of younger rivals eclipsing him. They offered a "voluntary sabbatical" — framed as compassionate rest — while the arena planned his triumphant return: a carefully orchestrated comeback tour that would make them <span class="lore-warning">triple what they owed him in back pay</span>, with Antagones none the wiser.
+      </p>
+      <p>
+        He believed every word. His Wisdom score is, after all, a 6. Armed with a burning need to <em>prove himself</em> and a jaw set in wounded pride, he gathered his considerable arsenal and went adventuring — absolutely convinced that he must become worthy again. He sends back letters describing his exploits in excruciating detail, addressed to management, who read them aloud at drinking parties.
+      </p>
+      <p style="font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.15em; color: var(--parchment-dark); border-top: 1px solid var(--stone-light); padding-top: 12px; margin-top: 4px;">
+        Current whereabouts: Unknown. Last confirmed sighting: heading north toward the Thornback Wastes wielding a Trident of Paralysis and asking locals if they had heard of him.
+      </p>
+    </div>
+  </div>
+
+  <div class="gap"></div>
+
+  <!-- MANAGEMENT NOTE -->
+  <div class="section-wrapper">
+    <div class="section-title" style="color:var(--crimson-bright);">⚠ Management Notation — Confidential</div>
+    <div class="classified-block">
+      <div class="classified-header">Eyes Only — Arena Administration</div>
+      <div class="classified-text">
+        Subject is to be maintained in "adventuring sabbatical" status until the spring circuit. Do NOT contact. Do NOT correct his misapprehension. Projected return event: "The Prodigal Mane" — estimated revenue 40,000 gp. Ensure his gear remains in good condition (he carries most of it himself, conveniently). If he dies in the wilderness, the estate rights revert to the Coliseum and we sell commemorative busts. This is, frankly, an acceptable outcome from a revenue standpoint. Note: he has 1,015 gp in personal holdings. He is not aware that management has power of attorney over his arena earnings account (2,000 sp and climbing in interest). Do not tell him.
+      </div>
+    </div>
+  </div>
+
+  <div class="gap"></div>
+
+  <!-- SKILLS -->
+  <div class="section-wrapper">
+    <div class="section-title">Skills & Proficiencies</div>
+    <div class="skills-grid">
+      <div class="skill-row proficient">
+        <span class="skill-pip filled"></span><span class="skill-name proficient">Acrobatics</span>
+        <span class="skill-val">+6</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-pip"></span><span class="skill-name">Animal Handling</span>
+        <span class="skill-val">−2</span>
+      </div>
+      <div class="skill-row proficient">
+        <span class="skill-pip filled"></span><span class="skill-name proficient">Athletics</span>
+        <span class="skill-val">+3</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-pip"></span><span class="skill-name">Arcana</span>
+        <span class="skill-val">+3</span>
+      </div>
+      <div class="skill-row proficient">
+        <span class="skill-pip filled"></span><span class="skill-name proficient">Intimidation</span>
+        <span class="skill-val">+7</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-pip"></span><span class="skill-name">Insight</span>
+        <span class="skill-val">−2</span>
+      </div>
+      <div class="skill-row proficient">
+        <span class="skill-pip filled"></span><span class="skill-name proficient">Medicine</span>
+        <span class="skill-val">+2</span>
+      </div>
+      <div class="skill-row proficient">
+        <span class="skill-pip filled"></span><span class="skill-name proficient">Performance</span>
+        <span class="skill-val">+7</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-pip"></span><span class="skill-name">Perception</span>
+        <span class="skill-val">−2</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-pip"></span><span class="skill-name">Persuasion</span>
+        <span class="skill-val">+3</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-pip"></span><span class="skill-name">Stealth</span>
+        <span class="skill-val">+2</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-pip"></span><span class="skill-name">Deception</span>
+        <span class="skill-val">+3</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="gap"></div>
+
+  <!-- EQUIPPED ITEMS -->
+  <div class="section-wrapper">
+    <div class="section-title">Notable Equipment</div>
+    <div class="equipment-grid">
+      <!-- Equipped -->
+      <div class="equip-item equipped">
+        <div class="equip-name">Belt of Storm Giant Strength</div>
+        <div class="equip-rarity rarity-legendary">Legendary · Attuned · STR → 29</div>
+      </div>
+      <div class="equip-item equipped">
+        <div class="equip-name">Ring of Spell Turning</div>
+        <div class="equip-rarity rarity-legendary">Legendary · Attuned · Reflects spells on nat 20</div>
+      </div>
+      <div class="equip-item equipped">
+        <div class="equip-name">Animated Shield</div>
+        <div class="equip-rarity rarity-very-rare">Very Rare · Attuned · Hovers autonomously</div>
+      </div>
+      <div class="equip-item equipped">
+        <div class="equip-name">Mace of Disruption</div>
+        <div class="equip-rarity rarity-rare">Rare · Attuned · Sheds light · Destroys undead</div>
+      </div>
+      <div class="equip-item equipped">
+        <div class="equip-name">Mariner's Plate</div>
+        <div class="equip-rarity rarity-uncommon">Uncommon · Full swim speed · Auto-ascent at 0 HP</div>
+      </div>
+      <div class="equip-item equipped">
+        <div class="equip-name">Ring of Swimming</div>
+        <div class="equip-rarity rarity-uncommon">Uncommon · Swim speed 40 ft.</div>
+      </div>
+      <!-- Notable unequipped -->
+      <div class="equip-item">
+        <div class="equip-name">Orenfyr's Trident</div>
+        <div class="equip-rarity rarity-rare">Rare · +2 · Returning · Radiant · Lightning burst</div>
+      </div>
+      <div class="equip-item">
+        <div class="equip-name">Trident of Paralysis</div>
+        <div class="equip-rarity rarity-rare">Rare · 7 charges · DC 15 CON or paralyzed 1 min.</div>
+      </div>
+      <div class="equip-item">
+        <div class="equip-name">Mithril Shocking Net</div>
+        <div class="equip-rarity rarity-rare">Rare · Lightning on hit · Very arena-appropriate</div>
+      </div>
+      <div class="equip-item">
+        <div class="equip-name">Beads of Force ×7</div>
+        <div class="equip-rarity rarity-rare">Rare · 5d4 force + sphere trap · 60 ft. range</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gap"></div>
+
+  <!-- TRAITS -->
+  <div class="section-wrapper">
+    <div class="section-title">Character Profile</div>
+    <div class="traits-grid">
+      <div class="trait-block">
+        <div class="trait-label">Personality</div>
+        <div class="trait-text">"I will settle for nothing less than perfection." He means it. He practices his victory poses daily, alone, in whatever cave or barn he currently occupies.</div>
+      </div>
+      <div class="trait-block">
+        <div class="trait-label">Ideal</div>
+        <div class="trait-text">Tradition. The legends of past champions must never be forgotten — for they teach us what we owe the crowd. He is particularly devoted to Iroas and views every fight as an offering.</div>
+      </div>
+      <div class="trait-block">
+        <div class="trait-label">Bond</div>
+        <div class="trait-text">"I will do anything to prove myself superior to my hated rival." He does not have a specific rival. Management invented one. He has nevertheless committed fully to defeating this fictional person.</div>
+      </div>
+      <div class="trait-block">
+        <div class="trait-label">Flaw</div>
+        <div class="trait-text">He cannot keep his true feelings hidden. His sharp tongue lands him in trouble constantly — and yet, paradoxically, his WIS of 6 means he rarely sees the trouble coming until he is already in it.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gap"></div>
+
+  <!-- RACIAL / CLASS FEATURES SUMMARY -->
+  <div class="section-wrapper">
+    <div class="section-title">Key Abilities & Features</div>
+    <div class="traits-grid">
+      <div class="trait-block">
+        <div class="trait-label">Daunting Roar (Leonin)</div>
+        <div class="trait-text">Bonus action. Creatures of his choice within 10 ft. must make a DC 17 WIS save or be frightened until end of next turn. Witnesses describe this as deeply upsetting.</div>
+      </div>
+      <div class="trait-block">
+        <div class="trait-label">Divine Smite (Paladin)</div>
+        <div class="trait-text">Expends spell slots to add 2d8–6d8 radiant damage to melee strikes. Currently has 4× 1st-level and 3× 2nd-level slots remaining. Uses them liberally.</div>
+      </div>
+      <div class="trait-block">
+        <div class="trait-label">Action Surge (Fighter)</div>
+        <div class="trait-text">Once per rest, takes an additional action on his turn. Combined with Extra Attack, this is an unconscionable number of things happening at once.</div>
+      </div>
+      <div class="trait-block">
+        <div class="trait-label">Aura of Protection (Paladin)</div>
+        <div class="trait-text">Allies within 10 ft. gain +3 to all saving throws. He is genuinely excellent at protecting others. He is simply unable to protect himself from a confident lie told to his face.</div>
+      </div>
+      <div class="trait-block">
+        <div class="trait-label">Sentinel (Feat)</div>
+        <div class="trait-text">Enemies cannot escape his reach unpunished. Opportunity attacks reduce speed to 0. He cannot disengage from a fight; this is also true emotionally.</div>
+      </div>
+      <div class="trait-block">
+        <div class="trait-label">By Popular Demand (Background)</div>
+        <div class="trait-text">At any combat venue, he can perform for free lodging and food. He has activated this in every village he's passed through. He is, wherever he goes, inexplicably famous already.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-rule"></div>
+    Gladiatorial Registry · Crimson Coliseum Authority · Document Class: Roster · Filed Under: Inactive (Voluntary Sabbatical) · For Internal Use Only
+  </div>
+
+</div>
+</body>
+</html>
