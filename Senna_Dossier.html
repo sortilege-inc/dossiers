@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Senna, Soldier of the Underdark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Senna's palette — moss & bone, Underdark cool with chartreuse spores */
+    --vellum:       #e6e2d2;
+    --vellum-dk:    #cfc9b3;
+    --vellum-dkr:   #a89e7e;
+    --bone:         #d8d2bd;
+    --bone-shadow:  #b8b09a;
+    --moss:         #4a5848;
+    --moss-deep:    #2e3a2e;
+    --moss-pale:    #7a8b6f;
+    --umber:        #3d2f1f;
+    --umber-deep:   #1f1810;
+    --ink:          #1c1c14;
+    --ink-soft:     #3a3a2a;
+    --ink-faint:    #6a6852;
+    --rule:         #8a8268;
+    --rule-soft:    #b8ae8e;
+    --spore:        #9aaa3a;          /* chartreuse swarm/spore accent */
+    --spore-deep:   #6a7820;
+    --spore-bright: #c4d456;
+    --drow:         #4a4658;          /* a cool steel-violet for hidden truth */
+    --drow-deep:    #2a263a;
+    --blood:        #6b1818;
+    --shadow:       rgba(20,18,8,0.30);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--umber-deep);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 17px; line-height: 1.62;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 20% 12%, rgba(154,170,58,0.10) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 88%, rgba(74,70,88,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(46,58,46,0.10) 0%, transparent 80%);
+    min-height: 100vh; padding: 2rem 1rem;
+  }
+  .document {
+    max-width: 880px; margin: 0 auto;
+    background: var(--vellum); padding: 0; position: relative;
+    box-shadow:
+      0 0 0 1px var(--rule),
+      0 4px 6px rgba(0,0,0,0.35),
+      0 18px 50px rgba(0,0,0,0.65),
+      inset 0 0 100px rgba(74,88,72,0.10);
+  }
+  /* aged paper texture via overlay */
+  .document::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse at 12% 8%, rgba(106,120,32,0.08) 0%, transparent 32%),
+      radial-gradient(ellipse at 88% 92%, rgba(61,47,31,0.10) 0%, transparent 42%),
+      radial-gradient(ellipse at 50% 60%, rgba(40,30,20,0.05) 0%, transparent 65%);
+    z-index: 0;
+  }
+  /* faint spore-flecks scattered across the page */
+  .document::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      radial-gradient(circle at 14% 22%, var(--spore) 0.5px, transparent 1.5px),
+      radial-gradient(circle at 82% 38%, var(--spore-deep) 0.5px, transparent 1.5px),
+      radial-gradient(circle at 38% 78%, var(--spore) 0.5px, transparent 1.5px),
+      radial-gradient(circle at 68% 62%, var(--spore-bright) 0.5px, transparent 1.5px),
+      radial-gradient(circle at 24% 55%, var(--spore-deep) 0.4px, transparent 1.2px),
+      radial-gradient(circle at 92% 18%, var(--spore) 0.4px, transparent 1.2px),
+      radial-gradient(circle at 6% 88%, var(--spore-bright) 0.4px, transparent 1.2px);
+    background-size: 100% 100%;
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+    z-index: 0;
+  }
+  .document-inner {
+    position: relative; z-index: 1;
+    padding: 3.4rem 4rem 4rem;
+    border: 1px solid var(--vellum-dkr);
+    margin: 1rem;
+  }
+  .border-top, .border-bot {
+    height: 5px;
+    background:
+      linear-gradient(90deg,
+        transparent 0%,
+        var(--moss-deep) 6%,
+        var(--spore-deep) 22%,
+        var(--moss) 38%,
+        var(--moss-deep) 50%,
+        var(--moss) 62%,
+        var(--spore-deep) 78%,
+        var(--moss-deep) 94%,
+        transparent 100%);
+    margin: 0 1rem;
+  }
+  .corner {
+    position: absolute; width: 28px; height: 28px;
+    border-color: var(--moss-deep); border-style: solid;
+  }
+  .corner.tl { top: 5px; left: 5px; border-width: 2px 0 0 2px; }
+  .corner.tr { top: 5px; right: 5px; border-width: 2px 2px 0 0; }
+  .corner.bl { bottom: 5px; left: 5px; border-width: 0 0 2px 2px; }
+  .corner.br { bottom: 5px; right: 5px; border-width: 0 2px 2px 0; }
+
+  .eyebrow {
+    font-family: "Cinzel", serif; font-size: 0.66rem;
+    letter-spacing: 0.38em; color: var(--ink-faint);
+    text-transform: uppercase; text-align: center; margin-bottom: 0.5rem;
+  }
+  header.title-block {
+    text-align: center; border-bottom: 2px solid var(--rule);
+    padding-bottom: 1.8rem; margin-bottom: 2.5rem; position: relative;
+  }
+  header.title-block::after {
+    content: ""; display: block; width: 140px; height: 1px;
+    background: var(--moss); margin: 0.9rem auto 0;
+  }
+  h1.character-name {
+    font-family: "Cinzel Decorative", serif; font-weight: 400;
+    font-size: 2.7rem; line-height: 1.05; margin: 0.25rem 0 0.3rem;
+    letter-spacing: 0.05em; color: var(--ink);
+  }
+  .name-accent { color: var(--moss-deep); }
+  .epithets {
+    font-family: "EB Garamond", serif; font-style: italic;
+    font-size: 1.05rem; color: var(--ink-soft); margin: 0.25rem 0 1rem;
+  }
+  .vitals-row {
+    display: flex; justify-content: center; flex-wrap: wrap;
+    gap: 0 1.6rem;
+    font-family: "Cinzel", serif; font-size: 0.7rem;
+    letter-spacing: 0.22em; color: var(--ink-faint); margin-top: 0.7rem;
+  }
+  .vitals-row span { border-left: 1px solid var(--rule-soft); padding-left: 1.4rem; }
+  .vitals-row span:first-child { border-left: none; padding-left: 0; }
+
+  section { margin-bottom: 2.4rem; }
+  h2.section-title {
+    font-family: "Cinzel", serif; font-weight: 600; font-size: 0.84rem;
+    letter-spacing: 0.32em; color: var(--moss-deep); text-transform: uppercase;
+    border-bottom: 1px solid var(--rule-soft); padding-bottom: 0.4rem;
+    margin: 0 0 1.25rem;
+  }
+  h2.section-title::before {
+    content: "❦"; color: var(--spore-deep); margin-right: 0.65rem;
+    font-size: 0.85rem;
+  }
+  h3.subhead {
+    font-family: "Cinzel", serif; font-weight: 500; font-size: 0.92rem;
+    color: var(--spore-deep); letter-spacing: 0.12em;
+    margin: 1.5rem 0 0.4rem;
+    text-transform: uppercase;
+  }
+  p { margin: 0 0 0.85rem; }
+  em { color: var(--moss-deep); font-style: italic; }
+  strong { color: var(--ink); font-weight: 600; }
+
+  /* Portrait */
+  .portrait-block { text-align: center; margin: 0 0 2.5rem; }
+  .portrait-block img {
+    max-width: 320px; width: 100%; height: auto;
+    border: 1px solid var(--rule);
+    box-shadow: 0 2px 8px rgba(20,18,10,0.30), inset 0 0 0 4px var(--vellum);
+    padding: 5px; background: var(--vellum-dk);
+  }
+  .portrait-caption {
+    font-family: "Cinzel", serif; font-size: 0.65rem;
+    letter-spacing: 0.22em; color: var(--ink-faint);
+    text-transform: uppercase; margin-top: 0.6rem;
+  }
+
+  /* Tables */
+  .dossier-table {
+    width: 100%; border-collapse: collapse; margin: 0.6rem 0 1.1rem;
+    font-size: 0.94rem; background: rgba(216,210,189,0.35);
+  }
+  .dossier-table th, .dossier-table td {
+    border: 1px solid var(--rule-soft);
+    padding: 0.45rem 0.7rem; text-align: left; vertical-align: top;
+  }
+  .dossier-table th {
+    background: rgba(74,88,72,0.14);
+    font-family: "Cinzel", serif; font-weight: 500;
+    font-size: 0.74rem; letter-spacing: 0.16em;
+    color: var(--moss-deep); text-transform: uppercase;
+  }
+  .dossier-table tr:nth-child(even) td { background: rgba(216,210,189,0.5); }
+
+  /* Stat bloc */
+  .stat-bloc {
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    gap: 0.5rem; margin: 0.6rem 0 1rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule-soft);
+    background: rgba(216,210,189,0.55);
+    padding: 0.6rem 0.4rem; text-align: center;
+  }
+  .stat-cell .label {
+    font-family: "Cinzel", serif; font-size: 0.62rem;
+    letter-spacing: 0.18em; color: var(--moss-deep);
+    text-transform: uppercase; margin-bottom: 0.2rem;
+  }
+  .stat-cell .value {
+    font-family: "Cinzel Decorative", serif; font-size: 1.3rem;
+    color: var(--ink); font-weight: 700;
+  }
+  .stat-cell .gloss {
+    font-size: 0.7rem; color: var(--ink-faint); margin-top: 0.15rem;
+    font-family: "EB Garamond", serif; font-style: italic;
+  }
+
+  /* Blockquotes — maxim and field-note */
+  blockquote {
+    margin: 1rem 0; padding: 0.6rem 1.1rem;
+    background: rgba(74,88,72,0.08);
+    border-left: 3px solid var(--moss);
+    font-family: "EB Garamond", serif;
+    font-style: italic; color: var(--ink-soft);
+    font-size: 0.98rem;
+  }
+  blockquote.maxim {
+    text-align: center; border-left: none;
+    border-top: 1px solid var(--rule-soft);
+    border-bottom: 1px solid var(--rule-soft);
+    background: transparent;
+    padding: 0.9rem 1rem;
+    font-size: 1.05rem;
+  }
+  blockquote.field-note {
+    background: rgba(106,120,32,0.08);
+    border-left: 3px solid var(--spore-deep);
+    font-family: "Special Elite", monospace;
+    font-style: normal; font-size: 0.86rem;
+    color: var(--ink-soft);
+  }
+  blockquote .attribution {
+    display: block; margin-top: 0.5rem;
+    font-family: "Cinzel", serif; font-style: normal;
+    font-size: 0.7rem; letter-spacing: 0.16em;
+    color: var(--ink-faint); text-transform: uppercase;
+  }
+  blockquote.lore {
+    background: rgba(216,210,189,0.55);
+    border-left: 3px solid var(--blood);
+  }
+
+  /* Diary block — Senna's handwriting */
+  .diary {
+    margin: 1.2rem 0;
+    background:
+      linear-gradient(180deg, rgba(216,210,189,0.6), rgba(216,210,189,0.4)),
+      repeating-linear-gradient(
+        0deg,
+        transparent 0,
+        transparent 24px,
+        rgba(106,120,32,0.10) 24px,
+        rgba(106,120,32,0.10) 25px
+      );
+    border: 1px solid var(--vellum-dkr);
+    border-left: 3px solid var(--drow);
+    padding: 1.3rem 1.6rem 1.5rem;
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    box-shadow: 0 1px 3px rgba(20,18,10,0.15);
+    position: relative;
+  }
+  .diary::before {
+    content: "—"; position: absolute;
+    top: -0.6rem; left: 1.4rem;
+    background: var(--vellum); padding: 0 0.5rem;
+    color: var(--drow); font-family: "Cinzel", serif;
+    font-size: 0.74rem; letter-spacing: 0.2em;
+    font-style: normal;
+  }
+  .diary .header {
+    display: block;
+    font-family: "Cinzel", serif; font-style: normal;
+    font-size: 0.66rem; letter-spacing: 0.22em;
+    color: var(--drow-deep); text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    border-bottom: 1px dashed var(--rule-soft);
+    padding-bottom: 0.35rem;
+  }
+  .diary p { margin: 0 0 0.7rem; }
+  .diary p:last-child { margin-bottom: 0; }
+  .diary .sign {
+    font-family: "Cinzel Decorative", serif;
+    color: var(--drow-deep);
+    font-style: normal;
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    margin-top: 0.5rem;
+    display: block;
+    text-align: right;
+  }
+
+  /* Relationship blocks */
+  .relation {
+    margin: 0.7rem 0;
+    padding: 0.7rem 1rem;
+    background: rgba(216,210,189,0.4);
+    border-left: 2px solid var(--vellum-dkr);
+  }
+  .relation .name {
+    font-family: "Cinzel", serif; font-size: 0.92rem;
+    color: var(--moss-deep); font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .relation .role {
+    font-family: "EB Garamond", serif; font-style: italic;
+    font-weight: 400; color: var(--ink-faint);
+    font-size: 0.86rem; margin-left: 0.3rem;
+  }
+  .relation .text {
+    font-size: 0.94rem; color: var(--ink-soft);
+    margin-top: 0.15rem;
+  }
+  .marker {
+    display: inline-block; font-family: "Cinzel", serif;
+    font-size: 0.6rem; letter-spacing: 0.18em;
+    padding: 0.1rem 0.45rem; margin-left: 0.5rem;
+    text-transform: uppercase; border: 1px solid;
+    vertical-align: middle;
+  }
+  .marker.target { color: var(--blood); border-color: var(--blood);
+                   background: rgba(107,24,24,0.06); }
+  .marker.secret { color: var(--drow-deep); border-color: var(--drow);
+                   background: rgba(74,70,88,0.10); }
+  .marker.ally  { color: var(--spore-deep); border-color: var(--spore-deep);
+                  background: rgba(154,170,58,0.10); }
+
+  /* Spell list helpers */
+  .spell-list ul {
+    margin: 0.2rem 0 0.8rem 1.4rem; padding: 0;
+    columns: 2; column-gap: 1.6rem;
+    font-size: 0.93rem;
+  }
+  .spell-list li { margin: 0.12rem 0; break-inside: avoid; }
+  .spell-list .tag {
+    font-family: "Cinzel", serif; font-size: 0.6rem;
+    letter-spacing: 0.12em; color: var(--ink-faint);
+    text-transform: uppercase; margin-left: 0.25rem;
+  }
+  .always-prepared { color: var(--spore-deep); font-weight: 600; }
+
+  /* Ornament */
+  .ornament {
+    text-align: center; font-family: "Cinzel", serif;
+    color: var(--moss); margin: 2.5rem 0 1.2rem;
+    letter-spacing: 0.4em;
+  }
+
+  footer.doc-footer {
+    border-top: 1px solid var(--rule-soft);
+    margin-top: 2.6rem; padding-top: 1rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 0.6rem;
+    font-family: "Cinzel", serif; font-size: 0.6rem;
+    letter-spacing: 0.2em; color: var(--ink-faint); text-transform: uppercase;
+  }
+
+  @media (max-width: 680px) {
+    .document-inner { padding: 2rem 1.4rem; }
+    h1.character-name { font-size: 1.85rem; }
+    .stat-bloc { grid-template-columns: repeat(3, 1fr); }
+    .spell-list ul { columns: 1; }
+    .vitals-row { gap: 0.25rem 1rem; font-size: 0.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="document">
+  <div class="border-top"></div>
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <div class="document-inner">
+
+    <div class="eyebrow">Northridge Campaign &middot; Character Dossier</div>
+
+    <header class="title-block">
+      <p class="epithets">Soldier of the Underdark &middot; The Spore-Walker &middot; Passing in Plain Sight</p>
+      <h1 class="character-name"><span class="name-accent">Senna</span></h1>
+      <div class="vitals-row">
+        <span>Level 9</span>
+        <span>Dark Elf (Drow)</span>
+        <span>Lawful Evil</span>
+        <span>Druid 6 / Ranger 3</span>
+      </div>
+    </header>
+
+    <!-- PORTRAIT -->
+    <section id="portrait">
+      <h2 class="section-title">Portrait</h2>
+      <div class="portrait-block">
+        <img src="senna.png" alt="Portrait of Senna">
+        <div class="portrait-caption">Senna &middot; spore-walker &middot; bracers of archery</div>
+      </div>
+      <p style="text-align:center; font-style:italic; color: var(--ink-soft); font-size:0.93rem; max-width:560px; margin:0 auto;">
+        Grey skin, red eyes, white hair &mdash; unmistakably drow at any pub on the front lines. In the cities of the heartland, where the war is rumour and the propaganda is caricature, she passes for a particularly strange wood elf. No one has thought to look closer.
+      </p>
+    </section>
+
+    <!-- I. IDENTITY -->
+    <section id="identity">
+      <h2 class="section-title">I. Identity (Character Sheet)</h2>
+
+      <table class="dossier-table">
+        <thead><tr><th>Field</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Name</td><td>Senna</td></tr>
+          <tr><td>Race</td><td>Dark Elf (Drow)</td></tr>
+          <tr><td>Gender</td><td>Female</td></tr>
+          <tr><td>Size</td><td>Medium</td></tr>
+          <tr><td>Skin</td><td>Grey</td></tr>
+          <tr><td>Hair</td><td>White</td></tr>
+          <tr><td>Eyes</td><td>Red (per portrait; sheet field blank)</td></tr>
+          <tr><td>Alignment</td><td>Lawful Evil</td></tr>
+          <tr><td>Background</td><td>Soldier</td></tr>
+          <tr><td>Classes</td><td>Druid 6 (Circle of Spores) / Ranger 3 (Swarmkeeper)</td></tr>
+          <tr><td>Experience</td><td>Milestone</td></tr>
+          <tr><td>Player</td><td>hewhocutsdown</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- II. ROLEPLAY (FROM SHEET) -->
+    <section id="roleplay">
+      <h2 class="section-title">II. Roleplaying (From Sheet)</h2>
+
+      <table class="dossier-table">
+        <thead><tr><th>Field</th><th>Text</th></tr></thead>
+        <tbody>
+          <tr><td>Personality Trait</td><td>I can stare down a hell hound without flinching.</td></tr>
+          <tr><td>Ideal</td><td><strong>Might.</strong> In life as in war, the stronger force wins. <em>(Evil)</em></td></tr>
+          <tr><td>Bond</td><td>I'll never forget the crushing defeat my company suffered or the enemies who dealt it.</td></tr>
+          <tr><td>Flaw</td><td>I made a terrible mistake in battle that cost many lives &mdash; and I would do anything to keep that mistake secret.</td></tr>
+        </tbody>
+      </table>
+
+      <blockquote class="field-note">
+        The bond and flaw read both ways. To anyone she meets in the heartland, &ldquo;the enemies who dealt it&rdquo; are drow and &ldquo;the mistake&rdquo; is the misjudgement that lost her company. To Senna, &ldquo;the enemies&rdquo; are the surface armies, and &ldquo;the mistake&rdquo; is whatever she did or failed to do that landed her on the wrong side of the lines, alone. Both stories are true enough to tell.
+        <span class="attribution">&mdash; GM note on the double-mirror</span>
+      </blockquote>
+    </section>
+
+    <!-- III. MECHANICAL PROFILE -->
+    <section id="mechanics">
+      <h2 class="section-title">III. Mechanical Profile</h2>
+
+      <h3 class="subhead">Ability Scores</h3>
+      <div class="stat-bloc">
+        <div class="stat-cell"><div class="label">STR</div><div class="value">9 (&minus;1)</div><div class="gloss">Save &minus;1</div></div>
+        <div class="stat-cell"><div class="label">DEX</div><div class="value">14 (+2)</div><div class="gloss">Save +2</div></div>
+        <div class="stat-cell"><div class="label">CON</div><div class="value">11 (+0)</div><div class="gloss">Save +0</div></div>
+        <div class="stat-cell"><div class="label">INT</div><div class="value">14 (+2)</div><div class="gloss">Save +6 (prof)</div></div>
+        <div class="stat-cell"><div class="label">WIS</div><div class="value">16 (+3)</div><div class="gloss">Save +7 (prof)</div></div>
+        <div class="stat-cell"><div class="label">CHA</div><div class="value">8 (&minus;1)</div><div class="gloss">Save &minus;1</div></div>
+      </div>
+
+      <h3 class="subhead">Combat Stats</h3>
+      <div class="stat-bloc">
+        <div class="stat-cell"><div class="label">HP</div><div class="value">51</div><div class="gloss">Hit Dice 6d8 + 3d10</div></div>
+        <div class="stat-cell"><div class="label">AC</div><div class="value">13</div><div class="gloss">Leather + Dex</div></div>
+        <div class="stat-cell"><div class="label">Initiative</div><div class="value">+2</div><div class="gloss">DEX</div></div>
+        <div class="stat-cell"><div class="label">Speed</div><div class="value">30 ft</div><div class="gloss">Walking</div></div>
+        <div class="stat-cell"><div class="label">Prof.</div><div class="value">+4</div><div class="gloss">&nbsp;</div></div>
+        <div class="stat-cell"><div class="label">Spell DC</div><div class="value">15</div><div class="gloss">WIS &middot; Atk +7</div></div>
+      </div>
+
+      <h3 class="subhead">Saves &amp; Save Notes</h3>
+      <p>Proficient saves: <strong>Intelligence (+6)</strong>, <strong>Wisdom (+7)</strong>. Fey Ancestry grants advantage on saves against being charmed, and magic can't put her to sleep.</p>
+
+      <h3 class="subhead">Passive Scores &amp; Senses</h3>
+      <p>Passive Perception <strong>17</strong>, Passive Insight <strong>13</strong>, Passive Investigation <strong>12</strong>. Superior Darkvision <strong>120 ft</strong>; Blindsight <strong>10 ft</strong> (Blind Fighting). Sunlight Sensitivity: disadvantage on attack rolls and Perception checks relying on sight in direct sunlight.</p>
+
+      <h3 class="subhead">Skill Proficiencies</h3>
+      <p>
+        Animal Handling +7, Athletics +3, Intimidation +3, Nature +6, Perception +7, Survival +7.
+        Non-proficient skill modifiers: Acrobatics +2, Arcana +2, Deception &minus;1, History +2, Insight +3, Investigation +2, Medicine +3, Performance &minus;1, Persuasion &minus;1, Religion +2, Sleight of Hand +2, Stealth +2.
+      </p>
+
+      <h3 class="subhead">Proficiencies &amp; Languages</h3>
+      <ul style="margin: 0.4rem 0 1rem 1.5rem; padding: 0;">
+        <li><strong>Languages:</strong> Common, Druidic, Elvish, Undercommon</li>
+        <li><strong>Armor:</strong> Light armor, medium armor, shields</li>
+        <li><strong>Weapons:</strong> Simple weapons, martial weapons (Drow Weapon Training also grants rapier, shortsword, hand crossbow)</li>
+        <li><strong>Tools:</strong> Dice set, herbalism kit, vehicles (land)</li>
+      </ul>
+    </section>
+
+    <!-- IV. WEAPONS & ATTACKS -->
+    <section id="weapons">
+      <h2 class="section-title">IV. Weapon Attacks &amp; Cantrips</h2>
+      <table class="dossier-table">
+        <thead><tr><th>Name</th><th>Hit</th><th>Damage</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Scimitar</td><td>+6</td><td>1d6+2 slashing</td><td>Martial, finesse, light</td></tr>
+          <tr><td>Shortbow</td><td>+6</td><td>1d6+4 piercing</td><td>Range 80/320; <em>+2 damage from Bracers of Archery</em></td></tr>
+          <tr><td>Primal Savagery</td><td>+7</td><td>2d10 acid</td><td>Cantrip, melee spell attack, S</td></tr>
+          <tr><td>Shillelagh</td><td>+7</td><td>1d8+3 bludgeoning</td><td>Cantrip; club/quarterstaff becomes magical, 1 min, V/S/M</td></tr>
+          <tr><td>Thorn Whip</td><td>+7</td><td>2d6 piercing</td><td>Cantrip, 30 ft reach, can pull Medium-or-smaller 10 ft, V/S/M</td></tr>
+          <tr><td>Chill Touch</td><td>+7</td><td>2d8 necrotic</td><td>Cantrip, ranged spell attack, no healing 1 rnd, V/S</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- V. CLASS & RACE FEATURES -->
+    <section id="features">
+      <h2 class="section-title">V. Features &amp; Traits</h2>
+
+      <h3 class="subhead">Drow Racial Traits</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Trait</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Superior Darkvision</td><td>See in darkness (shades of grey) up to 120 ft.</td></tr>
+          <tr><td>Sunlight Sensitivity</td><td>Disadvantage on attack rolls and on Perception checks relying on sight when she, her target, or what she is trying to perceive is in direct sunlight.</td></tr>
+          <tr><td>Keen Senses</td><td>Proficiency in Perception.</td></tr>
+          <tr><td>Fey Ancestry</td><td>Advantage on saves against being charmed; magic can't put her to sleep.</td></tr>
+          <tr><td>Trance</td><td>Doesn't sleep; meditates semiconsciously 4 hours/day for the benefit of an 8-hour rest.</td></tr>
+          <tr><td>Drow Magic</td><td>Knows <em>dancing lights</em>. At 3rd level: <em>faerie fire</em> once per long rest. At 5th level: <em>darkness</em> once per long rest. CHA is the spellcasting ability for these.</td></tr>
+          <tr><td>Drow Weapon Training</td><td>Proficient with rapiers, shortswords, and hand crossbows.</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="subhead">Feat &mdash; Elven Accuracy (XGtE)</h3>
+      <p>+1 WIS (included). Whenever she has advantage on an attack roll using DEX, INT, WIS, or CHA, she may reroll one of the dice.</p>
+
+      <h3 class="subhead">Druid Features (Circle of Spores)</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Feature</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Druidic</td><td>Knows the secret language of druids.</td></tr>
+          <tr><td>Spellcasting</td><td>WIS spellcaster. DC 15, Atk +7. Prepares druid spells equal to WIS mod + druid level. Ritual casting via prepared spells with the ritual tag. Druidic focus.</td></tr>
+          <tr><td>Wild Shape</td><td>2 uses / short rest. CR &le; 1, no flying speed. Stay in beast form up to 3 hours; revert as bonus action, when knocked out at 0 HP, or when she chooses.</td></tr>
+          <tr><td>Circle Spells</td><td>Additional spells associated with the cycle of life and death.</td></tr>
+          <tr><td>Halo of Spores</td><td><strong>Reaction:</strong> deal 1d6 necrotic to one creature she can see when it moves into a space within 10 ft or starts its turn there, on a failed CON save (DC 15).</td></tr>
+          <tr><td>Symbiotic Entity</td><td><strong>Action:</strong> spend a Wild Shape use to awaken the spores: gain 24 temp HP, roll double dice for Halo of Spores damage, and deal an additional 1d6 necrotic on melee hits. Lasts 10 minutes, until temp HP gone, or until she uses Wild Shape again.</td></tr>
+          <tr><td>Fungal Infestation</td><td><strong>Reaction:</strong> if a Small or Medium beast or humanoid dies within 10 ft, animate it as a zombie under her control for 1 hour with 1 HP, capable only of one melee Attack. 3 / long rest.</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="subhead">Ranger Features (Swarmkeeper)</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Feature</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Favored Enemy</td><td>Advantage on Survival to track favored enemies, and on INT checks to recall info about them; learns one of their languages if humanoid.</td></tr>
+          <tr><td>Humanoids</td><td>Selected favored enemy.</td></tr>
+          <tr><td>Natural Explorer</td><td>Favored terrain proficiency-bonus doubling on INT/WIS checks; difficult terrain doesn't slow group; never lost by magical means; alertness while engaged in another activity; stealthy at normal pace alone; double food found while foraging; doubled tracking detail.</td></tr>
+          <tr><td>Swamp</td><td>Selected favored terrain.</td></tr>
+          <tr><td>Fighting Style &mdash; Blind Fighting (TCoE)</td><td>Blindsight 10 ft, including against invisible creatures (unless they successfully Stealth) and through total cover.</td></tr>
+          <tr><td>Spellcasting</td><td>Known ranger spells, cast using WIS (DC 15, Atk +7).</td></tr>
+          <tr><td>Primeval Awareness</td><td>Expend a ranger spell slot to sense whether favored-enemy creature types are present within 1 mile (6 miles in favored terrain) for 1 min per slot level. Doesn't reveal location or number.</td></tr>
+          <tr><td>Gathered Swarm</td><td>Once per turn after a hit, the swarm can: deal an extra <strong>1d6 piercing</strong>; force a DC 15 STR save to be moved 15 ft horizontally; or move Senna herself 5 ft horizontally.</td></tr>
+          <tr><td>Swarmkeeper Magic</td><td><em>Mage Hand</em> and <em>Faerie Fire</em> are always prepared and don't count against spells known.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- VI. SPELLCASTING -->
+    <section id="spells">
+      <h2 class="section-title">VI. Spellcasting</h2>
+
+      <p>
+        <strong>Spell Save DC 15 &middot; Spell Attack +7 &middot; WIS-based</strong>.
+        Druid spells prepared = WIS mod (3) + druid level (6) = <strong>9 prepared</strong> (plus always-prepared circle/swarm spells and ritual access).
+        Ranger spells are known (not prepared).
+      </p>
+
+      <p>
+        <strong>Spell Slots:</strong> 1st &times; 4 &middot; 2nd &times; 3 &middot; 3rd &times; 3.
+        (Drow Magic and Swarmkeeper Magic add limited extra castings.)
+      </p>
+
+      <h3 class="subhead">Cantrips (At Will)</h3>
+      <div class="spell-list">
+        <ul>
+          <li>Thorn Whip <span class="tag">druid</span></li>
+          <li>Shillelagh <span class="tag">druid</span></li>
+          <li>Primal Savagery <span class="tag">druid</span></li>
+          <li>Chill Touch <span class="tag">circle</span></li>
+          <li>Dancing Lights <span class="tag">drow</span></li>
+          <li>Mage Hand <span class="always-prepared">always</span> <span class="tag">swarm</span></li>
+        </ul>
+      </div>
+
+      <h3 class="subhead">1st-Level Druid Spells</h3>
+      <div class="spell-list">
+        <ul>
+          <li>Faerie Fire <span class="always-prepared">always</span> <span class="tag">swarm</span></li>
+          <li>Fog Cloud</li>
+          <li>Snare</li>
+          <li>Purify Food and Drink <span class="tag">ritual</span></li>
+          <li>Animal Friendship</li>
+          <li>Charm Person</li>
+          <li>Create or Destroy Water</li>
+          <li>Cure Wounds</li>
+          <li>Detect Magic <span class="tag">ritual</span></li>
+          <li>Detect Poison and Disease <span class="tag">ritual</span></li>
+          <li>Entangle</li>
+          <li>Goodberry</li>
+          <li>Healing Word</li>
+          <li>Jump</li>
+          <li>Longstrider</li>
+          <li>Speak with Animals <span class="tag">ritual</span></li>
+          <li>Thunderwave</li>
+          <li>Absorb Elements</li>
+          <li>Beast Bond</li>
+          <li>Earth Tremor</li>
+          <li>Ice Knife</li>
+          <li>Faerie Fire <span class="tag">drow, 1/LR</span></li>
+        </ul>
+      </div>
+
+      <h3 class="subhead">1st-Level Ranger Spells (Known)</h3>
+      <div class="spell-list">
+        <ul>
+          <li>Ensnaring Strike</li>
+          <li>Hail of Thorns</li>
+          <li>Cure Wounds</li>
+        </ul>
+      </div>
+
+      <h3 class="subhead">2nd-Level Druid Spells</h3>
+      <div class="spell-list">
+        <ul>
+          <li>Blindness/Deafness <span class="always-prepared">always (circle)</span></li>
+          <li>Gentle Repose <span class="always-prepared">always (circle)</span></li>
+          <li>Earthbind</li>
+          <li>Heat Metal</li>
+          <li>Locate Animals or Plants <span class="tag">ritual</span></li>
+          <li>Spike Growth</li>
+          <li>Animal Messenger <span class="tag">ritual</span></li>
+          <li>Barkskin</li>
+          <li>Darkvision</li>
+          <li>Enhance Ability</li>
+          <li>Find Traps</li>
+          <li>Flame Blade</li>
+          <li>Flaming Sphere</li>
+          <li>Gust of Wind</li>
+          <li>Hold Person</li>
+          <li>Lesser Restoration</li>
+          <li>Locate Object</li>
+          <li>Moonbeam</li>
+          <li>Pass without Trace</li>
+          <li>Protection from Poison</li>
+          <li>Beast Sense <span class="tag">ritual</span></li>
+          <li>Dust Devil</li>
+          <li>Skywrite <span class="tag">ritual</span></li>
+          <li>Warding Wind</li>
+          <li>Healing Spirit</li>
+          <li>Summon Beast</li>
+          <li>Darkness <span class="tag">drow, 1/LR</span></li>
+        </ul>
+      </div>
+
+      <h3 class="subhead">3rd-Level Druid Spells</h3>
+      <div class="spell-list">
+        <ul>
+          <li>Animate Dead <span class="always-prepared">always (circle)</span></li>
+          <li>Gaseous Form <span class="always-prepared">always (circle)</span></li>
+          <li>Water Walk <span class="tag">ritual</span></li>
+          <li>Erupting Earth</li>
+          <li>Call Lightning</li>
+          <li>Conjure Animals</li>
+          <li>Daylight</li>
+          <li>Dispel Magic</li>
+          <li>Meld into Stone <span class="tag">ritual</span></li>
+          <li>Plant Growth</li>
+          <li>Protection from Energy</li>
+          <li>Sleet Storm</li>
+          <li>Speak with Plants</li>
+          <li>Water Breathing <span class="tag">ritual</span></li>
+          <li>Wind Wall</li>
+          <li>Feign Death <span class="tag">ritual</span></li>
+          <li>Flame Arrows</li>
+          <li>Tidal Wave</li>
+          <li>Wall of Water</li>
+          <li>Summon Fey</li>
+        </ul>
+      </div>
+
+      <blockquote class="field-note">
+        Circle of Spores grants the necromantic spells (Chill Touch, Blindness/Deafness, Gentle Repose, Animate Dead, Gaseous Form) as always-prepared. Combined with Fungal Infestation, this is why she advocated raising the dead before entering the Lolth tomb: from her perspective it's a sensible precaution &mdash; her best magic is for animating corpses, not banishing them.
+        <span class="attribution">&mdash; on Senna's apparent &ldquo;necromancer&rdquo; reputation</span>
+      </blockquote>
+    </section>
+
+    <!-- VII. EQUIPMENT -->
+    <section id="equipment">
+      <h2 class="section-title">VII. Equipment</h2>
+
+      <p>Weight carried <strong>78.2 lb</strong>. Encumbered at <strong>135 lb</strong>. Push/Drag/Lift <strong>270 lb</strong>. Coin: <strong>10 sp</strong> (per PDF) / <strong>65 gp</strong> (per current JSON).</p>
+
+      <h3 class="subhead">Attuned Magic Items</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Item</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Bracers of Archery <em>(attuned)</em></td>
+            <td>Proficiency with longbow and shortbow; +2 to damage rolls on ranged attacks made with such weapons.</td>
+          </tr>
+          <tr>
+            <td>Coiling Grasp Tattoo <em>(attuned)</em></td>
+            <td>Listed on sheet as an attuned item. Effects per the in-game text; no in-session use yet recorded in the available notes.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="subhead">Carried Gear</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Item</th><th>Qty</th><th>Wt</th></tr></thead>
+        <tbody>
+          <tr><td>Leather armor</td><td>1</td><td>10 lb</td></tr>
+          <tr><td>Shortbow</td><td>1</td><td>2 lb</td></tr>
+          <tr><td>Scimitar</td><td>1</td><td>3 lb</td></tr>
+          <tr><td>Backpack</td><td>1</td><td>5 lb</td></tr>
+          <tr><td>Clothes, common</td><td>1</td><td>3 lb</td></tr>
+          <tr><td>Dice set</td><td>1</td><td>&mdash;</td></tr>
+          <tr><td>Yew wand</td><td>1</td><td>1 lb</td></tr>
+          <tr><td>Bedroll</td><td>1</td><td>7 lb</td></tr>
+          <tr><td>Mess kit</td><td>1</td><td>1 lb</td></tr>
+          <tr><td>Rations (1 day)</td><td>10</td><td>20 lb</td></tr>
+          <tr><td>Hempen rope, 50 ft</td><td>1</td><td>10 lb</td></tr>
+          <tr><td>Tinderbox</td><td>1</td><td>1 lb</td></tr>
+          <tr><td>Torch</td><td>10</td><td>10 lb</td></tr>
+          <tr><td>Waterskin</td><td>1</td><td>5 lb</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- VIII. GAMEPLAY EVENTS -->
+    <section id="events">
+      <h2 class="section-title">VIII. Gameplay Events</h2>
+
+      <h3 class="subhead">Arrival in the Bar (Session 12)</h3>
+      <p>Senna entered the campaign as a stranger in a bar already in chaos &mdash; cultists dead, the place fogged over, patrons being stabilised, the barkeep's assistant caught picking pockets and confessing to a 200gp offer for a glass orb. She presented herself directly to <strong>Lokar</strong>, asking him to help stop the crusade against the drow that his people were being drawn into. The party was skeptical. They didn't know what a drow looked like; she could have been any number of strange elves.</p>
+
+      <h3 class="subhead">The Crater &amp; the Plane of Ice (Sessions 12&ndash;13)</h3>
+      <p>The party went on to the experiment site to destroy the dark orb. The crater was warm in the snow and trees grew around it. A drill was driven in; lightning flashed and froze a horse solid; the orb cracked open into a tunnel onto the <strong>Plane of Ice</strong>, with a distant castle and circling dragons. Senna's role in this sequence is not detailed in the available notes; the heavy lifting on the orb was done by Ursimi (with the Ring of the Ram) and Dmitri, who was momentarily replaced by an ice clone after looking into the heart.</p>
+
+      <h3 class="subhead">Casting Off from the Docks</h3>
+      <p>At sunrise, with smoke in the direction of the harbour, the party scrambled aboard Captain Famir's ship. Senna mistimed the jump and missed the boat; Ursimi (transformed into an octopus) caught her and pulled her aboard. The escape ran through a ship jam, past the <strong>Butterfly Knights</strong> demanding port-closure inspections, and through the <strong>Teeth of the Kraken</strong> &mdash; where the party's pursuer did not follow.</p>
+
+      <h3 class="subhead">Counsel on the Voyage</h3>
+      <p>Senna recommended the party seek a priest of <strong>Ackhar the Severe</strong> before approaching <strong>Deathbeggar's Isles</strong>, the haunted Drow tombs whose ghosts could occupy a living body. She advocated raising the dead in advance &mdash; not to harm them but to deny the ghosts a vessel. Ursimi was unconvinced and remained suspicious of her motives. The party noted: <em>Senna is probably a necromancer.</em></p>
+
+      <blockquote class="lore">
+        Senna's actual recommendation is mechanically straightforward. Circle of Spores druids prepare Animate Dead, Gentle Repose, and Blindness/Deafness automatically. She was telling them what her kit is good for. They heard <em>necromancer</em>.
+        <span class="attribution">&mdash; reading between the lines</span>
+      </blockquote>
+
+      <h3 class="subhead">The Sea of 10,000 Stars</h3>
+      <p>The party crossed the Sea of 10,000 Stars, where first-time travellers can catch a star and pull it down. Senna jumped first and hit water; the starscape recovered around her. Ursimi, polymorphed into a bird, succeeded where she had not, and brought up a single star worth 400gp.</p>
+
+      <h3 class="subhead">Mythathlenor &amp; Kensu</h3>
+      <p>In the white-towered city of Mythathlenor, the party found Cheshire cultists arguing internally and got a lead on the cleric <strong>Kensu Zendak</strong>. At the temple of Artur, Kensu raced Ursimi (and lost), but contributed his winnings to the orphans-and-war-heroes fund regardless. He joined the expedition to Deathbeggar's Isle.</p>
+
+      <h3 class="subhead">Deathbeggar's Isle</h3>
+      <p>Kensu broke the barrier around the isle with a thrown skull. Senna transformed into a bird, carried a rope up the cliff, and secured the party's climb. Inside was an ancient Drow temple to <strong>Lolth</strong> &mdash; an extremely old object of worship. A skeleton with a cup asked for an offering; <strong>Senna stepped forward first, after the blood offering</strong>, and walked deeper into the tomb. She was the first to discover the giant spider-thing in the next room.</p>
+
+      <h3 class="subhead">The Tomb's Inner Chambers</h3>
+      <p>The party fought a twelve-foot skeleton crawling with spiders, casting Hold Person and pleading <em>&ldquo;I am not a mean face&rdquo;</em> as it died. Inside the tomb: a dead drow in gold-thick halfplate; a spider-pile with a flute, robes, skull mask, and a belt-pouch; an inscription on the flute &mdash; <em>&ldquo;blessed mother i've led my heart astray in moment of weakness, clear my heart of foolheartiness, remove my self-inflicted wounds, that i might spread your glory and influence with others.&rdquo;</em></p>
+
+      <h3 class="subhead">The Top of the Tomb</h3>
+      <p>At the top of the stairs, a smooth wooden door with the word <em>&ldquo;don't&rdquo;</em> carved in a Drow-like font. Beyond it: a vast chamber draped in purple satin, a giant spider crushed against the 25-foot ceiling with eight unchained chains around its legs, and an elven woman's face between its eyes &mdash; drooling, eyes closed. Robed figures wearing the same warding symbol from the floor below were feeding it. Ursimi, looking at Lolth, felt something tighten around her mind. The chains-not-attached are the signature of the <strong>Chainpusher</strong>, one of the three great evils, bondage without bonds. The party voted to leave and not speak of it.</p>
+
+      <blockquote class="field-note">
+        Senna's reaction inside the upper chamber of the Lolth temple is not recorded in the available notes. Whether she recognised what she was looking at, whether she contributed to the vote to leave, and whether she carried anything away from it &mdash; open.
+        <span class="attribution">&mdash; gap in the record</span>
+      </blockquote>
+
+      <h3 class="subhead">Ordgate (Senna offscreen)</h3>
+      <p>Senna does not appear in the Ordgate sessions described in the available notes &mdash; those follow Lokar to the fighting pits in pursuit of his father's sword. Her status during these scenes is not stated in the notes provided.</p>
+    </section>
+
+    <!-- IX. THE TWO TRUTHS -->
+    <section id="truths">
+      <h2 class="section-title">IX. The Two Truths She Carries</h2>
+
+      <h3 class="subhead">The Cover &mdash; What She Tells Them</h3>
+      <p>She is a soldier whose company was crushed in a battle she'd rather not speak of. She fought against drow &mdash; she has the bond and the bitterness to sell it. She is helping Lokar because the propaganda war is dragging his half-orc people into a crusade they have no business in, and the front is a meat-grinder. Plain enough; uncontroversial enough. She lets them think she is what they expect.</p>
+
+      <h3 class="subhead">The Truth &mdash; What She Doesn't</h3>
+      <p>She is drow. She is behind enemy lines &mdash; very far behind &mdash; sabotaging the war effort from the inside. The reason no one has clocked her is that the war is fought at the edges of the nation and the heartland has only ever known the caricature. She does not match the caricature, so she is &ldquo;a strange elf,&rdquo; and that has been enough.</p>
+
+      <p>Her interest in Lokar is real, but not for the reason she's given. <strong>Lokar's uncle is marching the tribe to the front lines.</strong> If Lokar takes back the tribe, the tribe doesn't go. If the tribe doesn't go, the front lines have that many fewer soldiers to kill her people. She is not helping the party. She is removing a future battalion. The party has never figured this out.</p>
+
+      <div class="diary">
+        <span class="header">From the back leaf of a small leather field-book, Druidic script</span>
+        <p>The young one still tells himself the story of his father's sword as if the sword were the thing. Let him. The story keeps him pointed south, away from his uncle &mdash; and every day he is pointed away is a day the tribe is not yet at the line.</p>
+        <p>He is not a stupid man. He may guess, in time, what I am doing for him. I would prefer he does not. A favour seen is a favour owed, and I have no use for his debt. I want the tribe off the road. That is all.</p>
+        <p>The others think me a necromancer. Let them. It is a useful misunderstanding. A drow who raises the dead is what they were ready to find; a drow who walks among them and means them no harm is not. I will be the first thing for a while longer.</p>
+        <p>If they ever ask me plainly &mdash; and the ranger nearly has &mdash; I will lie, plainly. I have practiced.</p>
+        <span class="sign">&mdash; S.</span>
+      </div>
+    </section>
+
+    <!-- X. RELATIONSHIPS -->
+    <section id="relations">
+      <h2 class="section-title">X. Key Relationships</h2>
+
+      <div class="relation">
+        <div class="name">Lokar <span class="role">&mdash; half-orc barbarian; the reason she joined the party</span><span class="marker target">Target of Aid</span><span class="marker secret">Real Motive</span></div>
+        <div class="text">She approached him directly in the bar. Stated reason: help stopping the crusade against the drow that his people are being drawn into. Unstated reason: his uncle is marching the tribe to the front lines, and if Lokar reclaims it, the tribe doesn't go.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Ursimi <span class="role">&mdash; druid; saw through the act earliest</span></div>
+        <div class="text">Pulled Senna aboard the ship as an octopus. Immediately suspicious. Has explicitly registered her as &ldquo;probably a necromancer.&rdquo; The right instinct, the wrong reason.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Freya <span class="role">&mdash; archer; Cheshire-bountied; the one most likely to ask plainly</span></div>
+        <div class="text">Per Senna's own diary note above.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Dmitri Yagonfree <span class="role">&mdash; party member; partially replaced by an ice clone at the crater</span></div>
+        <div class="text">Present from Session 12 onward; was the one who looked into the orb. His ice-clone subsequently surfaced as a stowaway and was later spotted in Ordgate, taking notes among the cultists.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Flinch Howley <span class="role">&mdash; deathbeggar's-isle scout; survivor; out of his depth</span></div>
+        <div class="text">Met aboard ship after losing his other friends. Brought to the Drow tomb; froze in the doorway of the inner chamber; later named as having been &ldquo;set up&rdquo; for the job by someone unknown.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Kensu Zendak <span class="role">&mdash; cleric of Artur; recruited at Mythathlenor</span><span class="marker ally">Recruited</span></div>
+        <div class="text">Senna had advocated finding a priest of Ackhar the Severe; the party found Kensu instead. He proved more than serviceable &mdash; he broke the barrier, killed ghosts with divine light, and survived the tomb.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Pupsio <span class="role">&mdash; halfling kid; party's helper in Ordgate</span></div>
+        <div class="text">Mentioned in sessions Senna was offscreen for; no direct interaction recorded.</div>
+      </div>
+    </section>
+
+    <!-- XI. NOTES & THREADS -->
+    <section id="threads">
+      <h2 class="section-title">XI. Open Threads</h2>
+
+      <table class="dossier-table">
+        <thead><tr><th>Thread</th><th>State</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>The Uncle</td>
+            <td>Lokar's uncle is bringing the tribe to the front lines. The point of Senna's entire engagement with the party. He has not yet appeared on-screen in the provided notes.</td>
+          </tr>
+          <tr>
+            <td>The Caricature</td>
+            <td>The heartland's idea of what a drow looks like differs enough from what Senna looks like that no one has placed her. This is a finite advantage. It expires the first time someone with front-line experience meets her.</td>
+          </tr>
+          <tr>
+            <td>The Tomb Robed Figures</td>
+            <td>Robed figures sustaining or sedating Lolth had the face of <em>Yelm</em> (the wizard Ursimi is looking for). Their relationship to the Chainpusher and what they were really doing there is unresolved.</td>
+          </tr>
+          <tr>
+            <td>The Items She Carried Out</td>
+            <td>The flute, robes, skull mask, and pouch from the spider-pile were available to be taken; what Senna kept, if anything, is not recorded.</td>
+          </tr>
+          <tr>
+            <td>The Coiling Grasp Tattoo</td>
+            <td>Attuned but unrecorded in use across the available notes. Possibility for a reveal moment.</td>
+          </tr>
+          <tr>
+            <td>Where She Is in Ordgate</td>
+            <td>Senna is not present in the Ordgate sessions described. Her location and activity during that arc is not stated in the notes provided.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="ornament">— &nbsp; ❦ &nbsp; —</div>
+
+    <footer class="doc-footer">
+      <span>Northridge Campaign</span>
+      <span>Senna &middot; Druid 6 / Ranger 3</span>
+      <span>Compiled from character sheet &amp; partial session notes</span>
+    </footer>
+
+  </div>
+  <div class="border-bot"></div>
+</div>
+
+</body>
+</html>
