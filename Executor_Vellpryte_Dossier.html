@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Field Dossier — Executor Vellpryte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg-deep: #050508;
+    --panel: #0f0f1a;
+    --rule: #2a2520;
+    --rule-soft: #1a1815;
+    --text: #e8dfc8;
+    --text-soft: #b8ad90;
+    --text-faint: #7a7258;
+    --text-dim: #4a4438;
+
+    /* Vellpryte: gold-amber primary (judgment, fire), teal secondary, rust for the Fiery Ideal */
+    --gold: #c8960a;
+    --gold-bright: #f0b820;
+    --gold-pale: #e8d080;
+    --gold-deep: #7a5a04;
+    --amber: #d46000;
+    --amber-bright: #f07820;
+    --teal: #0a8878;
+    --teal-bright: #18b8a0;
+    --teal-pale: #60d8c0;
+    --rust: #c03810;
+    --rust-bright: #e85030;
+    --ivory: #f0e8d0;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:var(--bg-deep); color:var(--text); font-family:'IM Fell English', Georgia, serif; font-size:15px; line-height:1.65; }
+  body {
+    background-image:
+      radial-gradient(ellipse at 15% 5%, rgba(200,150,10,0.08) 0%, transparent 45%),
+      radial-gradient(ellipse at 85% 95%, rgba(10,136,120,0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(192,56,16,0.04) 0%, transparent 60%);
+    min-height: 100vh; padding: 2.5rem 1rem;
+  }
+  body::before { content:''; position:fixed; top:0; left:0; right:0; bottom:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E"); pointer-events:none; z-index:1000; opacity:0.4; }
+
+  .document { max-width:960px; margin:0 auto; background:var(--bg); padding:0; position:relative; border:1px solid var(--gold-deep); box-shadow:0 0 0 3px var(--bg-deep),0 0 0 4px var(--gold-deep),0 0 60px rgba(200,150,10,0.10),inset 0 0 80px rgba(0,0,0,0.4); }
+  .document::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,transparent 0%,var(--gold-deep) 5%,var(--gold-bright) 25%,var(--amber-bright) 50%,var(--gold-bright) 75%,var(--gold-deep) 95%,transparent 100%); }
+  .document::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:linear-gradient(90deg,transparent 0%,var(--teal) 15%,var(--gold-bright) 50%,var(--teal) 85%,transparent 100%); }
+  .doc-inner { padding: 3rem 3.5rem 4rem; }
+
+  .document-header { border-bottom:1px solid var(--gold-deep); padding-bottom:2.5rem; margin-bottom:2.5rem; }
+  .filing-bar { display:flex; justify-content:space-between; align-items:center; font-family:'Share Tech Mono',monospace; font-size:0.68rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--text-faint); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:0.35rem 0.7rem; margin-bottom:1.8rem; background:linear-gradient(90deg,rgba(200,150,10,0.04) 0%,transparent 40%,transparent 60%,rgba(10,136,120,0.03) 100%); }
+  .filing-bar .fl { color:var(--gold-bright); }
+  .filing-bar .fr { color:var(--teal-bright); }
+  .filing-bar .pulse { display:inline-block; width:6px; height:6px; background:var(--gold-bright); border-radius:50%; margin-right:0.5rem; box-shadow:0 0 6px var(--gold-bright); vertical-align:middle; animation:pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+
+  .hero { display:grid; grid-template-columns:auto 1fr; gap:2.5rem; align-items:start; }
+  .portrait-frame { width:180px; flex-shrink:0; position:relative; }
+  .portrait-frame img { width:100%; display:block; filter:sepia(0.2) contrast(1.08); }
+  .portrait-frame::before { content:''; position:absolute; top:-4px; left:-4px; right:-4px; bottom:-4px; border:1px solid var(--gold); pointer-events:none; }
+  .portrait-frame::after { content:''; position:absolute; top:-8px; left:-8px; width:16px; height:16px; border-top:2px solid var(--gold-bright); border-left:2px solid var(--gold-bright); }
+  .portrait-bracket-br { position:absolute; bottom:-8px; right:-8px; width:16px; height:16px; border-bottom:2px solid var(--teal); border-right:2px solid var(--teal); }
+
+  .eyebrow { font-family:'Share Tech Mono',monospace; font-size:0.7rem; letter-spacing:0.35em; color:var(--gold-bright); text-transform:uppercase; margin-bottom:0.4rem; }
+  .eyebrow .sep { color:var(--rule); margin:0 0.6em; }
+  h1.character-name { font-family:'Orbitron',sans-serif; font-weight:900; font-size:3.2rem; line-height:1.0; letter-spacing:0.04em; text-transform:uppercase; margin:0.3rem 0; color:var(--ivory); text-shadow:0 0 20px rgba(200,150,10,0.35),0 0 60px rgba(212,96,0,0.1); }
+  h1.character-name .rank { font-size:0.4em; color:var(--gold-bright); font-weight:500; letter-spacing:0.2em; display:block; margin-bottom:0.4rem; }
+  h1.character-name .subname { font-size:0.28em; font-weight:400; color:var(--text-faint); letter-spacing:0.15em; display:block; margin-top:0.5rem; font-family:'Share Tech Mono',monospace; }
+  .tagline { font-style:italic; font-size:1.05rem; color:var(--text-soft); margin:0.8rem 0 1.2rem; max-width:55ch; line-height:1.5; }
+  .vitals-row { display:flex; flex-wrap:wrap; gap:0; font-family:'Share Tech Mono',monospace; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-soft); border-top:1px solid var(--rule); padding-top:0.8rem; margin-top:1rem; }
+  .vitals-row .v { border-left:1px solid var(--rule); padding:0.15rem 1rem; white-space:nowrap; }
+  .vitals-row .v:first-child { border-left:none; padding-left:0; }
+  .vitals-row .v strong { color:var(--gold); font-weight:400; margin-left:0.4em; }
+  .vitals-row .v.hot strong { color:var(--gold-bright); }
+  .vitals-row .v.warn strong { color:var(--rust-bright); }
+
+  nav.toc { border:1px solid var(--rule); padding:1.2rem 1.5rem; margin-bottom:2.5rem; background:var(--panel); position:relative; columns:2; column-gap:2rem; }
+  nav.toc::before { content:''; position:absolute; top:-1px; left:40px; height:1px; width:50px; background:var(--gold-bright); box-shadow:0 0 8px var(--gold-bright); }
+  nav.toc .toc-label { font-family:'Orbitron',sans-serif; font-size:0.65rem; letter-spacing:0.3em; color:var(--gold-bright); text-transform:uppercase; margin-bottom:0.8rem; column-span:all; font-weight:700; }
+  nav.toc ol { list-style:none; margin:0; padding:0; counter-reset:toc; font-family:'Share Tech Mono',monospace; }
+  nav.toc ol li { counter-increment:toc; font-size:0.88rem; margin-bottom:0.3rem; break-inside:avoid; }
+  nav.toc ol li::before { content:"0" counter(toc) " "; color:var(--teal); font-size:0.85em; margin-right:0.5rem; }
+  nav.toc a { color:var(--text); text-decoration:none; transition:color 0.15s; }
+  nav.toc a:hover { color:var(--gold-bright); }
+
+  section { margin-bottom: 3rem; }
+  h2.section-title { font-family:'Orbitron',sans-serif; font-weight:700; font-size:0.8rem; letter-spacing:0.3em; color:var(--gold-bright); text-transform:uppercase; border-bottom:1px solid var(--rule); padding-bottom:0.5rem; margin:0 0 1.5rem; position:relative; text-shadow:0 0 12px rgba(200,150,10,0.35); }
+  h2.section-title::before { content:'▸'; color:var(--teal); margin-right:0.7rem; font-size:0.85em; text-shadow:0 0 8px var(--teal); }
+  h2.section-title::after { content:''; position:absolute; bottom:-1px; left:0; width:60px; height:1px; background:var(--gold-bright); box-shadow:0 0 8px var(--gold-bright); }
+  h3.subhead { font-family:'Orbitron',sans-serif; font-weight:500; font-size:0.88rem; letter-spacing:0.08em; color:var(--gold-pale); margin:1.8rem 0 0.6rem; text-transform:uppercase; }
+  h3.subhead::before { content:'// '; color:var(--gold); font-family:'Share Tech Mono',monospace; font-size:0.9em; }
+  h4.entry-label { font-family:'Orbitron',sans-serif; font-weight:700; font-size:0.68rem; letter-spacing:0.22em; color:var(--gold-bright); text-transform:uppercase; margin:1.2rem 0 0.4rem; }
+
+  p { margin:0 0 1rem; }
+  ul, ol { margin:0.5rem 0 1rem 1.5rem; padding:0; }
+  li { margin-bottom:0.4rem; }
+  em { color:var(--text-soft); font-style:italic; }
+  strong { color:var(--gold-pale); font-weight:600; }
+
+  .drop-cap::first-letter { font-family:'Orbitron',sans-serif; font-size:3.4rem; line-height:0.8; float:left; padding:0.2rem 0.5rem 0 0; color:var(--gold-bright); font-weight:900; text-shadow:0 0 20px rgba(200,150,10,0.5); }
+
+  .stat-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:0.4rem; margin:1rem 0 1.5rem; }
+  .stat-cell { text-align:center; padding:0.7rem 0.4rem; border:1px solid var(--rule); background:var(--panel); position:relative; }
+  .stat-cell::before { content:''; position:absolute; top:0; left:0; width:6px; height:1px; background:var(--gold); }
+  .stat-cell::after { content:''; position:absolute; bottom:0; right:0; width:6px; height:1px; background:var(--teal); }
+  .stat-cell .label { font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.2em; color:var(--text-faint); text-transform:uppercase; margin-bottom:0.25rem; }
+  .stat-cell .value { font-family:'Orbitron',sans-serif; font-size:1.8rem; font-weight:900; color:var(--text); line-height:1; }
+  .stat-cell.high .value { color:var(--gold-bright); text-shadow:0 0 10px rgba(200,150,10,0.5); }
+  .stat-cell.neg .value { color:var(--rust); }
+  .stat-cell .gloss { font-family:'IM Fell English',serif; font-style:italic; font-size:0.7rem; color:var(--text-faint); margin-top:0.2rem; }
+
+  .status-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.8rem; margin:1rem 0 1.5rem; }
+  .status-cell { border:1px solid var(--rule); padding:0.9rem; background:var(--panel); }
+  .status-cell .label { font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-faint); margin-bottom:0.4rem; }
+  .status-cell .value { font-family:'Orbitron',sans-serif; font-size:1.8rem; font-weight:900; color:var(--text); line-height:1; }
+  .status-cell .value .sub { font-size:0.55em; color:var(--text-faint); font-weight:400; }
+  .status-cell .note { font-style:italic; font-size:0.82rem; color:var(--text-soft); margin-top:0.4rem; }
+  .status-cell.primary { border-color:var(--gold-deep); background:linear-gradient(135deg,rgba(200,150,10,0.08) 0%,var(--panel) 60%); }
+  .status-cell.primary .value { color:var(--gold-bright); }
+  .status-cell.teal { border-color:var(--teal); background:linear-gradient(135deg,rgba(10,136,120,0.08) 0%,var(--panel) 60%); }
+  .status-cell.teal .value { color:var(--teal-bright); }
+  .bar { height:4px; background:var(--bg-deep); border:1px solid var(--rule); margin-top:0.5rem; }
+  .bar .fill { height:100%; }
+  .bar.gold .fill { background:linear-gradient(90deg,var(--gold-deep) 0%,var(--gold-bright) 100%); box-shadow:0 0 6px var(--gold); }
+  .bar.teal .fill { background:linear-gradient(90deg,var(--teal) 0%,var(--teal-bright) 100%); box-shadow:0 0 6px var(--teal); }
+  .bar.rust .fill { background:linear-gradient(90deg,var(--rust) 0%,var(--amber-bright) 100%); box-shadow:0 0 6px var(--rust); }
+
+  table.dossier-table { width:100%; border-collapse:collapse; margin:1rem 0 1.5rem; font-size:0.93rem; }
+  table.dossier-table th { text-align:left; font-family:'Share Tech Mono',monospace; font-size:0.68rem; letter-spacing:0.18em; color:var(--gold-bright); text-transform:uppercase; padding:0.5rem 0.75rem; border-bottom:1px solid var(--gold); background:rgba(200,150,10,0.05); }
+  table.dossier-table td { padding:0.55rem 0.75rem; border-bottom:1px solid var(--rule-soft); vertical-align:top; }
+  table.dossier-table td:first-child { font-family:'Share Tech Mono',monospace; font-size:0.78rem; letter-spacing:0.05em; color:var(--teal-pale); white-space:nowrap; padding-right:1.5rem; }
+  table.dossier-table tr:last-child td { border-bottom:none; }
+
+  .skill-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:0.25rem 1.5rem; margin:0.8rem 0 1.2rem; }
+  .skill-row { display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px dotted var(--rule-soft); padding:0.2rem 0; }
+  .skill-row .name { font-size:0.9rem; color:var(--text); }
+  .skill-row .val { font-family:'Share Tech Mono',monospace; font-size:0.88rem; color:var(--text-soft); margin-left:0.8rem; }
+  .skill-row.sig .name { color:var(--gold-pale); }
+  .skill-row.sig .val { color:var(--gold-bright); }
+
+  .ability-block { border:1px solid var(--rule); padding:1rem 1.25rem; margin:0.8rem 0; background:var(--panel); position:relative; }
+  .ability-block::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--gold); }
+  .ability-block.signature::before { background:var(--gold-bright); }
+  .ability-block.core::before { background:var(--teal-bright); }
+  .ability-block.fire::before { background:var(--rust-bright); }
+  .ability-block .ability-name { font-family:'Orbitron',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-bright); margin-bottom:0.2rem; }
+  .ability-block.core .ability-name { color:var(--teal-bright); }
+  .ability-block.fire .ability-name { color:var(--amber-bright); }
+  .ability-block .ability-meta { font-family:'Share Tech Mono',monospace; font-size:0.7rem; color:var(--text-faint); letter-spacing:0.1em; margin-bottom:0.5rem; }
+  .ability-block .ability-desc { font-size:0.9rem; color:var(--text); margin-bottom:0.4rem; }
+  .ability-block .tier-roll { font-family:'Share Tech Mono',monospace; font-size:0.78rem; color:var(--text-soft); margin-top:0.5rem; padding-top:0.5rem; border-top:1px dotted var(--rule); }
+  .ability-block .tier-roll .tier-label { color:var(--gold); margin-right:0.5em; }
+
+  .wrath-resource { border:1px solid var(--rust); background:linear-gradient(135deg,rgba(192,56,16,0.08) 0%,var(--panel) 60%); padding:1rem 1.5rem; margin:1rem 0 1.5rem; position:relative; }
+  .wrath-resource::before { content:'WRATH'; position:absolute; top:-0.65rem; left:1rem; background:var(--bg); padding:0 0.5rem; font-family:'Orbitron',sans-serif; font-size:0.65rem; letter-spacing:0.3em; color:var(--rust-bright); font-weight:700; }
+  .wrath-resource .gain-list { list-style:none; margin:0; padding:0; font-size:0.88rem; }
+  .wrath-resource .gain-list li { margin-bottom:0.4rem; padding-left:1rem; position:relative; color:var(--text-soft); }
+  .wrath-resource .gain-list li::before { content:'+'; position:absolute; left:0; color:var(--rust-bright); font-family:'Share Tech Mono',monospace; font-weight:700; }
+  .wrath-resource .gain-list li strong { color:var(--amber-bright); }
+
+  .callout { border:1px solid var(--gold); border-left:4px solid var(--gold-bright); padding:0.9rem 1.25rem; margin:1.5rem 0; background:linear-gradient(135deg,rgba(200,150,10,0.06) 0%,transparent 80%); }
+  .callout .label { font-family:'Share Tech Mono',monospace; font-size:0.7rem; letter-spacing:0.2em; color:var(--gold-bright); text-transform:uppercase; margin-bottom:0.4rem; }
+  .callout p:last-child { margin-bottom:0; }
+  .callout.teal { border-color:var(--teal); border-left-color:var(--teal-bright); background:linear-gradient(135deg,rgba(10,136,120,0.06) 0%,transparent 80%); }
+  .callout.teal .label { color:var(--teal-bright); }
+  .callout.warn { border-color:var(--rust); border-left-color:var(--rust-bright); background:linear-gradient(135deg,rgba(192,56,16,0.08) 0%,transparent 80%); }
+  .callout.warn .label { color:var(--rust-bright); }
+
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin:1rem 0; }
+
+  .relation { padding:0.9rem 0; border-bottom:1px solid var(--rule); }
+  .relation:last-child { border-bottom:none; }
+  .relation .rel-name { font-family:'Orbitron',sans-serif; font-size:0.88rem; font-weight:700; letter-spacing:0.06em; color:var(--ivory); margin-bottom:0.15rem; }
+  .relation .rel-name .role { font-family:'IM Fell English',serif; font-weight:400; font-style:italic; color:var(--text-faint); font-size:0.92rem; letter-spacing:0; }
+  .relation .rel-name .marker { font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.12em; color:var(--gold); border:1px solid var(--gold-deep); padding:0.08rem 0.4rem; margin-left:0.6rem; text-transform:uppercase; }
+  .relation .rel-name .marker.active { color:var(--teal-bright); border-color:var(--teal); }
+  .relation .rel-name .marker.open { color:var(--rust-bright); border-color:var(--rust); }
+  .relation .rel-text { font-size:0.92rem; color:var(--text-soft); margin-top:0.3rem; }
+
+  footer.colophon { margin-top:4rem; padding-top:2rem; border-top:1px solid var(--rule); text-align:center; font-family:'Share Tech Mono',monospace; font-size:0.67rem; letter-spacing:0.2em; color:var(--text-dim); text-transform:uppercase; }
+  footer.colophon .accent { color:var(--gold-bright); }
+  footer.colophon .accent2 { color:var(--teal-bright); }
+
+  @media (max-width: 720px) {
+    .doc-inner { padding: 2rem 1.25rem 3rem; }
+    h1.character-name { font-size: 2.2rem; }
+    .hero { grid-template-columns: 1fr; }
+    .portrait-frame { width: 140px; }
+    .stat-grid { gap: 0.2rem; }
+    .stat-cell { padding: 0.5rem 0.2rem; }
+    .stat-cell .value { font-size: 1.4rem; }
+    .status-grid { grid-template-columns: 1fr; }
+    .skill-grid { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; gap: 1rem; }
+    nav.toc { columns: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+  <div class="doc-inner">
+
+    <header class="document-header">
+      <div class="filing-bar">
+        <span class="fl"><span class="pulse"></span>FILE // VEL-001 &middot; UNIT: ZENITH &middot; CLASS: CENSOR / PARAGON</span>
+        <span class="fr">OFFICE OF MEDIATION &middot; SENIOR FIELD AGENT</span>
+      </div>
+      <div class="hero">
+        <div class="portrait-frame">
+          <img src="/mnt/user-data/uploads/Executor_Vellpryte.jpeg" alt="Executor Vellpryte">
+          <div class="portrait-bracket-br"></div>
+        </div>
+        <div class="hero-text">
+          <div class="eyebrow">Field Unit Dossier <span class="sep">·</span> Senior Field Agent <span class="sep">·</span> Zenith</div>
+          <h1 class="character-name">
+            <span class="rank">Executor</span>
+            Vellpryte
+            <span class="subname">Paragon Subclass &middot; Domain: Fate &middot; Heroic Resource: Wrath &middot; Kit: Retiarius (Reflavored)</span>
+          </h1>
+          <p class="tagline">Primary combatant, target lockdown, judicial authority. The unit's decisive edge — relentless, inevitable, and authorized.</p>
+          <div class="vitals-row">
+            <span class="v">Ancestry: <strong>Memonek</strong></span>
+            <span class="v">Class: <strong>Censor</strong></span>
+            <span class="v">Level: <strong>1</strong></span>
+            <span class="v hot">Subclass: <strong>Paragon</strong></span>
+            <span class="v hot">Domain: <strong>Fate</strong></span>
+            <span class="v">Career: <strong>Watch Officer</strong></span>
+            <span class="v warn">Complication: <strong>Fiery Ideal</strong></span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <div class="toc-label">// Contents</div>
+      <ol>
+        <li><a href="#identity">Identity &amp; Role</a></li>
+        <li><a href="#stats">Characteristics</a></li>
+        <li><a href="#wrath">Wrath Resource</a></li>
+        <li><a href="#ancestry">Memonek Traits</a></li>
+        <li><a href="#abilities">Key Abilities</a></li>
+        <li><a href="#paragon">Paragon &amp; Fate Domain</a></li>
+        <li><a href="#kit">Kit — Retiarius (Reflavored)</a></li>
+        <li><a href="#skills">Skills &amp; Languages</a></li>
+        <li><a href="#complication">Complication — Fiery Ideal</a></li>
+        <li><a href="#worldsickness">Worldsickness Posture</a></li>
+        <li><a href="#enemies">Powerful Enemies (Inciting Incident)</a></li>
+        <li><a href="#unit">Unit Position</a></li>
+        <li><a href="#arc">Character Arc</a></li>
+        <li><a href="#relations">Relations</a></li>
+      </ol>
+    </nav>
+
+    <!-- I. IDENTITY -->
+    <section id="identity">
+      <h2 class="section-title">I. Identity &amp; Role</h2>
+      <p class="drop-cap">Executor Vellpryte is Zenith's senior field agent — the unit's commanding officer, primary combatant, and judicial authority. She designates a target through her Judgment ability and systematically dismantles them while the rest of the team manages everything else. Her ancestry traits make her difficult to bypass and impossible to surprise: <em>I Am Law</em> prevents enemies from moving through her space, <em>Unphased</em> means she cannot be made surprised, and <em>Nonstop</em> governs her movement.</p>
+
+      <p>Her class is Censor, subclass Paragon, with the Fate domain. She is a divine enforcer who specializes in setting an example for her order. Her domain grants her Oracular Visions — hazy glimpses of what's coming — which she spends to grant edges on tests within range. Combined with her Judgment, this means she is the unit member most able to shape the outcome of any specific moment.</p>
+
+      <h3 class="subhead">Cultural Background</h3>
+      <p>Culture: <strong>Bespoke — Urban, Bureaucratic, Martial.</strong> Hand-built. She was raised in cities, inside institutions, by warriors. Career: <strong>Watch Officer.</strong> She served as an officer of the law before joining the Office of Mediation. The career grants her broad investigative reach — Alertness, Eavesdrop, Search — alongside two practical languages (Anjali and Hyrallic) and a perk for catching falling allies at the last possible moment.</p>
+    </section>
+
+    <!-- II. CHARACTERISTICS -->
+    <section id="stats">
+      <h2 class="section-title">II. Characteristics</h2>
+      <div class="stat-grid">
+        <div class="stat-cell high"><div class="label">Might</div><div class="value">+2</div><div class="gloss">Melee output</div></div>
+        <div class="stat-cell neg"><div class="label">Agility</div><div class="value">−1</div><div class="gloss">Not the dodger</div></div>
+        <div class="stat-cell high"><div class="label">Reason</div><div class="value">+2</div><div class="gloss">Investigative</div></div>
+        <div class="stat-cell neg"><div class="label">Intuition</div><div class="value">−1</div><div class="gloss">By the book</div></div>
+        <div class="stat-cell high"><div class="label">Presence</div><div class="value">+2</div><div class="gloss">Judgment-bearer</div></div>
+      </div>
+      <p><em>Three peaks at +2 (Might, Reason, Presence) with two negatives. She is built to engage, to enforce, and to deliver judgment. She is not built to read people quickly or evade what she cannot see coming — though Unphased compensates for the latter in combat.</em></p>
+      <div class="status-grid">
+        <div class="status-cell primary"><div class="label">Stamina</div><div class="value">24<span class="sub"> / 24</span></div><div class="bar gold"><div class="fill" style="width:100%"></div></div><div class="note">21 base + 3 kit (Retiarius)</div></div>
+        <div class="status-cell teal"><div class="label">Recoveries</div><div class="value">12<span class="sub"> / 12</span></div><div class="bar teal"><div class="fill" style="width:100%"></div></div><div class="note">Highest in Zenith</div></div>
+        <div class="status-cell"><div class="label">Wrath</div><div class="value">0</div><div class="bar rust"><div class="fill" style="width:0%"></div></div><div class="note">Builds via judged engagement</div></div>
+      </div>
+      <table class="dossier-table">
+        <thead><tr><th>Stat</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Speed</td><td><strong>6</strong> — 5 base + 1 kit</td></tr>
+          <tr><td>Disengage</td><td><strong>1</strong> — from Retiarius kit</td></tr>
+          <tr><td>Melee Damage Bonus</td><td><strong>+2 / +2 / +2</strong> — Retiarius kit</td></tr>
+          <tr><td>Melee Distance</td><td><strong>+1</strong> — Retiarius kit (polearm reach)</td></tr>
+          <tr><td>Wealth</td><td><strong>1</strong></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- III. WRATH -->
+    <section id="wrath">
+      <h2 class="section-title">III. Wrath — The Heroic Resource</h2>
+      <p>Vellpryte's Heroic Resource is <strong>Wrath</strong>, the Censor's measure of righteous escalation. It accrues steadily and accelerates specifically around her judged target — the creature she has formally designated for resolution.</p>
+      <div class="wrath-resource">
+        <ul class="gain-list">
+          <li><strong>2</strong> — at the start of your turn (baseline)</li>
+          <li><strong>+1</strong> — the first time each round a creature judged by you deals damage to you</li>
+          <li><strong>+1</strong> — the first time each round you deal damage to a creature judged by you</li>
+        </ul>
+      </div>
+      <div class="callout">
+        <div class="label">◈ The Judgment Loop</div>
+        <p>Wrath generation is tied to active engagement with the judged target. The more directly Vellpryte and the target are exchanging damage, the more Wrath she accrues — and the more abilities she can fuel. The mechanic models a process of formal escalation: a target has been judged, the judgment is being executed, the executor's authority grows as the resolution proceeds.</p>
+      </div>
+    </section>
+
+    <!-- IV. ANCESTRY -->
+    <section id="ancestry">
+      <h2 class="section-title">IV. Memonek Traits</h2>
+      <p>Vellpryte selected three ancestry traits: <strong>Unphased</strong>, <strong>I Am Law</strong>, and <strong>Nonstop</strong>.</p>
+      <table class="dossier-table">
+        <thead><tr><th>Trait</th><th>Function (verbatim)</th></tr></thead>
+        <tbody>
+          <tr><td>Unphased</td><td>Your ordered mind can't be caught off guard. You can't be made surprised.</td></tr>
+          <tr><td>I Am Law</td><td>Your lawful nature and quick reflexes mean you give no quarter to creatures trying to get past you. Enemies can't move through your space unless you allow them to do so.</td></tr>
+          <tr><td>Nonstop</td><td>Your connection to Axiom allows you to regulate your movement.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- V. ABILITIES -->
+    <section id="abilities">
+      <h2 class="section-title">V. Key Abilities</h2>
+
+      <h4 class="entry-label">Core Mechanic — Target Designation</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Judgment</div>
+        <div class="ability-meta">Maneuver &middot; Magic, Ranged 10 &middot; One enemy &middot; No Wrath cost</div>
+        <div class="ability-desc">
+          A prayer outlines a foe in holy energy. The target is judged by Vellpryte until the end of the encounter, until she uses the ability again, until she willingly ends the effect, or until another censor judges the target. While a creature is judged, when they use a main action within Vellpryte's line of effect, she can use a free triggered action to deal holy damage equal to twice her Presence score (4 damage).
+        </div>
+      </div>
+
+      <h4 class="entry-label">Signature — Selected Class Ability</h4>
+      <div class="ability-block signature">
+        <div class="ability-name">Every Step ... Death!</div>
+        <div class="ability-meta">Main Action &middot; Magic, Ranged, Strike &middot; One creature &middot; Signature (free)</div>
+        <div class="ability-desc">
+          A glimpse of the target's fate after death. Each time the target willingly moves before the end of her next turn, they take 1 psychic damage for each square they move.
+        </div>
+        <div class="tier-roll">
+          <span class="tier-label">Presence roll:</span>
+          T1: 5 + P psychic damage &middot; T2: 7 + P psychic damage &middot; T3: 10 + P psychic damage
+        </div>
+      </div>
+
+      <h4 class="entry-label">3-Wrath Ability — Selected</h4>
+      <div class="ability-block">
+        <div class="ability-name">Repent!</div>
+        <div class="ability-meta">Main Action &middot; Magic, Ranged, Strike &middot; One creature &middot; 3 Wrath</div>
+        <div class="ability-desc">
+          Vellpryte conjures memories of a target's sins to harry them.
+        </div>
+        <div class="tier-roll">
+          <span class="tier-label">Presence roll:</span>
+          T1: 5 + P holy damage; I&lt;[weak] dazed (save ends) &middot;
+          T2: 8 + P holy damage; I&lt;[average] dazed (save ends) &middot;
+          T3: 11 + P holy damage; I&lt;[strong] dazed (save ends)
+        </div>
+      </div>
+
+      <h4 class="entry-label">5-Wrath Ability — Selected</h4>
+      <div class="ability-block">
+        <div class="ability-name">Censored</div>
+        <div class="ability-meta">Main Action &middot; Melee, Strike, Weapon &middot; One creature &middot; 5 Wrath</div>
+        <div class="ability-desc">
+          Judged and sentenced. When a target who is not a leader or solo creature is made winded by this ability, they are reduced to 0 Stamina.
+        </div>
+        <div class="tier-roll">
+          <span class="tier-label">Might roll:</span>
+          T1: 2 + M holy damage &middot; T2: 3 + M holy damage &middot; T3: 5 + M holy damage
+        </div>
+      </div>
+
+      <h4 class="entry-label">Triggered — Class Feature</h4>
+      <div class="ability-block">
+        <div class="ability-name">My Life for Yours</div>
+        <div class="ability-meta">Triggered Action &middot; Magic, Ranged &middot; Self or one ally &middot; No Wrath cost</div>
+        <div class="ability-desc">
+          Vellpryte spends a Recovery; the target regains Stamina equal to her Recovery value. <strong>Spend 1 Wrath:</strong> she can end one save-ends effect on the target or one effect that ends at the end of their turn, or a prone target can stand up.
+        </div>
+      </div>
+
+      <h4 class="entry-label">Kit Signature — Reflavored</h4>
+      <div class="ability-block">
+        <div class="ability-name">Net And Stab</div>
+        <div class="ability-meta">Main Action &middot; Melee, Strike, Weapon &middot; One creature &middot; Signature (free)</div>
+        <div class="ability-desc">
+          The well-thrown net follows the main attack and leaves the foe right where Vellpryte wants them. (Per Zenith.md, the kit is reflavored: magnetic net grenade + taser nightstick replace the polearm and ensnaring weapon.)
+        </div>
+        <div class="tier-roll">
+          <span class="tier-label">Might or Agility:</span>
+          T1: 2 + M/A damage; A&lt;[weak] slowed (EoT) &middot;
+          T2: 4 + M/A damage; A&lt;[average] slowed (EoT) &middot;
+          T3: 6 + M/A damage; A&lt;[strong] restrained (EoT)
+        </div>
+      </div>
+
+      <h4 class="entry-label">Career Perk</h4>
+      <div class="ability-block">
+        <div class="ability-name">I've Got You</div>
+        <div class="ability-meta">Free Triggered Action &middot; Trigger: a willing ally lands on you or adjacent to you when they fall &middot; Self</div>
+        <div class="ability-desc">
+          Vellpryte catches the ally at the last possible moment. Neither takes damage from the fall. (From Watch Officer career.)
+        </div>
+      </div>
+    </section>
+
+    <!-- VI. PARAGON & FATE -->
+    <section id="paragon">
+      <h2 class="section-title">VI. Paragon Subclass &amp; Fate Domain</h2>
+      <div class="two-col">
+        <div>
+          <h3 class="subhead">Paragon — Judgment Order Benefit</h3>
+          <p>Per the Paragon subclass description: <em>"Without a strong example and a firm hand, the weak will be corrupted. You specialize in setting an example for your order."</em></p>
+          <p>The subclass grants a Judgment Order Benefit. The first time on a turn Vellpryte uses Judgment to judge a creature, she can <strong>vertical pull the judged creature up to twice her Presence score (4 squares)</strong>. The judgment isn't just designation — it physically draws the target toward her.</p>
+        </div>
+        <div>
+          <h3 class="subhead">Fate Domain — Oracular Visions</h3>
+          <p>Each time Vellpryte earns 1 or more Victories, she earns an equal number of <strong>fate points</strong>. Whenever she or any creature within 10 squares makes a test, she can spend 1 fate point to tap into a vision of the outcome, granting that creature an <strong>edge</strong> on the test. Any remaining fate points are lost at the next respite.</p>
+          <p><em>Fate points are a separate economy from Wrath — they accrue between encounters via Victories rather than during them, and they support the entire team, not just Vellpryte.</em></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VII. KIT -->
+    <section id="kit">
+      <h2 class="section-title">VII. Kit — Retiarius (Reflavored)</h2>
+      <table class="dossier-table">
+        <thead><tr><th>Field</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Armor</td><td>Light Armor</td></tr>
+          <tr><td>Weapon Slots</td><td>Polearm, Ensnaring Weapon (reflavored per Zenith.md: <em>magnetic net grenade + taser nightstick</em>)</td></tr>
+          <tr><td>Stamina Bonus</td><td>+3</td></tr>
+          <tr><td>Speed Bonus</td><td>+1</td></tr>
+          <tr><td>Stability</td><td>0</td></tr>
+          <tr><td>Disengage</td><td>+1</td></tr>
+          <tr><td>Melee Damage</td><td>+2 / +2 / +2 (all tiers)</td></tr>
+          <tr><td>Melee Distance</td><td>+1</td></tr>
+          <tr><td>Signature Ability</td><td>Net And Stab</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <div class="label">◈ Reflavor Note</div>
+        <p>The kit's polearm and ensnaring weapon are reflavored to fit the unit's sci-fi aesthetic: a magnetic net grenade (the ensnaring weapon) deployed alongside a taser nightstick (the polearm-as-impact-weapon). All numbers remain those of the Retiarius kit; only the fictional skin changes.</p>
+      </div>
+    </section>
+
+    <!-- VIII. SKILLS -->
+    <section id="skills">
+      <h2 class="section-title">VIII. Skills &amp; Languages</h2>
+      <div class="two-col">
+        <div>
+          <h4 class="entry-label">Selected Skills</h4>
+          <div class="skill-grid">
+            <div class="skill-row sig"><span class="name">Interrogate</span><span class="val">Interpersonal</span></div>
+            <div class="skill-row sig"><span class="name">Read Person</span> <span class="val">Interpersonal</span></div>
+            <div class="skill-row sig"><span class="name">Intimidate</span><span class="val">Interpersonal</span></div>
+            <div class="skill-row sig"><span class="name">Lead</span><span class="val">Interpersonal</span></div>
+            <div class="skill-row"><span class="name">Alertness</span><span class="val">Exploration</span></div>
+            <div class="skill-row"><span class="name">Search</span><span class="val">Intrigue</span></div>
+            <div class="skill-row"><span class="name">Eavesdrop</span><span class="val">Intrigue</span></div>
+            <div class="skill-row"><span class="name">Rumors</span><span class="val">Interpersonal</span></div>
+            <div class="skill-row"><span class="name">Timescape</span><span class="val">Lore</span></div>
+            <div class="skill-row"><span class="name">Magic</span><span class="val">Lore</span></div>
+          </div>
+        </div>
+        <div>
+          <h4 class="entry-label">Languages</h4>
+          <div class="skill-grid">
+            <div class="skill-row sig"><span class="name">Axiomatic</span><span class="val">Native</span></div>
+            <div class="skill-row"><span class="name">Caelian</span><span class="val">Default</span></div>
+            <div class="skill-row"><span class="name">Anjali</span><span class="val">Watch Officer</span></div>
+            <div class="skill-row"><span class="name">Hyrallic</span><span class="val">Watch Officer</span></div>
+          </div>
+          <h4 class="entry-label">Wealth &amp; Renown</h4>
+          <div class="skill-grid">
+            <div class="skill-row"><span class="name">Wealth</span><span class="val">1</span></div>
+            <div class="skill-row"><span class="name">Renown</span><span class="val">0</span></div>
+            <div class="skill-row"><span class="name">Hero Tokens</span><span class="val">0</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IX. COMPLICATION -->
+    <section id="complication">
+      <h2 class="section-title">IX. Complication — Fiery Ideal</h2>
+      <p>From the Draw Steel complication: <em>"A spirit beyond your comprehension instilled in you a special purpose, choosing you to be the guardian of a place, a cause, or a philosophy. The flame that now burns in your soul can sear your enemies — or you if you fall short of expectations."</em></p>
+      <table class="dossier-table">
+        <thead><tr><th>Aspect</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Fiery Ideal Benefit</td>
+            <td>While fighting on behalf of her special purpose, whenever she obtains a tier 3 outcome with a damage-dealing ability, she deals extra fire damage equal to her highest characteristic score (+2).</td>
+          </tr>
+          <tr>
+            <td>Fiery Ideal Drawback</td>
+            <td>Whenever the Director determines that she acts against her purpose or fails to live up to its standards, she takes fire damage equal to 5 + her level (6 at level 1). This damage cannot be reduced in any way.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout warn">
+        <div class="label">⚠ Tension Point</div>
+        <p>The drawback is irreducible. Any time the Director rules that Vellpryte has acted against her purpose, she takes 6 fire damage — no armor, no resistance, no recovery interaction. This makes the question of <em>what her purpose actually requires</em> mechanically significant. Per Zenith.md, the central tension of the campaign is law versus justice: she "must rule regardless, and the team must enforce regardless," and her arc asks whether she can sustain her refusal of emotion indefinitely.</p>
+      </div>
+    </section>
+
+    <!-- X. WORLDSICKNESS -->
+    <section id="worldsickness">
+      <h2 class="section-title">X. Worldsickness Posture</h2>
+      <p>Per Zenith.md, Vellpryte's relationship with worldsickness is <strong>refusal</strong>. She will not bend, will not be caught off guard, will not slow down. Her ancestry trait selections support this stance mechanically: <em>Unphased</em> prevents surprise, <em>I Am Law</em> prevents bypass, <em>Nonstop</em> regulates her movement. Her posture is structural.</p>
+      <p>The campaign's central question for her, also per Zenith.md: <em>can she sustain the refusal to feel indefinitely, and what happens to her judgment when she can't?</em></p>
+    </section>
+
+    <!-- XI. POWERFUL ENEMIES -->
+    <section id="enemies">
+      <h2 class="section-title">XI. Inciting Incident — Powerful Enemies</h2>
+      <p>From the Draw Steel inciting incident: <em>"You made it your responsibility to root out and bring down the region's foremost crime syndicate. They sent goons to burn down your home and teach you a lesson, leaving you bleeding in the street with nothing left except your life. You've since taken on the life of a hero to gain the power and influence you need to destroy the syndicate once and for all."</em></p>
+      <div class="callout">
+        <div class="label">◈ Open Thread</div>
+        <p>The specific syndicate, region, and details of the attempted assassination are not recorded in the source file. The mechanical hook — a powerful adversary that wants Vellpryte dead and has the resources to act on it — is established. Specifics are available for the Director to develop in play.</p>
+      </div>
+    </section>
+
+    <!-- XII. UNIT POSITION -->
+    <section id="unit">
+      <h2 class="section-title">XII. Position Within Zenith</h2>
+      <p>Per Zenith.md: Vellpryte is the unit's <strong>senior field agent</strong> — the decision-maker in the chain of command. She designates the primary target via Judgment and locks them down in melee; Keshet and Azimuth form the perimeter team managing all secondary threats; Nomos supports from range. The hierarchy is real: <em>"Vellpryte decides, the others execute."</em></p>
+      <p>Per Zenith.md, the most charged narrative moments occur when professional obligation and personal conviction diverge — when Keshet's tactical read says withdraw but Vellpryte says finish the job, when Nomos's social instincts say the Office is being manipulated but the Executor decides to proceed.</p>
+    </section>
+
+    <!-- XIII. ARC -->
+    <section id="arc">
+      <h2 class="section-title">XIII. Character Arc</h2>
+      <p>From Zenith.md: <em>"Can she sustain the refusal to feel indefinitely, and what happens to her judgment when she can't?"</em></p>
+      <p>Two mechanical structures pull against each other across the campaign. The first is the Memonek trait suite (Unphased, I Am Law, Nonstop) — a posture of refusal expressed as ability text. The second is the Fiery Ideal — a complication that imposes irreducible damage whenever the Director rules she acts against her purpose. The arc lives in the space between these: a character mechanically reinforced against external pressure, while subject to an internal standard that can punish her at any time.</p>
+    </section>
+
+    <!-- XIV. RELATIONS -->
+    <section id="relations">
+      <h2 class="section-title">XIV. Relations</h2>
+      <div class="relation">
+        <div class="rel-name">Secretary Nomos <span class="role">&mdash; Communications &amp; Support</span> <span class="marker active">Active</span></div>
+        <div class="rel-text">Per Zenith.md: in interrogations Nomos pairs with Vellpryte — she applies pressure, he reads between the lines.</div>
+      </div>
+      <div class="relation">
+        <div class="rel-name">Protocol Keshet <span class="role">&mdash; Field Coordinator</span> <span class="marker active">Active</span></div>
+        <div class="rel-text">Per Zenith.md: a charged narrative moment is identified — when Keshet's tactical read says withdraw but Vellpryte says finish the job.</div>
+      </div>
+      <div class="relation">
+        <div class="rel-name">Operator Azimuth <span class="role">&mdash; Psionic Specialist / Direct Action</span> <span class="marker active">Active</span></div>
+        <div class="rel-text">Per Zenith.md: Azimuth handles direct action on the perimeter alongside Keshet — Keshet calls the play, Azimuth executes it. Vellpryte's relationship to Azimuth specifically is not detailed in the source.</div>
+      </div>
+      <div class="relation">
+        <div class="rel-name">The Crime Syndicate <span class="role">&mdash; Inciting Incident</span> <span class="marker open">Open</span></div>
+        <div class="rel-text">From the Powerful Enemies inciting incident: a syndicate that burned down her home and left her for dead. They are the reason she "took on the life of a hero" — the reason she sought the power and influence the Office grants. Specifics undeveloped in source.</div>
+      </div>
+    </section>
+
+    <footer class="colophon">
+      <div><span class="accent">// ZENITH UNIT RECORD — OFFICE OF MEDIATION</span></div>
+      <div style="margin-top:0.4rem;"><span class="accent2">EXECUTOR VELLPRYTE &middot; VEL-001 &middot; MEMONEK &middot; CENSOR / PARAGON &middot; LVL 1</span></div>
+      <div style="margin-top:0.4rem;">Produced for internal field reference &middot; Distribution: Unit Zenith &middot; Director access only</div>
+      <div style="margin-top:0.4rem;"><span style="color:var(--gold-bright)">⚑ STATUS: START OF CAMPAIGN &middot; OPEN INCIDENT: POWERFUL ENEMIES (CRIME SYNDICATE)</span></div>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>
