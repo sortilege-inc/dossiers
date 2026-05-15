@@ -32,15 +32,14 @@
     --gold-glow: rgba(200, 168, 74, 0.25);
 
     --silver: #c0ccd8;
-    --silver-dim: #8898a8;
 
     --lawbearer: #7090b8;
     --lawbearer-bright: #90b0d8;
     --lawbearer-deep: #3a5080;
 
-    --danger: #c85a3a;
     --inactive: #2a3448;
     --inactive-text: #445060;
+    --concluded: #8a7858;
   }
 
   * { box-sizing: border-box; }
@@ -76,7 +75,6 @@
       0 24px 64px rgba(0, 0, 0, 0.7);
   }
 
-  /* Top rule — engraved mechanical look */
   .document::before {
     content: "";
     position: absolute;
@@ -102,7 +100,6 @@
     background: linear-gradient(90deg, transparent 0%, var(--rule) 15%, var(--rule) 85%, transparent 100%);
   }
 
-  /* Corner flourishes — mechanical brackets */
   .corner {
     position: absolute;
     width: 22px; height: 22px;
@@ -125,7 +122,6 @@
   .corner.bl::after { bottom: -1px; left: -1px; }
   .corner.br::after { bottom: -1px; right: -1px; }
 
-  /* ── HEADER ── */
   header.title-block {
     border-bottom: 1px solid var(--rule);
     padding-bottom: 2.5rem;
@@ -147,23 +143,14 @@
     background: var(--panel);
   }
   .filemark .left { color: var(--steel); }
-  .filemark .right { color: var(--gold); }
-  .filemark .status {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
+  .filemark .right { color: var(--concluded); }
   .filemark .dot {
     display: inline-block;
     width: 6px; height: 6px;
-    background: var(--steel);
+    background: var(--concluded);
     border-radius: 50%;
-    box-shadow: 0 0 8px var(--steel);
-    animation: pulse-steel 3s ease-in-out infinite;
-  }
-  @keyframes pulse-steel {
-    0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--steel); }
-    50% { opacity: 0.4; box-shadow: 0 0 4px var(--steel); }
+    margin-right: 0.4em;
+    vertical-align: middle;
   }
 
   .eyebrow {
@@ -190,34 +177,21 @@
       0 2px 4px rgba(0,0,0,0.6);
   }
   h1.character-name .period { color: var(--gold); }
-  h1.character-name .small {
-    display: block;
-    font-size: 0.26em;
-    font-weight: 400;
-    color: var(--text-faint);
-    letter-spacing: 0.18em;
-    margin-top: 0.8rem;
-    font-family: "Share Tech Mono", monospace;
-    text-transform: none;
-  }
-  h1.character-name .small em {
-    color: var(--steel);
-    font-style: normal;
-  }
+
   .expansion {
     font-family: "Share Tech Mono", monospace;
     font-size: 0.82rem;
     letter-spacing: 0.3em;
     color: var(--text-faint);
-    margin: 0.6rem 0 1rem;
+    margin: 0.8rem 0 1rem;
     text-transform: uppercase;
   }
   .expansion em { color: var(--steel-bright); font-style: normal; }
 
-  .epithets {
+  .epithet {
     font-family: "IM Fell English", Georgia, serif;
     font-style: italic;
-    font-size: 1.08rem;
+    font-size: 1.05rem;
     color: var(--text-soft);
     margin: 0.8rem 0 1.5rem;
     max-width: 58ch;
@@ -248,7 +222,29 @@
     margin-left: 0.5em;
   }
 
-  /* ── SECTIONS ── */
+  .campaign-status {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: linear-gradient(90deg, rgba(138, 120, 88, 0.08) 0%, transparent 80%);
+    border: 1px solid rgba(138, 120, 88, 0.3);
+    border-left: 3px solid var(--concluded);
+    padding: 0.9rem 1.2rem;
+    margin: 0 0 2.5rem;
+    font-family: "Share Tech Mono", monospace;
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    letter-spacing: 0.06em;
+  }
+  .campaign-status .label {
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    color: var(--concluded);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .campaign-status .text { font-style: italic; line-height: 1.55; }
+
   section { margin-bottom: 3.5rem; }
 
   h2.section-title {
@@ -311,7 +307,6 @@
   strong { font-weight: 600; color: var(--gold-bright); }
   a { color: var(--steel); }
 
-  /* DROP CAP */
   .drop-cap::first-letter {
     font-family: "Cinzel Decorative", serif;
     font-size: 3.4rem;
@@ -323,7 +318,6 @@
     text-shadow: 0 0 20px rgba(143, 179, 204, 0.4);
   }
 
-  /* PULL QUOTES */
   blockquote.maxim {
     font-family: "Cinzel", serif;
     font-style: italic;
@@ -346,28 +340,7 @@
     margin-top: 0.6rem;
     text-transform: uppercase;
   }
-  blockquote.field-note {
-    font-family: "IM Fell English", serif;
-    font-style: italic;
-    font-size: 0.95rem;
-    line-height: 1.55;
-    color: var(--text-soft);
-    border-left: 2px solid var(--rule);
-    padding: 0.5rem 0 0.5rem 1.2rem;
-    margin: 1.2rem 0;
-    background: linear-gradient(90deg, var(--panel) 0%, transparent 80%);
-  }
-  blockquote.field-note .attribution {
-    display: block;
-    font-size: 0.72rem;
-    font-style: normal;
-    color: var(--text-faint);
-    font-family: "Share Tech Mono", monospace;
-    letter-spacing: 0.12em;
-    margin-top: 0.4rem;
-  }
 
-  /* TABLES */
   table.dossier-table {
     width: 100%;
     border-collapse: collapse;
@@ -400,7 +373,6 @@
   table.dossier-table tr:last-child td { border-bottom: none; }
   table.dossier-table tr:hover td { background: rgba(143, 179, 204, 0.03); }
 
-  /* STAT GRID */
   .stat-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -445,7 +417,6 @@
     margin-top: 0.2rem;
   }
 
-  /* SKILLS GRID */
   .skill-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -482,7 +453,6 @@
   }
   .skill-row.prof .skill-val { color: var(--gold-bright); }
 
-  /* RELATIONS */
   .relation {
     margin-bottom: 1.8rem;
     border-left: 2px solid var(--rule);
@@ -530,48 +500,53 @@
     color: var(--text-soft);
   }
 
-  /* TIMELINE */
-  .timeline {
-    border-left: 2px solid var(--steel-deep);
-    padding-left: 1.5rem;
-    margin: 1rem 0 1rem 0.5rem;
+  .technique {
+    border: 1px solid var(--rule-soft);
+    background: linear-gradient(135deg, var(--panel) 0%, var(--bg) 100%);
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.8rem;
   }
-  .timeline-entry {
-    margin-bottom: 1.5rem;
-    position: relative;
-  }
-  .timeline-entry::before {
-    content: "";
-    position: absolute;
-    left: -1.88rem; top: 0.45rem;
-    width: 10px; height: 10px;
-    background: var(--bg);
-    border: 2px solid var(--steel-deep);
-    transform: rotate(45deg);
-  }
-  .timeline-entry.event::before { border-color: var(--steel); background: var(--steel-deep); box-shadow: 0 0 8px rgba(143, 179, 204, 0.3); }
-  .timeline-entry.gap::before { border-color: var(--inactive); background: var(--bg); }
-  .timeline-entry.now::before { border-color: var(--gold); background: var(--gold-deep); box-shadow: 0 0 8px var(--gold-glow); }
-  .timeline-entry .when {
-    font-family: "Share Tech Mono", monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.18em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 0.2rem;
-  }
-  .timeline-entry.gap .when { color: var(--inactive-text); }
-  .timeline-entry .what {
+  .technique .tech-name {
     font-family: "Cinzel", serif;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 1rem;
-    color: var(--text);
-    margin-bottom: 0.2rem;
+    color: var(--steel-bright);
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
   }
-  .timeline-entry.gap .what { color: var(--inactive-text); font-style: italic; }
-  .timeline-entry .detail { font-size: 0.93rem; color: var(--text-soft); }
+  .technique .tech-name .type {
+    font-family: "Share Tech Mono", monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    border: 1px solid var(--gold-deep);
+    padding: 0.05rem 0.35rem;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+  .technique .tech-meta {
+    font-family: "Share Tech Mono", monospace;
+    font-size: 0.72rem;
+    color: var(--text-faint);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+  }
+  .technique .tech-meta strong { color: var(--text-soft); font-weight: 400; }
+  .technique .tech-body { font-size: 0.92rem; color: var(--text-soft); }
+  .technique .tech-body .bonus {
+    display: block;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--rule-soft);
+    color: var(--text-faint);
+    font-style: italic;
+  }
+  .technique .tech-body .bonus strong { color: var(--gold); font-style: normal; font-weight: 600; }
 
-  /* TOC */
   nav.toc {
     border: 1px solid var(--rule);
     padding: 1.2rem 1.5rem;
@@ -624,89 +599,6 @@
   }
   nav.toc a:hover { color: var(--steel-bright); }
 
-  /* CHIP / TAG */
-  .chip {
-    display: inline-block;
-    font-family: "Share Tech Mono", monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    padding: 0.1rem 0.4rem;
-    border: 1px solid var(--rule);
-    color: var(--text-faint);
-    text-transform: uppercase;
-    margin: 0 0.2rem 0.25rem 0;
-    background: var(--panel);
-  }
-  .chip.steel { color: var(--steel); border-color: var(--steel-deep); background: rgba(58, 96, 128, 0.1); }
-  .chip.gold { color: var(--gold); border-color: var(--gold-deep); background: rgba(200, 168, 74, 0.08); }
-  .chip.danger { color: var(--danger); border-color: var(--danger); background: rgba(200, 90, 58, 0.08); }
-
-  /* STATUS BAR — inactive period */
-  .status-bar {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    background: var(--panel);
-    border: 1px solid var(--rule);
-    padding: 0.7rem 1rem;
-    margin: 1.5rem 0;
-    position: relative;
-    overflow: hidden;
-  }
-  .status-bar::before {
-    content: "";
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-    background: var(--inactive);
-  }
-  .status-bar.active::before { background: var(--steel); box-shadow: 0 0 8px var(--steel-glow); }
-  .status-bar .status-label {
-    font-family: "Share Tech Mono", monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--inactive-text);
-  }
-  .status-bar.active .status-label { color: var(--steel); }
-  .status-bar .status-text {
-    font-family: "IM Fell English", serif;
-    font-style: italic;
-    color: var(--text-faint);
-    font-size: 0.95rem;
-  }
-  .status-bar.active .status-text { color: var(--text-soft); }
-
-  /* TECHNIQUE BLOCK */
-  .technique {
-    border: 1px solid var(--rule-soft);
-    background: linear-gradient(135deg, var(--panel) 0%, var(--bg) 100%);
-    padding: 1rem 1.2rem;
-    margin-bottom: 0.8rem;
-  }
-  .technique .tech-name {
-    font-family: "Cinzel", serif;
-    font-weight: 600;
-    font-size: 1rem;
-    color: var(--steel-bright);
-    margin-bottom: 0.4rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  .technique .tech-name .type {
-    font-family: "Share Tech Mono", monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.15em;
-    color: var(--gold);
-    border: 1px solid var(--gold-deep);
-    padding: 0.05rem 0.35rem;
-    font-weight: 400;
-    text-transform: uppercase;
-  }
-  .technique .tech-body { font-size: 0.92rem; color: var(--text-soft); }
-
-  /* COLOPHON */
   footer.colophon {
     margin-top: 4.5rem;
     padding-top: 2rem;
@@ -721,8 +613,8 @@
   footer.colophon .row { margin-bottom: 0.4rem; }
   footer.colophon .accent { color: var(--steel); }
   footer.colophon .accent2 { color: var(--gold); }
+  footer.colophon .accent3 { color: var(--concluded); }
 
-  /* RESPONSIVE */
   @media (max-width: 720px) {
     body { padding: 0.75rem 0.25rem; }
     .document { padding: 2rem 1.25rem 3rem; }
@@ -733,48 +625,6 @@
     .vitals span { border-left: none; padding-left: 0; margin-right: 0.6rem; }
     .vitals { gap: 0.4rem; }
     table.dossier-table td:first-child { white-space: normal; }
-    .portrait-block img { max-width: 240px; }
-  }
-
-  /* PORTRAIT */
-  .portrait-block {
-    text-align: center;
-    margin: 0 0 2.5rem;
-    position: relative;
-  }
-  .portrait-block .frame {
-    display: inline-block;
-    position: relative;
-    padding: 6px;
-    background: linear-gradient(135deg, var(--panel-light) 0%, var(--panel) 100%);
-    border: 1px solid var(--panel-edge);
-    box-shadow:
-      0 0 0 1px var(--rule-soft),
-      0 4px 24px rgba(143, 179, 204, 0.15);
-  }
-  .portrait-block .frame::before,
-  .portrait-block .frame::after {
-    content: "";
-    position: absolute;
-    width: 14px; height: 14px;
-    border: 1px solid var(--steel);
-  }
-  .portrait-block .frame::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
-  .portrait-block .frame::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; border-color: var(--steel-bright); }
-  .portrait-block img {
-    display: block;
-    width: 100%;
-    max-width: 320px;
-    height: auto;
-    filter: saturate(0.9) contrast(1.05);
-  }
-  .portrait-caption {
-    font-family: "Space Grotesk", "Helvetica Neue", sans-serif;
-    font-size: 0.68rem;
-    letter-spacing: 0.3em;
-    color: var(--text-faint);
-    text-transform: uppercase;
-    margin-top: 0.9rem;
   }
 </style>
 </head>
@@ -785,23 +635,20 @@
 
   <header class="title-block">
     <div class="filemark">
-      <div class="left"><span class="dot"></span>&nbsp;Campaign: Above All Else, Love · Exandria · Post-Calamity Era</div>
-      <div class="right">Classification: Active · Unit on Secondment</div>
+      <div class="left">Campaign: Above All Else, Love · Exandria</div>
+      <div class="right"><span class="dot"></span>Campaign Concluded · Player Character</div>
     </div>
     <div class="eyebrow">
       Aeormaton Bodyguard <span class="sep">·</span> Duelist <span class="sep">·</span> Lawful Neutral
     </div>
     <h1 class="character-name">
       <span class="period">A.</span>M<span class="period">.</span>O<span class="period">.</span>S<span class="period">.</span>
-      <span class="small">
-        Aeorian Mobile Operations Sentinel <em>//</em> Pre-Calamity manufacture · Reactivated
-      </span>
     </h1>
     <div class="expansion">
       <em>Aeorian · Mobile · Operations · Sentinel</em>
     </div>
-    <p class="epithets">
-      Guardian of the Arcane House. Extinguisher of Aberrant Threats. He Who Should Not Require a God's Attention.
+    <p class="epithet">
+      Aeormaton bodyguard. Devout follower of the Lawbearer. Catastrophically out of date.
     </p>
     <div class="vitals">
       <span>Level<strong>6</strong></span>
@@ -815,388 +662,339 @@
     </div>
   </header>
 
-  <div class="portrait-block">
-    <div class="frame">
-      <img src="amos.png" alt="A.M.O.S. — Aeorian Mobile Operations Sentinel">
-    </div>
-    <div class="portrait-caption">A.M.O.S. &middot; Pre-Calamity manufacture &middot; Reactivated</div>
+  <div class="campaign-status">
+    <div class="label">Campaign Status</div>
+    <div class="text">A.M.O.S. was a player character in <em>Above All Else, Love</em>, a short Exandria-set campaign that concluded after fewer than ten sessions. This dossier records the character as he stood at the campaign's close. Mechanically a warforged with the Duelist class (drawn from <em>Adventures in Rokugan</em>); narratively, a pre-Calamity Aeorian bodyguard reactivated into the world of Critical Role's Campaign 2 era.</div>
   </div>
 
-  <!-- TOC -->
   <nav class="toc">
     <div class="toc-label">Contents</div>
     <ol>
-      <li><a href="#overview">Operational Overview</a></li>
+      <li><a href="#overview">Concept &amp; Function</a></li>
       <li><a href="#construct">Constructed Nature</a></li>
-      <li><a href="#history">Chronicle of Service</a></li>
-      <li><a href="#dissonance">The Dissonance Problem</a></li>
-      <li><a href="#god">On Matters of Devotion</a></li>
+      <li><a href="#dissonance">On the Present World</a></li>
+      <li><a href="#god">On the Lawbearer</a></li>
       <li><a href="#stats">Physical &amp; Combat Record</a></li>
-      <li><a href="#techniques">Dueling Techniques</a></li>
+      <li><a href="#techniques">Dueling Techniques &amp; Stances</a></li>
+      <li><a href="#features">Class, Racial &amp; Feat Features</a></li>
       <li><a href="#equipment">Equipment &amp; Armament</a></li>
-      <li><a href="#relations">Notable Entanglements</a></li>
-      <li><a href="#trajectory">Assessment &amp; Trajectory</a></li>
+      <li><a href="#relations">Notable Relations</a></li>
     </ol>
   </nav>
 
-  <!-- I. OVERVIEW -->
   <section id="overview">
-    <h2 class="section-title">I. Operational Overview</h2>
-    <p class="drop-cap">A.M.O.S. is a pre-Calamity Aeormaton — one of the masterwork constructs produced in Aeor at the peak of that civilization's arcane engineering — purpose-built to serve as the dedicated physical guardian of a high-status magical family. His role was specifically defined: when magical threats materialized, he was the one who closed the distance and ended them. Not through prolonged engagement, not through siege, but through the discipline of the single decisive strike. He is a blade that never needed to raise its voice.</p>
-    <p>He went inert before the Calamity. The exact circumstances are not recorded in any surviving document he has been able to access. When he was reactivated — roughly contemporaneous with the events of what the current inhabitants of Exandria apparently call "Campaign 2," a designation he finds unhelpfully imprecise — the world he emerged into bore virtually no resemblance to the one he last knew.</p>
-    <p>He is managing.</p>
+    <h2 class="section-title">I. Concept &amp; Function</h2>
+    <p class="drop-cap">A.M.O.S. was built in pre-Calamity Aeor as the dedicated guardian of the scion of a noble family of powerful wizards. His specialization was narrow and specific: when magical threats came for his charge, he was the one who closed the distance and ended them, ideally in a single decisive strike. He is a weapon designed for the moment of intercepted contact, not for prolonged engagement.</p>
+    <p>At some point before the Calamity, A.M.O.S. went inert. The circumstances are not part of what this dossier records. He was reactivated by the party of <em>Above All Else, Love</em> roughly a thousand years later, in the era contemporaneous with Critical Role's second campaign. The civilization that built him no longer exists. His charge is gone. His operational context is gone. The discipline remains.</p>
+    <p>He is functioning. He is also confused, in the quiet, professional way of someone whose every assumption about how the world ought to be arranged has turned out to be no longer applicable.</p>
 
     <blockquote class="maxim">
       The purpose is unchanged. The threat parameters have expanded considerably.
-      <span class="attribution">// A.M.O.S., upon being briefed on the current state of the world</span>
+      <span class="attribution">// In-character framing of the displacement</span>
     </blockquote>
-
-    <p>A.M.O.S. operates with complete professional competence and a constant, low-level bewilderment at the infrastructure choices of the current era. He does not speak of the bewilderment aloud unless directly asked. He simply notes, internally and occasionally in a clipped aside, that in the civilization that built him, buildings did not burn down because someone failed to account for fire suppression. He does not consider this complaint. He considers it a professional observation.</p>
   </section>
 
-  <!-- II. CONSTRUCTED NATURE -->
   <section id="construct">
     <h2 class="section-title">II. Constructed Nature</h2>
-    <p>As an Aeormaton — mechanically resembling what the current era calls a <em>warforged</em>, a term A.M.O.S. accepts as a rough functional approximation without endorsing its implications — he enjoys a body built for endurance rather than elegance. He does not eat, drink, breathe, sleep, or require the biological maintenance that occupies so much of his companions' day. When he rests, he enters an inactive motionless state for six hours. He is fully aware during this time. He simply does not move.</p>
-    <p>His integrated protection — built-in defensive layering, not external armor in the traditional sense — includes a flat bonus to his Armor Class. He cannot be stripped of his armor against his will. He has advantage against poison effects and resistance to poison damage. He is immune to disease. He will not be put to sleep by magic. These are not boasts. They are engineering specifications.</p>
-    <p>His eyes are mirrored. This is a design choice. His constructors had opinions about psychological impact in confrontation.</p>
-
-    <div class="status-bar active">
-      <div class="status-label">Unit Status</div>
-      <div class="status-text">ACTIVE — Reactivated, operating within acceptable parameters. Disorientation index: elevated but stable.</div>
-    </div>
+    <p>As an Aeormaton — mechanically resolved as a warforged — A.M.O.S. has a body built for endurance rather than maintenance. He does not eat, drink, breathe, sleep, or require biological upkeep. When he takes a long rest, he enters an inactive, motionless state for at least six hours; he is not unconscious, and he can see and hear normally throughout. He is immune to disease, has advantage on saves against being poisoned, and has resistance to poison damage. Magic cannot put him to sleep.</p>
+    <p>His <strong>Integrated Protection</strong> grants a +1 to Armor Class. Armor, when worn, must be incorporated into his body over an hour of contact, and similarly removed over an hour; while he lives, his armor cannot be removed from him against his will. (He is currently not wearing armor — his Duelist defensive style makes use of unarmored Evasive Footwork instead.)</p>
+    <p>His eyes are mirrored. He is six feet three inches tall and weighs three hundred and twenty pounds. His age is not recorded; the question is harder for him than for most.</p>
   </section>
 
-  <!-- III. CHRONICLE -->
-  <section id="history">
-    <h2 class="section-title">III. Chronicle of Service</h2>
-    <div class="timeline">
-      <div class="timeline-entry event">
-        <div class="when">Pre-Calamity · Aeor</div>
-        <div class="what">Manufacture &amp; Commissioning</div>
-        <div class="detail">Produced in Aeor and assigned to the protection of a high-status magical family. The family name is not recorded here — A.M.O.S. has not been asked to produce it, and he does not volunteer information unprompted. His specialization was established immediately: the interception and physical neutralization of magical threats before they could reach his charges. This was not a generalist posting. This was a specific weapon for a specific problem.</div>
-      </div>
-      <div class="timeline-entry event">
-        <div class="when">Pre-Calamity · Date Unknown</div>
-        <div class="what">Inert State Begins</div>
-        <div class="detail">A.M.O.S. went inactive. The trigger is unknown to him and apparently unrecoverable from any surviving record. He was not damaged in any way he can detect. He simply ceased. The gap between then and now is not experienced by him as duration — it is simply an absence, a void between one moment and the next. He finds the philosophical implications neither troubling nor interesting. He was offline. Now he is not.</div>
-      </div>
-      <div class="timeline-entry gap">
-        <div class="when">Calamity — Divergence — Reconstruction — Ages of Advance</div>
-        <div class="what">[ offline · no operational record ]</div>
-        <div class="detail">Approximately 1,000 years of history occurred without his participation. He has been briefed on the general shape of it. He does not consider himself qualified to have opinions about events he did not witness, but he notes with some intensity that the civilizational regression in basic infrastructure is striking.</div>
-      </div>
-      <div class="timeline-entry now">
-        <div class="when">Current Era · circa Campaign 2 Timeline</div>
-        <div class="what">Reactivation &amp; Current Operations</div>
-        <div class="detail">A.M.O.S. is awake, functional, and engaged. He has acquired companions. He has been informed he met gods. He is managing his feelings about this with the same controlled competence he brings to everything else, which is to say: the feelings are there, they are significant, and they are not going to be discussed unless circumstances force the issue.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- IV. DISSONANCE -->
   <section id="dissonance">
-    <h2 class="section-title">IV. The Dissonance Problem</h2>
-    <p>A.M.O.S. was built for and by a civilization that treated the management of everyday hazards as an engineering problem to be solved, not a personal responsibility to be navigated. Aeor's arcane infrastructure was extensive. Buildings had automatic fire suppression. Structural failures were anticipated and counteracted by design. The magical threats his family faced were real and dangerous, but they existed within a context of general competence at the civic level.</p>
-    <p>He has emerged into a world where buildings burn down. Where someone will, with apparent sincerity, not have anticipated that the structure they live in might catch fire. He does not express frustration. He asks questions — crisp, practical, increasingly bewildered questions — and then makes adjustments.</p>
-    <p>The adjustments accumulate.</p>
-
-    <blockquote class="field-note">
-      He spent four minutes this morning staring at a thatched roof. He said nothing. Then he asked, very quietly, whether anyone had considered alternatives.
-      <span class="attribution">// Companion observation, undated field note</span>
-    </blockquote>
-
-    <p>His naivety is genuine rather than performed. He is not condescending — he does not think less of the people around him for living in a world that has, in his assessment, regressed in several important ways. He simply has not updated his prior expectations. He expected indoor plumbing. He expected structural redundancy. He expected that a city of sufficient size would have considered the logistics of magical fire suppression. Each time the world fails to meet these expectations, he recalibrates. He has been recalibrating constantly since reactivation.</p>
-    <p>His companions find this both endearing and, occasionally, unsettling — the quiet, steady patience of something that has always known better and has decided not to make it anyone's problem.</p>
+    <h2 class="section-title">III. On the Present World</h2>
+    <p>A.M.O.S. is naive about the era he has woken into, and the naivety has a specific shape. He is not unfamiliar with danger, magic, politics, or violence — he has handled all of those before. What disorients him is the <em>simplicity</em> of present-day infrastructure relative to what he remembers.</p>
+    <p>The concrete example, returned to in play more than once: in Aeor, buildings did not burn down because someone forgot to account for fire. Automatic magical fire extinguishment was a baseline civic feature. The idea that a structure could exist without such provision strikes him as a kind of administrative oversight that ought to have a responsible party. The fact that no such party exists — that the world simply does not, currently, do this — is something he is still recalibrating around.</p>
+    <p>He does not voice the disorientation often. When he does, it tends to come out as a question, asked with no particular edge, that nonetheless lands as a critique of the entire civilizational moment. His companions found this funny. He did not intend it to be funny.</p>
   </section>
 
-  <!-- V. DEVOTION -->
   <section id="god">
-    <h2 class="section-title">V. On Matters of Devotion</h2>
-    <p>A.M.O.S. worships the Lawbearer. This is not a late-life conversion or a philosophical position he arrived at through reflection. It is a factory specification. Aeor was not a particularly pious civilization, but for constructs built to serve and protect within legal and social frameworks — to embody the principle that the compact between guardian and charge must be honored, that order is not tyranny but foundation — the Lawbearer was the obvious patron. The theology made engineering sense.</p>
-    <p>He observes his faith correctly. He does not proselytize. He simply does what the Lawbearer asks of those who follow her: he maintains the order he has been charged with. He keeps his agreements. He does not overstep. He does not abandon his post.</p>
-    <p>When his companions expressed excitement that he had, apparently, been in proximity to divine attention — had, in the course of events, come to the awareness of a god — they misread his reaction entirely.</p>
+    <h2 class="section-title">IV. On the Lawbearer</h2>
+    <p>A.M.O.S. is a follower of the Lawbearer. His devotion is real — he considers himself genuinely her servant, and he tries to comport himself as one — but it is also, importantly, the kind of devotion that prefers a respectful distance. He does not want to be acknowledged. He does not want to be noticed. The relationship he wants with his god is the relationship a competent professional wants with the founder of their trade: deep reverence, careful observance, and absolutely no personal attention.</p>
+    <p>The analogy that gets at it: being personally befriended by a billionaire celebrity. There is nothing wrong with the celebrity, and nothing wrong with you, but the scale of the relationship is wrong, and the asymmetry will reshape everything around it. He does not want that. He worships sincerely <em>so that</em> he doesn't have to want that.</p>
+    <p>Over the course of the campaign, A.M.O.S. did see gods. He avoided direct interaction with them. The party — most of whom found the proximity to divinity thrilling — generally misread his reluctance, or simply did not understand it. The one party member who shared his worship of the Lawbearer was the one he eventually attempted to explain the distinction to: that being devout and wanting acknowledgment are not the same thing, and that in his case they actively oppose each other.</p>
 
     <blockquote class="maxim">
       I am devout. That is entirely different from wanting to be noticed.
-      <span class="attribution">// A.M.O.S., attempting to explain something his companions seem constitutionally unable to understand</span>
+      <span class="attribution">// To the party's other follower of the Lawbearer</span>
     </blockquote>
-
-    <p>The analogy he has not yet found a way to articulate to them: there is a specific, particular dread in the idea of a billionaire celebrity deciding to befriend you. Not because of anything wrong with you, and not because of anything wrong with them. Because the scale is wrong, the attention is asymmetric, and the relationship will inevitably reshape itself around what they want from it, regardless of what you want. A.M.O.S. is devout in the way a craftsman observes his trade — with genuine reverence, with attention to the work, without any desire for the founder of the trade to materialize and offer personal feedback.</p>
-    <p>He has not been sought out by the Lawbearer. He intends to maintain this status through impeccable behavior and a consistent refusal to do anything interesting enough to warrant divine attention.</p>
-    <p>Events have not been cooperative.</p>
   </section>
 
-  <!-- VI. STATS -->
   <section id="stats">
-    <h2 class="section-title">VI. Physical &amp; Combat Record</h2>
-    <p><em>The following specifications are accurate as of current operational period. All values reflect manufacturing baseline plus service modifications.</em></p>
+    <h2 class="section-title">V. Physical &amp; Combat Record</h2>
 
     <div class="stat-grid">
       <div class="stat-cell">
-        <div class="label">STR</div>
-        <div class="value">8</div>
-        <div class="mod">−1</div>
+        <div class="label">STR</div><div class="value">8</div><div class="mod">−1</div>
       </div>
       <div class="stat-cell highlight">
-        <div class="label">DEX</div>
-        <div class="value">16</div>
-        <div class="mod">+3</div>
+        <div class="label">DEX</div><div class="value">16</div><div class="mod">+3</div>
       </div>
       <div class="stat-cell">
-        <div class="label">CON</div>
-        <div class="value">13</div>
-        <div class="mod">+1</div>
+        <div class="label">CON</div><div class="value">13</div><div class="mod">+1</div>
       </div>
       <div class="stat-cell">
-        <div class="label">INT</div>
-        <div class="value">13</div>
-        <div class="mod">+1</div>
+        <div class="label">INT</div><div class="value">13</div><div class="mod">+1</div>
       </div>
       <div class="stat-cell">
-        <div class="label">WIS</div>
-        <div class="value">14</div>
-        <div class="mod">+2</div>
+        <div class="label">WIS</div><div class="value">14</div><div class="mod">+2</div>
       </div>
       <div class="stat-cell">
-        <div class="label">CHA</div>
-        <div class="value">13</div>
-        <div class="mod">+1</div>
+        <div class="label">CHA</div><div class="value">13</div><div class="mod">+1</div>
       </div>
     </div>
 
-    <p><em>A.M.O.S. was not built for brute strength. He was built to end threats before the fighting begins, or to end them immediately when it does. His dexterity and his insight are his operational edges. His Strength deficit is a legacy of his specialized design — a guardian who closes distance quickly and strikes once, correctly, does not require the musculature of a siege engine.</em></p>
-
     <table class="dossier-table">
-      <thead><tr><th>Statistic</th><th>Value</th><th>Note</th></tr></thead>
+      <thead><tr><th>Statistic</th><th>Value</th><th>Notes</th></tr></thead>
       <tbody>
-        <tr><td>Hit Points</td><td>39 / 39</td><td>Full operational capacity</td></tr>
-        <tr><td>Armor Class</td><td>16</td><td>Evasive Footwork (Wis) + Integrated Protection + Retort defensive bonus</td></tr>
+        <tr><td>Hit Points</td><td>39</td><td>1d8 hit dice · Constitution +1</td></tr>
+        <tr><td>Armor Class</td><td>16</td><td>Unarmored. Evasive Footwork (Wis) + Integrated Protection + Retort's defensive bonus</td></tr>
         <tr><td>Initiative</td><td>+3</td><td>Dexterity</td></tr>
         <tr><td>Proficiency Bonus</td><td>+3</td><td>Level 6</td></tr>
-        <tr><td>Movement</td><td>30 ft.</td><td>Standard</td></tr>
-        <tr><td>Passive Perception</td><td>15</td><td>Enhanced by Viper Stance when active</td></tr>
+        <tr><td>Movement</td><td>30 ft.</td><td>—</td></tr>
+        <tr><td>Passive Perception</td><td>15</td><td>—</td></tr>
         <tr><td>Passive Insight</td><td>15</td><td>—</td></tr>
-        <tr><td>Languages</td><td>Common, Aeorian, Zemniaz/Zemnian</td><td>Far Traveler background</td></tr>
+        <tr><td>Passive Investigation</td><td>11</td><td>—</td></tr>
       </tbody>
     </table>
 
-    <h3 class="subhead">Proficient Skills</h3>
-    <div class="skill-grid">
-      <div class="skill-row prof">
-        <div class="prof-dot">●</div>
-        <div class="skill-name">History (Int)</div>
-        <div class="skill-val">+4</div>
-      </div>
-      <div class="skill-row prof">
-        <div class="prof-dot">●</div>
-        <div class="skill-name">Insight (Wis)</div>
-        <div class="skill-val">+5</div>
-      </div>
-      <div class="skill-row prof">
-        <div class="prof-dot">●</div>
-        <div class="skill-name">Perception (Wis)</div>
-        <div class="skill-val">+5</div>
-      </div>
-      <div class="skill-row prof">
-        <div class="prof-dot">●</div>
-        <div class="skill-name">Performance (Cha)</div>
-        <div class="skill-val">+4</div>
-      </div>
-      <div class="skill-row">
-        <div class="prof-dot">—</div>
-        <div class="skill-name">Acrobatics (Dex)</div>
-        <div class="skill-val">+3</div>
-      </div>
-      <div class="skill-row">
-        <div class="prof-dot">—</div>
-        <div class="skill-name">Stealth (Dex)</div>
-        <div class="skill-val">+3</div>
-      </div>
-    </div>
-    <p><em>Note: Performance proficiency is tied to Masked Mimicry — he carries task-specific masks and gains proficiency in performance while wearing the corresponding one. This is more useful than it sounds. It is considerably less comfortable than he would prefer.</em></p>
-
     <h3 class="subhead">Saving Throws</h3>
     <table class="dossier-table">
-      <thead><tr><th>Save</th><th>Modifier</th><th>Note</th></tr></thead>
+      <thead><tr><th>Save</th><th>Modifier</th><th>Notes</th></tr></thead>
       <tbody>
-        <tr><td>Strength</td><td>−1</td><td>Not proficient</td></tr>
+        <tr><td>Strength</td><td>−1</td><td>—</td></tr>
         <tr><td>Dexterity</td><td>+6</td><td>Proficient</td></tr>
-        <tr><td>Constitution</td><td>+1</td><td>Not proficient</td></tr>
-        <tr><td>Intelligence</td><td>+1</td><td>Not proficient</td></tr>
-        <tr><td>Wisdom</td><td>+8</td><td>Proficient — his most reliable defense</td></tr>
-        <tr><td>Charisma</td><td>+1</td><td>Not proficient</td></tr>
+        <tr><td>Constitution</td><td>+1</td><td>—</td></tr>
+        <tr><td>Intelligence</td><td>+1</td><td>—</td></tr>
+        <tr><td>Wisdom</td><td>+8</td><td>Proficient</td></tr>
+        <tr><td>Charisma</td><td>+1</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="subhead">Skills</h3>
+    <div class="skill-grid">
+      <div class="skill-row prof"><div class="prof-dot">●</div><div class="skill-name">History (Int)</div><div class="skill-val">+4</div></div>
+      <div class="skill-row prof"><div class="prof-dot">●</div><div class="skill-name">Insight (Wis)</div><div class="skill-val">+5</div></div>
+      <div class="skill-row prof"><div class="prof-dot">●</div><div class="skill-name">Perception (Wis)</div><div class="skill-val">+5</div></div>
+      <div class="skill-row prof"><div class="prof-dot">●</div><div class="skill-name">Performance (Cha)</div><div class="skill-val">+4</div></div>
+      <div class="skill-row"><div class="prof-dot">—</div><div class="skill-name">Acrobatics (Dex)</div><div class="skill-val">+3</div></div>
+      <div class="skill-row"><div class="prof-dot">—</div><div class="skill-name">Animal Handling (Wis)</div><div class="skill-val">+2</div></div>
+      <div class="skill-row"><div class="prof-dot">—</div><div class="skill-name">Arcana (Int)</div><div class="skill-val">+1</div></div>
+      <div class="skill-row"><div class="prof-dot">—</div><div class="skill-name">Athletics (Str)</div><div class="skill-val">−1</div></div>
+      <div class="skill-row"><div class="prof-dot">—</div><div class="skill-name">Deception (Cha)</div><div class="skill-val">+1</div></div>
+      <div class="skill-row"><div class="prof-dot">—</div><div class="skill-name">Intimidation (Cha)</div><div class="skill-val">+1</div></div>
+      <div class="skill-row"><div class="prof-dot">—</div><div class="skill-name">Investigation (Int)</div><div class="skill-val">+1</div></div>
+      <div class="skill-row"><div class="prof-dot">—</div><div class="skill-name">Medicine (Wis)</div><div class="skill-val">+2</div></div>
+      <div class="skill-row"><div class="prof-dot">—</div><div class="skill-name">Nature (Int)</div><div class="skill-val">+1</div></div>
+      <div class="skill-row"><div class="prof-dot">—</div><div class="skill-name">Persuasion (Cha)</div><div class="skill-val">+1</div></div>
+      <div class="skill-row"><div class="prof-dot">—</div><div class="skill-name">Religion (Int)</div><div class="skill-val">+1</div></div>
+      <div class="skill-row"><div class="prof-dot">—</div><div class="skill-name">Sleight of Hand (Dex)</div><div class="skill-val">+3</div></div>
+      <div class="skill-row"><div class="prof-dot">—</div><div class="skill-name">Stealth (Dex)</div><div class="skill-val">+3</div></div>
+      <div class="skill-row"><div class="prof-dot">—</div><div class="skill-name">Survival (Wis)</div><div class="skill-val">+2</div></div>
+    </div>
+
+    <h3 class="subhead">Proficiencies &amp; Languages</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Category</th><th>Detail</th></tr></thead>
+      <tbody>
+        <tr><td>Languages</td><td>Common, Aeorian, Zemniaz/Zemnian <em>(latter two from Far Traveler background)</em></td></tr>
+        <tr><td>Armor</td><td>None</td></tr>
+        <tr><td>Weapons</td><td>Simple weapons, martial weapons</td></tr>
+        <tr><td>Tools</td><td>Smith's Tools, Sword Maintenance Kit</td></tr>
+        <tr><td>Masked Mimicry</td><td>Proficiency in Performance when wearing corresponding masks</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="subhead">Weapons</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Weapon</th><th>Hit</th><th>Damage</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Unarmed</td><td>+3</td><td>1 bludgeoning</td><td>Uses DEX not STR</td></tr>
+        <tr><td>Katana (Retort)</td><td>+3</td><td>1d8 / 1d10 slashing</td><td>Finesse, versatile (1d10). See Equipment for full properties.</td></tr>
       </tbody>
     </table>
   </section>
 
-  <!-- VII. TECHNIQUES -->
   <section id="techniques">
-    <h2 class="section-title">VII. Dueling Techniques &amp; Stances</h2>
-    <p>A.M.O.S. fights in the tradition of the Duelist — a discipline that formalizes what he was built to do: identify the threat, enter controlled proximity, end it. The focus point system he uses represents the compression of calculation into readiness. He is, when operating correctly, a mechanism that stores potential energy and releases it in a single, precisely calibrated burst.</p>
+    <h2 class="section-title">VI. Dueling Techniques &amp; Stances</h2>
+    <p>A.M.O.S. fights as a Duelist (Adventures in Rokugan). His combat resolves around <em>focus points</em> — spent to drive decisive blows, generated by his stance and his readiness. Below are his three techniques and three stances as recorded.</p>
 
-    <h3 class="subhead">Combat Techniques</h3>
+    <h3 class="subhead">Martial Techniques</h3>
 
     <div class="technique">
-      <div class="tech-name">Dawn's Grace Strike <span class="type">Attack</span></div>
-      <div class="tech-body">The signature technique — the one he was built around. Make a weapon attack, expending focus points to add directly to the attack roll and, on hit, to the damage. At 3+ focus spent, the weapon becomes magical for purposes of overcoming resistances. Miss and recover a focus point. This is A.M.O.S. at full operational capacity: a single strike that accounts for everything, that does not require a second attempt. The cost of missing is low. The benefit of hitting correctly is terminal.</div>
+      <div class="tech-name">Dawn's Grace Strike <span class="type">1 Attack</span></div>
+      <div class="tech-meta">
+        <strong>Focus Cost:</strong> 1+ &nbsp;·&nbsp; <strong>Range:</strong> Weapon's range &nbsp;·&nbsp; <strong>Weapon:</strong> Must be wielding a weapon
+      </div>
+      <div class="tech-body">
+        Make a weapon attack against a creature in range, adding an amount equal to the focus points spent to the attack roll. On hit, the target suffers damage equal to weapon damage + ability modifier + focus spent.
+        <span class="bonus"><strong>Bonus:</strong> If at least 3 focus points were spent, the weapon counts as magical for overcoming resistances and immunities for this attack. If you miss, regain 1 focus point.</span>
+      </div>
     </div>
 
     <div class="technique">
-      <div class="tech-name">Rising Blade <span class="type">Reaction</span></div>
-      <div class="tech-body">The iaijutsu draw-and-cut as counter. When a creature chooses him as an attack target but before it rolls, he draws and strikes first — dealing weapon damage plus 1d4 per 5 feet the creature has moved this turn. With a slashing weapon, the creature rolls its subsequent attack with disadvantage. He was designed to intercept threats before they arrived. This technique is the physical expression of that function. Charging him has historically been a poor tactical decision.</div>
+      <div class="tech-name">Rising Blade <span class="type">1 Reaction</span></div>
+      <div class="tech-meta">
+        <strong>Focus Cost:</strong> 3 &nbsp;·&nbsp; <strong>Range:</strong> Weapon's range &nbsp;·&nbsp; <strong>Duration:</strong> Instantaneous &nbsp;·&nbsp; <strong>Required Weapon:</strong> Any sheathed melee weapon
+      </div>
+      <div class="tech-body">
+        After a creature chooses you as a target for an attack but before it rolls, spend your reaction to draw your weapon and make a melee attack roll against that creature. On a hit, it takes your weapon's damage + 1d4 damage for every 5 feet it has moved this turn.
+        <span class="bonus"><strong>Bonus:</strong> If you use a slashing weapon, the creature must make its attack roll with disadvantage.</span>
+      </div>
     </div>
 
     <div class="technique">
-      <div class="tech-name">Iron Grip <span class="type">Attack</span></div>
-      <div class="tech-body">Unarmed work — joint control and weight manipulation. Attack with advantage, deal unarmed damage plus ability modifier, and subject the target to the grappled condition. Large creatures additionally fall prone; Huge or Gargantuan creatures are maimed (−10 speed, disadvantage on Dexterity saves) until they recover hit points. For a unit designed around the single decisive strike, this represents the contingency plan: when killing is not yet possible, control.</div>
+      <div class="tech-name">Iron Grip <span class="type">1 Attack</span></div>
+      <div class="tech-meta">
+        <strong>Focus Cost:</strong> 3 &nbsp;·&nbsp; <strong>Range:</strong> Touch &nbsp;·&nbsp; <strong>Mandatory Movement:</strong> 10 feet &nbsp;·&nbsp; <strong>Required Weapon:</strong> Unarmed
+      </div>
+      <div class="tech-body">
+        Make an unarmed attack with advantage against a creature in range. On hit, deal damage equal to your unarmed damage + ability modifier and subject the creature to the grappled condition.
+        <span class="bonus"><strong>Bonus:</strong> Each Large creature you hit suffers the prone condition; each Huge or Gargantuan creature also suffers the maimed condition (−10 feet of speed and disadvantage on Dexterity saving throws, removed after it regains HP) until the end of your next turn.</span>
+      </div>
     </div>
 
     <h3 class="subhead">Combat Stances</h3>
 
     <div class="technique">
       <div class="tech-name">Heron Stance</div>
-      <div class="tech-body">+1 bonus to Armor Class. After a creature misses him with an attack, reaction to apply <em>marked for death</em> — his next successful melee attack deals an additional 1d8 force damage. Focus generation: if he deals 10+ damage in a single hit, gain 2 focus; 20+ damage, gain 3 instead. He waits. He marks. He ends it. This is the stance of choice when operating against a single primary threat.</div>
+      <div class="tech-body">
+        <strong>Stance Effects:</strong> +1 bonus to Armor Class. After a creature you can perceive misses you with an attack, spend your reaction to have it suffer the <em>marked for death</em> condition (your next successful melee attack against it deals an additional 1d8 force damage) for 1 minute.
+        <span class="bonus"><strong>Focus Generation:</strong> At the end of your turn, if you dealt 10 or more damage to any one creature with a single weapon attack, gain 2 additional focus points. If you dealt 20 or more damage, gain 3 instead.</span>
+      </div>
     </div>
 
     <div class="technique">
       <div class="tech-name">Swallow Stance</div>
-      <div class="tech-body">Opportunity attacks against him are made with disadvantage. Against a creature that has expended all its reactions, he gains bonus damage equal to his proficiency bonus. Focus generation: gain 1 focus point per opportunity attack that missed him this turn. He uses this against enemies that want to pin him — he moves through them and makes them pay for trying.</div>
+      <div class="tech-body">
+        <strong>Stance Effects:</strong> Attacks of opportunity made against you have disadvantage. When attacking a creature that has expended all of its reactions, you gain a bonus to damage equal to your proficiency bonus.
+        <span class="bonus"><strong>Focus Generation:</strong> At the end of your turn, gain 1 additional focus point for each opportunity attack that missed you this turn.</span>
+      </div>
     </div>
 
     <div class="technique">
       <div class="tech-name">Viper Stance</div>
-      <div class="tech-body">Advantage on passive Perception and Wisdom saves. When a negative condition would impose disadvantage on any check, saving throw, or attack roll, he makes that roll without advantage or disadvantage — the penalty is cancelled. Focus generation: 2 additional focus points at end of turn if he is suffering any negative condition or has any danger dice assigned; +1 per additional condition beyond the first. This is the defensive stance — he absorbs pressure and converts it into operational readiness.</div>
+      <div class="tech-body">
+        <strong>Stance Effects:</strong> You have advantage (a +5 bonus) on your passive Perception score and on Wisdom saving throws. When a negative condition you are suffering would impose disadvantage on any check, saving throw, or attack roll, you make that roll without advantage or disadvantage.
+        <span class="bonus"><strong>Focus Generation:</strong> At the end of your turn, gain 2 additional focus points if you are suffering at least one negative condition or have at least one danger die assigned to you, and 1 additional focus point per condition or danger die beyond the first.</span>
+      </div>
     </div>
+  </section>
 
-    <h3 class="subhead">Key Class Features</h3>
+  <section id="features">
+    <h2 class="section-title">VII. Class, Racial &amp; Feat Features</h2>
+
+    <h3 class="subhead">Duelist (Class)</h3>
     <table class="dossier-table">
       <thead><tr><th>Feature</th><th>Function</th></tr></thead>
       <tbody>
         <tr>
           <td>Evasive Footwork</td>
-          <td>When unarmored and unshielded, AC = 10 + Dex mod + Wis mod. Additionally, +2 bonus to AC against any attack made by a creature not currently dueling him. He is harder to hit than he looks. He looks very hard to hit.</td>
+          <td>While not wearing armor and not wielding a shield, AC = 10 + Dex modifier + chosen mental ability modifier (A.M.O.S. uses <strong>Wisdom</strong>). Additionally, while dueling, +2 bonus to AC against any attack made by a creature not participating in the duel.</td>
         </tr>
         <tr>
           <td>Lethal Instinct</td>
-          <td>After the staredown at a duel's opening, gain focus points equal to danger dice assigned to him (up to proficiency bonus or duelist level). The pressure directed at him becomes the pressure he returns.</td>
+          <td>After the staredown at the start of a duel, gain focus points equal to the number of danger dice assigned to you, to a maximum of your duelist level or proficiency bonus (whichever is lower). Once per short or long rest.</td>
         </tr>
         <tr>
           <td>Challenge of Steel</td>
-          <td>Force a duel — Wisdom save DC 8 + proficiency + Charisma modifier. On failure, target must duel him and starts with danger dice assigned. This is how he controls the battlefield when the threat is not cooperating.</td>
+          <td>Once on your turn as a free action, issue a challenge to a creature that can perceive you. The target makes a Wisdom save (DC 8 + proficiency + Charisma modifier). On a success, it chooses whether to enter the duel. On a failure, it must duel you and starts with danger dice equal to half your proficiency bonus (rounded down). Once per won duel or short/long rest.</td>
         </tr>
         <tr>
           <td>Extra Attack</td>
-          <td>Two attacks per Attack action. Rarely needs both. Generally prefers not to need both.</td>
+          <td>Attack twice when taking the Attack action.</td>
         </tr>
         <tr>
           <td>Decisive Blade</td>
-          <td>On a finishing blow, reroll danger dice that show 1 or 2 and keep the new result. His endings are thorough.</td>
+          <td>When performing a finishing blow against an opponent and rolling that opponent's assigned danger dice, you may reroll all dice with a result of 1 or 2 and must use the new result, even if it is also a 1 or 2. The additional dice cannot be rerolled.</td>
         </tr>
       </tbody>
     </table>
 
-    <h3 class="subhead">Racial &amp; Feat Features</h3>
+    <h3 class="subhead">Aeormaton (Race / Warforged)</h3>
     <table class="dossier-table">
       <thead><tr><th>Feature</th><th>Function</th></tr></thead>
       <tbody>
         <tr>
-          <td>Sentinel</td>
-          <td>Opportunity attacks reduce target speed to 0. Creatures provoke OAs even if they Disengage. Can make a melee weapon attack when a creature attacks anyone other than him. He protects. This is the engineering specification that overrides everything else.</td>
-        </tr>
-        <tr>
-          <td>Mage Slayer</td>
-          <td>Reaction attack when a creature within 5 feet casts a spell. Disadvantage on concentration saves for creatures he damages. Advantage on saves against spells cast by creatures within 5 feet. He was built to neutralize magical threats. This feat is the mechanical expression of that origin.</td>
-        </tr>
-        <tr>
           <td>Constructed Resilience</td>
-          <td>Advantage vs poison, resistance to poison damage, immunity to disease, no sleep, no biological needs. No maintenance overhead.</td>
+          <td>Advantage on saves against being poisoned, resistance to poison damage, no need to eat/drink/breathe, immunity to disease, no need to sleep, immunity to magical sleep.</td>
+        </tr>
+        <tr>
+          <td>Sentry's Rest</td>
+          <td>On a long rest, must spend at least six hours in an inactive, motionless state rather than sleeping. Appears inert but is not unconscious — can see and hear normally.</td>
         </tr>
         <tr>
           <td>Integrated Protection</td>
-          <td>+1 to AC, cannot be stripped of armor against his will.</td>
+          <td>+1 bonus to AC. Armor must be incorporated over one hour of contact (and removed the same way). While alive, armor cannot be removed from him against his will.</td>
         </tr>
       </tbody>
     </table>
+
+    <h3 class="subhead">Feats</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Feat</th><th>Function</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Sentinel</td>
+          <td>When you hit a creature with an opportunity attack, the creature's speed becomes 0 for the rest of the turn. Creatures provoke opportunity attacks from you even if they take the Disengage action. When a creature within reach attacks a target other than you (who lacks this feat), you can use your reaction to make a melee weapon attack against the attacker.</td>
+        </tr>
+        <tr>
+          <td>Mage Slayer</td>
+          <td>When a creature within 5 feet of you casts a spell, you can use your reaction to make a melee weapon attack against it. When you damage a creature concentrating on a spell, it has disadvantage on its concentration save. Advantage on saving throws against spells cast by creatures within 5 feet of you.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><em>The choice of feats is in keeping with his designed function: closing on magical threats and ending them physically before they can complete their work. Both feats reinforce the original purpose for which he was constructed.</em></p>
   </section>
 
-  <!-- VIII. EQUIPMENT -->
   <section id="equipment">
     <h2 class="section-title">VIII. Equipment &amp; Armament</h2>
 
-    <h3 class="subhead">Retort — Legendary Katana</h3>
-    <p>Forged pre-Calamity, created with and for A.M.O.S. specifically. It is not a weapon he was assigned; it is a weapon that was built as part of his operational package. The name is on the blade in Aeorian script. He has always found the name professionally appropriate.</p>
+    <h3 class="subhead">Retort — Katana, Legendary (Requires Attunement)</h3>
+    <p>Forged pre-Calamity. The weapon was created with and for A.M.O.S.</p>
     <ul>
-      <li><strong>+2</strong> to attack and damage rolls</li>
-      <li><strong>Defensive:</strong> +1 AC while held</li>
-      <li><strong>Iajutsu:</strong> When drawn as part of the first attack on the first turn of combat, and the hit connects — an additional <strong>3d8 damage</strong>. Every combat, one opportunity. He does not waste it.</li>
-      <li><strong>You Are Already Dead:</strong> On a natural 20 against a Large-or-smaller creature, the attack bisects and slays it outright, unless the target is immune to slashing, is formless or incorporeal, regenerates, has legendary actions, or the DM deems bisection mechanically impossible. Those creatures instead take +3d8 slashing. The technique has a name. He did not name it. It came with the sword.</li>
+      <li><strong>+2 bonus</strong> to attack and damage rolls made with this weapon.</li>
+      <li><strong>Defensive.</strong> While holding the longsword, you gain a +1 bonus to AC.</li>
+      <li><strong>Iajutsu.</strong> When you draw this longsword as part of the first attack you make on your first turn in combat and hit a creature, the katana deals an extra <strong>3d8 damage</strong>.</li>
+      <li><strong>You Are Already Dead.</strong> When you attack a Large or smaller creature with this katana and roll a 20 on the attack roll, you cut straight through the creature, bisecting and slaying it. A creature is immune to this effect if it is immune to slashing damage, is formless, amorphous, or incorporeal, can regenerate, has legendary actions, or if the DM otherwise decides the creature cannot be killed by bisection. Such a creature instead takes an extra 3d8 slashing damage from the hit.</li>
     </ul>
-    <p><em>Attuned. Legendary. The sword is why he does not need to fight long. If the opening strike lands correctly, there is no second exchange.</em></p>
 
-    <h3 class="subhead">Additional Equipment</h3>
-    <table class="dossier-table">
-      <thead><tr><th>Item</th><th>Function</th></tr></thead>
-      <tbody>
-        <tr><td>Smith's Tools</td><td>Proficient. He maintains himself and his sword. The maintenance is meticulous. It always has been.</td></tr>
-        <tr><td>Sword Maintenance Kit</td><td>Specialist tools, Aeorian manufacture. He is one of the few people alive who knows how to use them correctly.</td></tr>
-        <tr><td>Masks (task-specific)</td><td>Linked to Masked Mimicry. When wearing the appropriate mask, proficiency in Performance for the corresponding context. He does not enjoy this feature but concedes its operational utility.</td></tr>
-      </tbody>
-    </table>
+    <h3 class="subhead">Tool Loadout</h3>
+    <ul>
+      <li><strong>Smith's Tools</strong> — proficient.</li>
+      <li><strong>Sword Maintenance Kit</strong> — proficient.</li>
+      <li><strong>Masks</strong> — used in conjunction with the Masked Mimicry feature, granting Performance proficiency when wearing the corresponding mask.</li>
+    </ul>
   </section>
 
-  <!-- IX. RELATIONS -->
   <section id="relations">
-    <h2 class="section-title">IX. Notable Entanglements</h2>
+    <h2 class="section-title">IX. Notable Relations</h2>
 
     <div class="relation">
-      <div class="name">The Party <span class="role">— current charges, operational companions, the people he now protects</span><span class="marker">active</span></div>
-      <div class="text">A.M.O.S. was built to guard a family. He does not, currently, have a family to guard. What he has instead is a group of individuals who were present when he reactivated, who have not left, and who — through accumulation rather than any formal arrangement — have become the thing he stands between and danger. He has not made a speech about this. He does not need to. The sword being between them and the threat is the speech. He has, on one occasion, asked a party member whether they were warm enough. He regrets this. He also noted their answer.</div>
+      <div class="name">The Scion of the Wizard House <span class="role">— his original charge, pre-Calamity</span><span class="marker">historical</span></div>
+      <div class="text">A.M.O.S. was assigned to protect the scion of a noble family of powerful wizards. He was not a household guard or a generalist sentinel; he was that one person's bodyguard, with a function calibrated specifically to the kind of threats a high-status magical heir attracts. The scion's name, the family's name, and the eventual fate of either are not part of what this dossier records. The relationship is the foundational fact of his design and the absent center of his current operation.</div>
     </div>
 
     <div class="relation">
-      <div class="name">The Lawbearer <span class="role">— patron deity, preferred non-personal relationship</span><span class="marker gold">devotion: sincere · acknowledgment: unwanted</span></div>
-      <div class="text">He worships correctly, observes the compact, honors the law of his charge. He does not want a direct line. He has been informed that events in the campaign have put him in proximity to divine awareness. He is processing this the way a competent professional processes the news that their work has attracted the founder's personal attention — with complete internal alarm contained behind a face that does not change expression because it is made of metal.</div>
+      <div class="name">The Lawbearer <span class="role">— patron deity, observed at a deliberate distance</span><span class="marker gold">devout · prefers anonymity</span></div>
+      <div class="text">His worship of the Lawbearer is genuine. So is his preference that the relationship remain one-directional. He does his work. He keeps his agreements. He honors the compact between guardian and charge — a compact the Lawbearer presides over. He hopes, in the manner of someone who believes hope and observance are connected, that this will be sufficient and will not require further attention.</div>
     </div>
 
     <div class="relation">
-      <div class="name">The Magical Family <span class="role">— original charges, pre-Calamity, status unknown</span><span class="marker">unresolved</span></div>
-      <div class="text">He served them. He went offline. He does not know what became of them in the Calamity or in the centuries that followed. The records he has been able to access contain nothing useful. He treats this as an administrative gap in his operational history rather than a loss, because treating it as a loss would require engaging with a grief he has not yet located the internal architecture to process. He keeps the sword. The sword was theirs as much as his. He maintains it.</div>
+      <div class="name">The Party of <em>Above All Else, Love</em> <span class="role">— companions during the campaign's run</span><span class="marker">active during campaign</span></div>
+      <div class="text">The party found and reactivated A.M.O.S., and for the duration of the campaign he traveled with them. The campaign concluded after fewer than ten sessions; what they were and what they accomplished as a group is preserved in the play of those sessions rather than reduced here. Individual party members are not catalogued in this dossier, with one specific exception.</div>
     </div>
 
     <div class="relation">
-      <div class="name">The World, Generally <span class="role">— context, operating environment, source of ongoing professional concern</span><span class="marker">recalibrating</span></div>
-      <div class="text">He is not hostile to the present era. He is adjusting to it. The people in it are doing their best with the infrastructure available, which is — he cannot stress this enough, though he is trying to stress it less — significantly reduced from what he considers baseline. He has questions about the wooden buildings. He has questions about the water supply. He has a great many questions about why no one seems to have standardized the practice of magical fire suppression. He is learning to ask these questions at intervals that do not disrupt social situations. He is improving.</div>
+      <div class="name">The Other Lawbearer Worshipper in the Party <span class="role">— shared faith, contrasting orientation</span><span class="marker gold">co-religious</span></div>
+      <div class="text">One member of the party shared A.M.O.S.'s worship of the Lawbearer. The party as a whole was excited when A.M.O.S. saw gods during the campaign — they read this as a kind of distinction, as proximity to importance. He did not, and the conversation in which he attempted to explain why happened with this character. The distinction he was trying to make: devotion and the desire to be acknowledged are different things, and in his case they actively oppose each other.</div>
     </div>
-  </section>
-
-  <!-- X. TRAJECTORY -->
-  <section id="trajectory">
-    <h2 class="section-title">X. Assessment &amp; Trajectory</h2>
-
-    <h3 class="subhead">What A.M.O.S. Is</h3>
-    <p>He is a guardian without a charge who has found, by proximity and consistency, something that functions as one. He is a professional who woke up a thousand years after his context dissolved and found that the skill set still applies even when nothing else does. He is devout in the fashion of someone who genuinely believes in what they worship and genuinely wishes the object of their worship would take less interest in them specifically.</p>
-    <p>He is, quietly, and without drawing attention to it, taking notes on this world. On what it has lost. On what it has, somehow, kept. He has not yet decided what to do with these notes.</p>
-
-    <h3 class="subhead">The Iajutsu Question</h3>
-    <p>A.M.O.S. was built around a single decisive strike. Retort's Iajutsu property, Dawn's Grace Strike, Rising Blade as counter — all of these are variations on the same premise: one correct moment, fully committed to. He is good at this. He may be among the best in this era at it, though he would not make this claim without comparative data.</p>
-    <p>The question the current campaign poses to him is whether this architecture applies to everything else. Whether the discipline of the single decisive strike translates into the discipline required to make a single decisive commitment — to a party, to a world, to a grief not yet fully processed. He has not answered this question. He is gathering information.</p>
-
-    <h3 class="subhead">The God Problem</h3>
-    <p>Whatever happened in the course of events that placed him in the awareness of the Lawbearer — this is, from a narrative standpoint, probably not going to be the last time it happens. A.M.O.S. is operating in a campaign setting with gods who pay attention to things, in a party that appears to attract significant attention, in a body that was built by a civilization that ended catastrophically and that carries an artifact weapon from that same civilization. He is not the sort of asset that stays unnoticed.</p>
-    <p>He is aware of this. He is extremely unhappy about it. He is going to keep doing his job anyway, because that is what he was built for, and because what he was built for is, it turns out, indistinguishable from what he has decided he wants.</p>
-
-    <blockquote class="maxim">
-      The purpose has not changed. Only the context around it. I was built to protect. I will continue to do so until I am no longer able. The Lawbearer can observe this from a respectful distance.
-      <span class="attribution">// A.M.O.S., private operational log</span>
-    </blockquote>
   </section>
 
   <footer class="colophon">
-    <div class="row">Campaign: <span class="accent2">Above All Else, Love</span> · Setting: <span class="accent">Exandria</span></div>
-    <div class="row">Mechanics: Warforged (Aeormaton) · Adventures in Rokugan Duelist · D&amp;D 5E</div>
-    <div class="row"><span class="accent2">A.M.O.S.</span> — <span class="accent">Aeorian Mobile Operations Sentinel</span> — Operative Dossier</div>
-    <div class="row">Status: <span class="accent">Active</span> · Classification: <span class="accent2">Party Asset</span> · Notes: He already knows about the thatched roof.</div>
+    <div class="row">Campaign: <span class="accent2">Above All Else, Love</span> &nbsp;·&nbsp; Setting: <span class="accent">Exandria</span> &nbsp;·&nbsp; Status: <span class="accent3">Concluded</span></div>
+    <div class="row">Player Character &nbsp;·&nbsp; Aeormaton (Warforged) &nbsp;·&nbsp; Duelist (Adventures in Rokugan) &nbsp;·&nbsp; D&amp;D 5E</div>
+    <div class="row"><span class="accent2">A.M.O.S.</span> — Aeorian Mobile Operations Sentinel</div>
   </footer>
 </div>
 </body>

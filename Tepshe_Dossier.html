@@ -6,32 +6,25 @@
 <title>Dossier — Tepshe, Jinxed Tengu Inventor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Cormorant+Upright:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Cormorant+Upright:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* ═══════════════════════════════════════════════
-   ROOT TOKENS — Coal, Brass, Blood, Slate
-═══════════════════════════════════════════════ */
 :root {
   --coal:          #0e0c09;
   --coal-soft:     #1c1812;
   --coal-mid:      #2a231a;
-  --coal-faint:    #3d3225;
   --parchment:     #f2e8d0;
   --parchment-dim: #e4d5b0;
-  --parchment-deep:#cdb87a;
   --brass:         #c49a2e;
   --brass-bright:  #e8b83a;
   --brass-dim:     #8a6a14;
   --brass-ghost:   rgba(196,154,46,0.12);
   --copper:        #b05a1a;
-  --copper-bright: #d4742a;
   --copper-ghost:  rgba(176,90,26,0.10);
   --slate:         #354858;
   --slate-bright:  #4e6e82;
   --slate-ghost:   rgba(53,72,88,0.10);
   --crimson:       #8a1f1f;
-  --crimson-bright:#b03030;
   --crimson-ghost: rgba(138,31,31,0.08);
   --ink:           #1a140d;
   --ink-soft:      #362c1e;
@@ -39,12 +32,8 @@
   --ink-faint:     #8a7458;
   --rule:          #c8a848;
   --rule-dim:      #9a7c34;
-  --rule-ghost:    #e0c870;
 }
 
-/* ═══════════════════════════════════════════════
-   RESET & BASE
-═══════════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 
@@ -53,13 +42,7 @@ body {
   background-image:
     radial-gradient(ellipse 80% 60% at 20% 0%, rgba(196,154,46,0.07) 0%, transparent 60%),
     radial-gradient(ellipse 60% 80% at 80% 100%, rgba(53,72,88,0.15) 0%, transparent 60%),
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(255,255,255,0.008) 2px,
-      rgba(255,255,255,0.008) 4px
-    );
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.008) 2px, rgba(255,255,255,0.008) 4px);
   min-height: 100vh;
   padding: 3rem 1rem 4rem;
   font-family: "IM Fell English", Georgia, "Times New Roman", serif;
@@ -68,28 +51,16 @@ body {
   color: var(--ink);
 }
 
-/* ═══════════════════════════════════════════════
-   OUTER FRAME — the "mechanical casing"
-═══════════════════════════════════════════════ */
 .outer-frame {
   max-width: 960px;
   margin: 0 auto;
   position: relative;
   padding: 6px;
-  background: linear-gradient(135deg,
-    var(--brass-dim) 0%, var(--brass) 25%,
-    var(--copper) 50%, var(--brass) 75%,
-    var(--brass-dim) 100%
-  );
-  box-shadow:
-    0 0 0 1px var(--coal),
-    0 0 40px rgba(196,154,46,0.25),
-    0 20px 60px rgba(0,0,0,0.7),
-    inset 0 1px 0 rgba(255,255,255,0.15);
+  background: linear-gradient(135deg, var(--brass-dim) 0%, var(--brass) 25%, var(--copper) 50%, var(--brass) 75%, var(--brass-dim) 100%);
+  box-shadow: 0 0 0 1px var(--coal), 0 0 40px rgba(196,154,46,0.25), 0 20px 60px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.15);
 }
-
-/* Corner gear ornaments */
-.outer-frame::before, .outer-frame::after {
+.outer-frame::before, .outer-frame::after,
+.corner-tr, .corner-bl {
   content: "✦";
   position: absolute;
   color: var(--coal);
@@ -100,20 +71,9 @@ body {
 }
 .outer-frame::before { top: -4px; left: -4px; }
 .outer-frame::after  { bottom: -4px; right: -4px; }
-.corner-tr, .corner-bl {
-  position: absolute;
-  color: var(--coal);
-  font-size: 1.4rem;
-  z-index: 10;
-  width: 28px; height: 28px;
-  display: flex; align-items: center; justify-content: center;
-}
 .corner-tr { top: -4px; right: -4px; }
 .corner-bl { bottom: -4px; left: -4px; }
 
-/* ═══════════════════════════════════════════════
-   INNER DOCUMENT
-═══════════════════════════════════════════════ */
 .document {
   background: var(--parchment);
   background-image:
@@ -124,23 +84,17 @@ body {
   position: relative;
   overflow: hidden;
 }
-
-/* Subtle inner top rule */
 .document::before {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; height: 6px;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--brass-dim)  0px, var(--brass)       4px,
-    var(--copper)     4px, var(--copper)       7px,
-    var(--brass)      7px, var(--brass-dim)   11px,
-    var(--slate)     11px, var(--slate-bright)14px,
-    var(--brass-dim) 14px, var(--brass-dim)   18px
-  );
+  background: repeating-linear-gradient(90deg,
+    var(--brass-dim) 0px, var(--brass) 4px,
+    var(--copper) 4px, var(--copper) 7px,
+    var(--brass) 7px, var(--brass-dim) 11px,
+    var(--slate) 11px, var(--slate-bright) 14px,
+    var(--brass-dim) 14px, var(--brass-dim) 18px);
 }
-
-/* Watermark gear */
 .document::after {
   content: "⚙";
   position: absolute;
@@ -152,17 +106,12 @@ body {
   user-select: none;
 }
 
-/* ═══════════════════════════════════════════════
-   HEADER
-═══════════════════════════════════════════════ */
 header.title-block {
   text-align: center;
   padding-bottom: 2.5rem;
   margin-bottom: 2.8rem;
   position: relative;
 }
-
-/* Decorative rule under header */
 header.title-block::after {
   content: "";
   position: absolute;
@@ -170,7 +119,6 @@ header.title-block::after {
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--brass-dim) 20%, var(--brass) 50%, var(--brass-dim) 80%, transparent);
 }
-
 .header-ornament {
   font-family: "IM Fell English", serif;
   font-size: 1.3rem;
@@ -179,7 +127,6 @@ header.title-block::after {
   margin-bottom: 0.6rem;
   opacity: 0.7;
 }
-
 .eyebrow {
   font-family: "Cinzel", serif;
   font-size: 0.65rem;
@@ -192,7 +139,6 @@ header.title-block::after {
   display: inline-block;
   padding-left: 0.55em;
 }
-
 h1.character-name {
   font-family: "Cormorant Upright", "Cormorant Garamond", Georgia, serif;
   font-weight: 300;
@@ -202,12 +148,7 @@ h1.character-name {
   letter-spacing: 0.28em;
   color: var(--coal-soft);
   text-transform: uppercase;
-  position: relative;
 }
-h1.character-name .first-letter {
-  /* no special styling — uniform color throughout */
-}
-
 .character-subtitle {
   font-family: "IM Fell English SC", serif;
   font-size: 0.78rem;
@@ -217,20 +158,10 @@ h1.character-name .first-letter {
   margin: 0.6rem 0 1rem;
   padding-left: 0.38em;
 }
-
-.epithets {
-  font-family: "IM Fell English", serif;
-  font-style: italic;
-  font-size: 1.05rem;
-  color: var(--ink-soft);
-  margin: 0.5rem 0 1.5rem;
-}
-
 .vitals-strip {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0;
   border-top: 1px solid rgba(196,154,46,0.3);
   border-bottom: 1px solid rgba(196,154,46,0.3);
   padding: 0.7rem 0;
@@ -247,22 +178,13 @@ h1.character-name .first-letter {
 .vital:last-child { border-right: none; }
 .vital strong { color: var(--brass-dim); font-weight: 600; }
 
-/* ═══════════════════════════════════════════════
-   PORTRAIT
-═══════════════════════════════════════════════ */
-.portrait-block {
-  text-align: center;
-  margin: 0 0 2.8rem;
-}
+.portrait-block { text-align: center; margin: 0 0 2.8rem; }
 .portrait-frame {
   display: inline-block;
   position: relative;
   padding: 8px;
   background: linear-gradient(135deg, var(--brass-dim), var(--coal-mid), var(--brass-dim));
-  box-shadow:
-    0 0 0 1px var(--brass-dim),
-    0 8px 32px rgba(0,0,0,0.35),
-    inset 0 0 20px rgba(196,154,46,0.1);
+  box-shadow: 0 0 0 1px var(--brass-dim), 0 8px 32px rgba(0,0,0,0.35), inset 0 0 20px rgba(196,154,46,0.1);
 }
 .portrait-frame::before, .portrait-frame::after {
   content: "⚙";
@@ -274,7 +196,6 @@ h1.character-name .first-letter {
 }
 .portrait-frame::before { left: -1.8rem; }
 .portrait-frame::after  { right: -1.8rem; }
-
 .portrait-frame img {
   display: block;
   max-width: 240px;
@@ -292,9 +213,6 @@ h1.character-name .first-letter {
   padding-left: 0.32em;
 }
 
-/* ═══════════════════════════════════════════════
-   TOC
-═══════════════════════════════════════════════ */
 .toc-wrapper {
   border: 1px solid rgba(196,154,46,0.35);
   border-left: 4px solid var(--brass);
@@ -328,11 +246,7 @@ h1.character-name .first-letter {
 .toc-wrapper a { color: var(--ink-soft); text-decoration: none; transition: color 0.2s; }
 .toc-wrapper a:hover { color: var(--copper); }
 
-/* ═══════════════════════════════════════════════
-   SECTIONS
-═══════════════════════════════════════════════ */
 section { margin-bottom: 3.2rem; }
-
 h2.section-title {
   font-family: "Cinzel", serif;
   font-weight: 700;
@@ -353,14 +267,12 @@ h2.section-title::before {
   top: 50%; transform: translateY(-50%);
   color: var(--brass);
   font-size: 1rem;
-  font-family: serif;
 }
 h2.section-title .numeral {
   color: var(--brass-dim);
   margin-right: 0.5rem;
   font-size: 0.9em;
 }
-
 h3.subhead {
   font-family: "IM Fell English", serif;
   font-style: italic;
@@ -369,69 +281,32 @@ h3.subhead {
   color: var(--copper);
   margin: 1.7rem 0 0.6rem;
 }
-
 p { margin: 0 0 1rem; color: var(--ink-soft); }
 p:last-child { margin-bottom: 0; }
 
-p.drop-cap::first-letter {
-  font-family: "Cinzel Decorative", serif;
-  font-size: 3.5em;
-  font-weight: 700;
-  line-height: 0.75;
-  float: left;
-  margin: 0.06em 0.1em 0 0;
-  color: var(--brass);
-  text-shadow: 2px 2px 0 var(--brass-dim), 3px 3px 4px rgba(0,0,0,0.15);
-}
-
-/* ═══════════════════════════════════════════════
-   BLOCKQUOTES
-═══════════════════════════════════════════════ */
-blockquote.field-note {
-  border-left: 3px solid var(--copper);
-  background: var(--copper-ghost);
-  margin: 1.5rem 0;
-  padding: 0.9rem 1.5rem;
-  font-style: italic;
-  color: var(--ink-soft);
-  font-size: 0.96rem;
-}
-blockquote.field-note .attribution {
-  display: block;
-  font-style: normal;
-  font-family: "Cinzel", serif;
-  font-size: 0.64rem;
-  letter-spacing: 0.22em;
-  color: var(--ink-faint);
-  margin-top: 0.5rem;
-  text-transform: uppercase;
-  padding-left: 0.22em;
-}
-blockquote.maxim {
+.placeholder {
+  border: 1px dashed rgba(138,116,88,0.5);
+  background: rgba(242,232,208,0.4);
+  padding: 1.2rem 1.5rem;
+  margin: 1rem 0;
   text-align: center;
-  border-top: 1px solid var(--rule-dim);
-  border-bottom: 1px solid var(--rule-dim);
-  margin: 2rem 2.5rem;
-  padding: 1.1rem 1.5rem;
+  font-family: "IM Fell English", serif;
   font-style: italic;
-  font-size: 1.12rem;
-  color: var(--brass-dim);
-  position: relative;
+  color: var(--ink-faint);
+  font-size: 0.92rem;
 }
-blockquote.maxim::before, blockquote.maxim::after {
-  content: "✦";
-  color: var(--brass);
+.placeholder .ph-label {
+  font-family: "Cinzel", serif;
   font-style: normal;
-  font-size: 0.75rem;
-  position: absolute;
-  top: 50%; transform: translateY(-50%);
+  font-size: 0.62rem;
+  letter-spacing: 0.32em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.4rem;
+  padding-left: 0.32em;
 }
-blockquote.maxim::before { left: 0.5rem; }
-blockquote.maxim::after  { right: 0.5rem; }
 
-/* ═══════════════════════════════════════════════
-   CALLOUT BOXES
-═══════════════════════════════════════════════ */
 .callout {
   border: 1px solid rgba(196,154,46,0.35);
   border-left: 4px solid var(--brass);
@@ -439,10 +314,6 @@ blockquote.maxim::after  { right: 0.5rem; }
   padding: 0.95rem 1.4rem;
   margin: 1.3rem 0;
   font-size: 0.94rem;
-}
-.callout.danger {
-  border-left-color: var(--crimson);
-  background: var(--crimson-ghost);
 }
 .callout.slate-box {
   border-left-color: var(--slate);
@@ -458,60 +329,28 @@ blockquote.maxim::after  { right: 0.5rem; }
   font-weight: 700;
   padding-left: 0.32em;
 }
-.callout.danger .cbox-label { color: var(--crimson); }
 .callout.slate-box .cbox-label { color: var(--slate); }
 .callout p { margin: 0; }
 
-/* ═══════════════════════════════════════════════
-   STAT GRID — Ability Scores
-═══════════════════════════════════════════════ */
-.stat-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 0.6rem;
-  margin: 1.4rem 0;
-}
+.stat-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.6rem; margin: 1.4rem 0; }
 .stat-cell {
   background: rgba(26,20,13,0.04);
   border: 1px solid rgba(196,154,46,0.3);
   border-top: 4px solid var(--brass-dim);
   text-align: center;
   padding: 0.65rem 0.25rem 0.5rem;
-  position: relative;
 }
 .stat-cell .score {
-  font-family: "Cinzel Decorative", serif;
-  font-size: 1.7rem;
-  font-weight: 700;
+  font-family: "Cormorant Upright", serif;
+  font-size: 1.9rem;
+  font-weight: 500;
   line-height: 1;
   color: var(--coal-soft);
 }
-.stat-cell .modifier {
-  font-family: "Cinzel", serif;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--brass);
-  line-height: 1.2;
-}
-.stat-cell .stat-name {
-  font-family: "IM Fell English SC", serif;
-  font-size: 0.58rem;
-  letter-spacing: 0.18em;
-  color: var(--ink-faint);
-  display: block;
-  margin-top: 0.25rem;
-  text-transform: uppercase;
-}
+.stat-cell .modifier { font-family: "Cinzel", serif; font-size: 0.95rem; font-weight: 600; color: var(--brass); line-height: 1.2; }
+.stat-cell .stat-name { font-family: "IM Fell English SC", serif; font-size: 0.58rem; letter-spacing: 0.18em; color: var(--ink-faint); display: block; margin-top: 0.25rem; text-transform: uppercase; }
 
-/* ═══════════════════════════════════════════════
-   COMBAT STATS ROW
-═══════════════════════════════════════════════ */
-.combat-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.6rem;
-  margin: 1.2rem 0;
-}
+.combat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; margin: 1.2rem 0; }
 .combat-cell {
   border: 1px solid rgba(196,154,46,0.3);
   background: var(--slate-ghost);
@@ -519,36 +358,12 @@ blockquote.maxim::after  { right: 0.5rem; }
   text-align: center;
   padding: 0.7rem 0.5rem;
 }
-.combat-cell.hp-cell {
-  border-top-color: var(--crimson);
-  background: var(--crimson-ghost);
-}
-.combat-cell .val {
-  font-family: "Cinzel", serif;
-  font-size: 1.6rem;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--coal-soft);
-}
+.combat-cell.hp-cell { border-top-color: var(--crimson); background: var(--crimson-ghost); }
+.combat-cell .val { font-family: "Cinzel", serif; font-size: 1.6rem; font-weight: 700; line-height: 1; color: var(--coal-soft); }
 .combat-cell.hp-cell .val { color: var(--crimson); }
-.combat-cell .clabel {
-  font-family: "IM Fell English SC", serif;
-  font-size: 0.63rem;
-  letter-spacing: 0.2em;
-  color: var(--ink-faint);
-  display: block;
-  margin-top: 0.28rem;
-}
+.combat-cell .clabel { font-family: "IM Fell English SC", serif; font-size: 0.63rem; letter-spacing: 0.2em; color: var(--ink-faint); display: block; margin-top: 0.28rem; }
 
-/* ═══════════════════════════════════════════════
-   SKILLS
-═══════════════════════════════════════════════ */
-.skills-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0 2.5rem;
-  margin: 1.2rem 0;
-}
+.skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 2.5rem; margin: 1.2rem 0; }
 .skill-row {
   display: flex;
   justify-content: space-between;
@@ -556,53 +371,16 @@ blockquote.maxim::after  { right: 0.5rem; }
   border-bottom: 1px dotted rgba(196,154,46,0.3);
   padding: 0.25rem 0;
 }
-.skill-name {
-  font-family: "IM Fell English SC", serif;
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
-  color: var(--ink-soft);
-}
-.skill-val {
-  font-family: "Cinzel", serif;
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: var(--coal-soft);
-  min-width: 2.5rem;
-  text-align: right;
-}
+.skill-name { font-family: "IM Fell English SC", serif; font-size: 0.85rem; letter-spacing: 0.1em; color: var(--ink-soft); }
+.skill-val { font-family: "Cinzel", serif; font-weight: 700; font-size: 0.95rem; color: var(--coal-soft); min-width: 2.5rem; text-align: right; }
 .skill-val.trained { color: var(--brass-dim); }
 .skill-val.expert  { color: var(--copper); }
-.skill-row.highlight-row {
-  background: rgba(196,154,46,0.06);
-  padding: 0.25rem 0.5rem;
-  border-radius: 1px;
-  border-bottom-color: transparent;
-  margin-bottom: 2px;
-}
 
-/* ═══════════════════════════════════════════════
-   ABILITY BLOCKS
-═══════════════════════════════════════════════ */
 .ability-block {
   border: 1px solid rgba(196,154,46,0.3);
   padding: 1rem 1.3rem;
   margin: 0.85rem 0;
   background: rgba(242,232,208,0.5);
-  position: relative;
-}
-.ability-block.signature {
-  border-color: var(--brass-dim);
-  background: var(--brass-ghost);
-}
-.ability-block.signature::after {
-  content: "★";
-  position: absolute;
-  top: -0.65em; right: 0.9rem;
-  color: var(--brass);
-  font-size: 0.85rem;
-  background: var(--parchment);
-  padding: 0 0.25rem;
-  line-height: 1;
 }
 .ability-name {
   font-family: "Cinzel", serif;
@@ -613,32 +391,10 @@ blockquote.maxim::after  { right: 0.5rem; }
   text-transform: uppercase;
   margin-bottom: 0.15rem;
 }
-.ability-meta {
-  font-family: "IM Fell English SC", serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
-  color: var(--ink-faint);
-  margin-bottom: 0.5rem;
-}
-.ability-desc {
-  font-size: 0.93rem;
-  color: var(--ink-soft);
-  line-height: 1.6;
-}
+.ability-meta { font-family: "IM Fell English SC", serif; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--ink-faint); margin-bottom: 0.3rem; }
 
-/* ═══════════════════════════════════════════════
-   INVENTORY TABLE
-═══════════════════════════════════════════════ */
-.inv-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9rem;
-  margin: 1.1rem 0;
-}
-.inv-table thead tr {
-  background: var(--coal-soft);
-  color: var(--parchment-dim);
-}
+.inv-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 1.1rem 0; }
+.inv-table thead tr { background: var(--coal-soft); color: var(--parchment-dim); }
 .inv-table th {
   font-family: "Cinzel", serif;
   font-size: 0.63rem;
@@ -648,54 +404,11 @@ blockquote.maxim::after  { right: 0.5rem; }
   text-align: left;
   font-weight: 600;
 }
-.inv-table td {
-  padding: 0.45rem 0.9rem;
-  border-bottom: 1px dotted rgba(196,154,46,0.25);
-  color: var(--ink-soft);
-  vertical-align: top;
-  line-height: 1.5;
-}
+.inv-table td { padding: 0.45rem 0.9rem; border-bottom: 1px dotted rgba(196,154,46,0.25); color: var(--ink-soft); vertical-align: top; }
 .inv-table tr:nth-child(even) td { background: rgba(196,154,46,0.04); }
-.inv-table td:first-child {
-  font-family: "IM Fell English SC", serif;
-  color: var(--ink);
-  white-space: nowrap;
-}
-.inv-table .special-note { color: var(--copper); font-style: italic; font-size: 0.88rem; }
+.inv-table td:first-child { font-family: "IM Fell English SC", serif; color: var(--ink); }
+.inv-table .num { text-align: center; font-family: "Cinzel", serif; font-weight: 600; }
 
-/* ═══════════════════════════════════════════════
-   BADGE TAGS
-═══════════════════════════════════════════════ */
-.badge {
-  display: inline-block;
-  font-family: "Cinzel", serif;
-  font-size: 0.56rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  padding: 0.15em 0.55em 0.1em;
-  border-radius: 1px;
-  margin-left: 0.4rem;
-  vertical-align: middle;
-  line-height: 1.5;
-}
-.badge.br { background: var(--brass-dim); color: var(--parchment); }
-.badge.cp { background: var(--copper);    color: var(--parchment); }
-.badge.sl { background: var(--slate);     color: var(--parchment); }
-.badge.cr { background: var(--crimson);   color: var(--parchment); }
-
-/* ═══════════════════════════════════════════════
-   TWO-COL LAYOUT
-═══════════════════════════════════════════════ */
-.two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.6rem;
-  margin: 1rem 0;
-}
-
-/* ═══════════════════════════════════════════════
-   SECTION DIVIDER
-═══════════════════════════════════════════════ */
 .sect-divider {
   text-align: center;
   color: var(--brass);
@@ -706,45 +419,31 @@ blockquote.maxim::after  { right: 0.5rem; }
   padding-left: 0.8em;
 }
 
-/* ═══════════════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════════════ */
+.source-note {
+  font-size: 0.82rem;
+  color: var(--ink-faint);
+  font-style: italic;
+  margin-top: 0.6rem;
+}
+
 footer.colophon {
   margin-top: 4rem;
   padding-top: 1.8rem;
   border-top: 1px solid rgba(196,154,46,0.35);
   text-align: center;
 }
-.colophon-ornament {
-  color: var(--brass);
-  font-size: 1.2rem;
-  letter-spacing: 0.6em;
-  margin-bottom: 0.7rem;
-  opacity: 0.6;
-  padding-left: 0.6em;
-}
-.colophon-text {
-  font-family: "IM Fell English SC", serif;
-  font-size: 0.67rem;
-  letter-spacing: 0.28em;
-  color: var(--ink-faint);
-  text-transform: uppercase;
-  padding-left: 0.28em;
-}
+.colophon-ornament { color: var(--brass); font-size: 1.2rem; letter-spacing: 0.6em; margin-bottom: 0.7rem; opacity: 0.6; padding-left: 0.6em; }
+.colophon-text { font-family: "IM Fell English SC", serif; font-size: 0.67rem; letter-spacing: 0.28em; color: var(--ink-faint); text-transform: uppercase; padding-left: 0.28em; }
 
-/* ═══════════════════════════════════════════════
-   RESPONSIVE
-═══════════════════════════════════════════════ */
 @media (max-width: 720px) {
   body { padding: 1rem 0; }
   .outer-frame { padding: 4px; }
   .document { padding: 2.5rem 1.8rem 3.5rem; }
-  h1.character-name { font-size: 2.6rem; }
-  .stat-grid  { grid-template-columns: repeat(3, 1fr); }
-  .combat-grid{ grid-template-columns: repeat(2, 1fr); }
-  .two-col    { grid-template-columns: 1fr; gap: 0; }
-  .skills-grid{ grid-template-columns: 1fr; }
-  .toc-wrapper{ columns: 1; }
+  h1.character-name { font-size: 2.6rem; letter-spacing: 0.22em; }
+  .stat-grid   { grid-template-columns: repeat(3, 1fr); }
+  .combat-grid { grid-template-columns: repeat(2, 1fr); }
+  .skills-grid { grid-template-columns: 1fr; }
+  .toc-wrapper { columns: 1; }
   .vitals-strip .vital { border-right: none; padding: 0.15rem 0.8rem; font-size: 0.68rem; }
   .portrait-frame::before, .portrait-frame::after { display: none; }
 }
@@ -764,490 +463,297 @@ footer.colophon {
 
 <div class="document">
 
-  <!-- ══════════════════════════════════
-       HEADER
-  ══════════════════════════════════ -->
   <header class="title-block">
     <div class="header-ornament">— ⚙ ⚙ ⚙ —</div>
-    <div class="eyebrow">Character Dossier &nbsp;·&nbsp; Convention One-Shot &nbsp;·&nbsp; Pathfinder 2nd Edition</div>
+    <div class="eyebrow">Player Character Dossier &nbsp;·&nbsp; Convention One-Shot &nbsp;·&nbsp; Pathfinder 2nd Edition</div>
     <h1 class="character-name">Tepshe</h1>
     <div class="character-subtitle">Jinxed Tengu &nbsp;·&nbsp; Inventor &nbsp;·&nbsp; Level 5 &nbsp;·&nbsp; Saved by Clockwork</div>
-    <p class="epithets">Scavenger of misfortune &nbsp;·&nbsp; Architect of controlled catastrophe &nbsp;·&nbsp; Purveyor of improbable contraptions</p>
     <div class="vitals-strip">
       <span class="vital">Ancestry: <strong>Tengu (Jinxed)</strong></span>
       <span class="vital">Class: <strong>Inventor</strong></span>
       <span class="vital">Level: <strong>5</strong></span>
       <span class="vital">Background: <strong>Saved by Clockwork</strong></span>
-      <span class="vital">HP: <strong>51</strong></span>
-      <span class="vital">Speed: <strong>25 ft.</strong></span>
+      <span class="vital">Pronouns: <strong>they / them</strong></span>
     </div>
   </header>
 
-  <!-- PORTRAIT -->
   <div class="portrait-block">
     <div class="portrait-frame">
-      <img src="tepshe.webp" alt="Portrait of Tepshe, Tengu Inventor"
+      <img src="tepshe.webp" alt="Portrait of Tepshe"
            onerror="this.parentElement.innerHTML='<div style=\'width:240px;height:260px;background:var(--coal-mid);display:flex;align-items:center;justify-content:center;font-family:serif;font-size:5rem;color:var(--brass);opacity:0.4;\'>⚙</div>'">
     </div>
-    <div class="portrait-caption">Field Illustration — Tepshe, Tengu Artificer &amp; Construct Engineer</div>
+    <div class="portrait-caption">Tepshe</div>
   </div>
 
   <div class="sect-divider">— ⚙ —</div>
 
-  <!-- TOC -->
   <nav class="toc-wrapper">
-    <div class="toc-title">Contents of This Dossier</div>
+    <div class="toc-title">Contents</div>
     <ol>
-      <li><a href="#identity">Identity &amp; Overview</a></li>
+      <li><a href="#overview">Overview</a></li>
       <li><a href="#ability-scores">Ability Scores</a></li>
-      <li><a href="#combat">Combat Profile</a></li>
-      <li><a href="#skills">Skills &amp; Expertise</a></li>
-      <li><a href="#ancestry">Tengu Heritage — The Jinxed</a></li>
-      <li><a href="#class-features">The Inventor's Craft</a></li>
-      <li><a href="#feats">Feats &amp; Training</a></li>
-      <li><a href="#inventory">Equipment &amp; Inventory</a></li>
-      <li><a href="#notes">Character Notes &amp; Play Guidance</a></li>
+      <li><a href="#combat">Combat Statistics</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#ancestry">Ancestry &amp; Heritage</a></li>
+      <li><a href="#class-features">Class Features &amp; Feats</a></li>
+      <li><a href="#other-feats">Skill, General &amp; Bonus Feats</a></li>
+      <li><a href="#inventory">Inventory</a></li>
+      <li><a href="#character">Character Details</a></li>
+      <li><a href="#campaign">Campaign Notes</a></li>
     </ol>
   </nav>
 
-  <!-- ══════════════════════════════════
-       I. IDENTITY
-  ══════════════════════════════════ -->
-  <section id="identity">
-    <h2 class="section-title"><span class="numeral">I.</span> Identity &amp; Overview</h2>
-
-    <p class="drop-cap">Tepshe is a Jinxed Tengu — a raven-kind artificer whose very existence seems to attract misfortune, then cheerfully weaponise it. Where other inventors build toward <em>elegant</em> solutions, Tepshe builds toward <em>interesting</em> ones. The fact that "interesting" and "explosive" share considerable operational overlap is, she would insist, merely a happy coincidence of engineering.</p>
-
-    <p>Her background tells the whole story in miniature: she was <em>saved by clockwork.</em> Some mechanical contrivance — whether of her own devising or another's — intervened at a critical moment in her past, and she has been in the debt of gears and springs ever since. The Inventor class was not merely a career choice. It was a reckoning with what she owes the machines.</p>
-
-    <p>As a Jinxed Tengu, Tepshe carries the ancestral trait of accumulated misfortune — a reputation for being followed by bad luck that, in her hands, has become something very close to a precision instrument. She has learned to step <em>around</em> the disasters she attracts, and to ensure that when the jinx finally lands, it lands on whomever she is currently annoyed with.</p>
-
-    <blockquote class="maxim">
-      The distinction between an accident and an invention is largely one of paperwork.
-    </blockquote>
-
-    <div class="callout">
-      <div class="cbox-label">⚙ Campaign Role — Convention One-Shot</div>
-      <p>Tepshe excels as a battlefield control specialist and utility inventor. Her Construct Companion, net launcher, grappling gun, and binding snares allow her to physically reshape the geometry of any encounter. She is rarely the direct damage dealer — she is the one who ensures the damage dealer has a stationary, thoroughly inconvenienced target.</p>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════
-       II. ABILITY SCORES
-  ══════════════════════════════════ -->
-  <section id="ability-scores">
-    <h2 class="section-title"><span class="numeral">II.</span> Ability Scores</h2>
-
-    <div class="stat-grid">
-      <div class="stat-cell">
-        <div class="score">19</div>
-        <div class="modifier">+4</div>
-        <span class="stat-name">Strength</span>
-      </div>
-      <div class="stat-cell">
-        <div class="score">16</div>
-        <div class="modifier">+3</div>
-        <span class="stat-name">Dexterity</span>
-      </div>
-      <div class="stat-cell">
-        <div class="score">12</div>
-        <div class="modifier">+1</div>
-        <span class="stat-name">Constitution</span>
-      </div>
-      <div class="stat-cell">
-        <div class="score">16</div>
-        <div class="modifier">+3</div>
-        <span class="stat-name">Intelligence</span>
-      </div>
-      <div class="stat-cell">
-        <div class="score">12</div>
-        <div class="modifier">+1</div>
-        <span class="stat-name">Wisdom</span>
-      </div>
-      <div class="stat-cell">
-        <div class="score">10</div>
-        <div class="modifier">+0</div>
-        <span class="stat-name">Charisma</span>
-      </div>
-    </div>
-
-    <p>Tepshe's Strength of 19 is unusually high for an Inventor — a testament to the Tengu physicality underlying her scholarly tendencies. Intelligence at 16 drives her crafting mastery and fuels the Inventor's core feature set. Charisma is her blind spot; she is bad at lying because she has no patience for it, and bad at diplomacy because she would rather fix the problem than negotiate around it.</p>
-  </section>
-
-  <!-- ══════════════════════════════════
-       III. COMBAT PROFILE
-  ══════════════════════════════════ -->
-  <section id="combat">
-    <h2 class="section-title"><span class="numeral">III.</span> Combat Profile</h2>
-
-    <h3 class="subhead">Primary Statistics</h3>
-    <div class="combat-grid">
-      <div class="combat-cell">
-        <div class="val">20</div>
-        <span class="clabel">Armour Class</span>
-      </div>
-      <div class="combat-cell hp-cell">
-        <div class="val">51</div>
-        <span class="clabel">Hit Points</span>
-      </div>
-      <div class="combat-cell">
-        <div class="val">+8</div>
-        <span class="clabel">Perception</span>
-      </div>
-      <div class="combat-cell">
-        <div class="val">20</div>
-        <span class="clabel">Class DC</span>
-      </div>
-    </div>
-
-    <h3 class="subhead">Saving Throws</h3>
-    <div class="combat-grid">
-      <div class="combat-cell">
-        <div class="val">+10</div>
-        <span class="clabel">Fortitude</span>
-      </div>
-      <div class="combat-cell">
-        <div class="val">+10</div>
-        <span class="clabel">Reflex</span>
-      </div>
-      <div class="combat-cell">
-        <div class="val">+10</div>
-        <span class="clabel">Will</span>
-      </div>
-      <div class="combat-cell">
-        <div class="val">25 ft.</div>
-        <span class="clabel">Speed</span>
-      </div>
-    </div>
-
-    <p>All three saving throws land uniformly at +10 — a robustly balanced defensive profile. Tepshe is not fragile. The unarmoured AC of 20 is driven by her Inventor chassis and high Dexterity. When her Construct Companion is deployed and Tamper is in play, the battlefield geometry shifts considerably in her favour before the first Strike is ever rolled.</p>
-
+  <!-- I. OVERVIEW -->
+  <section id="overview">
+    <h2 class="section-title"><span class="numeral">I.</span> Overview</h2>
+    <p>Tepshe is a 5th-level Jinxed Tengu Inventor with the Saved by Clockwork background. They are unarmoured and carry no shield. Deity, alignment, size, traits, and languages are not specified on the character sheet.</p>
     <div class="callout slate-box">
       <div class="cbox-label">Senses</div>
-      <p><strong>Low-Light Vision.</strong> As a Tengu, Tepshe sees clearly in dim light as though it were bright. Gaslight, the glow of overheated machinery, a candle two rooms away — all suffice for full visual acuity. She has, over the years, also built several things that produce light. Not always intentionally.</p>
+      <p>Low-Light Vision.</p>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════
-       IV. SKILLS
-  ══════════════════════════════════ -->
-  <section id="skills">
-    <h2 class="section-title"><span class="numeral">IV.</span> Skills &amp; Expertise</h2>
+  <!-- II. ABILITY SCORES -->
+  <section id="ability-scores">
+    <h2 class="section-title"><span class="numeral">II.</span> Ability Scores</h2>
+    <div class="stat-grid">
+      <div class="stat-cell"><div class="score">19</div><div class="modifier">+4</div><span class="stat-name">Strength</span></div>
+      <div class="stat-cell"><div class="score">16</div><div class="modifier">+3</div><span class="stat-name">Dexterity</span></div>
+      <div class="stat-cell"><div class="score">12</div><div class="modifier">+1</div><span class="stat-name">Constitution</span></div>
+      <div class="stat-cell"><div class="score">16</div><div class="modifier">+3</div><span class="stat-name">Intelligence</span></div>
+      <div class="stat-cell"><div class="score">12</div><div class="modifier">+1</div><span class="stat-name">Wisdom</span></div>
+      <div class="stat-cell"><div class="score">10</div><div class="modifier">+0</div><span class="stat-name">Charisma</span></div>
+    </div>
+  </section>
 
-    <p>Tepshe's skill distribution reflects her mechanical obsession. Crafting and Thievery are her paired excellences — unsurprising in a Tengu who picks things apart and a Jinxed who has learned to identify every latch, lever, and lock as a potential catastrophe waiting to be redirected. Athletics follows from her formidable Strength, which she rarely mentions in polite company.</p>
+  <!-- III. COMBAT -->
+  <section id="combat">
+    <h2 class="section-title"><span class="numeral">III.</span> Combat Statistics</h2>
 
-    <div class="skills-grid">
-      <div>
-        <div class="skill-row highlight-row">
-          <span class="skill-name">Crafting</span>
-          <span class="skill-val expert">+12</span>
-        </div>
-        <div class="skill-row highlight-row">
-          <span class="skill-name">Thievery</span>
-          <span class="skill-val expert">+12</span>
-        </div>
-        <div class="skill-row highlight-row">
-          <span class="skill-name">Athletics</span>
-          <span class="skill-val trained">+11</span>
-        </div>
-        <div class="skill-row highlight-row">
-          <span class="skill-name">Acrobatics</span>
-          <span class="skill-val trained">+10</span>
-        </div>
-        <div class="skill-row highlight-row">
-          <span class="skill-name">Society</span>
-          <span class="skill-val trained">+10</span>
-        </div>
-        <div class="skill-row highlight-row">
-          <span class="skill-name">Stealth</span>
-          <span class="skill-val trained">+10</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">Medicine</span>
-          <span class="skill-val trained">+8</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">Survival</span>
-          <span class="skill-val trained">+8</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">Performance</span>
-          <span class="skill-val trained">+7</span>
-        </div>
-      </div>
-      <div>
-        <div class="skill-row">
-          <span class="skill-name">Occultism</span>
-          <span class="skill-val">+3</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">Arcana</span>
-          <span class="skill-val">+3</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">Nature</span>
-          <span class="skill-val">+1</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">Religion</span>
-          <span class="skill-val">+1</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">Deception</span>
-          <span class="skill-val">+0</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">Diplomacy</span>
-          <span class="skill-val">+0</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">Intimidation</span>
-          <span class="skill-val">+0</span>
-        </div>
-      </div>
+    <h3 class="subhead">Defences &amp; Core Values</h3>
+    <div class="combat-grid">
+      <div class="combat-cell"><div class="val">20</div><span class="clabel">Armour Class</span></div>
+      <div class="combat-cell hp-cell"><div class="val">51</div><span class="clabel">Max HP</span></div>
+      <div class="combat-cell"><div class="val">+8</div><span class="clabel">Perception</span></div>
+      <div class="combat-cell"><div class="val">20</div><span class="clabel">Class DC</span></div>
+    </div>
+
+    <h3 class="subhead">Saving Throws &amp; Speed</h3>
+    <div class="combat-grid">
+      <div class="combat-cell"><div class="val">+10</div><span class="clabel">Fortitude</span></div>
+      <div class="combat-cell"><div class="val">+10</div><span class="clabel">Reflex</span></div>
+      <div class="combat-cell"><div class="val">+10</div><span class="clabel">Will</span></div>
+      <div class="combat-cell"><div class="val">25 ft.</div><span class="clabel">Speed</span></div>
     </div>
 
     <div class="callout">
-      <div class="cbox-label">⚙ Crafting Note — Assurance</div>
-      <p>Via <strong>Assurance (Crafting)</strong>, Tepshe may choose to treat her Crafting roll as a flat 18, forgoing the dice entirely. For routine construction and repair this guarantees success on tasks up to a certain difficulty ceiling. She does not gamble on the craft. She gambles on the <em>application.</em></p>
+      <div class="cbox-label">Proficiencies</div>
+      <p>Simple weapons: Trained · Martial weapons: Trained · Unarmoured defence: Trained · Light armour: Trained · Medium armour: Trained.</p>
     </div>
+
+    <p class="source-note">No specific melee or ranged Strike entries are filled in on the character sheet. No resistances, immunities, or active conditions are listed.</p>
   </section>
 
-  <!-- ══════════════════════════════════
-       V. TENGU HERITAGE
-  ══════════════════════════════════ -->
+  <!-- IV. SKILLS -->
+  <section id="skills">
+    <h2 class="section-title"><span class="numeral">IV.</span> Skills</h2>
+    <div class="skills-grid">
+      <div>
+        <div class="skill-row"><span class="skill-name">Acrobatics</span><span class="skill-val expert">+10</span></div>
+        <div class="skill-row"><span class="skill-name">Arcana</span><span class="skill-val">+3</span></div>
+        <div class="skill-row"><span class="skill-name">Athletics</span><span class="skill-val trained">+11</span></div>
+        <div class="skill-row"><span class="skill-name">Crafting</span><span class="skill-val expert">+12</span></div>
+        <div class="skill-row"><span class="skill-name">Deception</span><span class="skill-val">+0</span></div>
+        <div class="skill-row"><span class="skill-name">Diplomacy</span><span class="skill-val">+0</span></div>
+        <div class="skill-row"><span class="skill-name">Intimidation</span><span class="skill-val">+0</span></div>
+        <div class="skill-row"><span class="skill-name">Medicine</span><span class="skill-val trained">+8</span></div>
+      </div>
+      <div>
+        <div class="skill-row"><span class="skill-name">Nature</span><span class="skill-val">+1</span></div>
+        <div class="skill-row"><span class="skill-name">Occultism</span><span class="skill-val">+3</span></div>
+        <div class="skill-row"><span class="skill-name">Performance</span><span class="skill-val trained">+7</span></div>
+        <div class="skill-row"><span class="skill-name">Religion</span><span class="skill-val">+1</span></div>
+        <div class="skill-row"><span class="skill-name">Society</span><span class="skill-val trained">+10</span></div>
+        <div class="skill-row"><span class="skill-name">Stealth</span><span class="skill-val trained">+10</span></div>
+        <div class="skill-row"><span class="skill-name">Survival</span><span class="skill-val trained">+8</span></div>
+        <div class="skill-row"><span class="skill-name">Thievery</span><span class="skill-val expert">+12</span></div>
+      </div>
+    </div>
+    <p class="source-note">No Lore skills are listed on the character sheet.</p>
+  </section>
+
+  <!-- V. ANCESTRY -->
   <section id="ancestry">
-    <h2 class="section-title"><span class="numeral">V.</span> Tengu Heritage — The Jinxed</h2>
+    <h2 class="section-title"><span class="numeral">V.</span> Ancestry &amp; Heritage</h2>
 
-    <p>Standard Tengu already carry the weight of omen and ill portent in many of the cultures they move through. The <em>Jinxed</em> variant carries something more specific: a persistent aura of misfortune that has become so reliable as to be almost mechanical. Tepshe does not believe in fate. She believes in probability, and she has learned to read the clustering of bad luck as a pattern that can be engineered around — and occasionally, engineered <em>toward.</em></p>
-
-    <h3 class="subhead">Ancestry Feats</h3>
-
-    <div class="ability-block signature">
-      <div class="ability-name">Scavenger's Search</div>
-      <div class="ability-meta">Ancestry Feat 1st &nbsp;·&nbsp; Tengu</div>
-      <div class="ability-desc">
-        When Tepshe takes a minute to search an area, she finds hidden items, treasure, and useful detritus that others overlook. Her eye for overlooked components is not mystical — it is the eye of someone who has had to build from scraps for most of her life. She knows what is <em>useful</em> before she knows what it <em>is.</em>
-      </div>
-    </div>
-
-    <div class="ability-block signature">
-      <div class="ability-name">Magpie Snatch</div>
-      <div class="ability-meta">Ancestry Feat 5th &nbsp;·&nbsp; Tengu</div>
-      <div class="ability-desc">
-        Tepshe may attempt to Steal an item from a creature as a free action when she hits them with a Strike. The feather-quick hands that pick locks also pick pockets, and what better moment to relieve an enemy of something inconvenient than the split second they are focused on the pain of being hit?
-      </div>
-    </div>
-
-    <blockquote class="field-note">
-      The thing about being jinxed is that the misfortune has to go <em>somewhere.</em> I have simply spent considerable effort ensuring it goes toward whomever I am currently annoyed with.
-      <span class="attribution">// Tepshe, in conversation with a concerned bystander</span>
-    </blockquote>
-  </section>
-
-  <!-- ══════════════════════════════════
-       VI. CLASS FEATURES
-  ══════════════════════════════════ -->
-  <section id="class-features">
-    <h2 class="section-title"><span class="numeral">VI.</span> The Inventor's Craft</h2>
-
-    <p>The Inventor class is built around a central <em>innovation</em> — Tepshe's masterwork creation, in this case a <strong>Construct Companion.</strong> Everything else in the class radiates outward from that core invention. She is not merely a fighter who happens to build things; she is a builder who happens to fight, and the distinction matters enormously in how she approaches a problem.</p>
-
-    <h3 class="subhead">Core Class Features</h3>
-
-    <div class="ability-block signature">
-      <div class="ability-name">Construct Companion <span class="badge br">Innovation</span> <span class="badge cp">Advanced at 4th</span></div>
-      <div class="ability-meta">Feature 1st &nbsp;·&nbsp; Advanced Construct Companion: Feat 4th</div>
-      <div class="ability-desc">
-        Tepshe's central innovation: a mechanical creature built, maintained, and perpetually modified by her own hand. By 4th level she has taken <strong>Advanced Construct Companion</strong>, significantly improving its combat and utility capabilities. It acts on her turn, can Strike or Aid, and represents both her greatest tactical asset and her most emotionally significant possession. When it takes damage, she feels it. When it breaks down, she takes it personally.
-      </div>
-    </div>
-
-    <div class="ability-block signature">
-      <div class="ability-name">Explode <span class="badge cp">Signature</span></div>
-      <div class="ability-meta">Feature 1st &nbsp;·&nbsp; Inventor &nbsp;·&nbsp; Two-Action Activity</div>
-      <div class="ability-desc">
-        The innovation can detonate in a controlled burst, dealing fire damage in an area. Tepshe can trigger this deliberately as a tactical weapon, catching multiple enemies in the blast. Crucially, the innovation can be rebuilt after any destruction — the schematics are in her head and her hands, not in the object itself. The explosion is not a failure state. It is a feature.
-      </div>
+    <div class="ability-block">
+      <div class="ability-name">Jinxed Tengu</div>
+      <div class="ability-meta">Heritage 1st</div>
     </div>
 
     <div class="ability-block">
-      <div class="ability-name">Peerless Inventor</div>
-      <div class="ability-meta">Feature 1st &nbsp;·&nbsp; Inventor</div>
-      <div class="ability-desc">Tepshe has a perpetual supply of raw materials for crafting and can construct items far faster than normal. She may use Crafting for the Earn Income downtime activity at enhanced rates. In practical terms: if she has a few minutes and access to scrap, she can build something useful. She is never truly out of resources — only ever out of <em>time.</em></div>
+      <div class="ability-name">Scavenger's Search</div>
+      <div class="ability-meta">Ancestry Feat 1st · Tengu</div>
     </div>
+
+    <div class="ability-block">
+      <div class="ability-name">Magpie Snatch</div>
+      <div class="ability-meta">Ancestry Feat 5th · Tengu</div>
+    </div>
+
+    <p class="source-note">Mechanical descriptions of these feats are not reproduced here; refer to the official Pathfinder 2e ancestry rules.</p>
+  </section>
+
+  <!-- VI. CLASS FEATURES & FEATS -->
+  <section id="class-features">
+    <h2 class="section-title"><span class="numeral">VI.</span> Class Features &amp; Feats</h2>
+
+    <h3 class="subhead">Features</h3>
+
+    <div class="ability-block">
+      <div class="ability-name">Explode</div>
+      <div class="ability-meta">Feature 1st · Inventor</div>
+    </div>
+    <div class="ability-block">
+      <div class="ability-name">Peerless Inventor</div>
+      <div class="ability-meta">Feature 1st · Inventor</div>
+    </div>
+    <div class="ability-block">
+      <div class="ability-name">Expert Overdrive</div>
+      <div class="ability-meta">Feature 3rd · Inventor</div>
+    </div>
+    <div class="ability-block">
+      <div class="ability-name">Inventor Weapon Expertise</div>
+      <div class="ability-meta">Feature 5th · Inventor</div>
+    </div>
+
+    <h3 class="subhead">Class Feats</h3>
 
     <div class="ability-block">
       <div class="ability-name">Tamper</div>
-      <div class="ability-meta">Feat 1st &nbsp;·&nbsp; Inventor &nbsp;·&nbsp; Single Action</div>
-      <div class="ability-desc">Tepshe sabotages a creature's equipment, environment, or the mechanical systems of an enemy. Touching an adjacent object or creature, she imposes penalties — armour that binds, weapons that misfire, shields that buckle at inconvenient moments. The jinx, externally applied and precisely targeted.</div>
+      <div class="ability-meta">Feat 1st · Inventor</div>
     </div>
-
     <div class="ability-block">
       <div class="ability-name">Collapse Construct</div>
-      <div class="ability-meta">Feat 2nd &nbsp;·&nbsp; Inventor</div>
-      <div class="ability-desc">Tepshe can cause her Construct Companion to fold or collapse into a portable configuration, and can later rapidly redeploy it. This prevents enemies from targeting the construct when it is not needed, and enables dramatic mid-combat reveals when the clockwork mechanical <em>erupts</em> from what appeared to be an innocuous bag.</div>
+      <div class="ability-meta">Feat 2nd · Inventor</div>
+    </div>
+    <div class="ability-block">
+      <div class="ability-name">Advanced Construct Companion</div>
+      <div class="ability-meta">Feat 4th · Inventor</div>
     </div>
 
-    <div class="ability-block">
-      <div class="ability-name">Expert Overdrive</div>
-      <div class="ability-meta">Feature 3rd &nbsp;·&nbsp; Inventor</div>
-      <div class="ability-desc">Tepshe can push her innovation — and herself — beyond standard operating parameters. Overdrive grants bonus damage on Strikes but carries the risk of a misfire on failure. The Expert tier significantly reduces that risk. She is not reckless. She is <em>precisely calibrated.</em></div>
+    <div class="callout">
+      <div class="cbox-label">Innovation</div>
+      <p>The presence of <em>Collapse Construct</em> and <em>Advanced Construct Companion</em> indicates a Construct Innovation. The player recalls the construct may have been a mechanical bird, though this is not confirmed on the sheet.</p>
     </div>
 
-    <div class="ability-block">
-      <div class="ability-name">Inventor Weapon Expertise</div>
-      <div class="ability-meta">Feature 5th &nbsp;·&nbsp; Inventor</div>
-      <div class="ability-desc">At 5th level, Tepshe's proficiency with her innovation's weapon capabilities reaches Expert rank, increasing her attack accuracy. Her hands are as steady as her schematics.</div>
-    </div>
+    <p class="source-note">Mechanical descriptions of these features and feats are not reproduced here; refer to the official Pathfinder 2e Inventor class rules.</p>
   </section>
 
-  <!-- ══════════════════════════════════
-       VII. FEATS
-  ══════════════════════════════════ -->
-  <section id="feats">
-    <h2 class="section-title"><span class="numeral">VII.</span> Feats &amp; Additional Training</h2>
+  <!-- VII. SKILL, GENERAL & BONUS FEATS -->
+  <section id="other-feats">
+    <h2 class="section-title"><span class="numeral">VII.</span> Skill, General &amp; Bonus Feats</h2>
 
-    <div class="two-col">
-      <div>
-        <h3 class="subhead">Skill Feats</h3>
-
-        <div class="ability-block">
-          <div class="ability-name">Assurance (Crafting)</div>
-          <div class="ability-meta">Skill Feat 2nd</div>
-          <div class="ability-desc">Choose to treat the Crafting roll as a flat 18. Removes variance from routine construction. She trusts her hands more than dice.</div>
-        </div>
-
-        <div class="ability-block">
-          <div class="ability-name">Snare Crafting</div>
-          <div class="ability-meta">Skill Feat 4th</div>
-          <div class="ability-desc">Tepshe can craft and place snares using her Crafting skill. In concert with her binding snares inventory, she can reshape a battlefield's approach lanes before a single initiative is rolled.</div>
-        </div>
-      </div>
-      <div>
-        <h3 class="subhead">General &amp; Bonus Feats</h3>
-
-        <div class="ability-block">
-          <div class="ability-name">Prescient Planner</div>
-          <div class="ability-meta">General Feat 3rd</div>
-          <div class="ability-desc">Once per day, Tepshe declares she "planned ahead" and produces a common mundane item as though she had packed it. She always had the right tool. She had simply not mentioned it yet.</div>
-        </div>
-
-        <div class="ability-block">
-          <div class="ability-name">Shield Block</div>
-          <div class="ability-meta">Bonus Feat</div>
-          <div class="ability-desc">When a shield reduces incoming damage, Tepshe can trigger Shield Block as a reaction to reduce it further. Her shields are battered but functional — like most of her equipment.</div>
-        </div>
-      </div>
+    <h3 class="subhead">Skill Feats</h3>
+    <div class="ability-block">
+      <div class="ability-name">Assurance (Crafting)</div>
+      <div class="ability-meta">Skill Feat 2nd</div>
     </div>
+    <div class="ability-block">
+      <div class="ability-name">Snare Crafting</div>
+      <div class="ability-meta">Skill Feat 4th</div>
+    </div>
+
+    <h3 class="subhead">General Feats</h3>
+    <div class="ability-block">
+      <div class="ability-name">Prescient Planner</div>
+      <div class="ability-meta">General Feat 3rd</div>
+    </div>
+
+    <h3 class="subhead">Bonus Feats</h3>
+    <div class="ability-block">
+      <div class="ability-name">Shield Block</div>
+      <div class="ability-meta">Bonus Feat</div>
+    </div>
+    <div class="ability-block">
+      <div class="ability-name">Inventor</div>
+      <div class="ability-meta">Bonus Feat</div>
+    </div>
+
+    <p class="source-note">The character sheet lists "Background" in the Skill Feats column without a specified entry. Mechanical descriptions are not reproduced; refer to the official Pathfinder 2e rules.</p>
   </section>
 
-  <!-- ══════════════════════════════════
-       VIII. INVENTORY
-  ══════════════════════════════════ -->
+  <!-- VIII. INVENTORY -->
   <section id="inventory">
-    <h2 class="section-title"><span class="numeral">VIII.</span> Equipment &amp; Inventory</h2>
+    <h2 class="section-title"><span class="numeral">VIII.</span> Inventory</h2>
 
-    <p>Tepshe travels light in conventional terms and very heavy in unconventional ones. She is Unarmoured — the Inventor chassis provides her AC — and carries nothing that could not theoretically be repurposed as a component in something else. Her inventory is a field kit, not a luggage collection.</p>
-
+    <h3 class="subhead">Worn Items</h3>
     <table class="inv-table">
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Category</th>
-          <th>Bulk</th>
-          <th>Field Notes</th>
-        </tr>
-      </thead>
+      <thead><tr><th>Item</th><th class="num">Invested</th><th class="num">Bulk</th></tr></thead>
       <tbody>
-        <tr>
-          <td>Net Launcher</td>
-          <td>Ranged Weapon</td>
-          <td>1</td>
-          <td>Fires a weighted net to entangle and immobilise targets. <span class="special-note">Tepshe's preferred opener — restrain first, all further questions become considerably easier.</span></td>
-        </tr>
-        <tr>
-          <td>Grappling Gun</td>
-          <td>Utility / Weapon</td>
-          <td>1</td>
-          <td>Launches a mechanical grappling hook with precision. Vertical movement, target restraint, or dramatic entrances — all documented applications.</td>
-        </tr>
-        <tr>
-          <td>Binding Snare</td>
-          <td>Snare (Craftable)</td>
-          <td>0</td>
-          <td>Placed in advance to lock down approach corridors. Pairs with Tepshe's habit of arriving early and leaving the room arranged in her favour.</td>
-        </tr>
-        <tr>
-          <td>Clockwork Chirper ×2</td>
-          <td>Alchemical / Utility</td>
-          <td>0</td>
-          <td>Small wound clockwork devices that emit a sharp sound when triggered. Distraction, signal, or bait, depending on deployment context and current needs.</td>
-        </tr>
-        <tr>
-          <td>Purple Evening Gown</td>
-          <td>Clothing</td>
-          <td>1</td>
-          <td><span class="special-note">Unexplained. Presumably relevant. She hasn't elaborated, and no one has pressed the matter twice.</span></td>
-        </tr>
-        <tr>
-          <td>15 gp</td>
-          <td>Currency</td>
-          <td>—</td>
-          <td>Operating funds. Modest. She spends on components, not comfort.</td>
-        </tr>
+        <tr><td>Unarmoured</td><td class="num">—</td><td class="num">—</td></tr>
       </tbody>
     </table>
 
-    <div class="callout">
-      <div class="cbox-label">⚙ The Construct Companion</div>
-      <p>The Construct Companion is not listed in inventory because it is not inventory — it is a <em>collaborator.</em> It travels with Tepshe at all times when not folded for transit. It has been repaired, modified, and extensively argued with. It does not argue back. This is, Tepshe concedes, among its more admirable qualities.</p>
+    <h3 class="subhead">Other Items</h3>
+    <table class="inv-table">
+      <thead><tr><th>Item</th><th class="num">Quantity</th><th class="num">Bulk</th></tr></thead>
+      <tbody>
+        <tr><td>Net Launcher</td><td class="num">1</td><td class="num">1</td></tr>
+        <tr><td>Grappling Gun</td><td class="num">1</td><td class="num">1</td></tr>
+        <tr><td>Binding Snare</td><td class="num">1</td><td class="num">0</td></tr>
+        <tr><td>Clockwork Chirper</td><td class="num">2</td><td class="num">0</td></tr>
+        <tr><td>Purple Evening Gown</td><td class="num">1</td><td class="num">1</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="subhead">Bulk &amp; Currency</h3>
+    <div class="combat-grid">
+      <div class="combat-cell"><div class="val">3</div><span class="clabel">Current Bulk</span></div>
+      <div class="combat-cell"><div class="val">9</div><span class="clabel">Encumbered At</span></div>
+      <div class="combat-cell"><div class="val">14</div><span class="clabel">Maximum Bulk</span></div>
+      <div class="combat-cell"><div class="val">15 gp</div><span class="clabel">Currency</span></div>
     </div>
 
-    <div class="callout danger">
-      <div class="cbox-label">Load Assessment</div>
-      <p>Current Bulk: <strong>3</strong>. Encumbered threshold: 9. Maximum: 14. Tepshe is comfortably within her limits. There is room for more components. There is <em>always</em> room for more components.</p>
+    <p class="source-note">No Readied Items are listed on the character sheet. CP, SP, and PP are all 0.</p>
+  </section>
+
+  <!-- IX. CHARACTER DETAILS -->
+  <section id="character">
+    <h2 class="section-title"><span class="numeral">IX.</span> Character Details</h2>
+
+    <h3 class="subhead">Personality &amp; Description</h3>
+    <div class="placeholder">
+      <span class="ph-label">— Not Specified On Character Sheet —</span>
+      Attitude, beliefs, likes, dislikes, catchphrases, appearance, ethnicity, nationality, birthplace, age, height, and weight are all blank on the sheet.
+    </div>
+
+    <h3 class="subhead">Connections</h3>
+    <div class="placeholder">
+      <span class="ph-label">— Not Specified On Character Sheet —</span>
+      Allies, enemies, and organisational affiliations are not listed.
     </div>
   </section>
 
-  <!-- ══════════════════════════════════
-       IX. CHARACTER NOTES
-  ══════════════════════════════════ -->
-  <section id="notes">
-    <h2 class="section-title"><span class="numeral">IX.</span> Character Notes &amp; Play Guidance</h2>
-
-    <h3 class="subhead">The Jinx as Asset</h3>
-    <p>The Jinxed heritage is not merely flavour — it is Tepshe's core personality driver. She has spent her life managing the probability of misfortune clustering around her, and this has made her exceptionally good at contingency planning. Prescient Planner is a mechanical expression of this: she always has the right tool because she always anticipated needing it. The jinx taught her to think several disasters ahead.</p>
-
-    <h3 class="subhead">Tactical Philosophy</h3>
-    <p>Tepshe does not fight. She <em>arranges</em> fights. The ideal Tepshe encounter begins before initiative is rolled: snares placed, the Construct deployed, the net launcher primed. Once combat begins, her job is to ensure the environment works against her enemies — binding snares restrict movement, the net launcher removes a target from freedom of action, Tamper degrades their equipment, and the Construct handles direct engagement while she repositions. She is the architect. Not the hammer.</p>
-
-    <h3 class="subhead">On the Purple Evening Gown</h3>
-    <p>No further information is available at this time. Classification: <em>pending investigation.</em></p>
-
-    <blockquote class="field-note">
-      Everyone asks why I carry a net launcher. Nobody asks why I carry a purple evening gown. I find this deeply telling about people's priorities.
-      <span class="attribution">// Tepshe, presumably to someone who asked about the net launcher</span>
-    </blockquote>
-
-    <h3 class="subhead">One-Shot Recommendations</h3>
+  <!-- X. CAMPAIGN NOTES -->
+  <section id="campaign">
+    <h2 class="section-title"><span class="numeral">X.</span> Campaign Notes</h2>
     <div class="callout">
-      <div class="cbox-label">⚙ Convention One-Shot Notes</div>
-      <p>For a one-shot context, Tepshe's best moments come from <em>Prescient Planner</em> — dramatically producing the right tool at the right moment rewards both mechanical creativity and theatrical timing. The Collapse Construct / sudden deployment sequence makes for an excellent reveal. Lead with the net launcher or binding snares to immediately demonstrate her control-focused identity; let the Construct do the heroic front-line work while she manoeuvres and tinkers. She shines brightest when given even a moment to prepare. If dropped directly into combat with no warning, lead with Tamper on the most dangerous target, then deploy the net launcher on the second. She has planned for this too. She always plans for this.</p>
+      <div class="cbox-label">Convention One-Shot</div>
+      <p>A single-session adventure involving social intrigue and mystery at a theatre, which escalated when portals began admitting demons into the venue.</p>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="colophon">
     <div class="colophon-ornament">⚙ ✦ ⚙ ✦ ⚙</div>
     <div class="colophon-text">
       Tepshe &nbsp;·&nbsp; Jinxed Tengu Inventor &nbsp;·&nbsp; Level 5 &nbsp;·&nbsp; Convention One-Shot<br>
-      Pathfinder Second Edition &nbsp;·&nbsp; All statistics per official character sheet
+      Pathfinder Second Edition &nbsp;·&nbsp; Statistics per official character sheet
     </div>
   </footer>
 
-</div><!-- /.document -->
-</div><!-- /.outer-frame -->
+</div>
+</div>
 
 </body>
 </html>

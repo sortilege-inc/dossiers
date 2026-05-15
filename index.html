@@ -207,6 +207,50 @@
   }
   .suggestion.empty:hover { background: transparent; color: var(--ink-faint); }
 
+  /* VIEW TOGGLES */
+  .view-toggles {
+    max-width: 760px;
+    margin: 0 auto 1.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.75rem;
+    align-items: baseline;
+  }
+  .toggle-group {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+  }
+  .toggle-group-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-right: 0.15rem;
+    white-space: nowrap;
+  }
+  .toggle {
+    font-family: "EB Garamond", serif;
+    font-size: 0.92rem;
+    padding: 0.22rem 0.65rem;
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: background 0.12s, border-color 0.12s, color 0.12s;
+    letter-spacing: 0.01em;
+    line-height: 1.4;
+  }
+  .toggle:hover { border-color: var(--accent-deep); color: var(--ink); }
+  .toggle.on {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+
   .result-count {
     text-align: center;
     font-family: "Cormorant SC", serif;
@@ -400,6 +444,21 @@
       </div>
     </div>
 
+    <div class="view-toggles">
+      <div class="toggle-group">
+        <span class="toggle-group-label">Status</span>
+        <button class="toggle on" data-status="active">Active</button>
+        <button class="toggle" data-status="past">Past</button>
+        <button class="toggle" data-status="one-shot">One-shot</button>
+        <button class="toggle" data-status="unplayed">Unplayed</button>
+      </div>
+      <div class="toggle-group">
+        <span class="toggle-group-label">Role</span>
+        <button class="toggle on" data-role="pc">PCs</button>
+        <button class="toggle" data-role="gm-pc">GM PCs</button>
+      </div>
+    </div>
+
     <div class="result-count" id="result-count"></div>
 
     <main class="grid" id="grid"></main>
@@ -409,148 +468,9 @@
 
 <script>
   // ----- Character roster -----
-  // Edit this array to add, remove, or correct entries.
+  // Fields: role = 'pc' | 'gm-pc'
+  //         campaignStatus = 'active' | 'past' | 'one-shot' | 'unplayed'
   const characters = [
-    {
-      name: 'Doji <span class="given">Setsuna</span>',
-      plain: 'Doji Setsuna',
-      file: 'Setsuna Dossier.html',
-      image: 'thumbs/doji_setsuna.jpg',
-      eyebrow: 'Crane Clan',
-      subtitle: 'Emerald Magistrate &middot; Personal Advisor to the Imperial Envoy',
-      system: 'Legend of the Five Rings (5e)',
-      campaign: 'The Fragile Peace'
-    },
-    {
-      name: 'Ikoma no Hosokawa <span class="given">Ota</span>',
-      plain: 'Ikoma no Hosokawa Ota',
-      file: 'Ota_Dossier.html',
-      image: 'thumbs/ikoma_no_hosokawa_ota-portrait.jpg',
-      eyebrow: 'Lion Clan &middot; Hosokawa',
-      subtitle: 'Bushi by role, monk by formation &mdash; sworn to Ikoma Kenji',
-      system: 'Legend of the Five Rings (5e)',
-      campaign: 'City of the Rich Frog'
-    },
-    {
-      name: '<span class="given">Tiphaine</span> merc\'h Riwall',
-      plain: "Tiphaine merc'h Riwall",
-      file: 'Tiphaine Dossier.html',
-      image: 'thumbs/tiphaine.jpg',
-      eyebrow: 'Squire of the Wolves of Vagon',
-      subtitle: 'Breton-Roman, age 14 &mdash; daughter of a slain knight',
-      system: 'Pendragon 6e',
-      campaign: 'The Quest for the Dragon Banner: Aurelius Ambrosius &amp; The War For Logres'
-    },
-    {
-      name: 'Squire <span class="given">Llwyd</span> &ldquo;Paun&rdquo;',
-      plain: 'Squire Llwyd "Paun"',
-      file: 'Paun Dossier.html',
-      image: 'thumbs/paun-portrait.jpg',
-      eyebrow: 'Squire of the Wolves of Vagon',
-      subtitle: 'Cymric Belgae, age 17 &mdash; the Peacock, son of a rebel knight',
-      system: 'Pendragon 6e',
-      campaign: 'The Quest for the Dragon Banner: Aurelius Ambrosius &amp; The War For Logres'
-    },
-    {
-      name: '<span class="given">Kaia</span> kW',
-      plain: 'Kaia kW',
-      file: 'Kaia kW Dossier.html',
-      image: 'thumbs/Kaia kW.jpg',
-      eyebrow: 'Edgerunner &middot; Night City',
-      subtitle: 'Vocalist of Homeschool Dropouts &mdash; ship-born, M&#257;ori-speaking',
-      system: 'Cyberpunk RED',
-      campaign: 'Preem Chooms'
-    },
-    {
-      name: '<span class="given">Zuno</span>',
-      plain: 'Zuno',
-      file: 'Zuno_Dossier.html',
-      image: 'thumbs/zuno-portait.jpg',
-      eyebrow: 'Majordomo &middot; House Kath',
-      subtitle: 'Forest Gnome &mdash; The Perfect Servant, The Quiet Hand',
-      system: 'D&amp;D 5e',
-      campaign: 'Ptolus'
-    },
-    {
-      name: 'Executor <span class="given">Vellpryte</span>',
-      plain: 'Executor Vellpryte',
-      file: 'Executor_Vellpryte_Dossier.html',
-      image: 'thumbs/Executor Vellpryte.jpg',
-      eyebrow: 'Senior Agent &middot; Unit Zenith',
-      subtitle: 'Memonek Censor &mdash; she designates, she pursues, she does not stop',
-      system: 'Draw Steel',
-      campaign: 'Zenith'
-    },
-    {
-      name: 'Secretary <span class="given">Nomos</span>',
-      plain: 'Secretary Nomos',
-      file: 'Secretary_Nomos_Dossier.html',
-      image: 'thumbs/Secretary Nomos.jpg',
-      eyebrow: 'Communications &amp; Support &middot; Unit Zenith',
-      subtitle: 'Troubadour &mdash; pure support, debuffer, morale. He makes everyone else better.',
-      system: 'Draw Steel',
-      campaign: 'Zenith'
-    },
-    {
-      name: 'Operator <span class="given">Azimuth</span>',
-      plain: 'Operator Azimuth',
-      file: 'Operator_Azimuth_Dossier.html',
-      image: 'thumbs/Operator Azimuth.jpg',
-      eyebrow: 'Psionic Specialist &middot; Unit Zenith',
-      subtitle: 'Talent &mdash; she doesn\'t carry a visible weapon because she is the weapon.',
-      system: 'Draw Steel',
-      campaign: 'Zenith'
-    },
-    {
-      name: 'Protocol <span class="given">Keshet</span>',
-      plain: 'Protocol Keshet',
-      file: 'Protocol_Keshet_Dossier.html',
-      image: 'thumbs/Protocol Keshet.jpg',
-      eyebrow: 'Field Coordinator &middot; Unit Zenith',
-      subtitle: 'Tactician &mdash; tactical planning, perimeter coordination, battlefield control.',
-      system: 'Draw Steel',
-      campaign: 'Zenith'
-    },
-    {
-      name: '<span class="given">Li Xia</span> (Lily Combes)',
-      plain: 'Li Xia (Lily Combes)',
-      file: 'Li_Xia_Lily_Combes_Dossier.html',
-      image: 'thumbs/Li Xia (Lily).jpg',
-      eyebrow: 'Delta Green &middot; Case File DG-CA-1952-014',
-      subtitle: 'Research Assistant, JPL &mdash; Nashoba, 1952 &mdash; operating as Lily Combes',
-      system: 'Delta Green',
-      campaign: 'Nazis, Spies & Satanists'
-    },
-    {
-      name: '<span class="given">Ygva</span>',
-      plain: 'Ygva',
-      file: 'Ygva_Dossier.html',
-      image: 'thumbs/Ygva.jpg',
-      eyebrow: 'Ridgeborne Giant &middot; Witch (Moon)',
-      subtitle: 'She does not suffer fools. The mountain took that from her.',
-      system: 'Daggerheart',
-      campaign: 'Caul'
-    },
-    {
-      name: '<span class="given">Taran</span>',
-      plain: 'Taran',
-      file: 'Taran_Dossier.html',
-      image: 'thumbs/taran.jpg',
-      eyebrow: 'Soldier First Class &middot; The Hearth',
-      subtitle: 'Boggart &mdash; sworn to the household, bound to make it safe',
-      system: 'Household',
-      campaign: 'The Hearth'
-    },
-    {
-      name: '<span class="given">Clifford</span> Joel Howard',
-      plain: 'Clifford Joel Howard',
-      file: 'Clifford_Joel_Howard_Dossier.html',
-      image: 'thumbs/clifford.jpg',
-      eyebrow: 'Federal Investigator &middot; Division Seven',
-      subtitle: 'Radiance Bureau &mdash; Nashoba posting &mdash; age 27',
-      system: 'Delta Green',
-      campaign: 'Nashoba'
-    },
     {
       name: '<span class="given">A.M.O.S.</span>',
       plain: 'A.M.O.S.',
@@ -559,307 +479,9 @@
       eyebrow: 'Aeormaton &middot; Duelist',
       subtitle: 'Aeorian Mobile Operations Sentinel &mdash; Pre-Calamity manufacture, Reactivated',
       system: 'D&amp;D 5e',
-      campaign: 'Above All Else, Love'
-    },
-    {
-      name: '<span class="given">Half-Life</span>',
-      plain: 'Half-Life',
-      file: 'Half-Life_Dossier.html',
-      image: 'thumbs/half-life.jpg',
-      eyebrow: 'X-FRONT &middot; Direct Action Cell',
-      subtitle: 'Cody Kennedy &mdash; Mutant, age 18',
-      system: 'Marvel Multiverse RPG',
-      campaign: 'X-FRONT'
-    },
-    {
-      name: '<span class="given">Stasis</span>',
-      plain: 'Stasis',
-      file: 'Stasis_Dossier.html',
-      image: 'thumbs/stasis.jpg',
-      eyebrow: 'X-FRONT &middot; Direct Action Cell',
-      subtitle: 'Hermes Montoya &mdash; Mutant, age 14',
-      system: 'Marvel Multiverse RPG',
-      campaign: 'X-FRONT'
-    },
-    {
-      name: '<span class="given">Regret</span>',
-      plain: 'Regret',
-      file: 'Regret_Dossier.html',
-      image: 'thumbs/regret.jpg',
-      eyebrow: 'X-FRONT &middot; Direct Action Cell',
-      subtitle: 'Mohamed Salem &mdash; Mutant, age 16',
-      system: 'Marvel Multiverse RPG',
-      campaign: 'X-FRONT'
-    },
-    {
-      name: '<span class="given">Malek</span>',
-      plain: 'Malek',
-      file: 'Malek_Dossier.html',
-      image: 'thumbs/malek.jpg',
-      eyebrow: 'Halfling Psionicist &middot; Dark Sun',
-      subtitle: 'Flesh-Tender &mdash; Wanderer of the Burned Sands',
-      system: 'Shadowdark RPG',
-      campaign: 'Dark Sun'
-    },
-    {
-      name: '<span class="given">Tank</span>',
-      plain: 'Tank',
-      file: 'Tank_Dossier.html',
-      image: 'thumbs/tank.jpg',
-      eyebrow: 'X-FRONT &middot; Direct Action Cell',
-      subtitle: 'Toya Terrence &mdash; Mutant, Educator, age 22',
-      system: 'Marvel Multiverse RPG',
-      campaign: 'X-FRONT'
-    },
-    {
-      name: '<span class="given">Taboo</span>',
-      plain: 'Taboo',
-      file: 'Taboo_Dossier.html',
-      image: 'thumbs/taboo.jpg',
-      eyebrow: 'X-FRONT &middot; Direct Action Cell',
-      subtitle: 'Tabitha Fanning &mdash; Mutant, Adventurer, age 17',
-      system: 'Marvel Multiverse RPG',
-      campaign: 'X-FRONT'
-    },
-    {
-      name: '<span class="given">Cihan</span> Yilan',
-      plain: 'Cihan Yilan',
-      file: 'Cihan_Yilan_Dossier.html',
-      image: 'thumbs/cihan.jpg',
-      eyebrow: 'Vizier of Ughardi &middot; Skai Holt',
-      subtitle: 'Servant of the Serref &mdash; Builder of the Lani Span',
-      system: 'D&amp;D 5e',
-      campaign: 'Skai Holt &amp; Ughardi'
-    },
-    {
-      name: 'Havildar <span class="given">Bhimbahadur</span> Pun',
-      plain: 'Havildar Bhimbahadur Pun',
-      file: 'Bhimbahadur Pun Dossier.html',
-      image: 'thumbs/bhim-valet.jpg',
-      eyebrow: 'Ex-Gurkha &middot; 5th Rifles',
-      subtitle: 'London orderly, 1884&ndash;present &mdash; IOM (3rd Class)',
-      system: 'Pulp Cthulhu / Cthulhu by Gaslight',
-      campaign: 'Masks of Nyarlathotep: Empire of Shadows'
-    },
-    {
-      name: '<span class="given">Flare</span>',
-      plain: 'Flare',
-      file: 'Flare_Dossier.html',
-      image: 'thumbs/flare.jpg',
-      eyebrow: 'X-FRONT &middot; Recruitment Prospect',
-      subtitle: 'Taylor Crenshaw &mdash; Mutant, age 15',
-      system: 'Marvel Multiverse RPG',
-      campaign: 'X-FRONT'
-    },
-    {
-      name: '<span class="given">Morten</span> Bergesen',
-      plain: 'Morten Bergesen',
-      file: 'Morten_Bergesen_Dossier.html',
-      image: 'thumbs/morten.jpg',
-      eyebrow: 'Sekondlöjtnant &middot; Investigator',
-      subtitle: 'sole heir of a bereaved family &mdash; the officer who sees what others cannot',
-      system: 'Vaesen',
-      campaign: 'The Lost Mountain Saga'
-    },
-    {
-      name: '<span class="given">Valerian</span> de Castellane',
-      plain: 'Valerian de Castellane',
-      file: 'Valerian_de_Castellane_Dossier.html',
-      image: 'thumbs/valerian-portrait.jpg',
-      eyebrow: 'Quæsitor &middot; House Guernicus',
-      subtitle: 'Chief Enforcer of the Normandy Tribunal &mdash; The Granite Inquisitor',
-      system: 'Ars Magica 5e',
-      campaign: 'Covenant Sjórseiðr'
-    },
-    {
-      name: '<span class="given">Tepshe</span>',
-      plain: 'Tepshe',
-      file: 'Tepshe_Dossier.html',
-      image: 'thumbs/tepshe.jpg',
-      eyebrow: 'Jinxed Tengu &middot; Inventor',
-      subtitle: 'Scavenger of misfortune &mdash; architect of controlled catastrophe',
-      system: 'Pathfinder 2e',
-      campaign: 'Convention One-Shot'
-    },
-    {
-      name: '<span class="given">Solving</span> Epicurusson',
-      plain: 'Solving Epicurusson',
-      file: 'Solving_Epicurusson_Dossier.html',
-      image: 'thumbs/solving.jpg',
-      eyebrow: 'House Criamon &middot; Founding Magus',
-      subtitle: 'The Wandering Questioner &mdash; Magus of the Lumen Mare',
-      system: 'Ars Magica 5e',
-      campaign: "Solving's Mystery"
-    },
-    {
-      name: '<span class="given">Vaetra</span>',
-      plain: 'Vaetra',
-      file: 'Vaetra_Dossier.html',
-      image: 'thumbs/Vaetra.jpg',
-      eyebrow: 'Ridgeborne Giant &middot; Bard',
-      subtitle: '&ldquo;She reads war the way other people breathe &mdash; fast, without thinking, to stay alive.&rdquo;',
-      system: 'Daggerheart',
-      campaign: 'Caul'
-    },
-    {
-      name: '<span class="given">Khalida</span> bint Tariq',
-      plain: 'Khalida bint Tariq',
-      file: 'Khalida_Dossier.html',
-      image: 'thumbs/khalida.jpg',
-      eyebrow: 'House Flambeau &middot; Orator Tradition',
-      subtitle: 'Maga of Storms &mdash; The Eye of the Hurricane',
-      system: 'Ars Magica 5e',
-      campaign: "Solving's Mystery"
-    },
-    {
-      name: '<span class="given">Tamros</span>',
-      plain: 'Tamros',
-      file: 'Tamros_Dossier.html',
-      image: 'thumbs/Tamros.jpg',
-      eyebrow: 'Ridgeborne Ribbet &middot; Rogue',
-      subtitle: '&ldquo;He came back calm. That was the thing that frightened everyone.&rdquo;',
-      system: 'Daggerheart',
-      campaign: 'Caul'
-    },
-    {
-      name: '<span class="given">Sarru</span>',
-      plain: 'Sarru',
-      file: 'Sarru_Dossier.html',
-      image: 'thumbs/Sarru.jpg',
-      eyebrow: 'Ridgeborne Drakenn &middot; Guardian',
-      subtitle: '&ldquo;She argues with stories. She says: show me where you got that.&rdquo;',
-      system: 'Daggerheart',
-      campaign: 'Caul'
-    },
-    {
-      name: '<span class="given">Astrid</span> Grásula',
-      plain: 'Astrid Grásula',
-      file: 'Astrid_Grásula_Dossier.html',
-      image: 'thumbs/astrid.jpg',
-      eyebrow: 'House Bjornaer &middot; Heartbeast: Gannet',
-      subtitle: 'The Gannet &mdash; Newly Gauntleted &mdash; Seeker of the Ilfetu Mysteries',
-      system: 'Ars Magica 5e',
-      campaign: "Solving's Mystery"
-    },
-    {
-      name: '<span class="given">Mellan</span>',
-      plain: 'Mellan',
-      file: 'Mellan_Dossier.html',
-      image: 'thumbs/Mellan.jpg',
-      eyebrow: 'Ridgeborne Human &middot; Ranger',
-      subtitle: '&ldquo;He left first. He pressed a stone into her hand and did not wait to receive anything back.&rdquo;',
-      system: 'Daggerheart',
-      campaign: 'Caul'
-    },
-    {
-      name: '<span class="given">Celenneth</span> of the D&uacute;nedain',
-      plain: 'Celenneth of the Dúnedain',
-      file: 'Celenneth_Dossier.html',
-      image: 'thumbs/celenneth.jpg',
-      eyebrow: 'D&uacute;nedain Ranger &middot; Messenger',
-      subtitle: 'Daughter of the North &mdash; She Who Ran at Nine and Stopped Running at Thirty-Eight',
-      system: 'The One Ring 2e',
-      campaign: 'The Angle'
-    },
-    {
-      name: '<span class="given">Kelun</span>',
-      plain: 'Kelun',
-      file: 'Kelun_Dossier.html',
-      image: 'thumbs/Kelun.jpg',
-      eyebrow: 'Reborne Clank &middot; Sorcerer',
-      subtitle: '&ldquo;The gods spoke through them once. Now something else does &mdash; and no one taught it to.&rdquo;',
-      system: 'Daggerheart',
-      campaign: 'Caul'
-    },
-    {
-      name: '<span class="given">Linnea</span> of Bree',
-      plain: 'Linnea of Bree',
-      file: 'Linnea_Dossier.html',
-      image: 'thumbs/linnea.jpg',
-      eyebrow: 'Bree-lander &middot; Warden of the Hearth',
-      subtitle: 'Daughter of Bree-Blood &mdash; The Woman Who Was Meant to Be a Waypoint',
-      system: 'The One Ring 2e',
-      campaign: 'The Angle'
-    },
-    {
-      name: '<span class="given">Erasmus</span> the Hound',
-      plain: 'Erasmus the Hound',
-      file: 'Erasmus_Dossier.html',
-      image: 'thumbs/erasmus.jpg',
-      eyebrow: 'House Mercere &middot; Redcap',
-      subtitle: 'Moneylender &mdash; The Listener &mdash; Keeper of Inconvenient Knowledge',
-      system: 'Ars Magica 5e',
-      campaign: "Solving's Mystery"
-    },
-    {
-      name: '<span class="given">Rhys</span> Tyler Owens',
-      plain: 'Rhys Tyler Owens',
-      file: 'Rhys_Tyler_Owens_Dossier.html',
-      image: 'thumbs/rhys.jpg',
-      eyebrow: 'Black Furies &middot; Theurge &middot; Patron: Gorgon',
-      subtitle: '&ldquo;They were safe from my rage when I lacked power.&rdquo;',
-      system: 'Werewolf: The Apocalypse',
-      campaign: 'Rites of Redemption'
-    },
-    {
-      name: '<span class="given">Eryndil</span> of Lindon',
-      plain: 'Eryndil of Lindon',
-      file: 'Eryndil_Dossier.html',
-      image: 'thumbs/eryndil.jpg',
-      eyebrow: 'Scholar of the Grey Havens &middot; Circle of C&iacute;rdan',
-      subtitle: 'She Who Came East with the Adamant Relic &mdash; Bearer of the Bow That Did Not Need To Be Drawn',
-      system: 'The One Ring 2e',
-      campaign: 'The Angle'
-    },
-    {
-      name: '<span class="given">Photios</span> Chrysoloras',
-      plain: 'Photios Chrysoloras',
-      file: 'Photios_Chrysoloras_Dossier.html',
-      image: 'thumbs/photios.jpg',
-      eyebrow: 'House Jerbiton &middot; The Cartographer',
-      subtitle: 'Refugee of the Second Rome &mdash; &ldquo;He wanted to be wrong about all of them.&rdquo;',
-      system: 'Ars Magica 5e',
-      campaign: "Solving's Mystery"
-    },
-    {
-      name: '<span class="given">Torsten</span> Fabricatus',
-      plain: 'Torsten Fabricatus',
-      file: 'Torsten_Fabricatus_Dossier.html',
-      image: 'thumbs/torsten.jpg',
-      eyebrow: 'House Verditius &middot; Maritime Enchanter',
-      subtitle: 'The Maker &mdash; The Right Way or Not at All',
-      system: 'Ars Magica 5e',
-      campaign: "Solving's Mystery"
-    },
-    {
-      name: '<span class="given">Badriyah</span>',
-      plain: 'Badriyah',
-      file: 'Badriyah_Dossier.html',
-      image: 'thumbs/badriyah.jpg',
-      eyebrow: 'Tiefling Warlock &middot; Fiend Pact',
-      subtitle: 'The Counsellor Behind the Throne &mdash; The One Who Thought She Was Clever Enough',
-      system: 'D&amp;D 5e',
-      campaign: 'Out of the Abyss'
-    },
-    {
-      name: '<span class="given">Damrod</span> of the North',
-      plain: 'Damrod of the North',
-      file: 'Damrod_Dossier.html',
-      image: 'thumbs/damrod.jpg',
-      eyebrow: 'D&uacute;nedain Ranger &middot; Warden of the Eastern Line',
-      subtitle: 'He Who Asked Before He Acted &mdash; Bearer of the Silver Clasp',
-      system: 'The One Ring 2e',
-      campaign: 'The Angle'
-    },
-    {
-      name: '<span class="given">Yanos</span> Pelagos Benthos',
-      plain: 'Yanos Pelagos Benthos',
-      file: 'Yanos_Pelagos_Benthos_Dossier.html',
-      image: 'thumbs/yanos.jpg',
-      eyebrow: 'Triton &middot; Cleric / Warlock',
-      subtitle: 'Navigator by faith &mdash; He heard a voice in the shell. He never thought to ask whose.',
-      system: 'D&amp;D 5e',
-      campaign: 'Seas Above &amp; Below'
+      campaign: 'Above All Else, Love',
+      role: 'pc',
+      campaignStatus: 'past'
     },
     {
       name: '<span class="given">Antagones</span>',
@@ -869,9 +491,171 @@
       eyebrow: 'Leonin &middot; Fighter / Paladin',
       subtitle: 'The Mane of the Arena &mdash; Champion of the Summer Circuit, Three-Season Victor',
       system: 'D&amp;D 5e',
-      campaign: 'The Blight'
+      campaign: 'The Blight',
+      role: 'pc',
+      campaignStatus: 'active'
+    },
+    {
+      name: '<span class="given">Badriyah</span>',
+      plain: 'Badriyah',
+      file: 'Badriyah_Dossier.html',
+      image: 'thumbs/badriyah.jpg',
+      eyebrow: 'Tiefling Warlock &middot; Fiend Pact',
+      subtitle: 'The Counsellor Behind the Throne &mdash; The One Who Thought She Was Clever Enough',
+      system: 'D&amp;D 5e',
+      campaign: 'Out of the Abyss',
+      role: 'pc',
+      campaignStatus: 'past'
+    },
+    {
+      name: 'Havildar <span class="given">Bhimbahadur</span> Pun',
+      plain: 'Havildar Bhimbahadur Pun',
+      file: 'Bhimbahadur_Pun_Dossier.html',
+      image: 'thumbs/bhim-valet.jpg',
+      eyebrow: 'Ex-Gurkha &middot; 5th Rifles',
+      subtitle: 'London orderly, 1884&ndash;present &mdash; IOM (3rd Class)',
+      system: 'Pulp Cthulhu / Cthulhu by Gaslight',
+      campaign: 'Masks of Nyarlathotep: Empire of Shadows',
+      role: 'pc',
+      campaignStatus: 'active'
+    },
+    {
+      name: '<span class="given">Celenneth</span> of the D&uacute;nedain',
+      plain: 'Celenneth of the Dúnedain',
+      file: 'Celenneth_Dossier.html',
+      image: 'thumbs/celenneth.jpg',
+      eyebrow: 'D&uacute;nedain Ranger &middot; Messenger',
+      subtitle: 'Daughter of the North &mdash; She Who Ran at Nine and Stopped Running at Thirty-Eight',
+      system: 'The One Ring 2e',
+      campaign: 'The Angle',
+      role: 'pc',
+      campaignStatus: 'active'
+    },
+    {
+      name: '<span class="given">Cihan</span> Yilan',
+      plain: 'Cihan Yilan',
+      file: 'Cihan_Yilan_Dossier.html',
+      image: 'thumbs/cihan.jpg',
+      eyebrow: 'Vizier of Ughardi &middot; Skai Holt',
+      subtitle: 'Servant of the Serref &mdash; Builder of the Lani Span',
+      system: 'D&amp;D 5e',
+      campaign: 'Skai Holt &amp; Ughardi',
+      role: 'pc',
+      campaignStatus: 'active'
+    },
+    {
+      name: '<span class="given">Clifford</span> Joel Howard',
+      plain: 'Clifford Joel Howard',
+      file: 'Clifford_Joel_Howard_Dossier.html',
+      image: 'thumbs/clifford.jpg',
+      eyebrow: 'Federal Investigator &middot; Division Seven',
+      subtitle: 'Radiance Bureau &mdash; Nashoba posting &mdash; age 27',
+      system: 'Delta Green',
+      campaign: 'Nashoba',
+      role: 'pc',
+      campaignStatus: 'active'
+    },
+    {
+      name: '<span class="given">Li Xia</span> (Lily Combes)',
+      plain: 'Li Xia (Lily Combes)',
+      file: 'Li_Xia_Lily_Combes_Dossier.html',
+      image: 'thumbs/Li Xia (Lily).jpg',
+      eyebrow: 'Delta Green &middot; Case File DG-CA-1952-014',
+      subtitle: 'Research Assistant, JPL &mdash; Nashoba, 1952 &mdash; operating as Lily Combes',
+      system: 'Delta Green',
+      campaign: 'Nazis, Spies &amp; Satanists',
+      role: 'pc',
+      campaignStatus: 'active'
+    },
+    {
+      name: '<span class="given">Malek</span>',
+      plain: 'Malek',
+      file: 'Malek_Dossier.html',
+      image: 'thumbs/malek.jpg',
+      eyebrow: 'Halfling Psionicist &middot; Dark Sun',
+      subtitle: 'Flesh-Tender &mdash; Wanderer of the Burned Sands',
+      system: 'Shadowdark RPG',
+      campaign: 'Dark Sun',
+      role: 'pc',
+      campaignStatus: 'active'
+    },
+    {
+      name: '<span class="given">Rhys</span> Tyler Owens',
+      plain: 'Rhys Tyler Owens',
+      file: 'Rhys_Tyler_Owens_Dossier.html',
+      image: 'thumbs/rhys.jpg',
+      eyebrow: 'Black Furies &middot; Theurge &middot; Patron: Gorgon',
+      subtitle: '&ldquo;They were safe from my rage when I lacked power.&rdquo;',
+      system: 'Werewolf: The Apocalypse',
+      campaign: 'Rites of Redemption',
+      role: 'pc',
+      campaignStatus: 'active'
+    },
+    {
+      name: '<span class="given">Taran</span>',
+      plain: 'Taran',
+      file: 'Taran_Dossier.html',
+      image: 'thumbs/taran.jpg',
+      eyebrow: 'Soldier First Class &middot; The Hearth',
+      subtitle: 'Boggart &mdash; sworn to the household, bound to make it safe',
+      system: 'Household',
+      campaign: 'The Hearth',
+      role: 'pc',
+      campaignStatus: 'active'
+    },
+    {
+      name: '<span class="given">Tepshe</span>',
+      plain: 'Tepshe',
+      file: 'Tepshe_Dossier.html',
+      image: 'thumbs/tepshe.jpg',
+      eyebrow: 'Jinxed Tengu &middot; Inventor',
+      subtitle: 'Scavenger of misfortune &mdash; architect of controlled catastrophe',
+      system: 'Pathfinder 2e',
+      campaign: 'Convention One-Shot',
+      role: 'pc',
+      campaignStatus: 'one-shot'
+    },
+    {
+      name: '<span class="given">Valerian</span> de Castellane',
+      plain: 'Valerian de Castellane',
+      file: 'Valerian_de_Castellane_Dossier.html',
+      image: 'thumbs/valerian-portrait.jpg',
+      eyebrow: 'Qu&aelig;sitor &middot; House Guernicus',
+      subtitle: 'Chief Enforcer of the Normandy Tribunal &mdash; The Granite Inquisitor',
+      system: 'Ars Magica 5e',
+      campaign: 'Covenant Sj&oacute;rseiðr',
+      role: 'pc',
+      campaignStatus: 'active'
+    },
+    {
+      name: '<span class="given">Yanos</span> Pelagos Benthos',
+      plain: 'Yanos Pelagos Benthos',
+      file: 'Yanos_Pelagos_Benthos_Dossier.html',
+      image: 'thumbs/yanos.jpg',
+      eyebrow: 'Triton &middot; Cleric / Warlock',
+      subtitle: 'Navigator by faith &mdash; He heard a voice in the shell. He never thought to ask whose.',
+      system: 'D&amp;D 5e',
+      campaign: 'Seas Above &amp; Below',
+      role: 'pc',
+      campaignStatus: 'past'
     }
   ];
+
+  // ----- Shuffle + roster -----
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  const roster = shuffle(characters);
+
+  // ----- Filter state -----
+  let activeStatuses = new Set(['active']);
+  let activeRoles    = new Set(['pc']);
 
   // ----- Render -----
   const gridEl = document.getElementById('grid');
@@ -901,10 +685,12 @@
   }
 
   function render() {
-    const sysQ = sysInput.value.trim().toLowerCase();
+    const sysQ  = sysInput.value.trim().toLowerCase();
     const campQ = campInput.value.trim().toLowerCase();
-    const filtered = characters.filter(c =>
-      (!sysQ || c.system.toLowerCase().includes(sysQ)) &&
+    const filtered = roster.filter(c =>
+      activeStatuses.has(c.campaignStatus) &&
+      activeRoles.has(c.role) &&
+      (!sysQ  || c.system.toLowerCase().includes(sysQ)) &&
       (!campQ || c.campaign.toLowerCase().includes(campQ))
     );
     if (filtered.length === 0) {
@@ -912,11 +698,29 @@
     } else {
       gridEl.innerHTML = filtered.map(cardHTML).join('');
     }
-    const total = characters.length;
-    countEl.textContent = filtered.length === total
-      ? `${total} ${total === 1 ? 'dossier' : 'dossiers'} on file`
-      : `${filtered.length} of ${total} shown`;
+    countEl.textContent = filtered.length === roster.length
+      ? `${roster.length} ${roster.length === 1 ? 'dossier' : 'dossiers'} on file`
+      : `${filtered.length} of ${roster.length} shown`;
   }
+
+  // ----- Toggle handlers -----
+  document.querySelectorAll('.toggle[data-status]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const s = btn.dataset.status;
+      if (activeStatuses.has(s)) { activeStatuses.delete(s); btn.classList.remove('on'); }
+      else                        { activeStatuses.add(s);    btn.classList.add('on');    }
+      render();
+    });
+  });
+
+  document.querySelectorAll('.toggle[data-role]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const r = btn.dataset.role;
+      if (activeRoles.has(r)) { activeRoles.delete(r); btn.classList.remove('on'); }
+      else                     { activeRoles.add(r);    btn.classList.add('on');    }
+      render();
+    });
+  });
 
   // ----- Autocomplete -----
   function uniqueValues(field) {
