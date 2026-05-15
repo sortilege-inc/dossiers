@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Linnea of Bree</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f3ecda;
+    --paper-dark: #e6dcc4;
+    --ink: #1f1c17;
+    --ink-soft: #4a4339;
+    --ink-faint: #7a7160;
+    --hearth-teal: #2f4a48;
+    --hearth-teal-deep: #1c302e;
+    --hearth-amber: #b4801f;
+    --hearth-amber-deep: #7e5810;
+    --gold: #a88a4a;
+    --gold-deep: #7a5d27;
+    --rule: #c8ba9a;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "EB Garamond", "Cormorant Garamond", Georgia, serif;
+    font-size: 16px; line-height: 1.6; font-weight: 400;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(47, 74, 72, 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgba(180, 128, 31, 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(168, 138, 74, 0.03) 0%, transparent 70%);
+    min-height: 100vh; padding: 2rem 1rem;
+  }
+  .document {
+    max-width: 880px; margin: 0 auto;
+    background: var(--paper);
+    padding: 4rem 4.5rem 5rem;
+    box-shadow: 0 1px 2px rgba(31, 28, 23, 0.08), 0 8px 32px rgba(31, 28, 23, 0.14);
+    position: relative; border: 1px solid var(--rule);
+  }
+  .document::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--hearth-teal-deep) 0%, var(--hearth-teal) 25%, var(--hearth-amber) 50%, var(--hearth-teal) 75%, var(--hearth-teal-deep) 100%);
+  }
+
+  header.title-block {
+    text-align: center; border-bottom: 2px solid var(--ink);
+    padding-bottom: 2rem; margin-bottom: 3rem; position: relative;
+  }
+  header.title-block::after {
+    content: ""; display: block; width: 60px; height: 1px;
+    background: var(--gold); margin: 1rem auto 0;
+  }
+  .eyebrow {
+    font-family: "Cormorant SC", serif; font-size: 0.75rem;
+    letter-spacing: 0.4em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 1.5rem;
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    font-size: 3.5rem; line-height: 1.05; margin: 0 0 0.5rem;
+    letter-spacing: 0.02em; color: var(--ink);
+  }
+  .character-name .epithet { font-style: italic; color: var(--hearth-teal-deep); }
+  .epithets {
+    font-family: "EB Garamond", serif; font-style: italic;
+    font-size: 1rem; color: var(--ink-soft); margin: 0.5rem 0 1rem;
+  }
+  .vitals {
+    display: flex; justify-content: center; gap: 2rem;
+    margin-top: 1.5rem; flex-wrap: wrap;
+    font-family: "Cormorant SC", serif; font-size: 0.78rem;
+    letter-spacing: 0.18em; color: var(--ink-soft);
+  }
+  .vitals span { border-left: 1px solid var(--rule); padding-left: 1.25rem; }
+  .vitals span:first-child { border-left: none; padding-left: 0; }
+
+  section { margin-bottom: 3rem; }
+  h2.section-title {
+    font-family: "Cormorant SC", serif; font-weight: 500;
+    font-size: 0.95rem; letter-spacing: 0.32em;
+    color: var(--hearth-teal-deep); text-transform: uppercase;
+    border-bottom: 1px solid var(--rule); padding-bottom: 0.5rem;
+    margin: 0 0 1.5rem; position: relative;
+  }
+  h2.section-title::before {
+    content: "❦"; color: var(--hearth-amber); margin-right: 0.6rem;
+    font-style: normal; font-family: "EB Garamond", serif; font-weight: 400;
+  }
+  h3.subhead {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    font-size: 1.3rem; color: var(--hearth-amber-deep);
+    margin: 1.5rem 0 0.5rem; font-style: italic;
+  }
+  h4.entry-label {
+    font-family: "Cormorant SC", serif; font-weight: 500;
+    font-size: 0.78rem; letter-spacing: 0.2em; color: var(--ink);
+    text-transform: uppercase; margin: 1rem 0 0.25rem;
+  }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0.5rem 0 1rem 1.5rem; padding: 0; }
+  li { margin-bottom: 0.4rem; }
+  em { color: var(--ink-soft); }
+  strong { font-weight: 600; color: var(--ink); }
+
+  blockquote.maxim {
+    font-family: "Cormorant Garamond", serif; font-style: italic;
+    font-size: 1.25rem; line-height: 1.5;
+    color: var(--hearth-teal-deep);
+    border-left: 3px solid var(--hearth-amber);
+    padding: 0.5rem 0 0.5rem 1.5rem; margin: 1.5rem 0;
+    background: rgba(180, 128, 31, 0.05);
+  }
+  blockquote.maxim .attribution {
+    display: block; font-size: 0.85rem; font-style: normal;
+    color: var(--ink-faint); font-family: "Cormorant SC", serif;
+    letter-spacing: 0.15em; margin-top: 0.5rem;
+  }
+
+  table.dossier-table {
+    width: 100%; border-collapse: collapse;
+    margin: 1rem 0 1.5rem; font-size: 0.92rem;
+  }
+  table.dossier-table th {
+    text-align: left; font-family: "Cormorant SC", serif; font-weight: 500;
+    font-size: 0.72rem; letter-spacing: 0.18em; color: var(--ink-faint);
+    text-transform: uppercase; padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  table.dossier-table td {
+    padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  table.dossier-table td:first-child {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    color: var(--ink); white-space: nowrap; padding-right: 1.5rem;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+
+  table.skill-block { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1.5rem; font-size: 0.9rem; }
+  table.skill-block td {
+    padding: 0.35rem 0.6rem; border-bottom: 1px dotted var(--rule);
+    vertical-align: baseline;
+  }
+  table.skill-block td.skill-name {
+    font-family: "Cormorant Garamond", serif; color: var(--ink);
+  }
+  table.skill-block td.skill-name.fav { color: var(--hearth-amber-deep); font-weight: 500; }
+  table.skill-block td.skill-name.fav::before {
+    content: "◆ "; color: var(--hearth-amber); font-size: 0.85em;
+  }
+  table.skill-block td.skill-rank {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    color: var(--ink); text-align: right; width: 2.5rem;
+  }
+  .skill-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 0 2rem; margin: 1rem 0 1.5rem;
+  }
+  .skill-grid h4 {
+    font-family: "Cormorant SC", serif; font-size: 0.75rem;
+    letter-spacing: 0.22em; color: var(--hearth-teal-deep);
+    text-transform: uppercase; margin: 0 0 0.5rem;
+    border-bottom: 1.5px solid var(--ink); padding-bottom: 0.4rem;
+  }
+
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem; margin: 1rem 0;
+  }
+  .stat-cell {
+    text-align: center; padding: 1rem 0.5rem;
+    border: 1px solid var(--rule);
+    background: rgba(255, 255, 255, 0.4); position: relative;
+  }
+  .stat-cell .label {
+    font-family: "Cormorant SC", serif; font-size: 0.72rem;
+    letter-spacing: 0.2em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 0.35rem;
+  }
+  .stat-cell .value {
+    font-family: "Cormorant Garamond", serif; font-size: 2rem;
+    font-weight: 500; color: var(--ink); line-height: 1;
+  }
+  .stat-cell .delta {
+    font-family: "EB Garamond", serif; font-style: italic;
+    font-size: 0.85rem; color: var(--ink-faint); margin-top: 0.3rem;
+  }
+
+  .small-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem; margin: 1rem 0 1.5rem;
+  }
+  .small-cell {
+    text-align: center; padding: 0.75rem 0.4rem;
+    border: 1px solid var(--rule);
+    background: rgba(255, 255, 255, 0.4);
+  }
+  .small-cell .label {
+    font-family: "Cormorant SC", serif; font-size: 0.66rem;
+    letter-spacing: 0.18em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 0.25rem;
+  }
+  .small-cell .value {
+    font-family: "Cormorant Garamond", serif; font-size: 1.4rem;
+    font-weight: 500; color: var(--hearth-teal-deep); line-height: 1;
+  }
+
+  .relations-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
+  .relation { padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+  .relation:last-child { border-bottom: none; }
+  .relation .name {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    font-size: 1.1rem; color: var(--ink); margin-bottom: 0.15rem;
+  }
+  .relation .name .role {
+    font-style: italic; color: var(--ink-soft);
+    font-size: 0.95rem; font-weight: 400;
+  }
+  .relation .name .culture {
+    font-family: "Cormorant SC", serif; font-size: 0.7rem;
+    letter-spacing: 0.15em; color: var(--gold-deep); margin-left: 0.5rem;
+  }
+  .relation .text { font-size: 0.95rem; color: var(--ink-soft); margin-top: 0.25rem; }
+
+  .timeline {
+    border-left: 2px solid var(--hearth-amber);
+    padding-left: 1.5rem; margin: 1rem 0 1rem 0.5rem;
+  }
+  .timeline-entry { margin-bottom: 1.5rem; position: relative; }
+  .timeline-entry::before {
+    content: ""; position: absolute; left: -1.85rem; top: 0.5rem;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--paper); border: 2px solid var(--hearth-amber);
+  }
+  .timeline-entry .when {
+    font-family: "Cormorant SC", serif; font-size: 0.72rem;
+    letter-spacing: 0.18em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 0.25rem;
+  }
+  .timeline-entry .what {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    font-size: 1.05rem; color: var(--ink); margin-bottom: 0.25rem;
+  }
+  .timeline-entry .detail { font-size: 0.93rem; color: var(--ink-soft); }
+
+  nav.toc {
+    border: 1px solid var(--rule); padding: 1.25rem 1.5rem;
+    margin-bottom: 3rem; background: rgba(255, 255, 255, 0.4);
+    columns: 2; column-gap: 2rem;
+  }
+  nav.toc .toc-label {
+    font-family: "Cormorant SC", serif; font-size: 0.7rem;
+    letter-spacing: 0.25em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 0.6rem; column-span: all;
+  }
+  nav.toc ol {
+    list-style: none; margin: 0; padding: 0;
+    counter-reset: toc; font-family: "EB Garamond", serif;
+  }
+  nav.toc ol li {
+    counter-increment: toc; font-size: 0.93rem;
+    margin-bottom: 0.3rem; break-inside: avoid;
+  }
+  nav.toc ol li::before {
+    content: counter(toc, upper-roman) ". ";
+    color: var(--gold-deep); font-style: italic; margin-right: 0.3rem;
+  }
+  nav.toc a {
+    color: var(--ink); text-decoration: none;
+    border-bottom: 1px dotted transparent; transition: border-color 0.2s;
+  }
+  nav.toc a:hover { border-bottom-color: var(--hearth-teal); }
+
+  footer.colophon {
+    margin-top: 4rem; padding-top: 2rem;
+    border-top: 1px solid var(--rule); text-align: center;
+    font-family: "Cormorant SC", serif; font-size: 0.7rem;
+    letter-spacing: 0.25em; color: var(--ink-faint); text-transform: uppercase;
+  }
+  footer.colophon::before {
+    content: "❦"; display: block; color: var(--hearth-amber);
+    font-size: 1.2rem; margin-bottom: 1rem; letter-spacing: normal;
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .document { box-shadow: none; padding: 1in; max-width: none; }
+  }
+
+  @media (max-width: 700px) {
+    body { padding: 1rem 0.5rem; }
+    .document { padding: 2rem 1.5rem 3rem; }
+    h1.character-name { font-size: 2.5rem; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
+    .stat-cell { padding: 0.6rem 0.3rem; }
+    .stat-cell .value { font-size: 1.5rem; }
+    .small-grid { grid-template-columns: repeat(2, 1fr); }
+    .skill-grid { grid-template-columns: 1fr; gap: 0.5rem 0; }
+    nav.toc { columns: 1; }
+    .vitals { gap: 0.75rem; font-size: 0.7rem; }
+    .vitals span { border-left: none; padding-left: 0; }
+    .portrait-block { grid-template-columns: 1fr; gap: 1.25rem; }
+    .portrait-block img { max-width: 260px; }
+  }
+
+  .portrait-block {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem; margin: 0 0 2.5rem; align-items: end;
+  }
+  .portrait-block figure { margin: 0; text-align: center; }
+  .portrait-block img {
+    width: 100%; max-width: 320px; height: auto;
+    border: 1px solid var(--ink);
+    box-shadow: 0 2px 10px rgba(31, 28, 23, 0.18), inset 0 0 0 4px var(--paper);
+    padding: 4px; background: var(--paper-dark);
+  }
+  .portrait-block figcaption {
+    font-family: "Cormorant SC", serif; font-size: 0.7rem;
+    letter-spacing: 0.22em; color: var(--ink-faint);
+    text-transform: uppercase; margin-top: 0.7rem;
+  }
+  .portrait-block .blurb {
+    font-family: "EB Garamond", serif; font-style: italic;
+    color: var(--ink-soft); font-size: 0.95rem;
+    padding: 0 0.5rem; text-align: left; line-height: 1.55;
+  }
+
+  .legend {
+    font-family: "EB Garamond", serif; font-style: italic;
+    font-size: 0.85rem; color: var(--ink-faint); margin-top: -0.5rem;
+  }
+  .legend .marker { color: var(--hearth-amber); font-style: normal; margin-right: 0.25rem; }
+</style>
+</head>
+<body>
+<div class="document">
+
+  <header class="title-block">
+    <div class="eyebrow">Dossier &middot; Men of Bree</div>
+    <h1 class="character-name">Linnea <span class="epithet">of Bree</span></h1>
+    <p class="epithets">Bound to Celenneth by the Aegis &middot; Warden &middot; Of Bree-Blood</p>
+    <div class="vitals">
+      <span>Men of Bree</span>
+      <span>Calling: Warden</span>
+      <span>Patron: Radagast the Brown</span>
+      <span>Safe Haven: The Angle</span>
+      <span>Standard of Living: Common</span>
+    </div>
+  </header>
+
+  <div class="portrait-block">
+    <figure>
+      <img src="linnea.png" alt="Portrait of Linnea, long dark hair, working dress">
+      <figcaption>Linnea &middot; in working dress</figcaption>
+    </figure>
+    <div class="blurb">
+      <p>A Bree-folk woman, long dark hair, grey-eyed. The granddaughter of a Bree herbalist who taught her that <em>there wasn't a problem that couldn't be eased with a good cup of chamomile tea.</em> The daughter of a man who was killed; held captive afterward by men who treated her as property; cut free by a Ranger of the North near the Anduin and not put down at the next village.</p>
+    </div>
+  </div>
+
+  <nav class="toc">
+    <div class="toc-label">Contents</div>
+    <ol>
+      <li><a href="#identity">Identity &amp; Standing</a></li>
+      <li><a href="#mechanical">The Character Sheet</a></li>
+      <li><a href="#gear">Gear &amp; Tokens</a></li>
+      <li><a href="#relations">Bonds &amp; Acquaintances</a></li>
+      <li><a href="#shadow">The Shadow Carried</a></li>
+      <li><a href="#timeline">Chronicle of Her Road</a></li>
+    </ol>
+  </nav>
+
+  <section id="identity">
+    <h2 class="section-title">I. Identity &amp; Standing</h2>
+
+    <p>Linnea was raised in Bree by her grandmother, who taught her plants. Her father was killed; afterward she was held by bandits near the Anduin. Celenneth cut her free and was meant to drop her at the next village. She rode on instead. Across the books that followed she was named <em>Linnea of Bree</em> by Thalion in his pavilion; learned riding, swordwork, and archery from Eadwyn of Rohan; midwifery from Freowyn; took up the bow and rode Eorlin, the foal she watched born; bound herself to Celenneth by the Aegis at Yule; mothered Brynja with her; midwifed Hallas into the world. She has been admitted to the great halls and addressed by name there; she has also carried a solo book of the chronicle, alone with Gandalf and Bilbo and the Marish and a branded man and the road home.</p>
+
+    <h3 class="subhead">Sayings of Record</h3>
+
+    <blockquote class="maxim">
+      I am more liable to regret inaction.
+      <span class="attribution">To Celenneth at the campfire, Cermië 2965</span>
+    </blockquote>
+
+    <blockquote class="maxim">
+      You don't always have to be strong. Not with me.
+      <span class="attribution">Tracing the chain-scars, the bath at the Trollshaws</span>
+    </blockquote>
+
+    <blockquote class="maxim">
+      Love. We could have offered her love.
+      <span class="attribution">The night before Eofred granted Brynja</span>
+    </blockquote>
+
+    <blockquote class="maxim">
+      Strong men such as yourselves have no need to waylay weary riders.
+      <span class="attribution">To the brigands on the road, Book IX</span>
+    </blockquote>
+
+    <blockquote class="maxim">
+      I just want to be strong enough to protect the people I love.
+      <span class="attribution">To Eadwyn, in Rohan</span>
+    </blockquote>
+
+    <blockquote class="maxim">
+      I just want to be enough.
+      <span class="attribution">By the fire, Book XII, during Celenneth's pregnancy</span>
+    </blockquote>
+
+    <blockquote class="maxim">
+      I'll be back soon. Always.
+      <span class="attribution">Leaving for the Shire, Celenneth's covenant returned</span>
+    </blockquote>
+  </section>
+
+  <section id="mechanical">
+    <h2 class="section-title">II. The Character Sheet</h2>
+
+    <h3 class="subhead">Attributes</h3>
+    <div class="stat-grid">
+      <div class="stat-cell">
+        <div class="label">Strength</div>
+        <div class="value">3</div>
+        <div class="delta">TN 17 &middot; <em>Fair</em></div>
+      </div>
+      <div class="stat-cell">
+        <div class="label">Heart</div>
+        <div class="value">7</div>
+        <div class="delta">TN 13 &middot; <em>Good</em></div>
+      </div>
+      <div class="stat-cell">
+        <div class="label">Wits</div>
+        <div class="value">7</div>
+        <div class="delta">TN 13 &middot; <em>Good</em></div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Stature &amp; Standing</h3>
+    <div class="small-grid">
+      <div class="small-cell"><div class="label">Valour</div><div class="value">1</div></div>
+      <div class="small-cell"><div class="label">Wisdom</div><div class="value">3</div></div>
+      <div class="small-cell"><div class="label">Fellowship</div><div class="value">4</div></div>
+      <div class="small-cell"><div class="label">Treasure</div><div class="value">20</div></div>
+    </div>
+
+    <h3 class="subhead">Endurance, Hope, Shadow</h3>
+    <div class="small-grid">
+      <div class="small-cell"><div class="label">Endurance</div><div class="value">22/22</div></div>
+      <div class="small-cell"><div class="label">Hope</div><div class="value">16/16</div></div>
+      <div class="small-cell"><div class="label">Shadow Scars</div><div class="value">1</div></div>
+      <div class="small-cell"><div class="label">Load</div><div class="value">5</div></div>
+    </div>
+
+    <h3 class="subhead">Cultural Blessing, Calling, Features</h3>
+    <table class="dossier-table">
+      <tr><td>Cultural Blessing</td><td><em>Bree-Blood.</em></td></tr>
+      <tr><td>Calling</td><td><em>Warden.</em></td></tr>
+      <tr><td>Distinctive Features</td><td><em>Fair-spoken. True-hearted. Shadow-Lore.</em></td></tr>
+      <tr><td>Shadow Path</td><td><em>Path of Despair.</em></td></tr>
+    </table>
+
+    <h3 class="subhead">Combat Proficiencies</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Weapon Group</th><th>Rating</th></tr></thead>
+      <tr><td>Bows</td><td>2</td></tr>
+      <tr><td>Spears</td><td>2</td></tr>
+      <tr><td>Swords</td><td>0</td></tr>
+      <tr><td>Axes</td><td>0</td></tr>
+    </table>
+
+    <h3 class="subhead">Combat Statistics</h3>
+    <div class="small-grid">
+      <div class="small-cell"><div class="label">Parry</div><div class="value">16</div></div>
+      <div class="small-cell"><div class="label">Protection</div><div class="value">1d</div></div>
+      <div class="small-cell"><div class="label">Armour</div><div class="value">Leather + Sigil</div></div>
+      <div class="small-cell"><div class="label">Helm</div><div class="value">&mdash;</div></div>
+    </div>
+
+    <h3 class="subhead">Skills</h3>
+    <p class="legend"><span class="marker">◆</span> indicates a Favoured skill.</p>
+
+    <div class="skill-grid">
+      <div>
+        <h4>Body (Strength)</h4>
+        <table class="skill-block">
+          <tr><td class="skill-name">Awe</td><td class="skill-rank">0</td></tr>
+          <tr><td class="skill-name">Athletics</td><td class="skill-rank">1</td></tr>
+          <tr><td class="skill-name fav">Awareness</td><td class="skill-rank">1</td></tr>
+          <tr><td class="skill-name">Hunting</td><td class="skill-rank">1</td></tr>
+          <tr><td class="skill-name">Song</td><td class="skill-rank">1</td></tr>
+          <tr><td class="skill-name">Craft</td><td class="skill-rank">2</td></tr>
+        </table>
+      </div>
+      <div>
+        <h4>Heart</h4>
+        <table class="skill-block">
+          <tr><td class="skill-name fav">Enhearten</td><td class="skill-rank">2</td></tr>
+          <tr><td class="skill-name">Travel</td><td class="skill-rank">1</td></tr>
+          <tr><td class="skill-name fav">Insight</td><td class="skill-rank">2</td></tr>
+          <tr><td class="skill-name fav">Healing</td><td class="skill-rank">3</td></tr>
+          <tr><td class="skill-name">Courtesy</td><td class="skill-rank">4</td></tr>
+          <tr><td class="skill-name">Battle</td><td class="skill-rank">0</td></tr>
+        </table>
+      </div>
+      <div>
+        <h4>Wits</h4>
+        <table class="skill-block">
+          <tr><td class="skill-name fav">Persuade</td><td class="skill-rank">2</td></tr>
+          <tr><td class="skill-name">Stealth</td><td class="skill-rank">1</td></tr>
+          <tr><td class="skill-name">Scan</td><td class="skill-rank">1</td></tr>
+          <tr><td class="skill-name">Explore</td><td class="skill-rank">1</td></tr>
+          <tr><td class="skill-name">Riddle</td><td class="skill-rank">2</td></tr>
+          <tr><td class="skill-name">Lore</td><td class="skill-rank">0</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <h3 class="subhead">Virtues &amp; Rewards</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Virtue / Reward</th><th>Type</th></tr></thead>
+      <tr><td>Mastery</td><td>Cultural Virtue.</td></tr>
+      <tr><td>Prowess</td><td>Cultural Virtue.</td></tr>
+      <tr><td>Friendly &amp; Familiar (Bree)</td><td>Cultural Virtue.</td></tr>
+      <tr><td>Bow (Keen)</td><td>Reward.</td></tr>
+    </table>
+
+    <h3 class="subhead">Adventure &amp; Skill Points</h3>
+    <table class="dossier-table">
+      <tr><td>Adventure Points (current)</td><td>18</td></tr>
+      <tr><td>Skill Points (current)</td><td>26</td></tr>
+      <tr><td>Fellowship Points</td><td>4</td></tr>
+      <tr><td>Treasure</td><td>20</td></tr>
+    </table>
+  </section>
+
+  <section id="gear">
+    <h2 class="section-title">III. Gear &amp; Tokens</h2>
+
+    <h3 class="subhead">War Gear</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Item</th><th>Damage</th><th>Injury</th><th>Load</th><th>Notes</th></tr></thead>
+      <tr><td>Bow</td><td>3</td><td>14</td><td>2</td><td>Two-handed; <em>Keen</em>. Trained on under Eadwyn in Rohan.</td></tr>
+      <tr><td>Dagger</td><td>2</td><td>14</td><td>0</td><td>Utility blade. Used at the canyon ambush.</td></tr>
+      <tr><td>Unarmed</td><td>1</td><td>&mdash;</td><td>0</td><td>&mdash;</td></tr>
+    </table>
+
+    <h3 class="subhead">Armour</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Item</th><th>Protection</th><th>Load</th><th>Notes</th></tr></thead>
+      <tr><td>Leather Shirt</td><td>&mdash;</td><td>3</td><td>The travelling armour.</td></tr>
+      <tr><td>Wyrmscale Sigil</td><td>1d</td><td>3</td><td>Taken from the marsh in the Marish in Book IX, after the men handling it treated it like something dangerous. The villagers were warned on her way out. Old, humming faintly, etched with scales — connected by Gandalf's word to the other dark objects in the chronicle's web.</td></tr>
+    </table>
+
+    <h3 class="subhead">Treasures &amp; Tokens</h3>
+    <table class="dossier-table">
+      <tr><td>Magic Ring (Courtesy, Lore)</td><td>Silver. Pressed into her hand by a wandering spirit on the Rhovanion plains in Book V, near the Anduin. Named by Bilbo in Bag End: <em>a memory ring, a longing that never settled, someone who refused to let something vanish with time.</em> <em>It chose you. Keep it close, listen to your instincts.</em></td></tr>
+      <tr><td>Wolf Clasp</td><td>A wolf's-head clasp first found in a garden in Hobbiton. The branded man in the Shire carried its kind; the master who brands such men is unnamed.</td></tr>
+      <tr><td>Cursed Diadem</td><td>Listed on the sheet as carrying one point of Shadow.</td></tr>
+      <tr><td>Silver Brooch</td><td>Listed on the sheet.</td></tr>
+      <tr><td>Herbs picked with Eorlas</td><td>Gathered with the wandering herbalist who taught her in Book III; athelas was among his gifts.</td></tr>
+      <tr><td>Eorlin</td><td>Her horse. The foal she watched born in Freowyn's stable, grown and given formally with the green cloak of Rohan.</td></tr>
+    </table>
+  </section>
+
+  <section id="relations">
+    <h2 class="section-title">IV. Bonds &amp; Acquaintances</h2>
+
+    <div class="relations-grid">
+
+      <div class="relation">
+        <div class="name">Celenneth <span class="role">— wife, bound by the Aegis</span><span class="culture">Rangers of the North</span></div>
+        <div class="text">Cut her free from the bandits' camp without asking thanks. Stayed when the road did not let her be put down. Sworn by the Aegis at Yule in Rohan. Mother of Brynja with her; mother of Hallas through her. Linnea's named Fellowship focus.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Brynja <span class="role">— elder daughter, adopted in Rohan</span><span class="culture">Foundling, Riddermark</span></div>
+        <div class="text">Linnea's <em>love. We could have offered her love</em> the night before the petition. Mothered alongside Celenneth ever since.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Hallas <span class="role">— son, infant</span><span class="culture">Dúnedain, born in the Angle</span></div>
+        <div class="text">Linnea midwifed his birth from Freowyn's lessons.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Radagast the Brown <span class="role">— Patron</span><span class="culture">Istari</span></div>
+        <div class="text">Met in his forest at the end of Book II. Gave the prophecy spoken in both their hearing: <em>your fates are intertwined, though the path may not be what either of you expects... there will come a time when you must choose between your duty and your heart.</em></div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Gandalf the Grey <span class="role">— companion, in Book IX</span><span class="culture">Istari</span></div>
+        <div class="text">Met her on the road to the Shire. <em>All who walk under these skies have stories to tell. Including yours, if I may say so.</em> Praised her handling of the brigands with a quiet <em>well played.</em> Spoke of young Celenneth studying old stones and weathered runes near Fornost. Named the principle: <em>dark objects call out to each other.</em> Sent her to Bilbo; departed at dawn without waking her. <em>The clasp was no accident. Be wary. You're stronger than you know. Trust yourself.</em></div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Bilbo Baggins <span class="role">— host in Bag End</span><span class="culture">Hobbit of the Shire</span></div>
+        <div class="text">Read the silver ring for her: <em>a memory ring, a longing that never settled.</em> Recognised her as a fellow traveller; compared notes of Dale, Rivendell, Mirkwood, and Rohan. The host whose door opened onto lantern light and pipeweed and old books.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Freowyn <span class="role">— Rohirrim woman, teacher</span><span class="culture">Rohan</span></div>
+        <div class="text">Exchanged crafts with her across the long stay in Rohan. Linnea taught chamomile and thyme; Freowyn taught foaling, and then midwifery: <em>a foal is no different from a soldier; both need guidance and care from the moment they enter this world.</em> She helped Linnea foal the mare whose foal became Eorlin.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Eadwyn <span class="role">— Rohirrim instructor</span><span class="culture">Rohan</span></div>
+        <div class="text">Taught her riding, swordwork, and archery. Said: <em>that's exactly why people would follow you</em>, after she said: <em>I just want to be strong enough to protect the people I love.</em></div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Eorlas <span class="role">— wandering herbalist</span><span class="culture">of the road</span></div>
+        <div class="text">The herbalist she met in Book III. Lessons in herblore from him; athelas among his gifts. Joined them at her invitation.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Eryndil <span class="role">— summoner from Lindon</span><span class="culture">Elf of Lindon</span></div>
+        <div class="text">Arrived in the Angle bearing Círdan's errand. Chopped vegetables in the farmhouse kitchen at Martha and Luthan's. Loosed an arrow at the prisoner Celenneth had released around the bend in Book XIII.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Thalion <span class="role">— Lord of the Woodland Realm</span><span class="culture">Mirkwood</span></div>
+        <div class="text">Named her <em>Linnea of Bree</em> in his pavilion. The first lord to do so in formal council.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Bain <span class="role">— King of Dale</span><span class="culture">Men of Dale</span></div>
+        <div class="text">She asked rest for them before the audience and was respected; the alliance was granted in his hall.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Eofred <span class="role">— marshal of Rohan</span><span class="culture">Rohan</span></div>
+        <div class="text">Witnessed the Binding of Aegis. Granted the petition to adopt Brynja the morning after.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Merla, Harvin, Jocelyn &amp; the Bree kin <span class="role">— the family she left</span><span class="culture">Bree-folk</span></div>
+        <div class="text">The Bree family at the dinner. Merla, with flour-covered hands, holding Brynja with possessive intensity: <em>she belongs here, she could have a better life.</em> Linnea's answer: <em>you don't get to choose.</em> Harvin's <em>that's enough for now, let her breathe.</em> Emily's anger: <em>you could've written, you wanted this.</em> Celenneth: <em>she chose to survive.</em> Loran running through the frost after them: <em>I should've tried harder. Stars guide you.</em></div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Pelle &amp; Mareth <span class="role">— kin at the Bree gate</span><span class="culture">Bree-folk</span></div>
+        <div class="text">Caught them at the gate as they left for the second time. Pressed a traveling blanket and a carved wooden horse into their hands. Small objects from people who weren't brave enough in the moment but found the gate before it was too late.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Miss Calder <span class="role">— Bree baker</span><span class="culture">Bree-folk</span></div>
+        <div class="text">Met them in the market on the return. <em>Scandals and wonders.</em> Flour on her sleeves; <em>welcome home Linnea</em> over her shoulder as she moved on.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Eira <span class="role">— Bree friend, at the tavern</span><span class="culture">Bree-folk</span></div>
+        <div class="text">Returned during the second Bree visit, grinning and wry, calling it a feast of chatter.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Orlen &amp; Maren <span class="role">— met in the Shire</span><span class="culture">Bree-folk, displaced</span></div>
+        <div class="text">The man Celenneth once loved, and his wife. Encountered during Linnea's solo book. Orlen: <em>I'm glad she found someone who sees her worth.</em> Linnea: <em>she never forgot the people who mattered.</em></div>
+      </div>
+
+      <div class="relation">
+        <div class="name">The Branded Man <span class="role">— in Hobbiton</span><span class="culture">enslaved</span></div>
+        <div class="text">The man with the wolf-charm. Linnea read him as <em>not just a desperate bandit, this is someone trapped in something cruel</em> and gave him a chance: <em>if there's still something human left in you, don't harm them.</em> The wolf clasp came into her keeping from this encounter.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Almedra <span class="role">— widow of Lindon's coast</span><span class="culture">of Lindon's mortal coast</span></div>
+        <div class="text">The scholar's widow who gave the lorebook forward.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Martha &amp; Luthan <span class="role">— farmhouse hosts</span><span class="culture">Eriador</span></div>
+        <div class="text">Took them in during a driving storm in Book XIII. Martha: <em>an elf is no more welcome or unwelcome than any other soul soaked to the skin.</em> Celenneth left a Númenórean brooch on their mantel as she departed.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">The Wandering Spirit <span class="role">— on the Rhovanion plains</span><span class="culture">unknown</span></div>
+        <div class="text">Pressed the silver ring into her hand in Book V near the Anduin. Bilbo named what the ring was, years later.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="shadow">
+    <h2 class="section-title">V. The Shadow Carried</h2>
+
+    <h3 class="subhead">The Path of Despair</h3>
+    <p>Her Shadow Path on the sheet. One Scar recorded.</p>
+
+    <h3 class="subhead">Carried Objects</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Object</th><th>State</th></tr></thead>
+      <tr><td>The Silver Memory Ring</td><td>Named by Bilbo: grief preserved, not darkness, but bound to the chronicle's web. <em>It chose you.</em></td></tr>
+      <tr><td>The Wolf Clasp</td><td>From Hobbiton's branded man. The master who brands such men is unnamed.</td></tr>
+      <tr><td>The Wyrmscale Sigil</td><td>Taken from the Marish. Old, warm, humming faintly. Named by Gandalf among the objects that <em>call out to each other.</em></td></tr>
+      <tr><td>The Cursed Diadem</td><td>Listed on the sheet as carrying one point of Shadow.</td></tr>
+    </table>
+
+    <h3 class="subhead">The Hobbiton Dream</h3>
+    <p>Whoever brands the men whose clasps are wolves spoke to her in dream: <em>you carry what is ours, you will return or be consumed.</em> The cursed dagger Celenneth carries from Fangorn appeared in the dream though Linnea had never touched it. Gandalf, hearing of it, named the principle: <em>dark objects call out to each other.</em></p>
+
+    <h3 class="subhead">Open Threads</h3>
+    <ul>
+      <li>The master who brands the men of the wolf-clasp, unnamed.</li>
+      <li>The Wyrmscale Sigil and what its men were doing in the Marish.</li>
+      <li>The cursed diadem.</li>
+      <li>Radagast's prophecy of duty and heart, given to both her and Celenneth, undischarged.</li>
+    </ul>
+  </section>
+
+  <section id="timeline">
+    <h2 class="section-title">VI. Chronicle of Her Road</h2>
+
+    <div class="timeline">
+
+      <div class="timeline-entry">
+        <div class="when">Before the Chronicle Begins &middot; Bree</div>
+        <div class="what">A Bree childhood; the grandmother's chamomile.</div>
+        <div class="detail">Plants learned in the grandmother's kitchen. <em>There wasn't a problem that couldn't be eased with a good cup of chamomile tea.</em></div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Pre-Book II</div>
+        <div class="what">The father killed; taken by bandits.</div>
+        <div class="detail">Linnea's father was killed. She was held afterward by men who treated her as property. The road brought her, eventually, near the Anduin.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book II &middot; The Wagon</div>
+        <div class="what">Cut free by Celenneth.</div>
+        <div class="detail">Celenneth circled the camp, cut the ropes, whispered <em>stay quiet</em>, and was gone before the bandits knew. She gave Linnea her cloak unprompted, and shared it in the cold.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book II &middot; Cermië 2965 &middot; The Campfire</div>
+        <div class="what">The wall came down.</div>
+        <div class="detail"><em>I am more liable to regret inaction.</em> The kiss across the firelight. Celenneth: <em>I don't want to. But yes.</em></div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book II &middot; Radagast's Forest</div>
+        <div class="what">The Brown Wizard's prophecy.</div>
+        <div class="detail"><em>Your fates are intertwined, though the path may not be what either of you expects... there will come a time when you must choose between your duty and your heart.</em> Linnea's response, after: <em>he didn't exactly give us much to go on, did he.</em></div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book III &middot; Eorlas; Bain in Dale</div>
+        <div class="what">Herblore begun; the orc-map laid before a king.</div>
+        <div class="detail">Eorlas the wandering herbalist met and invited to join. Athelas among his gifts. The orc-stolen map laid before Bain in his hall; Linnea asking rest before the audience and being respected. <em>Dol Guldur</em> named for the first time in a hall of state.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book IV &middot; The Woodland Realm</div>
+        <div class="what">Thalion named her.</div>
+        <div class="detail">In his pavilion: <em>Celenneth of the North, Linnea of Bree.</em> The feast of Mirkwood with Eryndor and Arannis; the elven glade. Under stars, Celenneth's first <em>I love you</em>, breath against hair.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book V &middot; Rhovanion &middot; The Silver Ring</div>
+        <div class="what">A wandering spirit, near the Anduin.</div>
+        <div class="detail">The spirit pressed the silver ring into her hand. Carried close for four story-years, its nature unknown.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book V &middot; Rohan &middot; Yule, the Binding, Brynja</div>
+        <div class="what">The Aegis sworn; Brynja adopted; Eorlin foaled.</div>
+        <div class="detail">The Binding of Aegis: Linnea repeating the words back, voice trembling, gaze never leaving Celenneth's. <em>Love. We could have offered her love</em>, the night before. The mare's foal taken under Freowyn's hand. <em>This is the best part of my day</em>, in the kitchen after Eadwyn's lessons. Celenneth riding back hard: <em>I missed you both.</em></div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Books V–VII &middot; Rohan &middot; The Apprenticeships</div>
+        <div class="what">Riding, swordwork, archery; midwifery.</div>
+        <div class="detail">Under Eadwyn: <em>I just want to be strong enough to protect the people I love. — That's exactly why people would follow you.</em> Under Freowyn: <em>a foal is no different from a soldier.</em> The green cloak of Rohan accepted: <em>I am honored. I will strive to be worthy of it.</em> Eorlin grown and given. Celenneth declining her own cloak: <em>to bear your cloak would be to claim a bond I cannot fully uphold.</em></div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book VII &middot; The Trollshaws Bath</div>
+        <div class="what">The chain-scars given air.</div>
+        <div class="detail">Linnea tracing the scars: <em>you're beautiful. You don't always have to be strong. Not with me.</em></div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book VIII &middot; Bree &middot; The Family Dinner</div>
+        <div class="what">The homecoming refused; the home named.</div>
+        <div class="detail">Miss Calder's <em>scandals and wonders</em> in the market. Merla, Harvin, Jocelyn at the dinner. Emily's anger: <em>you could've written, you wanted this.</em> Celenneth: <em>she chose to survive.</em> Merla: <em>she belongs here, she could have a better life.</em> Linnea: <em>you don't get to choose.</em> Loran in the frost: <em>I should've tried harder. Stars guide you.</em> Pelle and Mareth at the gate with the traveling blanket and the carved wooden horse. The hillside afterward: <em>I'm scared. — You'll always belong, with me, with Brynja.</em> Bitterroot found for Brynja's fever.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book IX &middot; The Solo Book</div>
+        <div class="what">Sent alone to Bilbo; the Shire; the Marish.</div>
+        <div class="detail">Celenneth wanted to take the road in her stead; Gandalf refused. <em>I'll be back soon. Always.</em> The brigands on the road: <em>strong men such as yourselves have no need to waylay weary riders.</em> Silver pennies paid; Gandalf's quiet <em>well played.</em> The wolf's-head clasp first seen in a Hobbiton garden, later in the Green Dragon. Bilbo's tea at Bag End: the silver ring named: <em>a memory ring, a longing that never settled. It chose you. Keep it close.</em> The letter to Celenneth written before breakfast and not sent; tucked in her pack to deliver in person. Gandalf gone at dawn without waking her. The branded man with the wolf-charm: <em>this isn't just a desperate bandit, this is someone trapped in something cruel.</em> The Hobbiton nightmare: <em>you carry what is ours. You will return or be consumed.</em> The Marish; the Wyrmscale Sigil taken on instinct; the villagers warned on her way out. Orlen and Maren met. Home to Brynja and Celenneth: <em>always.</em></div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book X &middot; The Frost Maw</div>
+        <div class="what">At Celenneth's shoulder for the underground work.</div>
+        <div class="detail">The warg in the snow; the overhang Linnea spotted in the blizzard. Damrod and Hallas met. The binding-curse chant in the wraith chamber, her voice hesitating, growing. <em>Your lore saved us, love.</em> Flaming arrows giving the wraiths substance enough to be broken. Orlec's death, mid-warning; the Guardians at the altar; Brandor's last gift of the Warden Blade fragment. Brandor's chosen herbs the next morning. Buried in the frozen hills with the woodcarving of the old runes.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XI &middot; The Glade, the Watchtower, the Spring Festival</div>
+        <div class="what">The chalice received; the spring festival; the parting.</div>
+        <div class="detail">The glade spirit: <em>we've never shied from duty, or from wonder.</em> The pendant at her throat. The chalice given by the glade, used at a Dúnedain holy spring and left: <em>may it refresh their spirits as it did ours.</em> The pregnancy reveal: <em>I've missed my cycle. — This child will have love no matter whose blood runs in their veins. The important thing is that they are ours.</em> Lothair the wandering scholar met on the road. Brynja's <em>it smells like home again</em> at homecoming.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XI &middot; The Angle &middot; Hallas Born</div>
+        <div class="what">The birth Linnea midwifed.</div>
+        <div class="detail">Linnea's hand at Celenneth's back; the lower-back pressure learnt under Freowyn. Celenneth in the worst of it: <em>I can't, Linnea, I can't, it's tearing me apart.</em> The thin wavering cry. <em>Our little Hallas. Welcome to our family.</em></div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XII &middot; The Angle &middot; The Grief Named</div>
+        <div class="what">The wound she could not carry.</div>
+        <div class="detail">Pregnancy was Celenneth's; the body's transformation Linnea's to witness rather than to know. <em>I feel like I'm on the outside of something I've always wanted.</em> <em>I just want to be enough.</em> Celenneth's answer: <em>you're more than enough, you're everything.</em> The ache held without being solved. The Warden Blade reforged at Eadric's forge, with Niril his master's hand on the magic: <em>you bear a blade with an old name, and one worth honouring.</em></div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XIII &middot; Eryndil &middot; The Sea</div>
+        <div class="what">West aboard the Eärlindë.</div>
+        <div class="detail">The Barrow-downs passed; Eryndil and the bear on the road: <em>we see you, we're merely passing through.</em> The Númenórean ruin; Brynja's pottery shards: <em>treasure can be knowledge, too.</em> The ambush; Celenneth's ribs taking a hit; the prisoner released; Eryndil's arrow at the next bend. Martha and Luthan's farmhouse; the brooch left on the mantel.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="colophon">
+    Dossier &middot; the Angle &middot; Late Third Age
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Sekondløjtnant Morten Bergesen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --snow:          #f0ece0;
+    --snow-dark:     #e2dbc7;
+    --snow-deep:     #cfc5a8;
+    --fjord:         #1a2430;
+    --fjord-soft:    #2c3d4f;
+    --fjord-faint:   #4a6070;
+    --ice:           #b8ccd8;
+    --ice-deep:      #7a9eb5;
+    --pine:          #1e3a28;
+    --pine-soft:     #2e5038;
+    --silver:        #7a8e8a;
+    --silver-bright: #a8bcb8;
+    --blood:         #6e1c1c;
+    --blood-soft:    #8a2828;
+    --gilt:          #8a6e30;
+    --gilt-bright:   #b89040;
+    --gilt-deep:     #5e4818;
+    --rule:          #9aaccf;
+    --rule-soft:     #b8c8d8;
+    --rule-faint:    #d0dae0;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--fjord);
+    color: var(--fjord);
+    font-family: "IM Fell English", "Cormorant Garamond", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.68;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 15% 10%,  rgba(184, 204, 216, 0.12) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 90%,  rgba(110, 28, 28, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%,  rgba(26, 36, 48, 0.95) 0%, var(--fjord) 80%);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  .document {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--snow);
+    padding: 4rem 4.5rem 5rem;
+    box-shadow:
+      0 2px 4px rgba(26, 36, 48, 0.15),
+      0 12px 60px rgba(26, 36, 48, 0.35);
+    position: relative;
+    border: 1px solid var(--rule-soft);
+  }
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--fjord)        0%,
+      var(--ice-deep)     20%,
+      var(--silver-bright) 40%,
+      var(--pine-soft)    60%,
+      var(--ice-deep)     80%,
+      var(--fjord)        100%);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%, var(--rule) 30%, var(--rule) 70%, transparent 100%);
+  }
+
+  /* TITLE BLOCK */
+  header.title-block {
+    text-align: center;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--rule-soft);
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+  .eyebrow {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    color: var(--fjord-faint);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+  h1.character-name {
+    font-family: "Cinzel", serif;
+    font-weight: 400;
+    font-size: 2.7rem;
+    line-height: 1.15;
+    color: var(--fjord);
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.04em;
+  }
+  h1.character-name .rank {
+    display: block;
+    font-size: 1rem;
+    font-family: "IM Fell English SC", serif;
+    letter-spacing: 0.35em;
+    color: var(--fjord-faint);
+    margin-bottom: 0.5rem;
+  }
+  h1.character-name .small {
+    display: block;
+    font-size: 0.95rem;
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    color: var(--fjord-soft);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    margin-top: 0.4rem;
+  }
+  .vitals {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 1.5rem;
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--fjord-faint);
+    text-transform: uppercase;
+    margin-top: 1.2rem;
+  }
+  .vitals span { border-left: 1px solid var(--rule-soft); padding-left: 1.5rem; }
+  .vitals span:first-child { border-left: none; padding-left: 0; }
+
+  /* TOC */
+  nav.toc {
+    columns: 2;
+    gap: 2rem;
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    margin: 0 0 3rem;
+    padding: 1.5rem 2rem;
+    background: rgba(184, 204, 216, 0.12);
+    border: 1px solid var(--rule-faint);
+  }
+  .toc-label {
+    column-span: all;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--fjord-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    border-bottom: 1px solid var(--rule-faint);
+    padding-bottom: 0.4rem;
+  }
+  nav.toc ol { margin: 0; padding-left: 1.2rem; list-style: none; counter-reset: toc; }
+  nav.toc li { counter-increment: toc; margin-bottom: 0.3rem; }
+  nav.toc li::before {
+    content: counter(toc, upper-roman) ".";
+    color: var(--ice-deep);
+    font-style: italic;
+    margin-right: 0.4rem;
+  }
+  nav.toc a { color: var(--fjord-soft); text-decoration: none; border-bottom: 1px dotted transparent; }
+  nav.toc a:hover { border-bottom-color: var(--ice-deep); color: var(--fjord); }
+
+  /* SECTIONS */
+  section { margin-bottom: 3.2rem; }
+  h2.section-title {
+    font-family: "IM Fell English SC", serif;
+    font-weight: 400;
+    font-size: 0.82rem;
+    letter-spacing: 0.35em;
+    color: var(--fjord-faint);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule-soft);
+    padding-bottom: 0.5rem;
+    margin: 0 0 1.5rem;
+    position: relative;
+  }
+  h2.section-title::before {
+    content: "✦";
+    color: var(--ice-deep);
+    margin-right: 0.7rem;
+    font-style: normal;
+    font-size: 0.65rem;
+  }
+  h3.subhead {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+    color: var(--pine);
+    margin: 1.5rem 0 0.5rem;
+    font-style: italic;
+  }
+  h4.entry-label {
+    font-family: "IM Fell English SC", serif;
+    font-weight: 400;
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    color: var(--fjord-faint);
+    text-transform: uppercase;
+    margin: 1rem 0 0.3rem;
+  }
+
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0.5rem 0 1rem 1.5rem; padding: 0; }
+  li { margin-bottom: 0.4rem; }
+  em { color: var(--fjord-soft); }
+  strong { font-weight: 600; color: var(--fjord); }
+
+  /* PULL-QUOTES */
+  blockquote.maxim {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--pine);
+    border-left: 3px solid var(--ice-deep);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin: 1.5rem 0;
+    background: rgba(184, 204, 216, 0.1);
+  }
+  blockquote.maxim .attribution {
+    display: block;
+    font-size: 0.8rem;
+    font-style: normal;
+    color: var(--fjord-faint);
+    font-family: "IM Fell English SC", serif;
+    letter-spacing: 0.15em;
+    margin-top: 0.4rem;
+  }
+
+  /* DIALOGUE */
+  .dialogue {
+    margin: 1rem 0 1.5rem;
+    padding: 1rem 1.4rem;
+    background: rgba(184, 204, 216, 0.08);
+    border-left: 2px solid var(--rule-soft);
+  }
+  .dialogue .line {
+    margin-bottom: 0.6rem;
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .dialogue .line:last-child { margin-bottom: 0; }
+  .dialogue .speaker {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--fjord-faint);
+    text-transform: uppercase;
+    margin-right: 0.5rem;
+  }
+  .dialogue .stage {
+    font-style: italic;
+    color: var(--fjord-faint);
+    font-size: 0.9rem;
+  }
+
+  /* TABLES */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  table.dossier-table th {
+    text-align: left;
+    font-family: "IM Fell English SC", serif;
+    font-weight: 400;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--fjord-faint);
+    text-transform: uppercase;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--fjord-faint);
+  }
+  table.dossier-table td {
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--rule-faint);
+    vertical-align: top;
+  }
+  table.dossier-table td:first-child {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    color: var(--fjord-soft);
+    white-space: nowrap;
+    padding-right: 1.5rem;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+
+  /* STAT GRID */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.6rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .stat-cell {
+    text-align: center;
+    padding: 0.9rem 0.5rem 0.7rem;
+    border: 1px solid var(--rule-soft);
+    background: rgba(184, 204, 216, 0.08);
+    position: relative;
+  }
+  .stat-cell::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--rule-soft);
+  }
+  .stat-cell.primary::before { background: var(--ice-deep); }
+  .stat-cell .label {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    color: var(--fjord-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .stat-cell .value {
+    font-family: "Cinzel", serif;
+    font-size: 2.1rem;
+    font-weight: 500;
+    color: var(--fjord);
+    line-height: 1;
+  }
+  .stat-cell.primary .value { color: var(--ice-deep); }
+
+  /* SKILLS GRID */
+  .skill-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.3rem 2rem;
+    margin: 1rem 0;
+  }
+  .skill-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-size: 0.92rem;
+    border-bottom: 1px dotted var(--rule-faint);
+    padding: 0.25rem 0;
+  }
+  .skill-row .skill-name {
+    flex: 1;
+    color: var(--fjord-soft);
+    font-family: "IM Fell English", serif;
+  }
+  .skill-row .skill-attr {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.68rem;
+    color: var(--fjord-faint);
+    letter-spacing: 0.1em;
+  }
+  .skill-row .skill-val {
+    font-family: "Cinzel", serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--fjord);
+    min-width: 1.4rem;
+    text-align: right;
+  }
+  .skill-row .skill-val.notable { color: var(--ice-deep); font-weight: 600; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  /* STATUS */
+  .status-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  .status-group {
+    border: 1px solid var(--rule-faint);
+    padding: 0.8rem 1rem;
+    background: rgba(184, 204, 216, 0.05);
+  }
+  .status-group .group-label {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    color: var(--fjord-faint);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule-faint);
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
+  }
+  .status-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--fjord-soft);
+    padding: 0.15rem 0;
+  }
+  .check {
+    width: 14px; height: 14px;
+    border: 1.5px solid var(--rule);
+    display: inline-block;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .check.marked::after {
+    content: "✕";
+    position: absolute;
+    top: -3px; left: 1px;
+    font-size: 13px;
+    color: var(--blood);
+    line-height: 1;
+  }
+
+  /* RELATIONS */
+  .relations-grid { display: flex; flex-direction: column; gap: 1.0rem; margin: 1rem 0; }
+  .relation {
+    border-left: 2px solid var(--rule-soft);
+    padding: 0.3rem 0 0.3rem 1.2rem;
+  }
+  .relation.pc { border-left-color: var(--ice-deep); }
+  .relation.npc { border-left-color: var(--gilt); }
+  .relation.deceased { border-left-color: var(--blood); }
+  .relation .name {
+    font-family: "IM Fell English SC", serif;
+    font-size: 1.0rem;
+    color: var(--fjord);
+    margin-bottom: 0.1rem;
+  }
+  .relation .role {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--fjord-faint);
+    font-size: 0.88rem;
+    font-family: "IM Fell English", serif;
+  }
+  .relation .text { font-size: 0.92rem; color: var(--fjord-soft); margin-top: 0.2rem; }
+
+  /* WEAPONS */
+  table.weapon-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    margin: 1rem 0;
+  }
+  table.weapon-table th {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    color: var(--fjord-faint);
+    text-transform: uppercase;
+    padding: 0.4rem 0.6rem;
+    border-bottom: 1px solid var(--fjord-faint);
+    text-align: left;
+  }
+  table.weapon-table td {
+    padding: 0.45rem 0.6rem;
+    border-bottom: 1px solid var(--rule-faint);
+    color: var(--fjord-soft);
+  }
+  table.weapon-table td:first-child {
+    font-family: "IM Fell English SC", serif;
+    color: var(--fjord);
+    font-size: 0.88rem;
+  }
+  table.weapon-table tr:last-child td { border-bottom: none; }
+  .range-badge {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--ice-deep);
+    background: rgba(184, 204, 216, 0.15);
+    border: 1px solid var(--rule-soft);
+    padding: 0.1rem 0.4rem;
+    display: inline-block;
+  }
+
+  /* EXPERIENCE */
+  .exp-track {
+    display: flex;
+    gap: 0.3rem;
+    margin-top: 0.3rem;
+  }
+  .pip {
+    width: 16px; height: 16px;
+    border: 1.5px solid var(--rule);
+    display: inline-block;
+  }
+  .pip.filled {
+    background: var(--ice-deep);
+    border-color: var(--ice-deep);
+  }
+
+  /* TIMELINE */
+  .timeline { margin: 1.5rem 0; }
+  .timeline-entry {
+    border-left: 2px solid var(--rule-soft);
+    padding: 0.3rem 0 1.2rem 1.5rem;
+    margin-left: 0.5rem;
+    position: relative;
+  }
+  .timeline-entry::before {
+    content: "";
+    position: absolute;
+    left: -7px; top: 0.5rem;
+    width: 12px; height: 12px;
+    background: var(--snow);
+    border: 2px solid var(--ice-deep);
+    border-radius: 50%;
+  }
+  .timeline-entry.violent::before { border-color: var(--blood); }
+  .timeline-entry.final::before { background: var(--blood); border-color: var(--blood); }
+  .timeline-date {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.2em;
+    color: var(--fjord-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .timeline-title {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--pine);
+    margin-bottom: 0.4rem;
+  }
+  .timeline-body {
+    font-size: 0.95rem;
+    color: var(--fjord-soft);
+  }
+
+  /* INTENTIONS */
+  .intentions {
+    margin: 1rem 0;
+    border: 1px solid var(--rule-faint);
+    padding: 1rem 1.2rem;
+    background: rgba(184, 204, 216, 0.06);
+  }
+  .intentions .group-label {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--fjord-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .intentions ul { list-style: none; margin: 0; padding: 0; }
+  .intentions li {
+    padding: 0.3rem 0;
+    border-bottom: 1px dotted var(--rule-faint);
+    color: var(--fjord-soft);
+    font-size: 0.95rem;
+  }
+  .intentions li:last-child { border-bottom: none; }
+  .intentions li.struck {
+    text-decoration: line-through;
+    color: var(--fjord-faint);
+  }
+
+  /* PORTRAIT */
+  .portrait-block {
+    text-align: center;
+    margin: 0 0 2rem;
+  }
+  .portrait-block img {
+    max-width: 240px;
+    width: 100%;
+    border: 1px solid var(--rule-soft);
+    filter: sepia(15%) contrast(1.05);
+    box-shadow: 0 4px 20px rgba(26, 36, 48, 0.15);
+  }
+  .portrait-caption {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--fjord-faint);
+    margin-top: 0.6rem;
+  }
+
+  /* COLOPHON */
+  footer.colophon {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule-soft);
+    text-align: center;
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    color: var(--fjord-faint);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 700px) {
+    body { padding: 1rem 0.5rem; }
+    .document { padding: 2rem 1.4rem 3rem; }
+    h1.character-name { font-size: 2.1rem; }
+    .two-col { grid-template-columns: 1fr; gap: 1rem; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .status-grid { grid-template-columns: 1fr; }
+    .skill-grid { grid-template-columns: 1fr; }
+    nav.toc { columns: 1; }
+    .vitals { gap: 0.5rem; font-size: 0.64rem; }
+    .vitals span { border-left: none; padding: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+
+  <!-- HEADER -->
+  <header class="title-block">
+    <div class="eyebrow">Investigator Dossier &nbsp;·&nbsp; The Lost Mountain Saga &nbsp;·&nbsp; Vaesen — Nordic Horror Roleplaying</div>
+    <h1 class="character-name">
+      <span class="rank">Sekondløjtnant</span>
+      Morten Bergesen
+      <span class="small">[Exempted from Service] &mdash; Archetype: Officer</span>
+    </h1>
+    <div class="vitals">
+      <span>Age 20</span>
+      <span>Officer</span>
+      <span>Resources 7</span>
+      <span>Experience 3</span>
+    </div>
+  </header>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <div class="toc-label">Contents</div>
+    <ol>
+      <li><a href="#identity">Identity</a></li>
+      <li><a href="#mechanical">Mechanical Profile</a></li>
+      <li><a href="#motivation">Motivation, Trauma, Dark Secret</a></li>
+      <li><a href="#equipment">Equipment, Weapons &amp; Memento</a></li>
+      <li><a href="#relations">Relationships</a></li>
+      <li><a href="#languages">Languages</a></li>
+      <li><a href="#house">The House</a></li>
+      <li><a href="#chronicle">Chronicle of Play</a></li>
+    </ol>
+  </nav>
+
+  <!-- PORTRAIT -->
+  <div class="portrait-block">
+    <img src="morten.png" alt="Sekondløjtnant Morten Bergesen">
+    <div class="portrait-caption">Sekondløjtnant Morten Bergesen, exempted.</div>
+  </div>
+
+  <!-- I. IDENTITY -->
+  <section id="identity">
+    <h2 class="section-title">I. Identity</h2>
+    <table class="dossier-table">
+      <tbody>
+        <tr><td>Name</td><td>Sekondløjtnant Morten Bergesen [Exempted]</td></tr>
+        <tr><td>Age</td><td>20</td></tr>
+        <tr><td>Archetype</td><td>Officer</td></tr>
+        <tr><td>Campaign</td><td><em>The Lost Mountain Saga</em></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- II. MECHANICAL -->
+  <section id="mechanical">
+    <h2 class="section-title">II. Mechanical Profile</h2>
+
+    <h4 class="entry-label">Attributes</h4>
+    <div class="stat-grid">
+      <div class="stat-cell"><div class="label">Physique</div><div class="value">4</div></div>
+      <div class="stat-cell primary"><div class="label">Precision</div><div class="value">5</div></div>
+      <div class="stat-cell"><div class="label">Logic</div><div class="value">2</div></div>
+      <div class="stat-cell"><div class="label">Empathy</div><div class="value">5</div></div>
+    </div>
+
+    <h4 class="entry-label">Skills</h4>
+    <div class="skill-grid">
+      <div class="skill-row"><span class="skill-name">Agility</span><span class="skill-attr">(Phys)</span><span class="skill-val">0</span></div>
+      <div class="skill-row"><span class="skill-name">Close Combat</span><span class="skill-attr">(Phys)</span><span class="skill-val">1</span></div>
+      <div class="skill-row"><span class="skill-name">Force</span><span class="skill-attr">(Phys)</span><span class="skill-val">0</span></div>
+      <div class="skill-row"><span class="skill-name">Medicine</span><span class="skill-attr">(Prec)</span><span class="skill-val">1</span></div>
+      <div class="skill-row"><span class="skill-name">Ranged Combat</span><span class="skill-attr">(Prec)</span><span class="skill-val notable">3</span></div>
+      <div class="skill-row"><span class="skill-name">Stealth</span><span class="skill-attr">(Prec)</span><span class="skill-val">0</span></div>
+      <div class="skill-row"><span class="skill-name">Investigation</span><span class="skill-attr">(Log)</span><span class="skill-val">0</span></div>
+      <div class="skill-row"><span class="skill-name">Learning</span><span class="skill-attr">(Log)</span><span class="skill-val">0</span></div>
+      <div class="skill-row"><span class="skill-name">Vigilance</span><span class="skill-attr">(Log)</span><span class="skill-val notable">4</span></div>
+      <div class="skill-row"><span class="skill-name">Inspiration</span><span class="skill-attr">(Emp)</span><span class="skill-val">0</span></div>
+      <div class="skill-row"><span class="skill-name">Manipulation</span><span class="skill-attr">(Emp)</span><span class="skill-val">0</span></div>
+      <div class="skill-row"><span class="skill-name">Observation</span><span class="skill-attr">(Emp)</span><span class="skill-val">1</span></div>
+    </div>
+
+    <h4 class="entry-label">Talents</h4>
+    <div class="relations-grid">
+      <div class="relation pc">
+        <div class="name">Gentleman</div>
+        <div class="text">Ignore mental conditions when making Manipulation tests.</div>
+      </div>
+      <div class="relation pc">
+        <div class="name">Nine Lives</div>
+        <div class="text">On a critical injury roll, choose which die is the 1s and which is the 10s.</div>
+      </div>
+      <div class="relation pc">
+        <div class="name">Brave</div>
+        <div class="text">+1 to fear tests.</div>
+      </div>
+    </div>
+
+    <h4 class="entry-label">Conditions</h4>
+    <div class="status-grid">
+      <div class="status-group">
+        <div class="group-label">Physical</div>
+        <div class="status-item"><span class="check"></span> Exhausted</div>
+        <div class="status-item"><span class="check"></span> Battered</div>
+        <div class="status-item"><span class="check"></span> Wounded</div>
+        <div class="status-item"><span class="check"></span> Broken</div>
+      </div>
+      <div class="status-group">
+        <div class="group-label">Mental</div>
+        <div class="status-item"><span class="check marked"></span> Angry</div>
+        <div class="status-item"><span class="check"></span> Frightened</div>
+        <div class="status-item"><span class="check"></span> Hopeless</div>
+        <div class="status-item"><span class="check"></span> Broken</div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:1.2rem;">
+      <div>
+        <h4 class="entry-label">Resources</h4>
+        <p style="font-size:2rem; font-family:'Cinzel',serif; margin:0; color:var(--fjord);">7</p>
+      </div>
+      <div>
+        <h4 class="entry-label">Experience</h4>
+        <div class="exp-track">
+          <span class="pip filled"></span>
+          <span class="pip filled"></span>
+          <span class="pip filled"></span>
+          <span class="pip"></span>
+          <span class="pip"></span>
+          <span class="pip"></span>
+          <span class="pip"></span>
+          <span class="pip"></span>
+        </div>
+      </div>
+    </div>
+
+    <h4 class="entry-label">Armor</h4>
+    <p style="color:var(--fjord-faint); font-style:italic; font-size:0.92rem;">None recorded.</p>
+
+    <h4 class="entry-label">Insights &amp; Defects</h4>
+    <p style="color:var(--fjord-faint); font-style:italic; font-size:0.92rem;">None recorded.</p>
+  </section>
+
+  <!-- III. MOTIVATION -->
+  <section id="motivation">
+    <h2 class="section-title">III. Motivation, Trauma, Dark Secret</h2>
+
+    <h4 class="entry-label">Motivation</h4>
+    <blockquote class="maxim">
+      Seeking virtue and honor in the forum available to him.
+    </blockquote>
+
+    <h4 class="entry-label">Trauma</h4>
+    <blockquote class="maxim">
+      Older brother was killed by a river vaesen. No one believed me.
+    </blockquote>
+
+    <h4 class="entry-label">Dark Secret</h4>
+    <blockquote class="maxim">
+      I fear that I am already damned.
+    </blockquote>
+
+    <h4 class="entry-label">General Notes (from the character sheet)</h4>
+    <p>My brother died while we were in the service together. As a result of being the sole heir now, I was exempted from further service at my current rank of sekondløjtnant.</p>
+    <p>After his death, I can't stop seeing vaesen. As a pietist Lutheran, I fear that I am damned. Found hope in the order of Hermes; justified it first as mere language, than by interpreting 'Hermes' as an angel of the Lord. The implications that it might be a demon of deception instead is a bridge I can't allow my mind to cross.</p>
+
+    <h4 class="entry-label">Operating Logic</h4>
+    <p>Trying to save the others, since he is already damned.</p>
+  </section>
+
+  <!-- IV. EQUIPMENT -->
+  <section id="equipment">
+    <h2 class="section-title">IV. Equipment, Weapons &amp; Memento</h2>
+
+    <h4 class="entry-label">Weapons</h4>
+    <table class="weapon-table">
+      <thead>
+        <tr><th>Weapon</th><th>Damage</th><th>Range</th><th>Bonus</th><th>Skill</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Bayonet</td><td>2</td><td><span class="range-badge">0</span></td><td>+1</td><td>Close Combat</td></tr>
+        <tr><td>Rifle</td><td>2</td><td><span class="range-badge">1–3</span></td><td>+2</td><td>Ranged Combat</td></tr>
+        <tr><td>Saber</td><td>2</td><td><span class="range-badge">0</span></td><td>+2</td><td>Close Combat</td></tr>
+      </tbody>
+    </table>
+
+    <h4 class="entry-label">Equipment</h4>
+    <ul>
+      <li>Annotated family bible (Christian IV translation) — +1 advantage, one time</li>
+      <li>Ammo</li>
+      <li>Med kit</li>
+    </ul>
+
+    <h4 class="entry-label">Memento</h4>
+    <p>Luther's Smaller Catechism.</p>
+  </section>
+
+  <!-- V. RELATIONSHIPS -->
+  <section id="relations">
+    <h2 class="section-title">V. Relationships</h2>
+
+    <h4 class="entry-label">Fellow Investigators (PCs)</h4>
+    <div class="relations-grid">
+      <div class="relation pc">
+        <div class="name">Torvald Ingersson <span class="role">— differences in religion, mentor</span></div>
+      </div>
+      <div class="relation pc">
+        <div class="name">Bjorn Wolfkisse <span class="role">— camaraderie, Morten looks up to him</span></div>
+      </div>
+      <div class="relation pc">
+        <div class="name">Solomon Wainwright <span class="role">— family friend, mother was patron (deceased)</span></div>
+      </div>
+    </div>
+
+    <h4 class="entry-label">Other Named Figures</h4>
+    <div class="relations-grid">
+      <div class="relation npc"><div class="name">Duke Branford</div></div>
+      <div class="relation npc"><div class="name">Creedence</div></div>
+      <div class="relation deceased"><div class="name">Franzibald Hansen <span class="role">— deceased</span></div></div>
+      <div class="relation npc"><div class="name">Byron</div></div>
+      <div class="relation npc"><div class="name">Reverend Bruselius</div></div>
+      <div class="relation npc"><div class="name">Emily</div></div>
+      <div class="relation npc"><div class="name">Linnea</div></div>
+      <div class="relation npc"><div class="name">Dagnes</div></div>
+      <div class="relation npc"><div class="name">Samuel <span class="role">— NPC, appeared during the Lindberg matter</span></div></div>
+      <div class="relation npc"><div class="name">Bjorn <span class="role">— Franzibald Hansen's partner (distinct from PC Bjorn Wolfkisse)</span></div></div>
+    </div>
+  </section>
+
+  <!-- VI. LANGUAGES -->
+  <section id="languages">
+    <h2 class="section-title">VI. Languages</h2>
+    <p>Speaks Danish, French, Swedish, English.</p>
+  </section>
+
+  <!-- VII. HOUSE -->
+  <section id="house">
+    <h2 class="section-title">VII. The House</h2>
+    <p>The Society's headquarters includes the following amenities:</p>
+    <ul>
+      <li>Butler</li>
+      <li>Library</li>
+      <li>Workshop</li>
+      <li>Map Room</li>
+      <li>Occult Library</li>
+      <li>Seance Parlor</li>
+    </ul>
+  </section>
+
+  <!-- VIII. CHRONICLE -->
+  <section id="chronicle">
+    <h2 class="section-title">VIII. Chronicle of Play</h2>
+
+    <p style="font-size:0.9rem; color:var(--fjord-faint); font-style:italic;">A record of events from sessions in which Morten was present. The campaign ran a session or two beyond the events documented here before ending.</p>
+
+    <div class="timeline">
+
+      <!-- April 27 -->
+      <div class="timeline-entry">
+        <div class="timeline-date">Session — April 27</div>
+        <div class="timeline-title">The Lindberg Matter</div>
+        <div class="timeline-body">
+          <p>A letter arrived from the Lindbergs. Their son had made a deal with a troll without their knowledge. Their grandson had been taken because the son refused to pay what was owed; in his place, the family now had a changeling.</p>
+          <p>The son possessed an instrument given to him by one of the trolls. Bjorn, Solomon, Morten, Torvald, and Samuel travelled to investigate, and determined the instrument was cursed.</p>
+          <p>The ritual to address it was difficult. The party met an Order of Artemis hunter. The curse required a sacrifice; the party assumed a goat would suffice. The heir was clawing his own skin off, desperate for the instrument. The trolls were holding the baby.</p>
+        </div>
+      </div>
+
+      <!-- June 15 -->
+      <div class="timeline-entry">
+        <div class="timeline-date">Session — June 15 &nbsp;·&nbsp; In-fiction: early September, a month later</div>
+        <div class="timeline-title">The Castle &amp; the Order</div>
+        <div class="timeline-body">
+          <p>Issues began to develop around the castle. Members occasionally found themselves trapped or locked in rooms with no way out. The party felt fine for now, but in a weaker mental state. Five other threats in the house were still to be discovered.</p>
+          <p>Two figures appeared: a "Cinnabon man" and a tall, astute man. The latter was <strong>Franzibald Hansen</strong>, whom Morten recognized — a famous Danish author, and third in command of the Order. With him was his partner Bjorn (not to be confused with PC Bjorn Wolfkisse).</p>
+          <p>Morten hosted at the Bergesen seat. The party's destination involved the town mine. Rev. Bruselius — a Swedish Lutheran — was a figure of consequence. The journey to Falun was four days by train.</p>
+        </div>
+      </div>
+
+      <!-- Sept 15 - dinner -->
+      <div class="timeline-entry">
+        <div class="timeline-date">Session — September 15 &nbsp;·&nbsp; Part I</div>
+        <div class="timeline-title">Dinner at Bruselius's House</div>
+        <div class="timeline-body">
+          <p>The night before the witch trial, Morten and Franzibald dined with Bruselius, his wife Emily, and his sister.</p>
+          <p>At dinner, Morten arranged for Franzibald to distract Bruselius and the sister, and pulled Emily into a side conversation in French.</p>
+
+          <div class="dialogue">
+            <div class="line"><span class="speaker">Morten</span> I'm happy to see you again. I'm so sorry to hear about your child.</div>
+            <div class="line"><span class="speaker">Emily</span> Thank you. She is with God now, happy and safe.</div>
+            <div class="line"><span class="speaker">Morten</span> Are you safe?</div>
+            <div class="line"><span class="speaker">Emily</span> Why wouldn't I be safe?</div>
+            <div class="line"><span class="speaker">Morten</span> <span class="stage">(stumbling)</span> I have seen women marry for many reasons. Sometimes they marry to be protected. Sometimes they need protection from their marriage. I hope neither case applies to you.</div>
+            <div class="line"><span class="stage">Emily clams up. Morten changes the subject.</span></div>
+            <div class="line"><span class="speaker">Morten</span> What do you make of this woman, Lisa, the town has been talking about?</div>
+            <div class="line"><span class="speaker">Emily</span> I think the grief of losing a child has made my husband… tense. I…. <span class="stage">(checking that Bruselius is not listening)</span> This town is full of very kind, nice people. I do not think they are bad.</div>
+            <div class="line"><span class="speaker">Morten</span> Do you think your husband would have a better disposition towards her if she were wed?</div>
+            <div class="line"><span class="speaker">Emily</span> No. My husband believes… my husband knows that women who live without a firm hand are never truly godly.</div>
+            <div class="line"><span class="speaker">Morten</span> And he doesn't believe a husband would bring such a firm hand?</div>
+            <div class="line"><span class="speaker">Emily</span> She has already tasted freedom.</div>
+            <div class="line"><span class="speaker">Morten</span> Have you?</div>
+            <div class="line"><span class="speaker">Emily</span> <span class="stage">(pause)</span> I was never allowed freedom outside of marriage.</div>
+            <div class="line"><span class="speaker">Morten</span> Well, I believe that God is able to bring even the most broken individual back into the fold, should he will it. <span class="stage">(He cringes as he says this — he does not believe it about himself, and he sees Emily evoke a similar reaction.)</span></div>
+            <div class="line"><span class="stage">Morten remembers her, joyful at a party, saying that if she wanted to be dull and stupid she would associate with the pastor's wife.</span></div>
+            <div class="line"><span class="speaker">Emily</span> I think there are some beyond redemption in any way, and there are—</div>
+            <div class="line"><span class="speaker">Morten</span> <span class="stage">(interrupting)</span> Is this how you are paying penance for yourself?</div>
+            <div class="line"><span class="speaker">Emily</span> I will pay penance when I die.</div>
+            <div class="line"><span class="speaker">Morten</span> It is within your power to prevent that fate, for Lisa. <span class="stage">(He turns back to the others. Emily's face betrays a moment of freedom, then a collapse of emotional exhaustion.)</span></div>
+          </div>
+
+          <p>Morten then spoke with Bruselius and Franzibald, taking Bruselius's side and lying about his desire to learn from his work. He learned that his own mother is financing Bruselius's mentor, Bishop Carlson, and that there is risk of the entire church being corrupted by these forces. It was also clear that Bruselius has a deep compassion for the poor.</p>
+
+          <div class="intentions">
+            <div class="group-label">Intentions Set This Evening</div>
+            <ul>
+              <li class="struck">Marry Lisa to protect her</li>
+              <li>Get close to Bruselius to protect those he would harm</li>
+              <li>Take over family finances to stop his mother from supporting Carlson</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sept 15 - witch trial -->
+      <div class="timeline-entry">
+        <div class="timeline-date">Session — September 15 &nbsp;·&nbsp; Part II</div>
+        <div class="timeline-title">Lisa &amp; the Mountain</div>
+        <div class="timeline-body">
+          <p>Lisa had an urge to protect the mountain. She kept waking up with dirt on her feet. She was terrified that she might be a witch. Lisa trusted the party and was appreciative. There was an obsession with a gem on Franzibald's neck — Lisa had found the man (Franzibald) in the mines earlier that day.</p>
+          <p>The next morning, the party woke to the sound of the train coming in. A group of men stormed Lisa's house, breaking down her door, dragging her from her bed.</p>
+          <p>The party found Dagnes sobbing outside the door, covered in blood and the brains of her dog. Lisa was dragged forward to a witch trial.</p>
+        </div>
+      </div>
+
+      <!-- Oct 6 -->
+      <div class="timeline-entry violent">
+        <div class="timeline-date">Session — October 6</div>
+        <div class="timeline-title">The Witch Trial</div>
+        <div class="timeline-body">
+          <p>Dagnes's dog had been slaughtered. Lisa was being dragged toward the church. The atmosphere was chaotic and excited. Men began abusing and accusing their wives and daughters of witchcraft.</p>
+          <p>The crowd was too thick to get through. Morten drew his saber and threatened the crowd, trying to get them to part. He stabbed, and hit a girl in the shoulder — her father had used her as a human shield. The crowd started to turn on him. Others called for him to finish off the witch.</p>
+          <p>He grabbed the girl's wrist and said, <em>"we'll bring her to the altar."</em> Solomon tried but failed to pull him back. Morten pushed forward with the girl.</p>
+          <p>Emily was crying. Dagnes arrived. Bruselius whispered something in her ear, and Dagnes said in a raised voice, <em>"She's been acting weird, and has never liked my dog."</em> The crowd roared.</p>
+          <p>Emily was crying: <em>"This is all my fault, I couldn't leave her there to suffer! It was the only way to save her from him, but now I hear her crying at night."</em> Torvald asked her what happened. <em>"Who is actually responsible?"</em></p>
+          <p>Morten stepped up. <em>"How can I help? I would like to learn."</em> He followed Bruselius past those standing guard in front of the altar, stood to his right. Lisa screamed in pain as she watched Dagnes's betrayal.</p>
+          <p>A spirit heard the cries of its mother, the anger of the town, and woke up. <em>"He will only hurt you if you're alive."</em> Torvald felt fire consuming. An impossibly small baby, covered in soot, appeared — there were screams and then utter silence, except for the baby's whimpers.</p>
+          <p>Morten turned to say <em>"Isn't that your child?"</em>, but there was a guttural scream from the baby, and Morten's pants and Bruselius were on fire.</p>
+
+          <blockquote class="maxim">
+            Behold the judgement of god.
+            <span class="attribution">— Morten, turning to the crowd</span>
+          </blockquote>
+
+          <blockquote class="maxim">
+            We're not damned until we're dead.
+            <span class="attribution">— Morten</span>
+          </blockquote>
+        </div>
+      </div>
+
+      <!-- Nov 10 -->
+      <div class="timeline-entry final">
+        <div class="timeline-date">Session — November 10</div>
+        <div class="timeline-title">Aftermath &amp; the Mining Company</div>
+        <div class="timeline-body">
+          <p>The town did not burn. Bruselius died. His sister went to an asylum. Emily died (uncertain). Solomon was badly injured and shipped off to an asylum. Franzibald was dead.</p>
+          <p>The party met with Bjorn — Franzibald's partner. Bjorn was worried about an old friend of Franzibald's: Amanda, who had written articles questioning a mining company, had been declared insane, and had been sent off to an asylum.</p>
+          <p>A letter was addressed to Joshua. Franzibald had had a green gem around his neck. Lisa now had the green gem, having taken it from Franzibald's neck.</p>
+          <p>The mining company had become very powerful after finding the green mineral. The party found where Amanda the journalist had been shipped off to: Uppsala Asylum.</p>
+          <p>The mineral did not feel like stone. There was green inside, and when they struck the vein it was like a released energy — the same Old Norse voice that Lisa had made was heard.</p>
+          <p>The stones are for the gods; <em>the "Vanadisir must die."</em> Sigrid Magnusson, possibly a member of the Vanadisir, is the wife of the couple who owns the CV Mining Corporation.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <p style="font-size:0.88rem; color:var(--fjord-faint); font-style:italic; border-top:1px dotted var(--rule-faint); padding-top:1rem; margin-top:1.5rem;">The campaign ran a session or two beyond the November 10 events. Notes from those sessions are not preserved here.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="colophon">
+    Dossier for <em>The Lost Mountain Saga</em> &nbsp;·&nbsp; Vaesen: Nordic Horror Roleplaying &nbsp;·&nbsp; Free League Publishing
+    <br>Sekondløjtnant Morten Bergesen [Exempted] &nbsp;·&nbsp; Age 20 &nbsp;·&nbsp; Officer
+  </footer>
+
+</div>
+</body>
+</html>
