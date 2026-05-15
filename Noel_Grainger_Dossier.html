@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Noel Grainger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Stardos+Stencil:wght@400;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --folder: #c8b48a;          /* manila kraft */
+    --folder-dark: #a8956b;
+    --folder-shadow: #6e5d3d;
+    --paper: #efe6d2;            /* aged sheet */
+    --paper-edge: #d6c9a8;
+    --paper-stain: #c4a777;
+    --ink: #1a1612;
+    --ink-soft: #3a3128;
+    --ink-faint: #6a5d4a;
+    --ink-ghost: #9a8c70;
+    --rule: #7a6a4a;
+    --rule-soft: #b3a07a;
+    --rust: #8c2a14;
+    --rust-bright: #b03a1e;
+    --rust-deep: #5a1808;
+    --grease: #2a2218;
+    --diesel: #3d3424;
+    --highlight: #d4a82a;
+    --highlight-soft: #b8932a;
+    --blood: #5e1a14;
+    --stamp-red: #a82418;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: #1f1a14;
+    color: var(--ink);
+    font-family: "Courier Prime", "Courier New", monospace;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 12% 8%, rgba(140,42,20,0.08) 0%, transparent 45%),
+      radial-gradient(ellipse at 88% 92%, rgba(60,40,16,0.20) 0%, transparent 55%);
+    padding: 2rem 1rem 4rem;
+    min-height: 100vh;
+  }
+
+  /* ─── Folder Container ─────────────────────── */
+  .folder {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--folder);
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0px, transparent 3px,
+        rgba(110,93,61,0.04) 3px, rgba(110,93,61,0.04) 4px
+      ),
+      radial-gradient(circle at 70% 20%, rgba(110,93,61,0.18) 0%, transparent 35%),
+      radial-gradient(circle at 20% 80%, rgba(110,93,61,0.14) 0%, transparent 40%);
+    border: 1px solid var(--folder-shadow);
+    box-shadow:
+      0 0 0 1px rgba(60,45,20,0.4),
+      0 4px 14px rgba(0,0,0,0.6),
+      0 24px 60px rgba(0,0,0,0.7);
+    position: relative;
+    padding: 0;
+  }
+  .folder::before {
+    /* tab on the folder */
+    content: "GRAINGER, N. — NEONATE / GANGREL / DENVER";
+    position: absolute;
+    top: -22px; left: 28px;
+    background: var(--folder-dark);
+    color: var(--grease);
+    font-family: "Stardos Stencil", "Special Elite", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    padding: 4px 18px 6px;
+    border: 1px solid var(--folder-shadow);
+    border-bottom: none;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.35);
+  }
+  .folder::after {
+    /* coffee ring stain */
+    content: "";
+    position: absolute;
+    top: 60px; right: 50px;
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    border: 8px solid rgba(90,40,15,0.10);
+    box-shadow: inset 0 0 30px rgba(90,40,15,0.08);
+    pointer-events: none;
+    transform: rotate(-12deg);
+  }
+
+  /* ─── Inner Paper ──────────────────────────── */
+  .paper {
+    background: var(--paper);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E"),
+      radial-gradient(ellipse at 30% 90%, rgba(196,167,119,0.45) 0%, transparent 35%),
+      radial-gradient(ellipse at 75% 15%, rgba(196,167,119,0.30) 0%, transparent 28%);
+    margin: 32px;
+    padding: 2.4rem 2.6rem 3rem;
+    border: 1px solid var(--paper-edge);
+    box-shadow:
+      inset 0 0 0 1px rgba(255,250,235,0.4),
+      0 1px 0 rgba(120,90,40,0.2),
+      0 6px 20px rgba(0,0,0,0.25);
+    position: relative;
+  }
+  .paper::before {
+    /* two-hole punch */
+    content: "";
+    position: absolute;
+    top: 50%; left: -8px;
+    width: 14px; height: 14px;
+    background: var(--folder);
+    border: 1px solid var(--folder-shadow);
+    border-radius: 50%;
+    transform: translateY(-80px);
+    box-shadow: 0 100px 0 var(--folder), 0 100px 0 1px var(--folder-shadow);
+  }
+
+  /* ─── Header ──────────────────────────────── */
+  .stamp {
+    position: absolute;
+    top: 24px; right: 28px;
+    font-family: "Stardos Stencil", monospace;
+    color: var(--stamp-red);
+    border: 3px double var(--stamp-red);
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    letter-spacing: 0.25em;
+    transform: rotate(8deg);
+    opacity: 0.78;
+    text-transform: uppercase;
+  }
+  .stamp.classified {
+    top: auto; right: auto;
+    bottom: 32px; left: 36px;
+    transform: rotate(-6deg);
+    border-color: var(--rust);
+    color: var(--rust);
+    opacity: 0.55;
+    font-size: 0.65rem;
+  }
+
+  header.heading {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 1.4rem;
+    margin-bottom: 1.8rem;
+    position: relative;
+  }
+  .eyebrow {
+    font-family: "Stardos Stencil", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  h1.name {
+    font-family: "Stardos Stencil", "Special Elite", monospace;
+    font-size: 2.6rem;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.3rem;
+  }
+  h1.name .strike {
+    color: var(--ink-faint);
+    text-decoration: line-through;
+    text-decoration-color: var(--rust);
+    text-decoration-thickness: 2px;
+    font-size: 0.6em;
+    font-style: italic;
+    margin-right: 0.6em;
+  }
+  .alias {
+    font-family: "Special Elite", monospace;
+    font-size: 0.95rem;
+    color: var(--rust);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.9rem;
+  }
+  .tagline {
+    font-family: "Special Elite", monospace;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--grease);
+    border-left: 3px solid var(--rust);
+    padding: 0.4rem 0 0.4rem 0.9rem;
+    margin-top: 0.5rem;
+    background: rgba(140,42,20,0.04);
+  }
+  .header-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 0.4rem 1.2rem;
+    margin-top: 1.2rem;
+    font-size: 0.78rem;
+  }
+  .header-grid .cell { }
+  .header-grid .label {
+    font-family: "Stardos Stencil", monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 1px;
+  }
+  .header-grid .val {
+    font-family: "Special Elite", monospace;
+    color: var(--ink);
+    font-size: 0.88rem;
+  }
+  .header-grid .val.uncertain { color: var(--ink-ghost); font-style: italic; }
+
+  /* ─── Section primitives ──────────────────── */
+  section { margin-top: 2rem; position: relative; }
+  h2.section-title {
+    font-family: "Stardos Stencil", monospace;
+    font-size: 1.05rem;
+    letter-spacing: 0.22em;
+    color: var(--grease);
+    text-transform: uppercase;
+    padding: 0.4rem 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px dashed var(--rule);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  h2.section-title::before {
+    content: "❖";
+    color: var(--rust);
+    font-size: 0.8rem;
+  }
+  h3.subsection {
+    font-family: "Stardos Stencil", monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    margin: 1.1rem 0 0.5rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    padding-bottom: 0.2rem;
+  }
+  p { margin-bottom: 0.75rem; }
+  p.lede {
+    font-family: "Special Elite", monospace;
+    font-size: 0.98rem;
+  }
+
+  /* ─── Two-column attribute / skill blocks ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.6rem;
+  }
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.4rem;
+  }
+  @media (max-width: 720px) {
+    .two-col, .three-col { grid-template-columns: 1fr; }
+    .header-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ─── Trait dots ───────────────────────────── */
+  .trait-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 3px 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-size: 0.88rem;
+  }
+  .trait-row .name { color: var(--ink-soft); }
+  .trait-row .name.faded { color: var(--ink-ghost); font-style: italic; }
+  .dots { letter-spacing: 2px; color: var(--ink); font-size: 0.95rem; }
+  .dots .o { color: var(--ink-ghost); }
+  .specialty {
+    font-size: 0.74rem;
+    color: var(--rust-deep);
+    font-style: italic;
+    margin-left: 0.4em;
+  }
+
+  /* ─── Track boxes ─────────────────────────── */
+  .track {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+  }
+  .track-label {
+    font-family: "Stardos Stencil", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    min-width: 110px;
+  }
+  .boxes { display: flex; gap: 3px; }
+  .box {
+    width: 16px; height: 16px;
+    border: 1.5px solid var(--ink-soft);
+    background: rgba(255,250,235,0.4);
+    display: inline-block;
+  }
+  .box.crossed::before {
+    content: "✕";
+    display: block;
+    text-align: center;
+    line-height: 12px;
+    font-size: 13px;
+    color: var(--rust);
+  }
+
+  /* ─── Discipline blocks ───────────────────── */
+  .discipline {
+    background: rgba(255,250,235,0.4);
+    border: 1px solid var(--rule-soft);
+    border-left: 3px solid var(--rust);
+    padding: 0.7rem 0.9rem;
+    margin-bottom: 0.7rem;
+  }
+  .discipline .disc-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.3rem;
+  }
+  .discipline .disc-name {
+    font-family: "Stardos Stencil", monospace;
+    font-size: 0.95rem;
+    letter-spacing: 0.14em;
+    color: var(--grease);
+    text-transform: uppercase;
+  }
+  .discipline .power {
+    font-size: 0.82rem;
+    margin-top: 0.25rem;
+    padding-left: 0.6em;
+    border-left: 2px solid var(--rule-soft);
+  }
+  .discipline .power strong { color: var(--rust-deep); }
+
+  /* ─── Convictions / Touchstones ───────────── */
+  .conviction {
+    font-family: "Special Elite", monospace;
+    background: rgba(255,250,235,0.5);
+    border: 1px solid var(--rule-soft);
+    padding: 0.6rem 0.9rem;
+    margin-bottom: 0.6rem;
+    position: relative;
+  }
+  .conviction::before {
+    content: "§";
+    position: absolute;
+    left: -22px; top: 6px;
+    color: var(--rust);
+    font-size: 1.2rem;
+  }
+  .conviction .ts {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    margin-top: 0.3rem;
+    font-style: italic;
+  }
+  .placeholder {
+    background: repeating-linear-gradient(45deg, rgba(140,42,20,0.06) 0 6px, transparent 6px 12px);
+    border: 1px dashed var(--rust);
+    color: var(--ink-faint);
+    padding: 0.5rem 0.8rem;
+    font-size: 0.82rem;
+    font-style: italic;
+    margin-bottom: 0.6rem;
+  }
+
+  /* ─── Advantages / Flaws ──────────────────── */
+  .pos-neg {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+  @media (max-width: 720px) { .pos-neg { grid-template-columns: 1fr; } }
+  .adv-list, .flaw-list {
+    border: 1px solid var(--rule-soft);
+    padding: 0.7rem 0.9rem;
+    background: rgba(255,250,235,0.4);
+  }
+  .adv-list { border-left: 3px solid var(--highlight-soft); }
+  .flaw-list { border-left: 3px solid var(--rust); }
+  .adv-list h4, .flaw-list h4 {
+    font-family: "Stardos Stencil", monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    color: var(--grease);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+  .adv-list ul, .flaw-list ul { list-style: none; }
+  .adv-list li, .flaw-list li {
+    padding: 3px 0;
+    font-size: 0.85rem;
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .adv-list li:last-child, .flaw-list li:last-child { border-bottom: none; }
+  .budget-note {
+    font-size: 0.76rem;
+    font-style: italic;
+    color: var(--ink-faint);
+    margin-top: 0.5rem;
+  }
+
+  /* ─── Equipment / inventory ───────────────── */
+  .kit {
+    background: rgba(255,250,235,0.4);
+    border: 1px solid var(--rule-soft);
+    padding: 0.7rem 0.9rem;
+    margin-bottom: 0.7rem;
+  }
+  .kit .kit-name {
+    font-family: "Stardos Stencil", monospace;
+    letter-spacing: 0.12em;
+    color: var(--grease);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+  }
+  .kit .kit-detail {
+    font-size: 0.82rem;
+    margin-top: 0.2rem;
+    color: var(--ink-soft);
+  }
+
+  /* ─── Sessions / logbook ──────────────────── */
+  .logbook {
+    border: 1px solid var(--rule);
+    background:
+      repeating-linear-gradient(transparent 0 23px, rgba(120,90,40,0.10) 23px 24px),
+      rgba(255,250,235,0.55);
+    padding: 1.1rem 1.3rem;
+    margin-top: 0.8rem;
+    box-shadow: inset 0 0 0 1px rgba(120,90,40,0.08);
+  }
+  .session {
+    margin-bottom: 1.3rem;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px dashed var(--rule-soft);
+  }
+  .session:last-child { border-bottom: none; }
+  .session h4 {
+    font-family: "Stardos Stencil", monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    color: var(--rust);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .session p { font-family: "Special Elite", monospace; font-size: 0.92rem; }
+  .scene {
+    margin: 0.8rem 0;
+    padding: 0.8rem 1rem;
+    background: rgba(140,42,20,0.05);
+    border-left: 3px solid var(--rust);
+  }
+  .scene .scene-title {
+    font-family: "Stardos Stencil", monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    color: var(--rust-deep);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  .scene p { font-family: "Special Elite", monospace; font-size: 0.92rem; margin-bottom: 0.4rem; }
+  .gap-note {
+    font-family: "Stardos Stencil", monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0.5rem;
+    border-top: 1px dotted var(--rule-soft);
+    border-bottom: 1px dotted var(--rule-soft);
+    margin: 0.8rem 0;
+  }
+
+  /* ─── Relationship map ────────────────────── */
+  .relmap { margin-top: 0.6rem; }
+  .relation {
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-size: 0.86rem;
+  }
+  .relation:last-child { border-bottom: none; }
+  .relation .who {
+    font-family: "Stardos Stencil", monospace;
+    color: var(--grease);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+  }
+  .relation .role {
+    color: var(--rust);
+    font-style: italic;
+    font-size: 0.78rem;
+  }
+
+  /* ─── Bottom ─────────────────────────────── */
+  footer.signoff {
+    margin-top: 2.4rem;
+    padding-top: 1rem;
+    border-top: 2px solid var(--ink);
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-family: "Special Elite", monospace;
+  }
+  .signoff .right { text-align: right; font-style: italic; }
+
+  /* ─── Bane callout ────────────────────────── */
+  .bane {
+    background: var(--grease);
+    color: var(--paper);
+    padding: 0.7rem 0.9rem;
+    border-left: 4px solid var(--rust-bright);
+    margin: 0.6rem 0;
+    font-family: "Special Elite", monospace;
+    font-size: 0.88rem;
+  }
+  .bane .bane-label {
+    font-family: "Stardos Stencil", monospace;
+    color: var(--highlight);
+    letter-spacing: 0.18em;
+    font-size: 0.72rem;
+    display: block;
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<div class="folder">
+  <div class="paper">
+
+    <div class="stamp">EMBRACED / 2016</div>
+
+    <header class="heading">
+      <div class="eyebrow">Vampire: the Masquerade 5e · Campaign File</div>
+      <h1 class="name"><span class="strike">Nathan</span>NOEL GRAINGER</h1>
+      <div class="alias">b. 1981, Embraced 2016 · Sired by Helmuth · Operating: Denver Metro</div>
+      <div class="tagline">"You will shut the fuck up or you're riding the rest of the way to Montana in the trunk."</div>
+
+      <div class="header-grid">
+        <div class="cell"><span class="label">Clan</span><span class="val">Gangrel</span></div>
+        <div class="cell"><span class="label">Sect</span><span class="val">Anarch / Camarilla-adjacent</span></div>
+        <div class="cell"><span class="label">Generation</span><span class="val">13 (Neonate)</span></div>
+        <div class="cell"><span class="label">Blood Potency</span><span class="val">1</span></div>
+        <div class="cell"><span class="label">Predator Type</span><span class="val">Cleaver</span></div>
+        <div class="cell"><span class="label">Mortal Trade</span><span class="val">Warehouse / 18-wheelers</span></div>
+        <div class="cell"><span class="label">Embrace Site</span><span class="val uncertain">unknown</span></div>
+        <div class="cell"><span class="label">Campaign</span><span class="val">Not the Only Dead</span></div>
+      </div>
+    </header>
+
+    <!-- ═══ I. CONCEPT ═══ -->
+    <section id="concept">
+      <h2 class="section-title">I. The Man Who Became Noel</h2>
+      <p class="lede">Nathan Grainger spent the first thirty-five years of his life loading furniture trucks. A disqualifying physical condition kept him out of the service his friend Jeremy returned from with a Purple Heart — and instead of letting that close a door, Nathan doubled down: more flag, more country, more grievance. He felt permanently stuck on the bottom rung. He worked, he drank, he watched men he envied get medals and mortgages.</p>
+
+      <p>The Embrace cracked the ceiling. For the first time, he could feel possibilities — power, status, a future that wasn't another shift. The trouble is he doesn't yet know what those words cost. He sees in his sire, Helmuth, the same small-time, bottom-rung thinking he spent decades resenting in himself, and he is determined not to be handicapped the same way. What he intends to do with the room he's clearing remains, charitably, undefined.</p>
+
+      <p>Helmuth was not a patient teacher. Not everyone on the crew was even turned — Noel was just one of the bodies that got upgraded. Early on, on a job, Noel got excitable, nearly blew the heist, nearly blew the Masquerade in front of mortals and the gang both. The beating he took afterward was educational; it was also the closest thing to instruction he ever received from his sire.</p>
+    </section>
+
+    <!-- ═══ II. ATTRIBUTES ═══ -->
+    <section id="attributes">
+      <h2 class="section-title">II. Attributes</h2>
+
+      <div class="three-col">
+        <div>
+          <h3 class="subsection">Physical</h3>
+          <div class="trait-row"><span class="name">Strength</span><span class="dots">●●●<span class="o">○○</span></span></div>
+          <div class="trait-row"><span class="name">Dexterity</span><span class="dots">●●<span class="o">○○○</span></span></div>
+          <div class="trait-row"><span class="name">Stamina</span><span class="dots">●●●●<span class="o">○</span></span></div>
+        </div>
+        <div>
+          <h3 class="subsection">Social</h3>
+          <div class="trait-row"><span class="name">Charisma</span><span class="dots">●●<span class="o">○○○</span></span></div>
+          <div class="trait-row"><span class="name">Manipulation</span><span class="dots">●<span class="o">○○○○</span></span></div>
+          <div class="trait-row"><span class="name">Composure</span><span class="dots">●●<span class="o">○○○</span></span></div>
+        </div>
+        <div>
+          <h3 class="subsection">Mental</h3>
+          <div class="trait-row"><span class="name">Intelligence</span><span class="dots">●●<span class="o">○○○</span></span></div>
+          <div class="trait-row"><span class="name">Wits</span><span class="dots">●●●<span class="o">○○</span></span></div>
+          <div class="trait-row"><span class="name">Resolve</span><span class="dots">●●●<span class="o">○○</span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ III. TRACKS ═══ -->
+    <section id="tracks">
+      <h2 class="section-title">III. Tracks &amp; Standing</h2>
+
+      <div class="two-col">
+        <div>
+          <div class="track">
+            <span class="track-label">Health · 7</span>
+            <span class="boxes">
+              <span class="box"></span><span class="box"></span><span class="box"></span>
+              <span class="box"></span><span class="box"></span><span class="box"></span>
+              <span class="box"></span>
+            </span>
+          </div>
+          <div class="track">
+            <span class="track-label">Willpower · 5</span>
+            <span class="boxes">
+              <span class="box"></span><span class="box"></span><span class="box"></span>
+              <span class="box"></span><span class="box"></span>
+            </span>
+          </div>
+        </div>
+        <div>
+          <div class="trait-row"><span class="name">Humanity</span><span class="dots">●●●●●●●<span class="o">○○○</span></span></div>
+          <div class="trait-row"><span class="name">Hunger</span><span class="dots"><span class="o">○○○○○</span></span></div>
+          <div class="trait-row"><span class="name">XP (unspent)</span><span class="dots" style="font-family:'Special Elite',monospace;font-size:0.9rem;letter-spacing:normal;">20 (15 starting + 5 from S1)</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ IV. SKILLS ═══ -->
+    <section id="skills">
+      <h2 class="section-title">IV. Skills</h2>
+
+      <div class="three-col">
+        <div>
+          <h3 class="subsection">Physical</h3>
+          <div class="trait-row"><span class="name">Athletics</span><span class="dots">●●<span class="o">○○○</span></span></div>
+          <div class="trait-row"><span class="name">Brawl</span><span class="dots">●●●<span class="o">○○</span></span></div>
+          <div class="trait-row"><span class="name">Craft <span class="specialty">(truck mechanics)</span></span><span class="dots">●●<span class="o">○○○</span></span></div>
+          <div class="trait-row"><span class="name">Drive</span><span class="dots">●●<span class="o">○○○</span></span></div>
+          <div class="trait-row"><span class="name">Firearms <span class="specialty">(pistols / SIG M17)</span></span><span class="dots">●●<span class="o">○○○</span></span></div>
+          <div class="trait-row"><span class="name">Larceny</span><span class="dots">●<span class="o">○○○○</span></span></div>
+          <div class="trait-row"><span class="name">Melee</span><span class="dots">●●<span class="o">○○○</span></span></div>
+          <div class="trait-row"><span class="name">Stealth</span><span class="dots">●<span class="o">○○○○</span></span></div>
+        </div>
+        <div>
+          <h3 class="subsection">Social</h3>
+          <div class="trait-row"><span class="name">Animal Ken</span><span class="dots">●<span class="o">○○○○</span></span></div>
+          <div class="trait-row"><span class="name">Insight</span><span class="dots">●●●<span class="o">○○</span></span></div>
+          <div class="trait-row"><span class="name">Intimidation</span><span class="dots">●<span class="o">○○○○</span></span></div>
+          <div class="trait-row"><span class="name">Persuasion</span><span class="dots">●<span class="o">○○○○</span></span></div>
+          <div class="trait-row"><span class="name">Streetwise</span><span class="dots">●<span class="o">○○○○</span></span></div>
+        </div>
+        <div>
+          <h3 class="subsection">Mental</h3>
+          <div class="trait-row"><span class="name">Awareness</span><span class="dots">●●●<span class="o">○○</span></span></div>
+          <div class="trait-row"><span class="name">Investigation</span><span class="dots">●<span class="o">○○○○</span></span></div>
+          <div class="trait-row"><span class="name">Technology</span><span class="dots">●<span class="o">○○○○</span></span></div>
+        </div>
+      </div>
+
+      <p class="budget-note">Specialty notes: <em>Craft (truck mechanics)</em> and <em>Firearms (pistols / SIG Sauer M17)</em> assigned. The Cleaver bonus to Persuasion (+1) places one dot here. Free specialties earmarked for Academics, Performance, and Science do not yet apply (those skills are undotted); the fifth free specialty is unassigned on the sheet.</p>
+    </section>
+
+    <!-- ═══ V. DISCIPLINES ═══ -->
+    <section id="disciplines">
+      <h2 class="section-title">V. Disciplines</h2>
+
+      <div class="discipline">
+        <div class="disc-head">
+          <span class="disc-name">Fortitude</span>
+          <span class="dots">●●<span class="o">○○○</span></span>
+        </div>
+        <div class="power"><strong>Resilience</strong> — increased capacity to soak damage.</div>
+        <div class="power"><strong>Toughness</strong> — superficial damage is reduced before halving.</div>
+      </div>
+
+      <div class="discipline">
+        <div class="disc-head">
+          <span class="disc-name">Protean</span>
+          <span class="dots">●<span class="o">○○○○</span></span>
+        </div>
+        <div class="power"><strong>Eyes of the Beast</strong> — predator-bright eyes; perfect sight in pitch dark.</div>
+      </div>
+
+      <div class="discipline">
+        <div class="disc-head">
+          <span class="disc-name">Dominate</span>
+          <span class="dots">●<span class="o">○○○○</span></span>
+        </div>
+        <div class="power"><strong>Cloud Memory</strong> — erase the last few minutes from a victim's recollection. The Cleaver's most-used tool: keeps the household, the work-crew, the niece's birthday party innocent of what just happened.</div>
+      </div>
+
+      <div class="bane">
+        <span class="bane-label">Clan Bane · Gangrel</span>
+        Carries a heavy, distinctly ursine musk that no amount of laundry, cologne, or smoke can scrub. Charisma reduced by 1 in any close-quarters social encounter; Animal Ken targets react accordingly. People remember the smell before they remember the face.
+      </div>
+    </section>
+
+    <!-- ═══ VI. PREDATOR TYPE ═══ -->
+    <section id="predator">
+      <h2 class="section-title">VI. Predator Type · Cleaver</h2>
+      <p>Noel feeds covertly from people who know him as Nathan's surviving relatives: his sister and her two sons, his brother and his daughter, friends like Jeremy from the old neighborhood. He's not violent about it. A late visit, a beer, an arm around the shoulder, a cleanly placed bite, a few minutes of <em>Cloud Memory</em>, and gone before sunrise. They think he's a good uncle who keeps strange hours.</p>
+      <p>The arrangement is sustainable, deniable, and — by his lights — moral. They love him. He has not, yet, had to look very hard at what it means that they are also his pantry.</p>
+    </section>
+
+    <!-- ═══ VII. CONVICTIONS / TOUCHSTONES ═══ -->
+    <section id="convictions">
+      <h2 class="section-title">VII. Convictions &amp; Touchstones</h2>
+
+      <div class="conviction">
+        Never expose children to violence.
+        <span class="ts">Touchstone: <em>unassigned</em> — most likely candidates from his Herd are his niece and two nephews.</span>
+      </div>
+      <div class="conviction">
+        My country, right or wrong. Kill only if they had it coming.
+        <span class="ts">Touchstone: <em>unassigned</em> — most likely candidate is Jeremy, Purple Heart, Afghanistan.</span>
+      </div>
+      <div class="placeholder">Third Conviction not selected. Two of three defined on the sheet.</div>
+    </section>
+
+    <!-- ═══ VIII. ADVANTAGES / FLAWS ═══ -->
+    <section id="adv-flaws">
+      <h2 class="section-title">VIII. Advantages &amp; Flaws</h2>
+
+      <div class="pos-neg">
+        <div class="adv-list">
+          <h4>Advantages</h4>
+          <ul>
+            <li>Resources ●</li>
+            <li>Allies ●● <em>— the crew</em></li>
+            <li>Herd ●● <em>— from Cleaver predator type; family and old friends</em></li>
+            <li>Linguistics ● <em>— English / Spanish</em></li>
+          </ul>
+          <p class="budget-note">Budget: 7 advantage dots base + 2 from Cleaver (Herd) = 9 expected; 6 currently allocated. One advantage dot remains unspent on the sheet.</p>
+        </div>
+        <div class="flaw-list">
+          <h4>Flaws</h4>
+          <ul>
+            <li>Addiction ● <em>— substance use, carried over from breathing days</em></li>
+            <li>Short Bond ●● <em>— blood bonds form and break unusually fast for him</em></li>
+            <li>Dark Secret ● <em>— Cleaver; the Herd doesn't know what they are</em></li>
+          </ul>
+          <p class="budget-note">Budget: 2 flaw dots base + 1 from Cleaver (Dark Secret) = 3 expected; 4 currently allocated (sheet is one flaw dot over budget, or one advantage dot is owed from an uncounted source).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ IX. EQUIPMENT ═══ -->
+    <section id="kit">
+      <h2 class="section-title">IX. Kit</h2>
+      <div class="two-col">
+        <div>
+          <div class="kit">
+            <span class="kit-name">SIG Sauer M17</span>
+            <div class="kit-detail">9×19mm Parabellum service pistol; 17-round magazine. The army never took him; he took its sidearm. Carried in a shoulder rig under a Carhartt jacket.</div>
+          </div>
+          <div class="kit">
+            <span class="kit-name">The Truck</span>
+            <div class="kit-detail">An 18-wheeler, when Marcus calls. Otherwise whatever pickup is currently registered. Truck mechanic on his own rig — he can keep anything diesel on the road.</div>
+          </div>
+        </div>
+        <div>
+          <div class="kit">
+            <span class="kit-name">Haven · Rank 2</span>
+            <div class="kit-detail">Crew-shared. Above-code, below-zoning. (Coalition holding; treated as crew Allies asset.)</div>
+          </div>
+          <div class="kit">
+            <span class="kit-name">Library · Rank 2</span>
+            <div class="kit-detail">A bookstore. Crew-held — until the night something came through the front window.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ X. RELATIONSHIP MAP ═══ -->
+    <section id="relmap">
+      <h2 class="section-title">X. Relationship Map</h2>
+
+      <h3 class="subsection">Sire / Lineage</h3>
+      <div class="relmap">
+        <div class="relation">
+          <span class="who">Helmuth</span> <span class="role">— Sire. Gangrel. Bad educator. Small-time thinking. The man Noel intends not to become, even as he uses Helmuth's crew, Helmuth's contacts, Helmuth's rules.</span>
+        </div>
+      </div>
+
+      <h3 class="subsection">The Coalition (Crew)</h3>
+      <div class="relmap">
+        <div class="relation"><span class="who">Marcus</span> <span class="role">— Operations lead. The one who calls. "Bring the truck."</span></div>
+        <div class="relation"><span class="who">Sophie</span> <span class="role">(player: Calleda) — Coalition. Kindred.</span></div>
+        <div class="relation"><span class="who">Derek</span> <span class="role">(player: Chris) — Coalition. Reads the earth itself underground. Slips Noel's grip at the worst possible moment.</span></div>
+        <div class="relation"><span class="who">Zach</span> <span class="role">(player: Joseph) — Coalition. Kindred.</span></div>
+        <div class="relation"><span class="who">The Malkavian</span> <span class="role">— Owed the trunk. See Session 2.</span></div>
+      </div>
+
+      <h3 class="subsection">Allies of the Living &amp; the Dead</h3>
+      <div class="relmap">
+        <div class="relation"><span class="who">Chenoe</span> <span class="role">— The man in street clothes; Native American, knows the prisons. Laughs when others don't. Provides the number; advises on wards.</span></div>
+      </div>
+
+      <h3 class="subsection">The Herd (Mortal)</h3>
+      <div class="relmap">
+        <div class="relation"><span class="who">Jeremy</span> <span class="role">— Old friend. Afghanistan veteran, Purple Heart. Anchors Noel's surviving idea of country.</span></div>
+        <div class="relation"><span class="who">Sister</span> <span class="role">— Two sons (Noel's nephews).</span></div>
+        <div class="relation"><span class="who">Brother</span> <span class="role">— One daughter (Noel's niece).</span></div>
+      </div>
+    </section>
+
+    <!-- ═══ XI. CAMPAIGN LOGBOOK ═══ -->
+    <section id="log">
+      <h2 class="section-title">XI. Campaign Logbook · "Not the Only Dead"</h2>
+
+      <div class="logbook">
+
+        <div class="session">
+          <h4>Session 1 — The Fire, the Jar, the House</h4>
+          <p>Marcus called; bring the truck. Giant fire. A man with a jar. Three Kindred and a fourth man in street clothes — Chenoe, Native American, who laughs and says <em>dragons don't exist</em> in a tone that means <em>but other things do</em>. Locked into a Camarilla house with a murdering monster; the coalition came out and the monster did not. The exposition arrives in pieces: hundreds of years ago, Shoshone and Ute hands sealed prisons across the land — bound things they could not control, weapons they had built and could not unmake. Four such sites; three strongholds; one is already open. <em>"We sealed these things because we can't control them; they are feral and wild."</em></p>
+          <p>A century ago, a Kindred opened the first prison. Now someone is opening them on purpose, resurrecting bound things with their own blood. Hundreds, already.</p>
+          <p>Chenoe leaves his number and the offer of advice on wards. The crew now holds a Rank 2 Haven and a Rank 2 Library — a bookstore. The library window does not stay intact long: three <em>mudbirds</em> come through it. Noel ends the night Tuesday, 15 of 17 rounds left in the M17, and 5 XP earned. <em>(Status: unspent.)</em></p>
+        </div>
+
+        <div class="gap-note">— Session 2 · log gap · see Scene I —</div>
+
+        <div class="scene">
+          <span class="scene-title">Scene I · The Trunk to Montana</span>
+          <p>Long haul north. The crew brought the Malkavian along. The Malkavian, in the way of Malkavians, would not stop talking — could not, perhaps; would not, certainly. Noel made the offer once, and again, and then a third time with specificity. The Malkavian did not take the offer.</p>
+          <p>Noel made good on the words. The Malkavian rode the last several hours to Montana folded into the trunk of the car, undead and silent at last. The crew did not argue. The tagline on this folder is a direct quotation.</p>
+        </div>
+
+        <div class="session">
+          <h4>Session 3 — The Crow, the Puppeteer, Pointing at Yellowstone</h4>
+          <p>On the Crow reservation. Something rears up and points — north, toward Yellowstone — and the meaning arrives in the gesture, not in words. Birds come on the wind. Three of them, and one is the puppeteer, the others on its strings; the strings snap and the puppeteer runs. Noel hurls two of the rest into the shield they came to break; the shield cracks; they turn to dust. The last bird-thing tries to leap to the river and is denied.</p>
+          <p>The history surfaces. The bird people were tools, made by Native hands to be turned on their enemies — and then, as such tools do, refused to remain pointed in the intended direction. The Crow elders send the crew south. To the Utes. To Fort Duchesne.</p>
+        </div>
+
+        <div class="scene">
+          <span class="scene-title">Scene II · Fort Duchesne · The Blood the Ritual Needed</span>
+          <p>The Ute elders had agreed. They gave what blood they could give without anyone dying — every adult bled to the line and not past it. It should have been enough. It wasn't: one of the crew frenzied, fed from the gathered vessels, and left the ritual short.</p>
+          <p>The only remaining source on the reservation was the children. The GM framed this as the dilemma: which line does the crew cross. The Ute adults stood firm. They had given everything they were willing to give.</p>
+          <p>Noel did not cross the line. Noel called the bluff. He turned it back on the elders, quietly and without theatrics: <em>why on earth wouldn't you be willing to die to protect the children?</em> The trucker neonate, the man who never made it past the warehouse floor, the cleaver of his own family — speaking that sentence in that room.</p>
+          <p>A small number of the Ute adults bled themselves to death and finished the ritual.</p>
+        </div>
+
+        <div class="session">
+          <h4>Finale — Denver Airport, and What Was Under the Ground</h4>
+          <p>Marcus took the Camarilla. The crew took the shield at Denver Airport — the second prison. Down to where the Nosferatu were first encountered, but the place no longer looked like the place; the geography had become argument, an illusion <em>actively maintained</em>. Derek began reading the earth itself; Noel kept up with him, step for step, deep beneath the airport.</p>
+          <p>Then his Hunger detonated. Derek slipped his grip. The shield came off Noel's back. The terracotta warriors took a messy critical on the way down. By the end of the descent, Noel was no longer entirely a passenger inside himself, and not entirely the same thing that had loaded the truck on Tuesday.</p>
+          <p>The campaign closes here. The prisons that remain remain. Helmuth is still teaching the wrong lessons. The Herd still doesn't know what Uncle Noel really is.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══ XII. NOTES ═══ -->
+    <section id="notes">
+      <h2 class="section-title">XII. Sheet Notes &amp; Open Questions</h2>
+      <ul style="font-size:0.84rem; padding-left:1.2em; color:var(--ink-soft); line-height:1.7;">
+        <li>20 XP unspent (15 starting + 5 from Session 1).</li>
+        <li>Third Conviction unselected; Touchstones unassigned but Jeremy, niece, and nephews are the obvious anchors.</li>
+        <li>Embrace location unknown.</li>
+        <li>One unspent advantage dot or one overspent flaw dot — the sheet does not balance to the published budget; the discrepancy is preserved here rather than invented around.</li>
+        <li>Session 2 log not recorded; the trunk-to-Montana incident sits in that gap.</li>
+      </ul>
+    </section>
+
+    <div class="stamp classified">CASE ONGOING · DO NOT FILE</div>
+
+    <footer class="signoff">
+      <div>Filed under: Coalition Operations, Denver Metro · Subject Type: Kindred, Neonate, Anarch-aligned · Reliability: Hot-Tempered / Useful in a Pinch · Threat to Masquerade: Moderate (improving).</div>
+      <div class="right">— pulled the Tuesday after the airport.</div>
+    </footer>
+
+  </div>
+</div>
+
+</body>
+</html>

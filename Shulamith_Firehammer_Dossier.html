@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Shulamith Firehammer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Playfair+Display+SC:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:        #f0e9d8;
+    --paper-dark:   #e4d9c2;
+    --paper-deep:   #cfc0a0;
+    --ink:          #1a1714;
+    --ink-soft:     #342e28;
+    --ink-faint:    #6b5f50;
+    --violet:       #4a2060;
+    --violet-deep:  #301440;
+    --violet-mid:   #6a3888;
+    --violet-pale:  rgba(74, 32, 96, 0.07);
+    --green:        #1a4a28;
+    --green-mid:    #2e6040;
+    --green-pale:   rgba(26, 74, 40, 0.07);
+    --white-ribbon: #e8e0cc;
+    --rule:         #a08870;
+    --rule-soft:    #bba888;
+    --rust:         #7a2e14;
+    --rust-mid:     #a04020;
+    --gilt:         #9a7220;
+    --gilt-deep:    #6a4e10;
+    --shadow:       rgba(26, 23, 20, 0.12);
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--paper-dark);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.68;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse at 15% 8%,  rgba(74, 32, 96, 0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 92%, rgba(26, 74, 40, 0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(26, 23, 20, 0.03) 0%, transparent 70%);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  .document {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 4rem 4.5rem 5rem;
+    box-shadow:
+      0 1px 2px rgba(26, 23, 20, 0.10),
+      0 8px 40px rgba(26, 23, 20, 0.20);
+    position: relative;
+    border: 1px solid var(--rule);
+  }
+
+  /* Triple-stripe top bar — Suffragette colours: purple, white, green */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg,
+      var(--violet-deep) 0%,
+      var(--violet)      33%,
+      var(--white-ribbon) 33%,
+      var(--white-ribbon) 66%,
+      var(--green)       66%,
+      var(--green-mid)   100%);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%, var(--rule) 20%, var(--violet-mid) 50%, var(--rule) 80%, transparent 100%);
+  }
+
+  /* ── HEADER ── */
+  header.title-block {
+    text-align: center;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 2rem;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  header.title-block::after {
+    content: "✦  ✦  ✦";
+    display: block;
+    color: var(--violet);
+    font-size: 0.76rem;
+    letter-spacing: 0.9em;
+    padding-left: 0.9em;
+    margin: 1.1rem auto 0;
+  }
+
+  .eyebrow {
+    font-family: "Playfair Display SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.4em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  h1.character-name {
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    font-size: 3.4rem;
+    line-height: 1.05;
+    margin: 0 0 0.4rem;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+  h1.character-name .given { font-style: italic; color: var(--violet-deep); }
+  h1.character-name .small {
+    font-size: 0.5em;
+    color: var(--ink-faint);
+    font-style: italic;
+    font-weight: 400;
+    display: block;
+    margin-top: 0.45rem;
+    letter-spacing: 0.04em;
+  }
+
+  .epithets {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.04rem;
+    color: var(--ink-soft);
+    margin: 0.5rem 0 1rem;
+  }
+
+  .vitals {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.8rem;
+    margin-top: 1.5rem;
+    font-family: "Playfair Display SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-soft);
+  }
+  .vitals span { border-left: 1px solid var(--rule); padding-left: 1.2rem; }
+  .vitals span:first-child { border-left: none; padding-left: 0; }
+
+  /* ── PORTRAIT BANNER ── */
+  .portrait-banner {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 2.5rem;
+    margin: 2rem 0 3rem;
+    align-items: end;
+  }
+  .portrait-banner figure {
+    margin: 0;
+  }
+  .portrait-banner img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--ink);
+    box-shadow: 0 3px 14px var(--shadow), inset 0 0 0 4px var(--paper);
+    padding: 4px;
+    background: var(--paper-dark);
+    display: block;
+    filter: sepia(0.15);
+  }
+  .portrait-banner figcaption {
+    font-family: "Playfair Display SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.6rem;
+    text-align: center;
+  }
+  .portrait-banner .banner-text {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+  }
+  .portrait-banner .banner-text .pullquote {
+    font-family: "Playfair Display", serif;
+    font-size: 1.38rem;
+    font-style: italic;
+    color: var(--violet-deep);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    border-left: 3px solid var(--violet);
+  }
+
+  /* ── TOC ── */
+  nav.toc {
+    border: 1px solid var(--rule);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 3rem;
+    background: rgba(255, 255, 255, 0.32);
+    columns: 2;
+    column-gap: 2rem;
+  }
+  nav.toc .toc-label {
+    font-family: "Playfair Display SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    column-span: all;
+  }
+  nav.toc ol {
+    list-style: none; margin: 0; padding: 0;
+    counter-reset: toc;
+    font-family: "EB Garamond", serif;
+  }
+  nav.toc ol li {
+    counter-increment: toc;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+    break-inside: avoid;
+  }
+  nav.toc ol li::before {
+    content: counter(toc, upper-roman) ". ";
+    color: var(--violet-mid);
+    font-style: italic;
+    margin-right: 0.25rem;
+  }
+  nav.toc a { color: var(--ink); text-decoration: none; border-bottom: 1px dotted transparent; }
+  nav.toc a:hover { border-bottom-color: var(--violet); }
+
+  /* ── SECTIONS ── */
+  section { margin-bottom: 3rem; }
+
+  h2.section-title {
+    font-family: "Playfair Display SC", serif;
+    font-weight: 400;
+    font-size: 0.94rem;
+    letter-spacing: 0.28em;
+    color: var(--violet-deep);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.5rem;
+    margin: 0 0 1.5rem;
+  }
+  h2.section-title::before {
+    content: "✦";
+    color: var(--green);
+    margin-right: 0.7rem;
+    font-size: 0.8em;
+  }
+
+  h3.subhead {
+    font-family: "Playfair Display", serif;
+    font-weight: 400;
+    font-size: 1.28rem;
+    color: var(--violet);
+    margin: 1.6rem 0 0.5rem;
+    font-style: italic;
+  }
+
+  h4.entry-label {
+    font-family: "Playfair Display SC", serif;
+    font-weight: 400;
+    font-size: 0.76rem;
+    letter-spacing: 0.22em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 1.1rem 0 0.25rem;
+  }
+
+  p  { margin: 0 0 1rem; }
+  ul, ol { margin: 0.5rem 0 1rem 1.6rem; padding: 0; }
+  li { margin-bottom: 0.4rem; }
+  em { color: var(--ink-soft); }
+  strong { font-weight: 600; color: var(--ink); }
+
+  .drop-cap::first-letter {
+    font-family: "Playfair Display", serif;
+    font-size: 3.4rem;
+    line-height: 0.82;
+    float: left;
+    padding: 0.3rem 0.65rem 0 0;
+    color: var(--violet-deep);
+  }
+
+  /* ── STAT GRIDS ── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+  .stat-grid-5 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+  .stat-cell {
+    text-align: center;
+    padding: 0.85rem 0.4rem;
+    border: 1px solid var(--rule);
+    background: rgba(255, 255, 255, 0.32);
+  }
+  .stat-cell .label {
+    font-family: "Playfair Display SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+  .stat-cell .value {
+    font-family: "Playfair Display", serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .stat-cell.high .value { color: var(--violet-deep); }
+  .stat-cell.mid .value  { color: var(--green); }
+  .stat-cell .gloss {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.74rem;
+    color: var(--ink-faint);
+    margin-top: 0.25rem;
+  }
+  .stat-cell.derived {
+    background: rgba(74, 32, 96, 0.05);
+    border-color: var(--violet-mid);
+  }
+  .stat-cell.derived .value { color: var(--violet); font-size: 1.55rem; }
+  .stat-cell.warn {
+    background: rgba(122, 46, 20, 0.05);
+    border-color: var(--rust);
+  }
+  .stat-cell.warn .value { color: var(--rust); font-size: 1.55rem; }
+
+  /* ── STATUS GRID ── */
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .status-cell {
+    border: 1px solid var(--rule);
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.32);
+  }
+  .status-cell .label {
+    font-family: "Playfair Display SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .status-cell .value {
+    font-family: "Playfair Display", serif;
+    font-size: 2rem;
+    color: var(--violet);
+    line-height: 1;
+    font-weight: 700;
+  }
+  .status-cell .of { font-size: 1rem; color: var(--ink-faint); font-weight: 400; }
+  .status-cell .delta {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.86rem;
+    color: var(--ink-faint);
+    margin-top: 0.3rem;
+  }
+  .status-cell.warn { border-color: var(--rust); background: rgba(122, 46, 20, 0.04); }
+  .status-cell.warn .value { color: var(--rust); }
+  .status-cell.green { border-color: var(--green); background: var(--green-pale); }
+  .status-cell.green .value { color: var(--green); }
+
+  /* ── SKILL GRIDS ── */
+  .skill-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.35rem 1.5rem;
+    margin: 0.8rem 0;
+  }
+  .skill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px dotted var(--rule-soft);
+    padding: 0.18rem 0;
+  }
+  .skill-row .name { font-family: "EB Garamond", serif; color: var(--ink); }
+  .skill-row .val  { font-family: "Playfair Display", serif; font-weight: 700; color: var(--ink); margin-left: 1rem; }
+  .skill-row.high .name { color: var(--violet-deep); font-weight: 600; }
+  .skill-row.high .val  { color: var(--violet-deep); }
+  .skill-row.mid .name  { color: var(--green); }
+  .skill-row.mid .val   { color: var(--green); }
+  .skill-row .gloss {
+    font-style: italic;
+    color: var(--ink-faint);
+    font-size: 0.84rem;
+    margin-left: 0.4rem;
+  }
+  .skill-row.tbd .val   { color: var(--rule); font-style: italic; font-size: 0.88rem; }
+
+  /* ── WEAPON TABLE ── */
+  .weapon-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.94rem;
+  }
+  .weapon-table th {
+    text-align: left;
+    font-family: "Playfair Display SC", serif;
+    font-weight: 400;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    padding: 0.45rem 0.7rem;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  .weapon-table td {
+    padding: 0.55rem 0.7rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: top;
+  }
+  .weapon-table .wname { font-family: "EB Garamond", serif; font-weight: 600; }
+  .weapon-table .wskill { text-align: center; font-family: "Playfair Display", serif; font-weight: 700; }
+  .weapon-table .wdmg { text-align: right; font-family: "EB Garamond", serif; }
+  .weapon-table .wnote { font-style: italic; font-size: 0.88rem; color: var(--ink-soft); }
+  .weapon-table tr:last-child td { border-bottom: none; }
+
+  /* ── CALLOUTS ── */
+  .callout {
+    border: 1px solid var(--violet-mid);
+    border-left: 4px solid var(--violet-deep);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--violet-pale);
+  }
+  .callout .label {
+    font-family: "Playfair Display SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--violet-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout.green-callout {
+    border-color: var(--green-mid);
+    border-left-color: var(--green);
+    background: var(--green-pale);
+  }
+  .callout.green-callout .label { color: var(--green); }
+  .callout.rust {
+    border-color: var(--rust-mid);
+    border-left-color: var(--rust);
+    background: rgba(122, 46, 20, 0.05);
+  }
+  .callout.rust .label { color: var(--rust); }
+
+  /* ── DOSSIER TABLE ── */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.96rem;
+  }
+  table.dossier-table th {
+    text-align: left;
+    font-family: "Playfair Display SC", serif;
+    font-weight: 400;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  table.dossier-table td {
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  table.dossier-table td:first-child {
+    font-family: "Playfair Display", serif;
+    font-weight: 500;
+    color: var(--ink);
+    white-space: nowrap;
+    padding-right: 1.5rem;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+
+  /* ── TWO COL ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 1rem 0;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline { display: flex; flex-direction: column; gap: 1.2rem; margin: 1rem 0; }
+  .timeline-entry {
+    border-left: 2px solid var(--rule);
+    padding: 0.3rem 0 0.3rem 1.5rem;
+    position: relative;
+  }
+  .timeline-entry::before {
+    content: "";
+    position: absolute;
+    left: -5px; top: 0.65rem;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--rule);
+    border: 2px solid var(--paper);
+  }
+  .timeline-entry.violet { border-left-color: var(--violet); }
+  .timeline-entry.violet::before { background: var(--violet); }
+  .timeline-entry.green  { border-left-color: var(--green); }
+  .timeline-entry.green::before  { background: var(--green); }
+  .timeline-entry.rust   { border-left-color: var(--rust); }
+  .timeline-entry.rust::before   { background: var(--rust); }
+  .timeline-entry .when {
+    font-family: "Playfair Display SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+  .timeline-entry .what {
+    font-family: "EB Garamond", serif;
+    font-weight: 600;
+    font-size: 1.06rem;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+  .timeline-entry .detail { font-size: 0.94rem; color: var(--ink-soft); }
+
+  /* ── GEAR ── */
+  .gear-cols {
+    columns: 2;
+    column-gap: 2rem;
+    margin: 0.8rem 0 1.2rem;
+    font-size: 0.95rem;
+  }
+  .gear-cols li { break-inside: avoid; margin-bottom: 0.3rem; }
+
+  /* ── RELATIONS ── */
+  .relations-grid { display: flex; flex-direction: column; gap: 1.1rem; margin: 1rem 0; }
+  .relation {
+    border-left: 2px solid var(--rule);
+    padding: 0.3rem 0 0.3rem 1.2rem;
+  }
+  .relation.violet-rel { border-left-color: var(--violet); }
+  .relation .name {
+    font-family: "EB Garamond", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin-bottom: 0.15rem;
+  }
+  .relation .name .role {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink-faint);
+    font-size: 0.92rem;
+  }
+  .relation .text { font-size: 0.94rem; color: var(--ink-soft); }
+
+  /* ── COLOPHON ── */
+  footer.colophon {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    font-family: "Playfair Display SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.26em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  footer.colophon::before {
+    content: "✦";
+    display: block;
+    color: var(--violet-mid);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    letter-spacing: normal;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    body { padding: 1rem 0.5rem; }
+    .document { padding: 2rem 1.4rem 3rem; }
+    h1.character-name { font-size: 2.4rem; }
+    .portrait-banner { grid-template-columns: 1fr; }
+    .portrait-banner img { max-width: 240px; margin: 0 auto; display: block; }
+    .two-col { grid-template-columns: 1fr; gap: 1rem; }
+    .stat-grid, .stat-grid-5 { grid-template-columns: repeat(4, 1fr); }
+    .status-grid { grid-template-columns: 1fr; }
+    .skill-grid { grid-template-columns: 1fr; }
+    .gear-cols { columns: 1; }
+    nav.toc { columns: 1; }
+    .vitals { gap: 0.5rem; font-size: 0.64rem; }
+    .vitals span { border-left: none; padding: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+
+  <header class="title-block">
+    <div class="eyebrow">Player Character Dossier &nbsp;&middot;&nbsp; Pre-Campaign &nbsp;&middot;&nbsp; None More Black &nbsp;&middot;&nbsp; Call of Cthulhu 7th Edition</div>
+    <h1 class="character-name">
+      <span class="given">Shulamith</span> Firehammer
+      <span class="small">Suffragist &middot; Organiser &middot; Twenty-Seven Years Old &middot; Boston, Massachusetts</span>
+    </h1>
+    <p class="epithets">Raised in New York City &nbsp;&middot;&nbsp; schooled in the art of the long campaign &nbsp;&middot;&nbsp; the woman who knows that the question is not <em>whether</em> to strike, but <em>when</em></p>
+    <div class="vitals">
+      <span>Female &middot; Age 27</span>
+      <span>New York City, born and raised</span>
+      <span>Now resident: Boston (TBD)</span>
+      <span>Sanity 70 &middot; Luck 30</span>
+    </div>
+  </header>
+
+  <div class="portrait-banner">
+    <figure>
+      <img src="shulamith.png" alt="Shulamith Firehammer">
+      <figcaption>Shulamith Firehammer</figcaption>
+    </figure>
+    <div class="banner-text">
+      <p class="pullquote">&ldquo;It&rsquo;s not about whether to strike, but when.&rdquo;</p>
+      <p>She is a suffragist. Not a suffragette &mdash; that word carries a different freight on this side of the Atlantic. In Britain it was a badge of defiant pride; in America it was wielded by opponents as a slur. She would know the distinction. She would care about it. She works or volunteers for a political and charitable organisation &mdash; the cause of women&rsquo;s suffrage and the related campaigns against violence against women. Her intelligence runs high, her education higher still. Her power is the deepest thing on the sheet. Her luck is the lowest.</p>
+      <p><em>Details of occupation skills, credit rating, personal history, significant people, possessions, and campaign setting year are not yet recorded on the character sheet. They are noted throughout this dossier as <strong>TBD</strong> pending completion of character creation.</em></p>
+    </div>
+  </div>
+
+  <nav class="toc">
+    <div class="toc-label">Contents</div>
+    <ol>
+      <li><a href="#identity">Identity &amp; Station</a></li>
+      <li><a href="#mechanical">Mechanical Profile</a></li>
+      <li><a href="#statreading">Reading the Numbers</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#disposition">Operating Disposition</a></li>
+      <li><a href="#interior">Interior Architecture</a></li>
+      <li><a href="#cause">The Cause</a></li>
+      <li><a href="#relations">Known Associates</a></li>
+      <li><a href="#equipment">Equipment &amp; Possessions</a></li>
+      <li><a href="#timeline">Timeline</a></li>
+      <li><a href="#trajectory">Possible Trajectories</a></li>
+    </ol>
+  </nav>
+
+  <!-- ═══════ I. IDENTITY ═══════ -->
+  <section id="identity">
+    <h2 class="section-title">I. Identity &amp; Station</h2>
+
+    <p class="drop-cap">Shulamith Firehammer is twenty-seven years old, born and raised in New York City, currently resident in Boston &mdash; the specific address and circumstances of that move are not yet recorded on the sheet. She works or volunteers for a political and charitable organisation centred on women&rsquo;s suffrage and the campaign against violence against women. The sheet identifies her occupation as <em>Suffragette</em>, though she herself, being American, would likely use <em>suffragist</em> &mdash; the word suffragette was used against the movement by its opponents in the United States, and a woman of her education and political formation would know the difference and use her words carefully.</p>
+
+    <p>She is a woman of serious intellectual formation: EDU 85 is a high score on any sheet, and INT 65 supports it. She reads, she argues, she organises. POW 70 is the highest single number on her profile, and it sits behind the sanity and magic-point scores as the deepest structural fact about who she is &mdash; a woman of considerable inner force. Her Luck is 30, the lowest number on the sheet, and it will be the number that shapes her in play.</p>
+
+    <h4 class="entry-label">Physical Description</h4>
+    <p>The portrait shows a young woman with dark hair pinned up, round spectacles, and the posture of someone who has learned to take up exactly the space she intends to take up and no more. She leans against a stack of books. She meets the camera&rsquo;s eye directly. APP 50 is an average score &mdash; she does not move through the world on charm or appearance, which is consistent with a woman who moves through the world on argument.</p>
+
+    <h4 class="entry-label">Her Name</h4>
+    <p>Shulamith is a Hebrew name &mdash; the beloved of the Song of Songs. Firehammer is a surname of character, and whatever its origin or history, it has not yet been recorded on the sheet. Both are hers, and that is what the dossier records.</p>
+
+    <div class="callout">
+      <div class="label">Note on Campaign Status</div>
+      <p>The sheet is mid-creation. Skills, credit rating, possessions, backstory elements (significant people, meaningful locations, treasured possessions, ideology/beliefs, traits, key connection), and the campaign&rsquo;s setting year are all marked <strong>TBD</strong> in this dossier. No details have been invented to fill these gaps. This dossier documents what is on the sheet and flags the rest honestly.</p>
+    </div>
+  </section>
+
+  <!-- ═══════ II. MECHANICAL PROFILE ═══════ -->
+  <section id="mechanical">
+    <h2 class="section-title">II. Mechanical Profile</h2>
+
+    <h3 class="subhead">Characteristics</h3>
+    <div class="stat-grid">
+      <div class="stat-cell"><div class="label">STR</div><div class="value">45</div><div class="gloss">unremarkable</div></div>
+      <div class="stat-cell"><div class="label">CON</div><div class="value">45</div><div class="gloss">average constitution</div></div>
+      <div class="stat-cell"><div class="label">SIZ</div><div class="value">55</div><div class="gloss">average</div></div>
+      <div class="stat-cell"><div class="label">DEX</div><div class="value">50</div><div class="gloss">adequate</div></div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-cell"><div class="label">APP</div><div class="value">50</div><div class="gloss">average</div></div>
+      <div class="stat-cell mid"><div class="label">INT</div><div class="value">65</div><div class="gloss">sharp</div></div>
+      <div class="stat-cell high"><div class="label">POW</div><div class="value">70</div><div class="gloss">force of will</div></div>
+      <div class="stat-cell high"><div class="label">EDU</div><div class="value">85</div><div class="gloss">extensively schooled</div></div>
+    </div>
+
+    <h3 class="subhead">Derived Statistics</h3>
+    <div class="stat-grid-5">
+      <div class="stat-cell derived"><div class="label">Move</div><div class="value">7</div></div>
+      <div class="stat-cell derived"><div class="label">Hit Points</div><div class="value">10</div><div class="gloss">/ 10</div></div>
+      <div class="stat-cell derived"><div class="label">Sanity</div><div class="value">70</div><div class="gloss">/ 99</div></div>
+      <div class="stat-cell warn"><div class="label">Luck</div><div class="value">30</div></div>
+      <div class="stat-cell derived"><div class="label">Magic Pts</div><div class="value">14</div><div class="gloss">/ 14</div></div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-cell"><div class="label">Build</div><div class="value">0</div></div>
+      <div class="stat-cell"><div class="label">Damage Bonus</div><div class="value">&mdash;</div><div class="gloss">none</div></div>
+      <div class="stat-cell"><div class="label">Dodge</div><div class="value">25</div><div class="gloss">base (DEX &divide; 2)</div></div>
+      <div class="stat-cell"><div class="label">Credit Rating</div><div class="value">TBD</div><div class="gloss">unassigned</div></div>
+    </div>
+
+    <h3 class="subhead">Current Status</h3>
+    <div class="status-grid">
+      <div class="status-cell">
+        <div class="label">Hit Points</div>
+        <div class="value">10 <span class="of">/ 10</span></div>
+        <div class="delta">uninjured &mdash; pre-campaign</div>
+      </div>
+      <div class="status-cell green">
+        <div class="label">Sanity</div>
+        <div class="value">70 <span class="of">/ 99</span></div>
+        <div class="delta">intact &mdash; pre-campaign</div>
+      </div>
+      <div class="status-cell warn">
+        <div class="label">Luck</div>
+        <div class="value">30</div>
+        <div class="delta">the lowest number on the sheet</div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Weapons</h3>
+    <p><em>No weapons are recorded on the character sheet. The sheet references equipment pages (pp. 396&ndash;401 of the rulebook) but nothing has been selected. This section will be completed at character creation. The base Brawl skill for a character with no Fighting investment is 25%; Dodge is 25% (DEX &divide; 2).</em></p>
+
+    <table class="weapon-table">
+      <thead>
+        <tr>
+          <th>Weapon / Combat Skill</th>
+          <th style="text-align:center">Skill</th>
+          <th style="text-align:right">Damage</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="wname">Fighting (Brawl)</td>
+          <td class="wskill" style="text-align:center">25</td>
+          <td class="wdmg">1d3</td>
+          <td class="wnote">Base value only. Not a trained combatant. No damage bonus.</td>
+        </tr>
+        <tr>
+          <td class="wname">Dodge</td>
+          <td class="wskill" style="text-align:center">25</td>
+          <td class="wdmg">&mdash;</td>
+          <td class="wnote">Base value (DEX &divide; 2). No investment recorded.</td>
+        </tr>
+        <tr>
+          <td class="wname">Equipment / Firearms</td>
+          <td class="wskill" style="text-align:center">TBD</td>
+          <td class="wdmg">TBD</td>
+          <td class="wnote">Sheet references pp. 396&ndash;401 but no selections recorded.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ═══════ III. READING THE NUMBERS ═══════ -->
+  <section id="statreading">
+    <h2 class="section-title">III. Reading the Numbers</h2>
+
+    <p>The characteristic array is coherent and distinctive. The three numbers worth pausing on are POW 70, EDU 85, and Luck 30.</p>
+
+    <h3 class="subhead">POW 70 &mdash; The Deepest Number</h3>
+    <p>Power is the characteristic that governs Sanity, Magic Points, and willpower contests. At 70 it is the single strongest number on her sheet. This is not the profile of a woman who breaks easily under pressure, in the ordinary sense of that word. Her Sanity ceiling, before any Mythos exposure, is 70 (POW &times; 1 as the starting score). She enters play with a full Sanity score and substantial inner reserve. The same number that provides Magic Points 14 &mdash; the largest pool among her characteristics &mdash; suggests that if the campaign places anything arcane within her reach, she has the interior resource to engage with it.</p>
+
+    <h3 class="subhead">EDU 85 &mdash; The Second Number</h3>
+    <p>EDU 85 is genuinely high. For reference, the CoC 7e average human sits around EDU 60&ndash;70; a professor of medicine might have 85&ndash;90. She is not a professor of medicine, but she is someone who has received &mdash; or sought out &mdash; serious education. A significant proportion of her occupational and personal interest skills will be anchored to EDU via the Know roll and the Library Use, Language, and research-adjacent skills that EDU supports. She is the investigator who can find things in a library, read a primary source, understand a historical argument, and follow technical reasoning.</p>
+
+    <h3 class="subhead">Luck 30 &mdash; The Warning</h3>
+    <p>Luck 30 is low. In CoC 7e, Luck is the resource a player spends to avoid bad outcomes &mdash; to make a failed roll succeed, to avoid damage, to find the thing they were looking for. At 30, she enters play with the thinnest luck pool of any reasonable starting character. She will spend it carefully or she will not spend it at all, because once it is gone it is gone until she earns it back. The mechanical shape this creates is the shape of a woman who cannot rely on fortune. She relies instead on preparation, timing, and the knowledge of when to move.</p>
+
+    <p><em>It&rsquo;s not about whether to strike, but when.</em> That quote is not decoration. It is the operating principle of a woman who has learned, by necessity, to choose her moments.</p>
+
+    <div class="callout rust">
+      <div class="label">The Tension in the Sheet</div>
+      <p>POW 70 and EDU 85 are the attributes of a woman of formidable intellectual and psychic resource. Luck 30 and HP 10 are the attributes of a woman who cannot take a hit and cannot rely on chance. The sheet describes someone whose strength is entirely in her mind, her will, and her preparation &mdash; and who has almost nothing in reserve if the unexpected happens and she is not ready for it. She is not a combatant. She is not lucky. She is, however, very hard to break if she has time to think.</p>
+    </div>
+  </section>
+
+  <!-- ═══════ IV. SKILLS ═══════ -->
+  <section id="skills">
+    <h2 class="section-title">IV. Skills</h2>
+
+    <p><em>The character sheet references skill selection on pp. 40&ndash;41 and allocates 130 personal interest points in addition to occupational skill points. No skills have been recorded. The occupation listed is <strong>Suffragette / Suffragist</strong> with affiliation to a political and charitable organisation; no official occupation skill list for this role appears in the core rulebook, so the Keeper and player will likely construct it from the standard &ldquo;activist / journalist / politician&rdquo; adjacent templates.</em></p>
+
+    <p><em>The following table lists base values only &mdash; the floor each skill begins from before any investment. It is provided to document what exists on the sheet, not to suggest these are her final values.</em></p>
+
+    <div class="callout">
+      <div class="label">Skills Unassigned — TBD</div>
+      <p>All skill values below are <strong>base values</strong> calculated from characteristics. No occupational or personal interest skill points have been allocated. This section should be updated once character creation is complete.</p>
+    </div>
+
+    <h4 class="entry-label">Skills With Notable Base Values (from characteristics)</h4>
+    <div class="skill-grid">
+      <div class="skill-row mid"><span class="name">Know (INT &times; 5)</span><span class="val">65</span></div>
+      <div class="skill-row mid"><span class="name">Own Language (English)</span><span class="val">85</span></div>
+      <div class="skill-row"><span class="name">Psychology</span><span class="val">10</span></div>
+      <div class="skill-row"><span class="name">Library Use</span><span class="val">20</span></div>
+      <div class="skill-row"><span class="name">Listen</span><span class="val">20</span></div>
+      <div class="skill-row"><span class="name">Spot Hidden</span><span class="val">25</span></div>
+      <div class="skill-row"><span class="name">Persuade</span><span class="val">10</span></div>
+      <div class="skill-row"><span class="name">Charm</span><span class="val">15</span></div>
+      <div class="skill-row"><span class="name">Intimidate</span><span class="val">15</span></div>
+      <div class="skill-row"><span class="name">Oratory / Fast Talk</span><span class="val">5</span></div>
+      <div class="skill-row"><span class="name">Fighting (Brawl)</span><span class="val">25</span></div>
+      <div class="skill-row"><span class="name">Dodge</span><span class="val">25</span></div>
+      <div class="skill-row"><span class="name">Credit Rating</span><span class="val tbd">TBD</span></div>
+      <div class="skill-row"><span class="name">Cthulhu Mythos</span><span class="val">0</span></div>
+    </div>
+
+    <h4 class="entry-label">Skills Likely to Receive Investment (based on occupation / background)</h4>
+    <p><em>The following are skills a suffragist organiser of her era and formation would plausibly develop. They are listed as candidates, not confirmed values. None have been assigned.</em></p>
+    <div class="skill-grid">
+      <div class="skill-row tbd"><span class="name">Persuade</span><span class="val">—</span></div>
+      <div class="skill-row tbd"><span class="name">Oratory</span><span class="val">—</span></div>
+      <div class="skill-row tbd"><span class="name">Library Use</span><span class="val">—</span></div>
+      <div class="skill-row tbd"><span class="name">History</span><span class="val">—</span></div>
+      <div class="skill-row tbd"><span class="name">Law</span><span class="val">—</span></div>
+      <div class="skill-row tbd"><span class="name">Psychology</span><span class="val">—</span></div>
+      <div class="skill-row tbd"><span class="name">Journalism / Writing</span><span class="val">—</span></div>
+      <div class="skill-row tbd"><span class="name">Stealth</span><span class="val">—</span></div>
+      <div class="skill-row tbd"><span class="name">Spot Hidden</span><span class="val">—</span></div>
+      <div class="skill-row tbd"><span class="name">Navigate (urban)</span><span class="val">—</span></div>
+    </div>
+  </section>
+
+  <!-- ═══════ V. OPERATING DISPOSITION ═══════ -->
+  <section id="disposition">
+    <h2 class="section-title">V. Operating Disposition</h2>
+
+    <p>The shape of the sheet &mdash; even incomplete &mdash; tells a coherent story about how she will operate in an investigation. She is not a combatant. She is not a lucky improviser. She is a researcher and an organiser and a person of considerable will, who enters dangerous situations having thought them through and chosen her moment.</p>
+
+    <h4 class="entry-label">In a Fight</h4>
+    <p>She should not be in one. HP 10 with no damage bonus and base Brawl 25 makes her acutely vulnerable to physical violence. Luck 30 means she cannot spend her way out of bad dice. If combat occurs she needs to be behind something, or behind someone, or ideally somewhere else entirely. The practical shape of her combat profile is: she does not start fights, she ends them by other means, and she picks the moment carefully.</p>
+
+    <h4 class="entry-label">In a Library or Archive</h4>
+    <p>This is where she lives. EDU 85 and INT 65, once backed by a decent Library Use investment, make her the investigator the party deploys when something needs to be found, read, or understood. She is the person who knows what to look for and where to look for it, who can parse a legal document or a historical pamphlet or a newspaper archive. POW 70 means she can push through a long night&rsquo;s research without her concentration breaking.</p>
+
+    <h4 class="entry-label">In a Social or Political Environment</h4>
+    <p>She moves fluently in the world of meetings, committees, petitions, and organised action. She knows how organisations work from the inside. She knows which arguments land with which audiences. She knows when to speak and when to wait. The quote on the sheet is a social and political principle before it is a Mythos one: the art of choosing your moment is the art of the organiser.</p>
+
+    <h4 class="entry-label">In a Room That Underestimates Her</h4>
+    <p>In the early twentieth century, she will spend significant time in rooms that underestimate her. EDU 85 and POW 70 are invisible to anyone who looks at APP 50 and sees only an average-looking young woman in respectable dress. She has probably learned to find this useful. People who dismiss her talk too freely; people who condescend to her explain things she already knows; and she listens, and she waits, and she chooses when to use what she has heard.</p>
+  </section>
+
+  <!-- ═══════ VI. INTERIOR ARCHITECTURE ═══════ -->
+  <section id="interior">
+    <h2 class="section-title">VI. Interior Architecture</h2>
+
+    <p>The character sheet has prompts for ideology/beliefs, personal description, significant people, meaningful location, treasured possessions, and traits (pp. 42&ndash;45). None of these have been filled in. The sheet also asks for one key connection to be underlined. That too is blank. The dossier records the blank as what it is &mdash; space that exists and is waiting.</p>
+
+    <h3 class="subhead">What the Numbers Suggest</h3>
+    <p>A woman of EDU 85 working voluntarily for a political cause at age twenty-seven in New York and then Boston has a formation. She is educated above the professional norm for women of her era and she has directed that education toward a cause rather than toward personal advancement. That is a choice, and it implies a set of prior choices, and those choices imply commitments that predate the campaign. The ideology and beliefs field on the sheet is blank, but the sheet itself &mdash; the occupation, the organisation, the stated opposition to violence against women &mdash; fills some of that field in.</p>
+
+    <h3 class="subhead">Against Violence Against Women</h3>
+    <p>The sheet records this specifically: she is against violence against women. This is listed as a belief or commitment alongside the suffrage work, which suggests it is not merely incidental to the political cause but something personal enough to be named separately. Whether that is a political principle, a biographical fact, or both is not recorded. The dossier notes it as the sheet records it and does not speculate further.</p>
+
+    <div class="callout">
+      <div class="label">Sanity Note</div>
+      <p>Her starting Sanity of 70 equals POW &times; 1 &mdash; she enters play at her maximum, completely intact. This is, of course, the pre-Mythos baseline. She has 14 Magic Points from POW 70, which suggests potential arcane engagement if the campaign opens that door. The sheet records no spells, no Mythos exposure, no phobias, no manias. She comes in clean. What the campaign will cost her is the campaign&rsquo;s business to determine.</p>
+    </div>
+
+    <h3 class="subhead">Unrecorded: The Backstory Fields</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Field</th><th>Status</th></tr></thead>
+      <tr><td>Personal Description</td><td><em>Not recorded. The portrait fills part of this visually.</em></td></tr>
+      <tr><td>Ideology &amp; Beliefs</td><td><em>Not recorded. Suffrage and anti-violence commitments implied by occupation.</em></td></tr>
+      <tr><td>Significant People</td><td><em>Not recorded (3&ndash;6 expected).</em></td></tr>
+      <tr><td>Meaningful Location</td><td><em>Not recorded. New York City (birthplace) is a candidate.</em></td></tr>
+      <tr><td>Treasured Possessions</td><td><em>Not recorded.</em></td></tr>
+      <tr><td>Traits</td><td><em>Not recorded.</em></td></tr>
+      <tr><td>Key Connection (underlined)</td><td><em>Not recorded.</em></td></tr>
+    </table>
+  </section>
+
+  <!-- ═══════ VII. THE CAUSE ═══════ -->
+  <section id="cause">
+    <h2 class="section-title">VII. The Cause</h2>
+
+    <p class="drop-cap">She is a suffragist. The sheet uses the word <em>suffragette</em> as the occupation label, but the notes on the sheet itself flag the issue: in the United States, <em>suffragette</em> was an anti-suffrage weapon, deployed to diminish and ridicule the movement. The British organisations &mdash; the NUWSS, the WSPU &mdash; reclaimed the word and wore it with pride. American women&rsquo;s suffrage organisations did not. She grew up in New York and now works in Boston; she is operating in American political soil, where the word she would use for herself is <em>suffragist</em>.</p>
+
+    <p>The sheet references the National Union of Women&rsquo;s Suffrage Societies, which is a British organisation. Whether she has a direct connection to the NUWSS, or whether the reference is contextual background for the movement as a whole, is not recorded. What is recorded is the type of organisation she works for: a political and charitable organisation centred on women&rsquo;s suffrage and the campaign against violence against women.</p>
+
+    <div class="callout green-callout">
+      <div class="label">Prohibitionism &amp; Suffrage</div>
+      <p>The sheet also references the historical connection between the suffrage movement and temperance/prohibition. Many leading figures in American women&rsquo;s suffrage were also active in the prohibition movement, seeing both causes as connected to women&rsquo;s safety and autonomy. Whether Shulamith has any connection to temperance work is not recorded. It is noted here as historical context the sheet itself points toward.</p>
+    </div>
+
+    <h3 class="subhead">Timing and the Campaign Year</h3>
+    <p>The campaign year for <em>None More Black</em> has not been recorded. It matters significantly for how Shulamith&rsquo;s cause sits in relation to her present circumstances. If the year is before 1920, she is fighting for something not yet won. If it is after, she is fighting for what was won on paper and what remains to be won in practice &mdash; a different kind of struggle, but a struggle nonetheless. The dossier records the question and leaves it for the table.</p>
+
+    <p>The quote &mdash; <em>&ldquo;It&rsquo;s not about whether to strike, but when.&rdquo;</em> &mdash; is a principle of the long campaign. The suffrage movement in America was fought over decades. The women who won it, or who died before winning it, knew that most of the work was not the dramatic moment but the preparation for the dramatic moment. That patience, that calculation, that willingness to wait for the right opening &mdash; this is what the quote describes. It will translate, in some form, to whatever the campaign puts in front of her.</p>
+  </section>
+
+  <!-- ═══════ VIII. KNOWN ASSOCIATES ═══════ -->
+  <section id="relations">
+    <h2 class="section-title">VIII. Known Associates</h2>
+
+    <p><em>The significant people and key connection fields are blank on the character sheet. The following are structural placeholders &mdash; roles the sheet&rsquo;s format expects to be filled. No names or details have been invented.</em></p>
+
+    <div class="relations-grid">
+
+      <div class="relation violet-rel">
+        <div class="name">Significant Person (1&ndash;3) <span class="role">&mdash; TBD &middot; to be established at character creation</span></div>
+        <div class="text">The sheet asks for three to six significant people. None are recorded. One is expected to be underlined as the key connection. This is the most important piece of missing information for gameplay purposes &mdash; significant people are both the investigators&rsquo; emotional stakes and the Keeper&rsquo;s primary lever for putting pressure on the character.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Colleagues at the Organisation <span class="role">&mdash; unnamed &middot; the political network she operates within</span></div>
+        <div class="text">She works or volunteers for a political and charitable organisation. That organisation has members, officers, and associates. None are named on the sheet. They constitute the social world she moves in and the resources she can plausibly call on during the campaign.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Someone in New York City <span class="role">&mdash; unnamed &middot; home city, now left</span></div>
+        <div class="text">She grew up in New York City. She is now in Boston. Something prompted that move &mdash; a posting, a cause, an escape, a plan. Someone, presumably, was left behind in New York, or came with her, or is the reason she left. The sheet does not say.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════ IX. EQUIPMENT ═══════ -->
+  <section id="equipment">
+    <h2 class="section-title">IX. Equipment &amp; Possessions</h2>
+
+    <p><em>No equipment, weapons, or possessions have been recorded. The sheet references equipment and weapons lists (pp. 396&ndash;401) but nothing has been selected. Credit rating, cash, spending level, and assets are all pending. This section will be completed at character creation.</em></p>
+
+    <h4 class="entry-label">Assets &mdash; Unassigned</h4>
+    <table class="dossier-table">
+      <tr><td>Credit Rating</td><td><em>TBD &mdash; to be determined from occupation (p. 47 of the rulebook)</em></td></tr>
+      <tr><td>Cash</td><td><em>TBD</em></td></tr>
+      <tr><td>Spending Level</td><td><em>TBD</em></td></tr>
+      <tr><td>Assets</td><td><em>TBD</em></td></tr>
+    </table>
+
+    <h4 class="entry-label">Possessions &mdash; Unassigned</h4>
+    <p><em>The sheet asks for possessions and treasured possessions. Neither field is filled in. Candidates consistent with the occupation would include literature and pamphlets, writing materials, correspondence, and items connected to the cause &mdash; but nothing has been recorded and nothing will be invented.</em></p>
+
+    <div class="callout green-callout">
+      <div class="label">What the Occupation Implies</div>
+      <p>A suffragist organiser of the early twentieth century would likely carry the tools of her trade: pen and paper, pamphlets and petition sheets, printed schedules of meetings and events, possibly correspondence with the national organisation. She may carry a handbag of sufficient size to hold these. Whether she carries anything else &mdash; anything useful in a different kind of emergency &mdash; is a character creation decision not yet made.</p>
+    </div>
+  </section>
+
+  <!-- ═══════ X. TIMELINE ═══════ -->
+  <section id="timeline">
+    <h2 class="section-title">X. Timeline</h2>
+
+    <p><em>The timeline is constructed from what the character sheet records directly. Birth year is calculated backward from age 27 in an unknown campaign year (noted as TBD). No events have been invented. Entries flagged in italics are inferred from characteristics or occupation rather than recorded on the sheet.</em></p>
+
+    <div class="timeline">
+
+      <div class="timeline-entry">
+        <div class="when">c. [Campaign Year &minus; 27]</div>
+        <div class="what">Born, New York City</div>
+        <div class="detail">The sheet records New York City as her birthplace. The specific year depends on the campaign year, which is not yet set. She is 27 at the opening of play.</div>
+      </div>
+
+      <div class="timeline-entry violet">
+        <div class="when">Childhood &mdash; New York City</div>
+        <div class="what">Raised in New York</div>
+        <div class="detail">The sheet records &ldquo;grew up: New York City.&rdquo; The specifics of neighbourhood, family, and formation are not recorded.</div>
+      </div>
+
+      <div class="timeline-entry violet">
+        <div class="when">Education &mdash; dates unrecorded</div>
+        <div class="what">EDU 85 &mdash; serious formal education</div>
+        <div class="detail">EDU 85 represents significant educational achievement. How, where, and when she received it is not recorded. For a woman of her era and background, this level of education would itself be a fact worth noting and likely worth explaining. It is not yet explained.</div>
+      </div>
+
+      <div class="timeline-entry green">
+        <div class="when">Sometime before the campaign opens</div>
+        <div class="what">Joins the suffrage and anti-violence cause</div>
+        <div class="detail">She works or volunteers for a political and charitable organisation. When she joined, what brought her there, and how long she has been involved are not recorded.</div>
+      </div>
+
+      <div class="timeline-entry green">
+        <div class="when">Before the campaign opens</div>
+        <div class="what">Moves from New York City to Boston</div>
+        <div class="detail">The sheet records current residence as Boston (TBD &mdash; specific address not confirmed). The circumstances of the move from her birthplace and home city are not recorded.</div>
+      </div>
+
+      <div class="timeline-entry rust">
+        <div class="when">Campaign Year &mdash; TBD</div>
+        <div class="what">None More Black &mdash; campaign begins</div>
+        <div class="detail">Pre-campaign status. The campaign year is not recorded on the sheet. Sanity 70, HP 10, Luck 30. Skills unassigned. The sheet is waiting to be finished.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════ XI. POSSIBLE TRAJECTORIES ═══════ -->
+  <section id="trajectory">
+    <h2 class="section-title">XI. Possible Trajectories</h2>
+
+    <p><em>The sheet is unplayed and incomplete. What follows is not prediction but a sketch of the lines the numbers suggest &mdash; what her profile makes available, what it makes difficult, and where the mechanical tensions will likely manifest first.</em></p>
+
+    <h3 class="subhead">The Quiet Threads</h3>
+    <ul>
+      <li><strong>Luck 30 will be spent early.</strong> She enters play with the thinnest luck pool of any reasonable starting character. The first time she faces a failed roll with bad consequences, the table will face the question of whether to spend it. At 30, every point spent is a point she will feel the absence of later.</li>
+      <li><strong>EDU 85 and the archive.</strong> The first time the investigation requires finding something in a library or understanding something in a document, she becomes indispensable. That moment will define her role in the party more than any skill point assignment will.</li>
+      <li><strong>The name on the sheet: Firehammer.</strong> It is a name that carries weight. Whether it is a family name, a chosen name, a name that means something within the suffrage movement, or something else entirely, is not recorded. The table may never learn. Or it may be the key to everything.</li>
+    </ul>
+
+    <h3 class="subhead">The Loud Threads</h3>
+    <ul>
+      <li><strong>A Cthulhu investigation arrives in the world of the suffrage movement.</strong> She is embedded in a specific political and social world. Whatever <em>None More Black</em> throws at her, it will likely arrive through or alongside the cause &mdash; through a colleague, a meeting, a city she is working in, a building she enters for one reason and finds something else entirely inside. Her entry point into the horror is not a research library or a wealthy patron&rsquo;s estate; it is more likely a rented hall, a back-street office, a march or rally gone wrong.</li>
+      <li><strong>Violence against women.</strong> The sheet states this as a belief or commitment &mdash; she is against it. A Cthulhu campaign set in the early twentieth century, in a city, touching the lives of women in political and marginal spaces, is almost certainly going to show her violence against women. How that sits against the Mythos &mdash; whether the cosmic horror amplifies or contextualises or is contextualised by the ordinary horror she already opposes &mdash; is one of the more interesting dramatic axes the campaign can run along.</li>
+      <li><strong>POW 70 and Magic Points 14.</strong> She has the most Magic Points of any character whose pool is set by their characteristic profile. If the campaign opens a door to arcane engagement, she has the interior resource to step through it. Whether that door opens, and what it costs her, is a question for the Keeper.</li>
+    </ul>
+
+    <h3 class="subhead">The Tested Edges</h3>
+    <ul>
+      <li><strong>HP 10 in a physical crisis.</strong> She is not built for physical confrontation. A single bad encounter with a human opponent, let alone a Mythos entity, could put her at the critical threshold. The party will learn early whether they can keep her from harm; she will learn early whether she can keep herself out of situations where harm becomes likely.</li>
+      <li><strong>Luck 30 running dry.</strong> The point where her Luck pool empties is the point where the mechanical safety net disappears entirely. A character with POW 70 and EDU 85 but no luck left is a character who must succeed on her own terms or not at all. That is not necessarily a crisis; it may simply be who she is.</li>
+      <li><strong>The incomplete sheet.</strong> Significant people, key connection, meaningful location, treasured possessions &mdash; none of it is filled in. The first session of play may fill all of it in at once, through what happens. Or the player may complete character creation before then. Either way, the shape of the interior life is the largest open question the sheet currently carries.</li>
+    </ul>
+
+    <h3 class="subhead">What She Will Not Be</h3>
+    <p>She will not be the party&rsquo;s fighter or its field operative in the sense of someone who goes first into a dangerous room and absorbs the consequences. HP 10, no damage bonus, base Brawl, and Luck 30 close that lane firmly. She will not be a lucky improviser who pulls the right move at the last moment &mdash; the dice will not reliably cooperate.</p>
+
+    <p>What she will be is the investigator who already knew something was wrong before it became obvious, who had already identified the right question three conversations ago, who chose the moment to act because she had been watching and waiting and calculating. The quote is not a coincidence. It is the sheet&rsquo;s self-description.</p>
+
+    <p>She has no luck. She has considerable will. She will have to choose when.</p>
+  </section>
+
+  <footer class="colophon">
+    Player Character &middot; Pre-Campaign &middot; Character Creation Incomplete &middot; Call of Cthulhu 7th Edition &middot; None More Black
+  </footer>
+
+</div>
+</body>
+</html>
