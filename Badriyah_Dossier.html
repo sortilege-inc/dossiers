@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Badriyah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --vellum:        #ede0c4;
+    --vellum-mid:    #e0ceaa;
+    --vellum-deep:   #cdb98a;
+    --ink:           #18120a;
+    --ink-soft:      #362a1a;
+    --ink-faint:     #6b5840;
+    --crimson:       #7a1020;
+    --crimson-mid:   #a01828;
+    --crimson-pale:  #c84050;
+    --ember:         #8b2800;
+    --ember-mid:     #b84020;
+    --ember-pale:    #d06840;
+    --sulphur:       #5a4800;
+    --sulphur-mid:   #8a7020;
+    --sulphur-pale:  #b8a040;
+    --gold:          #9a7820;
+    --gold-pale:     #c0a040;
+    --rule:          #c0a060;
+    --rule-soft:     #d8c090;
+    --panel:         rgba(122, 16, 32, 0.04);
+    --panel-dark:    rgba(122, 16, 32, 0.08);
+    --shadow:        rgba(24, 18, 10, 0.22);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--vellum-mid);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16.5px;
+    line-height: 1.68;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse at 15% 10%, rgba(122, 16, 32, 0.09) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 90%, rgba(139, 40, 0, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(90, 72, 0, 0.04) 0%, transparent 70%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    min-height: 100vh;
+    padding: 2.5rem 1rem;
+  }
+
+  .document {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--vellum);
+    padding: 4.5rem 5rem 5.5rem;
+    box-shadow:
+      0 2px 4px var(--shadow),
+      0 16px 56px rgba(24, 18, 10, 0.22),
+      inset 0 0 100px rgba(122, 16, 32, 0.03);
+    position: relative;
+    border: 1px solid var(--rule);
+  }
+
+  /* Top rule — deep crimson → ember → gold */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg,
+      var(--crimson) 0%,
+      var(--ember-mid) 20%,
+      var(--sulphur-pale) 50%,
+      var(--ember-mid) 80%,
+      var(--crimson) 100%);
+  }
+
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%, var(--rule) 20%, var(--gold-pale) 50%, var(--rule) 80%, transparent 100%);
+  }
+
+  /* Corner ornaments */
+  .corner {
+    position: absolute;
+    width: 26px; height: 26px;
+    border-color: var(--crimson);
+    border-style: solid;
+    opacity: 0.55;
+  }
+  .corner.tl { top: 14px; left: 14px;  border-width: 1px 0 0 1px; }
+  .corner.tr { top: 14px; right: 14px; border-width: 1px 1px 0 0; }
+  .corner.bl { bottom: 14px; left: 14px;  border-width: 0 0 1px 1px; }
+  .corner.br { bottom: 14px; right: 14px; border-width: 0 1px 1px 0; }
+
+  /* ─── HEADER ─── */
+  header.title-block {
+    text-align: center;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 2.5rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+
+  .filemark {
+    display: flex;
+    justify-content: space-between;
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .eyebrow {
+    font-family: "Cinzel", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--crimson-mid);
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+
+  h1.character-name {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.08;
+    margin: 0 0 0.35rem;
+    letter-spacing: 0.05em;
+  }
+
+  .epithets {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    margin: 0.3rem 0 1.2rem;
+    line-height: 1.4;
+  }
+
+  .vitals {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 0;
+    font-family: "Cinzel", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.8rem;
+  }
+  .vitals span {
+    padding: 0 1.1rem;
+    border-left: 1px solid var(--rule);
+    line-height: 2;
+  }
+  .vitals span:first-child { border-left: none; }
+  .vitals strong {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+
+  /* Portrait */
+  .portrait-frame {
+    float: right;
+    margin: 0 0 2rem 2.5rem;
+    width: 175px;
+  }
+  .portrait-frame img {
+    width: 100%;
+    display: block;
+    filter: sepia(20%) contrast(1.06) brightness(0.97);
+    border: 2px solid var(--rule);
+    box-shadow: 4px 6px 20px rgba(24, 18, 10, 0.30);
+  }
+  .portrait-caption {
+    font-family: "Cinzel", serif;
+    font-size: 0.56rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.5rem;
+    line-height: 1.6;
+  }
+
+  /* ─── TOC ─── */
+  nav.toc {
+    background: var(--panel);
+    border: 1px solid var(--rule-soft);
+    border-left: 3px solid var(--crimson);
+    padding: 1.2rem 1.8rem;
+    margin-bottom: 2.8rem;
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  nav.toc .toc-label {
+    color: var(--crimson);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    font-size: 0.62rem;
+    margin-bottom: 0.8rem;
+  }
+  nav.toc ol {
+    margin: 0;
+    padding-left: 1.4rem;
+    color: var(--ink-faint);
+    columns: 2;
+    column-gap: 2rem;
+  }
+  nav.toc li { margin-bottom: 0.25rem; }
+  nav.toc a {
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  nav.toc a:hover { color: var(--crimson-mid); }
+
+  /* ─── SECTIONS ─── */
+  section {
+    margin-bottom: 3rem;
+    clear: both;
+  }
+
+  h2.section-title {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--crimson);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.4rem;
+  }
+  .sec-num {
+    color: var(--ink-faint);
+    margin-right: 0.5em;
+    font-weight: 400;
+  }
+
+  h3.subhead {
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 1.6rem 0 0.6rem;
+  }
+
+  p { margin: 0 0 0.9rem; }
+
+  ul, ol {
+    padding-left: 1.5rem;
+    margin: 0 0 0.9rem;
+  }
+  li { margin-bottom: 0.35rem; }
+
+  blockquote.maxim {
+    border-left: 3px solid var(--crimson-pale);
+    margin: 1.4rem 0;
+    padding: 0.6rem 1.4rem;
+    background: var(--panel);
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+  }
+  blockquote.maxim .attribution {
+    display: block;
+    font-style: normal;
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 0.5rem;
+  }
+
+  /* Callout box */
+  .callout {
+    background: var(--panel-dark);
+    border: 1px solid var(--rule-soft);
+    border-top: 3px solid var(--ember-mid);
+    padding: 1rem 1.4rem;
+    margin: 1.4rem 0;
+    font-size: 0.97rem;
+  }
+  .callout .label {
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ember-mid);
+    margin-bottom: 0.5rem;
+  }
+  .callout.warning {
+    border-top-color: var(--crimson);
+  }
+  .callout.warning .label {
+    color: var(--crimson-mid);
+  }
+
+  /* Stats block */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.5rem;
+    margin: 1rem 0 1.4rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule);
+    text-align: center;
+    padding: 0.5rem 0.3rem;
+    background: var(--panel);
+  }
+  .stat-cell .stat-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+  .stat-cell .stat-score {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 1.5rem;
+    color: var(--ink);
+    line-height: 1;
+    display: block;
+  }
+  .stat-cell .stat-mod {
+    font-family: "Cinzel", serif;
+    font-size: 0.65rem;
+    color: var(--crimson-mid);
+    display: block;
+  }
+
+  /* Skills two-col */
+  .skills-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 2.5rem;
+  }
+
+  .skill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px dotted var(--rule-soft);
+    padding: 0.2rem 0;
+    font-size: 0.97rem;
+  }
+  .skill-row .sk-name { color: var(--ink-soft); }
+  .skill-row .sk-val {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    color: var(--crimson);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+  .skill-row .sk-val.high { color: var(--crimson); }
+  .skill-row .sk-val.mid { color: var(--sulphur-mid); }
+
+  /* Features list */
+  .feature-entry {
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--rule-soft);
+  }
+  .feature-entry .feat-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ember-mid);
+    margin-bottom: 0.2rem;
+  }
+
+  /* Ornament */
+  .ornament {
+    text-align: center;
+    color: var(--rule);
+    font-size: 1.1rem;
+    letter-spacing: 0.6em;
+    margin: 2rem 0 1rem;
+  }
+
+  /* Footer */
+  footer.colophon {
+    text-align: center;
+    font-family: "Cinzel", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    border-top: 1px solid var(--rule-soft);
+    padding-top: 1.4rem;
+    margin-top: 2rem;
+  }
+
+  /* Stub notice */
+  .stub-notice {
+    background: rgba(139, 40, 0, 0.06);
+    border: 1px dashed var(--ember-mid);
+    padding: 0.8rem 1.2rem;
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ember-mid);
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  @media (max-width: 680px) {
+    .document { padding: 3rem 1.8rem 4rem; }
+    .stats-grid { grid-template-columns: repeat(3, 1fr); }
+    .skills-cols { grid-template-columns: 1fr; }
+    nav.toc ol { columns: 1; }
+    .portrait-frame { float: none; margin: 0 auto 1.5rem; display: block; width: 150px; }
+    h1.character-name { font-size: 2.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="document">
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <!-- HEADER -->
+  <header class="title-block">
+    <div class="filemark">
+      <span>Out of the Abyss · PC Dossier</span>
+      <span>File: Incomplete · Reconstructed from Memory</span>
+    </div>
+    <div class="eyebrow">Character Record</div>
+    <h1 class="character-name">Badriyah</h1>
+    <p class="epithets">
+      <em>The Counsellor Behind the Throne · She Who Reads the Fine Print ·<br>
+      The One Who Thought She Was Clever Enough</em>
+    </p>
+    <div class="vitals">
+      <span><span class="vital-label">Race</span><strong>Tiefling</strong></span>
+      <span><span class="vital-label">Class</span><strong>Warlock</strong></span>
+      <span><span class="vital-label">Patron Type</span><strong>Fiend</strong></span>
+      <span><span class="vital-label">Alignment</span><strong>Lawful Evil</strong></span>
+      <span><span class="vital-label">Campaign</span><strong>Out of the Abyss</strong></span>
+      <span><span class="vital-label">Role</span><strong>Advisor · Strategist</strong></span>
+    </div>
+  </header>
+
+  <!-- STUB NOTICE -->
+  <div class="stub-notice">
+    ⚠ &nbsp; Partial Record — Original Character Sheet Lost · Reconstructed from Notes &nbsp; ⚠
+  </div>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <div class="toc-label">Index of Contents</div>
+    <ol>
+      <li><a href="#portrait">Portrait & Appearance</a></li>
+      <li><a href="#stats">Statistics (Reconstructed)</a></li>
+      <li><a href="#features">Class Features & Pact</a></li>
+      <li><a href="#background">Background & Concept</a></li>
+      <li><a href="#patron">The Fiend & the Contract</a></li>
+      <li><a href="#psychology">Psychological Profile</a></li>
+      <li><a href="#oota">Out of the Abyss Context</a></li>
+      <li><a href="#trajectory">Likely Trajectories</a></li>
+    </ol>
+  </nav>
+
+  <!-- I. PORTRAIT -->
+  <section id="portrait">
+    <h2 class="section-title"><span class="sec-num">I.</span> Portrait &amp; Appearance</h2>
+
+    <div class="portrait-frame">
+      <img src="badriyah.png" alt="Badriyah — oil study">
+      <div class="portrait-caption">
+        Badriyah<br>
+        Study in oils<br>
+        Artist unknown
+      </div>
+    </div>
+
+    <p>The portrait shows a tiefling woman in a state that is unusual for her: still. She is seated, hands clasped at the wrists — or perhaps bound there, the texture of the paint is ambiguous on that point — her gaze cast down and inward. She wears a white dress that has seen better days, layered over with something shawl-like and loose. Around her neck, a pendant. The horns curve back from her hairline in a configuration that reads, from a distance, almost like an elaborate crown.</p>
+
+    <p>She looks like someone thinking several moves ahead. Whether those moves are leading anywhere useful is a separate question, and one she has perhaps only recently begun to reckon with.</p>
+
+    <p>The painting's technique — loose impasto, warm shadow, figures that seem to emerge from the texture of the wall behind her — lends her a quality of being part of the architecture. Which is, of course, exactly how she prefers to be perceived. The gem or mark at her hairline between the horns glows a dim, faint red: barely noticeable unless you know to look.</p>
+
+    <h3 class="subhead">Physical Particulars</h3>
+    <p>Dark hair, worn long. Warm brown skin carrying that particular tiefling undertone of ember, most visible in the hands and along the jaw in strong light. The horns are relatively modest in scale — she has been known to pass them off as an elaborate headdress in exactly the wrong company. The tail is habitually concealed beneath outer layers. She moves as though she is always crossing a room she has already mapped.</p>
+
+    <div class="callout">
+      <div class="label">Aesthetic Note</div>
+      <p>The wrist detail in the portrait has been debated. Some who have seen the original suggest the marks are chains; others see merely bracelets, possibly an arcane focus. The ambiguity feels intentional — either on the part of the artist, or on the part of the subject. Badriyah is not someone who allows accidents of composition.</p>
+    </div>
+  </section>
+
+  <!-- II. STATS -->
+  <section id="stats">
+    <h2 class="section-title"><span class="sec-num">II.</span> Statistics (Reconstructed)</h2>
+
+    <p><em>The original character sheet has been lost. What follows represents a reconstruction based on the character concept as described. Specific numbers should be treated as plausi­ble approximations rather than canon, and should be adjusted if better records surface.</em></p>
+
+    <div class="stats-grid">
+      <div class="stat-cell">
+        <span class="stat-name">Str</span>
+        <span class="stat-score">9</span>
+        <span class="stat-mod">−1</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-name">Dex</span>
+        <span class="stat-score">13</span>
+        <span class="stat-mod">+1</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-name">Con</span>
+        <span class="stat-score">14</span>
+        <span class="stat-mod">+2</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-name">Int</span>
+        <span class="stat-score">16</span>
+        <span class="stat-mod">+3</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-name">Wis</span>
+        <span class="stat-score">12</span>
+        <span class="stat-mod">+1</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-name">Cha</span>
+        <span class="stat-score">18</span>
+        <span class="stat-mod">+4</span>
+      </div>
+    </div>
+
+    <p>The ability spread is the spread of a courtier who has never once been in a fair fight and has arranged her affairs so that she will never need to be. High Charisma is the engine; high Intelligence is the transmission. The Constitution is the only concession to the fact that the Underdark, whatever her plans, does not care about her plans. The low Strength is not a vulnerability she has ever troubled herself to address.</p>
+
+    <h3 class="subhead">Proficiencies of Note (Reconstructed)</h3>
+
+    <div class="skills-cols">
+      <div>
+        <div class="skill-row"><span class="sk-name">Deception</span><span class="sk-val high">+8 est.</span></div>
+        <div class="skill-row"><span class="sk-name">Persuasion</span><span class="sk-val high">+8 est.</span></div>
+        <div class="skill-row"><span class="sk-name">Insight</span><span class="sk-val high">+7 est.</span></div>
+        <div class="skill-row"><span class="sk-name">History</span><span class="sk-val mid">+7 est.</span></div>
+      </div>
+      <div>
+        <div class="skill-row"><span class="sk-name">Arcana</span><span class="sk-val mid">+7 est.</span></div>
+        <div class="skill-row"><span class="sk-name">Intimidation</span><span class="sk-val mid">+6 est.</span></div>
+        <div class="skill-row"><span class="sk-name">Investigation</span><span class="sk-val mid">+5 est.</span></div>
+        <div class="skill-row"><span class="sk-name">Stealth</span><span class="sk-val mid">+3 est.</span></div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="label">Reconstruction Note</div>
+      <p>All values marked "est." are approximations derived from character concept rather than original sheet. Proficiency bonus assumed at a level consistent with Out of the Abyss progression; exact level unknown. The Insight score is conspicuous: she trusts it more than she should, which is part of the problem.</p>
+    </div>
+  </section>
+
+  <!-- III. CLASS FEATURES -->
+  <section id="features">
+    <h2 class="section-title"><span class="sec-num">III.</span> Class Features &amp; Pact</h2>
+
+    <p>Badriyah is a Warlock of the Fiend. This is the part of her biography she has always considered the least interesting thing about her — a means to an end, a power source she secured on favorable (she believed) terms, subordinate in importance to the political apparatus she built around the entity she serves. The power is real. The terms are not what she negotiated.</p>
+
+    <div class="feature-entry">
+      <div class="feat-name">Pact of the Tome (presumed)</div>
+      <p>A Book of Shadows is the most natural focus for a character whose primary tool is information. It holds three cantrips beyond the standard warlock list and represents accumulated lore — including, most dangerously, notes on the contract's language that she has been slowly parsing for an exit clause. She has found several passages she finds promising. She has not found the one her patron buried.</p>
+    </div>
+
+    <div class="feature-entry">
+      <div class="feat-name">Dark One's Blessing</div>
+      <p>When she reduces a hostile creature to 0 hit points, she gains temporary hit points. This is the patron's investment in keeping its asset functional. It is not generosity. She knows this. She does not know that the clause defining "hostile creature" was drafted by the fiend's own lawyers.</p>
+    </div>
+
+    <div class="feature-entry">
+      <div class="feat-name">Dark One's Own Luck</div>
+      <p>Once per short rest, she may add a d10 to an ability check or saving throw after seeing the roll. She has spent years attributing this to her own judgment and preparation. The fiend has spent years watching her attribute it to her own judgment and preparation.</p>
+    </div>
+
+    <div class="feature-entry">
+      <div class="feat-name">Eldritch Invocations (probable selection)</div>
+      <ul>
+        <li><strong>Agonizing Blast</strong> — Charisma modifier added to Eldritch Blast damage. In the rare event she is in direct conflict, she prefers overwhelming a single target to spreading force thin.</li>
+        <li><strong>Devil's Sight</strong> — Sees normally in magical and mundane darkness to 120 feet. Practically essential for anyone operating in the Underdark. Also extremely useful for reading documents in rooms where she has arranged for the lights to fail.</li>
+        <li><strong>Mask of Many Faces</strong> — Cast <em>disguise self</em> at will, no spell slot required. She has used this more times than she has used Eldritch Blast. By a considerable margin.</li>
+        <li><strong>One of Two Minds (Book of Ancient Secrets or similar)</strong> — Precise invocation uncertain; her access to ritual casting is well-attested in her operational approach.</li>
+      </ul>
+    </div>
+
+    <div class="feature-entry">
+      <div class="feat-name">Probable Spell Selection</div>
+      <p>Cantrips: <em>Eldritch Blast, Toll the Dead, Minor Illusion, Prestidigitation</em> (from Tome). Levelled spells likely include: <em>Charm Person, Hex, Suggestion, Hunger of Hadar, Counterspell, Banishment, Dominate Person.</em> The selection skews heavily toward control and social manipulation; damage is an afterthought. <em>Hunger of Hadar</em> is the exception — she keeps it because it is the sort of thing her patron approves of, and she is careful about what she approves of in front of her patron.</p>
+    </div>
+  </section>
+
+  <!-- IV. BACKGROUND -->
+  <section id="background">
+    <h2 class="section-title"><span class="sec-num">IV.</span> Background &amp; Concept</h2>
+
+    <p>The character model is the great minister-in-the-shadow: Thomas Cromwell working Henry's court from a position that was never quite secure and was therefore always efficient; Richelieu as the true architect of French state while the king received the credit; Kissinger as the man who understood that power is most durable when it is exercised by someone who will not appear in the portraits. Badriyah does not want the throne. She wants the ear of whoever sits on it, and she wants to be the one who decided they would sit there.</p>
+
+    <p>She came to this position — advisor, fixer, the person who is consulted before the decision is announced — through the standard tiefling path of having to be twice as precise and three times as patient as anyone who did not have horns. The infernal heritage that made doors close in her face made her study the doors. She learned which ones had windows. She learned which ones had back passages. Eventually she learned to hold the keys.</p>
+
+    <p>The warlock pact was a business transaction, entered into with what she considered full legal competence. She had read comparable arrangements. She had, in fact, drafted three of them on behalf of parties who came to her for counsel. She believed she understood the form.</p>
+
+    <blockquote class="maxim">
+      The contract was seventeen pages. She has read it forty times. She has found the margin she missed — once, twice, perhaps three times. She has not yet found the fourth.
+      <span class="attribution">— Assessor's Note, Underdark Transit Record [reconstructed]</span>
+    </blockquote>
+
+    <h3 class="subhead">The Advisor Role</h3>
+    <p>She served as the right hand of someone in power — the nature of that patron (political, ecclesiastical, mercantile) left to be established in play, or lost with the original sheet. What is clear is the function: she was the one who read the briefings, framed the options, and ensured that the decision that emerged from the meeting was the one she had already decided was correct. She did not govern. She governed the governing.</p>
+
+    <p>The skills this required — reading people faster than they read themselves, making the preferred option appear to be the obvious option, knowing which threats are real and which are theatre, understanding that the person who controls information controls everything — translated with uncomfortable directness to the Underdark. She is one of the most dangerous people in any room she enters. The room does not always know this. She prefers it that way.</p>
+  </section>
+
+  <!-- V. THE FIEND & THE CONTRACT -->
+  <section id="patron">
+    <h2 class="section-title"><span class="sec-num">V.</span> The Fiend &amp; the Contract</h2>
+
+    <p>The patron's name is not recorded in this file. Names have power, and she has learned — is learning — to be more careful about power than she was when she believed she was the one wielding it.</p>
+
+    <p>What is known: the fiend is not one of the demon lords of the Abyss. It is something older and more patient, from the orderly bureaucracy of the Nine Hells, which makes it more dangerous in precisely the way that a lawyer is more dangerous than a soldier. It does not rage. It does not improvise. It entered into the contract with her because it had already modeled every version of her future and selected the one it preferred.</p>
+
+    <h3 class="subhead">What She Believed She Had Negotiated</h3>
+    <p>Power. Access to magic she could not otherwise reach. A clause she read as limiting the fiend's claim on her soul to scenarios she considered vanishingly unlikely. Possibly an exit mechanism, though the language there was, on reflection, more ambiguous than she admitted at the time.</p>
+
+    <h3 class="subhead">What She Actually Agreed To</h3>
+    <p>The precise gap between these two things is the dramatic engine of the character. She is not certain herself — which is the point. The fiend did not need to deceive her through false statements. It needed only to draft the contract in language that meant one thing to her and another thing to itself, and then wait.</p>
+
+    <div class="callout warning">
+      <div class="label">Critical Character Note</div>
+      <p>She thought she put one over on the fiend. She was wrong. The question the campaign eventually has to answer is: how wrong, and what does she do when she finds out? The character's central dramatic arc runs from the confidence of the opening sessions to the moment — likely somewhere in the depths of the Underdark, far from any of the leverage she built her life on — when she understands the full shape of what she signed. Everything before that moment is prologue. Everything after is who she actually is.</p>
+    </div>
+
+    <h3 class="subhead">The Patron's Patience</h3>
+    <p>One of the more unsettling things about a fiend of this kind, for those who know how to look: it is not in any hurry. It does not contact her with demands. It does not send reminders. It extends the occasional nudge — an opportunity placed in her path, a door left open, an enemy who proves inexplicably easy to manipulate — and then it waits. She has read this as the relationship operating as she intended. This is the most dangerous misreading in the file.</p>
+  </section>
+
+  <!-- VI. PSYCHOLOGICAL PROFILE -->
+  <section id="psychology">
+    <h2 class="section-title"><span class="sec-num">VI.</span> Psychological Profile</h2>
+
+    <h3 class="subhead">The Architecture of Self-Belief</h3>
+    <p>The thing to understand about Badriyah is that she is not stupid. She is genuinely, measurably brilliant — at reading people, at modeling systems, at finding the pressure point in any negotiation before the other party has identified that there is a pressure point. She has been right, in her professional life, more often than almost anyone else in a comparable position. The problem is not her intelligence. The problem is what her intelligence tells her about herself.</p>
+
+    <p>She has spent decades being the smartest person in every room. This has taught her that she is the smartest person in every room. It has not taught her to distinguish between "I have not yet found the flaw in my reasoning" and "there is no flaw in my reasoning." These are different statements. She treats them as the same one.</p>
+
+    <h3 class="subhead">Lawful Evil: The Operational Model</h3>
+    <p>Her alignment is not cruelty. She does not hurt people for satisfaction. She hurts people, when she does, because she has calculated that it is necessary and because she is prepared to follow through on the logic of her own reasoning. This is in some ways worse. A cruel person is comprehensible. A person who will do anything that clears the decision tree is harder to anticipate, because the decision tree extends further than most people are willing to look.</p>
+
+    <p>The Lawful component is genuine and load-bearing. She keeps her word — when she gives it carefully enough that keeping it costs her nothing. She respects power structures — when they are structures she has had some hand in designing. She follows rules — when she has read them closely enough to know which applications are optional. This is not hypocrisy. It is a coherent ethical system in which the law is a tool and she is the one holding it.</p>
+
+    <h3 class="subhead">The Vulnerability</h3>
+    <p>She has never had a situation she couldn't talk her way out of, and so she has never had to develop the kind of character that emerges from the inability to talk your way out of something. The Underdark is preparing to give her that education. She is going to resist it fiercely, because resistance is the only response she knows. At some point, resistance will not be enough. What happens in that moment — whether she breaks or whether something more interesting occurs — is the most compelling open question in the file.</p>
+
+    <blockquote class="maxim">
+      She does not trust easily. She does not trust slowly. She trusts strategically, which is a way of saying she does not trust at all, only models trust accurately enough to produce its effects.
+      <span class="attribution">— Psychological notation, reconstructed from play notes</span>
+    </blockquote>
+  </section>
+
+  <!-- VII. OOTA CONTEXT -->
+  <section id="oota">
+    <h2 class="section-title"><span class="sec-num">VII.</span> Out of the Abyss Context</h2>
+
+    <p><em>Out of the Abyss</em> begins with the player characters captured by drow and imprisoned in Velkynvelve, a slaver outpost deep in the Underdark. The adventure proceeds through escape, survival, and a trek through one of the most hostile environments in the material plane — with the added pressure of the demon lords of the Abyss having been summoned into the Underdark, spreading madness and destruction in their wake.</p>
+
+    <h3 class="subhead">Why Badriyah Is Here</h3>
+    <p>The character concept does not specify how she came to be captured, and the original sheet has been lost. Plausible explanations: she was accompanying her patron (the political one, not the fiend) on a diplomatic or intelligence mission that went badly wrong; she was pursuing a lead on the contract's exit clause through Underdark contacts; she was brought here by the fiend's arrangement, for reasons she will only understand later. Any of these works. The third is the most interesting.</p>
+
+    <h3 class="subhead">Assets She Still Has</h3>
+    <p>She has her mind. She has her magic. She has Mask of Many Faces, which is worth more than most weapons in a dungeon that contains both drow and demons. She has the habit of watching people carefully before she speaks to them, which in Velkynvelve is not a habit but a survival strategy. She has, in her Book of Shadows, notes on the political factions and trade structures of the surface world that are almost entirely useless here, and which she will nonetheless continue organizing, because organizing information is how she manages fear.</p>
+
+    <h3 class="subhead">What She Lacks</h3>
+    <p>She has no leverage. This is the first time in her adult life she has had no leverage, and she is discovering that she does not know who she is without it. She cannot make the drow do anything through conventional means. She cannot call in a favor. She cannot draft a memo. The skills that made her formidable above ground are present but operating in a context for which they were not designed, and she is adapting faster than she will admit and slower than she needs to.</p>
+
+    <h3 class="subhead">Fellow Prisoners</h3>
+    <p>She is assessing them. She has been assessing them since the first hour. She has ranked them by usefulness, identified the ones with qualities she can rely on, noted the ones who will be problems. She has not yet decided whether to let them know she has done this, which itself tells you something about where she is in the assessment.</p>
+  </section>
+
+  <!-- VIII. TRAJECTORIES -->
+  <section id="trajectory">
+    <h2 class="section-title"><span class="sec-num">VIII.</span> Likely Trajectories</h2>
+
+    <p><em>The original character has not been played to conclusion. What follows is a sketch of available paths, not prediction.</em></p>
+
+    <h3 class="subhead">The Reckoning Arc</h3>
+    <p>The campaign eventually places her in a situation where the fiend's contract comes due in a way she cannot argue around. The question is what she does with the knowledge. Does she fight it — and what does fighting a contract with a devil actually look like, in practice, for someone who has never won anything by force? Does she try to negotiate, and does she negotiate from a position of genuine humility for once, or does she repeat the same error with more desperation? Does she find, somewhere in the Underdark, something she values more than the outcome she originally contracted for?</p>
+
+    <h3 class="subhead">The Advisor Without a Principal</h3>
+    <p>She spent her career as the right hand of someone in power. In the Underdark, there is no such structure. She has two options: find a new principal (one of the party, one of the factions they encounter, one of the demon lords, which would be a disaster she is probably smart enough to avoid), or discover whether she is capable of being the principal herself. The latter is the more interesting character development and the one she is least equipped for. She may end up doing it anyway. Necessity is a more effective teacher than ambition.</p>
+
+    <h3 class="subhead">The Question of Loyalty</h3>
+    <p>She does not form attachments easily or quickly. She may form them in the Underdark, in the way that people who have never needed anyone discover that need in circumstances that strip away every substitute for it. If she does — if she finds, to her considerable annoyance, that she has begun to care about the outcome for specific other people rather than for the abstract category of her own interests — this will be the most significant character development in the file. She will resist it. She will name it something other than what it is. She may eventually stop naming it anything and simply act on it, which is the version of the arc worth playing to.</p>
+
+    <div class="callout">
+      <div class="label">Final Note</div>
+      <p>She thought she put one over on the fiend. Every player who has run a Fiend Warlock has thought this, to varying degrees. The ones who built a character around it — whose entire backstory is the pride before the fall — are the ones for whom the fall, when it comes, is worth watching. This is a character designed for a specific dramatic payoff. The campaign should let her have it.</p>
+    </div>
+  </section>
+
+  <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+  <footer class="colophon">
+    Dossier Compiled · Reconstructed from Memory · Out of the Abyss Campaign Record<br>
+    Original Sheet: Lost · Stub Status: Acknowledged · Character Concept: Intact
+  </footer>
+
+</div>
+</body>
+</html>

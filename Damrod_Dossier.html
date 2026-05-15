@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Damrod of the North</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f1ede2;
+    --paper-dark: #e2dcc8;
+    --ink: #1c1f1b;
+    --ink-soft: #3a4137;
+    --ink-faint: #6d7468;
+    --evergreen: #2a3a2c;
+    --evergreen-deep: #15211a;
+    --evergreen-pale: #5d6f5d;
+    --silver: #7d8278;
+    --silver-deep: #4f544c;
+    --tarnish: #909288;
+    --rule: #b6b9ad;
+    --gold: #94804a;
+    --gold-deep: #6a5527;
+    --shadow-red: #5e2a2a;
+    --shadow-red-deep: #3a1818;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "EB Garamond", "Cormorant Garamond", Georgia, serif;
+    font-size: 16px; line-height: 1.6; font-weight: 400;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(42, 58, 44, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgba(125, 130, 120, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(148, 128, 74, 0.03) 0%, transparent 70%);
+    min-height: 100vh; padding: 2rem 1rem;
+  }
+  .document {
+    max-width: 880px; margin: 0 auto;
+    background: var(--paper);
+    padding: 4rem 4.5rem 5rem;
+    box-shadow: 0 1px 2px rgba(28, 31, 27, 0.08), 0 8px 32px rgba(28, 31, 27, 0.14);
+    position: relative; border: 1px solid var(--rule);
+  }
+  .document::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--evergreen-deep) 0%, var(--evergreen) 25%, var(--tarnish) 50%, var(--evergreen) 75%, var(--evergreen-deep) 100%);
+  }
+
+  header.title-block {
+    text-align: center; border-bottom: 2px solid var(--ink);
+    padding-bottom: 2rem; margin-bottom: 3rem; position: relative;
+  }
+  header.title-block::after {
+    content: ""; display: block; width: 60px; height: 1px;
+    background: var(--silver-deep); margin: 1rem auto 0;
+  }
+  .eyebrow {
+    font-family: "Cormorant SC", serif; font-size: 0.75rem;
+    letter-spacing: 0.4em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 1.5rem;
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    font-size: 3.5rem; line-height: 1.05; margin: 0 0 0.5rem;
+    letter-spacing: 0.02em; color: var(--ink);
+  }
+  .character-name .epithet { font-style: italic; color: var(--evergreen-deep); }
+  .epithets {
+    font-family: "EB Garamond", serif; font-style: italic;
+    font-size: 1rem; color: var(--ink-soft); margin: 0.5rem 0 1rem;
+  }
+  .vitals {
+    display: flex; justify-content: center; gap: 2rem;
+    margin-top: 1.5rem; flex-wrap: wrap;
+    font-family: "Cormorant SC", serif; font-size: 0.78rem;
+    letter-spacing: 0.18em; color: var(--ink-soft);
+  }
+  .vitals span { border-left: 1px solid var(--rule); padding-left: 1.25rem; }
+  .vitals span:first-child { border-left: none; padding-left: 0; }
+
+  section { margin-bottom: 3rem; }
+  h2.section-title {
+    font-family: "Cormorant SC", serif; font-weight: 500;
+    font-size: 0.95rem; letter-spacing: 0.32em;
+    color: var(--evergreen-deep); text-transform: uppercase;
+    border-bottom: 1px solid var(--rule); padding-bottom: 0.5rem;
+    margin: 0 0 1.5rem; position: relative;
+  }
+  h2.section-title::before {
+    content: "❧"; color: var(--evergreen-pale); margin-right: 0.6rem;
+    font-style: normal; font-family: "EB Garamond", serif; font-weight: 400;
+  }
+  h3.subhead {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    font-size: 1.3rem; color: var(--evergreen);
+    margin: 1.5rem 0 0.5rem; font-style: italic;
+  }
+  h4.entry-label {
+    font-family: "Cormorant SC", serif; font-weight: 500;
+    font-size: 0.78rem; letter-spacing: 0.2em; color: var(--ink);
+    text-transform: uppercase; margin: 1rem 0 0.25rem;
+  }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0.5rem 0 1rem 1.5rem; padding: 0; }
+  li { margin-bottom: 0.4rem; }
+  em { color: var(--ink-soft); }
+  strong { font-weight: 600; color: var(--ink); }
+
+  blockquote.maxim {
+    font-family: "Cormorant Garamond", serif; font-style: italic;
+    font-size: 1.25rem; line-height: 1.5;
+    color: var(--evergreen-deep);
+    border-left: 3px solid var(--evergreen-pale);
+    padding: 0.5rem 0 0.5rem 1.5rem; margin: 1.5rem 0;
+    background: rgba(42, 58, 44, 0.05);
+  }
+  blockquote.maxim .attribution {
+    display: block; font-size: 0.85rem; font-style: normal;
+    color: var(--ink-faint); font-family: "Cormorant SC", serif;
+    letter-spacing: 0.15em; margin-top: 0.5rem;
+  }
+
+  table.dossier-table {
+    width: 100%; border-collapse: collapse;
+    margin: 1rem 0 1.5rem; font-size: 0.92rem;
+  }
+  table.dossier-table th {
+    text-align: left; font-family: "Cormorant SC", serif; font-weight: 500;
+    font-size: 0.72rem; letter-spacing: 0.18em; color: var(--ink-faint);
+    text-transform: uppercase; padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  table.dossier-table td {
+    padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  table.dossier-table td:first-child {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    color: var(--ink); white-space: nowrap; padding-right: 1.5rem;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+
+  table.skill-block { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1.5rem; font-size: 0.9rem; }
+  table.skill-block td {
+    padding: 0.35rem 0.6rem; border-bottom: 1px dotted var(--rule);
+    vertical-align: baseline;
+  }
+  table.skill-block td.skill-name {
+    font-family: "Cormorant Garamond", serif; color: var(--ink);
+  }
+  table.skill-block td.skill-name.fav { color: var(--evergreen-deep); font-weight: 500; }
+  table.skill-block td.skill-name.fav::before {
+    content: "◆ "; color: var(--evergreen-pale); font-size: 0.85em;
+  }
+  table.skill-block td.skill-rank {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    color: var(--ink); text-align: right; width: 2.5rem;
+  }
+  .skill-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 0 2rem; margin: 1rem 0 1.5rem;
+  }
+  .skill-grid h4 {
+    font-family: "Cormorant SC", serif; font-size: 0.75rem;
+    letter-spacing: 0.22em; color: var(--evergreen-deep);
+    text-transform: uppercase; margin: 0 0 0.5rem;
+    border-bottom: 1.5px solid var(--ink); padding-bottom: 0.4rem;
+  }
+
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem; margin: 1rem 0;
+  }
+  .stat-cell {
+    text-align: center; padding: 1rem 0.5rem;
+    border: 1px solid var(--rule);
+    background: rgba(255, 255, 255, 0.4); position: relative;
+  }
+  .stat-cell .label {
+    font-family: "Cormorant SC", serif; font-size: 0.72rem;
+    letter-spacing: 0.2em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 0.35rem;
+  }
+  .stat-cell .value {
+    font-family: "Cormorant Garamond", serif; font-size: 2rem;
+    font-weight: 500; color: var(--ink); line-height: 1;
+  }
+  .stat-cell .delta {
+    font-family: "EB Garamond", serif; font-style: italic;
+    font-size: 0.85rem; color: var(--ink-faint); margin-top: 0.3rem;
+  }
+
+  .small-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem; margin: 1rem 0 1.5rem;
+  }
+  .small-cell {
+    text-align: center; padding: 0.75rem 0.4rem;
+    border: 1px solid var(--rule);
+    background: rgba(255, 255, 255, 0.4);
+  }
+  .small-cell .label {
+    font-family: "Cormorant SC", serif; font-size: 0.66rem;
+    letter-spacing: 0.18em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 0.25rem;
+  }
+  .small-cell .value {
+    font-family: "Cormorant Garamond", serif; font-size: 1.4rem;
+    font-weight: 500; color: var(--evergreen-deep); line-height: 1;
+  }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 1rem 0; }
+
+  .callout {
+    border: 1px solid var(--evergreen-pale);
+    border-left: 4px solid var(--evergreen-deep);
+    padding: 1rem 1.5rem; margin: 1.5rem 0;
+    background: rgba(42, 58, 44, 0.05);
+  }
+  .callout .label {
+    font-family: "Cormorant SC", serif; font-size: 0.72rem;
+    letter-spacing: 0.2em; color: var(--evergreen-deep);
+    text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout.shadow {
+    border-color: var(--shadow-red); border-left-color: var(--shadow-red-deep);
+    background: rgba(94, 42, 42, 0.05);
+  }
+  .callout.shadow .label { color: var(--shadow-red-deep); }
+
+  .relations-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
+  .relation { padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+  .relation:last-child { border-bottom: none; }
+  .relation .name {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    font-size: 1.1rem; color: var(--ink); margin-bottom: 0.15rem;
+  }
+  .relation .name .role {
+    font-style: italic; color: var(--ink-soft);
+    font-size: 0.95rem; font-weight: 400;
+  }
+  .relation .name .culture {
+    font-family: "Cormorant SC", serif; font-size: 0.7rem;
+    letter-spacing: 0.15em; color: var(--silver-deep); margin-left: 0.5rem;
+  }
+  .relation .text { font-size: 0.95rem; color: var(--ink-soft); margin-top: 0.25rem; }
+
+  .timeline {
+    border-left: 2px solid var(--evergreen-pale);
+    padding-left: 1.5rem; margin: 1rem 0 1rem 0.5rem;
+  }
+  .timeline-entry { margin-bottom: 1.5rem; position: relative; }
+  .timeline-entry::before {
+    content: ""; position: absolute; left: -1.85rem; top: 0.5rem;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--paper); border: 2px solid var(--evergreen-pale);
+  }
+  .timeline-entry .when {
+    font-family: "Cormorant SC", serif; font-size: 0.72rem;
+    letter-spacing: 0.18em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 0.25rem;
+  }
+  .timeline-entry .what {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    font-size: 1.05rem; color: var(--ink); margin-bottom: 0.25rem;
+  }
+  .timeline-entry .detail { font-size: 0.93rem; color: var(--ink-soft); }
+
+  nav.toc {
+    border: 1px solid var(--rule); padding: 1.25rem 1.5rem;
+    margin-bottom: 3rem; background: rgba(255, 255, 255, 0.4);
+    columns: 2; column-gap: 2rem;
+  }
+  nav.toc .toc-label {
+    font-family: "Cormorant SC", serif; font-size: 0.7rem;
+    letter-spacing: 0.25em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 0.6rem; column-span: all;
+  }
+  nav.toc ol {
+    list-style: none; margin: 0; padding: 0;
+    counter-reset: toc; font-family: "EB Garamond", serif;
+  }
+  nav.toc ol li {
+    counter-increment: toc; font-size: 0.93rem;
+    margin-bottom: 0.3rem; break-inside: avoid;
+  }
+  nav.toc ol li::before {
+    content: counter(toc, upper-roman) ". ";
+    color: var(--silver-deep); font-style: italic; margin-right: 0.3rem;
+  }
+  nav.toc a {
+    color: var(--ink); text-decoration: none;
+    border-bottom: 1px dotted transparent; transition: border-color 0.2s;
+  }
+  nav.toc a:hover { border-bottom-color: var(--evergreen); }
+
+  footer.colophon {
+    margin-top: 4rem; padding-top: 2rem;
+    border-top: 1px solid var(--rule); text-align: center;
+    font-family: "Cormorant SC", serif; font-size: 0.7rem;
+    letter-spacing: 0.25em; color: var(--ink-faint); text-transform: uppercase;
+  }
+  footer.colophon::before {
+    content: "❧"; display: block; color: var(--evergreen-pale);
+    font-size: 1.2rem; margin-bottom: 1rem; letter-spacing: normal;
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .document { box-shadow: none; padding: 1in; max-width: none; }
+  }
+
+  @media (max-width: 700px) {
+    body { padding: 1rem 0.5rem; }
+    .document { padding: 2rem 1.5rem 3rem; }
+    h1.character-name { font-size: 2.5rem; }
+    .two-col { grid-template-columns: 1fr; gap: 0; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
+    .stat-cell { padding: 0.6rem 0.3rem; }
+    .stat-cell .value { font-size: 1.5rem; }
+    .small-grid { grid-template-columns: repeat(2, 1fr); }
+    .skill-grid { grid-template-columns: 1fr; gap: 0.5rem 0; }
+    nav.toc { columns: 1; }
+    .vitals { gap: 0.75rem; font-size: 0.7rem; }
+    .vitals span { border-left: none; padding-left: 0; }
+    .portrait-block { grid-template-columns: 1fr; gap: 1.25rem; }
+    .portrait-block img { max-width: 260px; }
+  }
+
+  .portrait-block {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem; margin: 0 0 2.5rem; align-items: end;
+  }
+  .portrait-block figure { margin: 0; text-align: center; }
+  .portrait-block img {
+    width: 100%; max-width: 320px; height: auto;
+    border: 1px solid var(--ink);
+    box-shadow: 0 2px 10px rgba(28, 31, 27, 0.18), inset 0 0 0 4px var(--paper);
+    padding: 4px; background: var(--paper-dark);
+  }
+  .portrait-block figcaption {
+    font-family: "Cormorant SC", serif; font-size: 0.7rem;
+    letter-spacing: 0.22em; color: var(--ink-faint);
+    text-transform: uppercase; margin-top: 0.7rem;
+  }
+  .portrait-block .blurb {
+    font-family: "EB Garamond", serif; font-style: italic;
+    color: var(--ink-soft); font-size: 0.95rem;
+    padding: 0 0.5rem; text-align: left; line-height: 1.55;
+  }
+
+  .legend {
+    font-family: "EB Garamond", serif; font-style: italic;
+    font-size: 0.85rem; color: var(--ink-faint); margin-top: -0.5rem;
+  }
+  .legend .marker { color: var(--evergreen-pale); font-style: normal; margin-right: 0.25rem; }
+</style>
+</head>
+<body>
+<div class="document">
+
+  <header class="title-block">
+    <div class="eyebrow">Confidential Chronicle &middot; Compiled by the Frost Maw, before the parting</div>
+    <h1 class="character-name">Damrod <span class="epithet">of the North</span></h1>
+    <p class="epithets">Ranger of the Dúnedain &middot; Warden of the Eastern Line &middot; He Who Asked Before He Acted &middot; Bearer of the Silver Clasp &middot; She-Who-Wonders' Quiet Brother on the Road East</p>
+    <div class="vitals">
+      <span>Rangers of the North</span>
+      <span>Calling: Warden</span>
+      <span>Patron: &mdash;</span>
+      <span>Dwelling: the road; the watch</span>
+      <span>Standard of Living: Frugal</span>
+    </div>
+  </header>
+
+  <div class="portrait-block">
+    <figure>
+      <img src="damrod.png" alt="Portrait of Damrod, a Dúnedain ranger in green-grey cloak with silver gorget">
+      <figcaption>Damrod &middot; cloak drawn, before the Frost Maw</figcaption>
+    </figure>
+    <div class="blurb">
+      <p>A Dúnedain man past his first youth, close-cropped, dark-eyed, the weight of long watches settled at the shoulders. A green-grey cloak of the Northern make, clasped at the throat with the silver gorget engraved in the star-cross pattern of his line. A quiver of green-fletched arrows at his back; leather corslet beneath; the sword at his hip rather than the spear.</p>
+      <p>His warmth is rare and exact. The chronicle has noted it on the few occasions it has shown.</p>
+    </div>
+  </div>
+
+  <nav class="toc">
+    <div class="toc-label">Contents</div>
+    <ol>
+      <li><a href="#identity">Identity &amp; Standing</a></li>
+      <li><a href="#mechanical">The Character Sheet</a></li>
+      <li><a href="#gear">Gear, Wargear &amp; Tokens</a></li>
+      <li><a href="#doctrine">Operating Doctrine</a></li>
+      <li><a href="#interior">Interior Architecture</a></li>
+      <li><a href="#relations">Bonds &amp; Quiet Distances</a></li>
+      <li><a href="#errand">The Errand East</a></li>
+      <li><a href="#shadow">The Shadow Carried</a></li>
+      <li><a href="#timeline">Chronicle of His Watch</a></li>
+      <li><a href="#trajectory">Trajectory &amp; Endgame</a></li>
+    </ol>
+  </nav>
+
+  <section id="identity">
+    <h2 class="section-title">I. Identity &amp; Standing</h2>
+
+    <p>Damrod is a Ranger of the North in the second generation of the watch after Brandor and Orlec — old enough to have heard their names and learned from their methods, young enough not to have served beside them as equal. He has held the eastern line for years, the unglamorous register of the Dúnedain watch: the corruption that creeps west out of the Misty Mountains' shadow, the shadow wolves that move under the new moon, the cultists whose sigils he has begun to recognise on sight. He has no Patron named. The chronicle has not given him one; the watch is itself his calling and its keeping is his lord.</p>
+
+    <h4 class="entry-label">Bearing and Manner</h4>
+    <p>Composed to the point of silence, but not in Celenneth's register. Where Celenneth's silence is the Dúnedain refusal to declare, Damrod's is the warden's habit of listening. He arrives at conclusions before others have finished speaking and seldom feels the need to share that he has. When he speaks he is precise; when he is moved his warmth is the chronicle's most carefully rationed currency, used four times across the months it has shown him. He laughs rarely and well. He asks the right question before the wrong moment — <em>what about Linnea?</em> — and waits for the honest answer before proceeding.</p>
+
+    <h4 class="entry-label">The First Sentence Anyone Says of Him</h4>
+    <p>That he is dependable. That his arrow finds the mark he intended for it. That when he embraced Celenneth at the parting he did so with a softness the chronicle had not yet shown him capable of, and that the lack of speech around the embrace was not absence of feeling but the proper expression of it. That he and Hallas have ridden east together carrying something unfinished, and that the something is partly the watch and partly themselves.</p>
+
+    <h3 class="subhead">Current Errand &amp; Inner Weight</h3>
+
+    <blockquote class="maxim">
+      To follow the corruption east to its source; to read the silver clasp's watchful eye to the meaning it has not yet given up; to keep the watch Brandor and Orlec did not live to keep.
+      <span class="attribution">Current calling — Warden</span>
+    </blockquote>
+
+    <blockquote class="maxim">
+      To know what passed between him and Hallas in the lodge as something that may yet be named, when there is time and a fire and a roof; to ride east meanwhile without pressing it.
+      <span class="attribution">Current heart — the unfinished thing on the eastward road</span>
+    </blockquote>
+
+    <h3 class="subhead">Personal Maxims</h3>
+
+    <blockquote class="maxim">
+      The past never seems to stay buried, does it?
+      <span class="attribution">In the watchtower, before the hidden compartment</span>
+    </blockquote>
+
+    <blockquote class="maxim">
+      No, it doesn't. But sometimes that's not the worst thing.
+      <span class="attribution">The answer he received; the doctrine he chose to take on</span>
+    </blockquote>
+
+    <blockquote class="maxim">
+      You're not the only one who wonders.
+      <span class="attribution">To Hallas, in the lodge, sitting close enough to feel the other's presence</span>
+    </blockquote>
+  </section>
+
+  <section id="mechanical">
+    <h2 class="section-title">II. The Character Sheet</h2>
+
+    <h3 class="subhead">Attributes</h3>
+    <div class="stat-grid">
+      <div class="stat-cell">
+        <div class="label">Strength</div>
+        <div class="value">5</div>
+        <div class="delta">TN 15 &middot; <em>Good</em></div>
+      </div>
+      <div class="stat-cell">
+        <div class="label">Heart</div>
+        <div class="value">6</div>
+        <div class="delta">TN 14 &middot; <em>Good</em></div>
+      </div>
+      <div class="stat-cell">
+        <div class="label">Wits</div>
+        <div class="value">4</div>
+        <div class="delta">TN 16 &middot; <em>Fair</em></div>
+      </div>
+    </div>
+    <p><em>A Heart-led ranger build. Strength 5 is the long-watch endurance; Heart 6 is the conviction that holds the road; Wits 4 is the operational baseline rather than the analytical edge. Damrod is not the loremaster Celenneth is — his Lore rank is half hers — but his Heart is higher, and the chronicle has shown this everywhere it matters: the rare warmth, the embrace at parting, the question asked before the act. The build's argument is that what holds the watch is not cleverness but conviction; that the man who keeps the line east of the Frost Maw does so because he believes the line can be kept.</em></p>
+
+    <h3 class="subhead">Stature &amp; Standing</h3>
+    <div class="small-grid">
+      <div class="small-cell"><div class="label">Valour</div><div class="value">1</div></div>
+      <div class="small-cell"><div class="label">Wisdom</div><div class="value">1</div></div>
+      <div class="small-cell"><div class="label">Fellowship</div><div class="value">&mdash;</div></div>
+      <div class="small-cell"><div class="label">Treasure</div><div class="value">0</div></div>
+    </div>
+    <p><em>Valour 1 and Wisdom 1 with no Fellowship Focus on the sheet are the chronicle's quiet truth: Damrod is not a paragon in either register and has not yet bound his Fellowship to a named person. He met the family at the Frost Maw and rode away from them eastward before the bond could formalise itself on the sheet. The blank Fellowship slot is the chronicle's most honest statement about him. Whatever was forming did not get the chapters it would have needed.</em></p>
+
+    <h3 class="subhead">Endurance, Hope, Shadow</h3>
+    <div class="small-grid">
+      <div class="small-cell"><div class="label">Endurance</div><div class="value">25/25</div></div>
+      <div class="small-cell"><div class="label">Hope</div><div class="value">14/14</div></div>
+      <div class="small-cell"><div class="label">Shadow Scars</div><div class="value">0</div></div>
+      <div class="small-cell"><div class="label">Load</div><div class="value">0</div></div>
+    </div>
+    <p><em>Endurance at maximum and Hope at maximum, no Scars yet on the sheet, and Load 0 is the build's most striking number: the corslet and the bow and the sword exist on the sheet but their burden is not registered on the body. This is the warden in fighting trim, the road not yet leaning on him. The chronicle has shown him after the Frost Maw with everything intact. What he will accumulate riding east, the chronicle does not yet know.</em></p>
+
+    <h3 class="subhead">Cultural Blessing, Calling, Features</h3>
+    <table class="dossier-table">
+      <tr>
+        <td>Cultural Blessing</td>
+        <td><em>Kings of Men, Allegiance of the Dúnedain.</em> The same inheritance Celenneth carries — Númenor and Arnor in a single granted line. Damrod's allegiance is operational rather than declared. He has not lifted a king-blade like Nurhael's, but he has worn the watch his whole adult life, and the watch is the same inheritance.</td>
+      </tr>
+      <tr>
+        <td>Calling</td>
+        <td><em>Warden.</em> Not the Messenger calling Celenneth carries; not Eryndil's Scholar. Damrod is the keeper of a piece of country and a piece of the watch — the man whose work is to know who and what moves through his ground, and to respond accordingly. The Calling is the chronicle's signal that he does not seek the road; he is found by what comes onto his road.</td>
+      </tr>
+      <tr>
+        <td>Distinctive Features</td>
+        <td><em>Honorable.</em> <em>Subtle.</em> Two features only — a sparse character sheet for a sparse register of being. Honorable is the structural fact of him: he asked about Linnea, he chose against assumption, he stood beside what he had promised to stand beside. Subtle is the operational register: he moves unannounced, recognises what others miss, holds intelligence he does not display. The pairing is precise. Honor without subtlety would have made him a paladin; subtlety without honor would have made him a spy. He is neither.</td>
+      </tr>
+      <tr>
+        <td>Shadow Path</td>
+        <td><em>Path of Despair.</em> The chronicle's argument that what threatens Damrod most is not the curse of an old enemy but the slow erosion of belief in the watch's worth. The same Path Linnea carries, working at him in a different register. The eastern line has consumed his predecessors; the corruption he tracks does not retreat; the silver clasp in his pocket bears an eye whose meaning he cannot yet name. Despair is the temptation he refuses each morning he saddles his horse.</td>
+      </tr>
+    </table>
+
+    <h3 class="subhead">Combat Proficiencies</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Weapon Group</th><th>Rating</th><th>Associated</th><th>Notes</th></tr></thead>
+      <tr><td>Swords</td><td>2</td><td>Heart</td><td>His primary trained weapon. Heart-keyed, which is the right register for a ranger whose discipline is conviction rather than cunning. The blade has done its work at the wraith chamber and at the cultists' canyon ambush.</td></tr>
+      <tr><td>Bows</td><td>0</td><td>Wits</td><td>Untrained as a proficiency, yet the bow is in his gear and the green-fletched quiver is on his back in the portrait. The chronicle's reading is plain: he carries the bow as a tool of the watch — for hunting, for signalling, for the careful shot at distance taken with patience rather than expertise — but he is not the marksman of his pairing. That register belongs to Hallas's spear and to Celenneth's hand.</td></tr>
+      <tr><td>Spears</td><td>0</td><td>Wits</td><td>Untrained. The spear is Hallas's weapon, and the chronicle has been careful to differentiate them by it.</td></tr>
+      <tr><td>Axes</td><td>0</td><td>Strength</td><td>Untrained.</td></tr>
+    </table>
+
+    <h3 class="subhead">Combat Statistics</h3>
+    <div class="small-grid">
+      <div class="small-cell"><div class="label">Parry</div><div class="value">16</div></div>
+      <div class="small-cell"><div class="label">Protection</div><div class="value">2d</div></div>
+      <div class="small-cell"><div class="label">Armour</div><div class="value">+2 Corslet</div></div>
+      <div class="small-cell"><div class="label">Helm</div><div class="value">&mdash;</div></div>
+    </div>
+
+    <h3 class="subhead">Skills</h3>
+    <p class="legend"><span class="marker">◆</span> indicates a Favoured skill.</p>
+
+    <div class="skill-grid">
+      <div>
+        <h4>Body (Strength)</h4>
+        <table class="skill-block">
+          <tr><td class="skill-name">Awe</td><td class="skill-rank">1</td></tr>
+          <tr><td class="skill-name">Athletics</td><td class="skill-rank">2</td></tr>
+          <tr><td class="skill-name fav">Awareness</td><td class="skill-rank">3</td></tr>
+          <tr><td class="skill-name fav">Hunting</td><td class="skill-rank">2</td></tr>
+          <tr><td class="skill-name">Song</td><td class="skill-rank">0</td></tr>
+          <tr><td class="skill-name">Craft</td><td class="skill-rank">0</td></tr>
+        </table>
+      </div>
+      <div>
+        <h4>Heart</h4>
+        <table class="skill-block">
+          <tr><td class="skill-name">Enhearten</td><td class="skill-rank">0</td></tr>
+          <tr><td class="skill-name">Travel</td><td class="skill-rank">2</td></tr>
+          <tr><td class="skill-name">Insight</td><td class="skill-rank">0</td></tr>
+          <tr><td class="skill-name fav">Healing</td><td class="skill-rank">2</td></tr>
+          <tr><td class="skill-name">Courtesy</td><td class="skill-rank">0</td></tr>
+          <tr><td class="skill-name">Battle</td><td class="skill-rank">2</td></tr>
+        </table>
+      </div>
+      <div>
+        <h4>Wits</h4>
+        <table class="skill-block">
+          <tr><td class="skill-name">Persuade</td><td class="skill-rank">0</td></tr>
+          <tr><td class="skill-name">Stealth</td><td class="skill-rank">2</td></tr>
+          <tr><td class="skill-name">Scan</td><td class="skill-rank">1</td></tr>
+          <tr><td class="skill-name">Explore</td><td class="skill-rank">2</td></tr>
+          <tr><td class="skill-name">Riddle</td><td class="skill-rank">0</td></tr>
+          <tr><td class="skill-name fav">Lore</td><td class="skill-rank">2</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <p><em>Awareness Favoured at 3 is the build's keystone — the warden's eye, the recognition of the wrong silhouette in the tree line, the silver-clasp eye perceived as significant on the moment it was first turned over. Hunting, Healing, and Lore all Favoured at 2 cover the rest of the warden's working register: the food brought to the camp, the wound dressed before it goes bad, the rune read off the wraith's hide before the chant begins. Battle 2 is the field-leader's competence — he knows tactical position, he calls the line when the line needs calling, but he is not the captain of the company. Persuade, Enhearten, Courtesy, Awe, Riddle, Insight, Song and Craft all at 0 or 1 are not omissions. They are the build's argument that he is the watcher and the doer, not the orator and not the artisan. Song at 0 is the most striking — he does not sing, and the chronicle did not give him the lay over Lif's grave that Celenneth might have offered. He is the silence the lay was sung into.</em></p>
+
+    <h3 class="subhead">Virtues &amp; Rewards</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Virtue / Reward</th><th>Type</th><th>Effect</th></tr></thead>
+      <tr><td>Shadow-Lore</td><td>Distinctive Feature / Lore</td><td>The accumulated knowledge of how the Shadow operates in the eastern country: the brand-marks, the bound-creature signs, the silver-clasp eye motif, the corruption's slow seep west of the Misty Mountains. The chronicle has shown him reading these without hesitation. The sheet's single recorded Reward is this — the warden's specialised reading made structural.</td></tr>
+    </table>
+    <p><em>A sparser rewards table than any of the other companions — exactly one entry. The chronicle has been frank about Damrod's situation: he has been a working ranger for some time without ever stopping long enough to accumulate the customary inventory of Cultural Virtues. The Frugal standard of living is not the elven asceticism of Eryndil; it is the working watchman's truth that what he has not earned to keep he does not keep. The next purchases on the sheet, if he ever returns from the eastern road to spend them, would plausibly be a Cultural Virtue (<em>Hardiness</em> would be the chronicle's first suggestion, given the Path of Despair pressing on him) and a Reward suited to the cloak or the silver gorget worn at his throat.</em></p>
+
+    <h3 class="subhead">Adventure &amp; Skill Points</h3>
+    <table class="dossier-table">
+      <tr><td>Adventure Points (current)</td><td>0</td></tr>
+      <tr><td>Skill Points (current)</td><td>0</td></tr>
+      <tr><td>Treasure</td><td>0</td></tr>
+    </table>
+    <p><em>Zero across the board. He has spent everything he has earned on the watch already, and what he is carrying east is the work itself rather than its rewards.</em></p>
+  </section>
+
+  <section id="gear">
+    <h2 class="section-title">III. Gear, Wargear &amp; Tokens</h2>
+
+    <h3 class="subhead">War Gear</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Item</th><th>Damage</th><th>Injury</th><th>Load</th><th>Notes</th></tr></thead>
+      <tr>
+        <td>Sword</td>
+        <td>4</td>
+        <td>16</td>
+        <td>2</td>
+        <td>Dúnedain make; the working blade of the watch rather than an heirloom. Held under the Swords proficiency at rank 2. Has done its work at the wraith chamber, the cultists' ambush, and the warg-tracking that opened the Frost Maw road.</td>
+      </tr>
+      <tr>
+        <td>Bow</td>
+        <td>3</td>
+        <td>14</td>
+        <td>2</td>
+        <td>Green-fletched arrows, quiver at the shoulder. Carried untrained as a proficiency — used for hunting and for signalling and for the careful shot rather than for the volley. The chronicle's economy: the bow is on the sheet because the warden travels with one, not because he is its master.</td>
+      </tr>
+      <tr>
+        <td>Unarmed</td>
+        <td>1</td>
+        <td>&mdash;</td>
+        <td>0</td>
+        <td>The ranger's hand at need.</td>
+      </tr>
+    </table>
+
+    <h3 class="subhead">Armour</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Item</th><th>Protection</th><th>Load</th><th>Notes</th></tr></thead>
+      <tr>
+        <td>Leather Corslet</td>
+        <td>+2</td>
+        <td>4</td>
+        <td>The working armour of the watch; the heavier register of leather rather than the elven supple kind. Beneath it, the green-grey ranger cloak that is the visible piece of him in the portrait.</td>
+      </tr>
+    </table>
+
+    <h3 class="subhead">Carried Tokens &amp; Recovered Items</h3>
+    <table class="dossier-table">
+      <tr><td>The Silver Clasp</td><td>Found in the watchtower's hidden compartment with Hallas. A silver clasp bearing a watchful eye. The motif unsettled him for reasons he could not name; the chronicle has been patient with that unsettling. He carries the clasp east with him now; it is the token of his current errand. The eye is one of the eyes — the iron eye on Celenneth's pendant, the eye-sigil on the dead bandit in Book II, the eye that appears now in the watchtower at the Frost Maw's borders. The chronicle has been quietly building this motif since the second book.</td></tr>
+      <tr><td>The Coded Ranger's Journal</td><td>Also recovered from the watchtower's hidden compartment. A working ranger's notebook, ciphered in a hand he is in the process of breaking. The compartment's existence proves the watchtower was a Dúnedain intelligence post; the journal will eventually yield the records of whose watch it kept. He is taking the journal east in the saddlebag with the silver clasp.</td></tr>
+      <tr><td>The Map Fragment</td><td>Marked with symbols along the Frost Maw's borders. Partial; what it is the partial of, he and Hallas are riding to discover. The fragment is the third recovered piece, the chronicle's three-token recovery that the watchtower yielded.</td></tr>
+      <tr><td>The Silver Gorget at the Throat</td><td>Visible in the portrait — a silver pectoral plate engraved in the star-cross pattern of his ranger line. Worn beneath the cloak's clasp; functional defensively at the hollow of the throat and identifying as well. The chronicle has not mentioned it explicitly in text but the portrait's clear detail makes it part of the kit. It is the unaccumulated treasure: a thing carried because it was given by someone older than him to wear it, not because it was earned in a chapter.</td></tr>
+      <tr><td>The Carnival Prize</td><td>The carved wooden token Damrod won at the ring-toss stall at the spring festival and handed silently to Linnea with a smile. Linnea kept it. He did not. The chronicle understood this as significant without dwelling.</td></tr>
+    </table>
+
+    <div class="callout">
+      <div class="label">On the Sparse Load</div>
+      <p>Load 0 on the sheet is the chronicle's most surprising honesty. The corslet at 4, the sword at 2, the bow at 2 should each register on the body's working weight; that they do not is the chronicle's argument that Damrod has internalised his gear to the point where it is not felt. The working ranger of decades reads as Load 0 not because he carries nothing but because he carries it as the body's own. The chronicle has shown the same with Celenneth, where the mithril shirt is registered but the Warden Blade's weight is treated as expected. Damrod is at the further end of this discipline.</p>
+    </div>
+  </section>
+
+  <section id="doctrine">
+    <h2 class="section-title">IV. Operating Doctrine</h2>
+
+    <h3 class="subhead">The Watch Held Without Witness</h3>
+    <p>His Warden Calling is not the Bree-folk register Linnea operates in — she wardens her household, her hearth, her people in plain sight. Damrod wardens a country no one else is watching. The eastern line where the corruption seeps in west of the Misty Mountains has no city, no king's host, no Dúnedain village that depends on his keeping it. He holds it for the reason Brandor and Orlec held the northern line: because the line is there to be held, and someone has to do the work. The doctrine assumes no audience and no reward; the watch is its own justification. The Path of Despair presses precisely on this assumption.</p>
+
+    <h3 class="subhead">Ask First; Act Then</h3>
+    <p>The chronicle's most important Damrod scene is small. Before anything intimate could happen between him and Celenneth, he asked: <em>what about Linnea?</em> The asking was the condition of the chronicle's trust in him, and Celenneth's honest answer was the condition of his proceeding. The doctrine is general: he reads the situation in front of him, identifies the person who has a claim he has not yet heard, and asks them — through their proxy or directly — before he acts. The watch operates the same way in the field: the prisoner taken is questioned before disposed; the unknown camp is observed before approached; the bound creature is named before struck.</p>
+
+    <h3 class="subhead">Honor as Subtlety's Backbone</h3>
+    <p>Honorable and Subtle as paired features are not in tension. Honor without subtlety would have made him incapable of the work — the spy's craft, the careful misdirection, the watcher's invisibility are required for the eastern line. Subtlety without honor would have unmade him by the third year. The pairing is the doctrine: subtle in method, honourable in measure. The silver clasp in his pocket is unsettling to him precisely because the eye it bears is the work of subtlety without honor — the brand-makers' tool, the slaver's mark — and the doctrine forbids him from setting it down even though every instinct says throw it into a river.</p>
+
+    <h3 class="subhead">Wonder Allowed; Wonder Not Sought</h3>
+    <p>The conversation with Hallas in the lodge is the chronicle's most economical statement of his interior. Hallas named the wondering; Damrod answered <em>you're not the only one</em>. He did not press it. He did not perform the wondering further. He sat close enough to feel the other's presence and let it be what it was. The doctrine: wonder is real, wonder is welcome, wonder does not get to displace the work. The eastern road comes first because the eastern road is what is in front of him. What is between him and Hallas may yet be named, in time, when there is time. He is willing to wait. He has been waiting for some while already.</p>
+
+    <h3 class="subhead">The Watcher Who Is Watched</h3>
+    <p>Shadow-Lore as his sole Reward is operational doctrine. He has spent his career reading the Shadow's marks, and the chronicle has shown him recognise them on sight: the runes on the frost hounds' hides as binding, the brand-tools and bound-creature signs, the silver clasp's eye as connected to a larger sigil. The reverse is also true: the Shadow has learned his methods and his country. He is the watcher who has accumulated being watched as the cost of his lore. The eastern road carries that cost forward with him.</p>
+  </section>
+
+  <section id="interior">
+    <h2 class="section-title">V. Interior Architecture</h2>
+
+    <h3 class="subhead">Sources of Formation</h3>
+    <table class="dossier-table">
+      <tr>
+        <td>Brandor and Orlec</td>
+        <td>The names he heard as a younger ranger of the company that held the line before him. He recognised Celenneth as their protégé on the first introduction at the snowfields above the Frost Maw — the detail that made the alliance feel real rather than convenient. He never served beside them as equal. He buried them with Celenneth and Linnea and Hallas in the northern hills. They are his line's elders, and what they did and how they died is the working pattern of his own probable end.</td>
+      </tr>
+      <tr>
+        <td>The Eastern Line</td>
+        <td>The country he has held for years. The chronicle has not named the specific dales and ridges of his watch — the Dúnedain do not publish their grounds — but the country has shaped him as decisively as Lindon shaped Eryndil. He moves through it as one moves through a long-known room.</td>
+      </tr>
+      <tr>
+        <td>Hallas</td>
+        <td>His partner on the road and at the watch. The chronicle has not yet shown the origin of their pairing — when they first rode together, who chose whom — but it has shown the result: two rangers whose silences are companionable rather than parallel, who can be sat close enough to feel each other's presence and not need to put what they feel into words. The chronicle planted Hallas's wondering at Celenneth and Linnea's closeness in the lodge, and Damrod's answer; what is between them was already there before either of them named it.</td>
+      </tr>
+      <tr>
+        <td>The Watchtower</td>
+        <td>The hidden compartment, the journal, the map fragment, the silver clasp with the watchful eye. The chronicle's signal that someone in his line had been tracking the same threads he is tracking now, before him. The watchtower's existence reframes his work — he is not the first to read these signs. He is the heir to the reading. The silver gorget at his throat is part of this inheritance.</td>
+      </tr>
+      <tr>
+        <td>The Shadow Itself</td>
+        <td>His Reward is Shadow-Lore; the lore was acquired from the source. The Dúnedain ranger of the eastern line cannot read the Shadow's marks without having spent years near them. The chronicle has been honest about what proximity costs: the Path of Despair is the precise wound of that proximity. He has not yet paid a Scar for it. He may yet pay several.</td>
+      </tr>
+    </table>
+
+    <h3 class="subhead">Inherited Doctrine</h3>
+    <p>The Northern watch teaches that the line is held without acclaim and that the watchman who needs acclaim has already lost. Damrod has internalised this fully. He inherits also from his line a specific reading of honour as <em>act as you would have been done by</em>, applied operationally in field conditions — the prisoner asked, the comrade asked, the question raised before the act rather than after. The pairing with Subtle is also inherited: the line has always done its work in the registers the lords of Eriador prefer not to acknowledge, and the inheritance is the discipline of doing that work without becoming what one moves among.</p>
+
+    <h3 class="subhead">Despair and Its Refusal</h3>
+    <p>His Shadow Path is Path of Despair, the same as Linnea's, working at him in a different register. Linnea's despair is the offer that she is insufficient. Damrod's despair is the offer that the work is insufficient — that the watch is a generational holding action against a tide that will not finally be turned, that Brandor and Orlec died as he himself will likely die, that the silver clasp in his pocket is a thing he will not finish reading before whatever made it finds him. The doctrine answers: the watch was always a holding action; that it can be lost is not an argument against the holding. He refuses despair each morning he saddles the horse. He has not yet failed to refuse it.</p>
+
+    <h3 class="subhead">The Rare Warmth, Allocated</h3>
+    <p>The chronicle's repeated phrase for him is <em>rare warmth</em> and <em>rare softness.</em> Heart 6 is the build's correct register: the warmth is real, and it is rationed. He has allocated it precisely four times in the chapters the chronicle has shown — to Linnea's toast at the lodge fire, to the embrace at the parting, to the carved prize handed silently to Linnea at the stall, and to the brief look at Hallas in the lodge that opened the second room's conversation. Each allocation cost him something to give and each was given accurately. The reservoir is not empty; the reservoir is disciplined.</p>
+  </section>
+
+  <section id="relations">
+    <h2 class="section-title">VI. Bonds &amp; Quiet Distances</h2>
+
+    <div class="relations-grid">
+
+      <div class="relation">
+        <div class="name">Hallas <span class="role">— partner on the watch, the second room</span><span class="culture">Rangers of the North</span></div>
+        <div class="text">His pairing on the eastern line, his shoulder at the campfire, his other voice at the wraith chamber's chant. The conversation in the lodge — <em>seeing them find that sort of closeness, it makes you wonder</em>; <em>you're not the only one who wonders</em> — is the chronicle's planted thread for them, surfacing without being forced, sitting close enough to feel the other's presence and not requiring more. They rode east together with the journal, the map fragment, and the silver clasp. What is between them is not yet named. The chronicle is patient with that.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Celenneth of the Dúnedain <span class="role">— Brandor and Orlec's protégé; comrade at the Frost Maw</span><span class="culture">Rangers of the North</span></div>
+        <div class="text">He recognised her as Brandor and Orlec's protégé on the first introduction, and the recognition made the alliance real rather than convenient. He fought beside her in the wraith chamber, joined the binding chant, buried the elders with her in the northern hills, asked her about Linnea before anything else happened, embraced her at the parting with the chronicle's recorded <em>rare softness</em>. He may be the father of her son Hallas, or he may not — the chronicle has been honest that the answer is unknown and that the unknowing is not the point. <em>This child will be ours.</em></div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Linnea of Bree <span class="role">— Celenneth's wife; arranged the second room</span><span class="culture">Men of Bree</span></div>
+        <div class="text">The woman who toasted at the fire — <em>to surviving what we shouldn't have</em> — and received from Damrod the chronicle's first recorded warmth from him. The woman who led him to the ring-toss stall at the spring festival, watched him apply ranger precision to carnival games, received the carved prize silently with his smile, and was both the question he asked first (<em>what about Linnea?</em>) and the person whose answer made everything legal. She made the second room possible, deliberately, knowing what she was doing. <em>You're mine, always.</em> He understood the architecture and stood inside it carefully.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Brandor and Orlec <span class="role">— elders of his line</span><span class="culture">Rangers of the North</span></div>
+        <div class="text">The names he heard before he knew Celenneth was their protégé. He buried them with the family in the northern hills, hands clasped together, and the chronicle did not require him to say what they were to him. Inheritance in the Dúnedain register: the names that made the watch the watch, the methods passed through working in their country, the lay he did not sing because his Song is rank 0 and Celenneth's was sufficient.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">The Frost Hounds &amp; Wraiths of the Frost Maw <span class="role">— bound creatures; corruption-marked</span><span class="culture">Shadow-bound</span></div>
+        <div class="text">The first creatures the chronicle showed him fight beside the family. He read the runes on the hounds' hides as binding-marks on sight; he joined the binding-curse chant in the wraith chamber, voice rising with the others. The corruption he had been tracking through the eastern country had found its way into the Frost Maw before he had. The recognition is the operational core of his Shadow-Lore.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">The Cultists at the Canyon Ambush <span class="role">— Shadow-allied, dispatched</span><span class="culture">of the corruption east of the Frost Maw</span></div>
+        <div class="text">The party fought through them on the road south from the Frost Maw. Damrod's blade did its work; Linnea abandoned her bow for her dagger and made her precise thrust; Hallas's spear opened the line. The chronicle did not name them as servants of any single power, but their work belonged to the same network the silver clasp belongs to. He has been tracking them eastward since the road parted.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">The Watcher Behind the Silver Clasp <span class="role">— unnamed; the source of the eye motif</span><span class="culture">unknown</span></div>
+        <div class="text">The figure or order whose sigil is the watchful eye, repeated across the chronicle's threads — Celenneth's iron-eye pendant, the dead bandit's sleeve in Book II, the watchtower's clasp, the broader pattern Damrod has been reading. He does not yet know whose eye it is. The unknowing is part of why he rides east. The chronicle is patient.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">The Forgotten Watchers <span class="role">— stirring; offscreen</span><span class="culture">of the deep places</span></div>
+        <div class="text">The chronicle's name for what was disturbed beneath the Frost Maw when Celenneth restored the surface runes — <em>something awakened, or at least stirred, in the deep places beneath their feet.</em> Damrod is riding east in part because the Watchers' stirring is connected to the corruption his eastern line has been tracking. The chronicle has not yet shown him reach them. The patience is honest.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Brynja <span class="role">— five-year-old daughter of Celenneth and Linnea</span><span class="culture">Foundling, Riddermark</span></div>
+        <div class="text">He met her after the homecoming when the family rode home from the Frost Maw — the chronicle has not shown the specific scene, but the architecture requires that he saw the child whose mothers he had ridden with. The chronicle has been quiet about what passed between him and Brynja. He is not her father in any operative sense. If he is the biological half of her brother Hallas, he and Brynja are connected by the unnamed strand of that paternity. The reading remains open.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Hallas, son of Celenneth <span class="role">— the infant who carries the name</span><span class="culture">Dúnedain, born in the Angle</span></div>
+        <div class="text">The son named for the ranger Hallas who rode east with Damrod. The chronicle has been clear: paternity is either Damrod or Hallas, and the question is not the point. <em>This child will be ours.</em> Either way, the child carries something of him into the next generation — the Northern blood, the watch, the name borne by one of the two men who could have given it.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="errand">
+    <h2 class="section-title">VII. The Errand East</h2>
+
+    <table class="dossier-table">
+      <thead><tr><th>Piece</th><th>State at Parting</th></tr></thead>
+      <tr><td>The Silver Clasp</td><td>In his saddlebag. The watchful-eye motif unsettled him; he has not yet named why. The chronicle has been quietly building this motif since Book II.</td></tr>
+      <tr><td>The Coded Journal</td><td>In his saddlebag. A working ranger's notebook in cipher, partly broken. Will yield names and routes when fully read.</td></tr>
+      <tr><td>The Map Fragment</td><td>In his saddlebag. Marked along the Frost Maw's borders. The other pieces of the map are presumed to exist somewhere east of his current route.</td></tr>
+      <tr><td>The Shadow Wolves' Trail</td><td>Traced eastward from the Frost Maw's canyon ambush. The chronicle has not shown him follow it past the parting.</td></tr>
+      <tr><td>The Forgotten Watchers' Stir</td><td>The deeper disturbance beneath the Frost Maw when Celenneth restored the surface runes. He is riding partly toward whatever surfaced.</td></tr>
+      <tr><td>Hallas Beside Him</td><td>His partner on the road. The conversation in the second room not yet continued. The chronicle is patient.</td></tr>
+    </table>
+
+    <div class="callout">
+      <div class="label">On the Structural Position of His Errand</div>
+      <p>The chronicle has placed Damrod's eastern road in the same structural position as Dol Guldur — happening offscreen, mattering, costing things, not the protagonists' direct concern. Celenneth's family sailed west; Damrod and Hallas rode east. Both roads are real and consequential, and the chronicle has been honest that neither protagonist company is going to resolve both. The eastern road is the chronicle's quiet promise that the Shadow's broader work continues to be opposed even when the camera is elsewhere.</p>
+    </div>
+
+    <div class="callout shadow">
+      <div class="label">On What Riding East Costs</div>
+      <p>Brandor and Orlec rode east, in their day, and did not come back. The Frost Maw was where the line had advanced to when their advance failed. Damrod knows the precedent. He has not declared whether he expects to return. The chronicle's restraint about his probable end is the same restraint it shows Brandor and Orlec — the watch's people do not announce their probable deaths in advance; they ride out and meet whatever is there. The chronicle's structural honesty is that the eastern road may not bring him back, and that this would not be a failure of the chronicle but the chronicle's accurate reflection of what the watch costs.</p>
+    </div>
+  </section>
+
+  <section id="shadow">
+    <h2 class="section-title">VIII. The Shadow Carried</h2>
+
+    <h3 class="subhead">The Path of Despair</h3>
+    <p>The same Path that bites at Linnea, but the Shadow's argument differs. Linnea's despair is <em>I am insufficient.</em> Damrod's despair is <em>the work is insufficient</em> — that the line cannot be held forever, that the elders died on it, that the eye in the silver clasp belongs to a hand he cannot reach, that the eastern road is one he is riding because no one else has been given to ride it. Zero Scars on the sheet means the Path has not yet successfully bitten. The chronicle is honest that this may not last. The eastern road is the test.</p>
+
+    <h3 class="subhead">The Watchful Eye</h3>
+    <p>The silver clasp is the chronicle's most explicit Shadow-marker on his sheet. The motif appears across the chronicle's threads: Celenneth's iron-eye pendant since Book II; the dead bandit's sleeve in the first months of her road; the cultists' signs Damrod has been reading on the eastern line; now the watchtower's hidden compartment. The chronicle has been quietly assembling a sigil that means the same thing in many places. Damrod is the figure carrying the most concentrated reading of it. What it costs him to keep reading without yet knowing what it points to is the chronicle's slow accumulation of Shadow against his Hope reservoir.</p>
+
+    <h3 class="subhead">Shadow-Lore as Dual-Edged Reward</h3>
+    <p>The lore that lets him recognise the marks is the lore that has put the marks into his head. He cannot un-know the corruption's working pattern; the pattern lives in him now, available for use and also available as a vulnerability the Shadow can press on. The chronicle has not yet shown him bargained with by anything — the Wandering Madness of Celenneth's curse, the Lure of Secrets of Eryndil's scholarship — but his Shadow-Lore is the operational equivalent of being open to bargain. The eastern road's Watchers will likely make him an offer. The doctrine forbids his accepting; the doctrine does not guarantee his refusing.</p>
+
+    <h3 class="subhead">The Watcher Who Has Been Watched</h3>
+    <p>The chronicle's most uncomfortable Damrod note: that the years of reading the Shadow's marks have meant the Shadow has read him in return. The eastern country knows his routes. The cultists at the canyon ambush were not surprised to meet him. The Forgotten Watchers' stir was felt, in some register, as the rune restoration was completed, and whatever felt it knows there are rangers above. He is riding east into country that has been waiting for him with more patience than he has had to ride into it.</p>
+  </section>
+
+  <section id="timeline">
+    <h2 class="section-title">IX. Chronicle of His Watch</h2>
+
+    <div class="timeline">
+
+      <div class="timeline-entry">
+        <div class="when">Before the Chronicle Begins</div>
+        <div class="what">Years on the eastern Dúnedain line.</div>
+        <div class="detail">The Frugal living, the absence of a named Patron, the Zero-Treasure sheet, and the Shadow-Lore Reward all argue for a long working period before the chronicle picks him up. He has been the watcher of his country for some time, paired with Hallas for at least most of it.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Pre-Book X</div>
+        <div class="what">Brandor and Orlec lost; their northern line broken.</div>
+        <div class="detail">News of the elders' deaths reached him in his country. The Frost Maw was the place where their road had failed. Damrod did not move to recover their bodies — the country was too dangerous and his own line was open — but he kept the place in mind.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book X &middot; The Snowfields above the Frost Maw</div>
+        <div class="what">The first meeting; the bargain struck plain.</div>
+        <div class="detail">Damrod and Hallas arrived at exactly the right moment — not as rescuers but as equals with their own mission. <em>We'll help you root out whatever curses these lands, you help us into the Frost Maw.</em> Damrod recognised Celenneth as Brandor and Orlec's protégé on first introduction. The bargain held.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book X &middot; The Restored Runes; the Frost Hounds</div>
+        <div class="what">Standing the surface line of the Frost Maw.</div>
+        <div class="detail">Worked the ranger archives at Celenneth's shoulder while Hallas supplied corrections; helped restore the runes that stabilised the surface corruption — and disturbed something deeper. <em>Something awakened, or at least stirred, in the deep places beneath their feet.</em> Fought the frost hounds in the cramped tunnels; read the binding-marks on their hides on sight.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book X &middot; The Wraith Chamber</div>
+        <div class="what">The binding curse chanted; the chamber survived.</div>
+        <div class="detail">Joined the binding-curse chant in the tainted chamber, voice rising with the others. Linnea's voice hesitated and grew; his own held the line. Flaming arrows gave the weakened wraiths substance enough to be broken. Four rangers, one tea in battered cups afterward. <em>Your lore saved us, love</em>, Celenneth said to Linnea. Damrod's silence was the chronicle's first recorded warmth toward what they were becoming.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book X &middot; The Burial in the Northern Hills</div>
+        <div class="what">Brandor and Orlec buried with their hands clasped.</div>
+        <div class="detail">Damrod assisted with the burial without speech. The elders he had heard of, never served beside, finally laid down in his presence. The working pattern of his own probable end now visible to him in the earth.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XI &middot; The Watchtower</div>
+        <div class="what">The hidden compartment; the journal, map, and silver clasp.</div>
+        <div class="detail">Found the three items with Hallas. The journal in coded script, the map fragment with symbols along the Frost Maw's borders, the silver clasp bearing a watchful eye. The clasp unsettled him for reasons he could not name. The watchtower revealed as a Dúnedain intelligence post; the heritage he was inheriting made specific.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XI &middot; The Lodge by the Fire</div>
+        <div class="what">The toast; the warmth; the question; the consent.</div>
+        <div class="detail"><em>To surviving what we shouldn't have.</em> Damrod's response carried the chronicle's first recorded warmth from him. He asked Celenneth about Linnea before anything proceeded; the asking was the condition of trust. Linnea's <em>you're mine, always</em> was the answer that made it legible. The four-person rhythm formed in the lodge afterward, the cold kept outside.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XI &middot; The Second Room</div>
+        <div class="what">The conversation with Hallas that was not yet a declaration.</div>
+        <div class="detail">Hallas: <em>seeing them find that sort of closeness — it makes you wonder what it might be like to have that kind of connection.</em> Damrod: <em>you're not the only one who wonders.</em> The brief look; the unforced sitting near enough to feel the other's presence. The chronicle planted the conversation and let it rest.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XI &middot; The Spring Festival</div>
+        <div class="what">Garland-crowned; the ring-toss stall; the carved prize.</div>
+        <div class="detail">Linnea led him to the stall; he applied ranger's precision to the carnival game; he handed her the carved prize silently with a smile. The chronicle's lightness, earned by contrast. The cord-binding between Celenneth and Linnea that night occurred in their own room; Damrod and Hallas were elsewhere in the lodge, present in the architecture they had become part of.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XI &middot; The Canyon Ambush</div>
+        <div class="what">Cultists, sword, the line held.</div>
+        <div class="detail">Damrod's blade did its work; Hallas's spear opened the line; Linnea abandoned her bow for the dagger and made her precise thrust. The cultists belonged to the same network the silver clasp belongs to. The road south continued.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XI &middot; The Parting</div>
+        <div class="what">East and south; the rare softness; the morning's shifting light.</div>
+        <div class="detail">No long farewell. Damrod's rare softness in the embrace with Celenneth. Hallas's forearm clasp and the embrace after. <em>The kind of understanding that needed no words.</em> Damrod and Hallas eastward with the journal, map fragment, and silver clasp. Celenneth and Linnea south toward Brynja and the Angle. <em>Their figures soon swallowed by the morning's shifting light.</em></div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Post-Book XI &middot; The Eastern Road</div>
+        <div class="what">Offscreen; tracking shadow wolves; the Forgotten Watchers stirring.</div>
+        <div class="detail">The chronicle has not shown his road since the parting. The architecture parallels Dol Guldur: significant, costly, happening elsewhere. The Forgotten Watchers, the eye-sigil's source, the coded journal's reading — these are riding east with him and Hallas. Whether they return, when, with what — the chronicle has not yet adjudicated.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="trajectory">
+    <h2 class="section-title">X. Trajectory &amp; Endgame</h2>
+
+    <h3 class="subhead">The Eastern Road</h3>
+    <p>Damrod's arc, unlike the protagonists', is being held offscreen by structural choice rather than by chapter limit. The chronicle has been clear that this is deliberate: he and Hallas are doing the work the family cannot do, in the country the family is not going to. The chronicle's elegance is that this work remains real even when not shown. Whatever happens to him on the eastern road has the same status as Dol Guldur's expulsion of the Necromancer — significant, costly, partially won, ultimately the prelude to a deeper unresolved thing.</p>
+
+    <h3 class="subhead">The Long Threads</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Thread</th><th>Status</th><th>Likely Convergence</th></tr></thead>
+      <tr><td>The silver clasp's watchful eye</td><td>Carried; not yet read</td><td>The sigil's source is likely a named figure or order that the eastern road will introduce; convergence with Celenneth's iron eye pendant probable</td></tr>
+      <tr><td>The coded ranger's journal</td><td>Partly broken</td><td>Will name predecessor watchers on the eastern line; possibly Brandor or Orlec themselves at younger ages</td></tr>
+      <tr><td>The Forgotten Watchers</td><td>Stirring beneath the Frost Maw</td><td>The eastern road's terminal threat; Damrod and Hallas are riding toward whatever stir was felt</td></tr>
+      <tr><td>Hallas, partner</td><td>Beside him on the road</td><td>The second-room conversation will be finished — in a lodge, by a fire, in the time before whatever the eastern road throws at them — or it will not be finished, and that will be the chronicle's chosen ending</td></tr>
+      <tr><td>The Path of Despair</td><td>0 Scars; pressed but not bitten</td><td>The eastern road will press hardest; the doctrine will be tested by the third Watcher or the second cultist camp</td></tr>
+      <tr><td>The son named Hallas</td><td>Infant in the Angle</td><td>Possibly his blood; either way carrying his line into the next generation; will not be revealed in his lifetime</td></tr>
+    </table>
+
+    <h3 class="subhead">The Possible Endings</h3>
+    <p>The chronicle has, in its players' conversation, considered a time-jump: Brynja and the younger Hallas returning to Eriador as young adults around 2985–2990. If that handoff occurs, Damrod's status by then is the most interesting unknown of the chronicle's whole architecture. He may be dead in the eastern country, having joined Brandor and Orlec in the long line of the watch's casualties — the probable ending the chronicle has been quietly preparing. He may be alive but changed, the Shadow-Lore deepened, the warmth more rare than ever, the silver clasp finally read. He may be riding back with Hallas at last, the second-room conversation now decades old and finally said aloud. The chronicle has not chosen; the time-jump permits all three.</p>
+
+    <div class="callout">
+      <div class="label">What the chronicle has answered for him</div>
+      <p>That he asked before he acted. That his warmth, when given, was accurate. That he held the line with the Frost Maw's wraiths and let his lore add to the chant. That he buried the elders of his line with their hands clasped and rode east afterward without ceremony. That what was between him and Hallas was real and was allowed to remain unnamed because the watch came first.</p>
+    </div>
+
+    <div class="callout shadow">
+      <div class="label">What the chronicle has not yet answered</div>
+      <p>Whether the eastern road brings him back. Whether the silver clasp's eye will be read in his lifetime. Whether Hallas's son ever learns that his name is Damrod's or his namesake's. Whether the conversation in the second room is finished by a fire in some lodge years from now, or whether the chronicle's restraint about it is the chronicle's chosen final answer. Whether the Forgotten Watchers stir into action and meet him; whether he meets them in turn.</p>
+    </div>
+
+    <h3 class="subhead">The Probable End</h3>
+    <p>He will likely die on the watch. The Dúnedain rarely do otherwise. Brandor and Orlec did not; the elders before them did not; he has watched the pattern long enough to know it. The doctrine teaches that this is not a failure of the watch but the watch's working condition. <em>The kind of understanding that needed no words.</em> The chronicle gave him the parting embrace in advance because the parting embrace was likely the last warmth that would be recorded of him. He rode east into the morning's shifting light. The chronicle has been patient about whether the light brings him back.</p>
+
+    <p>The watch is held. The line continues. The work is the justification.</p>
+  </section>
+
+  <footer class="colophon">
+    Dossier compiled &middot; By the Northern Hills, after the parting &middot; Late Third Age
+  </footer>
+
+</div>
+</body>
+</html>
