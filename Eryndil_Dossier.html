@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Eryndil of Lindon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f0ede1;
+    --paper-dark: #dfdbc7;
+    --ink: #1a1f24;
+    --ink-soft: #384148;
+    --ink-faint: #6b7480;
+    --sea-deep: #1f3a52;
+    --sea: #34556f;
+    --sea-pale: #6b8aa5;
+    --silver: #97a2ad;
+    --silver-deep: #586168;
+    --lindon-blue: #2a4a68;
+    --lindon-blue-deep: #142a40;
+    --rule: #c0bdac;
+    --gold: #98864e;
+    --gold-deep: #6d5d2a;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "EB Garamond", "Cormorant Garamond", Georgia, serif;
+    font-size: 16px; line-height: 1.6; font-weight: 400;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(31, 58, 82, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgba(151, 162, 173, 0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(152, 134, 78, 0.03) 0%, transparent 70%);
+    min-height: 100vh; padding: 2rem 1rem;
+  }
+  .document {
+    max-width: 880px; margin: 0 auto;
+    background: var(--paper);
+    padding: 4rem 4.5rem 5rem;
+    box-shadow: 0 1px 2px rgba(26, 31, 36, 0.08), 0 8px 32px rgba(26, 31, 36, 0.14);
+    position: relative; border: 1px solid var(--rule);
+  }
+  .document::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--lindon-blue-deep) 0%, var(--sea) 25%, var(--silver) 50%, var(--sea) 75%, var(--lindon-blue-deep) 100%);
+  }
+
+  header.title-block {
+    text-align: center; border-bottom: 2px solid var(--ink);
+    padding-bottom: 2rem; margin-bottom: 3rem; position: relative;
+  }
+  header.title-block::after {
+    content: ""; display: block; width: 60px; height: 1px;
+    background: var(--silver-deep); margin: 1rem auto 0;
+  }
+  .eyebrow {
+    font-family: "Cormorant SC", serif; font-size: 0.75rem;
+    letter-spacing: 0.4em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 1.5rem;
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    font-size: 3.5rem; line-height: 1.05; margin: 0 0 0.5rem;
+    letter-spacing: 0.02em; color: var(--ink);
+  }
+  .character-name .epithet { font-style: italic; color: var(--lindon-blue-deep); }
+  .epithets {
+    font-family: "EB Garamond", serif; font-style: italic;
+    font-size: 1rem; color: var(--ink-soft); margin: 0.5rem 0 1rem;
+  }
+  .vitals {
+    display: flex; justify-content: center; gap: 2rem;
+    margin-top: 1.5rem; flex-wrap: wrap;
+    font-family: "Cormorant SC", serif; font-size: 0.78rem;
+    letter-spacing: 0.18em; color: var(--ink-soft);
+  }
+  .vitals span { border-left: 1px solid var(--rule); padding-left: 1.25rem; }
+  .vitals span:first-child { border-left: none; padding-left: 0; }
+
+  section { margin-bottom: 3rem; }
+  h2.section-title {
+    font-family: "Cormorant SC", serif; font-weight: 500;
+    font-size: 0.95rem; letter-spacing: 0.32em;
+    color: var(--lindon-blue-deep); text-transform: uppercase;
+    border-bottom: 1px solid var(--rule); padding-bottom: 0.5rem;
+    margin: 0 0 1.5rem; position: relative;
+  }
+  h2.section-title::before {
+    content: "✦"; color: var(--sea-pale); margin-right: 0.6rem;
+    font-style: normal; font-family: "EB Garamond", serif; font-weight: 400;
+  }
+  h3.subhead {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    font-size: 1.3rem; color: var(--sea-deep);
+    margin: 1.5rem 0 0.5rem; font-style: italic;
+  }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0.5rem 0 1rem 1.5rem; padding: 0; }
+  li { margin-bottom: 0.4rem; }
+  em { color: var(--ink-soft); }
+  strong { font-weight: 600; color: var(--ink); }
+
+  blockquote.maxim {
+    font-family: "Cormorant Garamond", serif; font-style: italic;
+    font-size: 1.25rem; line-height: 1.5;
+    color: var(--lindon-blue-deep);
+    border-left: 3px solid var(--sea-pale);
+    padding: 0.5rem 0 0.5rem 1.5rem; margin: 1.5rem 0;
+    background: rgba(31, 58, 82, 0.04);
+  }
+  blockquote.maxim .attribution {
+    display: block; font-size: 0.85rem; font-style: normal;
+    color: var(--ink-faint); font-family: "Cormorant SC", serif;
+    letter-spacing: 0.15em; margin-top: 0.5rem;
+  }
+
+  table.dossier-table {
+    width: 100%; border-collapse: collapse;
+    margin: 1rem 0 1.5rem; font-size: 0.92rem;
+  }
+  table.dossier-table th {
+    text-align: left; font-family: "Cormorant SC", serif; font-weight: 500;
+    font-size: 0.72rem; letter-spacing: 0.18em; color: var(--ink-faint);
+    text-transform: uppercase; padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  table.dossier-table td {
+    padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  table.dossier-table td:first-child {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    color: var(--ink); white-space: nowrap; padding-right: 1.5rem;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+
+  table.skill-block { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1.5rem; font-size: 0.9rem; }
+  table.skill-block td {
+    padding: 0.35rem 0.6rem; border-bottom: 1px dotted var(--rule);
+    vertical-align: baseline;
+  }
+  table.skill-block td.skill-name {
+    font-family: "Cormorant Garamond", serif; color: var(--ink);
+  }
+  table.skill-block td.skill-name.fav { color: var(--lindon-blue-deep); font-weight: 500; }
+  table.skill-block td.skill-name.fav::before {
+    content: "◆ "; color: var(--sea-pale); font-size: 0.85em;
+  }
+  table.skill-block td.skill-rank {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    color: var(--ink); text-align: right; width: 2.5rem;
+  }
+  .skill-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 0 2rem; margin: 1rem 0 1.5rem;
+  }
+  .skill-grid h4 {
+    font-family: "Cormorant SC", serif; font-size: 0.75rem;
+    letter-spacing: 0.22em; color: var(--lindon-blue-deep);
+    text-transform: uppercase; margin: 0 0 0.5rem;
+    border-bottom: 1.5px solid var(--ink); padding-bottom: 0.4rem;
+  }
+
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem; margin: 1rem 0;
+  }
+  .stat-cell {
+    text-align: center; padding: 1rem 0.5rem;
+    border: 1px solid var(--rule);
+    background: rgba(255, 255, 255, 0.4); position: relative;
+  }
+  .stat-cell .label {
+    font-family: "Cormorant SC", serif; font-size: 0.72rem;
+    letter-spacing: 0.2em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 0.35rem;
+  }
+  .stat-cell .value {
+    font-family: "Cormorant Garamond", serif; font-size: 2rem;
+    font-weight: 500; color: var(--ink); line-height: 1;
+  }
+  .stat-cell .delta {
+    font-family: "EB Garamond", serif; font-style: italic;
+    font-size: 0.85rem; color: var(--ink-faint); margin-top: 0.3rem;
+  }
+
+  .small-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem; margin: 1rem 0 1.5rem;
+  }
+  .small-cell {
+    text-align: center; padding: 0.75rem 0.4rem;
+    border: 1px solid var(--rule);
+    background: rgba(255, 255, 255, 0.4);
+  }
+  .small-cell .label {
+    font-family: "Cormorant SC", serif; font-size: 0.66rem;
+    letter-spacing: 0.18em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 0.25rem;
+  }
+  .small-cell .value {
+    font-family: "Cormorant Garamond", serif; font-size: 1.4rem;
+    font-weight: 500; color: var(--lindon-blue-deep); line-height: 1;
+  }
+
+  .relations-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
+  .relation { padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+  .relation:last-child { border-bottom: none; }
+  .relation .name {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    font-size: 1.1rem; color: var(--ink); margin-bottom: 0.15rem;
+  }
+  .relation .name .role {
+    font-style: italic; color: var(--ink-soft);
+    font-size: 0.95rem; font-weight: 400;
+  }
+  .relation .name .culture {
+    font-family: "Cormorant SC", serif; font-size: 0.7rem;
+    letter-spacing: 0.15em; color: var(--silver-deep); margin-left: 0.5rem;
+  }
+  .relation .text { font-size: 0.95rem; color: var(--ink-soft); margin-top: 0.25rem; }
+
+  .timeline {
+    border-left: 2px solid var(--sea-pale);
+    padding-left: 1.5rem; margin: 1rem 0 1rem 0.5rem;
+  }
+  .timeline-entry { margin-bottom: 1.5rem; position: relative; }
+  .timeline-entry::before {
+    content: ""; position: absolute; left: -1.85rem; top: 0.5rem;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--paper); border: 2px solid var(--sea-pale);
+  }
+  .timeline-entry .when {
+    font-family: "Cormorant SC", serif; font-size: 0.72rem;
+    letter-spacing: 0.18em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 0.25rem;
+  }
+  .timeline-entry .what {
+    font-family: "Cormorant Garamond", serif; font-weight: 500;
+    font-size: 1.05rem; color: var(--ink); margin-bottom: 0.25rem;
+  }
+  .timeline-entry .detail { font-size: 0.93rem; color: var(--ink-soft); }
+
+  nav.toc {
+    border: 1px solid var(--rule); padding: 1.25rem 1.5rem;
+    margin-bottom: 3rem; background: rgba(255, 255, 255, 0.4);
+    columns: 2; column-gap: 2rem;
+  }
+  nav.toc .toc-label {
+    font-family: "Cormorant SC", serif; font-size: 0.7rem;
+    letter-spacing: 0.25em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 0.6rem; column-span: all;
+  }
+  nav.toc ol {
+    list-style: none; margin: 0; padding: 0;
+    counter-reset: toc; font-family: "EB Garamond", serif;
+  }
+  nav.toc ol li {
+    counter-increment: toc; font-size: 0.93rem;
+    margin-bottom: 0.3rem; break-inside: avoid;
+  }
+  nav.toc ol li::before {
+    content: counter(toc, upper-roman) ". ";
+    color: var(--silver-deep); font-style: italic; margin-right: 0.3rem;
+  }
+  nav.toc a {
+    color: var(--ink); text-decoration: none;
+    border-bottom: 1px dotted transparent; transition: border-color 0.2s;
+  }
+  nav.toc a:hover { border-bottom-color: var(--sea); }
+
+  footer.colophon {
+    margin-top: 4rem; padding-top: 2rem;
+    border-top: 1px solid var(--rule); text-align: center;
+    font-family: "Cormorant SC", serif; font-size: 0.7rem;
+    letter-spacing: 0.25em; color: var(--ink-faint); text-transform: uppercase;
+  }
+  footer.colophon::before {
+    content: "✦"; display: block; color: var(--sea-pale);
+    font-size: 1.2rem; margin-bottom: 1rem; letter-spacing: normal;
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .document { box-shadow: none; padding: 1in; max-width: none; }
+  }
+
+  @media (max-width: 700px) {
+    body { padding: 1rem 0.5rem; }
+    .document { padding: 2rem 1.5rem 3rem; }
+    h1.character-name { font-size: 2.5rem; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
+    .stat-cell { padding: 0.6rem 0.3rem; }
+    .stat-cell .value { font-size: 1.5rem; }
+    .small-grid { grid-template-columns: repeat(2, 1fr); }
+    .skill-grid { grid-template-columns: 1fr; gap: 0.5rem 0; }
+    nav.toc { columns: 1; }
+    .vitals { gap: 0.75rem; font-size: 0.7rem; }
+    .vitals span { border-left: none; padding-left: 0; }
+    .portrait-block { grid-template-columns: 1fr; gap: 1.25rem; }
+    .portrait-block img { max-width: 260px; }
+  }
+
+  .portrait-block {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem; margin: 0 0 2.5rem; align-items: end;
+  }
+  .portrait-block figure { margin: 0; text-align: center; }
+  .portrait-block img {
+    width: 100%; max-width: 320px; height: auto;
+    border: 1px solid var(--ink);
+    box-shadow: 0 2px 10px rgba(26, 31, 36, 0.18), inset 0 0 0 4px var(--paper);
+    padding: 4px; background: var(--paper-dark);
+  }
+  .portrait-block figcaption {
+    font-family: "Cormorant SC", serif; font-size: 0.7rem;
+    letter-spacing: 0.22em; color: var(--ink-faint);
+    text-transform: uppercase; margin-top: 0.7rem;
+  }
+  .portrait-block .blurb {
+    font-family: "EB Garamond", serif; font-style: italic;
+    color: var(--ink-soft); font-size: 0.95rem;
+    padding: 0 0.5rem; text-align: left; line-height: 1.55;
+  }
+
+  .legend {
+    font-family: "EB Garamond", serif; font-style: italic;
+    font-size: 0.85rem; color: var(--ink-faint); margin-top: -0.5rem;
+  }
+  .legend .marker { color: var(--sea-pale); font-style: normal; margin-right: 0.25rem; }
+</style>
+</head>
+<body>
+<div class="document">
+
+  <header class="title-block">
+    <div class="eyebrow">Dossier &middot; Elves of Lindon</div>
+    <h1 class="character-name">Eryndil <span class="epithet">of Lindon</span></h1>
+    <p class="epithets">Scholar of the Western Shores &middot; Bearer of Círdan's Errand &middot; Bearer of the Adamant Relic</p>
+    <div class="vitals">
+      <span>Elves of Lindon</span>
+      <span>Calling: Scholar</span>
+      <span>Patron: Círdan the Shipwright</span>
+      <span>Standard of Living: Frugal</span>
+    </div>
+  </header>
+
+  <div class="portrait-block">
+    <figure>
+      <img src="eryndil.png" alt="Portrait of Eryndil, sea-grey eyes and shell-beads in her hair">
+      <figcaption>Eryndil &middot; sea-grey eyes, shell-beads, blue cloak</figcaption>
+    </figure>
+    <div class="blurb">
+      <p>An elf of Lindon: sea-grey eyes, shell-beads in her hair, a blue cloak catching light like water. Sent from Círdan the Shipwright with the Adamant Relic &mdash; waves, stars, and ships worked in the metal, opening only to Númenórean blood. Arrived in the Angle with patience rather than urgency, camped under birch trees, and waited for the family to decide.</p>
+    </div>
+  </div>
+
+  <nav class="toc">
+    <div class="toc-label">Contents</div>
+    <ol>
+      <li><a href="#identity">Identity &amp; Standing</a></li>
+      <li><a href="#mechanical">The Character Sheet</a></li>
+      <li><a href="#gear">Gear &amp; Carried Relic</a></li>
+      <li><a href="#relations">Bonds &amp; Acquaintances</a></li>
+      <li><a href="#timeline">Chronicle of Her Errand</a></li>
+      <li><a href="#sea">The Voyage West</a></li>
+    </ol>
+  </nav>
+
+  <section id="identity">
+    <h2 class="section-title">I. Identity &amp; Standing</h2>
+
+    <p>Eryndil is an elf of Lindon, of the western shores. She came to the Angle in Book XIII bearing Círdan's errand: the Adamant Relic with its motifs of waves and stars and ships, which would open only to Númenórean blood. She brought too the news of Dol Guldur &mdash; <em>the darkness there does not yield easily; yet the allies have bought precious time</em>, with men from the West joining Thranduil's forces. The summons she carried respected what the family had built and could be refused. They accepted; she has travelled with them from the Angle through Bree, the road west, the Barrow-downs, the Númenórean ruin, the canyon ambush, the rockfall, the farmhouse of Martha and Luthan, and into Mithlond. The voyage on the Eärlindë followed.</p>
+
+    <h3 class="subhead">Sayings of Record</h3>
+
+    <blockquote class="maxim">
+      We see you, we're merely passing through.
+      <span class="attribution">To the bear on the road west</span>
+    </blockquote>
+
+    <blockquote class="maxim">
+      The darkness there does not yield easily. Yet the allies have bought precious time.
+      <span class="attribution">News of Dol Guldur, delivered to the family in the Angle</span>
+    </blockquote>
+  </section>
+
+  <section id="mechanical">
+    <h2 class="section-title">II. The Character Sheet</h2>
+
+    <h3 class="subhead">Attributes</h3>
+    <div class="stat-grid">
+      <div class="stat-cell">
+        <div class="label">Strength</div>
+        <div class="value">5</div>
+        <div class="delta">TN 15 &middot; <em>Good</em></div>
+      </div>
+      <div class="stat-cell">
+        <div class="label">Heart</div>
+        <div class="value">4</div>
+        <div class="delta">TN 16 &middot; <em>Fair</em></div>
+      </div>
+      <div class="stat-cell">
+        <div class="label">Wits</div>
+        <div class="value">5</div>
+        <div class="delta">TN 15 &middot; <em>Good</em></div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Stature &amp; Standing</h3>
+    <div class="small-grid">
+      <div class="small-cell"><div class="label">Valour</div><div class="value">1</div></div>
+      <div class="small-cell"><div class="label">Wisdom</div><div class="value">1</div></div>
+      <div class="small-cell"><div class="label">Fellowship</div><div class="value">4</div></div>
+      <div class="small-cell"><div class="label">Treasure</div><div class="value">0</div></div>
+    </div>
+
+    <h3 class="subhead">Endurance, Hope, Shadow</h3>
+    <div class="small-grid">
+      <div class="small-cell"><div class="label">Endurance</div><div class="value">25/25</div></div>
+      <div class="small-cell"><div class="label">Hope</div><div class="value">14/14</div></div>
+      <div class="small-cell"><div class="label">Shadow Scars</div><div class="value">0</div></div>
+      <div class="small-cell"><div class="label">Load</div><div class="value">9</div></div>
+    </div>
+
+    <h3 class="subhead">Cultural Blessing, Calling, Features</h3>
+    <table class="dossier-table">
+      <tr><td>Cultural Blessing</td><td><em>Elven-Skill.</em></td></tr>
+      <tr><td>Calling</td><td><em>Scholar.</em></td></tr>
+      <tr><td>Distinctive Features</td><td><em>Fair. Keen-Eyed. Wise.</em></td></tr>
+      <tr><td>Shadow Path</td><td><em>Lure of Secrets.</em></td></tr>
+    </table>
+
+    <h3 class="subhead">Combat Proficiencies</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Weapon Group</th><th>Rating</th></tr></thead>
+      <tr><td>Bows</td><td>3</td></tr>
+      <tr><td>Swords</td><td>1</td></tr>
+      <tr><td>Spears</td><td>0</td></tr>
+      <tr><td>Axes</td><td>0</td></tr>
+    </table>
+
+    <h3 class="subhead">Combat Statistics</h3>
+    <div class="small-grid">
+      <div class="small-cell"><div class="label">Parry</div><div class="value">17</div></div>
+      <div class="small-cell"><div class="label">Protection</div><div class="value">2d</div></div>
+      <div class="small-cell"><div class="label">Shield</div><div class="value">+1</div></div>
+      <div class="small-cell"><div class="label">Armour</div><div class="value">+2 Corslet</div></div>
+    </div>
+
+    <h3 class="subhead">Skills</h3>
+    <p class="legend"><span class="marker">◆</span> indicates a Favoured skill.</p>
+
+    <div class="skill-grid">
+      <div>
+        <h4>Body (Strength)</h4>
+        <table class="skill-block">
+          <tr><td class="skill-name">Awe</td><td class="skill-rank">3</td></tr>
+          <tr><td class="skill-name">Athletics</td><td class="skill-rank">3</td></tr>
+          <tr><td class="skill-name">Awareness</td><td class="skill-rank">3</td></tr>
+          <tr><td class="skill-name">Hunting</td><td class="skill-rank">0</td></tr>
+          <tr><td class="skill-name fav">Song</td><td class="skill-rank">2</td></tr>
+          <tr><td class="skill-name fav">Craft</td><td class="skill-rank">2</td></tr>
+        </table>
+      </div>
+      <div>
+        <h4>Heart</h4>
+        <table class="skill-block">
+          <tr><td class="skill-name">Enhearten</td><td class="skill-rank">0</td></tr>
+          <tr><td class="skill-name">Travel</td><td class="skill-rank">0</td></tr>
+          <tr><td class="skill-name">Insight</td><td class="skill-rank">2</td></tr>
+          <tr><td class="skill-name">Healing</td><td class="skill-rank">2</td></tr>
+          <tr><td class="skill-name">Courtesy</td><td class="skill-rank">2</td></tr>
+          <tr><td class="skill-name">Battle</td><td class="skill-rank">0</td></tr>
+        </table>
+      </div>
+      <div>
+        <h4>Wits</h4>
+        <table class="skill-block">
+          <tr><td class="skill-name">Persuade</td><td class="skill-rank">0</td></tr>
+          <tr><td class="skill-name">Stealth</td><td class="skill-rank">3</td></tr>
+          <tr><td class="skill-name">Scan</td><td class="skill-rank">1</td></tr>
+          <tr><td class="skill-name">Explore</td><td class="skill-rank">1</td></tr>
+          <tr><td class="skill-name fav">Riddle</td><td class="skill-rank">2</td></tr>
+          <tr><td class="skill-name fav">Lore</td><td class="skill-rank">3</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <h3 class="subhead">Virtues &amp; Rewards</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Virtue / Reward</th><th>Type</th></tr></thead>
+      <tr><td>Confidence</td><td>Cultural Virtue.</td></tr>
+      <tr><td>Keen (Bow)</td><td>Reward.</td></tr>
+    </table>
+
+    <h3 class="subhead">Adventure &amp; Skill Points</h3>
+    <table class="dossier-table">
+      <tr><td>Adventure Points (current)</td><td>0</td></tr>
+      <tr><td>Skill Points (current)</td><td>0</td></tr>
+      <tr><td>Treasure</td><td>0</td></tr>
+    </table>
+  </section>
+
+  <section id="gear">
+    <h2 class="section-title">III. Gear &amp; Carried Relic</h2>
+
+    <h3 class="subhead">War Gear</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Item</th><th>Damage</th><th>Injury</th><th>Load</th><th>Notes</th></tr></thead>
+      <tr><td>Bow</td><td>3</td><td>14</td><td>2</td><td>Two-handed. <em>Keen.</em></td></tr>
+      <tr><td>Unarmed</td><td>1</td><td>&mdash;</td><td>0</td><td>&mdash;</td></tr>
+    </table>
+
+    <h3 class="subhead">Armour</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Item</th><th>Protection</th><th>Load</th></tr></thead>
+      <tr><td>Leather Corslet</td><td>+2</td><td>3</td></tr>
+      <tr><td>Buckler</td><td>+1 Parry</td><td>2</td></tr>
+    </table>
+
+    <h3 class="subhead">Carried Relic</h3>
+    <table class="dossier-table">
+      <tr><td>The Adamant Relic</td><td>Worked with motifs of waves, stars, and ships. Opens only to Númenórean blood. Carried from Mithlond on Círdan's errand.</td></tr>
+    </table>
+  </section>
+
+  <section id="relations">
+    <h2 class="section-title">IV. Bonds &amp; Acquaintances</h2>
+
+    <div class="relations-grid">
+
+      <div class="relation">
+        <div class="name">Círdan the Shipwright <span class="role">— Patron; lord of Mithlond</span><span class="culture">Falathrim &middot; Lindon</span></div>
+        <div class="text">Her named Patron. The errand she carries is his. He tested Celenneth's knowledge of Arnor's lineage, Tar-Ancalimon's era, Elendil &mdash; and named what he saw: <em>in you, I glimpse a spark of Númenor's old light.</em></div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Celenneth <span class="role">— bearer of the Númenórean blood the relic requires</span><span class="culture">Rangers of the North</span></div>
+        <div class="text">Eryndil came to summon her west. At the parting at Mithlond, Celenneth's invitation: <em>consider yourself part of the family.</em> Eryndil's response was a rare flicker of vulnerability. They have ridden, walked, fought, and now sail together. The unresolved thread between them is the arrow loosed at the released prisoner.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Linnea <span class="role">— Celenneth's wife</span><span class="culture">Men of Bree</span></div>
+        <div class="text">Has travelled and sailed beside her since the Angle. Was not consulted before the arrow was loosed at the prisoner.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Brynja <span class="role">— Celenneth and Linnea's elder daughter</span><span class="culture">Foundling, Riddermark</span></div>
+        <div class="text">On the deck of the Eärlindë, learning to move with the ship's roll: <em>like dancing.</em> The lesson Eryndil teaches without naming &mdash; yield rather than resist, flow rather than fight.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Hallas <span class="role">— Celenneth's infant son</span><span class="culture">Dúnedain, born in the Angle</span></div>
+        <div class="text">Sleeping in the pivoting cradle mounted to the cabin wall of the Eärlindë.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Almedra <span class="role">— widow on the Lindon coast; scholar's wife</span><span class="culture">of Lindon's mortal coast</span></div>
+        <div class="text">Met her with awe: <em>you are an elf</em> &mdash; not a question, a statement laden with awe. Eryndil's immediate recognition of Almedra's grief; condolences offered before any request for help. Almedra and her husband Berthor had collected accounts of such things; Berthor was recently widowed by the winter, and his notebook was given forward. The Lorebook of Arnenir was later left with her.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Berthor <span class="role">— Almedra's husband; lately dead</span><span class="culture">of Lindon's mortal coast</span></div>
+        <div class="text">A scholar with a chair, decades of companionship in dry sentences. Recently widowed by the winter at the time the family arrived. His notebook was given to the quest because <em>the knowledge belongs to the quest now, not to grief.</em></div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Martha &amp; Luthan <span class="role">— farmhouse hosts</span><span class="culture">Eriador</span></div>
+        <div class="text">Took them in during a driving storm on the road west. Eryndil chopped vegetables in their kitchen; Luthan marvelled at her uncommon cooking methods. Martha: <em>an elf is no more welcome or unwelcome than any other soul soaked to the skin.</em></div>
+      </div>
+
+      <div class="relation">
+        <div class="name">The Bear on the Road <span class="role">— encountered; passed</span><span class="culture">of the western road</span></div>
+        <div class="text">Eryndil spoke to the bear directly: <em>we see you, we're merely passing through.</em> The encounter resolved through patience and knowledge rather than violence.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">The Released Prisoner <span class="role">— spared by Celenneth; struck down offscreen</span><span class="culture">unknown</span></div>
+        <div class="text">Spoke before release: <em>a presence. That's all I know. We found you — or maybe it found you.</em> Celenneth let him go. Around the next bend Eryndil lingered, one fluid motion, the arrow vanishing into brush, a faint cry, then silence. She replaced her bow without expression and rode forward. <em>If Celenneth suspected anything, she said nothing.</em></div>
+      </div>
+
+      <div class="relation">
+        <div class="name">The Crew of the Eärlindë <span class="role">— twelve Elves under Círdan's command</span><span class="culture">Lindon</span></div>
+        <div class="text">The ship's company. Laerion offered Brynja a sweet biscuit, <em>a taste to calm your first sail.</em> Ithildur, asked about his tattoos, said: <em>the shadows I know cannot truly withstand the light.</em></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="timeline">
+    <h2 class="section-title">V. Chronicle of Her Errand</h2>
+
+    <div class="timeline">
+
+      <div class="timeline-entry">
+        <div class="when">Book XIII &middot; The Angle</div>
+        <div class="what">Arrived under the birch trees.</div>
+        <div class="detail">Sea-grey eyes, shell-beads in her hair, blue cloak catching light like water. Camped under birch trees and waited for the family to decide. The summons could be refused. Brought too the news of Dol Guldur: <em>the darkness there does not yield easily. Yet the allies have bought precious time.</em> Men from the West had joined Thranduil's forces. Celenneth's answer: <em>we go as a family. Brynja, Hallas, Linnea, and I &mdash; we will not be separated.</em></div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XIII &middot; Almedra and Berthor's Cottage</div>
+        <div class="what">Met the widow with awe and condolence.</div>
+        <div class="detail">Almedra, <em>you are an elf</em> &mdash; not a question. Eryndil's immediate recognition of her grief, condolences offered before any request. Berthor's notebook given forward because <em>the knowledge belongs to the quest now, not to grief.</em></div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XIII &middot; Bree's Market</div>
+        <div class="what">Present at the family's reckoning with Bree.</div>
+        <div class="detail">Travelled with the family through the confrontation with Linnea's kin. The elf at their side as Linnea named her home aloud: <em>Bree isn't home, not anymore. Home is where my family is.</em></div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XIII &middot; The Road West &middot; The Bear</div>
+        <div class="what">Spoke to the bear.</div>
+        <div class="detail"><em>We see you, we're merely passing through.</em> Patience and knowledge resolving what would have cost otherwise.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XIII &middot; The Númenórean Ruin</div>
+        <div class="what">Worn carvings; star-and-wave motifs.</div>
+        <div class="detail">The Guild of the Star and Sea named on the stones. Brynja gathered pottery shards. <em>Treasure can be knowledge, too.</em></div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XIII &middot; The Canyon Ambush</div>
+        <div class="what">Eryndil's precision; the Warden Blade.</div>
+        <div class="detail">The fight was competent &mdash; Celenneth's ribs taking a hit, Linnea's arrows going wide from adrenaline, Eryndil's precision, the Warden Blade finding purpose against shadow-corrupted enemies. <em>We are not butchers</em> (Celenneth), holding the line even injured, even with children behind her. The prisoner spoke: <em>a presence. That's all I know. We found you — or maybe it found you.</em> Released with stern clarity.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XIII &middot; Around the Bend</div>
+        <div class="what">The arrow.</div>
+        <div class="detail"><em>Eryndil lingering, one fluid motion, the arrow vanishing into brush, a faint cry, then silence. She replaces her bow without expression and rides forward.</em> <em>If Celenneth suspected anything, she said nothing.</em></div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XIII &middot; The Rockfall</div>
+        <div class="what">The road costing them.</div>
+        <div class="detail">The rockfall that nearly buried them; the detour costing half a league; Brynja silent and distant afterward; <em>Eryndil's hands trembling on the axe handle when she thinks no one is watching.</em></div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XIII &middot; Martha &amp; Luthan's Farmhouse</div>
+        <div class="what">Driving storm; vegetables in the kitchen.</div>
+        <div class="detail">The middle-aged couple who opened their door in a driving storm. <em>An elf is no more welcome or unwelcome than any other soul soaked to the skin.</em> Eryndil chopped vegetables; Luthan marvelled at her uncommon cooking methods.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XIII &middot; The Barrow-downs</div>
+        <div class="what">Goblin dealt with offscreen.</div>
+        <div class="detail">Celenneth and Eryndil disappeared around the bend together, returning with grim and victorious expressions. <em>It won't trouble anyone again.</em> The children sheltered behind rocks.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XIII &middot; Mithlond &middot; Her Dwelling</div>
+        <div class="what">The family hosted in her home.</div>
+        <div class="detail"><em>Modest, cedar-scented, nautical maps annotated in flowing Elvish script, shells on the carved shelves.</em> Offered the bed without hesitation; took the sofa with graceful acceptance. The family in the narrow bed: Celenneth and Linnea side by side, Brynja curled at their feet, Hallas snug between them.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XIII &middot; Mithlond &middot; Círdan</div>
+        <div class="what">The testing; the recognition.</div>
+        <div class="detail">Círdan tested Celenneth's knowledge of the lineage of Arnor, Tar-Ancalimon's era, Elendil. He named what he saw: <em>in you, I glimpse a spark of Númenor's old light.</em></div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Book XIII &middot; The Eärlindë</div>
+        <div class="what">Aboard.</div>
+        <div class="detail">Silvery-white wood, enchanted timbers, the pivoting cradle mounted to the cabin wall. Laerion's biscuit for Brynja: <em>a taste to calm your first sail.</em> The horn; the moorings released; Brynja gripping the railing &mdash; <em>we're really moving!</em> <em>Like dancing</em>, learning to move with the roll. Celenneth's invitation: <em>consider yourself part of the family.</em> Eryndil's rare flicker of vulnerability in answer.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="sea">
+    <h2 class="section-title">VI. The Voyage West</h2>
+
+    <p>The Eärlindë sails. What rides with her:</p>
+
+    <table class="dossier-table">
+      <thead><tr><th>Piece</th><th>State</th></tr></thead>
+      <tr><td>The Adamant Relic</td><td>Carried; opens only to Númenórean blood.</td></tr>
+      <tr><td>Berthor's Notebook</td><td>Given by Almedra; accounts collected over a lifetime of two scholars.</td></tr>
+      <tr><td>Círdan's Errand</td><td>Toward a warded island, ancient architecture unlike anything the Elves have seen, doors that have never opened.</td></tr>
+      <tr><td>The Arrow Unspoken</td><td>The released prisoner; <em>if Celenneth suspected anything, she said nothing.</em> Confined spaces and long voyages have a way of surfacing what has been left unspoken.</td></tr>
+      <tr><td>Her Shadow Path</td><td><em>Lure of Secrets.</em></td></tr>
+    </table>
+  </section>
+
+  <footer class="colophon">
+    Dossier &middot; Mithlond &middot; Late Third Age
+  </footer>
+
+</div>
+</body>
+</html>
