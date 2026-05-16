@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Fenrir, Cleric of the One True God</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=UnifrakturCook:wght@700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment: #ddd2b2;
+    --parchment-dark: #c8bb95;
+    --parchment-fold: #b6a777;
+    --ink: #2a2418;
+    --ink-soft: #4d3f25;
+    --ink-faint: #7a6740;
+    --moss: #4a5f3a;
+    --moss-deep: #2f4226;
+    --bracken: #6e4a22;
+    --bracken-deep: #4a3014;
+    --hawthorn: #6b1f1f;
+    --frost: #5b7088;
+    --frost-deep: #2f4561;
+    --frost-pale: #a8b8c8;
+    --rule: #a89366;
+    --rule-soft: #c2b288;
+    --stain: rgba(74, 48, 20, 0.08);
+  }
+
+  body {
+    font-family: 'EB Garamond', 'IM Fell English', Georgia, serif;
+    background: #1a1208;
+    background-image:
+      radial-gradient(ellipse at 30% 20%, rgba(60, 50, 30, 0.5) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 80%, rgba(40, 60, 40, 0.3) 0%, transparent 50%);
+    padding: 2.5rem 1rem 4rem;
+    min-height: 100vh;
+    color: var(--ink);
+  }
+
+  .doc {
+    max-width: 860px;
+    margin: 0 auto;
+    background: var(--parchment);
+    background-image:
+      radial-gradient(ellipse at 12% 8%, var(--stain) 0%, transparent 18%),
+      radial-gradient(ellipse at 88% 14%, rgba(74, 48, 20, 0.05) 0%, transparent 20%),
+      radial-gradient(ellipse at 22% 60%, var(--stain) 0%, transparent 14%),
+      radial-gradient(ellipse at 78% 88%, rgba(60, 40, 20, 0.07) 0%, transparent 22%),
+      radial-gradient(ellipse at 50% 50%, rgba(200, 187, 149, 0.4) 0%, transparent 80%),
+      repeating-linear-gradient(94deg,
+        transparent 0px, transparent 47px,
+        rgba(120, 90, 50, 0.025) 47px, rgba(120, 90, 50, 0.025) 48px);
+    position: relative;
+    box-shadow:
+      0 0 0 1px rgba(74, 48, 20, 0.3),
+      0 0 0 6px var(--parchment-fold),
+      0 0 0 7px rgba(74, 48, 20, 0.5),
+      0 25px 70px rgba(0, 0, 0, 0.75);
+    padding: 3rem 3.5rem 3.5rem;
+  }
+
+  .doc::before, .doc::after {
+    content: "";
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    pointer-events: none;
+    background-image:
+      radial-gradient(circle at 30% 30%, rgba(110, 74, 34, 0.18) 0%, transparent 35%),
+      radial-gradient(circle at 70% 60%, rgba(110, 74, 34, 0.12) 0%, transparent 40%);
+  }
+  .doc::before { top: 0; left: 0; }
+  .doc::after { bottom: 0; right: 0; transform: rotate(180deg); }
+
+  header.masthead {
+    text-align: center;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .eyebrow {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.34em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+  .name-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 0.4rem;
+  }
+  .antler {
+    width: 36px;
+    height: 56px;
+    opacity: 0.65;
+    flex-shrink: 0;
+  }
+  h1.title {
+    font-family: 'UnifrakturCook', 'IM Fell English', serif;
+    font-weight: 700;
+    font-size: 3.8rem;
+    line-height: 0.95;
+    color: var(--moss-deep);
+    text-shadow: 1px 1px 0 rgba(74, 48, 20, 0.15);
+    letter-spacing: 0.01em;
+  }
+  .subtitle {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    margin-top: 0.5rem;
+  }
+  .memorial-mark {
+    margin-top: 1.2rem;
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    color: var(--hawthorn);
+    text-transform: uppercase;
+  }
+  .memorial-mark::before, .memorial-mark::after {
+    content: " ✠ ";
+    color: var(--hawthorn);
+    opacity: 0.7;
+  }
+
+  .portrait-block {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    align-items: start;
+  }
+  .portrait-frame {
+    position: relative;
+    padding: 8px;
+    background: var(--parchment-dark);
+    border: 1px solid var(--bracken-deep);
+    box-shadow: inset 0 0 0 1px rgba(74, 48, 20, 0.3);
+  }
+  .portrait-frame img {
+    width: 100%;
+    display: block;
+    filter: sepia(0.25) saturate(0.85) contrast(1.02) brightness(0.95);
+  }
+  .portrait-cap {
+    text-align: center;
+    margin-top: 0.8rem;
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+
+  .vitals {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid var(--rule);
+    background: rgba(255, 250, 230, 0.18);
+  }
+  .vital {
+    padding: 0.55rem 0.95rem;
+    border-bottom: 1px solid rgba(168, 147, 102, 0.5);
+    border-right: 1px solid rgba(168, 147, 102, 0.5);
+  }
+  .vital:nth-child(even) { border-right: none; }
+  .vital:nth-last-child(-n+2) { border-bottom: none; }
+  .vl {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.12rem;
+  }
+  .vv {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.05rem;
+    color: var(--ink);
+  }
+  .vv.effaced {
+    color: var(--ink-faint);
+    font-style: italic;
+    font-size: 0.92rem;
+    position: relative;
+  }
+
+  .stat-block {
+    margin: 1.5rem 0 1rem;
+    border: 1px solid var(--rule);
+    background: rgba(255, 250, 230, 0.15);
+    padding: 1rem 1.1rem 1.1rem;
+    position: relative;
+  }
+  .stat-label {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    text-align: center;
+    border-bottom: 1px dashed var(--rule);
+    padding-bottom: 0.5rem;
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.35rem;
+  }
+  .stat {
+    text-align: center;
+    padding: 0.55rem 0.2rem 0.45rem;
+    border: 1px solid var(--rule);
+    background: rgba(200, 187, 149, 0.25);
+    position: relative;
+    overflow: hidden;
+  }
+  .stat .sl {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+  .stat .sv {
+    font-family: 'UnifrakturCook', serif;
+    font-size: 1.4rem;
+    color: var(--ink-soft);
+    line-height: 1;
+    opacity: 0.35;
+    filter: blur(1px);
+    letter-spacing: 0.05em;
+  }
+  .stat .ink-blot {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 60%, rgba(74, 48, 20, 0.22) 0%, rgba(74, 48, 20, 0.08) 35%, transparent 70%);
+    pointer-events: none;
+  }
+  .stat-footnote {
+    margin-top: 0.7rem;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 0.86rem;
+    color: var(--ink-faint);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  section { margin-bottom: 2.2rem; }
+
+  h2.section-title {
+    font-family: 'IM Fell English SC', serif;
+    font-weight: 400;
+    font-size: 0.82rem;
+    letter-spacing: 0.38em;
+    color: var(--moss-deep);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--moss);
+    padding-bottom: 0.45rem;
+    margin: 0 0 1.2rem;
+    position: relative;
+  }
+  h2.section-title::before {
+    content: "❦";
+    margin-right: 0.65rem;
+    color: var(--bracken);
+    font-size: 0.95rem;
+  }
+
+  h3.sub {
+    font-family: 'IM Fell English SC', serif;
+    font-weight: 400;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    color: var(--bracken-deep);
+    text-transform: uppercase;
+    margin: 1.4rem 0 0.55rem;
+  }
+
+  p {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.02rem;
+    line-height: 1.7;
+    margin-bottom: 0.95rem;
+    color: var(--ink);
+  }
+  p.drop-cap::first-letter {
+    font-family: 'UnifrakturCook', serif;
+    font-size: 3.2rem;
+    line-height: 0.85;
+    float: left;
+    padding: 0.25rem 0.55rem 0 0;
+    color: var(--moss-deep);
+    font-weight: 700;
+  }
+
+  ul { margin: 0.35rem 0 1rem 0; padding: 0; list-style: none; }
+  ul li {
+    margin-bottom: 0.4rem;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    padding-left: 1.3rem;
+    position: relative;
+  }
+  ul li::before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    top: 0.05rem;
+    color: var(--bracken);
+    font-size: 0.78rem;
+  }
+
+  em { color: var(--ink-soft); font-style: italic; }
+  strong { color: var(--moss-deep); font-weight: 600; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .inv-entry {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.97rem;
+    line-height: 1.55;
+    margin-bottom: 0.45rem;
+    padding-left: 1.1rem;
+    position: relative;
+  }
+  .inv-entry::before {
+    content: "·";
+    position: absolute;
+    left: 0.3rem;
+    top: -0.15rem;
+    color: var(--bracken);
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+  .inv-entry .item {
+    font-family: 'IM Fell English', serif;
+    color: var(--ink);
+  }
+  .inv-entry .note {
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+  .inv-entry.unknown {
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+
+  .confirmed {
+    background: rgba(74, 95, 58, 0.06);
+    border-left: 3px solid var(--moss);
+    padding: 0.8rem 1.1rem 0.6rem;
+    margin: 0.5rem 0 1rem;
+  }
+  .confirmed h4 {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--moss-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+  }
+
+  .chronicle { counter-reset: scene; }
+  .scene {
+    margin-bottom: 1.1rem;
+    padding-left: 2.4rem;
+    position: relative;
+  }
+  .scene::before {
+    counter-increment: scene;
+    content: counter(scene, lower-roman) ".";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: 'UnifrakturCook', serif;
+    font-size: 1.2rem;
+    color: var(--bracken);
+    width: 2rem;
+    text-align: right;
+  }
+  .scene h4 {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    color: var(--moss-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+    font-weight: 400;
+  }
+  .scene p {
+    margin-bottom: 0.55rem;
+    font-size: 0.99rem;
+  }
+
+  .marginalia {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--frost-deep);
+    border-left: 2px solid var(--frost);
+    padding: 0.4rem 0 0.4rem 0.95rem;
+    margin: 0.6rem 0 1.1rem 0.8rem;
+    background: rgba(91, 112, 136, 0.05);
+  }
+
+  .epitaph {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+  }
+  .epitaph .ep-mark {
+    font-family: 'UnifrakturCook', serif;
+    font-size: 1.8rem;
+    color: var(--hawthorn);
+    margin-bottom: 0.5rem;
+  }
+  .epitaph .ep-text {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .epitaph .ep-date {
+    margin-top: 1.2rem;
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+
+  .doc > .frost-thread {
+    position: absolute;
+    top: 6px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--frost-pale) 30%,
+      var(--frost) 50%,
+      var(--frost-pale) 70%,
+      transparent 100%);
+    opacity: 0.4;
+  }
+
+  @media (max-width: 720px) {
+    .doc { padding: 2rem 1.5rem 2.5rem; }
+    h1.title { font-size: 2.6rem; }
+    .portrait-block { grid-template-columns: 1fr; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .two-col { grid-template-columns: 1fr; gap: 0.5rem; }
+    .vitals { grid-template-columns: 1fr; }
+    .vital { border-right: none; }
+    .vital:nth-last-child(2) { border-bottom: 1px solid rgba(168, 147, 102, 0.5); }
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+<div class="frost-thread"></div>
+
+<header class="masthead">
+  <div class="eyebrow">Character Dossier &middot; Old School Essentials &middot; Dolmenwood (One-Shot)</div>
+  <div class="name-row">
+    <svg class="antler" viewBox="0 0 36 56" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 56 L18 36 M18 36 L8 24 M18 36 L26 22 M8 24 L4 14 M8 24 L12 16 M26 22 L30 12 M26 22 L22 14 M4 14 L2 6 M30 12 L34 4 M22 14 L20 6 M12 16 L14 8"
+        stroke="#4a3014" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </svg>
+    <h1 class="title">Fenrir</h1>
+    <svg class="antler" viewBox="0 0 36 56" xmlns="http://www.w3.org/2000/svg" style="transform: scaleX(-1);">
+      <path d="M18 56 L18 36 M18 36 L8 24 M18 36 L26 22 M8 24 L4 14 M8 24 L12 16 M26 22 L30 12 M26 22 L22 14 M4 14 L2 6 M30 12 L34 4 M22 14 L20 6 M12 16 L14 8"
+        stroke="#4a3014" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <p class="subtitle">Cleric of the One True God &middot; Pilgrim into the Cold Dark</p>
+  <div class="memorial-mark">Interred at the Tomb of Sir Chide</div>
+</header>
+
+<section class="portrait-block">
+  <div>
+    <div class="portrait-frame">
+      <img src="Fenrir.png" alt="Fenrir, an elderly hooded cleric with a long white beard, holding a torch and a carved staff in a misty winter wood"/>
+    </div>
+    <div class="portrait-cap">As Last Seen &middot; Hill of the High Woald</div>
+  </div>
+
+  <div>
+    <div class="vitals">
+      <div class="vital"><div class="vl">Class</div><div class="vv">Cleric</div></div>
+      <div class="vital"><div class="vl">Player</div><div class="vv">Jordan</div></div>
+      <div class="vital"><div class="vl">Level</div><div class="vv effaced">illegible</div></div>
+      <div class="vital"><div class="vl">Alignment</div><div class="vv effaced">faded ink</div></div>
+      <div class="vital"><div class="vl">Faith</div><div class="vv">The One True God</div></div>
+      <div class="vital"><div class="vl">Gender</div><div class="vv">Male</div></div>
+      <div class="vital"><div class="vl">Patron Saint</div><div class="vv">Sedge, the Holy Crusader</div></div>
+      <div class="vital"><div class="vl">Status</div><div class="vv" style="color: var(--hawthorn);">Deceased</div></div>
+    </div>
+
+    <div class="stat-block">
+      <div class="stat-label">Ability Scores &middot; Recovered Sheet</div>
+      <div class="stat-grid">
+        <div class="stat"><div class="sl">Str</div><div class="sv">?</div><div class="ink-blot"></div></div>
+        <div class="stat"><div class="sl">Int</div><div class="sv">?</div><div class="ink-blot"></div></div>
+        <div class="stat"><div class="sl">Wis</div><div class="sv">?</div><div class="ink-blot"></div></div>
+        <div class="stat"><div class="sl">Dex</div><div class="sv">?</div><div class="ink-blot"></div></div>
+        <div class="stat"><div class="sl">Con</div><div class="sv">?</div><div class="ink-blot"></div></div>
+        <div class="stat"><div class="sl">Cha</div><div class="sv">?</div><div class="ink-blot"></div></div>
+      </div>
+      <div class="stat-footnote">The ability scores upon this page are obscured by water-damage and the slow workings of mould. What numbers were once writ there are no longer legible to any hand.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">I. The Man, As Recorded</h2>
+  <p class="drop-cap">Fenrir was an elderly cleric of the One True God, hooded and grey-bearded, who took up the dangerous pilgrimage to the Tomb of Sir Chide upon the Hill of the High Woald. He carried a torch and a carved staff, and he wore the dark robes of his calling. Of his earlier travels &mdash; whence he came, what parishes he had served, what saints he had walked between &mdash; the parchment is silent. He arrived in the woods already old.</p>
+  <p>What can be said with certainty is set down in the sections that follow. The rest is rumour, marginalia, and the smoke of an extinguished candle.</p>
+</section>
+
+<section>
+  <h2 class="section-title">II. Confirmed Capabilities</h2>
+  <p style="font-style: italic; color: var(--ink-faint); font-size: 0.95rem;">Only those abilities he was witnessed to use are recorded here. The remainder of his clerical art &mdash; his prepared orisons, his higher rites, the full breadth of his learning &mdash; goes with him into the ground.</p>
+
+  <div class="confirmed">
+    <h4>Witnessed In Use</h4>
+    <ul>
+      <li><strong>Turn Undead.</strong> Invoked upon the slime-slick stag-skeleton at the stone circle. A green haze rose where it had stood.</li>
+      <li><strong>Mace, wielded.</strong> Brought down with sufficient force to shatter the wooden cherub of the four blasphemous relics.</li>
+      <li><strong>Light the Candle of Saint Sedge.</strong> A rite performed at the chapel altar above. A wind rushed about him; a distant neigh and a victorious battle-cry were heard, as though from a long-ago field. He laid wooden fruit upon the altar in thanks.</li>
+    </ul>
+  </div>
+
+  <h3 class="sub">Of His Cloth</h3>
+  <p>As a cleric in the proper tradition, Fenrir is assumed to have known the lesser orisons of his order &mdash; the laying-on of hands, the warding of evil, the speaking-of-blessings &mdash; though no spellcasting was observed in the record kept of his final day. Whether he had readied a prayer that morning and never had cause to speak it, or whether he had spent his grace before the descent, cannot now be known.</p>
+</section>
+
+<section>
+  <h2 class="section-title">III. Goods &amp; Carried Things</h2>
+  <div class="two-col">
+    <div>
+      <h3 class="sub">Recovered from his Person</h3>
+      <div class="inv-entry"><span class="item">Mace.</span> <span class="note">Iron-headed, of the cleric's permitted arms. Used to shatter a cherub.</span></div>
+      <div class="inv-entry"><span class="item">Torch.</span> <span class="note">Surrendered to Lexel la Marque that she might attempt the burning of the cherub. Returned, presumably.</span></div>
+      <div class="inv-entry"><span class="item">Wooden fruit.</span> <span class="note">A pilgrim's offering. Painted. Left upon the altar of Saint Sedge.</span></div>
+      <div class="inv-entry"><span class="item">Holy symbol of the One True God.</span> <span class="note">Worn at the breast. The shape of it does not survive in the record.</span></div>
+    </div>
+    <div>
+      <h3 class="sub">Implied by Calling</h3>
+      <div class="inv-entry unknown">Armour proper to the Cleric &mdash; the cut and weight not given.</div>
+      <div class="inv-entry unknown">A satchel; a prayer-book; oil for lamps; a flint &amp; steel; the small habits of the road.</div>
+      <div class="inv-entry unknown">Coin enough for the road, but no record of his purse.</div>
+      <div class="inv-entry unknown">Whatever share of the five thousand gold he was promised, he did not live to spend.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">IV. The Company</h2>
+  <p>He went into the Wood with five others, gathered for the wizard's commission to recover a ring from the hand of a skeleton long buried.</p>
+  <ul>
+    <li><strong>Lexel la Marque</strong> &mdash; Elf, woman. Read the runes at the stone circle. Carried the ring to faerie at the end. <em>(Jordan)</em></li>
+    <li><strong>Legwen</strong> &mdash; Fighter, man. Cleaved the scolding spine of the holy book. Cut the silver crucifix in half. <em>(Beef)</em></li>
+    <li><strong>Sybil</strong> &mdash; Magic-user, non-binary. Slain by the stone hounds. <em>(Beef)</em></li>
+    <li><strong>Breagle</strong> &mdash; Dwarf, man. Banged on a metal owl to learn it was hollow. Slain by the stone hounds. <em>(Frank)</em></li>
+    <li><strong>Jilly</strong> &mdash; Thief, woman. Asked the Lady, at the end, that the fallen be returned. <em>(Frank)</em></li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="section-title">V. Chronicle of the Pilgrimage</h2>
+  <div class="chronicle">
+
+    <div class="scene">
+      <h4>The Commission</h4>
+      <p>A wizard's coin &mdash; five thousand gold &mdash; for a ring upon the hand of a skeleton, buried in a mound within the Wood. The site had been a place of pilgrimage in older years. The church had since closed it off. The way was no longer safe.</p>
+      <div class="marginalia">It was said the Cold Prince once ruled Dolmenwood and kept it under deep cold; that mortals fought him nine hundred years past; that Sir Chide the fabled hero fell in love with the Lady of the Wood; that they exchanged rings of engagement; that Sir Chide was slain upon the Hill of the High Woald, asking only to be interred; and that the Lady was never seen again. Every year the magic weakens. Every year the winter creeps closer back.</div>
+    </div>
+
+    <div class="scene">
+      <h4>The Stone Circle</h4>
+      <p>The path led into a ring of mossy, rune-graven stones, etched in a magical script of summoning. Within their compass a stag's skeleton twitched in a coat of bright green slime. Fenrir spoke the rite of <em>Turn Undead</em>, and a green haze answered him.</p>
+      <p>Rusted owl-figures stood about the clearing, their wings spread, their eyes graven with pentagrams; Breagle struck one and found it hollow. A warty toad crept out of the trees and spoke one word: <em>Betrayal.</em></p>
+      <p>The slab before the mound was levered loose with rope and pole. Stairs descended.</p>
+    </div>
+
+    <div class="scene">
+      <h4>The Four Relics</h4>
+      <p>In the first chamber stood four mouldering plinths, each bearing an object furred with mustard-coloured rot: a silver crucifix, a wooden cherub, a great candle, and an open holy book. When the company drew near, the relics rose, and a shrill voice scolded the party for their misdeeds.</p>
+      <p>Legwen cleaved the spine of the book in two. Fenrir seized the crucifix &mdash; which scolded him in turn, for not serving the one true god &mdash; and Legwen halved it. Lexel took the torch from Legwen and went to burn the cherub, but the torch would not catch it; Fenrir then shattered the cherub with his mace. Beneath the dust, a mosaic showed in colours.</p>
+    </div>
+
+    <div class="scene">
+      <h4>The Dancing Dead</h4>
+      <p>Behind the double doors two skeletons waltzed in the air above a fissure in the floor &mdash; drenched in a slime-vapour that fell in transparent sheets from a hairline crack in the ceiling. Five stone biers stood about them; a brass plaque named Lady Amaranda and another Lord Brigfolwith.</p>
+      <p>The dancing dead came forward to dance with Fenrir. One reached out a hand, and the slime-coating rushed over him in a thin film. Legwen prised open the eastmost coffin, and two other skeletons &mdash; one human, one feline &mdash; rushed forth crying that the company defiled their dead.</p>
+    </div>
+
+    <div class="scene">
+      <h4>Return to the Chapel</h4>
+      <p>Doubling back, the company climbed again to the small chapel above &mdash; the shrine of Saint Sedge, the Holy Crusader, who stood with a thick red candle held aloft. Fenrir lit the candle. A wind rushed about him; a distant horse's neigh and a victorious battle-cry sounded from across the years. He left wooden fruit upon the altar in offering. <em>This was his rite.</em></p>
+    </div>
+
+    <div class="scene">
+      <h4>The Stone Hounds</h4>
+      <p>In the pillared chamber stood statues of war and, in a recess, two stone-hounds chained to the door. When the company touched the door the hounds woke. One bit Breagle and killed him. The party drew back; the hounds lunged. They opened the locked door themselves, and the company ran past them &mdash; Lexel through, then Jilly. Fenrir swung and missed. Sybil fell.</p>
+    </div>
+
+    <div class="scene">
+      <h4>The Ghost and the Portrait</h4>
+      <p>Beyond was a huge circular chamber, where a pale azure ghost &mdash; visor raised, forlorn &mdash; knelt before a grimed portrait of a fair maiden amid a stone circle. A stone coffer stood closed. The ghost was Sir Chide, who had been waiting these nine hundred years. He begged that his ring be taken to the lower level, that he might rejoin his beloved in Faerie.</p>
+      <p>Lexel slipped the ring from the ghost's hand. The party were shaken and hollowed out by the long descent. The mood was very much to be done with the job.</p>
+    </div>
+
+    <div class="scene">
+      <h4>The Wintery Glade</h4>
+      <p>Stairs led down to a pool, a marble statue of a maiden, dozens of ghostly candles floating in the air, and a vaulted ceiling that proved an illusion. Beyond the threshold lay two feet of snow, a frozen lake, a tower with smoke rising from it, and a purple crack in the sky from which sticky purple matter dripped to stain the snow. Mossy corpses hung in the trees.</p>
+      <div class="marginalia">Here Fenrir hung back. Of all the company it was he who would not cross fully into faerie. Whether out of doctrinal conscience &mdash; for the One True God has little patience with the realm beneath the hill &mdash; or simple weariness, the record does not say.</div>
+    </div>
+
+    <div class="scene">
+      <h4>The Tower &amp; the Ring</h4>
+      <p>Lexel pressed on, parlayed her way past a hulking palanquin-bearer and its scrawny rider by accepting a small yellow mushroom that made her shine, and ascended the tower to the Lady of the Wood. The ring was given. The Lady gave the tale of herself and her late knight in full. At Jilly's request she gave a further gift: the resurrection of the fallen.</p>
+      <p>But the gift could not extend to all. The line between Faerie and the world of men is fading; in a few days it will be gone. The Lady and Sir Chide remain trapped in the other place, and shall remain so. Perhaps, in some campaign yet to come, the favour of the Winter King might unwork what cannot now be undone.</p>
+    </div>
+
+  </div>
+</section>
+
+<div class="epitaph">
+  <div class="ep-mark">✠</div>
+  <div class="ep-text">
+    Fenrir, cleric of the One True God, did not return from the Tomb of Sir Chide. He went into the cold dark with five companions and the wood took him there. He had lit, before the end, the candle of Saint Sedge; and a wind had moved about him, and a battle-cry across a great distance, as though he had been recognised.
+  </div>
+  <div class="ep-date">May He Rest Beyond the Reach of the Cold Prince</div>
+</div>
+
+</div>
+</body>
+</html>

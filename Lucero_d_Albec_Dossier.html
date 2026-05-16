@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case File — Lucero d'Albec</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Special+Elite&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Lucero: infernal noir. The case file the Watch doesn't want him having.
+       Burnt manila over coffee-dark, brass clasps and a sulfurous lamp.
+       Devil-skin purple bleeding through the smoke. */
+    --bg: #0e0608;
+    --bg-deep: #060304;
+    --paper: #d4b884;
+    --paper-shadow: #a08858;
+    --paper-edge: #6a4a28;
+    --paper-burn: #3a1808;
+
+    --ink: #1a0a08;
+    --ink-soft: #3a1a14;
+    --ink-faint: #5a3828;
+
+    --brass: #c89438;
+    --brass-bright: #e8b850;
+    --brass-pale: #f0d488;
+    --brass-deep: #6a4a18;
+
+    --blood: #6a0a14;
+    --blood-bright: #a8141c;
+    --blood-deep: #380408;
+
+    --hell-purple: #5a1a4a;
+    --hell-purple-bright: #8a2a78;
+    --hell-purple-pale: #b85aa8;
+
+    --sulfur: #d4a818;
+    --sulfur-pale: #f0d048;
+
+    --redact: #0a0608;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:var(--bg-deep); color:var(--ink); font-family:'Cormorant Garamond', Georgia, serif; font-size:16px; line-height:1.65; }
+  body {
+    /* smoke and a single lamp */
+    background-image:
+      radial-gradient(ellipse at 50% 0%, rgba(212,168,24,0.10) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 100%, rgba(106,10,20,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 10% 60%, rgba(90,26,74,0.10) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, #1a0a0c 0%, #0e0608 60%, #060304 100%);
+    min-height: 100vh; padding: 2.5rem 1rem;
+  }
+  /* smoke grain */
+  body::before {
+    content:''; position:fixed; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch' seed='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events:none; z-index:1000; mix-blend-mode:overlay; opacity:0.5;
+  }
+
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    position: relative;
+    background-image:
+      /* coffee-stain rings and burn marks */
+      radial-gradient(ellipse 180px 60px at 12% 88%, rgba(58,24,8,0.18) 0%, transparent 70%),
+      radial-gradient(circle at 92% 8%, rgba(58,24,8,0.22) 0%, transparent 14%),
+      radial-gradient(circle at 88% 12%, rgba(58,24,8,0.12) 0%, transparent 10%),
+      /* burnt edges */
+      radial-gradient(ellipse at 0% 0%, rgba(106,74,40,0.55) 0%, transparent 22%),
+      radial-gradient(ellipse at 100% 0%, rgba(58,24,8,0.50) 0%, transparent 25%),
+      radial-gradient(ellipse at 100% 100%, rgba(106,74,40,0.55) 0%, transparent 22%),
+      radial-gradient(ellipse at 0% 100%, rgba(58,24,8,0.50) 0%, transparent 25%),
+      /* paper tone variance */
+      radial-gradient(ellipse at 50% 50%, rgba(212,184,132,1) 0%, rgba(186,154,100,1) 80%, rgba(140,108,68,1) 100%);
+    box-shadow:
+      0 0 0 1px var(--paper-burn),
+      0 0 0 2px rgba(0,0,0,0.5),
+      0 0 60px rgba(212,168,24,0.10),
+      0 0 120px rgba(106,10,20,0.15),
+      0 30px 80px rgba(0,0,0,0.7);
+  }
+  /* singed edges — irregular charred line top & bottom */
+  .document::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:14px;
+    background-image:
+      linear-gradient(to bottom, var(--paper-burn) 0%, transparent 100%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M0,0 L0,8 Q8,12 16,7 T32,9 T48,6 T64,10 T80,7 T96,11 T112,6 T128,9 T144,7 T160,11 T176,7 T192,9 T200,8 L200,0 Z' fill='%233a1808'/%3E%3C/svg%3E");
+    background-size: 100% 14px, 200px 14px;
+    background-position: 0 0;
+    background-repeat: no-repeat, repeat-x;
+  }
+  .document::after {
+    content:''; position:absolute; bottom:0; left:0; right:0; height:14px;
+    background-image:
+      linear-gradient(to top, var(--paper-burn) 0%, transparent 100%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M0,14 L0,6 Q8,2 16,7 T32,5 T48,8 T64,4 T80,7 T96,3 T112,8 T128,5 T144,7 T160,3 T176,7 T192,5 T200,6 L200,14 Z' fill='%233a1808'/%3E%3C/svg%3E");
+    background-size: 100% 14px, 200px 14px;
+    background-position: bottom;
+    background-repeat: no-repeat, repeat-x;
+  }
+
+  .doc-inner { padding: 3.5rem 3.8rem 4.5rem; position:relative; }
+
+  /* MASTHEAD — Watch Officer header, with redactions */
+  .masthead {
+    border-top: 3px double var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: 0.8rem 0;
+    margin-bottom: 1.8rem;
+    font-family:'Special Elite', 'Courier New', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .masthead .left, .masthead .right { display:flex; gap:1.2rem; align-items:center; }
+  .masthead .stamp {
+    color: var(--blood); border:1.5px solid var(--blood);
+    padding: 0.2rem 0.5rem; letter-spacing:0.16em; font-weight:700;
+    transform: rotate(-3deg);
+  }
+  .masthead .redacted {
+    background: var(--redact); color: var(--redact);
+    padding: 0.05rem 0.4rem; user-select: none;
+    text-shadow: none;
+  }
+  .masthead .redacted:hover { color: rgba(212,184,132,0.4); }
+
+  /* CASE NUMBER BAR */
+  .case-bar {
+    background: rgba(58,24,8,0.18);
+    border-left: 4px solid var(--blood);
+    padding: 0.5rem 1rem;
+    margin-bottom: 2rem;
+    font-family:'Special Elite', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    color: var(--ink);
+    display: flex; gap: 2rem; flex-wrap: wrap;
+  }
+  .case-bar .field { display: flex; gap: 0.5rem; }
+  .case-bar .field .lbl { color: var(--ink-faint); text-transform: uppercase; }
+  .case-bar .field .val { color: var(--blood-deep); font-weight: 700; text-transform: uppercase; }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 2.5rem;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+  }
+  .portrait-frame {
+    width: 100%;
+    position: relative;
+    padding: 6px;
+    background: var(--ink);
+    box-shadow:
+      0 0 0 1px var(--brass-deep),
+      0 0 0 4px var(--paper),
+      0 0 0 5px var(--ink),
+      0 12px 40px rgba(0,0,0,0.6),
+      inset 0 0 20px rgba(0,0,0,0.7);
+  }
+  .portrait-frame img {
+    width:100%; display:block;
+    filter: sepia(0.15) saturate(1.0) contrast(1.05) brightness(0.92);
+  }
+  /* brass corner brackets */
+  .portrait-frame::before, .portrait-frame::after {
+    content:''; position:absolute; width:18px; height:18px;
+    border: 2px solid var(--brass-bright);
+    box-shadow: 0 0 8px rgba(232,184,80,0.4);
+  }
+  .portrait-frame::before {
+    top:-4px; left:-4px;
+    border-right:none; border-bottom:none;
+  }
+  .portrait-frame::after {
+    bottom:-4px; right:-4px;
+    border-left:none; border-top:none;
+  }
+  .portrait-caption {
+    margin-top: 1rem;
+    font-family:'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.5;
+  }
+  .portrait-caption .alias {
+    display: inline-block;
+    text-decoration: line-through;
+    text-decoration-color: var(--blood);
+    text-decoration-thickness: 2px;
+    color: var(--ink-soft);
+  }
+
+  .hero-text { padding-top: 0.2rem; }
+  .eyebrow {
+    font-family:'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--hell-purple);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .eyebrow .sep { color: var(--ink-faint); margin: 0 0.6em; }
+
+  h1.character-name {
+    font-family:'Playfair Display', serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 4rem;
+    line-height: 0.95;
+    color: var(--ink);
+    margin: 0.4rem 0 0.4rem;
+    letter-spacing: -0.01em;
+    text-shadow:
+      1px 1px 0 var(--paper-shadow),
+      2px 2px 0 rgba(0,0,0,0.08);
+  }
+  h1.character-name .alias-line {
+    display:block;
+    font-family:'Special Elite', monospace;
+    font-size: 0.22em;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--ink-faint);
+    letter-spacing: 0.22em;
+    margin-top: 0.7rem;
+    text-shadow: none;
+    text-transform: uppercase;
+  }
+  h1.character-name .alias-line .true {
+    text-decoration: line-through;
+    text-decoration-color: var(--blood-bright);
+    text-decoration-thickness: 2px;
+    color: var(--ink-soft);
+  }
+
+  .tagline {
+    font-style: italic;
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    margin: 1rem 0 1.2rem;
+    max-width: 52ch;
+    line-height: 1.55;
+    border-left: 3px solid var(--blood);
+    padding-left: 1rem;
+  }
+
+  .vitals-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    font-family:'Special Elite', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: 0.55rem 0;
+    margin-top: 1.2rem;
+  }
+  .vitals-row .v { border-left: 1px solid var(--ink-faint); padding: 0.1rem 0.85rem; white-space: nowrap; }
+  .vitals-row .v:first-child { border-left: none; padding-left: 0; }
+  .vitals-row .v strong { color: var(--blood); font-weight: 700; margin-left: 0.4em; }
+  .vitals-row .v.warn strong { color: var(--blood-bright); }
+  .vitals-row .v.purple strong { color: var(--hell-purple-bright); }
+
+  /* TOC — like an evidence list, brass tab corners */
+  nav.toc {
+    background: rgba(26,10,8,0.06);
+    border: 1px solid var(--ink-soft);
+    border-top: 3px solid var(--brass-deep);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 2.8rem;
+    columns: 2;
+    column-gap: 2.4rem;
+    position: relative;
+  }
+  nav.toc::before {
+    content:'EXHIBITS';
+    position: absolute; top: -10px; left: 20px;
+    background: var(--paper);
+    padding: 0 0.7rem;
+    font-family:'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--brass-deep);
+    font-weight: 700;
+  }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; font-family:'Special Elite', monospace; }
+  nav.toc ol li { counter-increment: toc; font-size: 0.92rem; margin-bottom: 0.3rem; break-inside: avoid; }
+  nav.toc ol li::before { content: "[" counter(toc, decimal-leading-zero) "] "; color: var(--blood); font-weight: 700; }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--blood); text-decoration: underline; }
+
+  section { margin-bottom: 3rem; }
+
+  h2.section-title {
+    font-family:'Playfair Display', serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.9rem;
+    color: var(--ink);
+    margin: 0 0 1.4rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--ink-soft);
+    position: relative;
+  }
+  h2.section-title::before {
+    content: '§';
+    color: var(--blood);
+    margin-right: 0.5rem;
+    font-weight: 900;
+    font-style: normal;
+  }
+  h2.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0;
+    width: 60px; height: 3px;
+    background: var(--blood);
+  }
+
+  h3.subhead {
+    font-family:'Playfair Display', serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--blood-deep);
+    margin: 1.6rem 0 0.5rem;
+    letter-spacing: 0.01em;
+  }
+  h3.subhead::before { content: '— '; color: var(--brass-deep); font-style: normal; }
+
+  h4.entry-label {
+    font-family:'Special Elite', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin: 1.4rem 0 0.5rem;
+    border-bottom: 1px dotted var(--ink-faint);
+    padding-bottom: 0.2rem;
+  }
+
+  p { margin: 0.7rem 0; }
+  p.drop-cap::first-letter {
+    font-family:'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: 4rem;
+    float: left;
+    line-height: 0.85;
+    margin: 0.15rem 0.6rem -0.1rem 0;
+    color: var(--blood);
+  }
+  em { font-style: italic; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 700; }
+
+  /* STATS GRID — case numbers stamped in brass */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.6rem;
+    margin: 1.5rem 0;
+  }
+  .stat-cell {
+    border: 1px solid var(--ink-soft);
+    background: rgba(26,10,8,0.04);
+    padding: 0.9rem 0.6rem;
+    text-align: center;
+  }
+  .stat-cell .label {
+    font-family:'Special Elite', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.3rem;
+  }
+  .stat-cell .value {
+    font-family:'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 2.2rem;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .stat-cell .gloss {
+    font-size: 0.74rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 0.4rem;
+    line-height: 1.3;
+  }
+  .stat-cell.high { background: rgba(106,10,20,0.10); border-color: var(--blood); }
+  .stat-cell.high .value { color: var(--blood-deep); }
+  .stat-cell.neg .value { color: var(--ink-faint); }
+
+  /* STATUS GRID — recoveries / ferocity meters */
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .status-cell {
+    border: 1px solid var(--ink);
+    background: rgba(58,24,8,0.06);
+    padding: 1rem;
+  }
+  .status-cell .label {
+    font-family:'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .status-cell .value {
+    font-family:'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 2.2rem;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .status-cell .value .sub { font-size: 0.4em; color: var(--ink-faint); font-weight: 400; }
+  .status-cell .note {
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 0.5rem;
+    line-height: 1.3;
+  }
+  .status-cell .bar { height: 4px; background: rgba(0,0,0,0.12); margin-top: 0.5rem; }
+  .status-cell .bar .fill { height: 100%; background: var(--blood); }
+  .status-cell .bar.brass .fill { background: var(--brass-deep); }
+  .status-cell .bar.purple .fill { background: var(--hell-purple); }
+
+  /* TABLES */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.96rem;
+  }
+  table.dossier-table th, table.dossier-table td {
+    text-align: left;
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--ink-faint);
+    vertical-align: top;
+  }
+  table.dossier-table th {
+    font-family:'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--blood-deep);
+    border-bottom: 2px solid var(--blood);
+    background: rgba(26,10,8,0.04);
+  }
+  table.dossier-table td:first-child { font-weight: 700; color: var(--ink); width: 28%; }
+
+  /* ABILITY BLOCKS */
+  .ability-block {
+    border: 1px solid var(--ink-soft);
+    background: rgba(212,184,132,0.4);
+    padding: 1rem 1.2rem;
+    margin: 0.9rem 0;
+    position: relative;
+  }
+  .ability-block.signature { border-left: 4px solid var(--blood); background: rgba(106,10,20,0.06); }
+  .ability-block.core { border-left: 4px solid var(--hell-purple); background: rgba(90,26,74,0.05); }
+  .ability-block.kit { border-left: 4px solid var(--brass-deep); background: rgba(106,74,24,0.07); }
+  .ability-block .ability-name {
+    font-family:'Playfair Display', serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--ink);
+    margin-bottom: 0.1rem;
+  }
+  .ability-block .ability-flavor {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+  }
+  .ability-block .ability-meta {
+    font-family:'Special Elite', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    border-bottom: 1px dotted var(--ink-faint);
+    padding-bottom: 0.4rem;
+  }
+  .ability-block .ability-desc { margin-top: 0.4rem; }
+  .tier-roll {
+    margin-top: 0.6rem;
+    padding: 0.5rem 0.8rem;
+    background: rgba(26,10,8,0.08);
+    border-left: 3px solid var(--brass-deep);
+    font-size: 0.94rem;
+  }
+  .tier-roll .tier-label {
+    font-family:'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--blood-deep);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .tier-roll .tier { display: block; margin: 0.15rem 0; }
+  .tier-roll .tier b { color: var(--blood-deep); }
+
+  /* CALLOUTS */
+  .callout {
+    border: 1px solid var(--hell-purple);
+    background: rgba(90,26,74,0.07);
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    border-left: 4px solid var(--hell-purple);
+  }
+  .callout.warn {
+    border: 1px solid var(--blood);
+    background: rgba(106,10,20,0.08);
+    border-left: 4px solid var(--blood);
+  }
+  .callout.draft {
+    border: 1px dashed var(--ink-faint);
+    background: rgba(26,10,8,0.04);
+    border-left: 4px dashed var(--ink-faint);
+  }
+  .callout .label {
+    font-family:'Special Elite', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--hell-purple-bright);
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+  .callout.warn .label { color: var(--blood-bright); }
+  .callout.draft .label { color: var(--ink-faint); }
+  .callout p { margin: 0.3rem 0; }
+
+  /* Provisional tag */
+  .draft-tag {
+    display: inline-block;
+    font-family:'Special Elite', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--blood-bright);
+    border: 1.5px solid var(--blood);
+    padding: 0.05rem 0.4rem;
+    text-transform: uppercase;
+    transform: rotate(-2deg);
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    background: rgba(212,184,132,0.6);
+  }
+
+  /* Skills layout */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.4rem;
+  }
+  .skill-group .group-label {
+    font-family:'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--blood-deep);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--ink-soft);
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
+  }
+  .skill-group ul { list-style: none; margin: 0; padding: 0; font-size: 0.95rem; }
+  .skill-group ul li { padding: 0.18rem 0; border-bottom: 1px dotted var(--ink-faint); display: flex; justify-content: space-between; }
+  .skill-group ul li .src { font-size: 0.72rem; color: var(--ink-faint); font-style: italic; font-family:'Special Elite', monospace; letter-spacing: 0.05em; }
+
+  /* Footer */
+  footer.colophon {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 3px double var(--ink);
+    font-family:'Special Elite', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+  }
+  footer.colophon .accent { color: var(--blood); font-weight: 700; }
+
+  @media (max-width: 780px) {
+    .doc-inner { padding: 2rem 1.4rem 3rem; }
+    .hero { grid-template-columns: 1fr; }
+    .portrait-frame { width: 70%; margin: 0 auto; }
+    h1.character-name { font-size: 2.8rem; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .status-grid { grid-template-columns: 1fr; }
+    nav.toc { columns: 1; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .masthead { flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+  <div class="doc-inner">
+
+    <!-- MASTHEAD -->
+    <div class="masthead">
+      <div class="left">
+        <span>Case File · Collateral</span>
+        <span class="stamp">Default</span>
+      </div>
+      <div class="right">
+        <span>Filed under: <span class="redacted">REDACTED</span></span>
+        <span>Subject deceased <em>(per record)</em></span>
+      </div>
+    </div>
+
+    <!-- CASE BAR -->
+    <div class="case-bar">
+      <div class="field"><span class="lbl">Case №</span><span class="val">SCH-7-114-Ω</span></div>
+      <div class="field"><span class="lbl">Subject</span><span class="val">D'Albec, L.</span></div>
+      <div class="field"><span class="lbl">Charge</span><span class="val">Homicide · Flight</span></div>
+      <div class="field"><span class="lbl">Status</span><span class="val">Open / Active</span></div>
+    </div>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div>
+        <div class="portrait-frame">
+          <img src="Lucero.png" alt="Lucero d'Albec, a purple-skinned devil with ram horns">
+        </div>
+        <div class="portrait-caption">
+          Subject D'Albec, L.<br>
+          Traveling as <span class="alias">L. D'Albec</span><br>
+          <em>New identity unrecorded</em>
+        </div>
+      </div>
+
+      <div class="hero-text">
+        <div class="eyebrow">Devil <span class="sep">·</span> Fury <span class="sep">·</span> Reaver Subclass</div>
+        <h1 class="character-name">
+          Lucero d'Albec
+          <span class="alias-line">Former Watch Officer · <span class="true">Wanted for Homicide</span></span>
+        </h1>
+        <div class="tagline">
+          He swore the oath, walked the beat, and watched his partner die for a crime he didn't commit. The Watch's evidence said otherwise. He fled before they could finish the case. Now he carries a whip and a new name, and someone has named him as collateral on a debt he never signed.
+        </div>
+        <div class="vitals-row">
+          <span class="v">Level <strong>1</strong></span>
+          <span class="v">Speed <strong>8</strong></span>
+          <span class="v">Stability <strong>0</strong></span>
+          <span class="v">Stamina <strong>21</strong></span>
+          <span class="v purple">Ferocity <strong>0</strong></span>
+          <span class="v warn">Complication: <strong>Guilty Conscience</strong></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- TOC -->
+    <nav class="toc">
+      <ol>
+        <li><a href="#identity">Identity &amp; Cover</a></li>
+        <li><a href="#stats">Characteristics</a></li>
+        <li><a href="#ferocity">Ferocity Resource</a></li>
+        <li><a href="#ancestry">Devil Traits</a></li>
+        <li><a href="#class">Fury Class Features</a></li>
+        <li><a href="#subclass">Reaver Subclass</a></li>
+        <li><a href="#kit">Whirlwind Kit</a></li>
+        <li><a href="#abilities">Selected Abilities</a></li>
+        <li><a href="#culture">Culture &amp; Career</a></li>
+        <li><a href="#skills">Skills &amp; Languages</a></li>
+        <li><a href="#complication">Complication — Guilty Conscience</a></li>
+        <li><a href="#incident">Inciting Incident — Frame Job</a></li>
+        <li><a href="#campaign">Position in Collateral</a></li>
+        <li><a href="#arc">Character Arc</a></li>
+      </ol>
+    </nav>
+
+    <!-- I. IDENTITY -->
+    <section id="identity">
+      <h2 class="section-title">I. Identity &amp; Cover</h2>
+      <p class="drop-cap">Lucero d'Albec is a devil — one of the native ancestry of the Seven Cities of Hell. Purple-skinned, ram-horned, winged. He was a Watch Officer. He had a partner. He had a beat, an oath, and a record clean enough that the frame had to be a good one. The frame was a good one.</p>
+
+      <p>The Watch ruled the murder his. He didn't wait to find out what evidence had been planted, by whom, or why. He left. He picked up a whip — a thing no decent officer carried — and started doing the work outside the law that the law would no longer let him do inside it. He has not yet cleared his name. He may never. The campaign roster also describes him as <em>"dogged by his own family,"</em> a powerful devil family that wants him ruined — though whether the family wanted him framed, helped frame him, or has merely benefited from the framing is undetermined.</p>
+
+      <p>In Alloy, the Free City of Brass, his cover is precarious. Someone has named him as collateral on a defaulted debt. Either the Saffron Seal does not know who he is, or it knows exactly who he is.</p>
+    </section>
+
+    <!-- II. CHARACTERISTICS -->
+    <section id="stats">
+      <h2 class="section-title">II. Characteristics</h2>
+      <div class="stat-grid">
+        <div class="stat-cell high"><div class="label">Might</div><div class="value">+2</div><div class="gloss">Primary · raw strike</div></div>
+        <div class="stat-cell high"><div class="label">Agility</div><div class="value">+2</div><div class="gloss">Primary · whip work</div></div>
+        <div class="stat-cell neg"><div class="label">Reason</div><div class="value">−1</div><div class="gloss">Not the planner</div></div>
+        <div class="stat-cell"><div class="label">Intuition</div><div class="value">+1</div><div class="gloss">Cop's read</div></div>
+        <div class="stat-cell"><div class="label">Presence</div><div class="value">+1</div><div class="gloss">Silver tongue</div></div>
+      </div>
+      <p><em>The Fury's primary characteristics are Might and Agility; Lucero maxes both. The −1 in Reason is the only soft spot in the array. He is not the unit's investigator anymore — that was the old job, and the old job ended badly. He is the unit's primary combatant, with credible secondary stats for talking his way out (Silver Tongue ancestry, +1 Presence) and reading a room (cop instincts, +1 Intuition).</em></p>
+
+      <div class="status-grid">
+        <div class="status-cell">
+          <div class="label">Stamina</div>
+          <div class="value">21<span class="sub"> / 21</span></div>
+          <div class="bar"><div class="fill" style="width:100%"></div></div>
+          <div class="note">Class base. Winded at ≤ 10. Dying at 0 to −10.</div>
+        </div>
+        <div class="status-cell">
+          <div class="label">Recoveries</div>
+          <div class="value">10<span class="sub"> / 10</span></div>
+          <div class="bar brass"><div class="fill" style="width:100%"></div></div>
+          <div class="note">Recovery value: 7.</div>
+        </div>
+        <div class="status-cell">
+          <div class="label">Ferocity</div>
+          <div class="value">0</div>
+          <div class="bar purple"><div class="fill" style="width:0%"></div></div>
+          <div class="note">Heroic resource. Builds through rage and injury.</div>
+        </div>
+      </div>
+
+      <table class="dossier-table">
+        <thead><tr><th>Stat</th><th>Value &amp; Source</th></tr></thead>
+        <tbody>
+          <tr><td>Size</td><td><strong>1M</strong> — medium</td></tr>
+          <tr><td>Speed</td><td><strong>8</strong> — 5 base + 3 from <em>Whirlwind</em> kit</td></tr>
+          <tr><td>Disengage</td><td><strong>2</strong> — 1 base + 1 from <em>Whirlwind</em> kit</td></tr>
+          <tr><td>Stability</td><td><strong>0</strong></td></tr>
+          <tr><td>Melee Distance</td><td><strong>+1</strong> — from <em>Whirlwind</em> kit (whip reach)</td></tr>
+          <tr><td>Melee Damage Bonus</td><td><strong>+1 / +1 / +1</strong> — from <em>Whirlwind</em> kit</td></tr>
+          <tr><td>Movement Modes</td><td><strong>Fly</strong> — see Wings under Devil Traits</td></tr>
+          <tr><td>Wealth</td><td><strong>1</strong></td></tr>
+          <tr><td>Renown / XP / Hero Tokens</td><td>0 / 0 / 0</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- III. FEROCITY -->
+    <section id="ferocity">
+      <h2 class="section-title">III. Ferocity — The Heroic Resource</h2>
+      <p>The Fury's heroic resource is <strong>Ferocity</strong>. It accrues steadily at the top of the round and spikes when Lucero is hurt — when he becomes winded, when he is dying. The mechanic rewards staying engaged through pain rather than withdrawing from it.</p>
+
+      <table class="dossier-table">
+        <thead><tr><th>Trigger</th><th>Gain</th></tr></thead>
+        <tbody>
+          <tr><td>Start of your turn</td><td><strong>1d3</strong></td></tr>
+          <tr><td>First time each combat round that you take damage</td><td><strong>+1</strong></td></tr>
+          <tr><td>First time you become winded or are dying in an encounter</td><td><strong>+1d3</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <div class="label">◈ The Logic of Rage</div>
+        <p>Ferocity is the inverse of caution. The longer Lucero fights, the more he has to spend; the worse he is doing, the more violently he can answer. The complication's drawback — <em>he stays alive to set things right</em> — fits the resource: he becomes most dangerous when he is closest to falling.</p>
+      </div>
+    </section>
+
+    <!-- IV. ANCESTRY -->
+    <section id="ancestry">
+      <h2 class="section-title">IV. Devil Traits</h2>
+      <p>Devils are the native ancestry of the Seven Cities of Hell — humanoids with red or blue skin in a wide variety of hues, from bright crimson to deep purple. Each is born with some hellmark: horns, a tail, cloven hooves, a forked tongue, fanged incisors, or wings. Lucero has horns and wings both. He has chosen two further trait selections beyond the baseline.</p>
+      <table class="dossier-table">
+        <thead><tr><th>Trait</th><th>Function (verbatim)</th></tr></thead>
+        <tbody>
+          <tr><td>Silver Tongue <em>(baseline)</em></td><td>Your innate magic allows you to twist how your words are perceived to get a better read on people and convince them to see things your way. You gain an edge on tests when attempting to discover an NPC's motivations and pitfalls during a negotiation. Also grants one interpersonal skill: <strong>Gamble</strong>.</td></tr>
+          <tr><td>Hellsight</td><td>Your eyes let you see through darkness, fog, and other obscuring effects. You don't take a bane on strikes made against creatures with concealment.</td></tr>
+          <tr><td>Wings</td><td>You possess wings powerful enough to take you airborne. While using your wings to fly, you can stay aloft for a number of rounds equal to your Might score (<strong>2 rounds</strong>) before you fall. While using your wings to fly at 3rd level or lower, you have <strong>damage weakness 5</strong>. Grants the <strong>Fly</strong> movement mode.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout warn">
+        <div class="label">⚠ The Wings Tradeoff</div>
+        <p>At level 1, flying makes Lucero five points more vulnerable to all damage. Two rounds in the air, and he comes down whether he wants to or not. The wings are not yet a free movement option — they are a tactical choice with a sharp cost. The weakness goes away at level 4; for now, the air is for emergencies, escapes, or a single decisive strike from above.</p>
+      </div>
+    </section>
+
+    <!-- V. CLASS -->
+    <section id="class">
+      <h2 class="section-title">V. Fury Class Features</h2>
+      <p>The Fury does not temper the heat of battle within. Experience in the wild taught the secrets of predators; now Lucero channels unfettered anger into martial prowess. Primordial Chaos is his ally.</p>
+      <table class="dossier-table">
+        <thead><tr><th>Feature</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>Stamina</td><td>21 at level 1 (+9 per level thereafter)</td></tr>
+          <tr><td>Recoveries</td><td>10</td></tr>
+          <tr><td>Mighty Leaps</td><td>You can't obtain lower than a tier 2 outcome on any Might test made to jump.</td></tr>
+          <tr><td>Heroic Resource</td><td>Ferocity (see Section III)</td></tr>
+          <tr><td>Skills (class)</td><td>Nature; plus two of Exploration/Intrigue (Search, Sabotage selected)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- VI. SUBCLASS -->
+    <section id="subclass">
+      <h2 class="section-title">VI. Reaver Subclass</h2>
+      <p>The Reaver channels rage into instinct and cunning, challenging the false order of civilization. For Lucero — a former enforcer of an order that turned on him — the subclass is pointed.</p>
+
+      <h4 class="entry-label">Primordial Cunning</h4>
+      <p>You are never surprised. Additionally, whenever you would push a target with forced movement, you can <strong>slide</strong> them instead.</p>
+
+      <h4 class="entry-label">Reaver Growing Ferocity Table</h4>
+      <table class="dossier-table">
+        <thead><tr><th>Ferocity Threshold</th><th>Benefit</th></tr></thead>
+        <tbody>
+          <tr><td>2</td><td>Whenever you use the Knockback maneuver, the forced movement distance gains a bonus equal to your Agility score (+2).</td></tr>
+          <tr><td>4</td><td>The first time you slide a creature on a turn, you gain 1 surge.</td></tr>
+          <tr><td>6</td><td>You gain an edge on Agility tests and the Knockback maneuver.</td></tr>
+        </tbody>
+      </table>
+
+      <h4 class="entry-label">Unearthly Reflexes</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Unearthly Reflexes</div>
+        <div class="ability-flavor">You are as elusive as a hummingbird.</div>
+        <div class="ability-meta">Triggered Action · Self · Trigger: You take damage</div>
+        <div class="ability-desc">
+          <p>You take half the damage from the triggering effect and can shift up to a number of squares equal to your Agility score (<strong>shift 2</strong>).</p>
+          <p><strong>Spend 1 Ferocity:</strong> If the damage has any potency effects associated with it, the potency is reduced by 1 for you.</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Subclass Skill</h4>
+      <p>Reaver grants one additional skill: <strong>Pick Pocket</strong>.</p>
+    </section>
+
+    <!-- VII. KIT -->
+    <section id="kit">
+      <h2 class="section-title">VII. Whirlwind Kit</h2>
+      <p><em>"The Whirlwind kit makes effective use of whips, granting you mobility, damage, and reach. If you want to be a fast-moving warrior who lashes foes with a chain or whip, then this is the kit for you."</em></p>
+      <table class="dossier-table">
+        <thead><tr><th>Stat / Bonus</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Weapon</td><td>Whip</td></tr>
+          <tr><td>Armor</td><td>None</td></tr>
+          <tr><td>Speed</td><td>+3 (included in totals)</td></tr>
+          <tr><td>Disengage</td><td>+1 (included in totals)</td></tr>
+          <tr><td>Melee Distance</td><td>+1 (whip reach — included in totals)</td></tr>
+          <tr><td>Melee Damage</td><td>+1 / +1 / +1</td></tr>
+        </tbody>
+      </table>
+
+      <h4 class="entry-label">Kit Signature Ability</h4>
+      <div class="ability-block kit">
+        <div class="ability-name">Extension Of My Arm</div>
+        <div class="ability-flavor">When you draw your whip back after an attack, your enemy is drawn ever closer.</div>
+        <div class="ability-meta">Main Action · Melee 2 · One creature</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Might or Agility</span>
+          <span class="tier"><b>Tier 1:</b> 3 + M or A damage; vertical pull 1</span>
+          <span class="tier"><b>Tier 2:</b> 6 + M or A damage; vertical pull 2</span>
+          <span class="tier"><b>Tier 3:</b> 9 + M or A damage; vertical pull 3</span>
+        </div>
+      </div>
+      <div class="callout">
+        <div class="label">◈ Whip Geometry</div>
+        <p>The whip's reach (+1 melee distance) combined with Extension's pull means Lucero is dictating where the fight happens. He stands two squares away from the target, lashes them in, and now they are adjacent — to him, to where he wants them, in his Ferocity loop. The vertical pull is the elegant detail: an enemy flying or perched above gets yanked down to his level, and the wings make the inverse true (he goes up to theirs).</p>
+      </div>
+    </section>
+
+    <!-- VIII. ABILITIES -->
+    <section id="abilities">
+      <h2 class="section-title">VIII. Selected Abilities</h2>
+      <p>Lucero's level-1 class ability picks are uniformly aggressive — one signature, one 3-Ferocity, one 5-Ferocity. Each is melee, each runs through Might.</p>
+
+      <h4 class="entry-label">Signature — Free, Used Repeatedly</h4>
+      <div class="ability-block signature">
+        <div class="ability-name">Impaled!</div>
+        <div class="ability-flavor">You skewer your enemy like a boar upon a spit.</div>
+        <div class="ability-meta">Main Action · Melee, Strike, Weapon · Melee 1 · One creature of your size or smaller</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Might</span>
+          <span class="tier"><b>Tier 1:</b> 2 + M damage; M&lt;[weak], grabbed</span>
+          <span class="tier"><b>Tier 2:</b> 5 + M damage; M&lt;[average], grabbed</span>
+          <span class="tier"><b>Tier 3:</b> 7 + M damage; M&lt;[strong], grabbed</span>
+        </div>
+      </div>
+
+      <h4 class="entry-label">3-Ferocity — Line of Carnage</h4>
+      <div class="ability-block">
+        <div class="ability-name">Tide of Death</div>
+        <div class="ability-flavor">Teach them the folly of lining up for you.</div>
+        <div class="ability-meta">Main Action · Melee, Weapon · Self; see below · 3 Ferocity</div>
+        <div class="ability-desc">
+          <p>You move up to your speed in a straight line, and enemy squares are not difficult terrain for this movement. You can end this movement in a creature's space and move them to an adjacent unoccupied space. You make one power roll that targets each enemy whose space you move through.</p>
+        </div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Might</span>
+          <span class="tier"><b>Tier 1:</b> 2 damage</span>
+          <span class="tier"><b>Tier 2:</b> 3 damage</span>
+          <span class="tier"><b>Tier 3:</b> 5 damage</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Effect:</b> The last target you damage takes extra damage equal to your Might score (+2) for each opportunity attack you trigger during your move.</span>
+        </div>
+      </div>
+
+      <h4 class="entry-label">5-Ferocity — The Trade</h4>
+      <div class="ability-block">
+        <div class="ability-name">Blood for Blood!</div>
+        <div class="ability-flavor">See how well they fight after you've bled them dry.</div>
+        <div class="ability-meta">Main Action · Melee, Strike, Weapon · Melee 1 · One creature or object · 5 Ferocity</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Might</span>
+          <span class="tier"><b>Tier 1:</b> 4 + M damage; M&lt;[weak], bleeding and weakened (save ends)</span>
+          <span class="tier"><b>Tier 2:</b> 6 + M damage; M&lt;[average], bleeding and weakened (save ends)</span>
+          <span class="tier"><b>Tier 3:</b> 10 + M damage; M&lt;[strong], bleeding and weakened (save ends)</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Effect:</b> You can deal 1d6 damage to yourself to deal an extra 1d6 damage to the target.</span>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <div class="label">⚠ The Loadout's Logic</div>
+        <p>All three abilities are melee main actions; all three roll on Might; all three are about either dragging an opponent into position (Impaled grabs; Extension Of My Arm pulls; Tide of Death sweeps a line) or trading his own pain for theirs (Blood for Blood). Combined with Guilty Conscience's free-action Recovery at deep-negative Stamina, and Ferocity's spike when winded, this is a character built to escalate through injury. He fights harder the worse it gets.</p>
+      </div>
+    </section>
+
+    <!-- IX. CULTURE & CAREER -->
+    <section id="culture">
+      <h2 class="section-title">IX. Culture &amp; Career</h2>
+
+      <h3 class="subhead">Culture — A City Devil's Upbringing</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Element</th><th>Choice &amp; Note</th></tr></thead>
+        <tbody>
+          <tr><td>Environment</td><td><strong>Urban</strong> — always centered in a city. <em>(Skill: Escape Artist.)</em></td></tr>
+          <tr><td>Organization</td><td><strong>Bureaucratic</strong> — steeped in official leadership and formally recorded laws. <em>(Skill: Pick Lock.)</em></td></tr>
+          <tr><td>Upbringing</td><td><strong>Academic</strong> — raised by people who collect, study, and share books and other records. <em>(Skill: Religion.)</em></td></tr>
+          <tr><td>Language</td><td><strong>Anjali</strong></td></tr>
+        </tbody>
+      </table>
+      <p><em>The culture profile reads exactly like an officer's record: urban, bureaucratic, lettered. Lift this section out of the dossier and it could be from the Watch's own personnel file. That is, in fact, where it came from.</em></p>
+
+      <h3 class="subhead">Career — Watch Officer</h3>
+      <p><em>"You served as an officer of the law for a local government. You might have been a single person in a much larger city watch or the only constable patrolling a small village."</em></p>
+      <ul>
+        <li><strong>Skill (choice):</strong> Alertness</li>
+        <li><strong>Intrigue Skills:</strong> Hide, Track</li>
+        <li><strong>Languages:</strong> Vaslorian, Khoursirian</li>
+        <li><strong>Exploration Perk:</strong> <em>Danger Sense</em> — In a natural environment (but not a settlement), edge on Alertness tests, can't be surprised, and 72-hour intuition for impending natural disaster.</li>
+      </ul>
+      <div class="callout">
+        <div class="label">◈ Parallel to Vellpryte</div>
+        <p>Executor Vellpryte (the Memonek Censor in Unit Zenith) also took the Watch Officer career. Two veterans of the same institutional career, in two different timescape worlds, have ended up in radically different places: she became its highest-ranked enforcer; he is wanted by it. Should their paths cross, the convergence is built into the sheets.</p>
+      </div>
+    </section>
+
+    <!-- X. SKILLS -->
+    <section id="skills">
+      <h2 class="section-title">X. Skills &amp; Languages</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="group-label">Interpersonal</div>
+          <ul>
+            <li>Gamble <span class="src">ancestry</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Intrigue</div>
+          <ul>
+            <li>Alertness <span class="src">career</span></li>
+            <li>Escape Artist <span class="src">environment</span></li>
+            <li>Hide <span class="src">career</span></li>
+            <li>Pick Lock <span class="src">organization</span></li>
+            <li>Pick Pocket <span class="src">subclass</span></li>
+            <li>Sabotage <span class="src">class</span></li>
+            <li>Search <span class="src">class</span></li>
+            <li>Track <span class="src">career</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Lore</div>
+          <ul>
+            <li>Nature <span class="src">class</span></li>
+            <li>Religion <span class="src">upbringing</span></li>
+          </ul>
+        </div>
+      </div>
+      <h3 class="subhead">Languages</h3>
+      <p>Caelian <em>(default)</em>, Anjali <em>(culture)</em>, Vaslorian <em>(career)</em>, Khoursirian <em>(career)</em>.</p>
+      <div class="callout">
+        <div class="label">◈ Skill Profile Read</div>
+        <p>The Intrigue group is wildly overrepresented — eight skills, several of them paired (Hide+Track, Pick Lock+Pick Pocket, Sabotage+Search). This is a character built to do investigative and clandestine work, which is what he was trained for and what he is now doing without a badge.</p>
+      </div>
+    </section>
+
+    <!-- XI. COMPLICATION -->
+    <section id="complication">
+      <h2 class="section-title">XI. Complication — Guilty Conscience</h2>
+      <p>From the Draw Steel complication: <em>"The world is in trouble — and it's partly your fault. Maybe you helped a villain rise to power or inadvertently released a demon from imprisonment. Now it's your mission to repair the damage you caused."</em></p>
+      <table class="dossier-table">
+        <thead><tr><th>Aspect</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Guilty Conscience Benefit</td><td>You're determined to stay alive so you can set things right. When your Stamina reaches the negative of your winded value, you can use a free triggered action to spend a Recovery.</td></tr>
+          <tr><td>Guilty Conscience Drawback</td><td>Many people blame you for the evils you caused. They may be unfriendly or hostile to you — and you can understand their point of view. You take a bane on any test made to interact with those who know what you did, and on strikes made against such creatures.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout warn">
+        <div class="label">⚠ The Open Question</div>
+        <p>Two slots in Lucero's backstory carry guilt-of-causality language: the Complication (<em>"it's partly your fault... helped a villain rise to power"</em>) and the Inciting Incident (<em>"the murder of your partner"</em>). They are not the same event. Either Lucero is carrying <strong>two</strong> sources of guilt — the partner's death and something else he caused before or after — or the GM and player will want to reconcile them into a single, more complex backstory. The mechanical drawback (banes on tests against people who know what you did) implies there are people who know — which is a useful detail to track.</p>
+      </div>
+    </section>
+
+    <!-- XII. INCIDENT -->
+    <section id="incident">
+      <h2 class="section-title">XII. Inciting Incident — Frame Job</h2>
+      <p>From the Draw Steel inciting incident: <em>"Your partner was murdered. That much is irrefutable. But you didn't do it, despite what the evidence implies. When it became clear you'd take the fall, you fled, leaving everything behind. Not content to cower in the shadows, you decided to adventure under a new name while you work to clear your own."</em></p>
+      <div class="callout">
+        <div class="label">◈ What's Established</div>
+        <ul style="margin:0.4rem 0;padding-left:1.4rem;">
+          <li>Lucero had a partner on the Watch.</li>
+          <li>The partner was murdered.</li>
+          <li>The evidence implicates Lucero.</li>
+          <li>Lucero did not do it.</li>
+          <li>Lucero fled before he could be taken in.</li>
+          <li>He is operating under a new name.</li>
+          <li>He intends to clear his name.</li>
+        </ul>
+      </div>
+      <div class="callout draft">
+        <div class="label">◇ Tie-In Suspects <span class="draft-tag">draft</span></div>
+        <p>The campaign concept lists <em>"Lucero's family"</em> as a powerful devil house that wants him ruined, and identifies the family as a candidate for who named him as collateral. The intersection of three threads — a frame for a murder he didn't commit, a family that wants him ruined, and an unknown party who named him as collateral to the Saffron Seal — is a strong configuration but the specifics are unresolved. The family may have orchestrated the frame, benefited from it, or be unrelated.</p>
+      </div>
+    </section>
+
+    <!-- XIII. CAMPAIGN -->
+    <section id="campaign">
+      <h2 class="section-title">XIII. Position in Collateral <span class="draft-tag">draft</span></h2>
+      <div class="callout draft">
+        <div class="label">◇ Provisional · Drawn from Campaign Concept</div>
+        <p>The following is drawn from the Collateral campaign summary, which is explicitly marked as draft / provisional. Details are subject to change in Session Zero.</p>
+      </div>
+
+      <p>The premise: the player characters wake in the same holding cell in Alloy and are told <em>"The debt has defaulted. You belong to the Saffron Seal now."</em> Lucero is by far the worst-positioned character to wake in a cell. He was last in a cell — or close to one — when his partner died and the Watch came for him. Waking captive in a new jurisdiction is exactly the situation he has spent months avoiding.</p>
+
+      <h3 class="subhead">Role on the Team</h3>
+      <p>Combat: <strong>frontline melee and lockdown</strong>. The whip's reach, Impaled's grab, and Extension Of My Arm's pull let him control where the enemy stands. Ferocity climbs as he takes hits, and Unearthly Reflexes converts incoming damage into shifts that keep him moving. He is the unit's primary damage threat and the person most willing to take a hit to land a counter.</p>
+      <p>Out of combat: <strong>investigation</strong>. The Intrigue suite (Alertness, Hide, Track, Pick Lock, Pick Pocket, Sabotage, Search) is the deepest of any character in the roster. He is the unit's instinctive detective — which is also the role he is most personally invested in, since his own case is unsolved. Silver Tongue gives him a credible secondary face role for negotiations.</p>
+
+      <h3 class="subhead">Faction Connections</h3>
+      <p>Per the campaign concept, three factions touch Lucero's situation: the <strong>Watch Officers of the Seven Cities of Hell</strong> (former employer, would arrest him on sight), <strong>Lucero's family</strong> (powerful, wants him ruined), and the <strong>Saffron Seal</strong> (now holds him as collateral). Any combination of these may turn out to be the same actor.</p>
+    </section>
+
+    <!-- XIV. ARC -->
+    <section id="arc">
+      <h2 class="section-title">XIV. Character Arc</h2>
+      <p>Two questions sit at the center of Lucero's arc.</p>
+      <p>The first is <strong>vindication</strong>: can he clear his own name, find his partner's killer, and survive what his family wants done to him? The Inciting Incident hands him this thread directly.</p>
+      <p>The second is the question the Complication makes mechanical: <strong>what else has he done</strong>, and to whom does he still owe a debt of conscience? The Guilty Conscience drawback presumes there are people who know — people who blame him, whose presence imposes banes. The Inciting Incident's frame job does not by itself produce those people. Something else does.</p>
+      <p>Underneath both: <strong>the cop and the criminal</strong>. He was the law; the law made him an outlaw. He carries a whip now — a weapon associated in his own culture with the sort of person he used to arrest. He is good at the work either way. The campaign asks whether he can stand to remain in the second life if the first life turns out to be uncleared, or whether some part of him will accept that the only way back is to stop running.</p>
+    </section>
+
+    <!-- COLOPHON -->
+    <footer class="colophon">
+      <div><span class="accent">// COLLATERAL CASE FILE · Cell 7 Booking · Free City of Brass</span></div>
+      <div style="margin-top:0.4rem;">LUCERO D'ALBEC · DEVIL · FURY / REAVER · WHIRLWIND KIT · LVL 1 · DEBT-HOLDER: THE SAFFRON SEAL</div>
+      <div style="margin-top:0.4rem;">Sheet mechanics: locked. Campaign frame: provisional, subject to Session Zero.</div>
+      <div style="margin-top:0.4rem;"><span class="accent">⚑ STATUS: START OF CAMPAIGN · INCITING INCIDENT: Frame Job · OPEN: partner's killer · family's motive · Saffron Seal's identity</span></div>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

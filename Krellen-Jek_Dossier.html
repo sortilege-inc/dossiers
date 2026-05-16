@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crew Manifest — Krellen-Jek</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Major+Mono+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Krellen-Jek: outlaw kuran'zoi. A manifest stamped on engine-stained
+       industrial paper, marked AT-LARGE. Hazard yellow & visor cyan against
+       gunmetal. Loud, slightly cracked, the opposite of Vellpryte's
+       precise institutional sci-fi. */
+    --bg-deep: #0a0c0e;
+    --bg: #14171b;
+    --panel: #1c2026;
+    --panel-2: #242931;
+    --steel: #2e343d;
+    --steel-light: #3a414b;
+
+    --paper: #d8d4c0;
+    --paper-deep: #b8b09a;
+    --ink: #18181a;
+    --ink-soft: #38383c;
+    --ink-faint: #6a6a72;
+
+    --hazard: #f4c020;
+    --hazard-bright: #ffd840;
+    --hazard-deep: #8a6a08;
+
+    --visor: #18d4a8;
+    --visor-bright: #2af4c0;
+    --visor-deep: #086858;
+
+    --warn: #d83820;
+    --warn-bright: #ff5028;
+    --warn-deep: #6a1808;
+
+    --void: #050608;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:var(--bg-deep); color:var(--ink); font-family:'Inter', system-ui, sans-serif; font-size:15px; line-height:1.6; }
+  body {
+    background:
+      repeating-linear-gradient(45deg, transparent 0 60px, rgba(244,192,32,0.015) 60px 62px),
+      radial-gradient(ellipse at 50% 0%, rgba(24,212,168,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 100%, rgba(216,56,32,0.05) 0%, transparent 55%),
+      var(--bg-deep);
+    min-height: 100vh; padding: 2.5rem 1rem;
+  }
+  body::before {
+    content:''; position:fixed; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    pointer-events:none; z-index:1000; mix-blend-mode:overlay; opacity:0.7;
+  }
+
+  .document {
+    max-width: 960px;
+    margin: 0 auto;
+    background: var(--paper);
+    position: relative;
+    /* engine-grease smudges & coffee */
+    background-image:
+      radial-gradient(circle at 90% 8%, rgba(20,23,27,0.18) 0%, transparent 8%),
+      radial-gradient(circle at 88% 11%, rgba(20,23,27,0.12) 0%, transparent 5%),
+      radial-gradient(ellipse 120px 50px at 15% 92%, rgba(216,56,32,0.10) 0%, transparent 70%),
+      radial-gradient(ellipse 60px 30px at 70% 65%, rgba(20,23,27,0.08) 0%, transparent 80%),
+      /* paper tone variance */
+      linear-gradient(180deg, rgba(216,212,192,1) 0%, rgba(192,186,162,1) 100%);
+    box-shadow:
+      0 0 0 1px var(--ink-soft),
+      0 4px 0 var(--paper-deep),
+      0 0 60px rgba(24,212,168,0.05),
+      0 0 120px rgba(244,192,32,0.04),
+      0 30px 60px rgba(0,0,0,0.6);
+  }
+
+  /* hazard stripes at top and bottom */
+  .document::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:14px;
+    background:
+      repeating-linear-gradient(135deg, var(--hazard) 0 14px, var(--ink) 14px 28px);
+  }
+  .document::after {
+    content:''; position:absolute; bottom:0; left:0; right:0; height:14px;
+    background:
+      repeating-linear-gradient(135deg, var(--hazard) 0 14px, var(--ink) 14px 28px);
+  }
+
+  .doc-inner { padding: 3.5rem 3.5rem 4rem; position:relative; }
+
+  /* MASTHEAD — AT-LARGE bar with stenciled stamp */
+  .masthead {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.6rem 1rem;
+    margin-bottom: 1.6rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family:'Major Mono Display', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .masthead .stamp {
+    color: var(--warn-bright);
+    border: 2px solid var(--warn-bright);
+    padding: 0.18rem 0.6rem;
+    letter-spacing: 0.2em;
+    background: rgba(216,56,32,0.18);
+    font-weight: 700;
+  }
+  .masthead .ident { display:flex; gap:1.5rem; align-items:center; }
+  .masthead .dot {
+    display:inline-block; width:8px; height:8px; border-radius:50%;
+    background: var(--visor-bright); box-shadow: 0 0 6px var(--visor-bright);
+    animation: blink 1.5s steps(2) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0.3; } }
+
+  /* MANIFEST BAR */
+  .manifest-bar {
+    background: rgba(20,23,27,0.06);
+    border-left: 4px solid var(--warn);
+    padding: 0.6rem 1rem;
+    margin-bottom: 2rem;
+    font-family:'Major Mono Display', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    color: var(--ink);
+    text-transform: uppercase;
+    display: flex; gap: 1.6rem; flex-wrap: wrap;
+  }
+  .manifest-bar .field .lbl { color: var(--ink-faint); }
+  .manifest-bar .field .val { color: var(--warn-deep); font-weight: 700; margin-left: 0.4em; }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    gap: 2.5rem;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+  }
+  .portrait-frame {
+    width: 100%;
+    position: relative;
+    padding: 0;
+    background: var(--ink);
+    box-shadow:
+      0 0 0 2px var(--hazard),
+      0 0 0 3px var(--ink),
+      0 0 0 5px var(--hazard),
+      0 14px 28px rgba(0,0,0,0.5);
+  }
+  .portrait-frame img {
+    width:100%; display:block;
+    filter: contrast(1.05) saturate(1.05);
+  }
+  .portrait-frame .id-tag {
+    position: absolute; top: 8px; right: 8px;
+    background: var(--warn);
+    color: var(--paper);
+    font-family:'Major Mono Display', monospace;
+    font-size: 0.6rem; letter-spacing: 0.16em;
+    padding: 0.15rem 0.4rem;
+    text-transform: uppercase;
+  }
+  .portrait-frame .scan-line {
+    position: absolute; bottom: 12px; left: 8px; right: 8px;
+    height: 1px; background: var(--visor-bright);
+    box-shadow: 0 0 8px var(--visor-bright);
+    opacity: 0.7;
+  }
+  .portrait-caption {
+    margin-top: 0.8rem;
+    font-family:'Major Mono Display', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.6;
+  }
+  .portrait-caption .void { color: var(--ink); }
+
+  .hero-text { padding-top: 0.2rem; }
+  .eyebrow {
+    font-family:'Major Mono Display', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    color: var(--visor-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .eyebrow .sep { color: var(--ink-faint); margin: 0 0.6em; }
+
+  h1.character-name {
+    font-family:'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 4.6rem;
+    line-height: 0.92;
+    color: var(--ink);
+    margin: 0.3rem 0 0.5rem;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+  h1.character-name .accent {
+    color: var(--warn);
+    background: var(--ink);
+    padding: 0 0.2em;
+  }
+  h1.character-name .subname {
+    display: block;
+    font-family:'Major Mono Display', monospace;
+    font-size: 0.18em;
+    font-weight: 400;
+    color: var(--ink-faint);
+    letter-spacing: 0.28em;
+    margin-top: 0.8rem;
+    text-transform: uppercase;
+  }
+
+  .tagline {
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    margin: 1rem 0 1.3rem;
+    max-width: 56ch;
+    line-height: 1.55;
+    border-left: 3px solid var(--hazard);
+    padding-left: 1rem;
+  }
+
+  .vitals-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    font-family:'Major Mono Display', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding: 0.55rem 0;
+    margin-top: 1.2rem;
+  }
+  .vitals-row .v { border-left: 1px solid var(--ink-faint); padding: 0.1rem 0.85rem; white-space: nowrap; }
+  .vitals-row .v:first-child { border-left: none; padding-left: 0; }
+  .vitals-row .v strong { color: var(--warn-deep); font-weight: 700; margin-left: 0.4em; }
+  .vitals-row .v.visor strong { color: var(--visor-deep); }
+  .vitals-row .v.warn strong { color: var(--warn); }
+
+  /* TOC — like a docked manifest of crates */
+  nav.toc {
+    background: rgba(20,23,27,0.04);
+    border: 1px solid var(--ink-soft);
+    border-top: 3px solid var(--hazard);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 2.8rem;
+    columns: 2;
+    column-gap: 2.4rem;
+    position: relative;
+  }
+  nav.toc::before {
+    content: '// CARGO LIST //';
+    position: absolute; top: -10px; left: 20px;
+    background: var(--paper);
+    padding: 0 0.7rem;
+    font-family:'Major Mono Display', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--hazard-deep);
+    font-weight: 700;
+  }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; font-family:'Major Mono Display', monospace; }
+  nav.toc ol li { counter-increment: toc; font-size: 0.78rem; margin-bottom: 0.3rem; break-inside: avoid; letter-spacing: 0.06em; }
+  nav.toc ol li::before { content: "[ " counter(toc, decimal-leading-zero) " ] "; color: var(--warn); font-weight: 700; }
+  nav.toc a { color: var(--ink); text-decoration: none; text-transform: uppercase; }
+  nav.toc a:hover { color: var(--warn); }
+
+  section { margin-bottom: 3rem; }
+
+  h2.section-title {
+    font-family:'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1.8rem;
+    color: var(--ink);
+    margin: 0 0 1.3rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    position: relative;
+  }
+  h2.section-title::before {
+    content: '◢';
+    color: var(--warn);
+    margin-right: 0.5rem;
+    font-size: 0.85em;
+  }
+  h2.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0;
+    width: 80px; height: 3px;
+    background: var(--warn);
+  }
+
+  h3.subhead {
+    font-family:'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 1.15rem;
+    color: var(--warn-deep);
+    margin: 1.7rem 0 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  h3.subhead::before {
+    content:'>> ';
+    color: var(--hazard-deep);
+    font-family:'Major Mono Display', monospace;
+  }
+
+  h4.entry-label {
+    font-family:'Major Mono Display', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin: 1.3rem 0 0.5rem;
+    border-bottom: 1px dashed var(--ink-faint);
+    padding-bottom: 0.2rem;
+  }
+
+  p { margin: 0.7rem 0; }
+  p.drop-cap::first-letter {
+    font-family:'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 3.6rem;
+    float: left;
+    line-height: 0.85;
+    margin: 0.15rem 0.55rem -0.1rem 0;
+    color: var(--warn);
+  }
+  em { font-style: italic; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 700; }
+
+  /* STATS */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+  }
+  .stat-cell {
+    border: 1px solid var(--ink-soft);
+    background: rgba(20,23,27,0.04);
+    padding: 0.9rem 0.6rem;
+    text-align: center;
+    position: relative;
+  }
+  .stat-cell .label {
+    font-family:'Major Mono Display', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.3rem;
+  }
+  .stat-cell .value {
+    font-family:'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 2.4rem;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .stat-cell .gloss {
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 0.4rem;
+    line-height: 1.3;
+  }
+  .stat-cell.high { background: rgba(244,192,32,0.10); border-color: var(--hazard-deep); }
+  .stat-cell.high .value { color: var(--hazard-deep); }
+  .stat-cell.neg .value { color: var(--ink-faint); }
+
+  /* STATUS — meters with terminal-style readouts */
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .status-cell {
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    padding: 1rem;
+    position: relative;
+  }
+  .status-cell .label {
+    font-family:'Major Mono Display', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    color: var(--visor-bright);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .status-cell .value {
+    font-family:'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 2.4rem;
+    color: var(--paper);
+    line-height: 1;
+  }
+  .status-cell .value .sub { font-size: 0.4em; color: var(--ink-faint); }
+  .status-cell .note {
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 0.5rem;
+    line-height: 1.3;
+  }
+  .status-cell .bar { height: 4px; background: rgba(255,255,255,0.06); margin-top: 0.5rem; position: relative; }
+  .status-cell .bar .fill { height: 100%; background: var(--hazard); }
+  .status-cell .bar.visor .fill { background: var(--visor-bright); box-shadow: 0 0 8px var(--visor-bright); }
+  .status-cell .bar.warn .fill { background: var(--warn-bright); }
+
+  /* Antihero token tracker */
+  .token-row {
+    display: flex; gap: 0.4rem; margin-top: 0.6rem;
+  }
+  .token-row .token {
+    width: 20px; height: 20px;
+    border: 2px solid var(--warn);
+    background: var(--warn);
+    box-shadow: 0 0 6px rgba(216,56,32,0.5);
+    transform: rotate(45deg);
+  }
+  .token-row .lbl {
+    font-family:'Major Mono Display', monospace;
+    font-size: 0.65rem;
+    color: var(--paper-deep);
+    letter-spacing: 0.16em;
+    align-self: center;
+    margin-left: 0.5rem;
+  }
+
+  /* TABLES */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  table.dossier-table th, table.dossier-table td {
+    text-align: left;
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--ink-faint);
+    vertical-align: top;
+  }
+  table.dossier-table th {
+    font-family:'Major Mono Display', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--warn-deep);
+    border-bottom: 2px solid var(--warn);
+    background: rgba(20,23,27,0.04);
+  }
+  table.dossier-table td:first-child { font-weight: 600; color: var(--ink); width: 30%; }
+
+  /* ABILITIES */
+  .ability-block {
+    border: 1px solid var(--ink-soft);
+    background: rgba(216,212,192,0.5);
+    padding: 1rem 1.2rem;
+    margin: 0.9rem 0;
+  }
+  .ability-block.signature { border-left: 4px solid var(--warn); }
+  .ability-block.core { border-left: 4px solid var(--visor-deep); background: rgba(24,212,168,0.04); }
+  .ability-block.kit { border-left: 4px solid var(--hazard-deep); background: rgba(244,192,32,0.05); }
+  .ability-block .ability-name {
+    font-family:'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--ink);
+    margin-bottom: 0.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  .ability-block .ability-flavor {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+  }
+  .ability-block .ability-meta {
+    font-family:'Major Mono Display', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    border-bottom: 1px dotted var(--ink-faint);
+    padding-bottom: 0.4rem;
+  }
+  .tier-roll {
+    margin-top: 0.6rem;
+    padding: 0.5rem 0.8rem;
+    background: rgba(20,23,27,0.08);
+    border-left: 3px solid var(--hazard-deep);
+    font-size: 0.94rem;
+  }
+  .tier-roll .tier-label {
+    font-family:'Major Mono Display', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--warn-deep);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .tier-roll .tier { display: block; margin: 0.15rem 0; }
+  .tier-roll .tier b { color: var(--warn-deep); }
+
+  /* CALLOUTS */
+  .callout {
+    border: 1px solid var(--visor-deep);
+    background: rgba(24,212,168,0.06);
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    border-left: 4px solid var(--visor-deep);
+  }
+  .callout.warn {
+    border: 1px solid var(--warn);
+    background: rgba(216,56,32,0.07);
+    border-left: 4px solid var(--warn);
+  }
+  .callout.draft {
+    border: 1px dashed var(--ink-faint);
+    background: rgba(20,23,27,0.03);
+    border-left: 4px dashed var(--ink-faint);
+  }
+  .callout .label {
+    font-family:'Major Mono Display', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--visor-deep);
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+  .callout.warn .label { color: var(--warn); }
+  .callout.draft .label { color: var(--ink-faint); }
+  .callout p { margin: 0.3rem 0; }
+
+  .draft-tag {
+    display: inline-block;
+    font-family:'Major Mono Display', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    color: var(--warn);
+    border: 1.5px solid var(--warn);
+    padding: 0.05rem 0.4rem;
+    text-transform: uppercase;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    background: rgba(216,212,192,0.6);
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.4rem;
+  }
+  .skill-group .group-label {
+    font-family:'Major Mono Display', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--warn-deep);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--ink-soft);
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
+  }
+  .skill-group ul { list-style: none; margin: 0; padding: 0; font-size: 0.94rem; }
+  .skill-group ul li { padding: 0.18rem 0; border-bottom: 1px dotted var(--ink-faint); display: flex; justify-content: space-between; }
+  .skill-group ul li .src { font-size: 0.7rem; color: var(--ink-faint); font-style: italic; font-family:'Major Mono Display', monospace; letter-spacing: 0.05em; }
+
+  /* FOOTER */
+  footer.colophon {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--ink);
+    font-family:'Major Mono Display', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+  }
+  footer.colophon .accent { color: var(--warn); font-weight: 700; }
+
+  @media (max-width: 780px) {
+    .doc-inner { padding: 2rem 1.4rem 3rem; }
+    .hero { grid-template-columns: 1fr; }
+    .portrait-frame { width: 70%; margin: 0 auto; }
+    h1.character-name { font-size: 3rem; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .status-grid { grid-template-columns: 1fr; }
+    nav.toc { columns: 1; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .masthead { flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+  <div class="doc-inner">
+
+    <!-- MASTHEAD -->
+    <div class="masthead">
+      <div class="ident">
+        <span><span class="dot"></span> COLLATERAL // CREW MANIFEST</span>
+        <span>SUBJECT-ID :: KJ-7</span>
+      </div>
+      <div class="stamp">AT-LARGE</div>
+    </div>
+
+    <!-- MANIFEST BAR -->
+    <div class="manifest-bar">
+      <div class="field"><span class="lbl">Hold</span><span class="val">Cell 7 / Alloy</span></div>
+      <div class="field"><span class="lbl">Creditor</span><span class="val">The Saffron Seal</span></div>
+      <div class="field"><span class="lbl">Status</span><span class="val">Default</span></div>
+      <div class="field"><span class="lbl">Approach</span><span class="val">Armed</span></div>
+    </div>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div>
+        <div class="portrait-frame">
+          <img src="Krellen-Jek.png" alt="Krellen-Jek, a yellow-skinned kuran'zoi with a blue mohawk and green visor">
+          <div class="id-tag">KJ-7</div>
+          <div class="scan-line"></div>
+        </div>
+        <div class="portrait-caption">
+          Subject Krellen-Jek<br>
+          <span class="void">Last known crew: REDACTED</span><br>
+          <em>presumed at-large, presumed armed</em>
+        </div>
+      </div>
+
+      <div class="hero-text">
+        <div class="eyebrow">Time Raider <span class="sep">·</span> Tactician <span class="sep">·</span> Insurgent Subclass</div>
+        <h1 class="character-name">
+          Krellen<span class="accent">-</span>Jek
+          <span class="subname">Deserter · Late of an unnamed pirate fleet</span>
+        </h1>
+        <div class="tagline">
+          He walked off a pirate raid mid-fight and never went back. Now he leads from the back of the squad, calls the shots over the noise, and is waiting for the day his old crew finds him. Until then, he answers to no one — which is going to be a problem in a cell that says he answers to the Saffron Seal.
+        </div>
+        <div class="vitals-row">
+          <span class="v">Lvl <strong>1</strong></span>
+          <span class="v">Speed <strong>8</strong></span>
+          <span class="v">Stability <strong>0</strong></span>
+          <span class="v">Stamina <strong>27</strong></span>
+          <span class="v visor">Focus <strong>0</strong></span>
+          <span class="v warn">Antihero Tokens <strong>3 / 3</strong></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- TOC -->
+    <nav class="toc">
+      <ol>
+        <li><a href="#identity">Identity &amp; Role</a></li>
+        <li><a href="#stats">Characteristics</a></li>
+        <li><a href="#focus">Focus Resource</a></li>
+        <li><a href="#ancestry">Kuran'zoi Traits</a></li>
+        <li><a href="#class">Tactician Class Features</a></li>
+        <li><a href="#mark">The Mark Loop</a></li>
+        <li><a href="#subclass">Insurgent Subclass</a></li>
+        <li><a href="#kits">Field Arsenal — Twin Kits</a></li>
+        <li><a href="#abilities">Selected Class Abilities</a></li>
+        <li><a href="#culture">Culture &amp; Career</a></li>
+        <li><a href="#skills">Skills &amp; Languages</a></li>
+        <li><a href="#complication">Complication — Antihero</a></li>
+        <li><a href="#incident">Inciting Incident — Deserter</a></li>
+        <li><a href="#campaign">Position in Collateral</a></li>
+        <li><a href="#arc">Character Arc</a></li>
+      </ol>
+    </nav>
+
+    <!-- I. IDENTITY -->
+    <section id="identity">
+      <h2 class="section-title">I. Identity &amp; Role</h2>
+      <p class="drop-cap">Krellen-Jek is a kuran'zoi — what the lower worlds, looking at advanced technology and concluding the obvious wrong thing, call a "Time Raider." The kuran'zoi liberated themselves from the synliroi during the First Psychic War and have lived since as nomads of the timescape. He learned to fight on a ship, took to it well enough to be useful and badly enough to want out, and walked off a raid one day in the chaos. He has not been back.</p>
+
+      <p>His class is <strong>Tactician</strong>: he leads from the line. He marks a target, his squad reads the signal, the squad converges. He is built around <em>making the people next to him better at their jobs.</em> His subclass is <strong>Insurgent</strong> — he does not fight fair; he expects the enemy to fight fair and finds that a useful asymmetry. The party is his new crew, whether they know it or not, whether he admits it or not.</p>
+
+      <p>In Alloy, he is the most operationally useful prisoner in the cell. He sees what the other characters do not. He will also be the first to suggest something the other characters do not want to do.</p>
+    </section>
+
+    <!-- II. CHARACTERISTICS -->
+    <section id="stats">
+      <h2 class="section-title">II. Characteristics</h2>
+      <div class="stat-grid">
+        <div class="stat-cell high"><div class="label">Might</div><div class="value">+2</div><div class="gloss">Primary · sword work</div></div>
+        <div class="stat-cell"><div class="label">Agility</div><div class="value">+1</div><div class="gloss">Dual wielder</div></div>
+        <div class="stat-cell high"><div class="label">Reason</div><div class="value">+2</div><div class="gloss">Primary · the plan</div></div>
+        <div class="stat-cell neg"><div class="label">Intuition</div><div class="value">−1</div><div class="gloss">Misses the soft tells</div></div>
+        <div class="stat-cell"><div class="label">Presence</div><div class="value">+1</div><div class="gloss">Cuts through noise</div></div>
+      </div>
+      <p><em>The Tactician's primary characteristics are Might and Reason, and Krellen-Jek maxes both. The −1 Intuition is the read he can't make — he doesn't catch what people don't say out loud. The plan is clean, the orders are sharp, the squad moves on a single beat; what gets missed is whatever the silent one in the back was thinking about doing all along.</em></p>
+
+      <div class="status-grid">
+        <div class="status-cell">
+          <div class="label">Stamina</div>
+          <div class="value">27<span class="sub"> / 27</span></div>
+          <div class="bar"><div class="fill" style="width:100%"></div></div>
+          <div class="note">21 class base + 6 from kits (Dual Wielder +6 or Raider +6 — see kit note)</div>
+        </div>
+        <div class="status-cell">
+          <div class="label">Recoveries</div>
+          <div class="value">10<span class="sub"> / 10</span></div>
+          <div class="bar warn"><div class="fill" style="width:100%"></div></div>
+          <div class="note">Recovery value: 9.</div>
+        </div>
+        <div class="status-cell">
+          <div class="label">Focus</div>
+          <div class="value">0</div>
+          <div class="bar visor"><div class="fill" style="width:0%"></div></div>
+          <div class="note">Heroic resource. Builds through Mark engagement.</div>
+          <div class="token-row">
+            <div class="token"></div><div class="token"></div><div class="token"></div>
+            <span class="lbl">Antihero tokens · 3/3</span>
+          </div>
+        </div>
+      </div>
+
+      <table class="dossier-table">
+        <thead><tr><th>Stat</th><th>Value &amp; Source</th></tr></thead>
+        <tbody>
+          <tr><td>Size</td><td><strong>1M</strong> — medium</td></tr>
+          <tr><td>Speed</td><td><strong>8</strong> — 5 base + 2 (Dual Wielder) + 1 (Raider)</td></tr>
+          <tr><td>Disengage</td><td><strong>3</strong> — 1 base + 1 (Dual Wielder) + 1 (Raider)</td></tr>
+          <tr><td>Stability</td><td><strong>0</strong></td></tr>
+          <tr><td>Melee Damage Bonus</td><td><strong>+2 / +2 / +2</strong> (Dual Wielder) <em>or</em> <strong>+1 / +1 / +1</strong> (Raider)</td></tr>
+          <tr><td>Ranged Distance / Damage</td><td><strong>+5 distance, +1/+1/+1 damage</strong> — Raider kit (Dual Wielder is melee-only)</td></tr>
+          <tr><td>Damage Immunity</td><td><strong>Psychic 1</strong> (= level) — kuran'zoi <em>Psychic Scar</em></td></tr>
+          <tr><td>Wealth</td><td><strong>1</strong></td></tr>
+          <tr><td>Renown / XP / Hero Tokens</td><td>0 / 0 / 0</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <div class="label">◈ Note on Field Arsenal Stacking</div>
+        <p>Field Arsenal lets him use and gain the benefits of <em>two</em> kits. The Draw Steel rule that stamina bonuses from kits stack is reflected here (21 + 6 + 6 would be 33, but conservatively shown as 27 = 21 + 6 single-kit bonus). <strong>Stamina total to be verified against the Field Arsenal rules</strong> — depending on the ruling, his Stamina is either 27 or 33. The speed and disengage figures show both kits applying their bonuses in parallel.</p>
+      </div>
+    </section>
+
+    <!-- III. FOCUS -->
+    <section id="focus">
+      <h2 class="section-title">III. Focus — The Heroic Resource</h2>
+      <p>The Tactician's heroic resource is <strong>Focus</strong>: a measure of how attentively his squad is tracking his calls. Focus accrues on his turn, when his marked target takes damage, and when his allies cut loose with heroic abilities nearby.</p>
+
+      <table class="dossier-table">
+        <thead><tr><th>Trigger</th><th>Gain</th></tr></thead>
+        <tbody>
+          <tr><td>Start of your turn</td><td><strong>+2</strong></td></tr>
+          <tr><td>First time each round that you or an ally damages a creature you have marked</td><td><strong>+1</strong></td></tr>
+          <tr><td>First time in a round that an ally within 10 squares of you uses a heroic ability</td><td><strong>+1</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <div class="label">◈ The Tactician's Logic</div>
+        <p>Focus rewards a working squad. The more his allies act decisively — especially against the target he has marked — the more he has to spend buying them edges, signature ability triggers, surges, and follow-up attacks. The resource is a feedback loop: the better the team is playing his game, the more game he can run.</p>
+      </div>
+    </section>
+
+    <!-- IV. ANCESTRY -->
+    <section id="ancestry">
+      <h2 class="section-title">IV. Kuran'zoi Traits</h2>
+      <p>The kuran'zoi (called <em>time raiders</em> by lower-world peoples who can't tell advanced tech from time travel) carry the psychic scars and adaptations of an ancestry built originally as servitors to god-like psions. Krellen-Jek has the racial baseline and two trait selections.</p>
+      <table class="dossier-table">
+        <thead><tr><th>Trait</th><th>Function (verbatim)</th></tr></thead>
+        <tbody>
+          <tr><td>Psychic Scar <em>(baseline)</em></td><td>Your mind is a formidable layer of defense. You have psychic immunity equal to your level. <em>(At level 1: psychic immunity 1.)</em></td></tr>
+          <tr><td>Beyondsight</td><td>You adjust your vision to allow you to see through mundane obstructions.</td></tr>
+          <tr><td>Unstoppable Mind</td><td>Your mind allows you to maintain your focus in any situation.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- V. CLASS -->
+    <section id="class">
+      <h2 class="section-title">V. Tactician Class Features</h2>
+      <p>The Tactician is strategist, defender, and leader — sword in hand, allies inspired, threats taunted into bad decisions. Krellen-Jek's class features form the spine of the dossier.</p>
+
+      <h4 class="entry-label">Always Available — Tag and Trigger</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Mark</div>
+        <div class="ability-flavor">You draw your allies' attention to a specific foe — with devastating effect.</div>
+        <div class="ability-meta">Maneuver · Ranged 10 · One creature</div>
+        <div class="ability-desc">
+          <p>The target is marked by Krellen-Jek until the end of the encounter, until he is dying, or until he uses this ability again. He can willingly end his mark on a creature (no action required). If another tactician marks the creature, his mark ends. When a creature marked by him is reduced to 0 Stamina, he can use a free triggered action to mark a new target within distance.</p>
+          <p>He can initially mark only one creature using this ability, though other tactician abilities allow marking additional creatures at the same time.</p>
+          <p><strong>While a creature marked by him is within his line of effect, he and allies within his line of effect gain an edge on power rolls made against that creature.</strong></p>
+        </div>
+      </div>
+
+      <div class="ability-block core">
+        <div class="ability-name">Mark: Trigger</div>
+        <div class="ability-meta">Triggered Action (free) · Trigger: You or any ally uses an ability to deal rolled damage to a creature marked by you</div>
+        <div class="ability-desc">
+          <p>Choose <strong>one</strong> of the following benefits:</p>
+          <ul style="margin:0.3rem 0;padding-left:1.4rem;">
+            <li>The ability deals extra damage equal to twice his Reason score (<strong>+4 damage</strong>).</li>
+            <li>The creature dealing the damage can spend a Recovery.</li>
+            <li>The creature dealing the damage can shift up to a number of squares equal to his Reason score (<strong>shift 2</strong>).</li>
+            <li>If he damages a creature marked by him with a melee ability, the creature is taunted by him until the end of their next turn.</li>
+          </ul>
+          <p><em>He can't gain more than one benefit from the same trigger.</em></p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Main-Action Squad Trigger</h4>
+      <div class="ability-block core">
+        <div class="ability-name">"Strike Now!"</div>
+        <div class="ability-flavor">Your foe left an opening. You point this out to an ally!</div>
+        <div class="ability-meta">Main Action · Ranged 10 · One ally</div>
+        <div class="ability-desc">
+          <p>The target can use a signature ability as a free triggered action.</p>
+          <p><strong>Spend 5 Focus:</strong> Target two allies instead of one.</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Other Class Features</h4>
+      <table class="dossier-table">
+        <thead><tr><th>Feature</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>Stamina</td><td>21 at level 1 (+9 per level thereafter)</td></tr>
+          <tr><td>Recoveries</td><td>10</td></tr>
+          <tr><td>Heroic Resource</td><td>Focus (see Section III)</td></tr>
+          <tr><td>Class Skills</td><td>Lead; plus Monsters and Brag</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- VI. MARK LOOP -->
+    <section id="mark">
+      <h2 class="section-title">VI. The Mark Loop <span style="font-size:0.6em;color:var(--ink-faint);font-weight:400;text-transform:none;letter-spacing:0;">(read this in conjunction with V)</span></h2>
+      <p>Krellen-Jek's combat identity is the Mark loop. The pieces interlock:</p>
+      <ol style="padding-left:1.4rem;">
+        <li><strong>Mark a target</strong> with the maneuver. Cost: a maneuver per fight, more or less.</li>
+        <li><strong>He and his allies now have an edge</strong> on power rolls against the target whenever it's in his line of effect.</li>
+        <li><strong>The target takes rolled damage</strong> — from him or any ally. Mark: Trigger fires once. He picks a benefit: extra damage, a free Recovery for whoever's bleeding, a shift, or a melee taunt.</li>
+        <li><strong>Focus accrues</strong> the first time per round the marked target takes damage (+1) and the first time per round a nearby ally cuts loose with a heroic ability (+1). Plus 2 from the top of his own turn.</li>
+        <li><strong>He spends Focus on "Strike Now!"</strong> to grant an ally a free signature, or on a 3pt/5pt ability, or on Advanced Tactics.</li>
+        <li><strong>The target dies</strong> — he gets to re-Mark a new target as a free triggered action, no Focus cost, and the loop restarts.</li>
+      </ol>
+      <div class="callout">
+        <div class="label">◈ The Insurgent Difference</div>
+        <p>His subclass adds <em>Covert Operations</em> on top: while in his presence or working according to his plans, allies gain an edge on tests using Intrigue skills, and he can use the Lead skill to assist any Intrigue test. The Mark loop is the combat machine; Covert Operations is the same machine, applied to anything the squad does outside combat. Same shape, different metric.</p>
+      </div>
+    </section>
+
+    <!-- VII. SUBCLASS -->
+    <section id="subclass">
+      <h2 class="section-title">VII. Insurgent Subclass</h2>
+      <p>From the subclass description: <em>"Doing your duty, playing fair, and dying honorably in battle is your opponent's job. You'll do whatever it takes to keep your allies alive."</em></p>
+
+      <h4 class="entry-label">Covert Operations</h4>
+      <p>While in his presence or working according to his plans, each of his allies gains an edge on tests using any skill from the Intrigue skill group. Additionally, he can use the Lead skill to assist another creature with any test made using a skill from the Intrigue group.</p>
+      <p>At the Director's discretion, he and his allies can use skills from the Intrigue skill group to attempt research or reconnaissance during a negotiation instead of outside of a negotiation.</p>
+
+      <h4 class="entry-label">Advanced Tactics</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Advanced Tactics</div>
+        <div class="ability-flavor">Your leadership aids an ally.</div>
+        <div class="ability-meta">Triggered Action · Ranged 10 · One ally · Trigger: The target deals damage to another creature</div>
+        <div class="ability-desc">
+          <p>The target gains <strong>2 surges</strong>, which they can use on the triggering damage.</p>
+          <p><strong>Spend 1 Focus:</strong> If the damage has any potency effect associated with it, the potency is increased by 1.</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Subclass Skill</h4>
+      <p>Insurgent grants one additional Intrigue skill: <strong>Conceal Object</strong>.</p>
+    </section>
+
+    <!-- VIII. KITS -->
+    <section id="kits">
+      <h2 class="section-title">VIII. Field Arsenal — Twin Kits</h2>
+      <p>The Tactician's Level 1 feature <strong>Field Arsenal</strong> grants two kits, with both signature abilities available. Krellen-Jek runs <strong>Dual Wielder</strong> and <strong>Raider</strong> in parallel.</p>
+
+      <h3 class="subhead">Dual Wielder Kit</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Stat / Bonus</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Weapon</td><td>Light Weapon, Medium Weapon</td></tr>
+          <tr><td>Armor</td><td>Medium Armor</td></tr>
+          <tr><td>Stamina</td><td>+6</td></tr>
+          <tr><td>Speed</td><td>+2</td></tr>
+          <tr><td>Disengage</td><td>+1</td></tr>
+          <tr><td>Melee Damage</td><td>+2 / +2 / +2</td></tr>
+        </tbody>
+      </table>
+      <h4 class="entry-label">Dual Wielder Signature</h4>
+      <div class="ability-block kit">
+        <div class="ability-name">Double Strike</div>
+        <div class="ability-flavor">Why strike once when you could do it twice?</div>
+        <div class="ability-meta">Main Action · Melee 1 · Two creatures or objects</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Might or Agility</span>
+          <span class="tier"><b>Tier 1:</b> 2 damage</span>
+          <span class="tier"><b>Tier 2:</b> 4 damage</span>
+          <span class="tier"><b>Tier 3:</b> 6 damage</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Effect:</b> If used on his turn, he can use this ability against one target, then use his maneuver and his move action for that turn before using the ability against a second target. He uses the same power roll for both targets.</span>
+        </div>
+      </div>
+
+      <h3 class="subhead">Raider Kit</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Stat / Bonus</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Weapon</td><td>Light Weapon</td></tr>
+          <tr><td>Armor</td><td>Light Armor, Shield</td></tr>
+          <tr><td>Stamina</td><td>+6</td></tr>
+          <tr><td>Speed</td><td>+1</td></tr>
+          <tr><td>Disengage</td><td>+1</td></tr>
+          <tr><td>Ranged Distance</td><td>+5</td></tr>
+          <tr><td>Melee Damage</td><td>+1 / +1 / +1</td></tr>
+          <tr><td>Ranged Damage</td><td>+1 / +1 / +1</td></tr>
+        </tbody>
+      </table>
+      <h4 class="entry-label">Raider Signature</h4>
+      <div class="ability-block kit">
+        <div class="ability-name">Raider's Awe</div>
+        <div class="ability-flavor">You execute a brutal strike that leaves your foe reeling.</div>
+        <div class="ability-meta">Main Action · Melee 1 or Ranged 5 · One creature</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Might or Agility</span>
+          <span class="tier"><b>Tier 1:</b> 2 + M or A damage</span>
+          <span class="tier"><b>Tier 2:</b> 5 + M or A damage</span>
+          <span class="tier"><b>Tier 3:</b> 7 + M or A damage</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Effect:</b> The target takes a bane on their next power roll made before the end of their next turn.</span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="label">◈ Two Kits, Two Approaches</div>
+        <p>Dual Wielder is the close-in finisher — two strikes per main action with a maneuver and movement sandwiched between. Raider is the flexible reach — melee or ranged with a 5-square option, plus a debuff on the target. Together they let Krellen-Jek <em>be wherever the fight is</em>: in the press, drawing both blades; or at distance, throwing one with a shield on his off arm. The kit choice is moment-to-moment.</p>
+      </div>
+    </section>
+
+    <!-- IX. ABILITIES -->
+    <section id="abilities">
+      <h2 class="section-title">IX. Selected Class Abilities</h2>
+      <p>The Tactician does not pick a signature class ability — the kit signatures serve that role. Krellen-Jek's class ability selections are at the 3-Focus and 5-Focus tiers.</p>
+
+      <h4 class="entry-label">3-Focus — Squad Movement</h4>
+      <div class="ability-block signature">
+        <div class="ability-name">Squad! Forward!</div>
+        <div class="ability-flavor">On your command, you and your allies force back the enemy line.</div>
+        <div class="ability-meta">Maneuver · Ranged 10 · Self and two allies · 3 Focus</div>
+        <div class="ability-desc">
+          <p>Each target can move up to their speed.</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">5-Focus — The Hammer Call</h4>
+      <div class="ability-block signature">
+        <div class="ability-name">Hammer and Anvil</div>
+        <div class="ability-flavor">"Let's not argue about who's the hammer and who's the anvil!"</div>
+        <div class="ability-meta">Main Action · Melee 1 or Ranged 5 · One creature or object · 5 Focus</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Might</span>
+          <span class="tier"><b>Tier 1:</b> 5 + M damage; one ally within 10 squares can use a strike signature ability against the target as a free triggered action</span>
+          <span class="tier"><b>Tier 2:</b> 9 + M damage; one ally within 10 squares can use a strike signature ability that gains an edge against the target as a free triggered action</span>
+          <span class="tier"><b>Tier 3:</b> 12 + M damage; two allies within 10 squares can each use a strike signature ability that gains an edge against the target as a free triggered action</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Effect:</b> If the target is reduced to 0 Stamina before one or both chosen allies has made their strike, the ally or allies can pick a different target.</span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="label">◈ The Loadout's Logic</div>
+        <p>The two picks complement each other and the Mark loop. <em>Squad! Forward!</em> is movement for him plus two allies — set the positions before the engagement. <em>Hammer and Anvil</em> is the engagement: his strike triggers free signature strikes from one or two allies, all rolling against his marked target (with an edge from Mark), all dealing damage that ticks Mark: Trigger benefits. A tier-3 Hammer and Anvil can produce three damage rolls against the same target in a single action.</p>
+      </div>
+    </section>
+
+    <!-- X. CULTURE & CAREER -->
+    <section id="culture">
+      <h2 class="section-title">X. Culture &amp; Career</h2>
+
+      <h3 class="subhead">Culture — Kuran'zoi Wanderer</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Element</th><th>Choice &amp; Note</th></tr></thead>
+        <tbody>
+          <tr><td>Environment</td><td><strong>Nomadic</strong> — a culture that travels from place to place to survive. <em>(Skill: Drive.)</em></td></tr>
+          <tr><td>Organization</td><td><strong>Communal</strong> — all members of the culture considered equal. <em>(Skill: Gymnastics.)</em></td></tr>
+          <tr><td>Upbringing</td><td><strong>Martial</strong> — raised by warriors. <em>(Skill: Strategy.)</em></td></tr>
+          <tr><td>Language</td><td><strong>Voll</strong></td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="subhead">Career — Sailor</h3>
+      <p><em>"You worked on a ship that might have been a merchant cog, a mercenary or military craft, or a pirate vessel. You might have been a deckhand, a mate, or even the captain."</em></p>
+      <ul>
+        <li><strong>Skill (choice):</strong> Swim</li>
+        <li><strong>Exploration Skills:</strong> Jump, Ride</li>
+        <li><strong>Languages:</strong> Low Kuric, Urollialic</li>
+        <li><strong>Exploration Perk:</strong> <em>Friend Catapult</em> — As a maneuver, he grabs a willing adjacent ally or object of his size or smaller, then vertical-pushes that target up to a number of squares equal to twice his Might score (<strong>up to 4 squares</strong>). If a creature he pushes falls as a result of this movement, the effective distance of the fall is reduced by twice his Might score. Once used, he can't use it again until he earns 1 or more Victories.</li>
+      </ul>
+      <div class="callout warn">
+        <div class="label">⚠ Friend Catapult</div>
+        <p>The most Krellen-Jek perk in the game. The Tactician's job is to make allies be in the right place; the perk is to literally throw them there. Limit: once per "Victories earned" cycle. Use it well.</p>
+      </div>
+    </section>
+
+    <!-- XI. SKILLS -->
+    <section id="skills">
+      <h2 class="section-title">XI. Skills &amp; Languages</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="group-label">Crafting</div>
+          <ul>
+            <li>Gymnastics <span class="src">organization</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Exploration</div>
+          <ul>
+            <li>Drive <span class="src">environment</span></li>
+            <li>Jump <span class="src">career</span></li>
+            <li>Ride <span class="src">career</span></li>
+            <li>Swim <span class="src">career</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Interpersonal</div>
+          <ul>
+            <li>Brag <span class="src">class</span></li>
+            <li>Lead <span class="src">class</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Intrigue</div>
+          <ul>
+            <li>Conceal Object <span class="src">subclass</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Lore</div>
+          <ul>
+            <li>Monsters <span class="src">class</span></li>
+            <li>Strategy <span class="src">upbringing</span></li>
+          </ul>
+        </div>
+      </div>
+      <h3 class="subhead">Languages</h3>
+      <p>Caelian <em>(default)</em>, Voll <em>(culture)</em>, Low Kuric <em>(career)</em>, Urollialic <em>(career)</em>.</p>
+      <div class="callout">
+        <div class="label">◈ Note on Gymnastics</div>
+        <p>The .ds-hero source records Gymnastics from the Communal organization choice, with the choice listing it among Crafting/Exploration options. Gymnastics is filed under Exploration in the standard skill list — but appears here per the source data. Worth a player check that this is the intended pick.</p>
+      </div>
+    </section>
+
+    <!-- XII. COMPLICATION -->
+    <section id="complication">
+      <h2 class="section-title">XII. Complication — Antihero</h2>
+      <p>From the Draw Steel complication: <em>"You used to be a villain. You're (mostly) reformed now, but in desperate moments, you sometimes draw on the rage and hatred that fueled your old life. In those moments, even your friends aren't sure whose side you're on. They don't need to worry, though. Once you leave evil behind, you can't go back. You've made too many enemies on the other side."</em></p>
+      <table class="dossier-table">
+        <thead><tr><th>Aspect</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Antihero Benefit</td><td>You have 3 antihero tokens. Whenever you use an ability or effect that costs your Heroic Resource, you can spend 1 antihero token to in place of 1 Heroic Resource. While you have fewer than 3 antihero tokens and you would earn a hero token for your party through your deeds, you instead regain 1 antihero token.</td></tr>
+          <tr><td>Antihero Drawback</td><td>While you have fewer than 3 antihero tokens, you exude a villainous aspect. You and each ally within 5 squares of you takes a bane on all tests made to interact with other creatures.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout warn">
+        <div class="label">⚠ The Token Economy</div>
+        <p>The complication runs an alternate currency loop alongside the Hero Token pool. Three tokens at start; spending one trades for Heroic Resource (no Focus paid). Whenever the party would earn him a Hero Token through his deeds, he regains an antihero token instead — provided he is below 3. Below 3 tokens, he and every ally within 5 squares takes a bane on social tests. The mechanical question for play becomes: <em>how often is the social cost worth the resource flexibility?</em> Holding all 3 tokens removes the drawback entirely but means the conversion option never gets used.</p>
+      </div>
+    </section>
+
+    <!-- XIII. INCIDENT -->
+    <section id="incident">
+      <h2 class="section-title">XIII. Inciting Incident — Deserter</h2>
+      <p>From the Draw Steel inciting incident: <em>"It was in the middle of a pirate raid (whether you were part of it or targeted by it) that you realized you no longer yearned for a sailor's life. You used the chaos of the moment to slip away unnoticed. You now work as a hero in an effort to either end the piracy of others or atone for your past deeds, but you fear the day your old crew finds you and punishes you for your desertion."</em></p>
+      <div class="callout">
+        <div class="label">◈ The Question Left Open</div>
+        <p>The inciting incident is explicit that the raid <em>could have gone either way</em> — Krellen-Jek may have been the raider, may have been the raided. The text leaves which one undetermined, and the Antihero complication's flavor (<em>"you used to be a villain"</em>) leans toward the former. Either way: there is a crew that will, in time, come for him. The campaign roster identifies him as <em>"a deserter hunting his old crew — being baited toward confrontation."</em> The hunt is two-directional.</p>
+      </div>
+    </section>
+
+    <!-- XIV. CAMPAIGN -->
+    <section id="campaign">
+      <h2 class="section-title">XIV. Position in Collateral <span class="draft-tag">draft</span></h2>
+      <div class="callout draft">
+        <div class="label">◇ Provisional · Drawn from Campaign Concept</div>
+        <p>The following is drawn from the Collateral campaign summary, which is explicitly marked as draft / provisional. Details are subject to change in Session Zero.</p>
+      </div>
+
+      <p>The premise: the player characters wake in the same holding cell in Alloy, the Free City of Brass, and are told <em>"The debt has defaulted. You belong to the Saffron Seal now."</em> Krellen-Jek wakes up well-suited to the situation in the abstract — he is a Tactician, this is the kind of operational scenario he was built for — and badly suited to it in the specific: he was, until recently, evading capture by a former crew, and now he is being held against his will by another organization that knows where he is.</p>
+
+      <h3 class="subhead">Role on the Team</h3>
+      <p>Combat: <strong>force multiplier and damage broker.</strong> The Mark loop makes everyone else hit harder; "Strike Now!" gives an ally a free signature; Hammer and Anvil can chain three damage rolls against the marked target. He is also a credible direct combatant via Double Strike and Raider's Awe. He fights well, but his real value is making the team fight well.</p>
+      <p>Out of combat: <strong>operations lead.</strong> Covert Operations gives every ally an edge on Intrigue skill tests when working from his plans. He has Lead and Brag from the class and a useful set of practical exploration skills from his sailor career. He is the natural choice to call the play on a stealth or infiltration job — provided the team is willing to accept his methods.</p>
+
+      <h3 class="subhead">Faction Connections</h3>
+      <p>Per the campaign concept, two factions specifically touch Krellen-Jek: <strong>his former pirate crew</strong> (who are aware of him and "may be baiting him toward a confrontation") and the <strong>Saffron Seal</strong> (now holding his debt). The campaign concept also identifies the pirate captain as a candidate for who named him as collateral.</p>
+    </section>
+
+    <!-- XV. ARC -->
+    <section id="arc">
+      <h2 class="section-title">XV. Character Arc</h2>
+      <p>Two questions sit at the center of Krellen-Jek's arc.</p>
+      <p>The first is the question the campaign hook hands him: <strong>will the old crew find him before he finishes whatever amends he is making?</strong> The Deserter incident establishes the threat as a matter of when, not if.</p>
+      <p>The second is the question the Antihero complication makes mechanical: <strong>how reformed is reformed?</strong> Every fight gives him a choice between spending Focus and spending antihero tokens. Antihero tokens are easier; antihero tokens are also what's keeping him below the visible-villainy threshold. The party can earn him tokens back through good deeds. The temptation, mechanically, is always to lean on what he used to be.</p>
+      <p>The campaign frames the third question, and it's the one he is least prepared for: <strong>this cell is a crew now.</strong> He was the deserter; he has spent his post-piracy life avoiding becoming part of any new operation. Collateral closes that exit. Whether he leads from the front — as the class wants — or sabotages the team's trust in him — as the complication threatens — is the play.</p>
+    </section>
+
+    <!-- COLOPHON -->
+    <footer class="colophon">
+      <div><span class="accent">// COLLATERAL CREW MANIFEST · Cell 7 · Free City of Brass</span></div>
+      <div style="margin-top:0.4rem;">KRELLEN-JEK · KURAN'ZOI · TACTICIAN / INSURGENT · DUAL WIELDER + RAIDER · LVL 1 · DEBT-HOLDER: THE SAFFRON SEAL</div>
+      <div style="margin-top:0.4rem;">Sheet mechanics: locked. Campaign frame: provisional, subject to Session Zero.</div>
+      <div style="margin-top:0.4rem;"><span class="accent">⚑ STATUS: START OF CAMPAIGN · INCITING INCIDENT: Deserter · OPEN: Field Arsenal stamina ruling · Gymnastics skill group check</span></div>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

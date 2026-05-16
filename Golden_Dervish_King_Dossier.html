@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — The Golden Dervish King</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Rice paper & ash */
+    --paper:          #f1e3c8;
+    --paper-mid:      #e4d2ad;
+    --paper-deep:     #d0b888;
+    --paper-scorch:   #9a6630;
+
+    /* Ink */
+    --ink:            #18120a;
+    --ink-soft:       #2a1c0e;
+    --ink-faint:      #5a4220;
+    --ink-wash:       #826238;
+
+    /* Fire — vermillion through gold */
+    --ember:          #5a0f08;   /* burnt cinnabar */
+    --vermillion:     #9a1410;
+    --cinnabar:       #c8261a;
+    --flame:          #e6541c;
+    --flame-pale:     #f0843a;
+
+    /* Gold leaf — the Dervish's gold */
+    --gold-deep:      #6e4a08;
+    --gold:           #a47a18;
+    --gold-bright:    #d4a430;
+    --gold-pale:      #ecc858;
+    --gold-shine:     #f8e088;
+
+    /* Smoke */
+    --smoke:          #38302a;
+    --smoke-mid:      #5c4e42;
+    --smoke-pale:     #8a7864;
+
+    --rule:           #9a6630;
+    --rule-soft:      #c4a070;
+    --panel-ember:    rgba(154, 20, 16, 0.05);
+    --panel-gold:     rgba(110, 74, 8, 0.06);
+    --panel-smoke:    rgba(56, 48, 42, 0.04);
+    --panel-ash:      rgba(56, 48, 42, 0.07);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--paper-mid);
+    color: var(--ink);
+    font-family: "Cormorant Garamond", "Noto Serif SC", Georgia, serif;
+    font-size: 16.5px;
+    line-height: 1.65;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse at 15% 0%,   rgba(154, 20, 16, 0.10) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 100%, rgba(230, 84, 28, 0.08) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%,  rgba(110, 74, 8, 0.06) 0%, transparent 65%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.62' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    min-height: 100vh;
+    padding: 2.5rem 1rem;
+  }
+
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 4rem 4.5rem 5rem;
+    box-shadow:
+      0 2px 4px rgba(18, 12, 10, 0.16),
+      0 14px 52px rgba(18, 12, 10, 0.30),
+      inset 0 0 180px rgba(154, 20, 16, 0.05),
+      inset 0 0 80px rgba(56, 48, 42, 0.04);
+    position: relative;
+    border: 1px solid var(--rule);
+  }
+
+  /* Top: a banner of flame */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg,
+      var(--ember) 0%,
+      var(--vermillion) 15%,
+      var(--cinnabar) 30%,
+      var(--flame) 45%,
+      var(--gold-bright) 50%,
+      var(--flame) 55%,
+      var(--cinnabar) 70%,
+      var(--vermillion) 85%,
+      var(--ember) 100%);
+  }
+
+  /* Bottom — scorched edge */
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--ember) 18%,
+      var(--gold-bright) 50%,
+      var(--ember) 82%,
+      transparent 100%);
+  }
+
+  /* Burned paper corners */
+  .corner {
+    position: absolute;
+    width: 56px; height: 56px;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .corner svg { width: 100%; height: 100%; }
+  .corner.tl { top: 10px; left: 10px; }
+  .corner.tr { top: 10px; right: 10px; transform: scaleX(-1); }
+  .corner.bl { bottom: 10px; left: 10px; transform: scaleY(-1); }
+  .corner.br { bottom: 10px; right: 10px; transform: scale(-1, -1); }
+
+  /* ─── HEADER ─── */
+  header.title-block {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1.4rem;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .filemark {
+    display: flex;
+    justify-content: space-between;
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .filemark .han {
+    font-family: "Noto Serif SC", serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.4em;
+    color: var(--vermillion);
+  }
+
+  .han-vertical {
+    font-family: "Noto Serif SC", serif;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size: 1.7rem;
+    line-height: 1.1;
+    color: var(--vermillion);
+    letter-spacing: 0.4em;
+    font-weight: 600;
+    justify-self: end;
+    padding-right: 0.4rem;
+    border-right: 2px solid var(--vermillion);
+  }
+  .han-vertical.left {
+    justify-self: start;
+    padding-right: 0;
+    padding-left: 0.4rem;
+    border-right: none;
+    border-left: 2px solid var(--vermillion);
+    color: var(--gold-deep);
+    writing-mode: vertical-rl;
+  }
+
+  .title-center {
+    text-align: center;
+  }
+
+  .eyebrow {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    color: var(--vermillion);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+  }
+
+  h1.character-name {
+    font-family: "Cinzel", serif;
+    font-size: 2.55rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 0 0 0.35rem;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 0 var(--gold-pale);
+  }
+
+  .han-name {
+    font-family: "Ma Shan Zheng", "Noto Serif SC", serif;
+    font-size: 1.7rem;
+    color: var(--vermillion);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .name-sub {
+    font-family: "Cinzel", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    display: block;
+    margin-bottom: 0.8rem;
+  }
+
+  .epithet {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.08rem;
+    color: var(--ember);
+    margin: 0;
+    line-height: 1.45;
+  }
+
+  /* Tag line — quoted aphorism */
+  .tag-banner {
+    margin: 2rem auto 2.5rem;
+    text-align: center;
+    position: relative;
+    padding: 1.3rem 2.5rem;
+    max-width: 720px;
+  }
+  .tag-banner::before, .tag-banner::after {
+    content: "";
+    position: absolute;
+    left: 50%; transform: translateX(-50%);
+    width: 220px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--vermillion) 30%, var(--gold-bright) 50%, var(--vermillion) 70%, transparent);
+  }
+  .tag-banner::before { top: 0; }
+  .tag-banner::after  { bottom: 0; }
+  .tag-banner p {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.32rem;
+    line-height: 1.35;
+    color: var(--ember);
+    margin: 0;
+    letter-spacing: 0.02em;
+  }
+  .tag-banner .quote-mark {
+    font-family: "Noto Serif SC", serif;
+    color: var(--gold-bright);
+    font-size: 1.6rem;
+    line-height: 1;
+    vertical-align: middle;
+    padding: 0 0.3rem;
+  }
+
+  /* Portrait */
+  .portrait-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 2rem;
+    margin-bottom: 2.2rem;
+    align-items: start;
+  }
+  .portrait-frame {
+    position: relative;
+    padding: 6px;
+    background: linear-gradient(135deg, var(--gold-deep), var(--gold-bright) 50%, var(--gold-deep));
+    box-shadow:
+      4px 6px 22px rgba(24, 12, 6, 0.40),
+      inset 0 0 14px rgba(24, 12, 6, 0.30);
+  }
+  .portrait-frame img {
+    width: 100%;
+    display: block;
+    filter: contrast(1.05) saturate(1.08);
+    border: 1px solid var(--ember);
+  }
+  .portrait-caption {
+    font-family: "Cinzel", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+  .portrait-side {
+    padding-top: 0.4rem;
+  }
+  .portrait-side .concept-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.28em;
+    color: var(--vermillion);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .portrait-side .concept {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 1.1rem;
+    line-height: 1.25;
+  }
+  .portrait-side .deviation {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    border-left: 3px solid var(--ember);
+    padding: 0.4rem 0 0.4rem 1rem;
+    background: var(--panel-ember);
+  }
+  .portrait-side .deviation .label {
+    display: block;
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.24em;
+    color: var(--vermillion);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+
+  /* ─── SECTIONS ─── */
+  section.scroll-section {
+    margin-bottom: 2.4rem;
+    page-break-inside: avoid;
+  }
+
+  h2.section-title {
+    font-family: "Cinzel", serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.35em;
+    color: var(--ember);
+    text-transform: uppercase;
+    margin: 0 0 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule-soft);
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+  }
+  h2.section-title .han-tag {
+    font-family: "Noto Serif SC", serif;
+    font-size: 0.8rem;
+    color: var(--gold-deep);
+    letter-spacing: 0.25em;
+    font-weight: 500;
+  }
+  h2.section-title .ornament {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--rule-soft), transparent);
+    margin-top: 0.2em;
+  }
+
+  /* ─── PROSE ─── */
+  .prose p {
+    margin: 0 0 1rem;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+  }
+  .prose p:first-of-type::first-letter {
+    font-family: "Ma Shan Zheng", "Noto Serif SC", serif;
+    font-size: 3.4rem;
+    float: left;
+    line-height: 0.92;
+    padding: 0.18rem 0.55rem 0 0;
+    color: var(--vermillion);
+  }
+
+  /* ─── STAT BLOCK GRID ─── */
+  .mech-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .mech-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+
+  .stat-panel {
+    border: 1px solid var(--rule-soft);
+    background: var(--paper);
+    padding: 0.95rem 1.1rem;
+    position: relative;
+  }
+  .stat-panel.ember {
+    background: var(--panel-ember);
+    border-color: var(--vermillion);
+  }
+  .stat-panel.gold {
+    background: var(--panel-gold);
+    border-color: var(--gold);
+  }
+  .stat-panel.smoke {
+    background: var(--panel-smoke);
+    border-color: var(--smoke-mid);
+  }
+  .stat-panel h3 {
+    font-family: "Cinzel", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.26em;
+    color: var(--ember);
+    margin: 0 0 0.7rem;
+    text-transform: uppercase;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px dashed var(--rule-soft);
+  }
+  .stat-panel h3 .han-tag {
+    font-family: "Noto Serif SC", serif;
+    font-size: 0.78rem;
+    color: var(--gold-deep);
+    margin-left: 0.6rem;
+    letter-spacing: 0.18em;
+  }
+
+  .kv-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.18rem 0;
+    font-size: 0.96rem;
+    border-bottom: 1px dotted rgba(110, 74, 8, 0.25);
+  }
+  .kv-row:last-child { border-bottom: none; }
+  .kv-row .k {
+    color: var(--ink-faint);
+    font-family: "Cinzel", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+  }
+  .kv-row .v {
+    color: var(--ink);
+    font-weight: 600;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.05rem;
+  }
+  .kv-row.empty .v {
+    color: var(--smoke-pale);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.9rem;
+  }
+
+  /* Chi / Rank prominent display */
+  .chi-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    text-align: center;
+    margin-bottom: 0.6rem;
+  }
+  .chi-pip {
+    border: 1px solid var(--rule);
+    padding: 0.55rem 0.4rem;
+    background: var(--paper-mid);
+  }
+  .chi-pip.fire {
+    background: linear-gradient(180deg, var(--paper-mid), rgba(230, 84, 28, 0.18));
+    border-color: var(--flame);
+  }
+  .chi-pip .label {
+    font-family: "Cinzel", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+  .chi-pip .value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--ember);
+  }
+  .chi-pip .value small {
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    font-weight: 400;
+    margin: 0 0.18rem;
+  }
+
+  /* Rank display */
+  .rank-display {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .rank-cell {
+    border: 1px solid var(--rule);
+    background: var(--paper-mid);
+    padding: 0.4rem;
+    text-align: center;
+  }
+  .rank-cell .label {
+    font-family: "Cinzel", serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.18rem;
+  }
+  .rank-cell .value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ember);
+  }
+  .ripples {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.35rem;
+  }
+  .ripples .rank-cell {
+    padding: 0.3rem 0.2rem;
+  }
+  .ripples .rank-cell .value {
+    font-size: 1.1rem;
+  }
+
+  /* ─── COMBAT TABLE ─── */
+  .combat-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    border: 1px solid var(--rule);
+    margin-bottom: 1rem;
+  }
+  .combat-cell {
+    padding: 0.55rem 0.4rem;
+    text-align: center;
+    border-right: 1px solid var(--rule-soft);
+    border-bottom: 1px solid var(--rule-soft);
+    background: var(--paper);
+  }
+  .combat-cell:nth-child(6n) { border-right: none; }
+  .combat-cell.header {
+    background: var(--ember);
+    color: var(--gold-shine);
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .combat-cell .v {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--ink);
+    display: block;
+  }
+  .combat-cell .l {
+    font-family: "Cinzel", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+
+  /* Threshold ladder */
+  .threshold-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.4rem;
+  }
+  .threshold-table th, .threshold-table td {
+    padding: 0.3rem 0.5rem;
+    text-align: center;
+    font-size: 0.95rem;
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .threshold-table th {
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    color: var(--ember);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+  }
+  .threshold-table td.tier {
+    text-align: left;
+    font-family: "Cinzel", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .threshold-table td.val {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  /* Initiative / During Turn tables */
+  .init-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.4rem;
+    font-size: 0.95rem;
+  }
+  .init-table th {
+    background: var(--gold-deep);
+    color: var(--gold-shine);
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    padding: 0.4rem 0.5rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .init-table th:first-child { text-align: left; }
+  .init-table td {
+    padding: 0.42rem 0.5rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    text-align: center;
+  }
+  .init-table td:first-child {
+    text-align: left;
+    font-family: "Cinzel", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+  }
+  .init-table td.tot {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 700;
+    font-size: 1.08rem;
+    color: var(--ember);
+  }
+
+  /* Skills */
+  .skill-cluster {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.45rem;
+  }
+  .skill-pill {
+    border: 1px solid var(--rule-soft);
+    background: var(--paper);
+    padding: 0.35rem 0.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 0.9rem;
+  }
+  .skill-pill .name {
+    font-family: "Cinzel", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .skill-pill .rank {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--ember);
+  }
+  .skill-pill.unranked {
+    opacity: 0.45;
+    background: transparent;
+    border-style: dashed;
+  }
+  .skill-pill.unranked .rank::before {
+    content: "—";
+    color: var(--smoke-pale);
+  }
+
+  /* Virtues — two columns chivalrous/selfish */
+  .virtue-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .virtue-col h4 {
+    font-family: "Cinzel", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin: 0 0 0.6rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .virtue-col.chivalrous h4 { color: var(--gold-deep); }
+  .virtue-col.selfish    h4 { color: var(--vermillion); }
+  .virtue-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.22rem 0;
+    font-size: 0.96rem;
+    border-bottom: 1px dotted rgba(110, 74, 8, 0.18);
+  }
+  .virtue-row:last-child { border-bottom: none; }
+  .virtue-row .vname {
+    font-family: "Cormorant Garamond", serif;
+    color: var(--ink-soft);
+    font-size: 1.02rem;
+  }
+  .virtue-row .vdots {
+    display: inline-flex;
+    gap: 3px;
+  }
+  .vdot {
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    border: 1px solid var(--rule);
+    background: var(--paper-mid);
+  }
+  .virtue-col.chivalrous .vdot.on {
+    background: radial-gradient(circle at 30% 30%, var(--gold-shine), var(--gold-deep));
+    border-color: var(--gold-deep);
+    box-shadow: 0 0 4px rgba(212, 164, 48, 0.5);
+  }
+  .virtue-col.selfish .vdot.on {
+    background: radial-gradient(circle at 30% 30%, var(--flame), var(--ember));
+    border-color: var(--ember);
+    box-shadow: 0 0 4px rgba(200, 38, 26, 0.5);
+  }
+
+  /* Joss */
+  .joss-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+    margin-top: 0.6rem;
+  }
+  .joss-pip {
+    text-align: center;
+    padding: 0.6rem 0.4rem;
+    border: 1px solid var(--rule);
+  }
+  .joss-pip.chiv {
+    background: linear-gradient(180deg, var(--paper-mid), rgba(212, 164, 48, 0.18));
+    border-color: var(--gold);
+  }
+  .joss-pip.mal {
+    background: linear-gradient(180deg, var(--paper-mid), rgba(154, 20, 16, 0.15));
+    border-color: var(--vermillion);
+  }
+  .joss-pip .label {
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.3rem;
+  }
+  .joss-pip.chiv .label { color: var(--gold-deep); }
+  .joss-pip.mal  .label { color: var(--vermillion); }
+  .joss-pip .value {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 700;
+    font-size: 1.7rem;
+    color: var(--ember);
+  }
+
+  /* ─── KUNG FU STYLE PANELS ─── */
+  .style-panel {
+    margin-bottom: 1.6rem;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 1.2rem 1.4rem 1.3rem;
+    position: relative;
+  }
+  .style-panel.shadow-catching {
+    border-color: var(--smoke);
+    background:
+      linear-gradient(135deg, rgba(56, 48, 42, 0.04), transparent 50%),
+      var(--paper);
+  }
+  .style-panel.fire-sutra {
+    border-color: var(--vermillion);
+    background:
+      linear-gradient(135deg, rgba(200, 38, 26, 0.07), transparent 50%),
+      var(--paper);
+  }
+  .style-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid var(--rule-soft);
+    gap: 1rem;
+  }
+  .style-name {
+    font-family: "Cinzel", serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .style-panel.shadow-catching .style-name { color: var(--smoke); }
+  .style-panel.fire-sutra      .style-name { color: var(--ember); }
+  .style-han {
+    font-family: "Ma Shan Zheng", "Noto Serif SC", serif;
+    font-size: 1.4rem;
+  }
+  .style-panel.shadow-catching .style-han { color: var(--smoke); }
+  .style-panel.fire-sutra      .style-han { color: var(--vermillion); }
+
+  .style-flavor {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.02rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 1rem;
+  }
+
+  .laughs-fears {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  .lf-block {
+    padding: 0.7rem 0.9rem;
+    border-left: 3px solid;
+    background: var(--panel-ash);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .lf-block.laughs { border-color: var(--gold); }
+  .lf-block.fears  { border-color: var(--ember); }
+  .lf-block .lf-label {
+    display: block;
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .lf-block.laughs .lf-label { color: var(--gold-deep); }
+  .lf-block.fears  .lf-label { color: var(--vermillion); }
+  .lf-block.empty {
+    color: var(--smoke-pale);
+    font-style: italic;
+  }
+
+  .technique-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 0.7rem;
+  }
+  .technique {
+    border: 1px dashed var(--rule-soft);
+    background: rgba(241, 227, 200, 0.6);
+    padding: 0.65rem 0.85rem;
+    font-size: 0.97rem;
+    line-height: 1.5;
+  }
+  .technique .tnum {
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    color: var(--vermillion);
+    margin-right: 0.5rem;
+    font-weight: 600;
+  }
+  .technique .tname {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    color: var(--ember);
+    font-size: 0.92rem;
+    letter-spacing: 0.06em;
+  }
+  .technique .tbody {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--ink-soft);
+  }
+
+  .breath-row {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    padding: 0.55rem 0.85rem;
+    background: var(--panel-gold);
+    border-left: 3px solid var(--gold);
+    margin-top: 0.6rem;
+  }
+  .breath-row strong {
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    color: var(--gold-deep);
+    text-transform: uppercase;
+    margin-right: 0.5rem;
+  }
+
+  /* Equipment & Loresheets list */
+  .gear-list, .lore-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .gear-list li, .lore-list li {
+    padding: 0.5rem 0.85rem;
+    margin-bottom: 0.5rem;
+    border-left: 3px solid var(--gold);
+    background: var(--panel-gold);
+    font-size: 0.97rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .gear-list li strong, .lore-list li strong {
+    font-family: "Cinzel", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.14em;
+    color: var(--gold-deep);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.18rem;
+  }
+
+  /* Conditions reference */
+  .cond-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+  }
+  .cond-table td {
+    padding: 0.4rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: top;
+  }
+  .cond-table td.cname {
+    font-family: "Cinzel", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    color: var(--vermillion);
+    text-transform: uppercase;
+    white-space: nowrap;
+    width: 90px;
+  }
+  .cond-table td.cdesc {
+    color: var(--ink-soft);
+  }
+
+  /* Marvels */
+  .marvel-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .marvel-list .marvel {
+    padding: 0.4rem 0.7rem;
+    border: 1px solid var(--rule-soft);
+    background: var(--paper);
+    font-size: 0.92rem;
+  }
+  .marvel-list .marvel .mname {
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    color: var(--gold-deep);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+  .marvel-list .marvel .mdesc {
+    color: var(--ink-soft);
+    font-style: italic;
+    font-size: 0.86rem;
+  }
+
+  /* Companions */
+  .companion {
+    padding: 1rem 1.2rem;
+    border-left: 3px solid var(--gold);
+    background: var(--panel-gold);
+    margin-bottom: 0.9rem;
+  }
+  .companion h4 {
+    font-family: "Cinzel", serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.16em;
+    margin: 0 0 0.15rem;
+    color: var(--ember);
+  }
+  .companion .role {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-faint);
+    margin-bottom: 0.55rem;
+  }
+  .companion p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  /* Chronicle / events */
+  .chronicle {
+    border: 1px solid var(--rule);
+    padding: 1.4rem 1.6rem 1.5rem;
+    background:
+      linear-gradient(180deg, rgba(154, 20, 16, 0.04), transparent 30%),
+      var(--paper);
+    position: relative;
+  }
+  .chronicle h3 {
+    font-family: "Cinzel", serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.28em;
+    color: var(--ember);
+    text-transform: uppercase;
+    margin: 0 0 0.9rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .chronicle h3 .han-tag {
+    font-family: "Noto Serif SC", serif;
+    font-size: 0.78rem;
+    color: var(--gold-deep);
+    margin-left: 0.6rem;
+    letter-spacing: 0.2em;
+    font-weight: 500;
+  }
+  .chronicle .session-block {
+    margin-bottom: 1.2rem;
+  }
+  .chronicle .session-block:last-child { margin-bottom: 0; }
+  .chronicle .session-date {
+    font-family: "Cinzel", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.24em;
+    color: var(--vermillion);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .chronicle .session-block p {
+    margin: 0 0 0.55rem;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .chronicle .session-block p:last-child { margin-bottom: 0; }
+
+  /* Names of note */
+  .roster {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .roster .roster-row {
+    padding: 0.42rem 0.7rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.6rem;
+  }
+  .roster .rname {
+    font-family: "Cinzel", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--ember);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .roster .rrole {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    text-align: right;
+  }
+
+  /* Vermillion seal */
+  .seal {
+    display: inline-block;
+    width: 78px; height: 78px;
+    background: var(--vermillion);
+    color: var(--paper);
+    font-family: "Ma Shan Zheng", "Noto Serif SC", serif;
+    font-size: 1.7rem;
+    text-align: center;
+    line-height: 1.05;
+    padding: 0.6rem 0.4rem;
+    position: relative;
+    transform: rotate(-4deg);
+    box-shadow: 2px 2px 6px rgba(24, 12, 6, 0.3);
+    border: 2px solid var(--ember);
+  }
+  .seal .col {
+    display: inline-block;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    letter-spacing: 0.1em;
+  }
+  .seal::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border: 1px solid var(--ember);
+    opacity: 0.6;
+  }
+
+  /* Footer */
+  footer.dossier-foot {
+    margin-top: 3rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  footer.dossier-foot .han {
+    font-family: "Noto Serif SC", serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.4em;
+    color: var(--vermillion);
+    margin: 0 1rem;
+  }
+  footer .seal-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.4rem;
+    margin-top: 1.2rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 760px) {
+    .document { padding: 2rem 1.4rem 2.5rem; }
+    header.title-block { grid-template-columns: 1fr; }
+    .han-vertical, .han-vertical.left { display: none; }
+    .portrait-row { grid-template-columns: 1fr; }
+    .mech-grid, .mech-grid.three, .virtue-grid, .laughs-fears, .marvel-list, .roster { grid-template-columns: 1fr; }
+    .combat-grid { grid-template-columns: repeat(3, 1fr); }
+    .combat-cell:nth-child(6n) { border-right: 1px solid var(--rule-soft); }
+    .combat-cell:nth-child(3n) { border-right: none; }
+    h1.character-name { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="document">
+
+  <!-- Corner ornaments — flame motifs -->
+  <div class="corner tl"><svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 2 L26 2 M2 2 L2 26" stroke="#9a6630" stroke-width="1.2" fill="none"/>
+    <path d="M2 8 L20 8 M8 2 L8 20" stroke="#c8261a" stroke-width="0.8" fill="none" opacity="0.7"/>
+    <path d="M14 14 Q18 8 14 4 Q20 8 18 16 Q22 12 22 20" stroke="#9a1410" stroke-width="1" fill="none"/>
+    <circle cx="14" cy="14" r="2" fill="#d4a430"/>
+  </svg></div>
+  <div class="corner tr"><svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 2 L26 2 M2 2 L2 26" stroke="#9a6630" stroke-width="1.2" fill="none"/>
+    <path d="M2 8 L20 8 M8 2 L8 20" stroke="#c8261a" stroke-width="0.8" fill="none" opacity="0.7"/>
+    <path d="M14 14 Q18 8 14 4 Q20 8 18 16 Q22 12 22 20" stroke="#9a1410" stroke-width="1" fill="none"/>
+    <circle cx="14" cy="14" r="2" fill="#d4a430"/>
+  </svg></div>
+  <div class="corner bl"><svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 2 L26 2 M2 2 L2 26" stroke="#9a6630" stroke-width="1.2" fill="none"/>
+    <path d="M2 8 L20 8 M8 2 L8 20" stroke="#c8261a" stroke-width="0.8" fill="none" opacity="0.7"/>
+    <path d="M14 14 Q18 8 14 4 Q20 8 18 16 Q22 12 22 20" stroke="#9a1410" stroke-width="1" fill="none"/>
+    <circle cx="14" cy="14" r="2" fill="#d4a430"/>
+  </svg></div>
+  <div class="corner br"><svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 2 L26 2 M2 2 L2 26" stroke="#9a6630" stroke-width="1.2" fill="none"/>
+    <path d="M2 8 L20 8 M8 2 L8 20" stroke="#c8261a" stroke-width="0.8" fill="none" opacity="0.7"/>
+    <path d="M14 14 Q18 8 14 4 Q20 8 18 16 Q22 12 22 20" stroke="#9a1410" stroke-width="1" fill="none"/>
+    <circle cx="14" cy="14" r="2" fill="#d4a430"/>
+  </svg></div>
+
+  <div class="filemark">
+    <span class="han">江湖傳奇</span>
+    <span>Legends of the Wulin · Dossier of the Wandering</span>
+    <span>侠</span>
+  </div>
+
+  <header class="title-block">
+    <div class="han-vertical left">火心顯真</div>
+
+    <div class="title-center">
+      <div class="eyebrow">A Wanderer of the Rivers and Lakes</div>
+      <h1 class="character-name">The Golden Dervish King</h1>
+      <span class="han-name">金旋舞王</span>
+      <span class="name-sub">Fire Doctrine Priest · Wulin Initiate</span>
+      <p class="epithet">He of the milky eyes and the smoke-scented robes;<br>he whose dance carries the temple's flame.</p>
+    </div>
+
+    <div class="han-vertical">火 旋 舞</div>
+  </header>
+
+  <!-- Tag epigraph -->
+  <div class="tag-banner">
+    <p><span class="quote-mark">「</span>The fire that burns within reveals the truth.<span class="quote-mark">」</span></p>
+  </div>
+
+  <!-- Portrait + concept summary -->
+  <div class="portrait-row">
+    <div>
+      <div class="portrait-frame">
+        <img src="Golden_Dervish_King.jpg" alt="The Golden Dervish King wreathed in flame">
+      </div>
+      <div class="portrait-caption">Likeness · Robed in Flame</div>
+    </div>
+    <div class="portrait-side">
+      <div class="concept-label">Concept</div>
+      <div class="concept">A Priest of the Fire Doctrine, dancing where flame finds its work.</div>
+
+      <div class="deviation">
+        <span class="label">Chi Deviation</span>
+        He has jet black skin, milky eyes, and smells of smoke. The cultivation has begun to mark the body — colour leeched from the eyes, scent of burning never quite gone from the cloth.
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── STANDING IN THE WULIN ─── -->
+  <section class="scroll-section">
+    <h2 class="section-title">
+      Standing in the Rivers and Lakes
+      <span class="han-tag">江 湖</span>
+      <span class="ornament"></span>
+    </h2>
+
+    <div class="mech-grid">
+      <div class="stat-panel ember">
+        <h3>Rank <span class="han-tag">段位</span></h3>
+        <div class="rank-display">
+          <div class="rank-cell">
+            <div class="label">Lake</div>
+            <div class="value">4</div>
+          </div>
+          <div>
+            <div style="font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.22em; color: var(--vermillion); text-transform: uppercase; margin-bottom: 0.22rem; text-align: center;">Ripples · River</div>
+            <div class="ripples">
+              <div class="rank-cell"><div class="value">7</div></div>
+              <div class="rank-cell"><div class="value">4</div></div>
+              <div class="rank-cell"><div class="value">4</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-panel gold">
+        <h3>Chi Pools <span class="han-tag">氣</span></h3>
+        <div class="chi-display">
+          <div class="chi-pip">
+            <div class="label">Chi</div>
+            <div class="value">7<small>/</small>11</div>
+          </div>
+          <div class="chi-pip fire">
+            <div class="label">Fire Chi</div>
+            <div class="value">2<small>/</small>2</div>
+          </div>
+        </div>
+        <div style="font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; font-style: italic; color: var(--ink-faint); text-align: center; margin-top: 0.3rem;">Current / Maximum</div>
+      </div>
+    </div>
+
+    <div class="mech-grid">
+      <div class="stat-panel">
+        <h3>Joss <span class="han-tag">運</span></h3>
+        <div class="joss-pair">
+          <div class="joss-pip chiv">
+            <div class="label">Chivalrous</div>
+            <div class="value">2</div>
+          </div>
+          <div class="joss-pip mal">
+            <div class="label">Malicious</div>
+            <div class="value">6</div>
+          </div>
+        </div>
+        <div class="kv-row empty" style="margin-top: 0.6rem; padding-top: 0.4rem; border-top: 1px dotted var(--rule-soft); border-bottom: none;">
+          <span class="k">Floating</span>
+          <span class="v">(none recorded)</span>
+        </div>
+      </div>
+
+      <div class="stat-panel">
+        <h3>Archetype <span class="han-tag">道</span></h3>
+        <div class="kv-row">
+          <span class="k">Path</span>
+          <span class="v">Priest</span>
+        </div>
+        <div class="kv-row">
+          <span class="k">Concept</span>
+          <span class="v">Fire Doctrine Priest</span>
+        </div>
+        <div class="kv-row">
+          <span class="k">Marked</span>
+          <span class="v">X · Ripples</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── COMBAT ─── -->
+  <section class="scroll-section">
+    <h2 class="section-title">
+      The Body in Combat
+      <span class="han-tag">武 鬥</span>
+      <span class="ornament"></span>
+    </h2>
+
+    <div class="combat-grid">
+      <div class="combat-cell header">Speed</div>
+      <div class="combat-cell header">Footwork</div>
+      <div class="combat-cell header">Strike</div>
+      <div class="combat-cell header">Damage</div>
+      <div class="combat-cell header">Block</div>
+      <div class="combat-cell header">Toughness</div>
+      <div class="combat-cell"><span class="v">10</span></div>
+      <div class="combat-cell"><span class="v">15</span></div>
+      <div class="combat-cell"><span class="v">10</span></div>
+      <div class="combat-cell"><span class="v">10</span></div>
+      <div class="combat-cell"><span class="v">0</span></div>
+      <div class="combat-cell"><span class="v">5</span></div>
+    </div>
+
+    <div class="mech-grid">
+      <div class="stat-panel">
+        <h3>Chi Thresholds <span class="han-tag">護</span></h3>
+        <table class="threshold-table">
+          <tr>
+            <th>Tier</th>
+            <th>Unarmored</th>
+            <th>With Armor</th>
+          </tr>
+          <tr><td class="tier">Trivial</td><td class="val">13</td><td class="val">18</td></tr>
+          <tr><td class="tier">Minor</td><td class="val">26</td><td class="val">36</td></tr>
+          <tr><td class="tier">Major</td><td class="val">39</td><td class="val">54</td></tr>
+        </table>
+      </div>
+
+      <div class="stat-panel">
+        <h3>Initiative Phase <span class="han-tag">先 機</span></h3>
+        <table class="init-table">
+          <tr>
+            <th>Phase</th>
+            <th>Bonus</th>
+            <th>Roll</th>
+            <th>Total</th>
+          </tr>
+          <tr>
+            <td>Initiative (Speed)</td>
+            <td>+10</td>
+            <td>34</td>
+            <td class="tot">54</td>
+          </tr>
+          <tr>
+            <td>Make a Wave (Footwork)</td>
+            <td>+15</td>
+            <td>29</td>
+            <td class="tot">54</td>
+          </tr>
+          <tr>
+            <td>Focus on Breath</td>
+            <td>+10</td>
+            <td>—</td>
+            <td class="tot">—</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="stat-panel ember" style="margin-top: 0;">
+      <h3>During Turn <span class="han-tag">招 式</span></h3>
+      <table class="init-table">
+        <tr>
+          <th>Action</th>
+          <th>Bonus</th>
+          <th>Roll</th>
+          <th>Total</th>
+        </tr>
+        <tr>
+          <td>Main Attack</td>
+          <td>+15</td>
+          <td>—</td>
+          <td class="tot">40</td>
+        </tr>
+        <tr>
+          <td>Secondary Attack (with technique)</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="tot">—</td>
+        </tr>
+        <tr>
+          <td>Energy Attack</td>
+          <td>+10</td>
+          <td>34</td>
+          <td class="tot">44</td>
+        </tr>
+      </table>
+      <div class="breath-row" style="margin-top: 0.8rem;">
+        <strong>Marvels</strong> Disorient (attacks a combat stat) · Disrupt (attacks a skill) · Knockback (moves opponent) · Disrupt a Wave · Energy Attack
+      </div>
+      <div class="breath-row" style="background: var(--panel-ember); border-left-color: var(--ember);">
+        <strong>Note</strong> No toughness or armor on the rippling roll. He may only inflame the conditions he himself causes.
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SKILLS ─── -->
+  <section class="scroll-section">
+    <h2 class="section-title">
+      Skills of the Hand and Mind
+      <span class="han-tag">技 藝</span>
+      <span class="ornament"></span>
+    </h2>
+
+    <div class="skill-cluster">
+      <div class="skill-pill"><span class="name">Confidence</span><span class="rank">10</span></div>
+      <div class="skill-pill"><span class="name">Hardiness</span><span class="rank">10</span></div>
+      <div class="skill-pill"><span class="name">Learning</span><span class="rank">5</span></div>
+      <div class="skill-pill"><span class="name">Medicine</span><span class="rank">5</span></div>
+      <div class="skill-pill"><span class="name">Might</span><span class="rank">5</span></div>
+      <div class="skill-pill"><span class="name">Ride</span><span class="rank">5</span></div>
+      <div class="skill-pill"><span class="name">Tactics</span><span class="rank">5</span></div>
+      <div class="skill-pill"><span class="name">Wu Wei</span><span class="rank">5</span></div>
+      <div class="skill-pill unranked"><span class="name">Awareness</span><span class="rank"></span></div>
+      <div class="skill-pill unranked"><span class="name">Crafting</span><span class="rank"></span></div>
+      <div class="skill-pill unranked"><span class="name">Finesse</span><span class="rank"></span></div>
+      <div class="skill-pill unranked"><span class="name">Inspire</span><span class="rank"></span></div>
+      <div class="skill-pill unranked"><span class="name">Perform</span><span class="rank"></span></div>
+      <div class="skill-pill unranked"><span class="name">Politics</span><span class="rank"></span></div>
+      <div class="skill-pill unranked"><span class="name">Stealth</span><span class="rank"></span></div>
+      <div class="skill-pill unranked"><span class="name">Survival</span><span class="rank"></span></div>
+    </div>
+  </section>
+
+  <!-- ─── VIRTUES ─── -->
+  <section class="scroll-section">
+    <h2 class="section-title">
+      The Twin Banners of Virtue
+      <span class="han-tag">義 慾</span>
+      <span class="ornament"></span>
+    </h2>
+
+    <div class="virtue-grid">
+      <div class="virtue-col chivalrous">
+        <h4>Chivalrous</h4>
+        <div class="virtue-row">
+          <span class="vname">Benevolence</span>
+          <span class="vdots">
+            <span class="vdot on"></span><span class="vdot on"></span><span class="vdot on"></span><span class="vdot"></span><span class="vdot"></span>
+          </span>
+        </div>
+        <div class="virtue-row">
+          <span class="vname">Force</span>
+          <span class="vdots">
+            <span class="vdot on"></span><span class="vdot on"></span><span class="vdot"></span><span class="vdot"></span><span class="vdot"></span>
+          </span>
+        </div>
+        <div class="virtue-row">
+          <span class="vname">Honor</span>
+          <span class="vdots">
+            <span class="vdot on"></span><span class="vdot on"></span><span class="vdot on"></span><span class="vdot"></span><span class="vdot"></span>
+          </span>
+        </div>
+        <div class="virtue-row">
+          <span class="vname">Loyalty</span>
+          <span class="vdots">
+            <span class="vdot on"></span><span class="vdot on"></span><span class="vdot"></span><span class="vdot"></span><span class="vdot"></span>
+          </span>
+        </div>
+        <div class="virtue-row">
+          <span class="vname">Righteousness</span>
+          <span class="vdots">
+            <span class="vdot on"></span><span class="vdot on"></span><span class="vdot"></span><span class="vdot"></span><span class="vdot"></span>
+          </span>
+        </div>
+      </div>
+
+      <div class="virtue-col selfish">
+        <h4>Selfish</h4>
+        <div class="virtue-row">
+          <span class="vname">Ferocity</span>
+          <span class="vdots">
+            <span class="vdot on"></span><span class="vdot on"></span><span class="vdot on"></span><span class="vdot on"></span><span class="vdot on"></span>
+          </span>
+        </div>
+        <div class="virtue-row">
+          <span class="vname">Individualism</span>
+          <span class="vdots">
+            <span class="vdot on"></span><span class="vdot on"></span><span class="vdot"></span><span class="vdot"></span><span class="vdot"></span>
+          </span>
+        </div>
+        <div class="virtue-row">
+          <span class="vname">Obsession</span>
+          <span class="vdots">
+            <span class="vdot on"></span><span class="vdot on"></span><span class="vdot"></span><span class="vdot"></span><span class="vdot"></span>
+          </span>
+        </div>
+        <div class="virtue-row">
+          <span class="vname">Revenge</span>
+          <span class="vdots">
+            <span class="vdot on"></span><span class="vdot on"></span><span class="vdot"></span><span class="vdot"></span><span class="vdot"></span>
+          </span>
+        </div>
+        <div class="virtue-row">
+          <span class="vname">Ruthlessness</span>
+          <span class="vdots">
+            <span class="vdot on"></span><span class="vdot on"></span><span class="vdot"></span><span class="vdot"></span><span class="vdot"></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── KUNG FU ─── -->
+  <section class="scroll-section">
+    <h2 class="section-title">
+      The Two Arts He Has Mastered
+      <span class="han-tag">功 夫</span>
+      <span class="ornament"></span>
+    </h2>
+
+    <!-- Shadow Catching -->
+    <div class="style-panel shadow-catching">
+      <div class="style-header">
+        <span class="style-name">Shadow Catching</span>
+        <span class="style-han">捕影</span>
+      </div>
+      <p class="style-flavor">It is said that a famous master created this style long ago and that he became so quick that he could overtake his own shadow. Swiftness is the key to overcoming all adversity, he teaches, anticipating and eliminating problems before they can harm you. This style always stays on the move and seizes the initiative, striking an opponent and then retreating before a counter-attack can be made. Although it uses orthodox techniques, it is highly popular due to its fierce and impressively flashy displays, making it seem much more spectacular than its fundamental workings are.</p>
+
+      <div class="laughs-fears">
+        <div class="lf-block laughs empty">
+          <span class="lf-label">Laughs At</span>
+          <em>not recorded on the sheet.</em>
+        </div>
+        <div class="lf-block fears empty">
+          <span class="lf-label">Fears</span>
+          <em>not recorded on the sheet.</em>
+        </div>
+      </div>
+
+      <div class="breath-row">
+        <strong>Exceeding the Shadow (5)</strong> Footwork Bonus increases to +15.
+      </div>
+    </div>
+
+    <!-- Fire Sutra -->
+    <div class="style-panel fire-sutra">
+      <div class="style-header">
+        <span class="style-name">Fire Sutra</span>
+        <span class="style-han">火經</span>
+      </div>
+      <p class="style-flavor">Few forces in the world are as primal and respected as fire, so it is no wonder that this sutra was a common art even in ancient days, particularly in the west where the sutras are thought to have been first written. Through meditation and purification, the student learns how to excite his own yang energy to the point of ignition.</p>
+
+      <div class="technique-list">
+        <div class="technique">
+          <span class="tnum">壹 ·</span><span class="tname">Thought of Flame</span>
+          <span class="tbody">May use <em>Burn</em> as a Minor action with +5 (+10 with Thousand Miles of Light).</span>
+        </div>
+        <div class="technique">
+          <span class="tnum">貳 ·</span><span class="tname">Fusing Flames</span>
+          <span class="tbody">Round-long duration. +10 to Chi Aura when protecting against Burn damage.</span>
+        </div>
+        <div class="technique">
+          <span class="tnum">叁 ·</span><span class="tname">Elusive Desert Being</span>
+          <span class="tbody">Activate while rolling initiative; lasts the whole round. +10 Speed and Footwork. If you dodge, the opponent may negate the technique by rolling a Hard (30) Awareness check as a Minor action on the attack roll. You may boost the difficulty by one step per Chi spent.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EQUIPMENT ─── -->
+  <section class="scroll-section">
+    <h2 class="section-title">
+      Implements &amp; Vestments
+      <span class="han-tag">器 衣</span>
+      <span class="ornament"></span>
+    </h2>
+
+    <ul class="gear-list">
+      <li>
+        <strong>Saber · 刀</strong>
+        +5 Strike · +5 Damage. He may flood one die from his River to force a Rippling check if a Strike exceeds defense by 5 instead of 10 — and may do this after the defender rolls. (Not for Secret Arts or Energy Attacks.)
+      </li>
+      <li>
+        <strong>Light Armor</strong>
+        +5 Chi Threshold.
+      </li>
+    </ul>
+  </section>
+
+  <!-- ─── LORESHEETS ─── -->
+  <section class="scroll-section">
+    <h2 class="section-title">
+      Loresheets — Secrets Inscribed Upon His Path
+      <span class="han-tag">秘 卷</span>
+      <span class="ornament"></span>
+    </h2>
+
+    <ul class="lore-list">
+      <li>
+        <strong>Fire Doctrine</strong>
+        The priestly tradition by which his Chi has been turned toward flame. Provides Light Armor: +5 Chi Threshold.
+      </li>
+      <li>
+        <strong>Thousand Miles of Light</strong>
+        +5 to Fire Sutra Burn effects.
+      </li>
+      <li>
+        <strong>Quick Work</strong>
+        He may use his Secret Arts in combat — curses and influences shaped between sword-strokes.
+      </li>
+      <li>
+        <strong>Stealth Work</strong>
+        He may hide the use of his techniques with a Minor Stealth action, opposed by his opponent's Wu Wei or Awareness.
+      </li>
+      <li>
+        <strong>Inflame and Soothe Curses</strong>
+        The Priest's art turned to two directions — to deepen a curse already laid, or to draw its venom out.
+      </li>
+      <li>
+        <strong>Inflame and Soothe Influence</strong>
+        The same dual hand, applied to those influences that work upon a soul from without.
+      </li>
+    </ul>
+  </section>
+
+  <!-- ─── CONDITIONS REFERENCE ─── -->
+  <section class="scroll-section">
+    <h2 class="section-title">
+      Conditions the Flame Inflicts
+      <span class="han-tag">傷 害</span>
+      <span class="ornament"></span>
+    </h2>
+
+    <div class="stat-panel">
+      <table class="cond-table">
+        <tr>
+          <td class="cname">Burn 燒</td>
+          <td class="cdesc">Applies to toughness.</td>
+        </tr>
+        <tr>
+          <td class="cname">Shock 震</td>
+          <td class="cdesc">+5 on the penalty.</td>
+        </tr>
+        <tr>
+          <td class="cname">Freeze 凍</td>
+          <td class="cdesc">Breath penalty plus takes up River slots. Minor = 1 slot. Major = 2.</td>
+        </tr>
+        <tr>
+          <td class="cname">Poison 毒</td>
+          <td class="cdesc">Breath penalty but gives −1 to the Breath penalty. Minor = −2 Breath. Major = −3 Breath.</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ─── COMPANIONS ─── -->
+  <section class="scroll-section">
+    <h2 class="section-title">
+      Companions Upon the Road
+      <span class="han-tag">同 道</span>
+      <span class="ornament"></span>
+    </h2>
+
+    <div class="companion">
+      <h4>Ghost Li · 鬼 李</h4>
+      <div class="role">Vengeful Swordsman, Scholar — Rank Lake 4, River 6/6</div>
+      <p>A scholar who carries the saber and the I Ching with equal seriousness, Ghost Li wields the battlefield art of <em>Bone Fed Wolf Fang</em> and the punishing <em>Iron Body Skill</em>. His Chi Deviation aspires to eradicate corrupt military officers and one day stand as a righteous general himself. Where the Dervish reads flame, Ghost Li reads fate — his predictions and prognostications have already pulled the party through the snares of the Black Lotus.</p>
+    </div>
+
+    <div class="companion">
+      <h4>Chipped Blade · 缺 刃</h4>
+      <div class="role">Repentant Bandit, Doctor — Rank Lake 4, River 6/6</div>
+      <p>A doctor whose past as a bandit has not faded from her — she exudes an aura of dread, and those who meet her are sure to be plagued by nightmares that very night. She fights with <em>Storm God's Fury</em> and the deadly <em>Thousand Venoms</em> sutra, and her medical art lets her diagnose or create conditions in others' Chi. Her saber is as sharp as her acupuncture needles; both have done the work of the road.</p>
+    </div>
+  </section>
+
+  <!-- ─── CHRONICLE ─── -->
+  <section class="scroll-section">
+    <div class="chronicle">
+      <h3>Chronicle of Events <span class="han-tag">事 紀</span></h3>
+
+      <div class="session-block">
+        <div class="session-date">The Road to Magnificent Ink</div>
+        <p>The party set out to avenge Mountain's Shadow and to find the Hooded Cobra of the Black Lotus. Along the way they defeated a Tiger Shark of that same society — a lesser legend cut down — and learned that the town they sought was Magnificent Ink.</p>
+      </div>
+
+      <div class="session-block">
+        <div class="session-date">5 March · The Wounded Cobra</div>
+        <p>Approaching a new village, the party defeated three Wulin — lesser legends of the Black Lotus. They learned that the Hooded Cobra had passed through, wounded, with five men in his retinue and a cart for the injured. Someone had pierced him with a spear and blocked his chi between here and Mountain's Shadow; a Black Lotus necklace was recovered. Names surfaced: <em>Third Dog Brother</em>, his lieutenant — and the leader of the Black Lotus himself, the <em>Black Storm Boot</em>.</p>
+        <p>The party laid an <em>Entanglement Curse</em> upon the Hooded Cobra — Isolation and Paranoia, an accumulation of enemies. They did not want him dead. Not yet. They learned they may be able to inflame the curse later.</p>
+        <p>The party was offered a ship to Magnificent Ink. They met <em>Ancient Blade</em>, who has his own interest in killing the Black Lotus, and learned that the Hooded Cobra had not returned to the Black Lotus headquarters. They made friends with the <em>Fallen Leaves</em>, who promised to find them lodging.</p>
+        <p>After Ancient Blade had gone, someone came in with poisoned wine. The others left, and told the party to come back tomorrow to speak with someone.</p>
+      </div>
+
+      <div class="session-block">
+        <div class="session-date">26 March · The Skeleton Secretary</div>
+        <p>A prediction returned +10 in their favor against the Black Lotus. They met the <em>Skeleton Secretary</em> — a balding old man with long hair, clearly Wulin — flanked on either side by two bodyguards. Several of these names are spoken of in the Dragon Tiger Gate.</p>
+        <p>They learned that the Black Lotus believes the attack on Mountain's Shadow was a crime. The Hooded Cobra is now in the Merchant District of Magnificent Ink, taken up residence in the back of a doctor's office — <em>Gou Mai</em> — with whom the Cobra has a long history. They learned further that <em>Gold Dragon</em> had previously defeated the Hooded Cobra, and that the attack on Mountain's Shadow had been a reaction to that defeat. The leadership of the <em>Eagle's Talons</em> is up for grabs, and their conflict ties into it all.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ROSTER OF NAMES ─── -->
+  <section class="scroll-section">
+    <h2 class="section-title">
+      Names Worth Remembering
+      <span class="han-tag">姓 名</span>
+      <span class="ornament"></span>
+    </h2>
+
+    <div class="stat-panel">
+      <div class="roster">
+        <div class="roster-row">
+          <span class="rname">Hooded Cobra</span>
+          <span class="rrole">Black Lotus, wounded</span>
+        </div>
+        <div class="roster-row">
+          <span class="rname">Third Dog Brother</span>
+          <span class="rrole">Lieutenant of the Cobra</span>
+        </div>
+        <div class="roster-row">
+          <span class="rname">Black Storm Boot</span>
+          <span class="rrole">Leader of the Black Lotus</span>
+        </div>
+        <div class="roster-row">
+          <span class="rname">Tiger Shark</span>
+          <span class="rrole">Lesser Black Lotus, defeated</span>
+        </div>
+        <div class="roster-row">
+          <span class="rname">Skeleton Secretary</span>
+          <span class="rrole">Balding Wulin elder, two bodyguards</span>
+        </div>
+        <div class="roster-row">
+          <span class="rname">Ancient Blade</span>
+          <span class="rrole">Foe of the Black Lotus</span>
+        </div>
+        <div class="roster-row">
+          <span class="rname">Gold Dragon</span>
+          <span class="rrole">Previously defeated the Cobra</span>
+        </div>
+        <div class="roster-row">
+          <span class="rname">Gou Mai</span>
+          <span class="rrole">Doctor sheltering the Cobra</span>
+        </div>
+        <div class="roster-row">
+          <span class="rname">Fallen Leaves</span>
+          <span class="rrole">Allied society</span>
+        </div>
+        <div class="roster-row">
+          <span class="rname">Eagle's Talons</span>
+          <span class="rrole">Leadership in dispute</span>
+        </div>
+        <div class="roster-row">
+          <span class="rname">Mountain's Shadow</span>
+          <span class="rrole">The wrong to be avenged</span>
+        </div>
+        <div class="roster-row">
+          <span class="rname">Magnificent Ink</span>
+          <span class="rrole">City of pursuit</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="dossier-foot">
+    <div>Legends of the Wulin · Dossier of the Wandering · Filed by the Society of the Ember Brush</div>
+    <div class="seal-row">
+      <div class="seal"><span class="col">金王</span></div>
+      <span class="han">火 心 顯 真</span>
+      <div class="seal"><span class="col">旋舞</span></div>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

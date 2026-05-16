@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Skretting Sikasoowukaa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Storm-depth palette: midnight ocean, charged sky, distant lightning */
+    --abyss:       #050a10;
+    --tide:        #0a121b;
+    --deepwater:   #11202c;
+    --slate-sea:   #1c2d3a;
+    --mist:        #2a3e4d;
+    --foam-dim:    #4f6a7a;
+    --foam:        #87a3b3;
+    --salt:        #c2cdd3;
+    --moon:        #e4e8e8;
+    --bone:        #d8d4c4;
+
+    /* Siadon — depth, sea, starlit sky (cool teal-cyan) */
+    --siadon:      #4ba9b5;
+    --siadon-dim:  #1f4a52;
+    --siadon-glow: #7fd4dd;
+
+    /* Bahann — ecstatic, storm, body, sun behind cloud (warm ochre/copper) */
+    --bahann:      #c98e3c;
+    --bahann-dim:  #5a3d18;
+    --bahann-glow: #f0b864;
+
+    /* Lightning — the moment of vision */
+    --bolt:        #d6e8ff;
+    --bolt-warm:   #fff6c8;
+
+    /* Orcish heritage trace */
+    --orcblood:    #4a6a52;
+
+    --rule:        rgba(135, 163, 179, 0.14);
+    --rule-bold:   rgba(135, 163, 179, 0.28);
+    --rule-accent: rgba(75, 169, 181, 0.32);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--abyss);
+    color: var(--bone);
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse at 70% 0%, rgba(75, 169, 181, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 20% 100%, rgba(201, 142, 60, 0.05) 0%, transparent 45%),
+      radial-gradient(circle at 50% 50%, rgba(17, 32, 44, 0.6) 0%, transparent 70%);
+    padding: 2.5rem 1rem 4rem;
+    position: relative;
+  }
+
+  /* Faint star-field */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(1px 1px at 12% 18%, rgba(214, 232, 255, 0.35), transparent),
+      radial-gradient(1px 1px at 28% 73%, rgba(214, 232, 255, 0.25), transparent),
+      radial-gradient(1px 1px at 47% 12%, rgba(214, 232, 255, 0.4), transparent),
+      radial-gradient(1px 1px at 64% 56%, rgba(214, 232, 255, 0.2), transparent),
+      radial-gradient(1px 1px at 81% 27%, rgba(214, 232, 255, 0.3), transparent),
+      radial-gradient(1px 1px at 93% 83%, rgba(214, 232, 255, 0.25), transparent),
+      radial-gradient(1px 1px at 8% 88%, rgba(214, 232, 255, 0.3), transparent),
+      radial-gradient(1px 1px at 39% 41%, rgba(214, 232, 255, 0.15), transparent);
+    opacity: 0.5;
+    z-index: 0;
+  }
+
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--tide);
+    border: 1px solid var(--rule-bold);
+    box-shadow:
+      0 0 0 1px rgba(5, 10, 16, 0.8),
+      0 4px 16px rgba(0, 0, 0, 0.5),
+      0 24px 80px rgba(0, 0, 0, 0.75),
+      inset 0 1px 0 rgba(135, 163, 179, 0.06);
+    position: relative;
+    z-index: 1;
+  }
+
+  .document::before, .document::after {
+    content: "✶";
+    position: absolute;
+    font-size: 0.7rem;
+    color: var(--foam-dim);
+    opacity: 0.5;
+  }
+  .document::before { top: 0.8rem; left: 0.9rem; }
+  .document::after  { bottom: 0.8rem; right: 0.9rem; }
+
+  /* ─── HEADER ─────────────────────────────────────────── */
+  .header {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 420px;
+    border-bottom: 1px solid var(--rule-bold);
+  }
+
+  .portrait-col {
+    position: relative;
+    overflow: hidden;
+    background: var(--abyss);
+    border-right: 1px solid var(--rule-bold);
+    aspect-ratio: 3 / 4;
+  }
+
+  .portrait-col img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    opacity: 0.92;
+    filter: saturate(0.75) contrast(1.08) hue-rotate(-5deg);
+  }
+
+  .portrait-col::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, transparent 55%, var(--tide) 100%),
+      linear-gradient(to bottom, transparent 65%, rgba(5,10,16,0.7) 100%);
+    pointer-events: none;
+  }
+
+  .portrait-tint {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 40% 50%, rgba(75, 169, 181, 0.08) 0%, transparent 65%);
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+
+  /* Lightning streak across portrait */
+  .portrait-bolt {
+    position: absolute;
+    top: -10%;
+    right: 8%;
+    width: 2px;
+    height: 60%;
+    background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(214, 232, 255, 0.55) 40%,
+      rgba(255, 246, 200, 0.7) 55%,
+      transparent 100%);
+    transform: rotate(8deg) skewX(-12deg);
+    filter: blur(0.5px);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  .title-col {
+    padding: 2.5rem 2.8rem 2.2rem 2.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .title-col::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--siadon-dim), var(--bahann-dim) 60%, transparent);
+  }
+
+  .eyebrow {
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--foam-dim);
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 22px;
+    height: 1px;
+    background: var(--siadon-dim);
+  }
+
+  .char-name {
+    font-family: "Cinzel Decorative", "Cinzel", serif;
+    font-size: 2.7rem;
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--moon);
+    letter-spacing: -0.005em;
+    text-shadow:
+      0 0 50px rgba(75, 169, 181, 0.25),
+      0 0 90px rgba(201, 142, 60, 0.12),
+      0 2px 4px rgba(0,0,0,0.8);
+    margin-bottom: 0.2rem;
+  }
+
+  .char-name .nick {
+    display: block;
+    font-family: "Cormorant Garamond", "Crimson Text", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.05rem;
+    color: var(--siadon-glow);
+    letter-spacing: 0.04em;
+    margin-top: 0.3rem;
+    text-shadow: none;
+  }
+
+  .epithet {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--bahann-glow);
+    margin-top: 0.4rem;
+    margin-bottom: 1.4rem;
+    letter-spacing: 0.02em;
+  }
+
+  .identity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.1rem 1.5rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .id-pair {
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .id-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.56rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--foam-dim);
+    display: block;
+    margin-bottom: 0.1rem;
+  }
+
+  .id-value {
+    font-size: 0.95rem;
+    color: var(--salt);
+    font-weight: 600;
+  }
+
+  .header-stats-bar {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    margin-top: auto;
+  }
+
+  .stat-pill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--deepwater);
+    border: 1px solid var(--rule-bold);
+    border-radius: 3px;
+    padding: 0.35rem 0.7rem 0.3rem;
+    min-width: 54px;
+  }
+
+  .stat-pill.siadon { border-color: rgba(75, 169, 181, 0.45); }
+  .stat-pill.siadon .stat-num { color: var(--siadon-glow); }
+  .stat-pill.bahann { border-color: rgba(201, 142, 60, 0.45); }
+  .stat-pill.bahann .stat-num { color: var(--bahann-glow); }
+
+  .stat-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.46rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--foam-dim);
+    margin-bottom: 0.18rem;
+  }
+
+  .stat-num {
+    font-family: "Cinzel", serif;
+    font-size: 1.18rem;
+    font-weight: 600;
+    color: var(--salt);
+    line-height: 1;
+  }
+
+  /* ─── SECTION LAYOUT ───────────────────────────────── */
+  .body-wrap { padding: 0 2.8rem 3rem; }
+  section { padding: 2.2rem 0 0; }
+  section + section { border-top: 1px solid var(--rule); margin-top: 0.7rem; }
+
+  .section-heading {
+    font-family: "Cinzel", serif;
+    font-size: 0.64rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--siadon-glow);
+    margin-bottom: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+  .section-heading::before {
+    content: "✶";
+    color: var(--siadon-dim);
+    font-size: 0.7rem;
+  }
+  .section-heading::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--rule-accent), transparent);
+  }
+
+  .section-heading.bahann { color: var(--bahann-glow); }
+  .section-heading.bahann::before { color: var(--bahann-dim); }
+  .section-heading.bahann::after { background: linear-gradient(to right, rgba(201, 142, 60, 0.32), transparent); }
+
+  p { margin-bottom: 0.85rem; color: var(--bone); }
+  p:last-child { margin-bottom: 0; }
+  em { color: var(--salt); font-style: italic; }
+  strong { color: var(--moon); font-weight: 600; }
+
+  /* Pull-quote / sigil block */
+  .invocation {
+    margin: 0 0 1.6rem;
+    padding: 1rem 1.4rem;
+    border-left: 2px solid var(--siadon-dim);
+    background: linear-gradient(to right, rgba(75, 169, 181, 0.05), transparent);
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--salt);
+    line-height: 1.55;
+  }
+
+  /* ─── ABILITY GRID ─────────────────────────────────── */
+  .traits-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .trait-box {
+    background: var(--deepwater);
+    border: 1px solid var(--rule-bold);
+    border-radius: 3px;
+    padding: 0.7rem 0.4rem 0.6rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .trait-box .t-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.47rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--foam-dim);
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+
+  .trait-box .t-val {
+    font-family: "Cinzel", serif;
+    font-size: 1.55rem;
+    font-weight: 600;
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--salt);
+  }
+
+  .trait-box .t-val.high { color: var(--siadon-glow); }
+  .trait-box .t-val.neg  { color: #c97a3c; }
+  .trait-box .t-val.warm { color: var(--bahann-glow); }
+
+  .trait-box .t-sub {
+    font-size: 0.7rem;
+    color: var(--foam-dim);
+    line-height: 1.35;
+    display: block;
+    font-family: "Cinzel", serif;
+  }
+
+  /* ─── DEFENSE / RESOURCE STRIP ─────────────────────── */
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .stat-strip .stat-pill {
+    min-width: 0;
+    padding: 0.55rem 0.6rem 0.45rem;
+  }
+  .stat-strip .stat-pill .stat-num { font-size: 1.35rem; }
+  .stat-strip .stat-pill .stat-label { font-size: 0.5rem; }
+
+  /* ─── TWO-COL & CARDS ─────────────────────────────── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+
+  .card-list { display: flex; flex-direction: column; gap: 0.7rem; }
+
+  .card {
+    background: var(--deepwater);
+    border: 1px solid var(--rule-bold);
+    border-radius: 3px;
+    padding: 0.85rem 1.05rem;
+  }
+
+  .card.siadon-card   { border-left: 3px solid var(--siadon); }
+  .card.bahann-card   { border-left: 3px solid var(--bahann); }
+  .card.body-card     { border-left: 3px solid var(--orcblood); }
+  .card.feat-card     { border-left: 3px solid var(--bolt); background: linear-gradient(to right, rgba(214, 232, 255, 0.04), transparent); }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.3rem;
+    flex-wrap: wrap;
+  }
+
+  .card-name {
+    font-family: "Cinzel", serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--moon);
+    letter-spacing: 0.04em;
+  }
+
+  .card-tag {
+    font-family: "Cinzel", serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--foam-dim);
+  }
+
+  .card-tag.siadon { color: var(--siadon-glow); }
+  .card-tag.bahann { color: var(--bahann-glow); }
+
+  .card-body {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--bone);
+  }
+
+  .card-meta {
+    margin-top: 0.4rem;
+    font-size: 0.72rem;
+    color: var(--foam-dim);
+    font-family: "Cinzel", serif;
+    letter-spacing: 0.05em;
+  }
+  .card-meta span { margin-right: 1rem; }
+  .card-meta span strong { color: var(--salt); font-weight: 600; }
+
+  /* ─── SKILLS / SAVES TABLES ───────────────────────── */
+  .prof-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.2rem;
+    font-size: 0.85rem;
+  }
+
+  .prof-table td {
+    padding: 0.32rem 0.4rem;
+    border-bottom: 1px solid var(--rule);
+    color: var(--bone);
+  }
+
+  .prof-table tr:last-child td { border-bottom: none; }
+
+  .prof-table .prof-mark {
+    width: 12px;
+    color: var(--siadon-glow);
+    font-size: 0.65rem;
+    text-align: center;
+  }
+  .prof-table .prof-mark.dim { color: var(--mist); }
+
+  .prof-table .prof-skill { color: var(--bone); }
+  .prof-table .prof-skill.has-prof { color: var(--moon); font-weight: 600; }
+
+  .prof-table .prof-abbr {
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--foam-dim);
+    text-align: right;
+    width: 30px;
+  }
+
+  .prof-table .prof-bonus {
+    font-family: "Cinzel", serif;
+    font-size: 0.85rem;
+    color: var(--salt);
+    text-align: right;
+    width: 40px;
+    font-weight: 600;
+  }
+  .prof-table .prof-bonus.has-prof { color: var(--siadon-glow); }
+
+  /* ─── INVENTORY ────────────────────────────────────── */
+  .inv-list { list-style: none; padding: 0; margin: 0; }
+  .inv-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.6rem;
+    font-size: 0.92rem;
+  }
+  .inv-list li:last-child { border-bottom: none; }
+
+  .inv-name { color: var(--bone); }
+  .inv-name.attuned { color: var(--moon); font-weight: 600; }
+  .inv-name.attuned::before {
+    content: "◈ ";
+    color: var(--siadon-glow);
+    font-size: 0.75rem;
+  }
+
+  .inv-meta {
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    color: var(--foam-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: right;
+  }
+  .inv-meta .rare { color: var(--bahann-glow); }
+
+  /* ─── BACKSTORY ────────────────────────────────────── */
+  .lore p:first-of-type::first-letter {
+    font-family: "Cinzel Decorative", "Cinzel", serif;
+    font-size: 3.2rem;
+    float: left;
+    line-height: 0.85;
+    margin: 0.15rem 0.55rem 0 0;
+    color: var(--siadon-glow);
+    text-shadow: 0 0 25px rgba(75, 169, 181, 0.4);
+  }
+
+  /* ─── KEY MOMENT ───────────────────────────────────── */
+  .moment {
+    background: linear-gradient(135deg, rgba(75, 169, 181, 0.04), rgba(201, 142, 60, 0.03));
+    border: 1px solid var(--rule-accent);
+    border-radius: 4px;
+    padding: 1.4rem 1.6rem;
+    position: relative;
+  }
+
+  .moment::before {
+    content: "⚡";
+    position: absolute;
+    top: -0.7rem;
+    left: 1.4rem;
+    background: var(--tide);
+    padding: 0 0.45rem;
+    color: var(--bolt-warm);
+    font-size: 0.95rem;
+    text-shadow: 0 0 12px rgba(255, 246, 200, 0.5);
+  }
+
+  .moment-title {
+    font-family: "Cinzel", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--bolt);
+    margin-bottom: 0.7rem;
+    margin-left: 1.6rem;
+  }
+
+  .moment-body {
+    font-family: "Cormorant Garamond", "Crimson Text", serif;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--bone);
+    font-style: italic;
+  }
+
+  /* ─── DIVIDERS ─────────────────────────────────────── */
+  .asterism {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--foam-dim);
+    font-size: 0.7rem;
+    margin: 1.6rem 0;
+    opacity: 0.6;
+  }
+  .asterism::before, .asterism::after {
+    content: "";
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(to right, transparent, var(--rule-bold), transparent);
+  }
+
+  /* ─── FOOTER ───────────────────────────────────────── */
+  .footer {
+    text-align: center;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-family: "Cinzel", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--foam-dim);
+  }
+
+  /* ─── MOBILE ───────────────────────────────────────── */
+  @media (max-width: 720px) {
+    body { padding: 1rem 0.5rem 2rem; }
+    .header { grid-template-columns: 1fr; }
+    .portrait-col {
+      aspect-ratio: 3 / 4;
+      max-height: 60vh;
+      border-right: none;
+      border-bottom: 1px solid var(--rule-bold);
+    }
+    .title-col { padding: 1.6rem 1.4rem 1.4rem; }
+    .char-name { font-size: 2.1rem; }
+    .body-wrap { padding: 0 1.3rem 2rem; }
+    .traits-grid { grid-template-columns: repeat(3, 1fr); }
+    .stat-strip { grid-template-columns: repeat(2, 1fr); }
+    .two-col { grid-template-columns: 1fr; }
+    .identity-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="document">
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- HEADER                                       -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="header">
+    <div class="portrait-col">
+      <img src="skretting.png" alt="Skretting Sikasoowukaa">
+      <div class="portrait-tint"></div>
+      <div class="portrait-bolt"></div>
+    </div>
+
+    <div class="title-col">
+      <div>
+        <div class="eyebrow">Kingdom of Greycott · Duchy of Risent · Pilgrim of the Open Path</div>
+        <h1 class="char-name">
+          Skretting
+          <span class="nick">Sikasoowukaa</span>
+        </h1>
+        <div class="epithet">The storm answered, and he never went home.</div>
+
+        <div class="identity-grid">
+          <div class="id-pair">
+            <span class="id-label">Lineage</span>
+            <span class="id-value">Variant Human · ¼ Orc</span>
+          </div>
+          <div class="id-pair">
+            <span class="id-label">Path</span>
+            <span class="id-value">Cleric 1 / Sorcerer 3 / Monk 6</span>
+          </div>
+          <div class="id-pair">
+            <span class="id-label">Background</span>
+            <span class="id-value">Outlander · Wanderer</span>
+          </div>
+          <div class="id-pair">
+            <span class="id-label">Age</span>
+            <span class="id-value">26</span>
+          </div>
+          <div class="id-pair">
+            <span class="id-label">Form</span>
+            <span class="id-value">6′2″ · 200 lb</span>
+          </div>
+          <div class="id-pair">
+            <span class="id-label">Marks</span>
+            <span class="id-value">Bright blue eyes, black braids</span>
+          </div>
+          <div class="id-pair">
+            <span class="id-label">Skin</span>
+            <span class="id-value">Tan-brown, green-tinged</span>
+          </div>
+          <div class="id-pair">
+            <span class="id-label">Tongues</span>
+            <span class="id-value">Common · Orcish · Primordial · Celestial</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-stats-bar">
+        <div class="stat-pill"><span class="stat-label">HP</span><span class="stat-num">39</span></div>
+        <div class="stat-pill"><span class="stat-label">AC</span><span class="stat-num">16</span></div>
+        <div class="stat-pill"><span class="stat-label">Init</span><span class="stat-num">+0</span></div>
+        <div class="stat-pill"><span class="stat-label">Speed</span><span class="stat-num">30</span></div>
+        <div class="stat-pill"><span class="stat-label">Prof</span><span class="stat-num">+4</span></div>
+        <div class="stat-pill siadon"><span class="stat-label">Spell DC</span><span class="stat-num">14</span></div>
+        <div class="stat-pill bahann"><span class="stat-label">Ki DC</span><span class="stat-num">14</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- BODY                                         -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="body-wrap">
+
+    <!-- INVOCATION ------------------------------------------- -->
+    <section style="padding-top: 2.2rem;">
+      <div class="invocation">
+        “Siadon stepped into the deep when the ships came; Bahann walks now in the body and the weather. The temples lock the gods in stone — I follow them out into the rain.”
+      </div>
+    </section>
+
+    <!-- ABILITY SCORES --------------------------------------- -->
+    <section>
+      <h2 class="section-heading">Body &amp; Mind</h2>
+      <div class="traits-grid">
+        <div class="trait-box">
+          <span class="t-label">Str</span>
+          <span class="t-val">12</span>
+          <span class="t-sub">+1</span>
+        </div>
+        <div class="trait-box">
+          <span class="t-label">Dex</span>
+          <span class="t-val high">18</span>
+          <span class="t-sub">+4</span>
+        </div>
+        <div class="trait-box">
+          <span class="t-label">Con</span>
+          <span class="t-val neg">8</span>
+          <span class="t-sub">−1</span>
+        </div>
+        <div class="trait-box">
+          <span class="t-label">Int</span>
+          <span class="t-val">10</span>
+          <span class="t-sub">+0</span>
+        </div>
+        <div class="trait-box">
+          <span class="t-label">Wis</span>
+          <span class="t-val warm">14</span>
+          <span class="t-sub">+2</span>
+        </div>
+        <div class="trait-box">
+          <span class="t-label">Cha</span>
+          <span class="t-val warm">14</span>
+          <span class="t-sub">+2</span>
+        </div>
+      </div>
+
+      <div class="stat-strip">
+        <div class="stat-pill siadon"><span class="stat-label">Spell Attack</span><span class="stat-num">+6</span></div>
+        <div class="stat-pill bahann"><span class="stat-label">Ki Points</span><span class="stat-num">6</span></div>
+        <div class="stat-pill"><span class="stat-label">Sorc. Points</span><span class="stat-num">3</span></div>
+        <div class="stat-pill"><span class="stat-label">Martial Die</span><span class="stat-num">d6</span></div>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <table class="prof-table">
+            <tr><td colspan="3" style="font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--foam-dim); padding-bottom: 0.4rem;">Saving Throws</td></tr>
+            <tr><td class="prof-mark">◆</td><td class="prof-skill has-prof">Strength</td><td class="prof-bonus has-prof">+5</td></tr>
+            <tr><td class="prof-mark">◆</td><td class="prof-skill has-prof">Dexterity</td><td class="prof-bonus has-prof">+8</td></tr>
+            <tr><td class="prof-mark">◆</td><td class="prof-skill has-prof">Constitution</td><td class="prof-bonus has-prof">+3</td></tr>
+            <tr><td class="prof-mark dim">○</td><td class="prof-skill">Intelligence</td><td class="prof-bonus">+0</td></tr>
+            <tr><td class="prof-mark">◆</td><td class="prof-skill has-prof">Wisdom</td><td class="prof-bonus has-prof">+6</td></tr>
+            <tr><td class="prof-mark">◆</td><td class="prof-skill has-prof">Charisma</td><td class="prof-bonus has-prof">+6</td></tr>
+          </table>
+        </div>
+
+        <div>
+          <table class="prof-table">
+            <tr><td colspan="4" style="font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--foam-dim); padding-bottom: 0.4rem;">Skills</td></tr>
+            <tr><td class="prof-mark">◆</td><td class="prof-skill has-prof">Acrobatics</td><td class="prof-abbr">Dex</td><td class="prof-bonus has-prof">+8</td></tr>
+            <tr><td class="prof-mark dim">○</td><td class="prof-skill">Animal Handling</td><td class="prof-abbr">Wis</td><td class="prof-bonus">+2</td></tr>
+            <tr><td class="prof-mark dim">○</td><td class="prof-skill">Arcana</td><td class="prof-abbr">Int</td><td class="prof-bonus">+0</td></tr>
+            <tr><td class="prof-mark">◆</td><td class="prof-skill has-prof">Athletics</td><td class="prof-abbr">Str</td><td class="prof-bonus has-prof">+5</td></tr>
+            <tr><td class="prof-mark dim">○</td><td class="prof-skill">Insight</td><td class="prof-abbr">Wis</td><td class="prof-bonus">+2</td></tr>
+            <tr><td class="prof-mark dim">○</td><td class="prof-skill">Nature</td><td class="prof-abbr">Int</td><td class="prof-bonus">+0</td></tr>
+            <tr><td class="prof-mark dim">○</td><td class="prof-skill">Perception</td><td class="prof-abbr">Wis</td><td class="prof-bonus">+2</td></tr>
+            <tr><td class="prof-mark dim">○</td><td class="prof-skill">Religion</td><td class="prof-abbr">Int</td><td class="prof-bonus">+0</td></tr>
+            <tr><td class="prof-mark">◆</td><td class="prof-skill has-prof">Survival</td><td class="prof-abbr">Wis</td><td class="prof-bonus has-prof">+6</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <p style="margin-top: 1.2rem; font-size: 0.78rem; color: var(--foam-dim); font-style: italic;">
+        Proficiencies: simple weapons, shortswords, light/medium/heavy armor &amp; shields (cleric), hand drum. Spell save DC and attack mod are identical for cleric (Wis) and sorcerer (Cha) at +6 / DC 14.
+      </p>
+    </section>
+
+    <!-- FEATURES & FEATS -------------------------------------- -->
+    <section>
+      <h2 class="section-heading bahann">Practices &amp; Disciplines</h2>
+
+      <div class="two-col">
+        <div class="card-list">
+
+          <div class="card feat-card">
+            <div class="card-header">
+              <span class="card-name">Mage Slayer</span>
+              <span class="card-tag">Feat</span>
+            </div>
+            <div class="card-body">
+              Reaction-strike against any caster within 5 ft. Damaging a concentrating mage imposes disadvantage on their concentration save. Advantage on saves vs. spells from adjacent casters.
+            </div>
+          </div>
+
+          <div class="card bahann-card">
+            <div class="card-header">
+              <span class="card-name">Martial Arts (Monk 1)</span>
+              <span class="card-tag bahann">Body</span>
+            </div>
+            <div class="card-body">
+              Dex for unarmed &amp; monk weapons. Unarmed strikes deal <strong>1d6</strong>. Bonus-action unarmed strike on the Attack action.
+            </div>
+          </div>
+
+          <div class="card bahann-card">
+            <div class="card-header">
+              <span class="card-name">Ki (Monk 2)</span>
+              <span class="card-tag bahann">6 points · DC 14</span>
+            </div>
+            <div class="card-body">
+              <strong>Flurry of Blows</strong> (1 ki, two bonus unarmed strikes after Attack) · <strong>Patient Defense</strong> (1 ki, Dodge as bonus action) · <strong>Step of the Wind</strong> (1 ki, Disengage/Dash as bonus, jump doubled).
+            </div>
+          </div>
+
+          <div class="card bahann-card">
+            <div class="card-header">
+              <span class="card-name">Unarmored Defense &amp; Movement</span>
+              <span class="card-tag bahann">Always-on</span>
+            </div>
+            <div class="card-body">
+              AC = 10 + Dex + Wis when unarmored and shieldless. +15 ft. speed unarmored (Monk 6). At Monk 9, may run vertical surfaces &amp; across liquids.
+            </div>
+          </div>
+
+          <div class="card bahann-card">
+            <div class="card-header">
+              <span class="card-name">Deflect Missiles · Slow Fall · Stunning Strike</span>
+              <span class="card-tag bahann">Reactions &amp; Strikes</span>
+            </div>
+            <div class="card-body">
+              Reaction reduces ranged hit by 1d10 + Dex + monk level; if reduced to 0, may spend 1 ki to throw it back. Falling damage reduced by 5× monk level. On a melee hit, spend 1 ki to force a Con save (DC 14) or stun until end of next turn.
+            </div>
+          </div>
+
+          <div class="card bahann-card">
+            <div class="card-header">
+              <span class="card-name">Extra Attack · Ki-Empowered Strikes · Stillness of Mind</span>
+              <span class="card-tag bahann">Monk 5–7</span>
+            </div>
+            <div class="card-body">
+              Two attacks on the Attack action. Unarmed strikes count as magical. Action to end one charm or fear on self.
+            </div>
+          </div>
+
+        </div>
+
+        <div class="card-list">
+
+          <div class="card siadon-card">
+            <div class="card-header">
+              <span class="card-name">Storm Sorcery — Origin</span>
+              <span class="card-tag siadon">Sorc 1</span>
+            </div>
+            <div class="card-body">
+              The lightning answered, and something of it remained. Skretting’s magic is innate, weather-shaped, born of the vision he received in the storm.
+            </div>
+          </div>
+
+          <div class="card siadon-card">
+            <div class="card-header">
+              <span class="card-name">Font of Magic · Metamagic</span>
+              <span class="card-tag siadon">Sorc 2–3 · 3 SP</span>
+            </div>
+            <div class="card-body">
+              Convert between sorcery points and spell slots as a bonus action. Two known Metamagic options (chosen at the table — apply one per spell).
+            </div>
+          </div>
+
+          <div class="card siadon-card">
+            <div class="card-header">
+              <span class="card-name">Divine Domain · Channel Divinity</span>
+              <span class="card-tag siadon">Cleric 1–2</span>
+            </div>
+            <div class="card-body">
+              His cleric training was never finished cleanly — domain selected per the table. Channel Divinity: <strong>Turn Undead</strong> (DC 14, 30 ft.) + domain effect, once per short rest.
+            </div>
+          </div>
+
+          <div class="card body-card">
+            <div class="card-header">
+              <span class="card-name">Evasion</span>
+              <span class="card-tag">Monk 7</span>
+            </div>
+            <div class="card-body">
+              On a successful Dex save against a half-damage area effect: no damage. On a failure: half. The lightning taught him to slip sideways from what should have killed him.
+            </div>
+          </div>
+
+          <div class="card body-card">
+            <div class="card-header">
+              <span class="card-name">Wanderer (Background)</span>
+              <span class="card-tag">Outlander</span>
+            </div>
+            <div class="card-body">
+              Excellent memory for maps and geography; can find food &amp; water for himself and up to five others per day in any land that offers them.
+            </div>
+          </div>
+
+          <div class="card body-card">
+            <div class="card-header">
+              <span class="card-name">Variant Human Lineage</span>
+              <span class="card-tag">¼ Orc</span>
+            </div>
+            <div class="card-body">
+              Pronounced cuspids, green-tinged skin, but mechanically a variant human — no half-orc traits. Speaks Orcish from his mother’s side. Common, Primordial, and Celestial gathered along the way.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SPELLS ------------------------------------------------ -->
+    <section>
+      <h2 class="section-heading">The Folk Spells</h2>
+
+      <p style="font-size: 0.9rem; color: var(--salt); font-style: italic; margin-bottom: 1rem;">
+        Skretting’s working repertoire — the spells he reaches for, the ones that feel like prayer in his hands. His Cleric and Sorcerer lists hold others he can also prepare or call, but these eleven are the practice itself: <em>the body, the weather, the road, the saving touch.</em>
+      </p>
+
+      <div class="stat-strip" style="grid-template-columns: repeat(2, 1fr);">
+        <div class="stat-pill siadon"><span class="stat-label">1st-Level Slots</span><span class="stat-num">4 (2 left)</span></div>
+        <div class="stat-pill siadon"><span class="stat-label">2nd-Level Slots</span><span class="stat-num">3 (1 left)</span></div>
+      </div>
+
+      <div class="two-col">
+        <div class="card-list">
+
+          <div class="card siadon-card">
+            <div class="card-header">
+              <span class="card-name">Guidance</span>
+              <span class="card-tag">Cantrip · Cleric</span>
+            </div>
+            <div class="card-body">Touch a willing creature: +1d4 to one ability check within the minute. <em>A traveler’s blessing, whispered.</em></div>
+            <div class="card-meta"><span>Action</span><span>Touch</span><span>Conc.</span></div>
+          </div>
+
+          <div class="card siadon-card">
+            <div class="card-header">
+              <span class="card-name">Light</span>
+              <span class="card-tag">Cantrip · Cleric</span>
+            </div>
+            <div class="card-body">Object sheds bright light 20 ft., dim 20 more, any color. 1 hour.</div>
+            <div class="card-meta"><span>Action</span><span>Touch</span></div>
+          </div>
+
+          <div class="card bahann-card">
+            <div class="card-header">
+              <span class="card-name">Word of Radiance</span>
+              <span class="card-tag bahann">Cantrip · Cleric</span>
+            </div>
+            <div class="card-body">All chosen creatures within 5 ft. — Con save (DC 14) or take <strong>1d6 radiant</strong>. <em>The body’s declaration.</em></div>
+            <div class="card-meta"><span>Action</span><span>5 ft.</span></div>
+          </div>
+
+          <div class="card siadon-card">
+            <div class="card-header">
+              <span class="card-name">Absorb Elements</span>
+              <span class="card-tag siadon">1st · Sorc · Reaction</span>
+            </div>
+            <div class="card-body">Resistance to the triggering type until next turn; +1d6 of that type on next melee hit. <em>The storm folds into the fist.</em></div>
+            <div class="card-meta"><span>Reaction</span><span>Self</span></div>
+          </div>
+
+          <div class="card bahann-card">
+            <div class="card-header">
+              <span class="card-name">Bless</span>
+              <span class="card-tag bahann">1st · Cleric · Conc.</span>
+            </div>
+            <div class="card-body">Up to three creatures within 30 ft. add 1d4 to attack rolls and saves for the minute.</div>
+            <div class="card-meta"><span>Action</span><span>30 ft.</span><span>1 min</span></div>
+          </div>
+
+          <div class="card siadon-card">
+            <div class="card-header">
+              <span class="card-name">Command</span>
+              <span class="card-tag siadon">1st · Cleric</span>
+            </div>
+            <div class="card-body">One-word command. Wis save (DC 14) or obey on its next turn. <em>Approach. Drop. Flee. Grovel. Halt.</em></div>
+            <div class="card-meta"><span>Action</span><span>60 ft.</span></div>
+          </div>
+
+        </div>
+
+        <div class="card-list">
+
+          <div class="card bahann-card">
+            <div class="card-header">
+              <span class="card-name">Cure Wounds</span>
+              <span class="card-tag bahann">1st · Cleric</span>
+            </div>
+            <div class="card-body">Touch heals <strong>1d8 + Wis</strong>. Per slot above 1st: +1d8.</div>
+            <div class="card-meta"><span>Action</span><span>Touch</span></div>
+          </div>
+
+          <div class="card siadon-card">
+            <div class="card-header">
+              <span class="card-name">Feather Fall</span>
+              <span class="card-tag siadon">1st · Sorc · Reaction</span>
+            </div>
+            <div class="card-body">Up to five falling creatures: descent slows to 60 ft./round, no fall damage. 1 minute. <em>The wind catches what should have broken.</em></div>
+            <div class="card-meta"><span>Reaction</span><span>60 ft.</span></div>
+          </div>
+
+          <div class="card body-card">
+            <div class="card-header">
+              <span class="card-name">Jump</span>
+              <span class="card-tag">1st · Sorc</span>
+            </div>
+            <div class="card-body">Touched creature’s jump distance tripled for 1 minute.</div>
+            <div class="card-meta"><span>Action</span><span>Touch</span></div>
+          </div>
+
+          <div class="card siadon-card">
+            <div class="card-header">
+              <span class="card-name">Thunderwave</span>
+              <span class="card-tag siadon">1st · Sorc</span>
+            </div>
+            <div class="card-body">15-ft. cube: Con save (DC 14). <strong>2d8 thunder</strong> + pushed 10 ft. on fail; half &amp; no push on success. Audible 300 ft. <em>The storm’s first answer.</em></div>
+            <div class="card-meta"><span>Action</span><span>Self (cube)</span></div>
+          </div>
+
+          <div class="card bahann-card">
+            <div class="card-header">
+              <span class="card-name">Hold Person</span>
+              <span class="card-tag bahann">2nd · Cleric · Conc.</span>
+            </div>
+            <div class="card-body">One humanoid in 60 ft.: Wis save (DC 14) or paralyzed for the minute. Save again at end of each turn.</div>
+            <div class="card-meta"><span>Action</span><span>60 ft.</span><span>1 min</span></div>
+          </div>
+
+          <div class="card siadon-card">
+            <div class="card-header">
+              <span class="card-name">Mirror Image</span>
+              <span class="card-tag siadon">2nd · Sorc</span>
+            </div>
+            <div class="card-body">Three illusory duplicates. Each incoming attack rolls a d20: 6+ targets a duplicate (with 3), 8+ (with 2), 11+ (with 1). Duplicate AC 10 + Dex.</div>
+            <div class="card-meta"><span>Action</span><span>Self</span><span>1 min</span></div>
+          </div>
+
+        </div>
+      </div>
+
+      <p style="margin-top: 1.2rem; font-size: 0.78rem; color: var(--foam-dim); font-style: italic;">
+        Additional cleric and sorcerer spells are available on the broader lists — these eleven are the marked, named ones; the rest remain unmarked, called only when the moment asks.
+      </p>
+    </section>
+
+    <!-- ITEMS ------------------------------------------------- -->
+    <section>
+      <h2 class="section-heading">Gear &amp; Carried Things</h2>
+
+      <div class="two-col">
+        <div>
+          <p style="font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--foam-dim); margin-bottom: 0.5rem;">Attuned · Equipped</p>
+          <ul class="inv-list">
+            <li>
+              <span class="inv-name attuned">Bracers of Defense</span>
+              <span class="inv-meta"><span class="rare">Rare</span> · +2 AC</span>
+            </li>
+            <li>
+              <span class="inv-name attuned">Boots of Flexibility</span>
+              <span class="inv-meta"><span class="rare">Rare</span> · +1 Dex</span>
+            </li>
+            <li>
+              <span class="inv-name attuned">Sash of Relentless Chi</span>
+              <span class="inv-meta"><span class="rare">Rare</span> · Crit → +1 Ki</span>
+            </li>
+          </ul>
+          <p style="font-size: 0.78rem; color: var(--foam-dim); font-style: italic; margin-top: 0.6rem;">
+            <em>Boots of Flexibility:</em> the boots tingle as they fit perfectly to your feet. Soft woolen, calf-high, almost thick socks.<br>
+            <em>Sash of Relentless Chi:</em> any time he crits with an unarmed strike, he regains 1 ki point.
+          </p>
+        </div>
+
+        <div>
+          <p style="font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--foam-dim); margin-bottom: 0.5rem;">Carried</p>
+          <ul class="inv-list">
+            <li>
+              <span class="inv-name">Sling</span>
+              <span class="inv-meta">Common</span>
+            </li>
+            <li>
+              <span class="inv-name">Sling Bullets</span>
+              <span class="inv-meta">×20</span>
+            </li>
+            <li>
+              <span class="inv-name">Hand Drum</span>
+              <span class="inv-meta">Folk instrument</span>
+            </li>
+            <li>
+              <span class="inv-name">Torch</span>
+              <span class="inv-meta">Common</span>
+            </li>
+          </ul>
+
+          <p style="font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--foam-dim); margin: 1rem 0 0.4rem;">Coin</p>
+          <ul class="inv-list">
+            <li><span class="inv-name">Gold</span><span class="inv-meta" style="color: var(--bahann-glow);">90 gp</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- BACKSTORY -------------------------------------------- -->
+    <section class="lore">
+      <h2 class="section-heading">Lineage &amp; Path</h2>
+
+      <p>Skretting was born in a modest-sized town inland, deep in the Duchy of Risent — the old orcish heartland, conquered by Greycott a thousand years past, where most of the people remain orc, half-orc, goblin, and where the kingdom’s grip is more nominal than real. His father is fully human and devoutly Bahann-faithful. His mother, half-orc, converted at her marriage but never truly stopped: in her hands, Bahann <em>was</em> Siadon, re-skinned, re-named, the same god by another voice.</p>
+
+      <p>That is the secret a great many in Risent hold. When the human invaders came, <strong>Siadon</strong> — Chaotic god of the depths, sea and Underdark and starlit sky — was understood to have <em>retreated</em>, not abandoned. A strategic withdrawal into the deep, awaiting the day of return. Some orcs have moved fully onto the oceans to be with him, and to outlive the coming tsunami-judgment. Some kneel and pray to Athur the Just and call it peace. Most who stayed have learned to wear the new gods’ names over the old ones, like a hood pulled up against the wrong weather.</p>
+
+      <p>Far from the coast, the <strong>sea aspects</strong> of Siadon mattered less to Skretting’s mother than the <strong>storm and sky</strong>. The weather was Bahann the trickster. The stars were his arcana, his art. She taught her son to read both — to orient himself by what was above him, and to know what was coming by the smell of the wind. He has never lost the habit.</p>
+
+      <p>He was set, for a time, toward the temple-priesthood of <strong>Bahann the Ecstatic</strong>. The temple rejected him: in part because of the folk-syncretism he had grown up steeped in, and in part because his understanding of Bahann was, in his own words, <em>too large</em> for the ossified practices of the priesthood. Bahann was not a thing you locked in stone, he insisted. The god was boundless. The forms must keep changing.</p>
+
+      <p>He took a leave of absence under the cover of a pilgrimage. That pilgrimage has not ended.</p>
+
+      <p>Out on the road, he leaned hard into reconciling the folk practices of his mother’s line with the religious training of his father’s — a synthesis that is recognizably neither Bahann-orthodoxy nor Siadon-orthodoxy, and would scandalize both. It led him into the <strong>Way of the Four Elements</strong>: the body as the site where the divine is met, where weather and breath and water and stone are the same teacher in different rooms.</p>
+
+      <p>The culmination came in a vision-quest beneath a powerful lightning storm. Bahann answered. The lightning <em>spoke</em>. Skretting walked out of it forever changed, and changed in a particular way: <strong>something of the storm stayed in him</strong>. He has been a Storm Sorcerer ever since, the magic innate, weather-shaped, no spellbook required.</p>
+
+      <p>He travels now as a guide. He attaches himself to bands of pilgrims, traders, scholars, fools — particularly those on journeys of discovery, particularly those who would otherwise die in the wilderness without him. He has a healthy and quite practical suspicion of mages, and he uses what he knows of magic to interrupt the overeager. The hand that knows the spell knows where to break it.</p>
+
+      <p style="margin-top: 1.2rem; font-size: 0.85rem; color: var(--foam); font-style: italic; border-top: 1px solid var(--rule); padding-top: 1rem;">
+        He has, in passing, crossed paths with <strong style="color: var(--bahann-glow);">Cardinal Renault</strong> — the one widely held to be Bahann’s chosen, then a boy of fourteen, now perhaps eighteen. The Cardinal’s counsel, as Skretting remembers it, was simple: <em>do not let any single vision become the only vision.</em> Skretting has tried to honor that.
+      </p>
+    </section>
+
+    <!-- KEY MOMENT ------------------------------------------- -->
+    <section>
+      <h2 class="section-heading bahann">A Moment from the Road</h2>
+
+      <div class="moment">
+        <div class="moment-title">Three Crashes &amp; a Whip</div>
+        <div class="moment-body">
+          The party fled on flying steeds, pursuers on their tail. Skretting turned in the saddle to face the chase — and the wizard, mid-cast, threw up a <strong>wall of force</strong> behind them. Skretting’s steed slammed into it at speed. He went over the top, landed astride one of the pursuers, and beat the man senseless with his fists.<br><br>
+          Then the pursuer’s steed hit the same invisible wall from the other side.<br><br>
+          Skretting was flung again — straight back over, missing his own mount entirely, falling into nothing. He would have died there.<br><br>
+          A companion’s whip caught his arm at the last possible instant.
+        </div>
+      </div>
+    </section>
+
+    <!-- IDEALS & TRAITS -------------------------------------- -->
+    <section>
+      <h2 class="section-heading">Disposition</h2>
+
+      <div class="two-col">
+        <div class="card-list">
+          <div class="card body-card">
+            <div class="card-header">
+              <span class="card-name">Personality</span>
+              <span class="card-tag">Trait</span>
+            </div>
+            <div class="card-body">
+              <em>I’m driven by a wanderlust that led me away from home.</em>
+            </div>
+          </div>
+
+          <div class="card body-card">
+            <div class="card-header">
+              <span class="card-name">Ideals</span>
+              <span class="card-tag">Chaos · Nature</span>
+            </div>
+            <div class="card-body">
+              <strong>Change.</strong> Life is like the seasons, in constant change, and we must change with it. <em>(Chaotic.)</em><br>
+              <strong>Nature.</strong> The natural world is more important than all the constructs of civilization. <em>(Neutral.)</em>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-list">
+          <div class="card siadon-card">
+            <div class="card-header">
+              <span class="card-name">Standing Suspicion</span>
+              <span class="card-tag siadon">Tendency</span>
+            </div>
+            <div class="card-body">
+              He is not anti-magic. He <em>is</em> wary of magic-users — particularly the kind who never learned to be afraid of what they are doing. He will, with some regularity, hit one of them mid-cast.
+            </div>
+          </div>
+
+          <div class="card bahann-card">
+            <div class="card-header">
+              <span class="card-name">Standing Practice</span>
+              <span class="card-tag bahann">Vocation</span>
+            </div>
+            <div class="card-body">
+              He guides. Pilgrims, travelers, the curious, the foolish. He prefers groups already moving toward something they cannot quite name. He drums in the evenings. He sleeps under the stars when he can.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="asterism">✶ &nbsp;✶&nbsp; ✶</div>
+
+    <div class="footer">
+      Dossier · Skretting Sikasoowukaa · Pilgrim · Kingdom of Greycott
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

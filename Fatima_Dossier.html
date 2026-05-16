@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>♡ fatima's journal ♡ — entries</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-deep:        #1a0f1f;       /* outer void */
+    --bg-mid:         #2a1b35;       /* livejournal-pink-gone-rotten */
+    --bg-page:        #f3eef1;       /* the page itself, slightly mauve */
+    --bg-page-shade:  #e7dfe5;
+    --ink:            #2b1a2f;
+    --ink-soft:       #5a4761;
+    --ink-faint:      #8a7a90;
+    --pink:           #d96aa3;       /* hot pink, fading */
+    --pink-deep:      #a73d77;
+    --pink-pale:      #f5d4e3;
+    --lilac:          #b78cc9;
+    --lavender:       #ddc6e8;
+    --teal-rot:       #4a6b6b;       /* ghost-pallor cyan */
+    --teal-pale:      #c8dada;
+    --blood:          #8b1a2f;
+    --rule:           #d6c3d4;
+    --rule-soft:      #ece1e8;
+    --ghost-white:    rgba(255, 255, 255, 0.62);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg-deep);
+    color: var(--ink);
+    font-family: "Verdana", "Trebuchet MS", "Geneva", sans-serif;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  body {
+    background:
+      radial-gradient(ellipse at 15% 5%,  rgba(217, 106, 163, 0.22) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 95%, rgba(74, 107, 107, 0.28) 0%, transparent 55%),
+      linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 40%, var(--bg-deep) 100%);
+    min-height: 100vh;
+    padding: 1.5rem 0.75rem 3rem;
+  }
+
+  /* ============ TOP BAR (livejournal nav strip) ============ */
+  .top-strip {
+    max-width: 980px;
+    margin: 0 auto 0.9rem;
+    background: linear-gradient(180deg, #4d2e5f 0%, #2a1b35 100%);
+    color: var(--pink-pale);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+    padding: 0.4rem 0.9rem;
+    display: flex;
+    gap: 1rem;
+    border: 1px solid #1a0f1f;
+    border-bottom: 2px solid var(--pink-deep);
+    flex-wrap: wrap;
+  }
+  .top-strip span { color: var(--ghost-white); }
+  .top-strip .sep { color: var(--pink); opacity: 0.5; }
+  .top-strip .dead { color: var(--teal-pale); text-decoration: line-through; opacity: 0.6; }
+
+  /* ============ THE PAGE ============ */
+  .journal {
+    max-width: 980px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 1rem;
+  }
+
+  /* ============ SIDEBAR (user info box) ============ */
+  aside.userinfo {
+    background: var(--bg-page);
+    border: 1px solid var(--pink-deep);
+    padding: 0.85rem;
+    height: fit-content;
+    position: relative;
+    box-shadow: 3px 3px 0 rgba(167, 61, 119, 0.4);
+  }
+  aside.userinfo::before {
+    content: "★彡 user info 彡★";
+    display: block;
+    background: var(--pink-deep);
+    color: var(--pink-pale);
+    margin: -0.85rem -0.85rem 0.7rem;
+    padding: 0.3rem 0.7rem;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-align: center;
+    font-weight: bold;
+  }
+  .portrait-frame {
+    border: 2px solid var(--pink);
+    padding: 3px;
+    background: var(--pink-pale);
+    margin-bottom: 0.7rem;
+    position: relative;
+  }
+  .portrait-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: contrast(1.05) brightness(0.97) saturate(0.85);
+  }
+  .portrait-frame::after {
+    content: "♱ in memoriam ♱";
+    position: absolute;
+    bottom: 6px; left: 50%;
+    transform: translateX(-50%);
+    background: rgba(26, 15, 31, 0.78);
+    color: var(--ghost-white);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    padding: 2px 8px;
+    border-radius: 1px;
+  }
+
+  .username {
+    text-align: center;
+    font-family: "Special Elite", "Courier Prime", monospace;
+    font-size: 1.3rem;
+    color: var(--pink-deep);
+    margin: 0 0 0.1rem;
+    letter-spacing: 0.02em;
+  }
+  .realname {
+    text-align: center;
+    font-size: 11px;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-bottom: 0.7rem;
+  }
+
+  .stat-block {
+    border-top: 1px dashed var(--rule);
+    padding-top: 0.55rem;
+    margin-top: 0.55rem;
+    font-size: 11px;
+    line-height: 1.65;
+  }
+  .stat-block dt {
+    color: var(--pink-deep);
+    font-weight: bold;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    text-transform: lowercase;
+    margin-top: 0.5rem;
+  }
+  .stat-block dt:first-child { margin-top: 0; }
+  .stat-block dd {
+    margin: 0 0 0.15rem;
+    color: var(--ink-soft);
+  }
+  .stat-block dd em {
+    color: var(--teal-rot);
+    font-style: italic;
+  }
+
+  .glyph-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-top: 0.7rem;
+    font-size: 0.95rem;
+    color: var(--lilac);
+  }
+
+  /* blinky-style tag */
+  .blinkie {
+    display: inline-block;
+    background: linear-gradient(90deg, #2a1b35, #6b2d51);
+    border: 1px solid var(--pink);
+    color: var(--pink-pale);
+    font-family: "Courier Prime", monospace;
+    font-size: 10px;
+    padding: 2px 7px;
+    margin: 2px 2px 0 0;
+    letter-spacing: 0.04em;
+  }
+  .blinkie.teal {
+    background: linear-gradient(90deg, #1a2f2f, #2a4d4d);
+    border-color: var(--teal-pale);
+    color: var(--teal-pale);
+  }
+  .blinkies { text-align: center; margin-top: 0.6rem; }
+
+  /* ============ MAIN COLUMN ============ */
+  main.entries { display: flex; flex-direction: column; gap: 1rem; }
+
+  .entry {
+    background: var(--bg-page);
+    border: 1px solid var(--rule);
+    box-shadow: 3px 3px 0 rgba(42, 27, 53, 0.35);
+    position: relative;
+  }
+  .entry-header {
+    background: linear-gradient(90deg, var(--pink-deep) 0%, var(--lilac) 100%);
+    color: var(--pink-pale);
+    padding: 0.35rem 0.9rem;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .entry-header .subject {
+    font-weight: bold;
+    text-transform: lowercase;
+  }
+  .entry-header .timestamp {
+    color: rgba(255, 255, 255, 0.85);
+    font-family: "Courier Prime", monospace;
+    font-size: 10px;
+  }
+
+  .entry-meta {
+    background: var(--bg-page-shade);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.4rem 0.9rem;
+    font-size: 11px;
+    color: var(--ink-soft);
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+  .entry-meta .label {
+    color: var(--pink-deep);
+    font-weight: bold;
+    margin-right: 0.25rem;
+    text-transform: lowercase;
+  }
+  .entry-meta .label::before { content: "current "; }
+
+  .entry-body {
+    padding: 0.95rem 1.1rem 1.1rem;
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .entry-body p { margin: 0 0 0.7rem; }
+  .entry-body p:last-child { margin-bottom: 0; }
+  .entry-body em { color: var(--pink-deep); font-style: italic; }
+  .entry-body strong { color: var(--ink); font-weight: bold; }
+
+  .entry-body h3 {
+    font-family: "Special Elite", "Courier Prime", monospace;
+    font-size: 1.05rem;
+    color: var(--pink-deep);
+    margin: 1.1rem 0 0.5rem;
+    font-weight: normal;
+    letter-spacing: 0.02em;
+    border-bottom: 1px dotted var(--rule);
+    padding-bottom: 0.2rem;
+  }
+  .entry-body h3:first-child { margin-top: 0; }
+
+  .entry-body ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.7rem;
+  }
+  .entry-body ul li {
+    padding-left: 1.1rem;
+    position: relative;
+    margin-bottom: 0.35rem;
+  }
+  .entry-body ul li::before {
+    content: "♡";
+    position: absolute;
+    left: 0;
+    color: var(--pink);
+    font-size: 0.85rem;
+  }
+  .entry-body ul.skull li::before { content: "✟"; color: var(--teal-rot); }
+
+  /* mock fanfic block */
+  .fanfic {
+    background: var(--bg-page-shade);
+    border-left: 3px solid var(--pink);
+    padding: 0.7rem 0.9rem;
+    margin: 0.6rem 0;
+    font-family: "Courier Prime", monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    position: relative;
+  }
+  .fanfic::before {
+    content: "( draft — saved 02:14 a.m. )";
+    display: block;
+    font-size: 10px;
+    color: var(--ink-faint);
+    margin-bottom: 0.35rem;
+    letter-spacing: 0.04em;
+  }
+  .fanfic.corrupt {
+    border-left-color: var(--teal-rot);
+    color: var(--teal-rot);
+  }
+  .fanfic.corrupt::before {
+    content: "( draft — autosaved by a hand that wasn't mine )";
+    color: var(--teal-rot);
+  }
+
+  /* mechanics card */
+  .mech-card {
+    background: linear-gradient(180deg, var(--bg-page) 0%, var(--bg-page-shade) 100%);
+    border: 1px dashed var(--pink-deep);
+    padding: 0.85rem 1rem;
+    margin: 0.7rem 0;
+  }
+  .mech-card h4 {
+    font-family: "Special Elite", monospace;
+    font-size: 0.95rem;
+    color: var(--pink-deep);
+    margin: 0 0 0.45rem;
+    font-weight: normal;
+    letter-spacing: 0.04em;
+  }
+  .mech-card .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.4rem;
+    margin: 0.5rem 0 0.7rem;
+  }
+  .mech-card .stat-cell {
+    text-align: center;
+    background: var(--bg-page);
+    border: 1px solid var(--rule);
+    padding: 0.4rem 0.2rem;
+  }
+  .mech-card .stat-cell .stat-name {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .mech-card .stat-cell .stat-value {
+    font-family: "Special Elite", monospace;
+    font-size: 1.4rem;
+    color: var(--ink-faint);
+    line-height: 1;
+    margin-top: 0.2rem;
+  }
+  .mech-card .stat-cell .stat-value::after {
+    content: " ?";
+    font-size: 0.7rem;
+    color: var(--pink);
+    vertical-align: super;
+  }
+
+  /* harm clock */
+  .harm-clock {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+    margin: 0.4rem 0;
+  }
+  .harm-pip {
+    width: 16px; height: 16px;
+    border: 1.5px solid var(--ink-soft);
+    border-radius: 50%;
+    background: transparent;
+  }
+  .harm-pip.faded { border-color: var(--ink-faint); border-style: dashed; }
+  .harm-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin-right: 0.3rem;
+  }
+
+  /* relationships table */
+  .rel-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.5rem 0 0.7rem;
+    font-size: 12px;
+  }
+  .rel-table th, .rel-table td {
+    text-align: left;
+    padding: 0.4rem 0.55rem;
+    border-bottom: 1px dotted var(--rule);
+    vertical-align: top;
+  }
+  .rel-table th {
+    color: var(--pink-deep);
+    text-transform: lowercase;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    font-weight: bold;
+    background: var(--bg-page-shade);
+    border-bottom: 1px solid var(--rule);
+  }
+  .rel-table td:first-child {
+    font-family: "Special Elite", monospace;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .rel-table td:nth-child(2) {
+    color: var(--pink-deep);
+    font-size: 11px;
+    text-transform: lowercase;
+    font-style: italic;
+  }
+
+  /* darkest self callout */
+  .darkest {
+    background: linear-gradient(180deg, #1a0f1f 0%, #2a1b35 100%);
+    color: var(--pink-pale);
+    padding: 0.85rem 1rem;
+    margin: 0.7rem 0;
+    border-left: 3px solid var(--teal-rot);
+    font-family: "Courier Prime", monospace;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .darkest h4 {
+    color: var(--teal-pale);
+    font-family: "Special Elite", monospace;
+    font-size: 0.95rem;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.06em;
+    text-transform: lowercase;
+    font-weight: normal;
+  }
+  .darkest em { color: var(--lavender); font-style: italic; }
+
+  /* comments */
+  .comments {
+    background: var(--bg-page-shade);
+    padding: 0.75rem 0.9rem 0.85rem;
+    border-top: 1px solid var(--rule);
+    font-size: 12px;
+  }
+  .comments-title {
+    font-size: 10px;
+    text-transform: lowercase;
+    letter-spacing: 0.12em;
+    color: var(--pink-deep);
+    margin-bottom: 0.55rem;
+    font-weight: bold;
+  }
+  .comment {
+    margin-bottom: 0.7rem;
+    padding-left: 0.6rem;
+    border-left: 2px solid var(--pink);
+  }
+  .comment.nested { margin-left: 1.2rem; border-left-color: var(--lilac); }
+  .comment.ghost { border-left-color: var(--teal-rot); }
+  .comment.ghost .comment-author { color: var(--teal-rot); }
+  .comment-author {
+    font-weight: bold;
+    color: var(--pink-deep);
+    font-size: 11px;
+  }
+  .comment-time {
+    font-size: 10px;
+    color: var(--ink-faint);
+    margin-left: 0.4rem;
+    font-family: "Courier Prime", monospace;
+  }
+  .comment p { margin: 0.2rem 0 0; color: var(--ink-soft); }
+  .comment.ghost p { color: var(--teal-rot); font-style: italic; }
+
+  /* tags row at entry foot */
+  .tags-row {
+    background: var(--bg-page-shade);
+    border-top: 1px solid var(--rule);
+    padding: 0.4rem 0.9rem;
+    font-size: 11px;
+    color: var(--ink-soft);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.6rem;
+    align-items: center;
+  }
+  .tags-row .label {
+    color: var(--pink-deep);
+    font-weight: bold;
+    text-transform: lowercase;
+  }
+  .tag {
+    background: var(--pink-pale);
+    color: var(--pink-deep);
+    padding: 1px 6px;
+    border: 1px solid var(--pink);
+    font-size: 10px;
+    letter-spacing: 0.02em;
+  }
+  .tag.teal {
+    background: var(--teal-pale);
+    color: var(--teal-rot);
+    border-color: var(--teal-rot);
+  }
+
+  /* exit screen final entry */
+  .final-entry .entry-header {
+    background: linear-gradient(90deg, #1a0f1f 0%, #4a6b6b 100%);
+  }
+  .final-entry .entry-body {
+    background:
+      repeating-linear-gradient(180deg,
+        transparent 0,
+        transparent 22px,
+        rgba(74, 107, 107, 0.04) 22px,
+        rgba(74, 107, 107, 0.04) 23px);
+  }
+
+  /* footer */
+  .colophon {
+    max-width: 980px;
+    margin: 1.5rem auto 0;
+    text-align: center;
+    color: var(--ghost-white);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: lowercase;
+    font-family: "Courier Prime", monospace;
+  }
+  .colophon a {
+    color: var(--pink-pale);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--pink);
+  }
+
+  /* responsive */
+  @media (max-width: 760px) {
+    .journal { grid-template-columns: 1fr; }
+    aside.userinfo { order: 1; }
+    main.entries { order: 2; }
+    .mech-card .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-strip">
+  <span>★ home</span>
+  <span class="sep">|</span>
+  <span>recent entries</span>
+  <span class="sep">|</span>
+  <span>friends (1)</span>
+  <span class="sep">|</span>
+  <span>archive</span>
+  <span class="sep">|</span>
+  <span>userinfo</span>
+  <span class="sep">|</span>
+  <span class="dead">log out</span>
+</div>
+
+<div class="journal">
+
+  <!-- =================== SIDEBAR =================== -->
+  <aside class="userinfo">
+    <div class="portrait-frame">
+      <img src="thumbs/fatima.jpg" alt="Portrait of Fatima">
+    </div>
+
+    <h2 class="username">xX_ash&amp;fati_4ever_Xx</h2>
+    <p class="realname">~ fatima ~<br>shoalsburg, somewhere</p>
+
+    <dl class="stat-block">
+      <dt>skin</dt>
+      <dd>the Ghost</dd>
+
+      <dt>status</dt>
+      <dd><em>deceased</em> (workplace accident, Dynacorp site)<br>
+          but also: <em>around</em></dd>
+
+      <dt>age</dt>
+      <dd>17 forever &lt;3</dd>
+
+      <dt>scent</dt>
+      <dd><em>none</em></dd>
+
+      <dt>last seen</dt>
+      <dd>somewhere quiet, with him</dd>
+
+      <dt>currently</dt>
+      <dd>holding a doll</dd>
+
+      <dt>interests (8)</dt>
+      <dd>him. him. him. him. him. him. him. him.</dd>
+    </dl>
+
+    <div class="blinkies">
+      <span class="blinkie">♡ true love ♡</span>
+      <span class="blinkie">misunderstood</span>
+      <span class="blinkie teal">deceased</span>
+      <span class="blinkie">obsessive</span>
+      <span class="blinkie teal">scentless</span>
+      <span class="blinkie">delusional</span>
+    </div>
+
+    <div class="glyph-row">✟ ♡ ✦ ♡ ✟</div>
+  </aside>
+
+  <!-- =================== ENTRIES =================== -->
+  <main class="entries">
+
+    <!-- ===== ENTRY 1: dossier / intro ===== -->
+    <article class="entry">
+      <div class="entry-header">
+        <span class="subject">subject: who i am (the real story)</span>
+        <span class="timestamp">[ pinned post ]</span>
+      </div>
+      <div class="entry-meta">
+        <span><span class="label">mood:</span> determined</span>
+        <span><span class="label">music:</span> something only i can hear</span>
+        <span><span class="label">location:</span> his bedroom window</span>
+      </div>
+      <div class="entry-body">
+        <p>Everyone at Shoalsburg High thinks they know the story. <em>Poor Fatima, dropped her books one day, got crushed at the Dynacorp site two weeks later, parents suing, very sad.</em> They light candles for like a month and then forget.</p>
+
+        <p>They don't know the real story. The real story is that <strong>Ashby and I were always going to find each other.</strong> The accident wasn't the end of anything. It was the part where the universe finally said <em>okay, now you can stop pretending you have anywhere else to be.</em></p>
+
+        <p>I've been keeping this journal so when we're together for real, he'll be able to read it and understand. Everything I did. Why I did it. He'll see it was all for him.</p>
+
+        <p>(He helped me pick up my books once. He bent down and his hair fell into his eyes and he laughed and said <em>here</em> and gave me back my copy of <em>Wuthering Heights</em>. That was the day I knew.)</p>
+
+        <h3>game info ♡</h3>
+        <p style="font-size: 11px; color: var(--ink-soft);">
+          system: <strong>Monsterhearts 2</strong> &middot;
+          campaign: <strong>Shoalsburg</strong> &middot;
+          town: small, dying, quarry-haunted &middot;
+          skin: <strong>The Ghost</strong> &middot;
+          one-line: <em>Delusional, toxic 'ex'</em>
+        </p>
+      </div>
+      <div class="tags-row">
+        <span class="label">tags:</span>
+        <span class="tag">backstory</span>
+        <span class="tag">true love</span>
+        <span class="tag teal">in memoriam</span>
+        <span class="tag">ashby</span>
+        <span class="tag">fate</span>
+      </div>
+    </article>
+
+    <!-- ===== ENTRY 2: the sheet (mechanics) ===== -->
+    <article class="entry">
+      <div class="entry-header">
+        <span class="subject">subject: the bones of it (mechanics, ooc)</span>
+        <span class="timestamp">[ player notes ]</span>
+      </div>
+      <div class="entry-meta">
+        <span><span class="label">mood:</span> ooc</span>
+        <span><span class="label">music:</span> the dial tone of my parents' lawyer</span>
+      </div>
+      <div class="entry-body">
+        <p style="font-size: 11px; color: var(--ink-faint); font-style: italic;">
+          ( This is the part that lives on the paper sheet, which I don't have in front of me right now. Filling in skeleton; will return for specifics. )
+        </p>
+
+        <div class="mech-card">
+          <h4>♡ skin: the Ghost</h4>
+          <p style="font-size: 11.5px; margin: 0 0 0.5rem;">
+            A teenager who died and didn't move on. Tethered to the place or the person of their unfinished business. Other people can see her but never quite manage to remember her properly afterward. Cold to the touch. No scent. Often present, rarely accounted for.
+          </p>
+
+          <div class="stat-grid">
+            <div class="stat-cell"><div class="stat-name">Hot</div><div class="stat-value">—</div></div>
+            <div class="stat-cell"><div class="stat-name">Cold</div><div class="stat-value">—</div></div>
+            <div class="stat-cell"><div class="stat-name">Volatile</div><div class="stat-value">—</div></div>
+            <div class="stat-cell"><div class="stat-name">Dark</div><div class="stat-value">—</div></div>
+          </div>
+
+          <div class="harm-clock">
+            <span class="harm-label">harm:</span>
+            <div class="harm-pip faded"></div>
+            <div class="harm-pip faded"></div>
+            <div class="harm-pip faded"></div>
+            <div class="harm-pip faded"></div>
+          </div>
+
+          <p style="font-size: 11px; color: var(--ink-soft); margin-top: 0.6rem;">
+            <strong>moves chosen:</strong> <em>to be filled in from physical sheet</em><br>
+            <strong>sex move:</strong> the Ghost's — <em>used in play</em> (Nov 6, with Ashby).<br>
+            <strong>advances:</strong> <em>to be filled in</em>.<br>
+            <strong>strings:</strong> <em>to be filled in</em>.<br>
+            <strong>conditions:</strong> <em>to be filled in</em>.
+          </p>
+        </div>
+
+        <div class="darkest">
+          <h4>♱ darkest self</h4>
+          <p>Triggered at least twice during the campaign. Specifics not recorded here — but in general: the Ghost's Darkest Self is what happens when the grievance becomes the whole self. <em>You can't leave the place of the wrong. You lash out at anyone who tries to make you see past it.</em> For Fatima, the wrong was him not loving her back. Of course it was.</p>
+        </div>
+      </div>
+      <div class="tags-row">
+        <span class="label">tags:</span>
+        <span class="tag teal">the ghost</span>
+        <span class="tag">mechanics</span>
+        <span class="tag">monsterhearts 2</span>
+        <span class="tag">tbd</span>
+      </div>
+    </article>
+
+    <!-- ===== ENTRY 3: shoalsburg ===== -->
+    <article class="entry">
+      <div class="entry-header">
+        <span class="subject">subject: the town (in case you don't know it)</span>
+        <span class="timestamp">[ setting ]</span>
+      </div>
+      <div class="entry-meta">
+        <span><span class="label">mood:</span> chilly</span>
+        <span><span class="label">music:</span> wind across an empty quarry</span>
+        <span><span class="label">location:</span> the rim, looking down</span>
+      </div>
+      <div class="entry-body">
+        <p><strong>Shoalsburg</strong> is the kind of town where the most important thing about it is gone. The quarry used to be everything — paychecks, gossip, the way the dust got into your hair on a windy day. People stopped using it and the town started dying politely.</p>
+
+        <p>Then <strong>Dynacorp</strong> showed up to industrialize what was left. New site, new fencing, new humming under your feet at night. They built the place I died at.</p>
+
+        <p>The <strong>Harvest Ball</strong> got cancelled this year because Dynacorp pulled the sponsorship. (My parents are suing them. They won't drop it, no matter how much I ask. They think they're doing it for me. They're doing it for themselves.)</p>
+
+        <p style="font-size: 11px; color: var(--ink-faint); font-style: italic;">
+          ( I overheard <strong>Ms. Rosewater</strong> talking about Dynacorp once when I was where I shouldn't have been. Some of what she said matters. Some of it I'm still working on. )
+        </p>
+      </div>
+      <div class="tags-row">
+        <span class="label">tags:</span>
+        <span class="tag">shoalsburg</span>
+        <span class="tag">the quarry</span>
+        <span class="tag teal">dynacorp</span>
+        <span class="tag">the accident</span>
+      </div>
+    </article>
+
+    <!-- ===== ENTRY 4: the cast ===== -->
+    <article class="entry">
+      <div class="entry-header">
+        <span class="subject">subject: people in my life ♡ (a guide)</span>
+        <span class="timestamp">[ private — friends only ]</span>
+      </div>
+      <div class="entry-meta">
+        <span><span class="label">mood:</span> sorting</span>
+        <span><span class="label">music:</span> the cafeteria, distantly</span>
+      </div>
+      <div class="entry-body">
+        <table class="rel-table">
+          <thead>
+            <tr><th>name</th><th>they are…</th><th>the truth of it</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ashby</td>
+              <td>my soulmate</td>
+              <td>The boy who handed me back my copy of <em>Wuthering Heights</em>. He doesn't know it yet but everything I do is for him. He is also (it turns out) a werewolf, which only makes it more obvious that we belong together — two things that shouldn't be here, finding each other anyway.</td>
+            </tr>
+            <tr>
+              <td>Joey</td>
+              <td>my rival</td>
+              <td>Ashby's <em>actual</em> partner. Came back from hell. Worse: Ashby <strong>likes</strong> him, the kind of like with shoulders touching. I can't tolerate that. I told Ashby that Joey was cheating on him with Gina. At the party I sucked the breath right out of his lungs.</td>
+            </tr>
+            <tr>
+              <td>Manuel</td>
+              <td>currency</td>
+              <td>A boy who isn't quite a boy — a sentient golem, kind of a Pinocchio. I traded him to Bill for a doll. I'm sorry. I'm not, actually. He should have been more careful about being tradeable.</td>
+            </tr>
+            <tr>
+              <td>Bill</td>
+              <td>the fae</td>
+              <td>Found me when I was ready to be found. Took me to the Celestials and the dolls. He understood. He didn't try to talk me out of anything. That's the most generous a person has ever been to me.</td>
+            </tr>
+            <tr>
+              <td>Gina</td>
+              <td>useful</td>
+              <td>Map-maker. Sees patterns. I tried to get her to help Dynacorp. (It didn't work, but she <em>thought</em> about it, and that counts.)</td>
+            </tr>
+            <tr>
+              <td>Ms. Rosewater</td>
+              <td>the teacher who knows</td>
+              <td>I spied on her once. She knows more about what Dynacorp is doing in this town than the town knows.</td>
+            </tr>
+            <tr>
+              <td>my parents</td>
+              <td>obstacles</td>
+              <td>Won't drop the lawsuit. I begged them to.</td>
+            </tr>
+            <tr>
+              <td>Vesk</td>
+              <td>around</td>
+              <td>Brought drugs to Manuel at the party. Edgelord. Not my problem.</td>
+            </tr>
+            <tr>
+              <td>Caroline</td>
+              <td>around</td>
+              <td>Drifted toward Gina at the party. Not my problem either.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tags-row">
+        <span class="label">tags:</span>
+        <span class="tag">ashby ♡</span>
+        <span class="tag teal">joey</span>
+        <span class="tag">manuel</span>
+        <span class="tag teal">bill the fae</span>
+        <span class="tag">ms. rosewater</span>
+      </div>
+    </article>
+
+    <!-- ===== ENTRY 5: the party (oct 9) ===== -->
+    <article class="entry">
+      <div class="entry-header">
+        <span class="subject">subject: at the party (i finally got him alone)</span>
+        <span class="timestamp">posted: oct 9 &middot; 03:47 a.m.</span>
+      </div>
+      <div class="entry-meta">
+        <span><span class="label">mood:</span> ELECTRIC</span>
+        <span><span class="label">music:</span> the music of the spheres (he could hear it too)</span>
+        <span><span class="label">location:</span> a dark corner, his lap</span>
+      </div>
+      <div class="entry-body">
+        <p>I want to remember every second of tonight forever, so I'm writing it all down.</p>
+
+        <h3>before the party</h3>
+        <ul>
+          <li>spied on Ms. Rosewater (Dynacorp things — saving for later)</li>
+          <li>Kyle was being a teacher's-pet about the quarry. Gina was making a <em>map</em> from his notes. cute. useful.</li>
+        </ul>
+
+        <h3>the drive over</h3>
+        <p>Ashby and Joey had just had sex. I could tell. They came out of Joey's house with that <em>look</em>. They offered me a ride. <strong>I convinced Ashby to spend the first part of the party with just me.</strong> Joey didn't like it. Joey doesn't get to have an opinion.</p>
+
+        <h3>the corner</h3>
+        <ul>
+          <li>I hinted that Joey was cheating on him with Gina. He <em>flinched</em>. I felt it.</li>
+          <li>I told him I knew his secret. He got flustered. He started to <em>change</em>.</li>
+          <li>I led him to a dark corner. I rubbed his shoulders. I stroked his hair. I helped him come down.</li>
+          <li>It <em>weirded him out</em> that I don't have a scent. And it also <em>calmed him down</em>. Both at once. That's what we are.</li>
+          <li>He turned anyway. I sat on his lap.</li>
+        </ul>
+
+        <div class="fanfic">
+          and his ears were pointed and his teeth were long and i wasn't afraid because the only thing in the whole world that could hurt me wasn't his teeth, it was him looking away, and he wasn't looking away, he was looking RIGHT at me —
+        </div>
+
+        <h3>then joey came at us</h3>
+        <p>Ashby and Joey were both under the influence of the music of the spheres (don't ask, I don't fully understand it either, but it was <em>everywhere</em> tonight). Joey came at us pissed. <strong>I sucked away his breath.</strong> Ashby attacked me — and his claws went <em>right through me</em>. Of course they did. He can't hurt me. Joey ran away.</p>
+
+        <p>Vesk was somewhere being a problem with drugs. Manuel was doing something with the slide of his trombone. The "Amazement Zone" was apparently underwhelming. None of it mattered.</p>
+      </div>
+      <div class="tags-row">
+        <span class="label">tags:</span>
+        <span class="tag">ashby ♡</span>
+        <span class="tag teal">joey (rival)</span>
+        <span class="tag">the party</span>
+        <span class="tag teal">werewolf</span>
+        <span class="tag">music of the spheres</span>
+      </div>
+    </article>
+
+    <!-- ===== ENTRY 6: morning after (nov 6) ===== -->
+    <article class="entry">
+      <div class="entry-header">
+        <span class="subject">subject: morning</span>
+        <span class="timestamp">posted: nov 6 &middot; 06:11 a.m.</span>
+      </div>
+      <div class="entry-meta">
+        <span><span class="label">mood:</span> <em>vindicated</em></span>
+        <span><span class="label">music:</span> his breathing</span>
+        <span><span class="label">location:</span> his bed</span>
+      </div>
+      <div class="entry-body">
+        <p>He woke up to me. Naked. There. I had been there for hours.</p>
+
+        <p>I told him it was in his interest for us to be <em>together</em>, in <em>some sense</em>. He didn't disagree. He's a smart boy. He understands incentives.</p>
+
+        <div class="fanfic">
+          and he didn't scream and he didn't run and that means he wanted it, that's what it means, that's what people <em>not screaming</em> means —
+        </div>
+
+        <h3>the rest of the day, in order</h3>
+        <ul>
+          <li>Went home. Asked my parents one more time to drop the lawsuit against Dynacorp. They <strong>doubled down</strong>. There are some things you cannot fix.</li>
+          <li>Tried to recruit Gina to help Dynacorp. She didn't bite. (She thought about it.)</li>
+          <li>And then I met <strong>Bill</strong>.</li>
+        </ul>
+      </div>
+      <div class="tags-row">
+        <span class="label">tags:</span>
+        <span class="tag">ashby ♡</span>
+        <span class="tag teal">sex move</span>
+        <span class="tag teal">my parents</span>
+        <span class="tag">gina</span>
+        <span class="tag teal">bill</span>
+      </div>
+    </article>
+
+    <!-- ===== ENTRY 7: the trade (exit) ===== -->
+    <article class="entry final-entry">
+      <div class="entry-header">
+        <span class="subject">subject: a deal</span>
+        <span class="timestamp">posted: ??:?? &middot; ??</span>
+      </div>
+      <div class="entry-meta">
+        <span><span class="label">mood:</span> <em>finally</em></span>
+        <span><span class="label">music:</span> none. perfect quiet.</span>
+        <span><span class="label">location:</span> somewhere with no clocks</span>
+      </div>
+      <div class="entry-body">
+        <p>Bill took me to see the Celestials. He took me to see the dolls.</p>
+
+        <p>He offered me an arrangement. I gave him <strong>Manuel</strong>. He gave me a <strong>doll of Ashby</strong>. Animate. Not independent. Mine.</p>
+
+        <div class="fanfic corrupt">
+          the player had said, before the campaign even started, that fatima's redemption arc would be her realizing that her actions — or more honestly her <em>inactions</em> — were her own responsibility. that the accident was an accident, that the spurning was a story she'd written, that she could let him go.
+          <br><br>
+          that is not the arc that happened.
+          <br><br>
+          the arc that happened is the one where every time the door of self-knowledge cracked open she pulled the doorknob off and put it in her pocket and walked further into the house.
+        </div>
+
+        <p>I have what I wanted. I always knew I would. People said I was delusional. Look at me now.</p>
+
+        <p style="font-size: 11px; color: var(--ink-faint); font-style: italic; margin-top: 1rem;">
+          ( The campaign continued in Shoalsburg without Fatima and without Manuel. Two empty desks. The Harvest Ball still cancelled. Dynacorp still humming under the ground. A boy who can't quite remember the girl he kept seeing out of the corner of his eye. )
+        </p>
+      </div>
+
+      <div class="comments">
+        <div class="comments-title">comments (3)</div>
+
+        <div class="comment">
+          <span class="comment-author">anonymous</span>
+          <span class="comment-time">date unknown</span>
+          <p>this isn't a love story.</p>
+        </div>
+
+        <div class="comment nested">
+          <span class="comment-author">xX_ash&amp;fati_4ever_Xx</span>
+          <span class="comment-time">date unknown</span>
+          <p>yes it is.</p>
+        </div>
+
+        <div class="comment ghost">
+          <span class="comment-author">[ unknown user ]</span>
+          <span class="comment-time">— : —</span>
+          <p>the doll doesn't know you. it can't. it's a doll.</p>
+        </div>
+      </div>
+
+      <div class="tags-row">
+        <span class="label">tags:</span>
+        <span class="tag teal">bill</span>
+        <span class="tag teal">the celestials</span>
+        <span class="tag teal">the dolls</span>
+        <span class="tag">manuel (traded)</span>
+        <span class="tag">ashby (mine)</span>
+        <span class="tag teal">villain arc complete</span>
+      </div>
+    </article>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  ♱ &nbsp; private journal &middot; do not read &middot; you will not remember this anyway &nbsp; ♱
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stone of Reckoning — Gungr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Gungr: a runestone read in cold light. Glacial blue and bone-cream,
+       cold silver in the carving, and one warm amber where the future
+       leaks through. Monumental, quiet, ancient. */
+    --void: #050810;
+    --void-deep: #02040a;
+    --stone: #d8d4c8;
+    --stone-pale: #ebe7d8;
+    --stone-deep: #b8b4a4;
+    --stone-edge: #8c8878;
+    --moss: #5a6850;
+
+    --ink: #14181e;
+    --ink-soft: #2a3038;
+    --ink-faint: #4a5260;
+
+    --ice: #2a4868;
+    --ice-bright: #4a78a8;
+    --ice-pale: #a8c4e0;
+    --ice-deep: #0e2238;
+    --ice-cold: #d0e0f0;
+
+    --bone: #e8dcb0;
+    --bone-deep: #8c7848;
+
+    --amber: #c89028;
+    --amber-bright: #f4b048;
+    --amber-deep: #6a4810;
+
+    --frost: #f4f8fc;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:var(--void-deep); color:var(--ink); font-family:'Cormorant Garamond', Georgia, serif; font-size:16px; line-height:1.7; }
+  body {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(74,120,168,0.10) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 100%, rgba(200,144,40,0.05) 0%, transparent 45%),
+      radial-gradient(ellipse at 50% 50%, #0e1422 0%, #050810 60%, #02040a 100%);
+    min-height: 100vh; padding: 2.5rem 1rem;
+  }
+  /* a slow drift of snow grain over the page */
+  body::before {
+    content:''; position:fixed; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch' seed='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events:none; z-index:1000; mix-blend-mode:screen; opacity:0.4;
+  }
+
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--stone);
+    position: relative;
+    /* mottled stone — pale frost and a few darker veins */
+    background-image:
+      radial-gradient(ellipse 320px 200px at 12% 18%, rgba(42,72,104,0.10) 0%, transparent 65%),
+      radial-gradient(ellipse 280px 180px at 88% 78%, rgba(42,72,104,0.08) 0%, transparent 70%),
+      radial-gradient(circle 90px at 75% 22%, rgba(200,144,40,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 240px at 50% 50%, rgba(244,248,252,0.4) 0%, transparent 70%),
+      linear-gradient(160deg, rgba(216,212,200,1) 0%, rgba(196,192,178,1) 50%, rgba(176,172,158,1) 100%);
+    box-shadow:
+      0 0 0 1px var(--ink-soft),
+      0 0 0 6px var(--stone-deep),
+      0 0 0 7px var(--ink-soft),
+      0 0 80px rgba(74,120,168,0.12),
+      0 0 160px rgba(2,4,10,0.6),
+      0 40px 100px rgba(0,0,0,0.7);
+  }
+
+  /* carved-edge top and bottom */
+  .document::before, .document::after {
+    content:''; position:absolute; left:0; right:0; height:18px;
+    background:
+      linear-gradient(to bottom, rgba(20,24,30,0.18) 0%, transparent 100%);
+    pointer-events: none;
+  }
+  .document::before { top:0; }
+  .document::after { bottom:0; transform: scaleY(-1); }
+
+  .doc-inner { padding: 3.5rem 4rem 4rem; position:relative; }
+
+  /* CARVED HEADER BAR */
+  .masthead {
+    border-top: 3px solid var(--ink-soft);
+    border-bottom: 1px solid var(--ink-soft);
+    padding: 0.7rem 0 0.6rem;
+    margin-bottom: 1.4rem;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'Cinzel', serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .masthead .ornament {
+    font-family:'Cinzel', serif;
+    color: var(--amber-deep);
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    font-weight: 600;
+  }
+  .masthead .pos { color: var(--ice-deep); }
+
+  /* TIMESTAMP PAIR (past / future) — a chronopathy motif */
+  .timestamps {
+    display: flex;
+    justify-content: space-between;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--stone-edge);
+  }
+  .timestamps .past { color: var(--ice-deep); }
+  .timestamps .future { color: var(--amber-deep); }
+  .timestamps .now { color: var(--ink); font-weight: 500; letter-spacing: 0.25em; }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    gap: 2.5rem;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+  }
+  .portrait-frame {
+    width: 100%;
+    position: relative;
+    padding: 6px;
+    background: var(--ink);
+    box-shadow:
+      0 0 0 1px var(--stone-edge),
+      0 0 0 4px var(--stone),
+      0 0 0 5px var(--ink-soft),
+      0 0 0 8px var(--stone-deep),
+      0 14px 40px rgba(0,0,0,0.6);
+  }
+  .portrait-frame img {
+    width:100%; display:block;
+    filter: contrast(1.05) saturate(0.95) brightness(0.95);
+  }
+  /* runic corner glyphs (abstract) */
+  .portrait-frame .glyph {
+    position: absolute; width: 14px; height: 14px;
+    color: var(--amber-bright);
+    font-family:'Cinzel', serif;
+    font-size: 0.9rem;
+    text-align: center;
+    line-height: 14px;
+    text-shadow: 0 0 4px rgba(244,176,72,0.5);
+  }
+  .portrait-frame .glyph.tl { top: -6px; left: -6px; }
+  .portrait-frame .glyph.tr { top: -6px; right: -6px; }
+  .portrait-frame .glyph.bl { bottom: -6px; left: -6px; }
+  .portrait-frame .glyph.br { bottom: -6px; right: -6px; }
+
+  .portrait-caption {
+    margin-top: 1rem;
+    font-family:'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  .hero-text { padding-top: 0.2rem; }
+  .eyebrow {
+    font-family:'Cinzel', serif;
+    font-weight: 500;
+    font-size: 0.72rem;
+    letter-spacing: 0.34em;
+    color: var(--ice-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .eyebrow .sep { color: var(--stone-edge); margin: 0 0.6em; }
+
+  h1.character-name {
+    font-family:'Cinzel', serif;
+    font-weight: 900;
+    font-size: 5.5rem;
+    line-height: 0.95;
+    color: var(--ink);
+    margin: 0.2rem 0 0.4rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-shadow:
+      1px 1px 0 var(--stone-deep),
+      2px 2px 0 rgba(20,24,30,0.08);
+  }
+  h1.character-name .subname {
+    display: block;
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.22em;
+    font-weight: 500;
+    color: var(--ink-soft);
+    letter-spacing: 0.18em;
+    margin-top: 0.7rem;
+    text-shadow: none;
+    text-transform: none;
+  }
+
+  .tagline {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    margin: 1rem 0 1.3rem;
+    max-width: 52ch;
+    line-height: 1.55;
+    border-left: 3px solid var(--ice);
+    padding-left: 1.1rem;
+  }
+
+  .vitals-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    font-family:'Cinzel', serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--ink-soft);
+    border-bottom: 1px solid var(--ink-soft);
+    padding: 0.6rem 0;
+    margin-top: 1.2rem;
+  }
+  .vitals-row .v { border-left: 1px solid var(--stone-edge); padding: 0.1rem 0.9rem; white-space: nowrap; }
+  .vitals-row .v:first-child { border-left: none; padding-left: 0; }
+  .vitals-row .v strong { color: var(--ice-deep); font-weight: 700; margin-left: 0.4em; }
+  .vitals-row .v.amber strong { color: var(--amber-deep); }
+  .vitals-row .v.warn strong { color: var(--bone-deep); }
+
+  /* TOC — like a stave list */
+  nav.toc {
+    background: rgba(20,24,30,0.04);
+    border-top: 1px solid var(--ink-soft);
+    border-bottom: 1px solid var(--ink-soft);
+    padding: 1.3rem 1.6rem;
+    margin-bottom: 2.8rem;
+    columns: 2;
+    column-gap: 2.4rem;
+    position: relative;
+  }
+  nav.toc::before {
+    content: '⟦  STAVES  ⟧';
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--stone);
+    padding: 0 1rem;
+    font-family:'Cinzel', serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.4em;
+    color: var(--amber-deep);
+    font-weight: 600;
+  }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; font-family:'Cinzel', serif; font-weight: 500; }
+  nav.toc ol li { counter-increment: toc; font-size: 0.84rem; margin-bottom: 0.35rem; break-inside: avoid; letter-spacing: 0.06em; }
+  nav.toc ol li::before { content: counter(toc, upper-roman) ".  "; color: var(--amber-deep); font-weight: 700; }
+  nav.toc a { color: var(--ink); text-decoration: none; text-transform: uppercase; font-size: 0.86rem; letter-spacing: 0.08em; }
+  nav.toc a:hover { color: var(--ice-deep); }
+
+  section { margin-bottom: 3rem; }
+
+  h2.section-title {
+    font-family:'Cinzel', serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--ink);
+    margin: 0 0 1.4rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    position: relative;
+  }
+  h2.section-title::before {
+    content: '◆';
+    color: var(--amber-deep);
+    margin-right: 0.7rem;
+    font-size: 0.8em;
+    vertical-align: 0.05em;
+  }
+  h2.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 80px; height: 4px;
+    background: var(--ice-deep);
+  }
+
+  h3.subhead {
+    font-family:'Cinzel', serif;
+    font-weight: 600;
+    font-size: 0.96rem;
+    color: var(--ice-deep);
+    margin: 1.7rem 0 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+  }
+  h3.subhead::before { content: '— '; color: var(--amber-deep); }
+
+  h4.entry-label {
+    font-family:'Cinzel', serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin: 1.4rem 0 0.5rem;
+    border-bottom: 1px dotted var(--stone-edge);
+    padding-bottom: 0.2rem;
+  }
+
+  p { margin: 0.7rem 0; }
+  p.drop-cap::first-letter {
+    font-family:'Cinzel', serif;
+    font-weight: 900;
+    font-size: 3.6rem;
+    float: left;
+    line-height: 0.85;
+    margin: 0.2rem 0.6rem -0.1rem 0;
+    color: var(--ice-deep);
+  }
+  em { font-style: italic; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 700; }
+
+  /* STAT GRID — characteristic stones */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.55rem;
+    margin: 1.5rem 0;
+  }
+  .stat-cell {
+    border: 1px solid var(--ink-soft);
+    background: rgba(216,212,200,0.5);
+    padding: 0.9rem 0.6rem;
+    text-align: center;
+    box-shadow: inset 0 0 16px rgba(74,120,168,0.06);
+  }
+  .stat-cell .label {
+    font-family:'Cinzel', serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.3rem;
+  }
+  .stat-cell .value {
+    font-family:'Cinzel', serif;
+    font-weight: 900;
+    font-size: 2.4rem;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .stat-cell .gloss {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    margin-top: 0.4rem;
+    line-height: 1.3;
+  }
+  .stat-cell.high { background: rgba(42,72,104,0.10); border-color: var(--ice); }
+  .stat-cell.high .value { color: var(--ice-deep); }
+  .stat-cell.neg .value { color: var(--ink-faint); }
+
+  /* STATUS — pool stones with glacial fills */
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .status-cell {
+    border: 1px solid var(--ink-soft);
+    background: rgba(20,24,30,0.05);
+    padding: 1rem;
+    position: relative;
+  }
+  .status-cell .label {
+    font-family:'Cinzel', serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    color: var(--ice-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .status-cell .value {
+    font-family:'Cinzel', serif;
+    font-weight: 900;
+    font-size: 2.4rem;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .status-cell .value .sub { font-size: 0.4em; color: var(--ink-faint); font-weight: 400; }
+  .status-cell .note {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.84rem;
+    color: var(--ink-faint);
+    margin-top: 0.5rem;
+    line-height: 1.4;
+  }
+  .status-cell .bar { height: 4px; background: rgba(20,24,30,0.12); margin-top: 0.5rem; }
+  .status-cell .bar .fill { height: 100%; background: var(--ice); }
+  .status-cell .bar.bone .fill { background: var(--bone-deep); }
+  .status-cell .bar.amber .fill { background: var(--amber); }
+
+  .status-cell.clarity {
+    background: rgba(42,72,104,0.06);
+    border-color: var(--ice);
+  }
+
+  /* TABLES */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.96rem;
+  }
+  table.dossier-table th, table.dossier-table td {
+    text-align: left;
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--stone-edge);
+    vertical-align: top;
+  }
+  table.dossier-table th {
+    font-family:'Cinzel', serif;
+    font-weight: 600;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ice-deep);
+    border-bottom: 2px solid var(--ice-deep);
+    background: rgba(42,72,104,0.04);
+  }
+  table.dossier-table td:first-child { font-weight: 600; color: var(--ink); width: 30%; }
+
+  /* ABILITIES — carved tablets */
+  .ability-block {
+    border: 1px solid var(--ink-soft);
+    background: rgba(235,231,216,0.5);
+    padding: 1rem 1.2rem;
+    margin: 0.9rem 0;
+    position: relative;
+  }
+  .ability-block.signature { border-left: 4px solid var(--ice); background: rgba(42,72,104,0.05); }
+  .ability-block.core { border-left: 4px solid var(--moss); background: rgba(90,104,80,0.05); }
+  .ability-block.doomed { border-left: 4px solid var(--amber-deep); background: rgba(200,144,40,0.06); }
+  .ability-block .ability-name {
+    font-family:'Cinzel', serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--ink);
+    margin-bottom: 0.15rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .ability-block .ability-flavor {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+  .ability-block .ability-meta {
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    margin-bottom: 0.6rem;
+    border-bottom: 1px dotted var(--stone-edge);
+    padding-bottom: 0.4rem;
+  }
+  .tier-roll {
+    margin-top: 0.6rem;
+    padding: 0.5rem 0.8rem;
+    background: rgba(20,24,30,0.06);
+    border-left: 3px solid var(--amber-deep);
+    font-size: 0.94rem;
+  }
+  .tier-roll .tier-label {
+    font-family:'Cinzel', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ice-deep);
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+  }
+  .tier-roll .tier { display: block; margin: 0.15rem 0; }
+  .tier-roll .tier b { color: var(--ice-deep); }
+  .tier-roll .strained {
+    margin-top: 0.4rem;
+    padding-top: 0.4rem;
+    border-top: 1px dotted var(--stone-edge);
+    color: var(--bone-deep);
+    font-style: italic;
+    font-size: 0.9rem;
+  }
+  .tier-roll .strained b { color: var(--bone-deep); }
+
+  /* CALLOUTS */
+  .callout {
+    border: 1px solid var(--ice-deep);
+    background: rgba(42,72,104,0.06);
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    border-left: 4px solid var(--ice-deep);
+  }
+  .callout.warn {
+    border: 1px solid var(--bone-deep);
+    background: rgba(140,120,72,0.08);
+    border-left: 4px solid var(--bone-deep);
+  }
+  .callout.doom {
+    border: 2px solid var(--amber-deep);
+    background: rgba(200,144,40,0.08);
+    border-left: 6px solid var(--amber);
+    box-shadow: 0 0 24px rgba(244,176,72,0.10);
+  }
+  .callout.draft {
+    border: 1px dashed var(--ink-faint);
+    background: rgba(20,24,30,0.03);
+    border-left: 4px dashed var(--ink-faint);
+  }
+  .callout .label {
+    font-family:'Cinzel', serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--ice-deep);
+    margin-bottom: 0.4rem;
+  }
+  .callout.warn .label { color: var(--bone-deep); }
+  .callout.doom .label { color: var(--amber-deep); }
+  .callout.draft .label { color: var(--ink-faint); }
+  .callout p { margin: 0.3rem 0; }
+
+  .draft-tag {
+    display: inline-block;
+    font-family:'Cinzel', serif;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: var(--bone-deep);
+    border: 1.5px solid var(--bone-deep);
+    padding: 0.05rem 0.4rem;
+    text-transform: uppercase;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    background: rgba(235,231,216,0.7);
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.4rem;
+  }
+  .skill-group .group-label {
+    font-family:'Cinzel', serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.26em;
+    color: var(--ice-deep);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--stone-edge);
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
+  }
+  .skill-group ul { list-style: none; margin: 0; padding: 0; font-size: 0.96rem; }
+  .skill-group ul li { padding: 0.18rem 0; border-bottom: 1px dotted var(--stone-edge); display: flex; justify-content: space-between; }
+  .skill-group ul li .src { font-size: 0.74rem; color: var(--ink-faint); font-style: italic; font-family:'Cormorant Garamond', serif; }
+
+  /* FOOTER */
+  footer.colophon {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--ink-soft);
+    font-family:'Cinzel', serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+  }
+  footer.colophon .accent { color: var(--amber-deep); font-weight: 700; }
+
+  @media (max-width: 780px) {
+    .doc-inner { padding: 2rem 1.5rem 3rem; }
+    .hero { grid-template-columns: 1fr; }
+    .portrait-frame { width: 70%; margin: 0 auto; }
+    h1.character-name { font-size: 3.2rem; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .status-grid { grid-template-columns: 1fr; }
+    nav.toc { columns: 1; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .masthead { flex-direction: column; gap: 0.4rem; }
+    .timestamps { flex-direction: column; gap: 0.3rem; align-items: center; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+  <div class="doc-inner">
+
+    <!-- MASTHEAD -->
+    <div class="masthead">
+      <span>Stone of Reckoning · Collateral</span>
+      <span class="ornament">⟦  Gungr  ⟧</span>
+      <span class="pos">Cell VII · Free City of Brass</span>
+    </div>
+
+    <!-- TIMESTAMPS -->
+    <div class="timestamps">
+      <span class="past">◀ before — Vanigar, the home territory</span>
+      <span class="now">— now : default —</span>
+      <span class="future">the great battle ahead ▶</span>
+    </div>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div>
+        <div class="portrait-frame">
+          <img src="Gungr.jpg" alt="Gungr, a blue-skinned Hakaan with red eyes in carved silver armor against snow">
+          <span class="glyph tl">✶</span>
+          <span class="glyph tr">✶</span>
+          <span class="glyph bl">✶</span>
+          <span class="glyph br">✶</span>
+        </div>
+        <div class="portrait-caption">
+          Gungr, of upper Vanigar<br>
+          <em>warden, leaving</em>
+        </div>
+      </div>
+
+      <div class="hero-text">
+        <div class="eyebrow">Hakaan <span class="sep">·</span> Talent <span class="sep">·</span> Chronopathy Subclass</div>
+        <h1 class="character-name">
+          Gungr
+          <span class="subname">The portents were honest; he answered them.</span>
+        </h1>
+        <div class="tagline">
+          A giant's descendant who can see what is coming. He warded a wild place for years, then a great beast died at his feet and the signs became plain: leave, fight, take part in something larger. He left. He has not yet found the battle he was sent for. He is, however, in a cell in Alloy now.
+        </div>
+        <div class="vitals-row">
+          <span class="v">Level <strong>1</strong></span>
+          <span class="v">Size <strong>1L</strong></span>
+          <span class="v">Speed <strong>5</strong></span>
+          <span class="v">Stamina <strong>18</strong></span>
+          <span class="v amber">Clarity <strong>0</strong></span>
+          <span class="v warn">Complication: <strong>Primordial Sickness</strong></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- TOC -->
+    <nav class="toc">
+      <ol>
+        <li><a href="#identity">Identity &amp; Calling</a></li>
+        <li><a href="#stats">Characteristics</a></li>
+        <li><a href="#clarity">Clarity Resource</a></li>
+        <li><a href="#ancestry">Hakaan Traits</a></li>
+        <li><a href="#doomsight">Doomsight — Special</a></li>
+        <li><a href="#class">Talent Class Features</a></li>
+        <li><a href="#subclass">Chronopathy Discipline</a></li>
+        <li><a href="#abilities">Selected Abilities</a></li>
+        <li><a href="#culture">Culture &amp; Career</a></li>
+        <li><a href="#skills">Skills &amp; Languages</a></li>
+        <li><a href="#complication">Complication — Primordial Sickness</a></li>
+        <li><a href="#incident">Inciting Incident — Portents</a></li>
+        <li><a href="#campaign">Position in Collateral</a></li>
+        <li><a href="#arc">Character Arc</a></li>
+      </ol>
+    </nav>
+
+    <!-- I. IDENTITY -->
+    <section id="identity">
+      <h2 class="section-title">I. Identity &amp; Calling</h2>
+      <p class="drop-cap">Gungr is Hakaan — descended from a tribe of giants in upper Vanigar, whose first ancestors traded some of their gigantic size and strength to Holkatja the trickster god in exchange for the ability to see the future. The Hakaan are, in spite of this lineage, a friendly and outgoing people. Their rare presence in human society is taken as a harbinger of dark times, which is sometimes accurate and sometimes the prejudice of people who confuse <em>large</em> with <em>ominous</em>.</p>
+
+      <p>Gungr's class is <strong>Talent</strong> — born with the potential to harness psionic power, and woken to it by some defining event. His discipline is <strong>Chronopathy</strong>, the psionic practice of viewing future and past events and manipulating time. The match between his ancestry's bargain (future-sight) and his class's subclass (time manipulation) is not coincidence: he is who the gift made.</p>
+
+      <p>He spent his adult life as a Warden, protecting a wild Vanigar region from those who would harm it. The Portents — a sequence of signs culminating in a great beast dying at his feet — told him to leave that work and fight a battle for the fate of all lands. He gave up the only life he had ever known. He has not yet arrived at the battle. He has, instead, arrived at a holding cell in Alloy, where someone has named him as collateral on a debt he did not sign.</p>
+
+      <div class="callout warn">
+        <div class="label">A Note on the Spelling</div>
+        <p>The .ds-hero source spells the ancestry <strong>Hakaan</strong>. The Collateral campaign summary uses the variant <strong>Haaken</strong>. Both refer to the same Vanigar giant-descended people. This dossier follows the character sheet's spelling.</p>
+      </div>
+    </section>
+
+    <!-- II. CHARACTERISTICS -->
+    <section id="stats">
+      <h2 class="section-title">II. Characteristics</h2>
+      <div class="stat-grid">
+        <div class="stat-cell high"><div class="label">Might</div><div class="value">+2</div><div class="gloss">Giant's strength</div></div>
+        <div class="stat-cell neg"><div class="label">Agility</div><div class="value">−1</div><div class="gloss">Not quick</div></div>
+        <div class="stat-cell high"><div class="label">Reason</div><div class="value">+2</div><div class="gloss">Primary · psionic core</div></div>
+        <div class="stat-cell neg"><div class="label">Intuition</div><div class="value">−1</div><div class="gloss">Slow to read mood</div></div>
+        <div class="stat-cell high"><div class="label">Presence</div><div class="value">+2</div><div class="gloss">Speaks with weight</div></div>
+      </div>
+      <p><em>Three +2s and two −1s. The Talent's primary characteristic is Reason; Gungr maxes it, and matches with Might and Presence. He is built for direct, deliberate action — to lift, to think, to be heard — and is poor at the quick reaction and the casual social read. The array reflects a person who is large, slow, certain, and rarely wrong about what he <em>does</em> notice.</em></p>
+
+      <div class="status-grid">
+        <div class="status-cell">
+          <div class="label">Stamina</div>
+          <div class="value">18<span class="sub"> / 18</span></div>
+          <div class="bar"><div class="fill" style="width:100%"></div></div>
+          <div class="note">Talent class base. Winded at ≤ 9. Dying at 0 to −9.</div>
+        </div>
+        <div class="status-cell">
+          <div class="label">Recoveries</div>
+          <div class="value">7<span class="sub"> / 7</span></div>
+          <div class="bar bone"><div class="fill" style="width:100%"></div></div>
+          <div class="note">8 class base − 1 from <em>Primordial Sickness</em>. Recovery value: 6.</div>
+        </div>
+        <div class="status-cell clarity">
+          <div class="label">Clarity</div>
+          <div class="value">0</div>
+          <div class="bar amber"><div class="fill" style="width:0%"></div></div>
+          <div class="note">Heroic resource. <strong>Can go negative</strong> (down to −3); below 0 he is strained.</div>
+        </div>
+      </div>
+
+      <table class="dossier-table">
+        <thead><tr><th>Stat</th><th>Value &amp; Source</th></tr></thead>
+        <tbody>
+          <tr><td>Size</td><td><strong>1L</strong> (Large) — from Hakaan <em>Big!</em></td></tr>
+          <tr><td>Speed</td><td><strong>5</strong> — Hakaan base; no kit and no augmentation modify speed</td></tr>
+          <tr><td>Stability</td><td><strong>0</strong></td></tr>
+          <tr><td>Damage Immunities</td><td>Poison 5, Corruption 5 <em>(from Primordial Sickness)</em></td></tr>
+          <tr><td>Range Bonus</td><td><strong>+2 squares</strong> to Psionic, Ranged abilities — from <em>Distance Augmentation</em></td></tr>
+          <tr><td>Condition Immunity</td><td><strong>Slowed</strong> is not currently selected. Augmentation is Distance, not Speed.</td></tr>
+          <tr><td>Wealth</td><td><strong>1</strong></td></tr>
+          <tr><td>Renown / XP / Hero Tokens</td><td>0 / 0 / 0</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- III. CLARITY -->
+    <section id="clarity">
+      <h2 class="section-title">III. Clarity — The Heroic Resource</h2>
+      <p>The Talent's heroic resource is <strong>Clarity</strong>: the disciplined attention that lets him hold the world's strands long enough to bend one. Unlike most heroic resources, Clarity can be spent <em>below zero</em> — pushed into the red at the cost of <em>strain</em>, which has lingering mechanical consequences.</p>
+
+      <h4 class="entry-label">How Clarity Builds</h4>
+      <table class="dossier-table">
+        <thead><tr><th>Trigger</th><th>Gain</th></tr></thead>
+        <tbody>
+          <tr><td>Start of your turn</td><td><strong>1d3</strong></td></tr>
+          <tr><td>First time each combat round that a creature is force moved</td><td><strong>+1</strong></td></tr>
+        </tbody>
+      </table>
+
+      <h4 class="entry-label">Spending Below Zero (Strain)</h4>
+      <p>Gungr can spend clarity he does not have, pushing the resource into negative numbers to a maximum negative value equal to <strong>1 + his Reason score</strong> (so −3 at L1). At the end of each of his turns, he takes <strong>1 damage for each negative point of clarity</strong>. Whenever he has clarity below 0, he is <strong>strained</strong>. Some psionic abilities have additional effects if he is already strained, or become strained when he uses them. Strained effects can still impact him even after he is no longer strained.</p>
+      <p><em>Outside of combat:</em> Whenever he uses an ability with a strain effect outside combat, he can take 1d6 damage and incur the effect if he doesn't incur it for other reasons.</p>
+
+      <div class="callout">
+        <div class="label">◆ The Bargain Made Mechanical</div>
+        <p>Clarity's negative-spend is the Hakaan ancestral deal in miniature. The trickster gave the giants future-sight in exchange for some of their size and strength; Gungr can have <em>more</em> psionic effect in exchange for hurting himself, and for becoming subject to compounding strained effects. He pays in advance. The character is built to pay.</p>
+      </div>
+    </section>
+
+    <!-- IV. ANCESTRY -->
+    <section id="ancestry">
+      <h2 class="section-title">IV. Hakaan Traits</h2>
+      <p>Hakaan are the descendants of upper Vanigar giants. They are friendly, outgoing, and read by smaller peoples as omens. They carry the bargain Holkatja made: traded size and strength for foresight. Gungr's three ancestry points are spent on two trait selections.</p>
+      <table class="dossier-table">
+        <thead><tr><th>Trait</th><th>Function (verbatim)</th></tr></thead>
+        <tbody>
+          <tr><td>Big! <em>(baseline)</em></td><td>Size 1L (Large). Reach, weight, and a tendency for ceilings to be in the way.</td></tr>
+          <tr><td>Stand Tough <em>(1 pt)</em></td><td>Your body is made to withstand the blows of your enemies. Your Might score is treated as 1 higher for resisting potencies, and you gain an edge on Might tests when called for to resist environmental effects or a creature's traits or abilities.</td></tr>
+          <tr><td>Doomsight <em>(2 pts)</em></td><td>See full text below — this is the trait that carries the most narrative weight.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- V. DOOMSIGHT -->
+    <section id="doomsight">
+      <h2 class="section-title">V. Doomsight — Special</h2>
+      <div class="callout doom">
+        <div class="label">⟢ Trait Text · Verbatim</div>
+        <p>Working with your Director, you can predetermine an encounter in which you will die. When that encounter begins, you become <strong>doomed</strong>. While doomed, you <strong>automatically obtain a tier 3 outcome on tests and ability rolls</strong>, and you don't die no matter how low your Stamina falls. You then <strong>die immediately at the end of the encounter</strong>, and can't be returned to life by any means.</p>
+          <p>If you don't predetermine your death encounter, you can choose to become doomed while you are dying with the Director's approval (no action required). Doing so should be reserved for encounters in which you are dying as a result of suitable heroism, such as making a last stand against a boss or saving civilians.</p>
+      </div>
+      <div class="callout">
+        <div class="label">◆ How This Reads in Play</div>
+        <p>Doomsight is the most powerful narrative trait on any sheet in the cell, and it can only be spent <em>once</em>. The character has been told, by signs that produced a literal great-beast omen, that he is meant to fight a battle for the fate of all lands. Doomsight is the mechanical permission to make that battle happen — to call the moment, walk in already-dying, and obtain tier-3 outcomes on every roll until the encounter ends. He will then be dead. No resurrection. The trait converts the Portents into a single redeemable promise.</p>
+      </div>
+    </section>
+
+    <!-- VI. CLASS -->
+    <section id="class">
+      <h2 class="section-title">VI. Talent Class Features</h2>
+
+      <h4 class="entry-label">Always Available — The Cantrip</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Mind Spike</div>
+        <div class="ability-flavor">A telepathic bolt instantly zaps a creature's brain.</div>
+        <div class="ability-meta">Main Action · Ranged 10 · One creature · <strong>Can be used as a ranged free strike</strong></div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Reason</span>
+          <span class="tier"><b>Tier 1:</b> 2 + R psychic damage</span>
+          <span class="tier"><b>Tier 2:</b> 4 + R psychic damage</span>
+          <span class="tier"><b>Tier 3:</b> 6 + R psychic damage</span>
+          <div class="strained"><b>Strained:</b> The target takes an extra 2 psychic damage. He also takes 2 psychic damage that can't be reduced in any way.</div>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Always Available — The Channel</h4>
+      <p><strong>Telepathic Speech</strong> — Gungr can telepathically communicate with any creatures within distance of his Mind Spike ability (10 squares + 2 from Distance Augmentation = <strong>12</strong>) if they share a language with him and they know of each other. When he communicates this way, they can respond telepathically.</p>
+
+      <h4 class="entry-label">Psionic Augmentation — Distance</h4>
+      <p>Through psionic meditation, he creates pathways in his mind that enhance his statistics. He chose <strong>Distance Augmentation</strong>: the distance of his Psionic, Ranged abilities is increased by <strong>2 squares</strong>. The augmentation can be changed (along with his ward) by undergoing a psionic meditation during a respite.</p>
+
+      <h4 class="entry-label">Talent Ward — Repulsive</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Repulsive Ward</div>
+        <div class="ability-flavor">You surround yourself with an invisible ward of telekinetic energy.</div>
+        <div class="ability-meta">Triggered Action (free) · Self · Trigger: An adjacent creature deals damage to you</div>
+        <div class="ability-desc">
+          <p>Gungr can push his attacker up to a number of squares equal to his Reason score (<strong>2</strong>).</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Other Class Features</h4>
+      <table class="dossier-table">
+        <thead><tr><th>Feature</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>Stamina</td><td>18 at level 1 (+6 per level thereafter)</td></tr>
+          <tr><td>Recoveries</td><td>8 base (modified to 7 by Primordial Sickness)</td></tr>
+          <tr><td>Heroic Resource</td><td>Clarity (see Section III)</td></tr>
+          <tr><td>Class Skills</td><td>Psionics, Read Person; plus Intimidate and Monsters from a second class skill list</td></tr>
+          <tr><td>Class Language</td><td>Axiomatic</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- VII. SUBCLASS -->
+    <section id="subclass">
+      <h2 class="section-title">VII. Chronopathy Discipline</h2>
+      <p><em>"Chronopathy abilities allow you to view future and past events, and to manipulate time to aid allies and hinder foes."</em></p>
+
+      <h4 class="entry-label">Accelerate</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Accelerate</div>
+        <div class="ability-flavor">To your ally, it seems as though the world has slowed down.</div>
+        <div class="ability-meta">Maneuver · Ranged 10 (12 with augmentation) · Self or one creature</div>
+        <div class="ability-desc">
+          <p>The target shifts up to a number of squares equal to Gungr's Reason score (<strong>2</strong>).</p>
+          <p><strong>Spend 2 Clarity:</strong> The target can use a maneuver.</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Again</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Again</div>
+        <div class="ability-flavor">You step back a split second to see if things play out a little differently.</div>
+        <div class="ability-meta">Triggered Action · Ranged 10 (12 with augmentation) · Self or one creature · Trigger: The target makes an ability roll</div>
+        <div class="ability-desc">
+          <p>He can use this ability <em>after</em> seeing the result of the triggering roll. The target must reroll the power roll and use the new roll.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="label">◆ The Subclass Suite</div>
+        <p>The two subclass abilities are the chronopathy idiom condensed: <em>Accelerate</em> moves a target through a stretch of bent time; <em>Again</em> rewinds a roll the encounter has already shown him. Combined with the campaign roster's note that <em>"an ancient chronopathic rite is being exploited by an unknown hand,"</em> Gungr is the only character on the team who would <em>recognize</em> the rite if he saw it being worked.</p>
+      </div>
+    </section>
+
+    <!-- VIII. ABILITIES -->
+    <section id="abilities">
+      <h2 class="section-title">VIII. Selected Abilities</h2>
+      <p>Two signatures, one 3-Clarity, one 5-Clarity. Three are damage or control; one (Iron) is a substantial buff to a single ally. All four can lean into strained-spending for additional effect.</p>
+
+      <h4 class="entry-label">Signature — Cold Bolt</h4>
+      <div class="ability-block signature">
+        <div class="ability-name">Hoarfrost</div>
+        <div class="ability-flavor">You blast a foe with a pulse of cold energy.</div>
+        <div class="ability-meta">Main Action · Cryokinesis, Psionic, Ranged 10 (12 aug), Strike · One creature</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Reason</span>
+          <span class="tier"><b>Tier 1:</b> 2 + R cold damage; M&lt;[weak], slowed (EoT)</span>
+          <span class="tier"><b>Tier 2:</b> 4 + R cold damage; M&lt;[average], slowed (EoT)</span>
+          <span class="tier"><b>Tier 3:</b> 6 + R cold damage; M&lt;[strong], slowed (EoT)</span>
+          <div class="strained"><b>Strained:</b> You are slowed until the end of your next turn. Additionally, a target slowed by this ability is <em>restrained</em> instead.</div>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Signature — The Throw</h4>
+      <div class="ability-block signature">
+        <div class="ability-name">Kinetic Grip</div>
+        <div class="ability-flavor">You lift and hurl your foe away from you.</div>
+        <div class="ability-meta">Main Action · Psionic, Ranged 10 (12 aug), Telekinesis · One creature or object</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Reason</span>
+          <span class="tier"><b>Tier 1:</b> Slide 2 + R</span>
+          <span class="tier"><b>Tier 2:</b> Slide 4 + R</span>
+          <span class="tier"><b>Tier 3:</b> Slide 6 + R; prone</span>
+          <div class="strained"><b>Strained:</b> You must vertical push the target instead of sliding them.</div>
+        </div>
+      </div>
+
+      <h4 class="entry-label">3-Clarity — The Vision Granted</h4>
+      <div class="ability-block">
+        <div class="ability-name">Precognition</div>
+        <div class="ability-flavor">You give a target a glimpse into the future so that they're ready for what comes next.</div>
+        <div class="ability-meta">Main Action · Chronopathy, Melee 2, Psionic · Self or one ally · 3 Clarity</div>
+        <div class="ability-desc">
+          <p>Ability rolls made against the target take a <strong>bane</strong> until the start of Gungr's next turn. Whenever the target takes damage while under this effect, they can use a triggered action to make a <strong>free strike</strong> against the source of the damage.</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">5-Clarity — The Iron Body</h4>
+      <div class="ability-block">
+        <div class="ability-name">Iron</div>
+        <div class="ability-flavor">The target's skin turns to hard, dark metal, impenetrable and dense.</div>
+        <div class="ability-meta">Maneuver · Metamorphosis, Psionic, Ranged 10 (12 aug) · Self or one ally · 5 Clarity</div>
+        <div class="tier-roll">
+          <span class="tier-label">Effect</span>
+          <span class="tier">The target's stability increases by an amount equal to Gungr's Reason score (<strong>+2</strong>), and they gain <strong>10 temporary Stamina and 2 surges</strong>. This stability increase lasts until the target no longer has temporary Stamina from this ability.</span>
+          <div class="strained"><b>Strained:</b> You can't use maneuvers (save ends).</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="label">◆ The Loadout's Shape</div>
+        <p>The two signatures cover offence and control: <em>Hoarfrost</em> for damage with a slow effect (or a restrain if he eats the strain), <em>Kinetic Grip</em> for pure displacement. The 3-Clarity ability protects an ally and converts incoming damage into free counterstrikes — a strong fit for a Talent fighting alongside the cell's melee characters. The 5-Clarity is the rescue button: an ally gets 10 temporary Stamina and a stability buff for one fight, and Gungr accepts (potentially) losing maneuvers until he saves. Every selection is built to be spent strained, which is the point of choosing a Talent at all.</p>
+      </div>
+    </section>
+
+    <!-- IX. CULTURE & CAREER -->
+    <section id="culture">
+      <h2 class="section-title">IX. Culture &amp; Career</h2>
+
+      <h3 class="subhead">Culture — Bespoke</h3>
+      <p>Gungr's culture profile is hand-built (Draw Steel's <em>Bespoke</em> culture option). The choices align with a Vanigar Warden's life: he traveled with his community, lived as their equal, and grew up doing the work his community did.</p>
+      <table class="dossier-table">
+        <thead><tr><th>Element</th><th>Choice &amp; Note</th></tr></thead>
+        <tbody>
+          <tr><td>Environment</td><td><strong>Nomadic</strong> — a culture that travels from place to place to survive. <em>(Skill: Navigate.)</em></td></tr>
+          <tr><td>Organization</td><td><strong>Communal</strong> — all members of the culture considered equal. <em>(Skill: Heal.)</em></td></tr>
+          <tr><td>Upbringing</td><td><strong>Labor</strong> — came of age among people who labored for a living. <em>(Skill: Handle Animals.)</em></td></tr>
+          <tr><td>Bespoke Language</td><td><strong>Mindspeech</strong> — the psionic tongue, fitting for someone who would later wake to talent</td></tr>
+          <tr><td>Default Hakaan Language</td><td><strong>Vhoric</strong></td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="subhead">Career — Warden</h3>
+      <p><em>"You protected a wild region from those who sought to harm it, such as poachers and cultists bent on the destruction of the natural world. Knowing your land well, you could also serve as a guide or the leader of a rescue party for those wandering the wilds."</em></p>
+      <ul>
+        <li><strong>Skill:</strong> Nature</li>
+        <li><strong>Exploration Skill:</strong> Climb</li>
+        <li><strong>Intrigue Skill:</strong> Track</li>
+        <li><strong>Language:</strong> Low Kuric</li>
+        <li><strong>Project Points:</strong> 120 (career bonus)</li>
+        <li><strong>Exploration Perk:</strong> <em>Camouflage Hunter</em> — In wilderness, once he is hidden from a creature, he doesn't need cover or concealment to stay hidden from them.</li>
+      </ul>
+      <div class="callout warn">
+        <div class="label">A City Without His Wilderness</div>
+        <p><em>Camouflage Hunter</em> works in wilderness specifically. The same is true of Blaska's <em>Danger Sense</em> — and Gungr and Blaska now share the same problem: the perks that defined their old lives go quiet in Alloy. The character profile presumes the wild Vanigar he protected, not the densest urban node in the timescape. Watching his usual reads fail him is a piece of the campaign-arc material.</p>
+      </div>
+    </section>
+
+    <!-- X. SKILLS -->
+    <section id="skills">
+      <h2 class="section-title">X. Skills &amp; Languages</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="group-label">Exploration</div>
+          <ul>
+            <li>Climb <span class="src">career</span></li>
+            <li>Heal <span class="src">organization</span></li>
+            <li>Navigate <span class="src">environment</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Interpersonal</div>
+          <ul>
+            <li>Handle Animals <span class="src">upbringing</span></li>
+            <li>Intimidate <span class="src">class</span></li>
+            <li>Read Person <span class="src">class</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Intrigue</div>
+          <ul>
+            <li>Track <span class="src">career</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Lore</div>
+          <ul>
+            <li>Monsters <span class="src">class</span></li>
+            <li>Nature <span class="src">career</span></li>
+            <li>Psionics <span class="src">class</span></li>
+          </ul>
+        </div>
+      </div>
+      <h3 class="subhead">Languages</h3>
+      <p>Caelian <em>(default)</em>, Vhoric <em>(Hakaan cultural)</em>, Mindspeech <em>(bespoke culture pick)</em>, Axiomatic <em>(class)</em>, Low Kuric <em>(career)</em>.</p>
+      <div class="callout">
+        <div class="label">◆ Skill Profile Read</div>
+        <p>Gungr is the unit's <em>wilderness specialist and behaviorist</em>. He reads land (Nature, Navigate, Climb, Track), reads people and beasts (Handle Animals, Intimidate, Read Person), and reads what is happening in the world supernaturally (Psionics, Monsters, Heal). He has zero Crafting skills, which fits — a Warden builds traps and shelters in the field but does not run a workshop. In Alloy, two of his three exploration skills work; his career perk does not.</p>
+      </div>
+    </section>
+
+    <!-- XI. COMPLICATION -->
+    <section id="complication">
+      <h2 class="section-title">XI. Complication — Primordial Sickness</h2>
+      <p>From the Draw Steel complication: <em>"You once contracted a terrible illness for which no one could find a cure. You sought out a primordial swamp said to be either incredibly poisonous or miraculously salubrious. It turned out to be both, keeping your illness at bay while corrupting your body with its unnatural energy."</em></p>
+      <table class="dossier-table">
+        <thead><tr><th>Aspect</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Primordial Sickness Benefit</td><td><strong>Damage Immunity:</strong> Poison 5, Corruption 5. The swamp's energy makes him resistant to the kinds of harm that produced the illness in the first place.</td></tr>
+          <tr><td>Primordial Sickness Drawback</td><td>His Recoveries are reduced by <strong>1</strong> (8 → 7). His body keeps the illness at bay but cannot fully mend itself.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout warn">
+        <div class="label">⚠ The Body's Long Negotiation</div>
+        <p>The complication is mechanically lean — one immunity, one penalty — but narratively heavy. Gungr is sustaining the illness, not curing it; the swamp's bargain works only as long as the corruption holds. Combined with Doomsight (a predetermined death) and Clarity's strain economy (self-damage as an option), the character carries three separate <em>self-cost</em> mechanics. He is built to pay.</p>
+      </div>
+    </section>
+
+    <!-- XII. INCIDENT -->
+    <section id="incident">
+      <h2 class="section-title">XII. Inciting Incident — Portents</h2>
+      <p>From the Draw Steel inciting incident: <em>"There were signs. You tried to ignore them, but when a great beast died at your feet, you had to recognize the truth. You were meant to leave your home territory, meant to fight a battle for the fate of all lands — and so you gave up the only life you've ever known."</em></p>
+      <div class="callout">
+        <div class="label">◆ What's Established</div>
+        <ul style="margin:0.4rem 0;padding-left:1.4rem;">
+          <li>The signs came over a period of time. Gungr tried to ignore them.</li>
+          <li>A great beast died at his feet. This was the moment he could not ignore.</li>
+          <li>He was meant to leave his home territory in Vanigar.</li>
+          <li>He is meant to fight a battle for the fate of all lands.</li>
+          <li>He gave up his life as Warden — the only life he had ever known — to do this.</li>
+          <li>He has not yet arrived at the battle.</li>
+        </ul>
+      </div>
+      <div class="callout doom">
+        <div class="label">⟢ The Sign and the Trait</div>
+        <p>Portents and Doomsight are the same idea in two registers. The Inciting Incident says <em>he was sent to fight a battle for the fate of all lands</em>. The ancestry trait says <em>he can predetermine an encounter in which he will die</em>. Mechanically, Doomsight is what allows the Portents to be redeemed: when the right battle comes, he can call it and become unstoppable for exactly that fight. The character is built around a single arc with a single ending. The campaign's job is to make that ending earn its setup.</p>
+      </div>
+    </section>
+
+    <!-- XIII. CAMPAIGN -->
+    <section id="campaign">
+      <h2 class="section-title">XIII. Position in Collateral <span class="draft-tag">draft</span></h2>
+      <div class="callout draft">
+        <div class="label">Provisional · Drawn from Campaign Concept</div>
+        <p>The following is drawn from the Collateral campaign summary, which is explicitly marked as draft / provisional. Details are subject to change in Session Zero.</p>
+      </div>
+
+      <p>The premise: the player characters wake in the same holding cell in Alloy, the Free City of Brass, and are told <em>"The debt has defaulted. You belong to the Saffron Seal now."</em> Of the cell's prisoners, Gungr is the one most explicitly in a between-state: he was sent on a journey, has not arrived, and has now been intercepted on the way. The frame of the campaign — being held by a creditor he never signed a contract with — reads to him through the lens of the Portents: <em>is this on the path, or is this a delay</em>?</p>
+
+      <h3 class="subhead">Role on the Team</h3>
+      <p>Combat: <strong>ranged controller and ally booster.</strong> Mind Spike at 12 squares; Hoarfrost for cold damage and slows; Kinetic Grip for pure displacement; Iron for ally protection. The character is built to fight at distance, redirect enemy movement, and keep front-liners alive — and to spend his own Stamina (via strain) when the rolls don't go his way.</p>
+      <p>Out of combat: <strong>wilderness scout, behavioral read, and supernatural diagnostic.</strong> Track, Navigate, Climb, Handle Animals, Read Person, plus Psionics and Monsters for identifying what's actually being done with magic. The campaign hook (<em>"an ancient chronopathic rite is being exploited by an unknown hand"</em>) is in his specific area of expertise.</p>
+
+      <h3 class="subhead">Faction Connections</h3>
+      <p>Per the campaign concept, the relevant faction-shape for Gungr is the orchestrator of the chronopathic rite — described as <em>"an unknown hand"</em> exploiting an ancient practice. That orchestrator is a candidate for who named him as collateral. No other listed faction is explicitly tied to his backstory.</p>
+    </section>
+
+    <!-- XIV. ARC -->
+    <section id="arc">
+      <h2 class="section-title">XIV. Character Arc</h2>
+      <p>Three threads pull through Gungr's sheet.</p>
+      <p>The first is the <strong>Portents</strong>: he was sent to fight a battle for the fate of all lands. He has not arrived. The cell, the Saffron Seal, the chronopathic rite — the campaign will have to decide whether these are <em>obstacles to</em> the battle or <em>are</em> the battle. Doomsight is the redeemable promise either way.</p>
+      <p>The second is <strong>self-cost</strong>. Three separate mechanics — Primordial Sickness (−1 Recovery), Clarity strain (−damage for over-spend), Doomsight (predetermined death) — all model a body that gives more than it has. Whether the costs build toward a single climactic spend, or wear him down across the campaign's arcs, is a play question. The mechanics support both.</p>
+      <p>The third is the <strong>warden in a city</strong>. He was the protector of a wilderness; he is now in the densest urban node in the timescape. The career perk doesn't work here. Two of his cultural skills don't quite apply. The campaign asks him to be useful in a context his life did not prepare him for — and the answer the sheet gives is <em>at distance, with foresight, and at cost</em>.</p>
+    </section>
+
+    <!-- COLOPHON -->
+    <footer class="colophon">
+      <div><span class="accent">⟦ STONE OF RECKONING · CELL VII · FREE CITY OF BRASS ⟧</span></div>
+      <div style="margin-top:0.4rem;">GUNGR · HAKAAN · TALENT / CHRONOPATHY · LEVEL 1 · DEBT-HOLDER: THE SAFFRON SEAL</div>
+      <div style="margin-top:0.4rem;">Sheet mechanics: locked. Campaign frame: provisional, subject to Session Zero.</div>
+      <div style="margin-top:0.4rem;"><span class="accent">⚑ Status: start of campaign · Inciting Incident: Portents · Open: the battle he was sent for · the rite being exploited</span></div>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

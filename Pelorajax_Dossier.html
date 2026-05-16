@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heraldic Record — Pelorajax</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Marcellus&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Pelorajax: a draconic order's heraldic ledger.
+       Silver rune-engraving on funerary black, with a sunset-mauve
+       horizon and storm-lightning where her circle's element shows
+       through. The portrait is the headless figure; her face is a
+       deliberate void at the centre of the page. */
+    --void: #08070b;
+    --void-deep: #03020a;
+    --paper: #1c1a22;
+    --paper-light: #2a2632;
+    --vellum: #d8d0c0;
+    --vellum-dim: #b8b0a0;
+
+    --silver: #c8c4d0;
+    --silver-bright: #ece8f0;
+    --silver-deep: #6a6878;
+    --silver-shadow: #3a3848;
+
+    --rune: #b8b0c8;
+    --rune-bright: #e0d4f0;
+
+    --storm: #6a78a8;
+    --storm-bright: #98a8d8;
+    --storm-deep: #2a3868;
+    --storm-pale: #d0d8f0;
+
+    --mauve: #6a4868;
+    --mauve-bright: #a878a0;
+    --mauve-pale: #d8b0d0;
+    --sunset: #d8788c;
+
+    --gilt: #a8884c;
+    --gilt-bright: #d8b878;
+
+    --crimson: #882030;
+    --crimson-bright: #c84050;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:var(--void-deep); color:var(--vellum); font-family:'Cormorant Garamond', Georgia, serif; font-size:16px; line-height:1.65; }
+  body {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(216,120,140,0.10) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 100%, rgba(106,120,168,0.10) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, #0e0c14 0%, #08070b 60%, #03020a 100%);
+    min-height: 100vh; padding: 2.5rem 1rem;
+  }
+  body::before {
+    content:''; position:fixed; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch' seed='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    pointer-events:none; z-index:1000; mix-blend-mode:screen; opacity:0.5;
+  }
+
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    position: relative;
+    background-image:
+      /* a horizon of mauve and storm */
+      radial-gradient(ellipse 600px 200px at 50% -50px, rgba(216,120,140,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 500px 280px at 50% 100%, rgba(106,120,168,0.08) 0%, transparent 70%),
+      radial-gradient(circle at 14% 22%, rgba(184,176,200,0.04) 0%, transparent 30%),
+      radial-gradient(circle at 86% 78%, rgba(184,176,200,0.04) 0%, transparent 30%),
+      linear-gradient(180deg, #22202a 0%, #1c1a22 50%, #14121c 100%);
+    box-shadow:
+      0 0 0 1px var(--silver-deep),
+      0 0 0 4px var(--paper),
+      0 0 0 5px var(--silver-shadow),
+      0 0 0 6px var(--silver-deep),
+      0 0 100px rgba(216,120,140,0.10),
+      0 0 200px rgba(106,120,168,0.08),
+      0 40px 100px rgba(0,0,0,0.8);
+  }
+
+  /* rune border ornament top + bottom */
+  .document::before, .document::after {
+    content:''; position: absolute; left: 30px; right: 30px;
+    height: 14px;
+    background:
+      repeating-linear-gradient(90deg, var(--silver-deep) 0 8px, transparent 8px 24px),
+      linear-gradient(90deg, transparent 0%, var(--silver-shadow) 20%, var(--silver-deep) 50%, var(--silver-shadow) 80%, transparent 100%);
+    background-blend-mode: multiply;
+    pointer-events: none;
+  }
+  .document::before { top: 14px; }
+  .document::after { bottom: 14px; }
+
+  .doc-inner { padding: 4rem 4rem 4rem; position:relative; }
+
+  /* MASTHEAD — a heraldic header in silver */
+  .masthead {
+    text-align: center;
+    border-top: 1px solid var(--silver-deep);
+    border-bottom: 1px solid var(--silver-deep);
+    padding: 1rem 0;
+    margin-bottom: 1.4rem;
+    position: relative;
+  }
+  .masthead::before, .masthead::after {
+    content:''; position: absolute;
+    left: 50%; transform: translateX(-50%);
+    width: 80px; height: 1px;
+    background: var(--silver);
+  }
+  .masthead::before { top: -2px; }
+  .masthead::after { bottom: -2px; }
+  .masthead .order {
+    font-family:'Marcellus SC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.42em;
+    color: var(--rune);
+    margin-bottom: 0.2rem;
+  }
+  .masthead .title {
+    font-family:'Marcellus', serif;
+    font-size: 1.6rem;
+    color: var(--silver-bright);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin: 0.1rem 0;
+  }
+  .masthead .filing {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--vellum-dim);
+    margin-top: 0.3rem;
+  }
+  .masthead .filing .stamp {
+    color: var(--crimson-bright);
+    border: 1px solid var(--crimson);
+    padding: 0.1rem 0.5rem;
+    margin-left: 0.6rem;
+    font-style: normal;
+    font-family:'Marcellus SC', serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+  }
+
+  /* INVOCATION — the missing-head epigraph */
+  .invocation {
+    text-align: center;
+    font-style: italic;
+    font-size: 1.04rem;
+    color: var(--vellum-dim);
+    margin: 0 auto 2.4rem;
+    max-width: 60ch;
+    line-height: 1.6;
+  }
+  .invocation::before, .invocation::after {
+    display: block;
+    content: '✦';
+    color: var(--gilt-bright);
+    font-style: normal;
+    font-size: 1.2rem;
+    margin: 0.3rem auto;
+  }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 2.5rem;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+  }
+  .portrait-frame {
+    width: 100%;
+    position: relative;
+    padding: 6px;
+    background: var(--void);
+    box-shadow:
+      0 0 0 1px var(--silver),
+      0 0 0 4px var(--paper),
+      0 0 0 5px var(--silver-deep),
+      0 0 0 8px var(--silver-shadow),
+      0 0 40px rgba(216,120,140,0.10),
+      0 14px 40px rgba(0,0,0,0.7);
+  }
+  .portrait-frame img {
+    width:100%; display:block;
+    filter: contrast(1.02) brightness(0.96);
+  }
+  /* corner sigils */
+  .portrait-frame .corner {
+    position: absolute; width: 18px; height: 18px;
+    color: var(--gilt-bright);
+    font-size: 1rem;
+    text-align: center;
+    line-height: 18px;
+    text-shadow: 0 0 6px rgba(216,184,120,0.5);
+  }
+  .portrait-frame .corner.tl { top: -10px; left: -10px; }
+  .portrait-frame .corner.tr { top: -10px; right: -10px; }
+  .portrait-frame .corner.bl { bottom: -10px; left: -10px; }
+  .portrait-frame .corner.br { bottom: -10px; right: -10px; }
+
+  .portrait-caption {
+    margin-top: 1rem;
+    font-family:'Marcellus SC', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    color: var(--vellum-dim);
+    text-align: center;
+    line-height: 1.7;
+  }
+  .portrait-caption .small {
+    display: block;
+    margin-top: 0.4rem;
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.84rem;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    color: var(--silver-deep);
+  }
+
+  .hero-text { padding-top: 0.2rem; }
+  .eyebrow {
+    font-family:'Marcellus SC', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.34em;
+    color: var(--mauve-bright);
+    margin-bottom: 0.4rem;
+  }
+  .eyebrow .sep { color: var(--silver-shadow); margin: 0 0.6em; }
+
+  h1.character-name {
+    font-family:'Marcellus', serif;
+    font-weight: 400;
+    font-size: 5.5rem;
+    line-height: 0.95;
+    color: var(--silver-bright);
+    margin: 0.2rem 0 0.3rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-shadow:
+      0 0 12px rgba(200,196,208,0.2),
+      0 0 30px rgba(216,120,140,0.1);
+  }
+  h1.character-name .epithet {
+    display: block;
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.2em;
+    font-weight: 500;
+    color: var(--vellum-dim);
+    letter-spacing: 0.16em;
+    margin-top: 0.7rem;
+    text-shadow: none;
+    text-transform: none;
+  }
+
+  .tagline {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--vellum);
+    margin: 1rem 0 1.3rem;
+    max-width: 52ch;
+    line-height: 1.55;
+    border-left: 2px solid var(--mauve);
+    padding-left: 1.1rem;
+  }
+
+  .vitals-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    font-family:'Marcellus SC', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--silver);
+    border-top: 1px solid var(--silver-deep);
+    border-bottom: 1px solid var(--silver-deep);
+    padding: 0.6rem 0;
+    margin-top: 1.2rem;
+  }
+  .vitals-row .v { border-left: 1px solid var(--silver-shadow); padding: 0.1rem 0.9rem; white-space: nowrap; }
+  .vitals-row .v:first-child { border-left: none; padding-left: 0; }
+  .vitals-row .v strong { color: var(--silver-bright); font-weight: 700; margin-left: 0.4em; }
+  .vitals-row .v.storm strong { color: var(--storm-bright); }
+  .vitals-row .v.warn strong { color: var(--crimson-bright); }
+  .vitals-row .v.mauve strong { color: var(--mauve-bright); }
+
+  /* TOC */
+  nav.toc {
+    background: rgba(216,120,140,0.03);
+    border-top: 1px solid var(--silver-deep);
+    border-bottom: 1px solid var(--silver-deep);
+    padding: 1.3rem 1.6rem;
+    margin-bottom: 2.8rem;
+    columns: 2;
+    column-gap: 2.4rem;
+    position: relative;
+  }
+  nav.toc::before {
+    content: '✦  ARTICLES  ✦';
+    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    background: var(--paper);
+    padding: 0 1.2rem;
+    font-family:'Marcellus SC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--gilt-bright);
+  }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; font-family:'Marcellus SC', serif; }
+  nav.toc ol li { counter-increment: toc; font-size: 0.78rem; margin-bottom: 0.35rem; break-inside: avoid; letter-spacing: 0.08em; }
+  nav.toc ol li::before { content: counter(toc, upper-roman) ".  "; color: var(--mauve-bright); }
+  nav.toc a { color: var(--vellum); text-decoration: none; font-size: 0.84rem; }
+  nav.toc a:hover { color: var(--storm-bright); }
+
+  section { margin-bottom: 3rem; }
+
+  h2.section-title {
+    font-family:'Marcellus SC', serif;
+    font-weight: 400;
+    font-size: 1.3rem;
+    color: var(--silver-bright);
+    margin: 0 0 1.4rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--silver-deep);
+    letter-spacing: 0.18em;
+    position: relative;
+  }
+  h2.section-title::before {
+    content: '✦';
+    color: var(--gilt-bright);
+    margin-right: 0.7rem;
+    font-size: 0.85em;
+    text-shadow: 0 0 6px rgba(216,184,120,0.4);
+  }
+  h2.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0;
+    width: 80px; height: 2px;
+    background: var(--mauve);
+  }
+
+  h3.subhead {
+    font-family:'Marcellus', serif;
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: var(--mauve-bright);
+    margin: 1.7rem 0 0.5rem;
+    letter-spacing: 0.06em;
+  }
+  h3.subhead::before { content: '— '; color: var(--silver-deep); }
+
+  h4.entry-label {
+    font-family:'Marcellus SC', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    color: var(--rune);
+    margin: 1.3rem 0 0.5rem;
+    border-bottom: 1px dotted var(--silver-shadow);
+    padding-bottom: 0.2rem;
+  }
+
+  p { margin: 0.7rem 0; }
+  p.drop-cap::first-letter {
+    font-family:'Marcellus', serif;
+    font-size: 4rem;
+    float: left;
+    line-height: 0.85;
+    margin: 0.2rem 0.5rem -0.1rem 0;
+    color: var(--mauve-bright);
+    text-shadow: 0 0 8px rgba(168,120,160,0.3);
+  }
+  em { font-style: italic; color: var(--vellum-dim); }
+  strong { color: var(--silver-bright); font-weight: 600; }
+
+  /* STAT GRID — sigil panels */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.55rem;
+    margin: 1.5rem 0;
+  }
+  .stat-cell {
+    border: 1px solid var(--silver-shadow);
+    background: rgba(184,176,200,0.04);
+    padding: 0.9rem 0.6rem;
+    text-align: center;
+    box-shadow: inset 0 0 12px rgba(216,120,140,0.04);
+  }
+  .stat-cell .label {
+    font-family:'Marcellus SC', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    color: var(--rune);
+    margin-bottom: 0.3rem;
+  }
+  .stat-cell .value {
+    font-family:'Marcellus', serif;
+    font-weight: 400;
+    font-size: 2.4rem;
+    color: var(--silver-bright);
+    line-height: 1;
+  }
+  .stat-cell .gloss {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--silver-deep);
+    margin-top: 0.4rem;
+    line-height: 1.3;
+  }
+  .stat-cell.high { background: rgba(106,120,168,0.10); border-color: var(--storm); }
+  .stat-cell.high .value { color: var(--storm-bright); }
+  .stat-cell.neg .value { color: var(--silver-deep); }
+
+  /* STATUS — three pools as engraved tablets */
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .status-cell {
+    border: 1px solid var(--silver-deep);
+    background: rgba(8,7,11,0.4);
+    padding: 1rem;
+  }
+  .status-cell .label {
+    font-family:'Marcellus SC', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--rune);
+    margin-bottom: 0.3rem;
+  }
+  .status-cell .value {
+    font-family:'Marcellus', serif;
+    font-weight: 400;
+    font-size: 2.4rem;
+    color: var(--silver-bright);
+    line-height: 1;
+  }
+  .status-cell .value .sub { font-size: 0.4em; color: var(--silver-deep); }
+  .status-cell .note {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.82rem;
+    color: var(--silver);
+    margin-top: 0.5rem;
+    line-height: 1.4;
+  }
+  .status-cell .bar { height: 4px; background: rgba(184,176,200,0.08); margin-top: 0.5rem; }
+  .status-cell .bar .fill { height: 100%; background: var(--silver); }
+  .status-cell .bar.storm .fill { background: var(--storm-bright); box-shadow: 0 0 6px var(--storm); }
+  .status-cell .bar.mauve .fill { background: var(--mauve-bright); }
+
+  /* TABLES */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  table.dossier-table th, table.dossier-table td {
+    text-align: left;
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--silver-shadow);
+    vertical-align: top;
+  }
+  table.dossier-table th {
+    font-family:'Marcellus SC', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--mauve-bright);
+    border-bottom: 1px solid var(--mauve);
+    background: rgba(216,120,140,0.04);
+  }
+  table.dossier-table td:first-child { font-weight: 600; color: var(--silver-bright); width: 30%; }
+
+  /* ABILITY BLOCKS */
+  .ability-block {
+    border: 1px solid var(--silver-shadow);
+    background: rgba(8,7,11,0.3);
+    padding: 1rem 1.2rem;
+    margin: 0.9rem 0;
+    position: relative;
+  }
+  .ability-block.signature { border-left: 4px solid var(--mauve); background: rgba(106,72,104,0.10); }
+  .ability-block.core { border-left: 4px solid var(--storm); background: rgba(106,120,168,0.06); }
+  .ability-block.minion { border-left: 4px solid var(--gilt); background: rgba(168,136,76,0.04); }
+  .ability-block .ability-name {
+    font-family:'Marcellus', serif;
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: var(--silver-bright);
+    margin-bottom: 0.15rem;
+    letter-spacing: 0.04em;
+  }
+  .ability-block .ability-flavor {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--vellum-dim);
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+  .ability-block .ability-meta {
+    font-family:'Marcellus SC', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    color: var(--rune);
+    margin-bottom: 0.5rem;
+    border-bottom: 1px dotted var(--silver-shadow);
+    padding-bottom: 0.4rem;
+  }
+  .tier-roll {
+    margin-top: 0.6rem;
+    padding: 0.5rem 0.9rem;
+    background: rgba(184,176,200,0.04);
+    border-left: 3px solid var(--storm-deep);
+    font-size: 0.94rem;
+  }
+  .tier-roll .tier-label {
+    font-family:'Marcellus SC', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--storm-bright);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .tier-roll .tier { display: block; margin: 0.15rem 0; }
+  .tier-roll .tier b { color: var(--mauve-bright); }
+
+  /* MINION CARDS — heraldic shields */
+  .minion-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .minion-card {
+    border: 1px solid var(--silver-shadow);
+    background: rgba(8,7,11,0.4);
+    padding: 1rem 1.1rem;
+    position: relative;
+  }
+  .minion-card.signature {
+    border: 1px solid var(--gilt);
+    background: rgba(168,136,76,0.05);
+    box-shadow: 0 0 20px rgba(216,184,120,0.05);
+  }
+  .minion-card .head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-bottom: 1px solid var(--silver-shadow);
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.4rem;
+  }
+  .minion-card .head .name {
+    font-family:'Marcellus', serif;
+    font-size: 1.2rem;
+    color: var(--silver-bright);
+    letter-spacing: 0.04em;
+  }
+  .minion-card .head .role {
+    font-family:'Marcellus SC', serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    color: var(--mauve-bright);
+  }
+  .minion-card .head .role.sig::before { content: '◆ '; color: var(--gilt-bright); }
+  .minion-card .stat-line {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    font-family:'Marcellus SC', serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    color: var(--silver-deep);
+    border-bottom: 1px dotted var(--silver-shadow);
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.5rem;
+  }
+  .minion-card .stat-line span { white-space: nowrap; }
+  .minion-card .stat-line strong { color: var(--silver); margin-left: 0.3em; }
+  .minion-card .abilities { font-size: 0.88rem; }
+  .minion-card .abilities .abil { margin-bottom: 0.5rem; }
+  .minion-card .abilities .abil b {
+    font-family:'Marcellus SC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    color: var(--storm-bright);
+    display: block;
+    margin-bottom: 0.1rem;
+  }
+  .minion-card .keywords {
+    margin-top: 0.5rem;
+    padding-top: 0.4rem;
+    border-top: 1px solid var(--silver-shadow);
+    font-family:'Marcellus SC', serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    color: var(--gilt-bright);
+  }
+
+  /* CALLOUTS */
+  .callout {
+    border: 1px solid var(--storm-deep);
+    background: rgba(106,120,168,0.06);
+    padding: 0.9rem 1.2rem;
+    margin: 1.2rem 0;
+    border-left: 4px solid var(--storm);
+  }
+  .callout.warn {
+    border: 1px solid var(--crimson);
+    background: rgba(136,32,48,0.08);
+    border-left: 4px solid var(--crimson);
+  }
+  .callout.mauve {
+    border: 1px solid var(--mauve);
+    background: rgba(106,72,104,0.08);
+    border-left: 4px solid var(--mauve);
+  }
+  .callout.draft {
+    border: 1px dashed var(--silver-deep);
+    background: rgba(184,176,200,0.02);
+    border-left: 4px dashed var(--silver-deep);
+  }
+  .callout .label {
+    font-family:'Marcellus SC', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    color: var(--storm-bright);
+    margin-bottom: 0.3rem;
+  }
+  .callout.warn .label { color: var(--crimson-bright); }
+  .callout.mauve .label { color: var(--mauve-bright); }
+  .callout.draft .label { color: var(--silver-deep); }
+  .callout p { margin: 0.3rem 0; }
+
+  .draft-tag {
+    display: inline-block;
+    font-family:'Marcellus SC', serif;
+    font-size: 0.64rem;
+    letter-spacing: 0.22em;
+    color: var(--crimson-bright);
+    border: 1px solid var(--crimson);
+    padding: 0.05rem 0.45rem;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    background: rgba(8,7,11,0.5);
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.4rem;
+  }
+  .skill-group .group-label {
+    font-family:'Marcellus SC', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.26em;
+    color: var(--mauve-bright);
+    border-bottom: 1px solid var(--silver-shadow);
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
+  }
+  .skill-group ul { list-style: none; margin: 0; padding: 0; font-size: 0.95rem; }
+  .skill-group ul li { padding: 0.18rem 0; border-bottom: 1px dotted var(--silver-shadow); display: flex; justify-content: space-between; }
+  .skill-group ul li .src { font-size: 0.76rem; color: var(--silver-deep); font-style: italic; font-family:'Cormorant Garamond', serif; }
+
+  /* FOOTER */
+  footer.colophon {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--silver-deep);
+    font-family:'Marcellus SC', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--silver-deep);
+    text-align: center;
+  }
+  footer.colophon .accent { color: var(--mauve-bright); }
+  footer.colophon .ornament { font-family:'Marcellus', serif; font-size: 1.2rem; color: var(--gilt-bright); display:block; margin-bottom:0.6rem; letter-spacing:0.3em; }
+
+  @media (max-width: 780px) {
+    .doc-inner { padding: 2rem 1.5rem 3rem; }
+    .hero { grid-template-columns: 1fr; }
+    .portrait-frame { width: 70%; margin: 0 auto; }
+    h1.character-name { font-size: 3.2rem; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .status-grid { grid-template-columns: 1fr; }
+    nav.toc { columns: 1; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .minion-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+  <div class="doc-inner">
+
+    <!-- MASTHEAD -->
+    <div class="masthead">
+      <div class="order">Circle of Storms · Heraldic Record</div>
+      <div class="title">Pelorajax</div>
+      <div class="filing">Cell vii · Free City of Brass <span class="stamp">Default</span></div>
+    </div>
+
+    <!-- INVOCATION -->
+    <div class="invocation">
+      She has no head and is still speaking. Borrow her a mouth and she will tell you what she sees. The storms answer to her by name, and she is the most-named prisoner in this cell, and the one with the most to lose.
+    </div>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div>
+        <div class="portrait-frame">
+          <img src="Pelorajax.png" alt="Pelorajax, a headless wyrmkin in silver-engraved black robes with mechanical wings">
+          <span class="corner tl">✦</span>
+          <span class="corner tr">✦</span>
+          <span class="corner bl">✦</span>
+          <span class="corner br">✦</span>
+        </div>
+        <div class="portrait-caption">
+          Pelorajax
+          <span class="small">Without a head, sustained by other means</span>
+        </div>
+      </div>
+
+      <div class="hero-text">
+        <div class="eyebrow">DragonKnight <span class="sep">·</span> Summoner <span class="sep">·</span> Circle of Storms</div>
+        <h1 class="character-name">
+          Pelorajax
+          <span class="epithet">Former agent. The storms answer her.</span>
+        </h1>
+        <div class="tagline">
+          She loved someone on the wrong side of a job and her cover broke open. The handlers took her head — or her cover did, depending on how she tells it — and she summons elementals now to do the work her body cannot. She wakes in Alloy bound to a debt she never signed, with three signature minions on call and her wings folded.
+        </div>
+        <div class="vitals-row">
+          <span class="v">Level <strong>1</strong></span>
+          <span class="v">Speed <strong>5</strong></span>
+          <span class="v">Stability <strong>0</strong></span>
+          <span class="v">Stamina <strong>15</strong></span>
+          <span class="v storm">Essence <strong>0</strong></span>
+          <span class="v warn">Complication: <strong>Lost Your Head</strong></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- TOC -->
+    <nav class="toc">
+      <ol>
+        <li><a href="#identity">Identity &amp; the Headless</a></li>
+        <li><a href="#stats">Characteristics</a></li>
+        <li><a href="#essence">Essence Resource</a></li>
+        <li><a href="#ancestry">DragonKnight Traits</a></li>
+        <li><a href="#class">Summoner Class Features</a></li>
+        <li><a href="#subclass">Circle of Storms</a></li>
+        <li><a href="#signature">Signature Minions</a></li>
+        <li><a href="#portfolio">Portfolio Minions</a></li>
+        <li><a href="#summoner-strike">Summoner's Kit &amp; Strike</a></li>
+        <li><a href="#culture">Culture &amp; Career</a></li>
+        <li><a href="#skills">Skills &amp; Languages</a></li>
+        <li><a href="#complication">Complication — Lost Your Head</a></li>
+        <li><a href="#incident">Inciting Incident — Spies and Lovers</a></li>
+        <li><a href="#campaign">Position in Collateral</a></li>
+        <li><a href="#arc">Character Arc</a></li>
+      </ol>
+    </nav>
+
+    <!-- I. IDENTITY -->
+    <section id="identity">
+      <h2 class="section-title">I. Identity &amp; the Headless</h2>
+      <p class="drop-cap">Pelorajax is a DragonKnight — a wyrmkin warrior, by lineage and bearing, who carries hardened scales (wymplate) and a pair of wings powerful enough to fly. Her ancestry is the most physically formidable on the cell's sheets, and her current condition is the most physically diminished: she has no head. The Lost Your Head complication is not a flourish; she is genuinely without one. She borrows the senses of willing others through a psionic ability called <em>Share Head</em>.</p>
+
+      <p>Her class is <strong>Summoner</strong>, the discipline of binding elementals and commanding them as one's hands and weapons. Her subclass — <strong>Circle of Storms</strong> — orients her summoning toward elemental keywords of Air, Fire, Earth, and their pairings. The summons do the work she cannot do herself, including the work of having a head. Three signature minions are always available to her; six additional minion-types stand ready in her portfolio.</p>
+
+      <p>Her career was Agent. She was a spy. Her cover broke for the oldest reason — she fell for someone on the other side. She is here in Alloy now, in a cell, with a debt she did not sign, summoning storms.</p>
+    </section>
+
+    <!-- II. CHARACTERISTICS -->
+    <section id="stats">
+      <h2 class="section-title">II. Characteristics</h2>
+      <div class="stat-grid">
+        <div class="stat-cell"><div class="label">Might</div><div class="value">+1</div><div class="gloss">Wyrmkin frame</div></div>
+        <div class="stat-cell"><div class="label">Agility</div><div class="value">+1</div><div class="gloss">Aerial work</div></div>
+        <div class="stat-cell high"><div class="label">Reason</div><div class="value">+2</div><div class="gloss">Primary · summoning</div></div>
+        <div class="stat-cell high"><div class="label">Intuition</div><div class="value">+2</div><div class="gloss">Reads the storm</div></div>
+        <div class="stat-cell neg"><div class="label">Presence</div><div class="value">−1</div><div class="gloss">Speaks borrowed</div></div>
+      </div>
+      <p><em>Two +2s in Reason and Intuition (the Summoner's core characteristics), two +1s in the physicals, and a −1 in Presence. The Presence weakness makes thematic sense: she has no mouth except a borrowed one. Speaking through someone else's lips imposes a limit on what she can do in person. Her summons fight on Reason; her surrounding awareness depends on whose head she has hold of at the time.</em></p>
+
+      <div class="status-grid">
+        <div class="status-cell">
+          <div class="label">Stamina</div>
+          <div class="value">15<span class="sub"> / 15</span></div>
+          <div class="bar"><div class="fill" style="width:100%"></div></div>
+          <div class="note">Winded threshold: 8. Summoner class base.</div>
+        </div>
+        <div class="status-cell">
+          <div class="label">Recoveries</div>
+          <div class="value">8<span class="sub"> / 8</span></div>
+          <div class="bar mauve"><div class="fill" style="width:100%"></div></div>
+          <div class="note">Recovery value: 5.</div>
+        </div>
+        <div class="status-cell">
+          <div class="label">Essence</div>
+          <div class="value">0</div>
+          <div class="bar storm"><div class="fill" style="width:0%"></div></div>
+          <div class="note">Heroic resource. Spent on Call Forth and minion-amplifying actions.</div>
+        </div>
+      </div>
+
+      <table class="dossier-table">
+        <thead><tr><th>Stat</th><th>Value &amp; Source</th></tr></thead>
+        <tbody>
+          <tr><td>Size</td><td><strong>1M</strong> — medium</td></tr>
+          <tr><td>Speed</td><td><strong>5</strong> — base; <strong>Fly</strong> available via Wings (with a cost — see ancestry)</td></tr>
+          <tr><td>Stability</td><td><strong>0</strong></td></tr>
+          <tr><td>Damage Immunity</td><td><strong>Cold 1 + 1 per level</strong> (Wymplate Cold + Prismatic Scales Cold) — <strong>2 at L1</strong></td></tr>
+          <tr><td>Damage Weakness</td><td><strong>5</strong> to all damage <em>while flying</em> at L1–3</td></tr>
+          <tr><td>Surges</td><td><strong>1</strong> — start of encounter</td></tr>
+          <tr><td>Potency</td><td>Weak 0 · Average 1 · Strong 2</td></tr>
+          <tr><td>Hero Tokens / Wealth / Renown</td><td>0 / 0 / 0</td></tr>
+        </tbody>
+      </table>
+      <div class="callout warn">
+        <div class="label">Note — Recovery Numbers</div>
+        <p>The character sheet PDF shows Stamina values 15/15/8 and Recoveries 5/8. The most consistent reading is Stamina Max 15, Winded threshold 8, Recoveries Max 8, Recovery Value 5. If the intended reading is different (e.g. she begins play with 5 of 8 Recoveries already used), confirm at session zero.</p>
+      </div>
+    </section>
+
+    <!-- III. ESSENCE -->
+    <section id="essence">
+      <h2 class="section-title">III. Essence — The Heroic Resource</h2>
+      <p>The Summoner's heroic resource is <strong>Essence</strong>. Essence is the energy by which Pelorajax binds elementals into bodies and commands them in concert. It is spent on the main action <em>Call Forth</em> (the summoning itself), on amplifying Quick Commands, and on the strained or enhanced effects of certain abilities.</p>
+
+      <div class="callout">
+        <div class="label">A Note on This Sheet</div>
+        <p>The character sheet does not list explicit start-of-turn essence gain values in the same way the JSON sheets do. The Summoner class operates on its own rhythm — Call Forth costs 1+ per signature minion (or a set cost per non-signature minion type), and Strike for Me costs 0. Specific essence-gain triggers should be confirmed against the Summoner class chapter; this dossier records what is selected and printed on her sheet.</p>
+      </div>
+    </section>
+
+    <!-- IV. ANCESTRY -->
+    <section id="ancestry">
+      <h2 class="section-title">IV. DragonKnight Traits</h2>
+      <p>DragonKnights are wyrmkin — descendants or initiates of a draconic order, who carry hardened scales, wings, and an elemental bond. Pelorajax's traits are oriented toward cold:</p>
+
+      <h4 class="entry-label">Wings</h4>
+      <p>She possesses wings powerful enough to take her airborne. While using her wings to fly, she can stay aloft for a number of rounds equal to her Might score (<strong>1 round</strong> at +1 Might — minimum 1) before she falls prone. While flying at 1st, 2nd, and 3rd level, she has <strong>damage weakness 5</strong>. Grants the <strong>Fly</strong> movement mode.</p>
+
+      <h4 class="entry-label">Wymplate (Cold) &amp; Prismatic Scales (Cold)</h4>
+      <p>Her hardened scales grant <strong>damage immunity 1</strong> to one of: acid, cold, corruption, fire, lightning, or poison. She has chosen <strong>cold</strong>. She can change this type when she finishes a respite. The Prismatic Scales feature additionally grants <strong>+1 Cold immunity per level</strong>, stacking with the Wymplate to give her <strong>Cold immunity 2</strong> at L1.</p>
+
+      <div class="callout warn">
+        <div class="label">The Wings Tradeoff</div>
+        <p>At level 1, flying makes her five points more vulnerable to all damage. She can fly for one round (her Might score) before falling prone. The weakness goes away at level 4; for now, flight is reserved for emergencies, single decisive strikes, or escape. This same tradeoff applies to Lucero d'Albec in the cell, whose Devil ancestry uses the same wings feature.</p>
+      </div>
+    </section>
+
+    <!-- V. CLASS FEATURES -->
+    <section id="class">
+      <h2 class="section-title">V. Summoner Class Features</h2>
+      <p>The Summoner brings minions into being and commands them. Pelorajax's class kit consists of a Summoner Strike for direct attack, Call Forth for summoning, three actions for commanding her minions, and several passive features that shape what she does on a turn.</p>
+
+      <h4 class="entry-label">Always Available — Summoner Strike</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Summoner Strike</div>
+        <div class="ability-meta">Main Action · Magic, Melee, Ranged, Strike · Melee 1 or Ranged 5 · One creature or object</div>
+        <div class="ability-desc">
+          <p><strong>Effect:</strong> R damage. If the target has r&lt;w, they are slowed (save ends).</p>
+          <p><strong>Special:</strong> This ability has the Charge keyword when it's used as a melee strike.</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Main Action — Call Forth</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Call Forth</div>
+        <div class="ability-meta">Main Action · Magic, Ranged · Summoner's Range · Self · Cost: 1+ essence</div>
+        <div class="ability-desc">
+          <p><strong>Effect:</strong> Pelorajax summons one or more minions from her portfolio into unoccupied spaces within distance. She chooses one of the following options:</p>
+          <ul style="margin:0.3rem 0;padding-left:1.4rem;">
+            <li><strong>Signature Minions:</strong> Summon one signature minion for each essence spent.</li>
+            <li><strong>All Other Minions:</strong> Summon the set number of minions listed on the stat block for their essence cost.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Maneuver — Minion Bridge</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Minion Bridge</div>
+        <div class="ability-meta">Maneuver · Magic · Melee 1 · One of your minions · Cost: 0</div>
+        <div class="ability-desc">
+          <p><strong>Effect:</strong> She shifts into a square adjacent to the target, including vertically.</p>
+          <p>She can shift into squares that contain one of her minions, even if they occupy difficult terrain. Each time she shifts into a square containing one of her minions during this maneuver, she can shift an additional square.</p>
+          <p><strong>Spend 1 Essence:</strong> An adjacent ally can shift alongside her during this movement. They must end their movement in an unoccupied square adjacent to the last minion she moved through.</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Free Triggered Action — Strike for Me</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Strike for Me</div>
+        <div class="ability-meta">Free Triggered Action · Magic, Ranged · Summoner's Range · Each of your minions · Cost: 0</div>
+        <div class="ability-desc">
+          <p><strong>Trigger:</strong> Pelorajax uses a triggered action to make a free strike or use a signature ability.</p>
+          <p><strong>Effect:</strong> Her minions act in place of her making a free strike or using a signature ability. If she was granted the triggered action against a specific target, her minions must strike the same target. If the triggered action granted her a signature ability, she has an edge on the power roll.</p>
+          <p><strong>Power Roll — Reason:</strong></p>
+          <ul style="margin:0.3rem 0;padding-left:1.4rem;">
+            <li><strong>Tier 1:</strong> Up to three targets make a free strike</li>
+            <li><strong>Tier 2:</strong> Up to five targets make a free strike</li>
+            <li><strong>Tier 3:</strong> Up to seven targets make a free strike</li>
+            <li><strong>Natural 19 or 20:</strong> Each target makes a free strike</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Passive Class Features</h4>
+      <table class="dossier-table">
+        <thead><tr><th>Feature</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>Summoner Circle</td><td>The fundamental class feature — Pelorajax operates within a Circle (her subclass selection: <em>Storms</em>).</td></tr>
+          <tr><td>Minions &amp; Portfolio</td><td>She has access to a roster of minions she may summon: three signature types (free), plus a wider portfolio of element-typed minions at fixed essence costs.</td></tr>
+          <tr><td>Formation</td><td>Her minions act as squads. She has chosen <strong>Elite Formation</strong> — each minion has <strong>+3 Stamina</strong> and <strong>+1 Stability</strong>.</td></tr>
+          <tr><td>Quick Command — Shield!</td><td><em>Triggered, Summoner's Range, self or one ally — Trigger: the target is targeted by a strike.</em> If one of her minions is adjacent to the target and within distance of the strike, that minion becomes the new target. <strong>Spend 1 Essence:</strong> instead of commanding an existing minion, she summons a signature minion adjacent to the target to take the strike.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- VI. SUBCLASS -->
+    <section id="subclass">
+      <h2 class="section-title">VI. Circle of Storms</h2>
+
+      <h4 class="entry-label">Elemental Affinity</h4>
+      <p>Whenever Pelorajax uses Call Forth to summon one or more <em>non-signature</em> elemental minions, she can summon <strong>one bonus signature minion at no cost</strong>. She chooses between a signature minion that shares an Element keyword with the minions she summoned (Fire, Earth, or Air) or an Elemental Mote.</p>
+
+      <h4 class="entry-label">Heart of Nature</h4>
+      <p>She can sense the presence of creatures with the Elemental or Dragon keywords within <strong>1 mile</strong> of her. She can innately feel their emotions or pain, and she can't obtain lower than a <strong>tier 2 outcome</strong> on any Intuition test made to socially interact with them.</p>
+
+      <div class="callout">
+        <div class="label">The Circle's Logic</div>
+        <p>Elemental Affinity creates a recursive economy: spending essence to summon non-signature elementals gets her a free signature minion of related element. Heart of Nature gives her a 1-mile awareness of any elemental or dragon she crosses paths with, and a floor of tier 2 on social tests with them. In Alloy — a city through which every elemental migrant in the timescape passes — this is a sensory radius the other characters cannot match.</p>
+      </div>
+    </section>
+
+    <!-- VII. SIGNATURE MINIONS -->
+    <section id="signature">
+      <h2 class="section-title">VII. Signature Minions</h2>
+      <p>Signature minions are always available, summoned via Call Forth at 1 essence each. Pelorajax's printed signature roster is <strong>Elemental Mote</strong> and <strong>Brisk Gale</strong> (the third signature slot on the character sheet is blank — see note below).</p>
+
+      <div class="minion-grid">
+
+        <div class="minion-card signature">
+          <div class="head">
+            <div class="name">Elemental Mote</div>
+            <div class="role sig">Hexer</div>
+          </div>
+          <div class="stat-line">
+            <span>Cost <strong>1</strong></span>
+            <span>Count <strong>1</strong></span>
+            <span>Size <strong>1T</strong></span>
+            <span>Speed <strong>5</strong></span>
+            <span>Stamina <strong>1</strong></span>
+            <span>Stab <strong>0</strong></span>
+            <span>FS <strong>1</strong></span>
+            <span>Fly</span>
+            <span>M0 A0 R0 I0 P+2</span>
+          </div>
+          <div class="abilities">
+            <div class="abil"><b>Dweomer Burst</b>When the mote is reduced to 0 Stamina, each enemy adjacent to the mote has a bane on their next strike.</div>
+            <div class="abil"><b>Catalyst</b>Once per turn, the mote can transform into an adjacent allied signature minion, maintaining their current Stamina. Alternatively, she can <strong>spend 1 essence</strong> to transform the mote into any signature minion in the elemental portfolio she doesn't have, as if she summoned the new minion into the mote's space.</div>
+          </div>
+          <div class="keywords">Elemental</div>
+        </div>
+
+        <div class="minion-card signature">
+          <div class="head">
+            <div class="name">Brisk Gale</div>
+            <div class="role sig">Harrier</div>
+          </div>
+          <div class="stat-line">
+            <span>Cost <strong>1</strong></span>
+            <span>Count <strong>1</strong></span>
+            <span>Size <strong>1S</strong></span>
+            <span>Speed <strong>5</strong></span>
+            <span>Stamina <strong>2</strong></span>
+            <span>Stab <strong>0</strong></span>
+            <span>FS <strong>1</strong> (sonic)</span>
+            <span>Sonic R</span>
+            <span>Fly</span>
+            <span>M−2 A+2 R0 I0 P+1</span>
+          </div>
+          <div class="abilities">
+            <div class="abil"><b>Cutting the Air</b>The gale doesn't provoke opportunity attacks by moving.</div>
+            <div class="abil"><b>Whirlwind</b>When the gale is reduced to 0 Stamina, winds whip in their space until the end of the encounter. Pelorajax or an ally that enters this space or starts their turn there can immediately shift (including vertically).</div>
+          </div>
+          <div class="keywords">Elemental (Air)</div>
+        </div>
+
+      </div>
+
+      <div class="callout draft">
+        <div class="label">Third Signature Slot — Open</div>
+        <p>The Summoner sheet provides space for three signature minions; only two are recorded on Pelorajax's printed sheet. The Elemental Mote's <em>Catalyst</em> ability is designed for this scenario — at any time, she can transform the mote into a signature minion she doesn't have, effectively rotating a third option into play. Worth confirming at Session Zero whether the third slot is intentionally left for Catalyst flexibility or whether a third signature should be locked in.</p>
+      </div>
+    </section>
+
+    <!-- VIII. PORTFOLIO -->
+    <section id="portfolio">
+      <h2 class="section-title">VIII. Portfolio Minions</h2>
+      <p>Non-signature minions are summoned at fixed cost via Call Forth. Pelorajax's printed portfolio contains five entries, drawn from the elements her circle commands.</p>
+
+      <div class="minion-grid">
+
+        <div class="minion-card">
+          <div class="head">
+            <div class="name">Fire Plume</div>
+            <div class="role">Artillery</div>
+          </div>
+          <div class="stat-line">
+            <span>Cost <strong>1</strong></span>
+            <span>Count <strong>1</strong></span>
+            <span>Size <strong>1T</strong></span>
+            <span>Speed <strong>5</strong></span>
+            <span>Stamina <strong>1</strong></span>
+            <span>Stab <strong>0</strong></span>
+            <span>FS <strong>2</strong> (fire)</span>
+            <span>Fire R</span>
+            <span>M−2 A+1 R0 I0 P+2</span>
+          </div>
+          <div class="abilities">
+            <div class="abil"><b>Spitfire Strike</b>The plume's ranged free strikes have a distance of 10.</div>
+            <div class="abil"><b>Pyre</b>When reduced to 0 Stamina, the plume's space becomes wreathed in flames until the end of the encounter. An enemy that enters or starts their turn there takes 2 fire damage.</div>
+          </div>
+          <div class="keywords">Elemental (Fire)</div>
+        </div>
+
+        <div class="minion-card">
+          <div class="head">
+            <div class="name">Walking Boulder</div>
+            <div class="role">Defender</div>
+          </div>
+          <div class="stat-line">
+            <span>Cost <strong>1</strong></span>
+            <span>Count <strong>1</strong></span>
+            <span>Size <strong>2</strong></span>
+            <span>Speed <strong>4</strong></span>
+            <span>Stamina <strong>3</strong></span>
+            <span>Stab <strong>R</strong></span>
+            <span>FS <strong>1</strong></span>
+            <span>Climb</span>
+            <span>M+2 A−2 R0 I0 P+1</span>
+          </div>
+          <div class="abilities">
+            <div class="abil"><b>Obstruct</b>The boulder obstructs line of effect for enemies.</div>
+            <div class="abil"><b>Pile Up (1 Essence)</b>When one or more boulders is reduced to 0 Stamina, each leaves behind a stone wall equal to their size in their space until the end of the encounter.</div>
+          </div>
+          <div class="keywords">Elemental (Earth)</div>
+        </div>
+
+        <div class="minion-card">
+          <div class="head">
+            <div class="name">Crux of Ash</div>
+            <div class="role">Ambusher</div>
+          </div>
+          <div class="stat-line">
+            <span>Cost <strong>3</strong></span>
+            <span>Count <strong>2</strong></span>
+            <span>Size <strong>1M</strong></span>
+            <span>Speed <strong>5</strong></span>
+            <span>Stamina <strong>6|6</strong></span>
+            <span>Stab <strong>0</strong></span>
+            <span>FS <strong>5</strong></span>
+            <span>Fire R, Sonic R</span>
+            <span>Fly</span>
+            <span>M−2 A−2 R0 I0 P+1</span>
+          </div>
+          <div class="abilities">
+            <div class="abil"><b>Soot Strike</b>The crux's melee free strikes m&lt;v automatically hide each ally from the target until the start of the crux's next turn, until the target uses a maneuver to clear the soot, until the crux takes damage, or until the crux is destroyed.</div>
+            <div class="abil"><b>Ashen Cloud (1 Essence)</b>When reduced to 0 Stamina, the area within 1 square of the crux is clouded by ash until dispersed by wind. Pelorajax or allies are concealed in affected squares; enemies can't establish line of effect through the ash.</div>
+          </div>
+          <div class="keywords">Elemental (Fire, Air)</div>
+        </div>
+
+        <div class="minion-card">
+          <div class="head">
+            <div class="name">Desolation of Sand</div>
+            <div class="role">Hexer</div>
+          </div>
+          <div class="stat-line">
+            <span>Cost <strong>3</strong></span>
+            <span>Count <strong>2</strong></span>
+            <span>Size <strong>1M</strong></span>
+            <span>Speed <strong>5</strong></span>
+            <span>Stamina <strong>5|5</strong></span>
+            <span>Stab <strong>1</strong></span>
+            <span>FS <strong>4</strong></span>
+            <span>Sonic R</span>
+            <span>Burrow</span>
+            <span>M+1 A+2 R0 I0 P−2</span>
+          </div>
+          <div class="abilities">
+            <div class="abil"><b>Burying Strike</b>Free strikes inflict m&lt;v slowed (save ends). If the target is already slowed, they are m&lt;s restrained (EoT).</div>
+            <div class="abil"><b>Sand Through Your Fingers</b>Doesn't provoke opportunity attacks by moving.</div>
+            <div class="abil"><b>Shifting Sand Pit (1 Essence)</b>When reduced to 0 Stamina, the area within 1 square becomes difficult terrain for enemies until end of encounter. Allies entering can immediately shift 3.</div>
+          </div>
+          <div class="keywords">Elemental (Air, Earth)</div>
+        </div>
+
+        <div class="minion-card">
+          <div class="head">
+            <div class="name">Flow of Magma</div>
+            <div class="role">Harrier</div>
+          </div>
+          <div class="stat-line">
+            <span>Cost <strong>3</strong></span>
+            <span>Count <strong>2</strong></span>
+            <span>Size <strong>1L</strong></span>
+            <span>Speed <strong>5</strong></span>
+            <span>Stamina <strong>6|6</strong></span>
+            <span>Stab <strong>2</strong></span>
+            <span>FS <strong>4</strong> (fire)</span>
+            <span>Fire R</span>
+            <span>Climb</span>
+            <span>M+2 A−2 R0 I0 P+1</span>
+          </div>
+          <div class="abilities">
+            <div class="abil"><b>Molten Strike (Signature Ability)</b>2d10 + R · Main action · Magic, Melee, Strike · Melee 2 · One creature or object per minion. Tier 1: 4 fire damage; shift 3. Tier 2: 6 fire damage; shift 4. Tier 3: 8 fire damage; shift 5. Each square the flow shifts into becomes wreathed in flames until the start of its next turn; an enemy entering takes 2 damage.</div>
+            <div class="abil"><b>Eruption (1 Essence)</b>When reduced to 0 Stamina, the flow launches lava into an area equal to 1 + its size within 5 squares. Affected area becomes difficult terrain for enemies until end of encounter. Enemies entering or starting their turn take a&lt;v 4 fire damage.</div>
+          </div>
+          <div class="keywords">Elemental (Fire, Earth)</div>
+        </div>
+
+      </div>
+
+      <div class="callout mauve">
+        <div class="label">The Loadout's Shape</div>
+        <p>Two signatures are cheap and supportive (transform-the-mote, shift-the-allies). The 1-cost portfolio minions add a fire-damage zone (Plume) and a wall-leaving tank (Boulder). The three 3-cost double-stack minions (Crux of Ash, Desolation of Sand, Flow of Magma) form the workhorse line — multi-element keywords, persistent battlefield effects on death, and in the case of Flow of Magma, a signature ability that <em>her minion</em> uses as a main action. Pelorajax doesn't fight the battle; she <em>composes</em> it.</p>
+      </div>
+    </section>
+
+    <!-- IX. SUMMONER'S KIT -->
+    <section id="summoner-strike">
+      <h2 class="section-title">IX. Summoner's Kit</h2>
+      <p>The character sheet has a Summoner's Kit area for Implement, Wards, and kit-derived stats. These fields are blank on the printed sheet. Her Summoner Strike (Section V) is the always-on baseline attack regardless of kit selection.</p>
+      <div class="callout draft">
+        <div class="label">To-Do — Kit Selection</div>
+        <p>The Implement, Wards, and kit stat-blocks (speed/disengage/stamina/stability/melee dist/ranged dist/melee dam/ranged dam/potency) are unrecorded on the sheet. If the Summoner class requires a kit selection at level 1, this is a session-zero item.</p>
+      </div>
+    </section>
+
+    <!-- X. CULTURE & CAREER -->
+    <section id="culture">
+      <h2 class="section-title">X. Culture &amp; Career</h2>
+
+      <h3 class="subhead">Culture</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Element</th><th>Choice &amp; Note</th></tr></thead>
+        <tbody>
+          <tr><td>Environment</td><td><strong>Secluded</strong></td></tr>
+          <tr><td>Organization</td><td><strong>Bureaucratic</strong></td></tr>
+          <tr><td>Upbringing</td><td><strong>Martial</strong></td></tr>
+          <tr><td>Languages</td><td><strong>Vastariax, Anjali, Voll</strong></td></tr>
+        </tbody>
+      </table>
+      <p><em>A secluded, bureaucratic, martial culture is the formation profile of a covert order: cloistered, lawful, and trained for violence. The three languages are a working spy's kit: Vastariax (a draconic-order tongue), Anjali (broad institutional reach), Voll (kuran'zoi / time-raider trade). The Polder-Bureaucratic / Martial profile would fit a wyrmkin warrior-monk who was seconded to intelligence duty.</em></p>
+
+      <h3 class="subhead">Career — Agent</h3>
+      <h4 class="entry-label">Career Benefit — Gum up the Works</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Gum up the Works</div>
+        <div class="ability-meta">Triggered Action · Self · Trigger: A mundane trap activates within 3 squares of you</div>
+        <div class="ability-desc">
+          <p>Pelorajax can move up to 3 squares toward the trap. If this movement brings her adjacent to any of the trap's mechanisms, she can jam the trap, preventing it from activating. As long as she stays adjacent to the mechanism, the trap can't go off unless an attempt to disarm it fails.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- XI. SKILLS -->
+    <section id="skills">
+      <h2 class="section-title">XI. Skills &amp; Languages <span class="draft-tag">verify</span></h2>
+      <div class="callout draft">
+        <div class="label">Skill List — To Confirm</div>
+        <p>The character sheet PDF shows the skill list as a printed grid with diamond-bullet selectors (<em>◊</em>). The selectors that are filled (vs. empty) are not unambiguously legible from the PDF extract. The languages list (Vastariax, Anjali, Voll) is the only certainly-recorded item. <strong>Specific skill selections should be reviewed against the original sheet</strong> — they could not be extracted reliably from the PDF text alone.</p>
+      </div>
+      <h3 class="subhead">Languages</h3>
+      <p>Vastariax, Anjali, Voll <em>(possibly plus a default — to verify)</em>.</p>
+    </section>
+
+    <!-- XII. COMPLICATION -->
+    <section id="complication">
+      <h2 class="section-title">XII. Complication — Lost Your Head</h2>
+      <p>Pelorajax has no head. She functions by borrowing one.</p>
+
+      <h4 class="entry-label">Share Head</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Share Head</div>
+        <div class="ability-flavor">You don't have a head but can psionically borrow another.</div>
+        <div class="ability-meta">Maneuver · Psionic, Ranged 10 · One willing creature</div>
+        <div class="ability-desc">
+          <p>Pelorajax can see, hear, and smell as if she were in the target's space. Additionally, she can borrow their mouth to speak when she wishes to do so, speaking in her own voice. This effect ends when she uses Share Head on a different target, when the target moves more than 10 squares away from her, or when the creature is no longer willing to share their head with her.</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Lost Your Head Drawback</h4>
+      <p>Having no head, Pelorajax <strong>can't see, hear, smell, taste, or verbalize</strong> except by using Share Head. Additionally, she <strong>can't wear gear that requires a head</strong>, such as a helmet or hat.</p>
+
+      <div class="callout warn">
+        <div class="label">The Operational Reality</div>
+        <p>The complication is the character's defining mechanical fact. Without Share Head active, Pelorajax is functionally sensorily inert — she cannot see her surroundings, cannot hear conversation, cannot speak. Maintaining a willing host (an ally, a familiar, a friendly stranger) is a baseline operational requirement, like an oxygen supply for a diver. Her social life depends on someone <em>letting</em> her use their head. The Spies and Lovers incident hands the complication its emotional weight: the last person she trusted to that extent betrayed her, or was betrayed by her, or died for her.</p>
+      </div>
+      <div class="callout mauve">
+        <div class="label">Tactical Implications</div>
+        <p>In combat, Pelorajax's typical play is: Share Head on an ally (maneuver, no essence) to establish her senses, then Call Forth her minions (main action, essence cost) to do the fighting. If her host falls, moves out of range, or revokes willingness, she goes blind. Her minions are an answer to this — a Flow of Magma or Crux of Ash extends her presence onto the battlefield without requiring she leave the host's perceptual field. The summoning is the strategy <em>and</em> the workaround.</p>
+      </div>
+    </section>
+
+    <!-- XIII. INCIDENT -->
+    <section id="incident">
+      <h2 class="section-title">XIII. Inciting Incident — Spies and Lovers</h2>
+      <p>From the Draw Steel inciting incident: <em>"While embedded in an undercover assignment, you fell for someone on the other side. They discovered you were a double-agent and though you insisted your feelings were real, the deceit cut too deep for your love interest to ignore. They exposed you, spurned you, or died because of their closeness to you. You left the espionage business to become a hero with nothing to hide."</em></p>
+      <div class="callout">
+        <div class="label">What's Established</div>
+        <ul style="margin:0.4rem 0;padding-left:1.4rem;">
+          <li>Pelorajax was embedded in an undercover assignment as an Agent.</li>
+          <li>She fell for someone on the other side.</li>
+          <li>That person discovered she was a double agent.</li>
+          <li>She insisted her feelings were real. They were not enough.</li>
+          <li>The love interest <em>exposed her, spurned her, or died because of their closeness to her</em> — one of three (Director's call).</li>
+          <li>She left the espionage business.</li>
+          <li>She is now a hero, with — per the incident's phrase — <em>"nothing to hide."</em></li>
+        </ul>
+      </div>
+      <div class="callout warn">
+        <div class="label">The Joke and the Wound</div>
+        <p>The Inciting Incident says she became <em>"a hero with nothing to hide,"</em> and the character sheet says she literally has no head — nowhere to hide her face. The complication and the incident rhyme. Whether her headlessness pre-dated the assignment (and the complication is unrelated to the incident) or whether the lost head is a consequence of the cover blowing (a punishment, a price, a sacrifice) is unrecorded. Worth specifying at Session Zero, because the answer changes who she is.</p>
+      </div>
+    </section>
+
+    <!-- XIV. CAMPAIGN -->
+    <section id="campaign">
+      <h2 class="section-title">XIV. Position in Collateral <span class="draft-tag">draft</span></h2>
+      <div class="callout draft">
+        <div class="label">Provisional · Drawn from Campaign Concept</div>
+        <p>The Collateral campaign concept does not list Pelorajax in its primary roster — the character was created after the campaign was first drafted, alongside Brenn &amp; Hroga, to test the new Summoner and Beastheart classes. Connecting her to the campaign's central premise is a Session Zero exercise.</p>
+      </div>
+
+      <p>The premise: the player characters wake in the same holding cell in Alloy and are told <em>"The debt has defaulted. You belong to the Saffron Seal now."</em> Pelorajax's position in the cell is the most operationally complex of any prisoner: she <em>cannot perceive the cell</em> until she Share Heads someone in it, and the room is full of strangers. Her first action upon waking will be the question of whose head to ask to borrow.</p>
+
+      <h3 class="subhead">Role on the Team</h3>
+      <p>Combat: <strong>summoner — battlefield composition.</strong> Two signature minions on permanent call; five portfolio minions in reserve; Strike for Me allows multi-target free strikes from her squad on a single triggered action; Quick Command: Shield! redirects strikes to adjacent minions. She is the character who occupies the most board space and the least personal space — she is barely on the board at all, and her minions are everywhere.</p>
+      <p>Out of combat: <strong>Heart of Nature radius (1 mile) for elementals and dragons; agent skill suite; Gum up the Works for trap-jamming; Share Head for borrowed reconnaissance.</strong> She is the team's natural surveillance specialist — she can use Share Head on a willing ally to extend her senses into a different room while her body stays elsewhere.</p>
+
+      <h3 class="subhead">Faction Connections</h3>
+      <p>Her past as an Agent implies a former employer. The campaign concept does not yet identify the agency. Candidates from the wider timescape — a draconic order, an intelligence service of one of the Seven Cities or Axiom, the Watch Officers — are all available. Whoever ran her may also be a candidate for who named her as collateral. To be developed.</p>
+    </section>
+
+    <!-- XV. ARC -->
+    <section id="arc">
+      <h2 class="section-title">XV. Character Arc</h2>
+      <p>Three threads pull through Pelorajax's sheet.</p>
+      <p>The first is <strong>trust</strong>. Share Head requires a willing target. Lost Your Head says she has nothing else. Spies and Lovers is the story of the last time her trust failed catastrophically. The campaign asks whether she can build the kind of trust the complication mechanically requires — and what happens when she can't.</p>
+      <p>The second is <strong>the storm she has chosen</strong>. Circle of Storms is not a defensive subclass. Elemental Affinity rewards aggressive summoning; her portfolio leans on fire and persistent-area effects; Flow of Magma's signature ability is a damage-and-displacement spell <em>her minion casts</em>. She summons violence to a degree that suggests she has decided she is not done fighting, even if she has put down the spy work.</p>
+      <p>The third is <strong>nothing to hide</strong>. The Inciting Incident gives her the line; the body she is in delivers it without subtlety. She is the most visibly altered character in the cell, and she is in a city where every public conversation passes through borrowed mouths. The campaign asks whether she can do the work of being a hero — visible, present, named — when her presence and her name are the things that ended the last person she loved.</p>
+    </section>
+
+    <!-- COLOPHON -->
+    <footer class="colophon">
+      <span class="ornament">✦  ✦  ✦</span>
+      <div><span class="accent">Heraldic Record · Circle of Storms · Cell vii · Free City of Brass</span></div>
+      <div style="margin-top:0.4rem;">Pelorajax · DragonKnight · Summoner · Circle of Storms · Level 1 · Debt-holder: The Saffron Seal</div>
+      <div style="margin-top:0.4rem;">Sheet mechanics: per printed PDF. Campaign frame: provisional, subject to Session Zero.</div>
+      <div style="margin-top:0.4rem;"><span class="accent">Status: start of campaign · Inciting Incident: Spies and Lovers · Open: third signature, kit, skill verification, host-for-Share-Head</span></div>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

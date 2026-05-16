@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pleyte — Maike Oostgracht</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=UnifrakturCook:wght@700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Maike: a sober civic broadsheet, Reformation Holland. Cream laid
+       paper, black ink, restrained ornament. The colours of her dress —
+       yellow and blue — show only at the rosette accents. */
+    --paper: #ede5cf;
+    --paper-deep: #d8cfa8;
+    --paper-edge: #b8ad84;
+    --paper-shadow: #8c8260;
+    --laid: rgba(60,40,20,0.03);
+
+    --ink: #1a140a;
+    --ink-soft: #3a2c1a;
+    --ink-faint: #6a5840;
+    --ink-ghost: #9a8868;
+
+    --vermilion: #8a1414;
+    --vermilion-deep: #4a0808;
+    --vermilion-bright: #b82020;
+
+    --bonnet: #f0e8d0;
+    --gown: #c89028;
+    --gown-deep: #8a6418;
+    --ribbon: #2a4868;
+    --ribbon-deep: #14283c;
+    --ribbon-pale: #6890b8;
+
+    --blush: #b04848;
+    --blush-soft: #c87878;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:#1c160c; color:var(--ink); font-family:'EB Garamond', Garamond, Georgia, serif; font-size:16px; line-height:1.65; }
+  body {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(138,20,20,0.08) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, #2a1f10 0%, #1c160c 60%, #100a04 100%);
+    min-height: 100vh; padding: 2.5rem 1rem;
+  }
+  body::before {
+    content:''; position:fixed; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch' seed='6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events:none; z-index:1000; mix-blend-mode:multiply; opacity:0.5;
+  }
+
+  .document {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--paper);
+    position: relative;
+    /* laid-paper effect via horizontal lines + slight tone variance */
+    background-image:
+      /* foxed corners */
+      radial-gradient(circle at 0% 0%, rgba(138,20,20,0.06) 0%, transparent 20%),
+      radial-gradient(circle at 100% 0%, rgba(138,20,20,0.05) 0%, transparent 18%),
+      radial-gradient(circle at 100% 100%, rgba(138,20,20,0.06) 0%, transparent 20%),
+      radial-gradient(circle at 0% 100%, rgba(138,20,20,0.05) 0%, transparent 18%),
+      /* paper laid-lines */
+      repeating-linear-gradient(0deg, transparent 0 22px, rgba(60,40,20,0.025) 22px 23px),
+      /* chain lines (vertical, wider apart) */
+      repeating-linear-gradient(90deg, transparent 0 120px, rgba(60,40,20,0.04) 120px 121px),
+      /* paper tone variance */
+      linear-gradient(180deg, rgba(237,229,207,1) 0%, rgba(216,207,168,1) 100%);
+    box-shadow:
+      0 0 0 1px var(--ink),
+      0 0 0 8px var(--paper),
+      0 0 0 9px var(--ink),
+      0 30px 80px rgba(0,0,0,0.7);
+  }
+
+  .doc-inner { padding: 4rem 4rem 4rem; position:relative; }
+
+  /* DEFAULT STAMP — overlaid red mark across the top */
+  .default-stamp {
+    position: absolute;
+    top: 28px; right: 28px;
+    color: var(--vermilion);
+    border: 3px solid var(--vermilion);
+    padding: 0.3rem 1rem;
+    font-family:'EB Garamond', serif;
+    font-weight: 800;
+    font-size: 0.9rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    transform: rotate(8deg);
+    background: rgba(237,229,207,0.4);
+    box-shadow: 0 0 0 1px var(--paper) inset;
+    z-index: 5;
+  }
+  .default-stamp::before {
+    content:'';
+    position: absolute; inset: -2px;
+    border: 1px solid var(--vermilion);
+    pointer-events: none;
+  }
+
+  /* MASTHEAD — frontispiece-style */
+  .masthead {
+    text-align: center;
+    margin-bottom: 1.6rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--ink);
+    position: relative;
+  }
+  .masthead::after {
+    content:''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%);
+    width: 60px; height: 1px; background: var(--ink);
+  }
+  .masthead .top-rule {
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.6rem;
+  }
+  .masthead .top-rule::after {
+    display: block;
+    content: '';
+    border-bottom: 1px solid var(--ink);
+    margin-top: 3px;
+  }
+  .masthead .title {
+    font-family:'UnifrakturCook', 'UnifrakturMaguntia', serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin: 0.4rem 0;
+  }
+  .masthead .subtitle {
+    font-family:'EB Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    margin-top: 0.2rem;
+  }
+  .masthead .place {
+    font-family:'EB Garamond', serif;
+    font-size: 0.84rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 0.4rem;
+  }
+
+  /* invocation under the masthead */
+  .invocation {
+    text-align: center;
+    font-style: italic;
+    font-size: 1.02rem;
+    color: var(--ink-soft);
+    margin: 0 auto 2.4rem;
+    max-width: 60ch;
+    line-height: 1.6;
+    padding: 0 1rem;
+  }
+  .invocation .quoted::before { content: '“'; color: var(--vermilion); font-size: 1.6em; line-height: 0; vertical-align: -0.3em; margin-right: 0.1em; }
+  .invocation .quoted::after { content: '”'; color: var(--vermilion); font-size: 1.6em; line-height: 0; vertical-align: -0.3em; margin-left: 0.1em; }
+  .invocation .attr {
+    display: block;
+    margin-top: 0.6rem;
+    font-style: normal;
+    font-family:'EB Garamond', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 2.5rem;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+  }
+  .portrait-frame {
+    width: 100%;
+    position: relative;
+    padding: 4px;
+    background: var(--ink);
+    box-shadow:
+      0 0 0 1px var(--ink),
+      0 0 0 5px var(--paper),
+      0 0 0 6px var(--ink),
+      0 10px 28px rgba(0,0,0,0.4);
+  }
+  .portrait-frame img {
+    width:100%; display:block;
+    filter: contrast(1.02) saturate(0.92);
+  }
+  .portrait-caption {
+    margin-top: 1rem;
+    font-family:'EB Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    text-align: center;
+    line-height: 1.5;
+    border-top: 1px solid var(--ink-soft);
+    border-bottom: 1px solid var(--ink-soft);
+    padding: 0.5rem 0;
+  }
+  .portrait-caption .name { display: block; font-style: normal; font-weight: 600; color: var(--ink); letter-spacing: 0.04em; }
+
+  /* rosette / fleuron sigil — small ornament beneath portrait */
+  .fleuron {
+    text-align: center;
+    margin-top: 0.8rem;
+    font-size: 1.4rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.4em;
+  }
+
+  .hero-text { padding-top: 0.2rem; }
+  .eyebrow {
+    font-family:'EB Garamond', serif;
+    font-size: 0.86rem;
+    font-style: italic;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+    margin-bottom: 0.3rem;
+  }
+  .eyebrow .sep { color: var(--ink-ghost); margin: 0 0.4em; }
+
+  h1.character-name {
+    font-family:'EB Garamond', serif;
+    font-weight: 800;
+    font-size: 4.4rem;
+    line-height: 0.95;
+    color: var(--ink);
+    margin: 0.2rem 0 0.3rem;
+    letter-spacing: -0.005em;
+  }
+  h1.character-name .surname {
+    display: block;
+    font-family:'UnifrakturCook', serif;
+    font-weight: 700;
+    font-size: 0.6em;
+    color: var(--vermilion-deep);
+    margin-top: 0.2rem;
+    letter-spacing: 0.02em;
+  }
+  h1.character-name .epithet {
+    display: block;
+    font-family:'EB Garamond', serif;
+    font-style: italic;
+    font-size: 0.22em;
+    font-weight: 500;
+    color: var(--ink-soft);
+    letter-spacing: 0.12em;
+    margin-top: 0.7rem;
+  }
+
+  .tagline {
+    font-style: italic;
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    margin: 1rem 0 1.2rem;
+    max-width: 52ch;
+    line-height: 1.55;
+    border-left: 3px double var(--ink-soft);
+    padding-left: 1rem;
+  }
+
+  .vitals-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    font-family:'EB Garamond', serif;
+    font-style: italic;
+    font-size: 0.94rem;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: 0.55rem 0;
+    margin-top: 1.2rem;
+  }
+  .vitals-row .v { border-left: 1px solid var(--ink-ghost); padding: 0.1rem 0.85rem; white-space: nowrap; }
+  .vitals-row .v:first-child { border-left: none; padding-left: 0; }
+  .vitals-row .v strong { color: var(--ink); font-weight: 700; margin-left: 0.4em; font-style: normal; }
+  .vitals-row .v.acc strong { color: var(--vermilion-deep); }
+  .vitals-row .v.gown strong { color: var(--gown-deep); }
+  .vitals-row .v.ribbon strong { color: var(--ribbon-deep); }
+
+  /* TOC — Inhoud — table-of-contents like a chapter list */
+  nav.toc {
+    border-top: 3px double var(--ink);
+    border-bottom: 3px double var(--ink);
+    padding: 1.2rem 1.6rem;
+    margin-bottom: 2.8rem;
+    columns: 2;
+    column-gap: 2.4rem;
+    position: relative;
+  }
+  nav.toc::before {
+    content: 'Inhoud';
+    position: absolute; top: -16px; left: 50%; transform: translateX(-50%);
+    background: var(--paper);
+    padding: 0 1.2rem;
+    font-family:'UnifrakturCook', serif;
+    font-size: 1.4rem;
+    color: var(--ink);
+  }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+  nav.toc ol li { counter-increment: toc; font-size: 1rem; margin-bottom: 0.3rem; break-inside: avoid; font-style: italic; }
+  nav.toc ol li::before { content: counter(toc, decimal-leading-zero) ".  "; color: var(--vermilion-deep); font-weight: 700; font-style: normal; }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--vermilion); text-decoration: underline; }
+
+  section { margin-bottom: 3rem; }
+
+  h2.section-title {
+    font-family:'EB Garamond', serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: var(--ink);
+    margin: 0 0 1.1rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid var(--ink);
+    letter-spacing: 0.01em;
+    position: relative;
+  }
+  h2.section-title::after {
+    content: '';
+    display: block;
+    border-bottom: 1px solid var(--ink);
+    margin-top: 2px;
+    width: 100%;
+  }
+  h2.section-title .num {
+    font-family:'EB Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--vermilion-deep);
+    margin-right: 0.5rem;
+  }
+
+  h3.subhead {
+    font-family:'EB Garamond', serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--ink);
+    margin: 1.6rem 0 0.4rem;
+  }
+  h3.subhead::before { content: '— '; color: var(--vermilion-deep); }
+
+  h4.entry-label {
+    font-family:'EB Garamond', serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin: 1.3rem 0 0.4rem;
+    border-bottom: 1px solid var(--ink-faint);
+    padding-bottom: 0.2rem;
+  }
+
+  p { margin: 0.7rem 0; }
+  p.drop-cap::first-letter {
+    font-family:'UnifrakturCook', serif;
+    font-size: 4rem;
+    float: left;
+    line-height: 0.85;
+    margin: 0.2rem 0.5rem -0.1rem 0;
+    color: var(--vermilion-deep);
+  }
+  em { font-style: italic; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 700; }
+
+  /* STAT GRID — civic ledger */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin: 1.5rem 0;
+    border: 1px solid var(--ink);
+  }
+  .stat-cell {
+    padding: 0.9rem 0.6rem;
+    text-align: center;
+    border-right: 1px solid var(--ink);
+    background: rgba(60,40,20,0.02);
+  }
+  .stat-cell:last-child { border-right: none; }
+  .stat-cell .label {
+    font-family:'EB Garamond', serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-faint);
+    margin-bottom: 0.25rem;
+  }
+  .stat-cell .value {
+    font-family:'EB Garamond', serif;
+    font-weight: 800;
+    font-size: 2.4rem;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .stat-cell .gloss {
+    font-family:'EB Garamond', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    margin-top: 0.4rem;
+    line-height: 1.3;
+  }
+  .stat-cell.high { background: rgba(42,72,104,0.08); }
+  .stat-cell.high .value { color: var(--ribbon-deep); }
+  .stat-cell.neg .value { color: var(--vermilion-deep); }
+
+  /* STATUS — three pools as small almanac boxes */
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .status-cell {
+    border: 1px solid var(--ink);
+    background: rgba(60,40,20,0.04);
+    padding: 1rem;
+  }
+  .status-cell .label {
+    font-family:'EB Garamond', serif;
+    font-style: italic;
+    font-size: 0.96rem;
+    color: var(--ink-soft);
+    margin-bottom: 0.2rem;
+  }
+  .status-cell .value {
+    font-family:'EB Garamond', serif;
+    font-weight: 800;
+    font-size: 2.4rem;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .status-cell .value .sub { font-size: 0.4em; color: var(--ink-faint); font-weight: 400; }
+  .status-cell .note {
+    font-family:'EB Garamond', serif;
+    font-style: italic;
+    font-size: 0.84rem;
+    color: var(--ink-faint);
+    margin-top: 0.5rem;
+    line-height: 1.4;
+  }
+  .status-cell .bar { height: 4px; background: rgba(0,0,0,0.08); margin-top: 0.5rem; }
+  .status-cell .bar .fill { height: 100%; background: var(--ink); }
+  .status-cell .bar.gown .fill { background: var(--gown-deep); }
+  .status-cell .bar.ribbon .fill { background: var(--ribbon-deep); }
+
+  /* TABLES */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.98rem;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+  table.dossier-table th, table.dossier-table td {
+    text-align: left;
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--ink-faint);
+    vertical-align: top;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+  table.dossier-table th {
+    font-family:'EB Garamond', serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 0.94rem;
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+    background: rgba(60,40,20,0.04);
+  }
+  table.dossier-table td:first-child { font-weight: 700; color: var(--ink); width: 30%; }
+
+  /* ABILITY BLOCKS — devotion entries */
+  .ability-block {
+    border: 1px solid var(--ink);
+    background: rgba(60,40,20,0.025);
+    padding: 1rem 1.2rem;
+    margin: 0.9rem 0;
+    position: relative;
+  }
+  .ability-block.signature { border-left: 4px solid var(--vermilion-deep); }
+  .ability-block.core { border-left: 4px solid var(--ribbon-deep); background: rgba(42,72,104,0.04); }
+  .ability-block.domain { border-left: 4px solid var(--gown-deep); background: rgba(200,144,40,0.04); }
+  .ability-block .ability-name {
+    font-family:'UnifrakturCook', serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+  .ability-block .ability-flavor {
+    font-family:'EB Garamond', serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+  .ability-block .ability-meta {
+    font-family:'EB Garamond', serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    margin-bottom: 0.5rem;
+    border-bottom: 1px dotted var(--ink-faint);
+    padding-bottom: 0.4rem;
+  }
+  .tier-roll {
+    margin-top: 0.6rem;
+    padding: 0.5rem 0.9rem;
+    background: rgba(0,0,0,0.04);
+    border-left: 3px solid var(--vermilion-deep);
+    font-size: 0.96rem;
+  }
+  .tier-roll .tier-label {
+    font-family:'EB Garamond', serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .tier-roll .tier { display: block; margin: 0.15rem 0; }
+  .tier-roll .tier b { color: var(--vermilion-deep); }
+
+  /* CALLOUTS */
+  .callout {
+    border: 1px solid var(--ink-soft);
+    background: rgba(60,40,20,0.05);
+    padding: 0.9rem 1.2rem;
+    margin: 1.2rem 0;
+    border-left: 4px solid var(--ribbon-deep);
+    font-family:'EB Garamond', serif;
+  }
+  .callout.warn {
+    border: 1px solid var(--vermilion);
+    background: rgba(138,20,20,0.06);
+    border-left: 4px solid var(--vermilion-deep);
+  }
+  .callout.draft {
+    border: 1px dashed var(--ink-faint);
+    background: rgba(0,0,0,0.02);
+    border-left: 4px dashed var(--ink-faint);
+  }
+  .callout .label {
+    font-family:'EB Garamond', serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.02rem;
+    color: var(--ribbon-deep);
+    margin-bottom: 0.3rem;
+  }
+  .callout.warn .label { color: var(--vermilion-deep); }
+  .callout.draft .label { color: var(--ink-faint); }
+  .callout p { margin: 0.3rem 0; }
+
+  .draft-tag {
+    display: inline-block;
+    font-family:'EB Garamond', serif;
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--vermilion-deep);
+    border: 1.5px solid var(--vermilion-deep);
+    padding: 0.05rem 0.45rem;
+    text-transform: uppercase;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    background: rgba(237,229,207,0.7);
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.4rem;
+  }
+  .skill-group .group-label {
+    font-family:'UnifrakturCook', serif;
+    font-size: 1.5rem;
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 0.1rem;
+    margin-bottom: 0.4rem;
+    line-height: 1;
+  }
+  .skill-group ul { list-style: none; margin: 0; padding: 0; font-size: 0.96rem; }
+  .skill-group ul li { padding: 0.18rem 0; border-bottom: 1px dotted var(--ink-faint); display: flex; justify-content: space-between; }
+  .skill-group ul li .src { font-size: 0.78rem; color: var(--ink-faint); font-style: italic; }
+
+  /* FOOTER */
+  footer.colophon {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 3px double var(--ink);
+    font-family:'EB Garamond', serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    text-align: center;
+  }
+  footer.colophon .accent { color: var(--vermilion-deep); font-weight: 700; font-style: normal; }
+  footer.colophon .printer {
+    margin-top: 0.6rem;
+    font-family:'UnifrakturCook', serif;
+    font-size: 1.2rem;
+    color: var(--ink);
+    font-style: normal;
+  }
+
+  @media (max-width: 780px) {
+    .doc-inner { padding: 2rem 1.5rem 3rem; }
+    .hero { grid-template-columns: 1fr; }
+    .portrait-frame { width: 60%; margin: 0 auto; }
+    h1.character-name { font-size: 3rem; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .status-grid { grid-template-columns: 1fr; }
+    nav.toc { columns: 1; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .default-stamp { font-size: 0.7rem; padding: 0.2rem 0.6rem; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+  <div class="doc-inner">
+
+    <div class="default-stamp">Defaulted</div>
+
+    <!-- MASTHEAD -->
+    <div class="masthead">
+      <div class="top-rule"></div>
+      <div class="title">Pleyte der Susterheid</div>
+      <div class="subtitle">A pleading for the sanctuary, and an accounting of its proponent</div>
+      <div class="place">Free City of Brass · Cell vii · Default of the Saffron Seal</div>
+    </div>
+
+    <!-- INVOCATION -->
+    <div class="invocation">
+      <span class="quoted">In matters of faith, the sword has never converted the doubting heart, nor the cudgel quieted the praying tongue. There must be another way.</span>
+      <span class="attr">— from the sanctuary's founding petition (drafted)</span>
+    </div>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div>
+        <div class="portrait-frame">
+          <img src="Maike.png" alt="Maike Oostgracht, a young polder woman in a white bonnet and yellow dress with a blue ribbon">
+        </div>
+        <div class="portrait-caption">
+          <span class="name">Maike Oostgracht</span>
+          Disciple of the sanctuary
+        </div>
+        <div class="fleuron">❦ · ❦ · ❦</div>
+      </div>
+
+      <div class="hero-text">
+        <div class="eyebrow">Polder <span class="sep">·</span> Conduit <span class="sep">·</span> Domains of Love &amp; War</div>
+        <h1 class="character-name">
+          Maike
+          <span class="surname">Oostgracht</span>
+          <span class="epithet">Of Alloy — proponent of a sanctuary not yet built</span>
+        </h1>
+        <div class="tagline">
+          Her temple burned in a religious conflict; her seniors voted to repay the violence in kind. She would not. She petitioned instead for a place where every faith could be practised without fear, and she has been pushing that petition through Alloy's temple politics ever since. Now a debt she did not sign has put her in a cell.
+        </div>
+        <div class="vitals-row">
+          <span class="v">Level <strong>1</strong></span>
+          <span class="v">Size <strong>1S</strong></span>
+          <span class="v">Speed <strong>5</strong></span>
+          <span class="v">Stamina <strong>18</strong></span>
+          <span class="v gown">Piety <strong>0</strong></span>
+          <span class="v acc">Complication: <strong>Fiery Ideal</strong></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- TOC -->
+    <nav class="toc">
+      <ol>
+        <li><a href="#identity">Identity &amp; Calling</a></li>
+        <li><a href="#stats">Characteristics</a></li>
+        <li><a href="#piety">Piety &amp; Prayer</a></li>
+        <li><a href="#ancestry">Polder Traits</a></li>
+        <li><a href="#class">Conduit Class Features</a></li>
+        <li><a href="#domains">Domains of Love &amp; War</a></li>
+        <li><a href="#abilities">Selected Abilities</a></li>
+        <li><a href="#culture">Culture &amp; Career</a></li>
+        <li><a href="#skills">Skills &amp; Languages</a></li>
+        <li><a href="#complication">Complication — Fiery Ideal</a></li>
+        <li><a href="#incident">Inciting Incident — Freedom to Worship</a></li>
+        <li><a href="#campaign">Position in Collateral</a></li>
+        <li><a href="#arc">Character Arc</a></li>
+      </ol>
+    </nav>
+
+    <!-- I. IDENTITY -->
+    <section id="identity">
+      <h2 class="section-title"><span class="num">i.</span>Identity &amp; Calling</h2>
+      <p class="drop-cap">Maike Oostgracht is a polder — one of the small, numerous, diverse people who live among humans in Orden, share their gods, and frequently outlive any single human institution they keep faith with. She is Alloy-born, raised in the city's communal districts, schooled in the trades and arts of a creative upbringing, and turned at some point to clerical life in a temple of her own. That temple does not stand anymore.</p>
+
+      <p>Her class is <strong>Conduit</strong>. She is a vessel for divine power — not as the highest officer of any single institution but as one specially chosen, receiving abilities directly from the highest source. Her domains are an unusual pair: <strong>Love</strong> and <strong>War</strong>. The Love domain teaches her to soothe negotiations and assist others through her presence; the War domain prepares her for what happens when the soothing fails. The combination is not contradictory. It is the shape of her conviction.</p>
+
+      <p>Her project — currently stalled in Alloy's temple politics — is an <strong>interfaith sanctuary</strong>, a place where every faith of every world that crosses the timescape may be practised under one civic protection. The Saffron Seal's default warrant has interrupted this work. It is, to her, the central problem of the campaign.</p>
+    </section>
+
+    <!-- II. CHARACTERISTICS -->
+    <section id="stats">
+      <h2 class="section-title"><span class="num">ii.</span>Characteristics</h2>
+      <div class="stat-grid">
+        <div class="stat-cell neg"><div class="label">Might</div><div class="value">−1</div><div class="gloss">Small frame</div></div>
+        <div class="stat-cell neg"><div class="label">Agility</div><div class="value">−1</div><div class="gloss">No fighter</div></div>
+        <div class="stat-cell high"><div class="label">Reason</div><div class="value">+2</div><div class="gloss">Scholar's mind</div></div>
+        <div class="stat-cell high"><div class="label">Intuition</div><div class="value">+2</div><div class="gloss">Primary · the divine line</div></div>
+        <div class="stat-cell high"><div class="label">Presence</div><div class="value">+2</div><div class="gloss">Authority unearned</div></div>
+      </div>
+      <p><em>Three +2s in the mental and social characteristics, two −1s in the physical. The Conduit reads on Intuition; Maike's abilities all roll on it. Her +2 Presence is the voice that holds a room when she speaks at a temple synod, and the +2 Reason is what lets her recall the precedent and the parable at the right moment. She is a small polder who is not built to take a blow — which is why <em>Sanctuary Ward</em> exists.</em></p>
+
+      <div class="status-grid">
+        <div class="status-cell">
+          <div class="label">Stamina</div>
+          <div class="value">18<span class="sub"> / 18</span></div>
+          <div class="bar"><div class="fill" style="width:100%"></div></div>
+          <div class="note">Conduit class base. Winded at ≤ 9.</div>
+        </div>
+        <div class="status-cell">
+          <div class="label">Recoveries</div>
+          <div class="value">8<span class="sub"> / 8</span></div>
+          <div class="bar ribbon"><div class="fill" style="width:100%"></div></div>
+          <div class="note">Recovery value: 6.</div>
+        </div>
+        <div class="status-cell">
+          <div class="label">Piety</div>
+          <div class="value">0</div>
+          <div class="bar gown"><div class="fill" style="width:0%"></div></div>
+          <div class="note">Heroic resource. Gained by prayer at the start of each turn — at risk.</div>
+        </div>
+      </div>
+
+      <table class="dossier-table">
+        <thead><tr><th>Stat</th><th>Value &amp; Source</th></tr></thead>
+        <tbody>
+          <tr><td>Size</td><td><strong>1S</strong> (Small) — from polder <em>Small!</em></td></tr>
+          <tr><td>Speed</td><td><strong>5</strong> — polder base</td></tr>
+          <tr><td>Stability</td><td><strong>0</strong></td></tr>
+          <tr><td>Damage Immunity</td><td><strong>Corruption 3</strong> — Polder trait scales as <em>level + 2</em></td></tr>
+          <tr><td>Condition Immunity</td><td><strong>Frightened</strong> — Polder <em>Fearless</em></td></tr>
+          <tr><td>Range Bonus</td><td><strong>+2 squares</strong> to Magic, Ranged abilities — from <em>Prayer of Distance</em></td></tr>
+          <tr><td>Wealth</td><td><strong>1</strong></td></tr>
+          <tr><td>Renown / XP / Hero Tokens</td><td>0 / 0 / 0</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- III. PIETY -->
+    <section id="piety">
+      <h2 class="section-title"><span class="num">iii.</span>Piety &amp; Prayer</h2>
+      <p>The Conduit's heroic resource is <strong>Piety</strong>: divine favour that pools when she begins the day's work and is spent on direct petition. The mechanic is unique among the cell's heroic resources in that it depends on a die roll <em>and</em> on whether she chooses to pray for more.</p>
+
+      <table class="dossier-table">
+        <thead><tr><th>Trigger</th><th>Gain</th></tr></thead>
+        <tbody>
+          <tr><td>Start of your turn</td><td><strong>1d3</strong></td></tr>
+        </tbody>
+      </table>
+
+      <h4 class="entry-label">Prayer — A Risk Taken Aloud</h4>
+      <p>Before rolling for piety at the start of her turn, Maike may <em>pray</em> (no action required). Praying changes the roll's effects:</p>
+      <ul style="margin:0.3rem 0;padding-left:1.4rem;">
+        <li><strong>Roll of 1</strong> — She gains 1 additional piety, but angers the gods. She takes <strong>1d6 + level</strong> psychic damage that cannot be reduced in any way.</li>
+        <li><strong>Roll of 2</strong> — She gains 1 additional piety.</li>
+        <li><strong>Roll of 3</strong> — She gains 2 additional piety, and may activate a domain effect of her choice.</li>
+      </ul>
+      <div class="callout">
+        <div class="label">The Calculus of Asking</div>
+        <p>Prayer is the resource's identifying mechanic. Choosing whether to pray each turn is a small ritual the player performs at the table — accept the base roll, or risk a 1-in-3 chance of psychic damage for a chance at a domain effect and bonus piety. The choice is doctrinal. Some clerics pray every turn; some never do unless desperate; some bargain by the situation. The character builds itself in how the player handles the question.</p>
+      </div>
+    </section>
+
+    <!-- IV. ANCESTRY -->
+    <section id="ancestry">
+      <h2 class="section-title"><span class="num">iv.</span>Polder Traits</h2>
+      <p>Polders are, after humans, the most numerous and diverse ancestry in Orden. They are not humans, but they live among humans and share their gods and cultures. Almost every human culture in Orden has a polder saint, or a human saint venerated by polders. Maike was born among such a community.</p>
+
+      <h4 class="entry-label">Always Active — Shadowmeld</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Shadowmeld</div>
+        <div class="ability-flavor">You become an actual shadow.</div>
+        <div class="ability-meta">Maneuver · Self</div>
+        <div class="ability-desc">
+          <p>Maike flattens herself into a shadow against a wall or floor she is touching, and becomes hidden from any creature she has cover or concealment from or who isn't observing her. While in shadow form, she has full awareness of her surroundings, and strikes against her and tests made to search for her take a bane. She can't move or be force moved, and can't take main actions or maneuvers except to exit this form or to direct creatures under her control.</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Selected Polder Traits — 4 Ancestry Points</h4>
+      <table class="dossier-table">
+        <thead><tr><th>Trait</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>Small! <em>(baseline)</em></td><td>Size 1S. Diminutive stature lets her easily get out of — or into — trouble.</td></tr>
+          <tr><td>Reactive Tumble <em>(1 pt)</em></td><td>Triggered Action (free): Whenever Maike is force moved, she shifts 1 square after the forced movement is resolved.</td></tr>
+          <tr><td>Fearless <em>(2 pts)</em></td><td>Condition immunity to <strong>Frightened</strong>. Courage is all she knows.</td></tr>
+          <tr><td>Corruption Immunity <em>(1 pt)</em></td><td>Innate shadow magic grants her <strong>Corruption immunity = level + 2</strong> (<strong>3</strong> at L1).</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <div class="label">The Shape of the Spend</div>
+        <p>Four points spent on three traits — Fearless took half her budget. The selection reads as a person who has chosen, structurally, to be the one who does not flinch. Combined with the Inciting Incident (a temple destroyed; her seniors chose retaliation), the trait reads as character history made mechanical: she will not run, and the gods do not allow her to be terrified.</p>
+      </div>
+    </section>
+
+    <!-- V. CLASS FEATURES -->
+    <section id="class">
+      <h2 class="section-title"><span class="num">v.</span>Conduit Class Features</h2>
+      <p>The Conduit is the vessel for divine power. Maike heals her allies, buffs their action, and rains divine energy on her foes.</p>
+
+      <h4 class="entry-label">Always Available — Healing</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Healing Grace</div>
+        <div class="ability-flavor">Your divine energy restores the righteous.</div>
+        <div class="ability-meta">Maneuver · Magic, Ranged 10 (12 with Prayer of Distance) · Self or one ally</div>
+        <div class="ability-desc">
+          <p>The target can spend a Recovery.</p>
+          <p><strong>Spend piety (repeatable):</strong> For each piety spent, choose one enhancement:</p>
+          <ul style="margin:0.2rem 0;padding-left:1.4rem;">
+            <li>Target one additional ally within distance.</li>
+            <li>End one effect on a target that is ended by a saving throw or that ends at the end of their turn.</li>
+            <li>A prone target can stand up.</li>
+            <li>A target can spend 1 additional Recovery.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Always Available — The Cantrip</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Ray of Wrath</div>
+        <div class="ability-flavor">You unleash a blast of holy light upon your foe.</div>
+        <div class="ability-meta">Main Action · Magic, Ranged 10 (12) · One creature or object · <strong>Can be used as a ranged free strike</strong></div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Intuition</span>
+          <span class="tier"><b>Tier 1:</b> 2 + I damage</span>
+          <span class="tier"><b>Tier 2:</b> 4 + I damage</span>
+          <span class="tier"><b>Tier 3:</b> 6 + I damage</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Effect:</b> Maike can have this ability deal holy damage.</span>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Triggered Action — Word of Guidance</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Word of Guidance</div>
+        <div class="ability-flavor">You invigorate an attacking ally with divine energy.</div>
+        <div class="ability-meta">Triggered Action · Magic, Ranged 10 (12) · One ally · Trigger: The target makes an ability roll for a damage-dealing ability</div>
+        <div class="ability-desc">
+          <p>The power roll gains an <strong>edge</strong>.</p>
+          <p><strong>Spend 1 piety:</strong> The power roll has a <strong>double edge</strong>.</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Prayer Bonus — Prayer of Distance</h4>
+      <p><strong>Prayer of Distance</strong> — Maike's god has blessed her with the ability to stretch her divine magic farther. The distance of her Magic, Ranged abilities is increased by <strong>2 squares</strong>. (Her Ray of Wrath, Healing Grace, and Word of Guidance all therefore have effective range 12; the same applies to her signature and main-class abilities.)</p>
+
+      <h4 class="entry-label">Conduit Ward — Sanctuary</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Sanctuary Ward</div>
+        <div class="ability-meta">Triggered effect · ongoing</div>
+        <div class="ability-desc">
+          <p>In response to a foe's aggression, her god protects her. <strong>Whenever another creature damages Maike, that creature can't target her with a strike</strong> until she harms them or one of their allies, or until the end of their next turn.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <div class="label">Sanctuary Ward — How It Plays</div>
+        <p>The ward is a built-in pacifism mechanic. The moment Maike strikes back at the creature who hurt her, the ward releases that creature and they can resume attacking her. As long as she focuses on healing, buffing, or attacking <em>other</em> targets — and there will usually be other targets — the creature that wounded her cannot follow up. The character's class feature mechanically rewards the same disposition the sanctuary requires: the refusal to retaliate is a defensive principle.</p>
+      </div>
+    </section>
+
+    <!-- VI. DOMAINS -->
+    <section id="domains">
+      <h2 class="section-title"><span class="num">vi.</span>Domains of Love &amp; War</h2>
+      <p>At first level, a Conduit selects <strong>two domains</strong> and one 1st-level domain feature drawn from either. Maike has chosen <strong>Love</strong> and <strong>War</strong>, and taken the Love domain's 1st-level feature.</p>
+
+      <h4 class="entry-label">1st-Level Domain Feature — Love</h4>
+      <div class="ability-block domain">
+        <div class="ability-name">Blessing of Compassion</div>
+        <div class="ability-meta">Ongoing aura · also grants Interpersonal Skill: Handle Animals</div>
+        <div class="ability-desc">
+          <p>Maike exudes a magic aura that can soothe those willing to socially engage with her. She gains an <strong>edge</strong> on any test made to assist another creature with a test.</p>
+          <p>Additionally, when she is present at the start of a <strong>negotiation</strong>, one NPC of her choice has their <strong>patience increased by 1</strong> (to a maximum of 5), and the first test made to influence them gains an edge.</p>
+          <p><em>Also grants:</em> Handle Animals (interpersonal skill).</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">The Two Domains</h4>
+      <p>Both Love and War are <strong>declared</strong> at level 1; only one provides a 1st-level feature (Maike's pick is Love's Blessing of Compassion). The War domain is held in reserve — it will contribute features at later levels, and provides the thematic justification for Maike's combat-leaning ability picks (Wither, Curse of Terror) and her readiness to fight when the sanctuary work fails.</p>
+      <div class="callout">
+        <div class="label">The Combination</div>
+        <p>Love + War is not a contradiction on a Conduit sheet — it is a thesis statement. Care is the first move; readiness for violence is the second. The Inciting Incident sets the relationship between the two: her seniors saw the destruction of their temple and chose retaliation; Maike saw the same destruction and chose the harder middle path. She did not lay down her ability to fight. She refused to use it as the first answer. The domain selection encodes that refusal.</p>
+      </div>
+    </section>
+
+    <!-- VII. ABILITIES -->
+    <section id="abilities">
+      <h2 class="section-title"><span class="num">vii.</span>Selected Abilities</h2>
+      <p>Two signatures, one 3-Piety, one 5-Piety. The pair of signatures is the dossier's clearest statement: one heals, one harms. Both roll on Intuition; both are Magic, Ranged abilities, benefiting from the +2 from Prayer of Distance.</p>
+
+      <h4 class="entry-label">Signature — The Healing Strike</h4>
+      <div class="ability-block signature">
+        <div class="ability-name">Blessed Light</div>
+        <div class="ability-flavor">Burning radiance falls upon your foe, transferring some of their energy to a nearby ally.</div>
+        <div class="ability-meta">Main Action · Magic, Ranged 10 (12), Strike · One creature or object</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Intuition</span>
+          <span class="tier"><b>Tier 1:</b> 3 + I holy damage</span>
+          <span class="tier"><b>Tier 2:</b> 5 + I holy damage</span>
+          <span class="tier"><b>Tier 3:</b> 8 + I holy damage</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Effect:</b> One ally within distance gains a number of surges equal to the tier outcome of the power roll.</span>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Signature — The Sapping Strike</h4>
+      <div class="ability-block signature">
+        <div class="ability-name">Wither</div>
+        <div class="ability-flavor">A bolt of holy energy saps the life from a foe.</div>
+        <div class="ability-meta">Main Action · Magic, Ranged 10 (12), Strike · One creature or object</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Intuition</span>
+          <span class="tier"><b>Tier 1:</b> 3 + I corruption damage; P&lt;[weak], the target takes a bane on their next power roll</span>
+          <span class="tier"><b>Tier 2:</b> 5 + I corruption damage; P&lt;[average], the target takes a bane on their next power roll</span>
+          <span class="tier"><b>Tier 3:</b> 8 + I corruption damage; P&lt;[strong], the target takes a bane on their next power roll</span>
+        </div>
+      </div>
+
+      <h4 class="entry-label">3-Piety — The Pillar</h4>
+      <div class="ability-block">
+        <div class="ability-name">Font of Wrath</div>
+        <div class="ability-flavor">A brilliant column of holy light appears on the battlefield, striking out at nearby enemies.</div>
+        <div class="ability-meta">Main Action · Magic, Ranged 10 (12) · Special target · 3 Piety</div>
+        <div class="ability-desc">
+          <p>She summons a <strong>spirit of size 2</strong> who can't be harmed, and who appears in an unoccupied space within distance. The spirit lasts <strong>until the end of her next turn</strong>. She and her allies can move through the spirit's space, but enemies can't.</p>
+          <p>Any enemy who moves within 2 squares of the spirit for the first time in a combat round, or starts their turn there, takes <strong>holy damage equal to her Intuition score (+2)</strong>.</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">5-Piety — The Judgment</h4>
+      <div class="ability-block">
+        <div class="ability-name">Curse of Terror</div>
+        <div class="ability-flavor">Fear of divine judgment overwhelms your foe.</div>
+        <div class="ability-meta">Main Action · Magic, Ranged 10 (12), Strike · One creature · 5 Piety</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Intuition</span>
+          <span class="tier"><b>Tier 1:</b> 6 + I holy damage; I&lt;[weak], frightened (save ends)</span>
+          <span class="tier"><b>Tier 2:</b> 9 + I holy damage; I&lt;[average], frightened (save ends)</span>
+          <span class="tier"><b>Tier 3:</b> 13 + I holy damage; I&lt;[strong], frightened (save ends)</span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="label">The Loadout's Shape</div>
+        <p>The four selections compose a complete loadout. <em>Blessed Light</em> is the bread-and-butter — a strike that doubles as ally support every turn. <em>Wither</em> is the harder strike, used when an enemy needs to be debuffed before their next action. <em>Font of Wrath</em> creates territory — an area enemies can't enter and a damage zone they suffer for trying. <em>Curse of Terror</em> is the boss-stopper, with the highest damage tier and the strongest possible condition. The build's pivot is whether the moment calls for healing-via-harm or harm-via-judgment.</p>
+      </div>
+    </section>
+
+    <!-- VIII. CULTURE & CAREER -->
+    <section id="culture">
+      <h2 class="section-title"><span class="num">viii.</span>Culture &amp; Career</h2>
+
+      <h3 class="subhead">Culture — Alloy-Born</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Element</th><th>Choice &amp; Note</th></tr></thead>
+        <tbody>
+          <tr><td>Environment</td><td><strong>Urban</strong> — always centered in a city. <em>(Skill: Eavesdrop.)</em></td></tr>
+          <tr><td>Organization</td><td><strong>Communal</strong> — all members considered equal. <em>(Skill: Heal.)</em></td></tr>
+          <tr><td>Upbringing</td><td><strong>Creative</strong> — raised among folk who create art or other works valuable enough to trade. <em>(Skill: Cooking.)</em></td></tr>
+          <tr><td>Language</td><td><strong>Khoursirian</strong></td></tr>
+        </tbody>
+      </table>
+      <p><em>The campaign's only character whose Environment is the city where the campaign takes place. Maike is the team's local-knowledge anchor — the only one who can plausibly know an Alloy temple official by sight, or have written a letter to one of the merchant councils last year.</em></p>
+
+      <h3 class="subhead">Career — Disciple</h3>
+      <p><em>"You worked in a church, temple, or other religious institution as part of the clergy."</em></p>
+      <ul>
+        <li><strong>Skill:</strong> Religion</li>
+        <li><strong>Lore Skills:</strong> Culture, Magic</li>
+        <li><strong>Project Points:</strong> 120 (career bonus)</li>
+        <li><strong>Supernatural Perk:</strong> <em>Thingspeaker</em> — When she holds an object in her hand for 1 uninterrupted minute, she can sense whether it bears emotional resonance. Objects with emotional resonance include treasured gifts, murder weapons, or personal keepsakes. If the Director determines the object bears emotional resonance, she learns the most dominant emotion associated with the object, then receives a vision answering one of her questions about it.</li>
+      </ul>
+      <div class="callout">
+        <div class="label">Thingspeaker, In a City of Contracts</div>
+        <p>Of every supernatural perk on the cell's sheets, Thingspeaker may be the one best suited to <em>Collateral</em>. The campaign is structured around debt instruments and named contracts. Maike, holding the writ that names her as collateral for one uninterrupted minute, would learn its dominant emotion and receive a vision answering one of her questions about it. The perk is a key the campaign hands to her.</p>
+      </div>
+    </section>
+
+    <!-- IX. SKILLS -->
+    <section id="skills">
+      <h2 class="section-title"><span class="num">ix.</span>Skills &amp; Languages</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="group-label">Crafting</div>
+          <ul>
+            <li>Cooking <span class="src">upbringing</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Exploration</div>
+          <ul>
+            <li>Heal <span class="src">organization</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Interpersonal</div>
+          <ul>
+            <li>Handle Animals <span class="src">domain (Love)</span></li>
+            <li>Music <span class="src">class</span></li>
+            <li>Rumors <span class="src">class</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Intrigue</div>
+          <ul>
+            <li>Eavesdrop <span class="src">environment</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Lore</div>
+          <ul>
+            <li>Culture <span class="src">career</span></li>
+            <li>Magic <span class="src">career</span></li>
+            <li>Religion <span class="src">career</span></li>
+          </ul>
+        </div>
+      </div>
+      <h3 class="subhead">Languages</h3>
+      <p>Caelian <em>(default)</em>, Khoursirian <em>(culture)</em>.</p>
+      <div class="callout">
+        <div class="label">The Civic Profile</div>
+        <p>Eavesdrop, Rumors, Music, Culture, and Religion is the skill profile of someone who works <em>in public</em> — who is in temples and markets and at festivals, hearing what is said and what is sung. Her two Lore skills (Magic, Religion) make her one of the team's two scholars (the other being Clasiena). Where Clasiena reads the supernatural through Reason and lore, Maike reads it through Intuition and her perk's emotional resonance: same problem, different organ.</p>
+      </div>
+    </section>
+
+    <!-- X. COMPLICATION -->
+    <section id="complication">
+      <h2 class="section-title"><span class="num">x.</span>Complication — Fiery Ideal</h2>
+      <p>From the Draw Steel complication: <em>"A spirit beyond your comprehension instilled in you a special purpose, choosing you to be the guardian of a place, a cause, or a philosophy. The flame that now burns in your soul can sear your enemies — or you if you fall short of expectations."</em></p>
+      <table class="dossier-table">
+        <thead><tr><th>Aspect</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Fiery Ideal Benefit</td><td>While fighting on behalf of her special purpose, whenever she obtains a tier 3 outcome with a damage-dealing ability, she deals extra <strong>fire damage equal to her highest characteristic score</strong> (+2).</td></tr>
+          <tr><td>Fiery Ideal Drawback</td><td>Whenever the Director determines that she acts against her purpose or fails to live up to its standards, she takes fire damage equal to <strong>5 + her level</strong> (6 at level 1). This damage <strong>cannot be reduced in any way</strong>.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout warn">
+        <div class="label">Tension Point — Shared with Vellpryte</div>
+        <p>The Fiery Ideal is the same complication that <strong>Executor Vellpryte</strong> took on Zenith. Two characters in the cell hold themselves to a divine standard with the same mechanical penalty. Vellpryte's purpose is law-enforcement-as-judgment; Maike's purpose is the interfaith sanctuary. Should the two ever find themselves on opposite sides of a question — say, the Office of Mediation having a position on Alloy's religious politics — the mechanics of their complications will pull in opposite directions, and both will be at risk of irreducible 6 fire damage for the same encounter, for opposite reasons.</p>
+      </div>
+      <div class="callout">
+        <div class="label">What Counts as Her Purpose</div>
+        <p>Her purpose, per the Inciting Incident, is <em>"to protect religious freedoms, so all worshipers could practice their faith without fear."</em> The Director will need to rule on what counts as fighting on behalf of that purpose, and what counts as acting against it. Almost any combat that defends a worshipper of any faith should qualify for the benefit. Any combat that suppresses a worship community — even one she dislikes — should risk the drawback.</p>
+      </div>
+    </section>
+
+    <!-- XI. INCIDENT -->
+    <section id="incident">
+      <h2 class="section-title"><span class="num">xi.</span>Inciting Incident — Freedom to Worship</h2>
+      <p>From the Draw Steel inciting incident: <em>"Your temple was destroyed in a religious conflict. The institution's leaders sought retaliation, but you saw in these actions a ceaseless cycle of destruction that would lead to more conflict. Instead, you became a hero to protect religious freedoms, so all worshipers could practice their faith without fear."</em></p>
+      <div class="callout">
+        <div class="label">What's Established</div>
+        <ul style="margin:0.4rem 0;padding-left:1.4rem;">
+          <li>Maike's temple was destroyed in a religious conflict.</li>
+          <li>The temple's leadership voted to retaliate against whoever destroyed it.</li>
+          <li>Maike disagreed. She saw the retaliation as continuing the cycle of destruction.</li>
+          <li>She left that path and took up the work of protecting religious freedoms instead.</li>
+          <li>Her current project — the interfaith sanctuary — is the operational form of that work.</li>
+          <li>Per the campaign roster, that work has been stalled by Alloy's temple politics and a debt-namer.</li>
+        </ul>
+      </div>
+      <div class="callout warn">
+        <div class="label">Open Threads</div>
+        <p>The incident text does not specify: which temple, which faith, or which conflict. Whether her former seniors are still pursuing their retaliation; whether they consider her a traitor; whether they are the temple politics blocking her sanctuary, or whether that opposition comes from elsewhere. The campaign concept's note about <em>"a debt-namer"</em> opposing her sanctuary suggests at least one of these is operationally relevant. Director's call.</p>
+      </div>
+    </section>
+
+    <!-- XII. CAMPAIGN -->
+    <section id="campaign">
+      <h2 class="section-title"><span class="num">xii.</span>Position in Collateral <span class="draft-tag">draft</span></h2>
+      <div class="callout draft">
+        <div class="label">Provisional · Drawn from Campaign Concept</div>
+        <p>The following is drawn from the Collateral campaign summary, which is explicitly marked as draft / provisional. Details are subject to change in Session Zero.</p>
+      </div>
+
+      <p>The premise: the player characters wake in the same holding cell in Alloy and are told <em>"The debt has defaulted. You belong to the Saffron Seal now."</em> Of the cell's prisoners, Maike is the only one whose home this is. The cell sits inside her city; the debt is being enforced under laws she knows; the Saffron Seal is — or is not — a name her former colleagues at the temple would have recognized. Whichever way that goes, she is the unit's <strong>local-knowledge anchor</strong>.</p>
+
+      <h3 class="subhead">Role on the Team</h3>
+      <p>Combat: <strong>ranged caster, healer, and battlefield control.</strong> Sanctuary Ward keeps her safe from the first creature to wound her; Blessed Light damages a foe and heals an ally in the same action; Healing Grace converts piety into recoveries spent across multiple targets; Font of Wrath creates an area enemies can't enter. She is not built to be hit, but the build is robust against the consequences of being hit.</p>
+      <p>Out of combat: <strong>face, scholar, civic operator.</strong> Religion, Culture, Magic, Rumors, Music, Eavesdrop. Blessing of Compassion grants edge on assist tests and bumps NPC patience. Thingspeaker reads emotional resonance in objects. She is the unit's natural negotiator, civic-records researcher, and the one who can talk to a temple official without giving offence.</p>
+
+      <h3 class="subhead">Faction Connections</h3>
+      <p>Per the campaign concept: <strong>Alloy's temple politics</strong> are an active opposition to her sanctuary, identified explicitly as a faction. <strong>The Saffron Seal</strong>'s precise relationship to the temples is unresolved — the campaign concept identifies <em>"a faction opposed to Maike's sanctuary"</em> as a candidate for who named her as collateral. Whether the temples and the Seal overlap, are identical, or are working against each other for different reasons is a central campaign question — and the question Maike is positioned to investigate.</p>
+    </section>
+
+    <!-- XIII. ARC -->
+    <section id="arc">
+      <h2 class="section-title"><span class="num">xiii.</span>Character Arc</h2>
+      <p>Three threads pull through Maike's sheet.</p>
+      <p>The first is the <strong>sanctuary</strong>. The Inciting Incident hands her the project as a vocation; the campaign concept identifies its blockage as a central campaign question. She has the skill set to push it forward (Religion, Culture, Rumors, Blessing of Compassion) and the mechanical permission to do so (Fiery Ideal grants her bonus damage when fighting on its behalf). The question is whether she can complete it — and whether <em>completing</em> means building the place, or proving the principle works without one.</p>
+      <p>The second is the <strong>refusal to retaliate</strong>. Sanctuary Ward, Fiery Ideal, the Inciting Incident, and the Love-then-War domain order all reinforce a single disposition: she does not strike first, she does not strike in revenge, and the gods grant her safety as long as she keeps to that. The campaign will test the disposition. Whether she breaks it — and whether she pays the irreducible 6 fire damage when she does — is the play.</p>
+      <p>The third is <strong>Alloy itself</strong>. Maike is the team's only insider. The campaign asks her to function as the cell's bridge to a city whose institutions have not yet served her well. She loves the place. The place has stalled her work and now imprisoned her. She is the most invested character in the city and the most concretely failed by it. Both at once.</p>
+    </section>
+
+    <!-- COLOPHON -->
+    <footer class="colophon">
+      <div><span class="accent">PLEYTE DER SUSTERHEID</span> · Cell vii · Free City of Brass</div>
+      <div style="margin-top:0.4rem;">Maike Oostgracht · Polder · Conduit · Domains of Love &amp; War · Level 1 · Debt-holder: The Saffron Seal</div>
+      <div style="margin-top:0.4rem;">Sheet mechanics: locked. Campaign frame: provisional, subject to Session Zero.</div>
+      <div class="printer">❦ Drukkerij van de Stadt &mdash; Anno Onbekend ❦</div>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

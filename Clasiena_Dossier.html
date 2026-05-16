@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Folio — Clasiena, Returned</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Tangerine:wght@400;700&family=Italianno&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Clasiena: a folio bled through. The page was parchment.
+       Then she came back. Now there is magenta where the ink
+       used to be, and the green of the wode underneath that. */
+    --paper: #ece3c8;
+    --paper-deep: #d8ccaa;
+    --paper-stain: #b8a878;
+    --paper-old: #c4b88a;
+
+    --ink: #1a0e14;
+    --ink-soft: #3a2228;
+    --ink-faint: #5a4250;
+
+    --magenta: #a8186a;
+    --magenta-bright: #d82890;
+    --magenta-pale: #e870b8;
+    --magenta-deep: #6a0840;
+    --magenta-blood: #800030;
+
+    --wode-green: #4a6a3a;
+    --wode-green-bright: #6a8a52;
+    --wode-green-deep: #2c4220;
+    --wode-green-pale: #98b878;
+
+    --rot: #6a4a20;
+    --rot-deep: #3a2810;
+
+    --void: #100614;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:#1a0e1c; color:var(--ink); font-family:'Cormorant Garamond', Georgia, serif; font-size:16px; line-height:1.7; }
+  body {
+    background:
+      radial-gradient(ellipse at 50% 20%, rgba(168,24,106,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse at 30% 80%, rgba(74,106,58,0.08) 0%, transparent 55%),
+      radial-gradient(ellipse at 70% 50%, rgba(16,6,20,1) 0%, rgba(8,4,12,1) 100%);
+    min-height: 100vh; padding: 2.5rem 1rem;
+  }
+  body::before {
+    content:''; position:fixed; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3' stitchTiles='stitch' seed='9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+    pointer-events:none; z-index:1000; mix-blend-mode:overlay; opacity:0.6;
+  }
+
+  .document {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--paper);
+    position: relative;
+    /* magenta and green watercolour blooms bled through the page */
+    background-image:
+      radial-gradient(ellipse 280px 180px at 8% 12%, rgba(168,24,106,0.22) 0%, transparent 65%),
+      radial-gradient(ellipse 200px 140px at 92% 28%, rgba(74,106,58,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 260px 200px at 12% 78%, rgba(74,106,58,0.20) 0%, transparent 70%),
+      radial-gradient(ellipse 240px 180px at 95% 88%, rgba(168,24,106,0.20) 0%, transparent 70%),
+      radial-gradient(ellipse 140px 100px at 55% 50%, rgba(168,24,106,0.06) 0%, transparent 80%),
+      /* parchment fibers / variance */
+      linear-gradient(135deg, rgba(236,227,200,1) 0%, rgba(220,210,180,1) 50%, rgba(200,188,158,1) 100%);
+    box-shadow:
+      0 0 0 1px var(--rot-deep),
+      0 0 0 2px var(--paper-stain),
+      0 0 60px rgba(168,24,106,0.15),
+      0 0 120px rgba(74,106,58,0.10),
+      0 30px 80px rgba(0,0,0,0.7);
+  }
+
+  /* ragged top & bottom margins like torn parchment */
+  .document::before {
+    content:''; position:absolute; top:-1px; left:0; right:0; height:10px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 10' preserveAspectRatio='none'%3E%3Cpath d='M0,10 L0,5 Q10,2 20,5 T40,5 T60,5 T80,5 T100,5 T120,5 T140,5 T160,5 T180,5 T200,5 L200,10 Z' fill='%23ece3c8'/%3E%3C/svg%3E");
+    background-size: 200px 10px;
+  }
+  .document::after {
+    content:''; position:absolute; bottom:-1px; left:0; right:0; height:10px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 10' preserveAspectRatio='none'%3E%3Cpath d='M0,0 L0,5 Q10,8 20,5 T40,5 T60,5 T80,5 T100,5 T120,5 T140,5 T160,5 T180,5 T200,5 L200,0 Z' fill='%23ece3c8'/%3E%3C/svg%3E");
+    background-size: 200px 10px;
+  }
+
+  .doc-inner { padding: 3.5rem 4rem 4rem; position:relative; }
+
+  /* MASTHEAD — handwritten title bar */
+  .masthead {
+    text-align: center;
+    margin-bottom: 1.6rem;
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--ink-soft);
+    padding-bottom: 0.8rem;
+  }
+  .masthead .ornament {
+    font-family:'Tangerine', cursive;
+    font-size: 2rem;
+    color: var(--magenta-deep);
+    letter-spacing: 0;
+    display: block;
+    margin-bottom: -0.3rem;
+    text-transform: none;
+    font-style: normal;
+  }
+  .masthead .between {
+    display:inline-block;
+    margin: 0 1rem;
+    color: var(--magenta-deep);
+  }
+
+  /* INVOCATION BAR */
+  .invocation {
+    background: rgba(168,24,106,0.05);
+    border: 1px solid rgba(168,24,106,0.25);
+    border-left: 4px solid var(--magenta-deep);
+    padding: 0.7rem 1rem;
+    margin-bottom: 2.4rem;
+    font-style: italic;
+    font-size: 0.96rem;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+  .invocation .small {
+    display: block;
+    margin-top: 0.4rem;
+    font-style: normal;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--magenta-deep);
+    font-weight: 600;
+  }
+
+  /* HERO — circular sigil portrait + tall serif name */
+  .hero {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 2.5rem;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+  }
+  .portrait-ring {
+    position: relative;
+    width: 250px; height: 250px;
+    margin: 0 auto;
+  }
+  .portrait-ring .portrait {
+    position: absolute;
+    inset: 14px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--void);
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.6);
+  }
+  .portrait-ring .portrait img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    filter: contrast(1.0) saturate(1.1);
+  }
+  /* concentric sigil rings — drawn with SVG so they overlap the image nicely */
+  .portrait-ring svg.sigil {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+  }
+  .portrait-caption {
+    margin-top: 1rem;
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    text-align: center;
+    line-height: 1.5;
+  }
+  .portrait-caption .ornament {
+    font-family:'Tangerine', cursive;
+    font-size: 1.6rem;
+    color: var(--magenta-deep);
+    display: block;
+    line-height: 0.8;
+  }
+
+  .hero-text { padding-top: 0.2rem; }
+  .eyebrow {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.86rem;
+    letter-spacing: 0.18em;
+    color: var(--magenta-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .eyebrow .sep { color: var(--ink-faint); margin: 0 0.5em; }
+
+  h1.character-name {
+    font-family:'Tangerine', cursive;
+    font-weight: 700;
+    font-size: 6.5rem;
+    line-height: 0.85;
+    color: var(--magenta-deep);
+    margin: 0.2rem 0 0.4rem;
+    letter-spacing: 0.01em;
+    text-shadow: 1px 1px 0 rgba(168,24,106,0.12);
+  }
+  h1.character-name .subname {
+    display: block;
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.18em;
+    font-weight: 500;
+    color: var(--ink-soft);
+    letter-spacing: 0.18em;
+    margin-top: 0.4rem;
+    text-shadow: none;
+  }
+
+  .tagline {
+    font-style: italic;
+    font-size: 1.12rem;
+    color: var(--ink-soft);
+    margin: 1rem 0 1.3rem;
+    max-width: 50ch;
+    line-height: 1.55;
+    border-left: 2px solid var(--magenta);
+    padding-left: 1.2rem;
+  }
+
+  .vitals-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.86rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--ink-soft);
+    border-bottom: 1px solid var(--ink-soft);
+    padding: 0.55rem 0;
+    margin-top: 1.2rem;
+  }
+  .vitals-row .v { border-left: 1px solid var(--paper-stain); padding: 0.1rem 0.85rem; white-space: nowrap; }
+  .vitals-row .v:first-child { border-left: none; padding-left: 0; }
+  .vitals-row .v strong { color: var(--magenta-deep); font-weight: 700; margin-left: 0.4em; font-style: normal; }
+  .vitals-row .v.green strong { color: var(--wode-green-deep); }
+  .vitals-row .v.warn strong { color: var(--magenta-blood); }
+
+  /* TOC — like a marginal index */
+  nav.toc {
+    background: rgba(168,24,106,0.04);
+    border: 1px solid var(--ink-faint);
+    padding: 1.2rem 1.8rem;
+    margin-bottom: 2.8rem;
+    columns: 2;
+    column-gap: 2.2rem;
+    position: relative;
+  }
+  nav.toc::before {
+    content:'❦  Index of the Folio  ❦';
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: var(--paper);
+    padding: 0 1rem;
+    font-family:'Tangerine', cursive;
+    font-size: 1.5rem;
+    color: var(--magenta-deep);
+    font-weight: 700;
+  }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+  nav.toc ol li { counter-increment: toc; font-size: 0.96rem; margin-bottom: 0.3rem; break-inside: avoid; font-style: italic; }
+  nav.toc ol li::before { content: counter(toc, lower-roman) ".  "; color: var(--magenta-deep); font-weight: 600; font-style: normal; }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--magenta-deep); text-decoration: underline; text-decoration-style: wavy; text-decoration-color: var(--magenta); }
+
+  section { margin-bottom: 3rem; position: relative; }
+
+  h2.section-title {
+    font-family:'Tangerine', cursive;
+    font-weight: 700;
+    font-size: 3rem;
+    color: var(--magenta-deep);
+    margin: 0 0 1.1rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--ink-soft);
+    line-height: 0.85;
+    letter-spacing: 0.01em;
+  }
+  h2.section-title .num {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.4em;
+    color: var(--ink-faint);
+    margin-right: 0.5rem;
+    letter-spacing: 0.1em;
+    vertical-align: 0.4em;
+  }
+
+  h3.subhead {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: var(--magenta-deep);
+    margin: 1.6rem 0 0.5rem;
+    letter-spacing: 0.02em;
+  }
+  h3.subhead::before { content: '⸙  '; color: var(--wode-green); font-style: normal; }
+
+  h4.entry-label {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin: 1.3rem 0 0.5rem;
+    border-bottom: 1px dotted var(--ink-faint);
+    padding-bottom: 0.2rem;
+  }
+
+  p { margin: 0.7rem 0; }
+  p.drop-cap::first-letter {
+    font-family:'Tangerine', cursive;
+    font-weight: 700;
+    font-size: 5.5rem;
+    float: left;
+    line-height: 0.85;
+    margin: 0.2rem 0.4rem -0.2rem 0;
+    color: var(--magenta-deep);
+  }
+  em { font-style: italic; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 700; }
+
+  /* STAT GRID — illuminated initials boxed in vellum */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.55rem;
+    margin: 1.5rem 0;
+  }
+  .stat-cell {
+    border: 1px solid var(--ink-soft);
+    background: rgba(236,227,200,0.5);
+    padding: 0.9rem 0.6rem;
+    text-align: center;
+  }
+  .stat-cell .label {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin-bottom: 0.2rem;
+  }
+  .stat-cell .value {
+    font-family:'Tangerine', cursive;
+    font-weight: 700;
+    font-size: 3.4rem;
+    color: var(--ink);
+    line-height: 0.85;
+  }
+  .stat-cell .gloss {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    margin-top: 0.4rem;
+    line-height: 1.3;
+  }
+  .stat-cell.high { background: rgba(168,24,106,0.10); border-color: var(--magenta); }
+  .stat-cell.high .value { color: var(--magenta-deep); }
+  .stat-cell.zero .value { color: var(--ink-faint); }
+
+  /* STATUS — sigil-bound pools */
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .status-cell {
+    border: 1px solid var(--ink-soft);
+    background: rgba(236,227,200,0.6);
+    padding: 1rem;
+    position: relative;
+  }
+  .status-cell .label {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    letter-spacing: 0.08em;
+    color: var(--magenta-deep);
+    margin-bottom: 0.2rem;
+  }
+  .status-cell .value {
+    font-family:'Tangerine', cursive;
+    font-weight: 700;
+    font-size: 3.4rem;
+    color: var(--ink);
+    line-height: 0.85;
+  }
+  .status-cell .value .sub { font-size: 0.35em; color: var(--ink-faint); font-family:'Cormorant Garamond', serif; font-weight: 400; font-style: italic; }
+  .status-cell .note {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+    margin-top: 0.5rem;
+    line-height: 1.4;
+  }
+  .status-cell .bar { height: 4px; background: rgba(58,34,40,0.12); margin-top: 0.6rem; }
+  .status-cell .bar .fill { height: 100%; background: var(--magenta); }
+  .status-cell .bar.green .fill { background: var(--wode-green); }
+  .status-cell .bar.void .fill { background: var(--void); }
+
+  /* TABLES */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.96rem;
+  }
+  table.dossier-table th, table.dossier-table td {
+    text-align: left;
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--paper-stain);
+    vertical-align: top;
+  }
+  table.dossier-table th {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    color: var(--magenta-deep);
+    border-bottom: 2px solid var(--magenta);
+    background: rgba(168,24,106,0.04);
+  }
+  table.dossier-table td:first-child { font-weight: 600; color: var(--ink); width: 30%; }
+
+  /* ABILITY BLOCKS — illuminated incantation slates */
+  .ability-block {
+    border: 1px solid var(--ink-soft);
+    background: rgba(236,227,200,0.55);
+    padding: 1rem 1.2rem;
+    margin: 0.9rem 0;
+    position: relative;
+  }
+  .ability-block.signature { border-left: 4px solid var(--magenta); background: rgba(168,24,106,0.05); }
+  .ability-block.core { border-left: 4px solid var(--wode-green); background: rgba(74,106,58,0.04); }
+  .ability-block.revenant { border-left: 4px solid var(--magenta-blood); background: rgba(128,0,48,0.05); }
+  .ability-block .ability-name {
+    font-family:'Tangerine', cursive;
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--magenta-deep);
+    line-height: 0.9;
+    margin-bottom: 0.2rem;
+  }
+  .ability-block .ability-flavor {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+  .ability-block .ability-meta {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.86rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+    margin-bottom: 0.6rem;
+    border-bottom: 1px dotted var(--paper-stain);
+    padding-bottom: 0.4rem;
+  }
+  .tier-roll {
+    margin-top: 0.6rem;
+    padding: 0.5rem 0.8rem;
+    background: rgba(58,34,40,0.06);
+    border-left: 3px solid var(--wode-green);
+    font-size: 0.96rem;
+  }
+  .tier-roll .tier-label {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.86rem;
+    letter-spacing: 0.04em;
+    color: var(--magenta-deep);
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+  }
+  .tier-roll .tier { display: block; margin: 0.15rem 0; }
+  .tier-roll .tier b { color: var(--magenta-deep); }
+
+  /* CALLOUTS — marginalia */
+  .callout {
+    border: 1px solid var(--wode-green);
+    background: rgba(74,106,58,0.06);
+    padding: 0.9rem 1.2rem;
+    margin: 1.2rem 0;
+    border-left: 4px solid var(--wode-green);
+    font-style: italic;
+  }
+  .callout.warn {
+    border: 1px solid var(--magenta-blood);
+    background: rgba(128,0,48,0.06);
+    border-left: 4px solid var(--magenta-blood);
+  }
+  .callout.draft {
+    border: 1px dashed var(--ink-faint);
+    background: rgba(58,34,40,0.03);
+    border-left: 4px dashed var(--ink-faint);
+  }
+  .callout .label {
+    font-family:'Tangerine', cursive;
+    font-style: normal;
+    font-size: 1.4rem;
+    color: var(--wode-green-deep);
+    margin-bottom: 0.2rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .callout.warn .label { color: var(--magenta-blood); }
+  .callout.draft .label { color: var(--ink-faint); }
+  .callout p { margin: 0.3rem 0; }
+
+  .draft-tag {
+    display: inline-block;
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--magenta-blood);
+    border: 1.5px solid var(--magenta-blood);
+    padding: 0.05rem 0.4rem;
+    text-transform: uppercase;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    background: rgba(236,227,200,0.6);
+    font-weight: 600;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.4rem;
+  }
+  .skill-group .group-label {
+    font-family:'Tangerine', cursive;
+    font-size: 1.6rem;
+    color: var(--magenta-deep);
+    font-weight: 700;
+    border-bottom: 1px solid var(--paper-stain);
+    padding-bottom: 0.2rem;
+    margin-bottom: 0.4rem;
+    line-height: 0.9;
+  }
+  .skill-group ul { list-style: none; margin: 0; padding: 0; font-size: 0.96rem; }
+  .skill-group ul li { padding: 0.18rem 0; border-bottom: 1px dotted var(--paper-stain); display: flex; justify-content: space-between; }
+  .skill-group ul li .src { font-size: 0.78rem; color: var(--ink-faint); font-style: italic; font-family:'Cormorant Garamond', serif; }
+
+  /* FOOTER */
+  footer.colophon {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--ink-soft);
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.84rem;
+    color: var(--ink-faint);
+    text-align: center;
+  }
+  footer.colophon .accent { color: var(--magenta-deep); font-weight: 600; }
+  footer.colophon .ornament { font-family:'Tangerine', cursive; font-size: 1.6rem; display: block; color: var(--magenta-deep); margin-bottom: 0.5rem; line-height:1; }
+
+  @media (max-width: 780px) {
+    .doc-inner { padding: 2rem 1.5rem 3rem; }
+    .hero { grid-template-columns: 1fr; }
+    .portrait-ring { width: 200px; height: 200px; }
+    h1.character-name { font-size: 4.5rem; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .status-grid { grid-template-columns: 1fr; }
+    nav.toc { columns: 1; }
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+  <div class="doc-inner">
+
+    <!-- MASTHEAD -->
+    <div class="masthead">
+      <span>A Folio of the Returned</span>
+      <span class="between">·</span>
+      <span class="ornament">Collateral</span>
+      <span class="between">·</span>
+      <span>Cell vii · Free City of Brass</span>
+    </div>
+
+    <!-- INVOCATION -->
+    <div class="invocation">
+      "The debt has defaulted. You belong to the Saffron Seal now."
+      <span class="small">— spoken to the prisoner upon waking</span>
+    </div>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div>
+        <div class="portrait-ring">
+          <div class="portrait">
+            <img src="Clasiena.png" alt="Clasiena, a horned and antlered revenant with magenta-stained skin">
+          </div>
+          <svg class="sigil" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="ticks" patternUnits="userSpaceOnUse" width="12" height="12" patternTransform="rotate(0)">
+                <line x1="6" y1="0" x2="6" y2="3" stroke="#6a0840" stroke-width="1"/>
+              </pattern>
+            </defs>
+            <circle cx="125" cy="125" r="124" fill="none" stroke="#6a0840" stroke-width="2"/>
+            <circle cx="125" cy="125" r="118" fill="none" stroke="#6a0840" stroke-width="0.6"/>
+            <circle cx="125" cy="125" r="112" fill="none" stroke="#6a0840" stroke-width="0.4" stroke-dasharray="2 4"/>
+            <!-- tick marks around outer ring -->
+            <g stroke="#6a0840" stroke-width="1">
+              <line x1="125" y1="1" x2="125" y2="9"/>
+              <line x1="125" y1="241" x2="125" y2="249"/>
+              <line x1="1" y1="125" x2="9" y2="125"/>
+              <line x1="241" y1="125" x2="249" y2="125"/>
+              <line x1="42" y1="42" x2="48" y2="48" stroke-width="0.8"/>
+              <line x1="202" y1="42" x2="208" y2="48" stroke-width="0.8"/>
+              <line x1="42" y1="208" x2="48" y2="202" stroke-width="0.8"/>
+              <line x1="202" y1="208" x2="208" y2="202" stroke-width="0.8"/>
+            </g>
+            <!-- four cardinal sigil glyphs (abstract, no real script) -->
+            <g fill="#6a0840" font-family="Tangerine, cursive" font-size="14" text-anchor="middle">
+              <text x="125" y="20">❦</text>
+              <text x="125" y="240">❦</text>
+              <text x="14" y="130">⸙</text>
+              <text x="236" y="130">⸙</text>
+            </g>
+          </svg>
+        </div>
+        <div class="portrait-caption">
+          <span class="ornament">Clasiena</span>
+          <em>once of the wode, now of the void</em>
+        </div>
+      </div>
+
+      <div class="hero-text">
+        <div class="eyebrow">Revenant <span class="sep">·</span> Elementalist <span class="sep">·</span> Void Discipline</div>
+        <h1 class="character-name">
+          Clasiena
+          <span class="subname">Returned, with unfinished business</span>
+        </h1>
+        <div class="tagline">
+          She was a wode elf. She is something else now. Magic always came to her unevenly; she went to a master to learn discipline, and a nightmare came through her body into the world. She has been chasing it ever since — and a debt she did not sign has dragged her here.
+        </div>
+        <div class="vitals-row">
+          <span class="v">Level <strong>1</strong></span>
+          <span class="v">Speed <strong>5</strong></span>
+          <span class="v">Stability <strong>0</strong></span>
+          <span class="v">Stamina <strong>18</strong></span>
+          <span class="v green">Essence <strong>0</strong></span>
+          <span class="v warn">Fire Weakness <strong>5</strong></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- TOC -->
+    <nav class="toc">
+      <ol>
+        <li><a href="#identity">Identity &amp; Return</a></li>
+        <li><a href="#stats">Characteristics</a></li>
+        <li><a href="#essence">Essence Resource</a></li>
+        <li><a href="#ancestry">Revenant Traits</a></li>
+        <li><a href="#former">Former Life — Wode Elf</a></li>
+        <li><a href="#class">Elementalist Class Features</a></li>
+        <li><a href="#subclass">Void Discipline</a></li>
+        <li><a href="#abilities">Selected Abilities</a></li>
+        <li><a href="#culture">Culture &amp; Career</a></li>
+        <li><a href="#skills">Skills &amp; Languages</a></li>
+        <li><a href="#complication">Complication — Chaos Touched</a></li>
+        <li><a href="#incident">Inciting Incident — Nightmares Made Flesh</a></li>
+        <li><a href="#campaign">Position in Collateral</a></li>
+        <li><a href="#arc">Character Arc</a></li>
+      </ol>
+    </nav>
+
+    <!-- I. IDENTITY -->
+    <section id="identity">
+      <h2 class="section-title"><span class="num">i.</span>Identity &amp; Return</h2>
+      <p class="drop-cap">Clasiena died once. Wode elves do not, as a rule — they live long and dangerously in the forests called wodes — and so the death was already an unjust death, the sort revenants rise from. She rose. Her body is not the body she had. The magenta blooms in her skin are not pigment. The horns and antlers were not hers in life. She kept her memories, her name, and her unfinished work, and lost almost everything else.</p>
+
+      <p>Her class is <strong>Elementalist</strong>. Her discipline is <strong>Void</strong> — the element of mystery, of teleportation and illusion and the spaces between solid things. The choice fits. She is a creature returned from somewhere her body should not have been able to go, and the magic she practices is the magic of <em>that direction</em>. She does not yet know the magic of how to stay in the world without being noticed by it.</p>
+
+      <p>In Alloy, Clasiena is the team's most unsettling presence. She is also the most powerful at range, the most capable diviner, and — being already dead — the hardest to make finally so.</p>
+    </section>
+
+    <!-- II. CHARACTERISTICS -->
+    <section id="stats">
+      <h2 class="section-title"><span class="num">ii.</span>Characteristics</h2>
+      <div class="stat-grid">
+        <div class="stat-cell zero"><div class="label">Might</div><div class="value">0</div><div class="gloss">She is not heavy</div></div>
+        <div class="stat-cell zero"><div class="label">Agility</div><div class="value">0</div><div class="gloss">She walks slowly</div></div>
+        <div class="stat-cell high"><div class="label">Reason</div><div class="value">+2</div><div class="gloss">Primary · the books</div></div>
+        <div class="stat-cell high"><div class="label">Intuition</div><div class="value">+2</div><div class="gloss">Primary · the unsaid</div></div>
+        <div class="stat-cell"><div class="label">Presence</div><div class="value">+1</div><div class="gloss">Cold authority</div></div>
+      </div>
+      <p><em>The Elementalist's primary characteristics are Reason and Intuition; Clasiena maxes both. The flat zeros in Might and Agility are not infirmity — they are a body that does not move with urgency anymore. She does not run. She does not strike with her hands. Almost every ability on her sheet rolls on Reason, with a few branching to Intuition or Presence; the array supports a caster who never needs to engage in melee unless she chooses to.</em></p>
+
+      <div class="status-grid">
+        <div class="status-cell">
+          <div class="label">Stamina</div>
+          <div class="value">18<span class="sub"> / 18</span></div>
+          <div class="bar"><div class="fill" style="width:100%"></div></div>
+          <div class="note">Elementalist class base. Winded at ≤ 9. Inert (not dying) at the negative of winded.</div>
+        </div>
+        <div class="status-cell">
+          <div class="label">Recoveries</div>
+          <div class="value">8<span class="sub"> / 8</span></div>
+          <div class="bar void"><div class="fill" style="width:100%"></div></div>
+          <div class="note">Recovery value: 6.</div>
+        </div>
+        <div class="status-cell">
+          <div class="label">Essence</div>
+          <div class="value">0</div>
+          <div class="bar green"><div class="fill" style="width:0%"></div></div>
+          <div class="note">Heroic resource. Builds at the start of her turn and from nearby elemental damage.</div>
+        </div>
+      </div>
+
+      <table class="dossier-table">
+        <thead><tr><th>Stat</th><th>Value &amp; Source</th></tr></thead>
+        <tbody>
+          <tr><td>Size</td><td><strong>1M</strong> — medium (from wode elf former life)</td></tr>
+          <tr><td>Speed</td><td><strong>5</strong> — Revenant base. She did <em>not</em> take a Previous Life ancestry trait, so wode elf's <em>Swift</em> does not apply.</td></tr>
+          <tr><td>Stability</td><td><strong>0</strong></td></tr>
+          <tr><td>Damage Immunities</td><td>Cold 1, Corruption 1, Lightning 1, Poison 1 <em>(= level)</em></td></tr>
+          <tr><td>Damage Weakness</td><td><strong>Fire 5</strong> — and fire damage <em>destroys her body</em> while she is inert (see Tough But Withered)</td></tr>
+          <tr><td>Enchantment</td><td><em>Of Destruction</em> — bonus to rolled damage with magic abilities</td></tr>
+          <tr><td>Wealth</td><td><strong>1</strong></td></tr>
+          <tr><td>Renown / XP / Hero Tokens</td><td>1 / 0 / 0 (Renown from Mage's Apprentice career)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- III. ESSENCE -->
+    <section id="essence">
+      <h2 class="section-title"><span class="num">iii.</span>Essence — The Heroic Resource</h2>
+      <p>The Elementalist's heroic resource is <strong>Essence</strong>: a measure of attuned elemental energy. It accrues at the start of every turn, and is replenished whenever someone within ten squares takes elemental damage of a kind Clasiena can perceive — which is most kinds.</p>
+
+      <table class="dossier-table">
+        <thead><tr><th>Trigger</th><th>Gain</th></tr></thead>
+        <tbody>
+          <tr><td>Start of your turn</td><td><strong>+2</strong></td></tr>
+          <tr><td>First time in a round that you or a creature within 10 squares of you takes damage that isn't untyped or holy</td><td><strong>+1</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <div class="label">⸙ The Persistent Cost</div>
+        <p>Several elementalist abilities — including her selected 3-Essence and 5-Essence picks — can be <em>persisted</em>. Maintaining a persistent ability in combat reduces the essence she earns at the start of her turn by the ability's persistent value. <em>Behold the Mystery</em> persists for 1; <em>Conflagration</em> persists for 2. While both are running at full strength, she gains <strong>−1</strong> essence at the top of her turn instead of +2. The mechanic is a budget: how many spells does she keep open, and how aggressively does she lean on Hurl Element and Practical Magic (free actions or zero-essence maneuvers) instead?</p>
+      </div>
+    </section>
+
+    <!-- IV. REVENANT TRAITS -->
+    <section id="ancestry">
+      <h2 class="section-title"><span class="num">iv.</span>Revenant Traits</h2>
+      <p>Revenants rise from the grave through a combination of unjust death and burning desire for vengeance. They are sustained on pure will. They retain their memories and personality from life. They do not need food, water, or air. They are not necromantic — they are not the same kind of dead as zombies or wraiths. They are the kind that came back <em>on purpose</em>.</p>
+
+      <h4 class="entry-label">Always Active</h4>
+      <table class="dossier-table">
+        <thead><tr><th>Trait</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>Tough But Withered</td><td>When her Stamina reaches the negative of her winded value (−9), she becomes <strong>inert</strong> instead of dying. She falls prone and can't stand. She continues to observe her surroundings, but can't speak, take main actions, maneuvers, move actions, or triggered actions. <strong>While inert, if she takes any fire damage, her body is destroyed and she dies.</strong> Otherwise, after 12 hours, she regains Stamina equal to her recovery value.</td></tr>
+          <tr><td>Damage Modifier</td><td>Immunity to Cold 1, Corruption 1, Lightning 1, Poison 1 (= her level). Weakness to Fire 5.</td></tr>
+        </tbody>
+      </table>
+
+      <h4 class="entry-label">Selected — Vengeance Mark</h4>
+      <div class="ability-block revenant">
+        <div class="ability-name">Vengeance Mark</div>
+        <div class="ability-meta">Maneuver · Ranged 10 · One creature</div>
+        <div class="ability-desc">
+          <p>As a maneuver, she places a magic sigil on a creature within 10 squares. When she places a sigil, she can decide where it appears on the creature's body, and whether the sigil is visible only to her or to all creatures.</p>
+          <p><strong>She always knows the direction to the exact location of a creature who bears one of her sigils and is on the same world.</strong> She can have an active number of sigils equal to her level (<strong>1</strong> at level 1), and can remove a sigil from a creature at will (no action required). If she already has the maximum number of sigils activated and places a new one, her oldest sigil disappears with no other effect.</p>
+        </div>
+      </div>
+
+      <div class="ability-block revenant">
+        <div class="ability-name">Detonate Sigil</div>
+        <div class="ability-flavor">A magic sigil you placed on a creature explodes with energy.</div>
+        <div class="ability-meta">Main Action · Ranged 10 · One creature bearing your sigil</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Reason, Intuition, or Presence</span>
+          <span class="tier"><b>Tier 1:</b> 3 + R/I/P damage; slide 1</span>
+          <span class="tier"><b>Tier 2:</b> 5 + R/I/P damage; slide 2</span>
+          <span class="tier"><b>Tier 3:</b> 7 + R/I/P damage; slide 3</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Effect:</b> The sigil disappears from the creature.</span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="label">⸙ The Tracker's Edge</div>
+        <p>Vengeance Mark is a tracking device with a fuse. Mark someone in a market crowd, follow them across a city — across <em>worlds</em>, as long as it's the same world she's currently on — and choose the moment to set off the sigil at up to ten squares' distance. The campaign hook (a nightmare-monster she has been chasing across the timescape) is exactly what this trait was built to support, provided she can ever get close enough to mark it.</p>
+      </div>
+    </section>
+
+    <!-- V. FORMER LIFE -->
+    <section id="former">
+      <h2 class="section-title"><span class="num">v.</span>Former Life — Wode Elf</h2>
+      <p>Before she died, Clasiena was a wode elf — one of the children of the sylvan celestials, who treat the elf-haunted forests called wodes as their domain by birthright. The wode elf reputation for snatching wandering children is something they earn deliberately. Humans, the wode elves agree, should fear the trees.</p>
+      <div class="callout warn">
+        <div class="label">⸙ The Mechanical Honesty</div>
+        <p>Revenants <strong>only</strong> get their former-life ancestry's traits if they specifically select a "Previous Life" Revenant Trait. Clasiena instead spent her two ancestry points on <em>Vengeance Mark</em>. <strong>She therefore does not get any wode elf abilities</strong> — no Wode Elf Glamor, no Forest Walk, no Swift, no Otherworldly Grace. She kept the size (medium) and the cultural memory; she did not keep the elf body's gifts. Her speed is 5, not 6. She cannot magically blend in. The wode is something she remembers, not something she still inhabits.</p>
+      </div>
+    </section>
+
+    <!-- VI. CLASS -->
+    <section id="class">
+      <h2 class="section-title"><span class="num">vi.</span>Elementalist Class Features</h2>
+      <p>From the class description: <em>"Air for movement. Earth for permanence. Fire for destruction. Water for change. Green for growth. Rot for death. Void for the mystery."</em> Clasiena chose <strong>Void</strong>.</p>
+
+      <h4 class="entry-label">Always Available — The Cantrip</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Hurl Element</div>
+        <div class="ability-flavor">You hurl a ball of elemental energy at an unsuspecting foe.</div>
+        <div class="ability-meta">Main Action · Magic, Ranged 10 · One creature or object · <strong>Can be used as a ranged free strike</strong></div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Reason</span>
+          <span class="tier"><b>Tier 1:</b> 2 + R damage</span>
+          <span class="tier"><b>Tier 2:</b> 4 + R damage</span>
+          <span class="tier"><b>Tier 3:</b> 6 + R damage</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Effect:</b> She chooses the damage type when she makes this strike, from: acid, cold, corruption, fire, lightning, poison, or sonic.</span>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Always Available — The Maneuver</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Practical Magic</div>
+        <div class="ability-flavor">Your mastery of elemental power lets you customize your conjurations.</div>
+        <div class="ability-meta">Maneuver · Self · No essence cost</div>
+        <div class="ability-desc">
+          <p>Choose <strong>one</strong> of the following effects:</p>
+          <ul style="margin:0.3rem 0;padding-left:1.4rem;">
+            <li>She uses the Knockback maneuver, but its distance becomes the range of her Hurl Element ability, and she uses Reason instead of Might for the power roll.</li>
+            <li>She chooses a creature within the distance of her Hurl Element ability and one damage type (acid, cold, corruption, fire, lightning, poison, or sonic). That creature takes damage of the chosen type equal to her Reason score (<strong>2 damage</strong>).</li>
+            <li>She teleports up to a number of squares equal to her Reason score (<strong>2</strong>).</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Class Feature — Persistent Magic</h4>
+      <p>Some elementalist abilities have a persistent effect entry. When she uses a persistent ability, she decides whether to maintain it, and starts doing so immediately after first use. While maintaining a persistent ability in combat, she reduces the essence she earns at the start of her turn by the ability's persistent value. All active persistent abilities end at the end of the encounter.</p>
+
+      <h4 class="entry-label">Enchantment — Selected</h4>
+      <p><strong>Enchantment of Destruction</strong> — A bonus to rolled damage with magic abilities.</p>
+
+      <h4 class="entry-label">Elementalist Ward — Selected</h4>
+      <p><strong>Ward of Delightful Consequences</strong> — A protective field of void magic absorbs violence aimed at her, then lets her hurl it back. The first time each round that she takes damage, she gains <strong>1 surge</strong>.</p>
+    </section>
+
+    <!-- VII. SUBCLASS -->
+    <section id="subclass">
+      <h2 class="section-title"><span class="num">vii.</span>Void Discipline</h2>
+      <p><em>"Void is the element of the mystery. Void abilities warp space and reality, allowing you to teleport, create illusions, and make things incorporeal."</em></p>
+
+      <h4 class="entry-label">Acolyte of the Void</h4>
+      <p>The range of Clasiena's Magic, Ranged, Void abilities is increased by <strong>2</strong> squares.</p>
+
+      <h4 class="entry-label">A Beyonding of Vision</h4>
+      <p>She instantly recognizes illusions for what they are, she can see invisible creatures, and supernatural effects can't conceal creatures and objects from her. Additionally, she always knows if an area or object she observes is magical or affected by magic, and she knows the specifics of what that magic can do.</p>
+
+      <div class="callout">
+        <div class="label">⸙ The Detection Engine</div>
+        <p>A Beyonding of Vision is a freebie that is enormous out of combat. Clasiena is essentially a walking <em>detect magic</em> with detailed read-outs, plus illusion-piercing and see-invisible. In a city as soaked in supernatural traffic as Alloy, this is the single most useful trait on any of the cell's character sheets. Whoever named her as collateral may not have realized what they were bringing in-house.</p>
+      </div>
+
+      <h4 class="entry-label">Shared Void Sense</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Shared Void Sense</div>
+        <div class="ability-flavor">You grant allies a taste of your unearthly vision.</div>
+        <div class="ability-meta">Maneuver · Ranged 10 · Special target</div>
+        <div class="ability-desc">
+          <p>For each Victory she has, she can target one creature. Each target gains the benefit of her <em>A Beyonding of Vision</em> feature until the end of her next turn, but doesn't gain the use of the Shared Void Sense ability.</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Subtle Relocation</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Subtle Relocation</div>
+        <div class="ability-flavor">You call on the void to swallow and spit out an ally.</div>
+        <div class="ability-meta">Triggered Action · Ranged 10 · Self or one ally · Trigger: The target starts their turn, moves, or is force moved</div>
+        <div class="ability-desc">
+          <p>She teleports the target up to a number of squares equal to her Reason score (<strong>2</strong>). If the target moves to trigger this ability, she can teleport them at any point during the move.</p>
+          <p><strong>Spend 1 Essence:</strong> Teleport the target up to twice her Reason score (<strong>4</strong>) instead.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIII. ABILITIES -->
+    <section id="abilities">
+      <h2 class="section-title"><span class="num">viii.</span>Selected Abilities</h2>
+      <p>Two signatures, one 3-Essence, one 5-Essence. Two are void abilities; two are not (Unquiet Ground is Earth; Conflagration is Fire — interesting given Clasiena's fire weakness, but the spell is hers to control). Three of the four are area effects: she fights in zones.</p>
+
+      <h4 class="entry-label">Signature — The Step-Through</h4>
+      <div class="ability-block signature">
+        <div class="ability-name">Grasp of Beyond</div>
+        <div class="ability-flavor">You absorb the life energy of another creature and use it to teleport.</div>
+        <div class="ability-meta">Main Action · Magic, Melee 1, Strike, Void · One creature</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Reason</span>
+          <span class="tier"><b>Tier 1:</b> 3 + R corruption damage</span>
+          <span class="tier"><b>Tier 2:</b> 6 + R corruption damage</span>
+          <span class="tier"><b>Tier 3:</b> 9 + R corruption damage</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Effect:</b> She can teleport up to a number of squares equal to her Reason score (<strong>2</strong>).</span>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Signature — The Zone</h4>
+      <div class="ability-block signature">
+        <div class="ability-name">Unquiet Ground</div>
+        <div class="ability-flavor">A sudden storm of detritus assaults your foes and leaves them struggling to move.</div>
+        <div class="ability-meta">Main Action · Area, Earth, Magic, Ranged · Cube 2 within 10 · Each enemy in the area</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Reason</span>
+          <span class="tier"><b>Tier 1:</b> 2 damage</span>
+          <span class="tier"><b>Tier 2:</b> 5 damage</span>
+          <span class="tier"><b>Tier 3:</b> 7 damage</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Effect:</b> The ground beneath the area becomes difficult terrain for enemies.</span>
+        </div>
+      </div>
+
+      <h4 class="entry-label">3-Essence — The Persistent Void</h4>
+      <div class="ability-block">
+        <div class="ability-name">Behold the Mystery</div>
+        <div class="ability-flavor">You open a rift into the void to harry your foes.</div>
+        <div class="ability-meta">Main Action · Area, Magic, Ranged, Void · Cube 3 within 10 · Each enemy in the area · 3 Essence</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Reason</span>
+          <span class="tier"><b>Tier 1:</b> 2 psychic damage</span>
+          <span class="tier"><b>Tier 2:</b> 4 psychic damage</span>
+          <span class="tier"><b>Tier 3:</b> 6 psychic damage</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Persist 1:</b> At the start of her turn, she can use a maneuver to use this ability again without spending essence.</span>
+        </div>
+      </div>
+
+      <h4 class="entry-label">5-Essence — The Burning Sky</h4>
+      <div class="ability-block">
+        <div class="ability-name">Conflagration</div>
+        <div class="ability-flavor">A storm of fire descends upon your enemies.</div>
+        <div class="ability-meta">Main Action · Area, Fire, Magic, Ranged · Cube 3 within 10 · Each enemy in the area · 5 Essence</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Reason</span>
+          <span class="tier"><b>Tier 1:</b> 4 fire damage</span>
+          <span class="tier"><b>Tier 2:</b> 6 fire damage</span>
+          <span class="tier"><b>Tier 3:</b> 10 fire damage</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Persist 2:</b> At the start of her turn, she can use a maneuver to use this ability again without spending essence.</span>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <div class="label">⸙ The Fire She Calls Down</div>
+        <p>Clasiena has Fire weakness 5. Her selected 5-Essence ability is a fire spell. The character is comfortable calling down the element that is fatal to her body — she is the one casting, so the catch lies elsewhere: the spell's area can catch her allies, an enemy can throw fire back at her, and an unlucky tier-1 outcome can have <em>her</em> standing in burning terrain. The thematic read is sharp: the thing she most needs to control is the element that can erase her, and she has chosen to learn its hardest spells first.</p>
+      </div>
+    </section>
+
+    <!-- IX. CULTURE & CAREER -->
+    <section id="culture">
+      <h2 class="section-title"><span class="num">ix.</span>Culture &amp; Career</h2>
+
+      <h3 class="subhead">Culture</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Element</th><th>Choice &amp; Note</th></tr></thead>
+        <tbody>
+          <tr><td>Environment</td><td><strong>Wilderness</strong> — her people did not try to tame the terrain they lived in. <em>(Skill: Alchemy.)</em></td></tr>
+          <tr><td>Organization</td><td><strong>Bureaucratic</strong> — steeped in official leadership and formally recorded laws. <em>(Skill: Disguise.)</em></td></tr>
+          <tr><td>Upbringing</td><td><strong>Martial</strong> — raised by warriors. <em>(Skill: Intimidate.)</em></td></tr>
+          <tr><td>Language</td><td><strong>Yllyric</strong> (wode elf cultural)</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="subhead">Career — Mage's Apprentice</h3>
+      <p><em>"For long years, you studied magic under the mentorship of a more experienced mage."</em> The career and the inciting incident are the same arc seen from two angles: she went to a master to learn discipline, and the discipline went wrong.</p>
+      <ul>
+        <li><strong>Skill:</strong> Magic</li>
+        <li><strong>Lore Skills:</strong> Monsters, Timescape</li>
+        <li><strong>Language:</strong> Hyrallic</li>
+        <li><strong>Renown:</strong> +1 (her former master's reputation, perhaps; perhaps her own)</li>
+        <li><strong>Supernatural Perk:</strong> <em>Familiar</em> — A supernatural spirit who has taken the form of a specific small animal or animated object has chosen to be her familiar — or to adopt her as their familiar. The familiar can hold small objects but can't manipulate doors or scrolls, can't harm other creatures or objects, but can flank in combat.</li>
+      </ul>
+      <div class="callout draft">
+        <div class="label">⸙ Familiar: To Develop <span class="draft-tag">to-do</span></div>
+        <p>The Familiar perk is selected but the specific form, name, and personality of Clasiena's familiar are not recorded in the source. Worth establishing in Session Zero: what came with her when she came back? An animal she had in life? Something that found her after? A small wode-shape that was waiting?</p>
+      </div>
+    </section>
+
+    <!-- X. SKILLS -->
+    <section id="skills">
+      <h2 class="section-title"><span class="num">x.</span>Skills &amp; Languages</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="group-label">Crafting</div>
+          <ul>
+            <li>Alchemy <span class="src">environment</span></li>
+            <li>Forgery <span class="src">class</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Interpersonal</div>
+          <ul>
+            <li>Intimidate <span class="src">upbringing</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Intrigue</div>
+          <ul>
+            <li>Disguise <span class="src">organization</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Lore</div>
+          <ul>
+            <li>History <span class="src">class</span></li>
+            <li>Magic <span class="src">career</span></li>
+            <li>Monsters <span class="src">career</span></li>
+            <li>Nature <span class="src">class</span></li>
+            <li>Religion <span class="src">class</span></li>
+            <li>Timescape <span class="src">career</span></li>
+          </ul>
+        </div>
+      </div>
+      <h3 class="subhead">Languages</h3>
+      <p>Caelian <em>(default)</em>, Yllyric <em>(culture, wode elf)</em>, Hyrallic <em>(career)</em>.</p>
+      <div class="callout">
+        <div class="label">⸙ The Lore Bias</div>
+        <p>Six Lore skills on a single sheet is unusual. Clasiena is the unit's scholar by a wide margin — the one who has read the book, has heard the story, has names for the monsters and a working theory of the timescape. Combined with A Beyonding of Vision (which reads magic in detail) and Vengeance Mark (which tracks across worlds), she is the team's investigator-of-the-supernatural by every available measure.</p>
+      </div>
+    </section>
+
+    <!-- XI. COMPLICATION -->
+    <section id="complication">
+      <h2 class="section-title"><span class="num">xi.</span>Complication — Chaos Touched</h2>
+      <p>From the Draw Steel complication: <em>"You came into contact with a mote of pure chaos energy, or were subjected to a supernatural effect or object that fused chaos into your very being. Now you can sprout and retract limbs in a way that horrifies unprepared onlookers."</em></p>
+      <table class="dossier-table">
+        <thead><tr><th>Aspect</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Chaos Touched Benefit</td><td>She gains an edge on the Escape Grab, Grab, and Knockback maneuvers. Additionally, she can hold an additional item even when her hands are full.</td></tr>
+          <tr><td>Chaos Touched Drawback</td><td>While dying, she grows and retracts uncoordinated limbs, imposing a bane on her power rolls. <em>(Note: in her case, "while dying" is a complicated category — see Tough But Withered. The drawback applies during the standard dying state, which she enters only briefly before her body goes inert.)</em></td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <div class="label">⸙ Chaos and the Return</div>
+        <p>The complication's narrative dovetails neatly with the Inciting Incident — the nightmare-pulling event would plausibly count as <em>"a supernatural effect or object that fused chaos into your very being."</em> Whether the chaos is the cause of her return, the result of it, or an unrelated overlay is open to the player to decide.</p>
+      </div>
+    </section>
+
+    <!-- XII. INCIDENT -->
+    <section id="incident">
+      <h2 class="section-title"><span class="num">xii.</span>Inciting Incident — Nightmares Made Flesh</h2>
+      <p>From the Draw Steel inciting incident: <em>"Your attempts at magic have always been unpredictable. A powerful mage promised to help you gain control. During your training, a terrible nightmare caused your body to flare with magic and pull the monster of your nightmare into the waking world. The horror escaped. You left, seeking to vanquish their terrible vileness."</em></p>
+      <div class="callout">
+        <div class="label">⸙ What's Established</div>
+        <ul style="margin:0.4rem 0;padding-left:1.4rem;">
+          <li>Clasiena's magic has always been unpredictable.</li>
+          <li>A powerful mage offered to help her gain control. (Likely the Mage's Apprentice master.)</li>
+          <li>During training, a nightmare she was having caused her body to flare with magic.</li>
+          <li>That flare pulled the monster of her nightmare into the waking world.</li>
+          <li>The horror escaped.</li>
+          <li>She left her training to vanquish it.</li>
+        </ul>
+      </div>
+      <div class="callout warn">
+        <div class="label">⸙ Open Threads</div>
+        <p>The incident text does not specify: how long ago this was; the master's identity or current status (still living? still teaching? complicit? hunting her?); the nightmare-horror's nature, name, or current whereabouts; whether the horror is what killed her (making her revenant return the second event in this chain). The campaign roster's description of Clasiena as <em>"came back from death with unfinished business"</em> is consistent with the nightmare being involved in her death. To be confirmed in Session Zero.</p>
+      </div>
+    </section>
+
+    <!-- XIII. CAMPAIGN -->
+    <section id="campaign">
+      <h2 class="section-title"><span class="num">xiii.</span>Position in Collateral <span class="draft-tag">draft</span></h2>
+      <div class="callout draft">
+        <div class="label">⸙ Provisional · Drawn from Campaign Concept</div>
+        <p>The following is drawn from the Collateral campaign summary, which is explicitly marked as draft / provisional. Details are subject to change in Session Zero.</p>
+      </div>
+
+      <p>The premise: the player characters wake in the same holding cell in Alloy and are told <em>"The debt has defaulted. You belong to the Saffron Seal now."</em> Clasiena was already moving across the timescape in pursuit of a thing she let into the world; waking up held in Alloy is, at best, a long delay on a hunt that has already cost her her life once.</p>
+
+      <h3 class="subhead">Role on the Team</h3>
+      <p>Combat: <strong>area caster and battlefield controller.</strong> Three of her four selected abilities are areas; Hurl Element gives her a free strike at range every turn; Practical Magic is a free maneuver every turn. She does damage at a distance, marks single targets at distance, and pulls allies through space to where they need to be.</p>
+      <p>Out of combat: <strong>the diviner.</strong> A Beyonding of Vision plus six Lore skills plus Vengeance Mark's tracking plus Subtle Relocation's positioning makes her the team's scrying-and-following specialist. If the team is asking "what is this place actually doing?" or "where did that go?", she answers.</p>
+
+      <h3 class="subhead">Faction Connections</h3>
+      <p>None of the campaign roster's listed factions are explicitly tied to Clasiena. The most plausible candidate for "who named her as collateral" — and thus the campaign's central mystery as applied to her specifically — is whoever benefits from her <em>not</em> finishing the hunt. That set probably includes the nightmare-horror itself, the mage who was supposed to be controlling her training, and any party with a stake in keeping unstable mages from finding what they let loose.</p>
+    </section>
+
+    <!-- XIV. ARC -->
+    <section id="arc">
+      <h2 class="section-title"><span class="num">xiv.</span>Character Arc</h2>
+      <p>Three threads pull through Clasiena's sheet.</p>
+      <p>The first is the <strong>hunt</strong>: she let a thing into the world, and she is here to put it back. Vengeance Mark is built for it. Lore Monsters and Lore Timescape are built for it. The inciting incident hands her the chase.</p>
+      <p>The second is the <strong>return</strong>: she came back from the dead, and the body she came back in is not the body she had. Tough But Withered makes the death of her body conditional on fire and 12 hours. Whether she stays in this body, finds a way back to her old one, or accepts that the wode elf is over — that is a story the mechanics support without forcing.</p>
+      <p>The third is the <strong>discipline</strong>: she went to a teacher to learn control, and what she learned in the end is that her magic is what it is. Void discipline is, in a sense, the right teacher's second attempt — the practice of working with the space between, the absences, the things that are not in their seats. Whether she can ever trust her magic enough to dream again without consequence is the long arc.</p>
+    </section>
+
+    <!-- COLOPHON -->
+    <footer class="colophon">
+      <span class="ornament">❦  Finis  ❦</span>
+      <div><span class="accent">A Folio of the Returned · Cell vii · Free City of Brass</span></div>
+      <div style="margin-top:0.4rem;">Clasiena · Revenant (formerly wode elf) · Elementalist of the Void Discipline · Level 1 · Debt-holder: The Saffron Seal</div>
+      <div style="margin-top:0.4rem;">Sheet mechanics: locked. Campaign frame: provisional, subject to Session Zero.</div>
+      <div style="margin-top:0.4rem;"><span class="accent">Status: start of campaign · Inciting Incident: Nightmares Made Flesh · Open: master's status, horror's whereabouts, manner of death, familiar's form</span></div>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

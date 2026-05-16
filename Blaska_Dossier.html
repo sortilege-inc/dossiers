@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Field Dossier — Blaska</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Special+Elite&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Blaska: sun-bleached homestead. Dusty cream paper, wheat, rust nails,
+       faded denim sky, the green of orc skin. The Null's posture is quiet —
+       so the palette is restrained, the ornament is sparse, and the page
+       breathes. */
+    --paper: #f1e7d2;
+    --paper-deep: #e6d8b8;
+    --paper-shadow: #c9b58c;
+    --ink: #2a1f12;
+    --ink-soft: #4a3a26;
+    --ink-faint: #7a6444;
+    --ink-ghost: #a89272;
+
+    --wheat: #c89a3a;
+    --wheat-deep: #8a661c;
+    --wheat-pale: #e8c878;
+
+    --rust: #8a3a18;
+    --rust-deep: #5a2410;
+    --rust-bright: #b85028;
+
+    --denim: #4a6a82;
+    --denim-deep: #2c4458;
+    --denim-pale: #8aa4ba;
+
+    --orc-green: #5a7438;
+    --orc-green-deep: #3a4a22;
+    --orc-green-pale: #8aa468;
+
+    --rule: #a89272;
+    --rule-soft: #c9b58c;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:#3a2a1a; color:var(--ink); font-family:'Old Standard TT', Georgia, serif; font-size:15px; line-height:1.7; }
+  body {
+    /* a dusty trail outside the page */
+    background-image:
+      radial-gradient(ellipse at 50% 30%, #5a4220 0%, #3a2a1a 50%, #1a1208 100%);
+    min-height: 100vh; padding: 2.5rem 1rem;
+  }
+  /* paper grain — fine speckling overlaid on the page */
+  body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E"); pointer-events:none; z-index:1000; mix-blend-mode:multiply; opacity:0.5; }
+
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    position: relative;
+    /* foxed-paper edge */
+    background-image:
+      radial-gradient(ellipse at 0% 0%, rgba(138,102,28,0.18) 0%, transparent 30%),
+      radial-gradient(ellipse at 100% 0%, rgba(90,36,16,0.14) 0%, transparent 28%),
+      radial-gradient(ellipse at 100% 100%, rgba(138,102,28,0.20) 0%, transparent 32%),
+      radial-gradient(ellipse at 0% 100%, rgba(90,36,16,0.16) 0%, transparent 30%),
+      radial-gradient(ellipse at 50% 50%, rgba(232,200,120,0.08) 0%, transparent 70%);
+    box-shadow:
+      0 0 0 1px var(--paper-shadow),
+      0 2px 0 var(--paper-shadow),
+      0 4px 24px rgba(0,0,0,0.5),
+      inset 0 0 80px rgba(138,102,28,0.10);
+  }
+  /* torn deckle edges top & bottom */
+  .document::before {
+    content:''; position:absolute; top:-2px; left:0; right:0; height:6px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0,6 L0,3 Q5,1 10,3 T20,3 T30,3 T40,3 T50,3 T60,3 T70,3 T80,3 T90,3 T100,3 L100,6 Z' fill='%23f1e7d2'/%3E%3C/svg%3E");
+    background-size: 80px 6px;
+  }
+  .document::after {
+    content:''; position:absolute; bottom:-2px; left:0; right:0; height:6px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0,0 L0,3 Q5,5 10,3 T20,3 T30,3 T40,3 T50,3 T60,3 T70,3 T80,3 T90,3 T100,3 L100,0 Z' fill='%23f1e7d2'/%3E%3C/svg%3E");
+    background-size: 80px 6px;
+  }
+
+  .doc-inner { padding: 3.5rem 4rem 4rem; position:relative; }
+
+  /* the masthead — like a homestead deed or wanted poster */
+  .masthead {
+    text-align:center;
+    border-top:3px double var(--ink-soft);
+    border-bottom:3px double var(--ink-soft);
+    padding:1rem 0;
+    margin-bottom: 0.6rem;
+    font-family: 'Special Elite', 'Courier New', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .masthead .row { display:flex; justify-content:space-between; align-items:center; }
+  .masthead .stamp { color:var(--rust); border:1.5px solid var(--rust); padding:0.2rem 0.6rem; font-weight:700; letter-spacing:0.2em; transform:rotate(-2deg); }
+  .masthead .center { font-size:0.85rem; letter-spacing:0.5em; color:var(--ink); }
+
+  .hero {
+    display:grid;
+    grid-template-columns: auto 1fr;
+    gap: 2.5rem;
+    align-items: flex-start;
+    margin: 2.5rem 0 3rem;
+  }
+  .portrait-frame {
+    width: 200px;
+    position: relative;
+    padding: 8px;
+    background: var(--paper-deep);
+    box-shadow:
+      0 0 0 1px var(--ink-soft),
+      0 0 0 4px var(--paper),
+      0 0 0 5px var(--ink-soft),
+      0 6px 0 var(--paper-shadow),
+      0 8px 20px rgba(0,0,0,0.35);
+    transform: rotate(-1.5deg);
+  }
+  .portrait-frame img {
+    width:100%; display:block;
+    filter: sepia(0.25) contrast(1.05) saturate(0.9);
+  }
+  .portrait-frame .corner-nail {
+    position:absolute; width:8px; height:8px;
+    background: radial-gradient(circle at 30% 30%, #a89272, #4a3a26 60%, #1a1208);
+    border-radius:50%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.4);
+  }
+  .portrait-frame .corner-nail.tl { top:4px; left:4px; }
+  .portrait-frame .corner-nail.tr { top:4px; right:4px; }
+  .portrait-frame .corner-nail.bl { bottom:4px; left:4px; }
+  .portrait-frame .corner-nail.br { bottom:4px; right:4px; }
+  .portrait-caption {
+    margin-top: 1rem;
+    text-align: center;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+
+  .hero-text { padding-top: 0.4rem; }
+  .eyebrow {
+    font-family: 'Special Elite', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    color: var(--rust-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .eyebrow .sep { color: var(--rule); margin: 0 0.6em; }
+
+  h1.character-name {
+    font-family: 'Rye', 'Special Elite', serif;
+    font-weight: 400;
+    font-size: 4.4rem;
+    line-height: 0.95;
+    color: var(--ink);
+    margin: 0.4rem 0 0.6rem;
+    letter-spacing: 0.01em;
+    text-shadow: 1px 1px 0 var(--paper-shadow), 2px 2px 0 rgba(0,0,0,0.05);
+  }
+  h1.character-name .subname {
+    display:block;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.22em;
+    font-weight: 400;
+    color: var(--ink-faint);
+    letter-spacing: 0.25em;
+    margin-top: 0.7rem;
+    text-shadow: none;
+  }
+
+  .tagline {
+    font-style: italic;
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    margin: 1rem 0 1.4rem;
+    max-width: 50ch;
+    line-height: 1.55;
+    border-left: 2px solid var(--wheat-deep);
+    padding-left: 1rem;
+  }
+
+  .vitals-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.5rem 0;
+    margin-top: 1.2rem;
+  }
+  .vitals-row .v { border-left: 1px solid var(--rule); padding: 0.1rem 0.9rem; white-space: nowrap; }
+  .vitals-row .v:first-child { border-left: none; padding-left: 0; }
+  .vitals-row .v strong { color: var(--rust-deep); font-weight: 700; margin-left: 0.4em; }
+
+  /* Table of contents — like a chapter list in a frontier ledger */
+  nav.toc {
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--rust-deep);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 2.5rem;
+    background: rgba(232,200,120,0.18);
+    position: relative;
+    columns: 2;
+    column-gap: 2.4rem;
+  }
+  nav.toc .toc-label {
+    font-family: 'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--rust-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    column-span: all;
+    font-weight: 700;
+  }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; font-family:'Special Elite', monospace; }
+  nav.toc ol li { counter-increment: toc; font-size: 0.92rem; margin-bottom: 0.3rem; break-inside: avoid; }
+  nav.toc ol li::before { content: counter(toc, upper-roman) ".  "; color: var(--wheat-deep); font-weight: 700; }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--rust-deep); text-decoration: underline; }
+
+  section { margin-bottom: 3rem; }
+
+  h2.section-title {
+    font-family: 'Rye', serif;
+    font-weight: 400;
+    font-size: 1.7rem;
+    color: var(--ink);
+    margin: 0 0 1.4rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  h2.section-title::before {
+    content: '✦';
+    color: var(--rust);
+    margin-right: 0.7rem;
+    font-size: 0.85em;
+  }
+  h2.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0;
+    width: 80px; height: 3px;
+    background: var(--rust-deep);
+  }
+
+  h3.subhead {
+    font-family: 'Rye', serif;
+    font-weight: 400;
+    font-size: 1.05rem;
+    color: var(--rust-deep);
+    margin: 1.8rem 0 0.5rem;
+  }
+  h3.subhead::before { content:'~ '; color:var(--wheat-deep); }
+  h3.subhead::after { content:' ~'; color:var(--wheat-deep); }
+
+  h4.entry-label {
+    font-family: 'Special Elite', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin: 1.4rem 0 0.5rem;
+    border-bottom: 1px dotted var(--rule);
+    padding-bottom: 0.2rem;
+  }
+
+  p { margin: 0.7rem 0; }
+  p.drop-cap::first-letter {
+    font-family: 'Rye', serif;
+    font-size: 3.6rem;
+    float: left;
+    line-height: 0.9;
+    margin: 0.1rem 0.5rem -0.1rem 0;
+    color: var(--rust-deep);
+  }
+  em { font-style: italic; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 700; }
+
+  /* Stat grid — sun-faded markers carved into the page */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.6rem;
+    margin: 1.5rem 0;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule);
+    background: rgba(232,200,120,0.12);
+    padding: 0.9rem 0.6rem;
+    text-align: center;
+    position: relative;
+  }
+  .stat-cell .label {
+    font-family:'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.3rem;
+  }
+  .stat-cell .value {
+    font-family:'Rye', serif;
+    font-size: 2.2rem;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .stat-cell .gloss {
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 0.4rem;
+    line-height: 1.3;
+  }
+  .stat-cell.high { background: rgba(184,80,40,0.10); border-color: var(--rust); }
+  .stat-cell.high .value { color: var(--rust-deep); }
+  .stat-cell.zero { background: rgba(168,146,114,0.1); }
+  .stat-cell.zero .value { color: var(--ink-faint); }
+
+  /* Status row — stamina/recoveries/discipline as small ledgers */
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .status-cell {
+    border: 1px solid var(--ink-soft);
+    background: var(--paper-deep);
+    padding: 1rem;
+  }
+  .status-cell .label {
+    font-family:'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .status-cell .value {
+    font-family:'Rye', serif;
+    font-size: 2.2rem;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .status-cell .value .sub { font-size: 0.4em; color: var(--ink-faint); }
+  .status-cell .note {
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 0.5rem;
+    line-height: 1.3;
+  }
+  .status-cell .bar { height: 4px; background: rgba(0,0,0,0.08); margin-top: 0.6rem; position: relative; }
+  .status-cell .bar .fill { height: 100%; background: var(--rust-deep); }
+  .status-cell .bar.wheat .fill { background: var(--wheat-deep); }
+  .status-cell .bar.green .fill { background: var(--orc-green); }
+
+  /* Tables — like deed lines */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.94rem;
+  }
+  table.dossier-table th,
+  table.dossier-table td {
+    text-align: left;
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  table.dossier-table th {
+    font-family:'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rust-deep);
+    border-bottom: 2px solid var(--rust-deep);
+    background: rgba(232,200,120,0.15);
+  }
+  table.dossier-table td:first-child { font-weight: 700; color: var(--ink); width: 28%; }
+
+  /* Ability blocks — like a hand-stamped ability card */
+  .ability-block {
+    border: 1px solid var(--ink-soft);
+    background: rgba(232,200,120,0.08);
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+    position: relative;
+  }
+  .ability-block.signature { border-left: 4px solid var(--rust); background: rgba(184,80,40,0.06); }
+  .ability-block.core { border-left: 4px solid var(--denim-deep); background: rgba(74,106,130,0.06); }
+  .ability-block .ability-name {
+    font-family:'Rye', serif;
+    font-size: 1.2rem;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+  .ability-block .ability-flavor {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    margin-bottom: 0.4rem;
+  }
+  .ability-block .ability-meta {
+    font-family:'Special Elite', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    border-bottom: 1px dotted var(--rule);
+    padding-bottom: 0.4rem;
+  }
+  .ability-block .ability-desc { margin-top: 0.4rem; }
+  .tier-roll {
+    margin-top: 0.6rem;
+    padding: 0.5rem 0.8rem;
+    background: var(--paper-deep);
+    border-left: 3px solid var(--wheat-deep);
+    font-size: 0.9rem;
+  }
+  .tier-roll .tier-label {
+    font-family:'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rust-deep);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .tier-roll .tier { display: block; margin: 0.15rem 0; }
+  .tier-roll .tier b { color: var(--rust-deep); }
+
+  /* Callouts */
+  .callout {
+    border: 1px solid var(--denim);
+    background: rgba(74,106,130,0.08);
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    border-left: 4px solid var(--denim-deep);
+  }
+  .callout.warn {
+    border: 1px solid var(--rust);
+    background: rgba(184,80,40,0.08);
+    border-left: 4px solid var(--rust);
+  }
+  .callout.draft {
+    border: 1px dashed var(--ink-faint);
+    background: rgba(168,146,114,0.06);
+    border-left: 4px dashed var(--ink-faint);
+  }
+  .callout .label {
+    font-family:'Special Elite', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--denim-deep);
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+  .callout.warn .label { color: var(--rust-deep); }
+  .callout.draft .label { color: var(--ink-faint); }
+  .callout p { margin: 0.3rem 0; }
+
+  /* Provisional flag — for content drawn from the draft campaign summary */
+  .draft-tag {
+    display: inline-block;
+    font-family:'Special Elite', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--rust-bright);
+    border: 1.5px solid var(--rust);
+    padding: 0.05rem 0.4rem;
+    text-transform: uppercase;
+    transform: rotate(-2deg);
+    margin-left: 0.4rem;
+    vertical-align: middle;
+    background: rgba(255,255,255,0.4);
+  }
+
+  /* Skills layout */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.4rem;
+  }
+  .skill-group .group-label {
+    font-family:'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--rust-deep);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
+  }
+  .skill-group ul { list-style: none; margin: 0; padding: 0; font-size: 0.95rem; }
+  .skill-group ul li { padding: 0.18rem 0; border-bottom: 1px dotted var(--rule-soft); display: flex; justify-content: space-between; }
+  .skill-group ul li .src { font-size: 0.72rem; color: var(--ink-faint); font-style: italic; font-family:'Special Elite', monospace; letter-spacing: 0.05em; }
+
+  /* Footer / colophon */
+  footer.colophon {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 3px double var(--ink-soft);
+    font-family:'Special Elite', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+  }
+  footer.colophon .accent { color: var(--rust-deep); font-weight: 700; }
+
+  @media (max-width: 780px) {
+    .doc-inner { padding: 2rem 1.5rem 3rem; }
+    .hero { grid-template-columns: 1fr; }
+    .portrait-frame { width: 60%; margin: 0 auto; }
+    h1.character-name { font-size: 3rem; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .status-grid { grid-template-columns: 1fr; }
+    nav.toc { columns: 1; }
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+  <div class="doc-inner">
+
+    <!-- MASTHEAD -->
+    <div class="masthead">
+      <div class="row">
+        <span>Field Dossier · Collateral</span>
+        <span class="center">— The Saffron Seal Holds —</span>
+        <span class="stamp">Default</span>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div>
+        <div class="portrait-frame">
+          <img src="Blaska.png" alt="Blaska, an orc woman in farm overalls">
+          <div class="corner-nail tl"></div>
+          <div class="corner-nail tr"></div>
+          <div class="corner-nail bl"></div>
+          <div class="corner-nail br"></div>
+        </div>
+        <div class="portrait-caption">Sketched at Booking · Cell 7 · Alloy</div>
+      </div>
+
+      <div class="hero-text">
+        <div class="eyebrow">Orc <span class="sep">·</span> Null <span class="sep">·</span> Metakinetic Tradition</div>
+        <h1 class="character-name">
+          Blaska
+          <span class="subname">Farmer, retired · brought back unwilling</span>
+        </h1>
+        <div class="tagline">
+          An anger she has never made peace with, a discipline she has chosen instead. Where she stands, magic gets quieter; where she lays hands, the supernatural goes still. She wanted a quiet life. Someone has named her as collateral.
+        </div>
+        <div class="vitals-row">
+          <span class="v">Level <strong>1</strong></span>
+          <span class="v">Speed <strong>7</strong></span>
+          <span class="v">Stability <strong>2</strong></span>
+          <span class="v">Stamina <strong>21</strong></span>
+          <span class="v">Discipline <strong>0</strong></span>
+          <span class="v">Complication: <strong>Loner</strong></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- TOC -->
+    <nav class="toc">
+      <div class="toc-label">// Contents of the Record</div>
+      <ol>
+        <li><a href="#identity">Identity &amp; Role</a></li>
+        <li><a href="#stats">Characteristics</a></li>
+        <li><a href="#discipline">Discipline Resource</a></li>
+        <li><a href="#ancestry">Orc Traits</a></li>
+        <li><a href="#class">Null Class Features</a></li>
+        <li><a href="#subclass">Metakinetic Tradition</a></li>
+        <li><a href="#abilities">Selected Abilities</a></li>
+        <li><a href="#culture">Culture &amp; Career</a></li>
+        <li><a href="#skills">Skills &amp; Languages</a></li>
+        <li><a href="#complication">Complication — Loner</a></li>
+        <li><a href="#incident">Inciting Incident</a></li>
+        <li><a href="#campaign">Position in Collateral</a></li>
+        <li><a href="#arc">Character Arc</a></li>
+      </ol>
+    </nav>
+
+    <!-- I. IDENTITY -->
+    <section id="identity">
+      <h2 class="section-title">I. Identity &amp; Role</h2>
+      <p class="drop-cap">Blaska is an orc, raised wild and communal, taught crafts and the care of animals, eventually settled to a farm of her own. She gave up the warrior reputation orcs carry the way a person sets down a coat they never wanted. What she kept was the discipline — the slow, daily work of regulating the body, of pushing back against the noise of the world. That discipline is now her class: she is a <strong>Null</strong>, an unarmed psionic warrior who dampens magic and absorbs the supernatural. Where she goes, the impossible becomes harder.</p>
+
+      <p>Her tradition is <strong>Metakinetic</strong> — she has learned to see through the illusions of the universe to her own body's potential. Her power is not loud. It is the deliberate refusal of someone else's spell to land, the small space of stillness she carries around her, and — when she chooses — a hand placed precisely on the joint or the throat or the chest of someone making trouble.</p>
+
+      <p>In the Free City of Brass, Blaska is the most magical city in the timescape's least welcome guest. She doesn't want to be here. Someone made sure she was.</p>
+    </section>
+
+    <!-- II. CHARACTERISTICS -->
+    <section id="stats">
+      <h2 class="section-title">II. Characteristics</h2>
+      <div class="stat-grid">
+        <div class="stat-cell"><div class="label">Might</div><div class="value">+1</div><div class="gloss">Farmer-strong, not warrior</div></div>
+        <div class="stat-cell high"><div class="label">Agility</div><div class="value">+2</div><div class="gloss">Primary · strike accuracy</div></div>
+        <div class="stat-cell zero"><div class="label">Reason</div><div class="value">0</div><div class="gloss">Plain-spoken</div></div>
+        <div class="stat-cell high"><div class="label">Intuition</div><div class="value">+2</div><div class="gloss">Primary · psionic feel</div></div>
+        <div class="stat-cell zero"><div class="label">Presence</div><div class="value">0</div><div class="gloss">Not the negotiator</div></div>
+      </div>
+      <p><em>The Null's two primary characteristics are Agility and Intuition, and Blaska maxes both. The flat zeros in Reason and Presence don't mean she's stupid or cold — she's a craftsperson and a stockwoman who reads animals well — but the social and scholarly heavy lifting belongs to others on this team.</em></p>
+
+      <div class="status-grid">
+        <div class="status-cell">
+          <div class="label">Stamina</div>
+          <div class="value">21<span class="sub"> / 21</span></div>
+          <div class="bar"><div class="fill" style="width:100%"></div></div>
+          <div class="note">Class base. Winded at ≤ 10. Dying at 0 to −10.</div>
+        </div>
+        <div class="status-cell">
+          <div class="label">Recoveries</div>
+          <div class="value">8<span class="sub"> / 8</span></div>
+          <div class="bar wheat"><div class="fill" style="width:100%"></div></div>
+          <div class="note">Recovery value: 7. Restored on a respite.</div>
+        </div>
+        <div class="status-cell">
+          <div class="label">Discipline</div>
+          <div class="value">0</div>
+          <div class="bar green"><div class="fill" style="width:0%"></div></div>
+          <div class="note">Heroic resource. Builds through composure under fire.</div>
+        </div>
+      </div>
+
+      <table class="dossier-table">
+        <thead><tr><th>Stat</th><th>Value &amp; Source</th></tr></thead>
+        <tbody>
+          <tr><td>Size</td><td><strong>1M</strong> — medium</td></tr>
+          <tr><td>Speed</td><td><strong>7</strong> — 5 base + 2 from <em>Null Speed</em> (Agility)</td></tr>
+          <tr><td>Disengage</td><td><strong>3</strong> — 1 base + 2 from <em>Null Speed</em> (Agility)</td></tr>
+          <tr><td>Stability</td><td><strong>2</strong> — 1 from <em>Grounded</em> (Orc trait) + 1 from <em>Density Augmentation</em></td></tr>
+          <tr><td>Surges</td><td>Start of encounter: <strong>0</strong>. Generated through Heroic Resource interactions.</td></tr>
+          <tr><td>Hero Tokens</td><td><strong>0</strong></td></tr>
+          <tr><td>Renown / Wealth / XP</td><td>0 / 0 / 0</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- III. DISCIPLINE -->
+    <section id="discipline">
+      <h2 class="section-title">III. Discipline — The Heroic Resource</h2>
+      <p>The Null's heroic resource is <strong>Discipline</strong>: the measure of focused, hard-won composure that lets her bend the supernatural away. Discipline builds at a steady tick, and accelerates whenever an enemy inside her Null Field tries to take meaningful action — the more they push against her quiet, the more she has to spend.</p>
+
+      <h4 class="entry-label">How Discipline Builds</h4>
+      <table class="dossier-table">
+        <thead><tr><th>Trigger</th><th>Gain</th></tr></thead>
+        <tbody>
+          <tr><td>Start of your turn</td><td><strong>+2</strong></td></tr>
+          <tr><td>First time each combat round that an enemy in the area of your Null Field uses a main action</td><td><strong>+1</strong></td></tr>
+          <tr><td>First time each combat round that the Director uses an ability that costs Malice</td><td><strong>+1</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <div class="label">◈ The Null's Logic</div>
+        <p>Discipline rewards Blaska for being where the trouble is. The more loudly the supernatural asserts itself within her aura, the more Discipline she gets to push back with. It is the opposite of avoidance — her job is to walk into the spell, not around it.</p>
+      </div>
+    </section>
+
+    <!-- IV. ANCESTRY -->
+    <section id="ancestry">
+      <h2 class="section-title">IV. Orc Traits</h2>
+      <p>Orcs carry an anger that cannot be hidden and a fury that drives them in battle — reputations that the peace-loving orcs (Blaska among them) find distasteful. She has the racial baseline plus three trait selections, all of which fit a person who would rather build than break.</p>
+      <table class="dossier-table">
+        <thead><tr><th>Trait</th><th>Function (verbatim)</th></tr></thead>
+        <tbody>
+          <tr><td>Relentless <em>(baseline)</em></td><td>Whenever a creature deals damage to you that leaves you dying, you can make a free strike against any creature. If the creature is reduced to 0 Stamina by your strike, you can spend a Recovery.</td></tr>
+          <tr><td>Bloodfire Rush</td><td>The magic coursing through your veins makes you run faster in the heat of battle. The first time in any combat round that you take damage, you gain a +2 bonus to speed until the end of the round.</td></tr>
+          <tr><td>Passionate Artisan</td><td>When you are stirred by passion for creation, your bloodfire allows you to work longer and harder. When you gain your initial skills, choose two skills from the crafting skill group, whether you have those skills or not. Whenever you make a project roll for a crafting project that uses these skills, you gain a +2 bonus to the roll.</td></tr>
+          <tr><td>Grounded</td><td>The magic in your blood makes it difficult for others to move you. <em>(Mechanical effect: +1 Stability — included in totals.)</em></td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <div class="label">◈ Read of the Trait Selections</div>
+        <p>Two of three picks (<em>Passionate Artisan</em> and <em>Grounded</em>) are non-combat or defensive. <em>Bloodfire Rush</em> is reactive — she runs faster <em>after</em> being hit. Blaska is not the orc the books warn you about. She is built to stay put, weather the blow, and out-craft and out-last the people who keep dragging her into fights.</p>
+      </div>
+    </section>
+
+    <!-- V. CLASS FEATURES -->
+    <section id="class">
+      <h2 class="section-title">V. Null Class Features</h2>
+      <p>The Null requires no weapons and no tools. Blaska's body and her aura are the kit.</p>
+
+      <h4 class="entry-label">Always Active — The Aura</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Null Field</div>
+        <div class="ability-meta">Maneuver · Area, Psionic · Aura 1 · All enemies</div>
+        <div class="ability-desc">
+          <p>Each target reduces their potencies by 1. Once as a free maneuver on each of her turns, Blaska can spend 1 Discipline and give her Null Field <em>one</em> of the following additional effects until the start of her next turn:</p>
+          <ul>
+            <li><strong>Gravitic Disruption</strong> — The first time on a turn that a target takes damage, she can slide them up to 2 squares.</li>
+            <li><strong>Inertial Anchor</strong> — Any target who starts their turn in the area can't shift.</li>
+            <li><strong>Synaptic Break</strong> — Whenever she or any ally uses an ability against a target that has a potency effect, the potency is increased by 1.</li>
+          </ul>
+          <p>The aura remains active even after an encounter ends. It ends only if she is dying or if she willingly ends it (no action required).</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Always Available — The Damper</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Inertial Shield</div>
+        <div class="ability-meta">Triggered Action · Psionic · Self · Trigger: You take damage</div>
+        <div class="ability-desc">
+          <p>Blaska halves the damage. <strong>Spend 1 Discipline:</strong> the potency of one effect associated with the damage is reduced by 1 for her.</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Built In — Movement &amp; Form</h4>
+      <table class="dossier-table">
+        <thead><tr><th>Feature</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>Null Speed</td><td>The flow of psionic power adds her Agility score (+2) to both her Speed and her Disengage. Already included in totals above.</td></tr>
+          <tr><td>Psionic Martial Arts</td><td>Whenever Blaska uses the Knockback or Grab maneuver, she uses Intuition instead of Might for the power roll and for determining if she can target creatures larger than her. With Knockback, she can choose to slide the target instead of pushing them.</td></tr>
+          <tr><td>Density Augmentation</td><td>Selected psionic augmentation. Grants +1 Stability and +0 Stamina at echelon 1 (scaling +6 per echelon). Can be changed during a respite via psionic meditation.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- VI. SUBCLASS -->
+    <section id="subclass">
+      <h2 class="section-title">VI. Metakinetic Tradition</h2>
+      <p>Of the three Null traditions, Blaska follows the <strong>Metakinetic</strong>: <em>"You learn to see through the illusions of the universe to more fully understand your body and its psionic potential."</em></p>
+      <p>At level 1, the tradition grants an additional Exploration skill (Swim) and access to the <strong>Metakinetic Mastery</strong> table — a scaling table that pays out as her Discipline pool grows in size. At low echelons the relevant entries are:</p>
+      <table class="dossier-table">
+        <thead><tr><th>Discipline Threshold</th><th>Benefit</th></tr></thead>
+        <tbody>
+          <tr><td>2</td><td>Whenever she uses the Knockback maneuver, the forced movement distance gains a bonus equal to her Intuition score (+2).</td></tr>
+          <tr><td>4</td><td>The first time in a combat round that she takes damage or is force-moved, she gains 1 surge — even if she resists the effect.</td></tr>
+          <tr><td>6</td><td>She gains an edge on the Grab and Knockback maneuvers.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <div class="label">◈ How This Reads in Play</div>
+        <p>The tradition rewards Blaska for putting hands on things — for grappling, knocking back, and being struck. Combined with Psionic Martial Arts (Intuition replaces Might), her unarmed control game scales sharply once Discipline starts flowing.</p>
+      </div>
+    </section>
+
+    <!-- VII. ABILITIES -->
+    <section id="abilities">
+      <h2 class="section-title">VII. Selected Abilities</h2>
+      <p>The Null has access to a substantial pool of class abilities. Blaska's level-1 selections — two signatures, one 3-Discipline, one 5-Discipline — emphasize close-range control and anti-magic disruption.</p>
+
+      <h4 class="entry-label">Signature — Free, Used Repeatedly</h4>
+      <div class="ability-block signature">
+        <div class="ability-name">Faster than the Eye</div>
+        <div class="ability-flavor">You strike so quickly that your hands become a blur.</div>
+        <div class="ability-meta">Main Action · Melee, Psionic, Strike, Weapon · Melee 1 · Two creatures or objects</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Agility</span>
+          <span class="tier"><b>Tier 1:</b> 4 damage</span>
+          <span class="tier"><b>Tier 2:</b> 5 damage</span>
+          <span class="tier"><b>Tier 3:</b> 7 damage</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Effect:</b> Blaska can deal damage equal to her Agility score (+2) to one additional creature or object adjacent to her.</span>
+        </div>
+      </div>
+
+      <div class="ability-block signature">
+        <div class="ability-name">Inertial Step</div>
+        <div class="ability-flavor">You flit about the battlefield and take an opportunistic strike.</div>
+        <div class="ability-meta">Main Action · Melee, Psionic, Strike, Weapon · Melee 1 · One creature or object</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Agility</span>
+          <span class="tier"><b>Tier 1:</b> 5 + A damage</span>
+          <span class="tier"><b>Tier 2:</b> 7 + A damage</span>
+          <span class="tier"><b>Tier 3:</b> 10 + A damage</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Effect:</b> Blaska can shift up to half her speed (3) before or after she makes the strike.</span>
+        </div>
+      </div>
+
+      <h4 class="entry-label">3-Discipline — Area Disruption</h4>
+      <div class="ability-block">
+        <div class="ability-name">Psychic Pulse</div>
+        <div class="ability-flavor">A burst of psionic energy interferes with your enemy's synapses.</div>
+        <div class="ability-meta">Maneuver · Area, Psionic · Burst 2 · Each enemy in the area · 3 Discipline</div>
+        <div class="ability-desc">
+          <p>Each target takes psychic damage equal to twice her Intuition score (4). Until the start of her next turn, the size of her Null Field ability increases by 1 (Aura 2). At the end of her current turn, each enemy in the area of her Null Field takes psychic damage equal to her Intuition score (2).</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">5-Discipline — Anti-Mage</h4>
+      <div class="ability-block">
+        <div class="ability-name">Arcane Disruptor</div>
+        <div class="ability-flavor">Your blow reorders a foe's body, causing pain if they attempt to channel sorcery.</div>
+        <div class="ability-meta">Main Action · Melee, Psionic, Strike, Weapon · Melee 1 · One creature or object · 5 Discipline</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Agility</span>
+          <span class="tier"><b>Tier 1:</b> 8 + A psychic damage; M&lt;[weak], weakened (save ends)</span>
+          <span class="tier"><b>Tier 2:</b> 12 + A psychic damage; M&lt;[average], weakened (save ends)</span>
+          <span class="tier"><b>Tier 3:</b> 16 + A psychic damage; M&lt;[strong], weakened (save ends)</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Effect:</b> While weakened this way, the target takes damage equal to her Intuition score (2) whenever they use a supernatural ability that costs Malice.</span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="label">◈ The Loadout's Shape</div>
+        <p>Two signatures cover the two ranges of combat Blaska cares about: <em>Faster than the Eye</em> when two enemies are adjacent, <em>Inertial Step</em> when she needs to close or reposition. <em>Psychic Pulse</em> trades a maneuver for an area damage hit that <em>also</em> grows her Null Field for a turn. <em>Arcane Disruptor</em> is the anti-mage finisher — built specifically to punish creatures that try to spend Malice within her reach. The whole loadout assumes she will be in melee, in the thick of the spell, doing the unfashionable work of putting hands on the supernatural.</p>
+      </div>
+    </section>
+
+    <!-- VIII. CULTURE & CAREER -->
+    <section id="culture">
+      <h2 class="section-title">VIII. Culture &amp; Career</h2>
+
+      <h3 class="subhead">Culture</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Element</th><th>Choice &amp; Note</th></tr></thead>
+        <tbody>
+          <tr><td>Environment</td><td><strong>Wilderness</strong> — her people did not try to tame the terrain they lived in. <em>(Skill: Climb.)</em></td></tr>
+          <tr><td>Organization</td><td><strong>Communal</strong> — all members considered equal. <em>(Skill: Blacksmithing.)</em></td></tr>
+          <tr><td>Upbringing</td><td><strong>Creative</strong> — raised among folk who created art or trade-worthy works. <em>(Skill: Cooking.)</em></td></tr>
+          <tr><td>Language</td><td><strong>Kalliac</strong></td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="subhead">Career — Farmer</h3>
+      <p><em>"You grew crops or cared for livestock."</em> The career is straightforward and central to her self-image. Mechanical grants:</p>
+      <ul>
+        <li><strong>Skills:</strong> Handle Animals, Endurance, Ride</li>
+        <li><strong>Language:</strong> High Kuric</li>
+        <li><strong>Project Points:</strong> 120 (career bonus)</li>
+        <li><strong>Exploration Perk:</strong> <em>Danger Sense</em> — In a natural environment (but not a settlement in that environment), edge on Alertness tests, can't be surprised, and 72-hour intuition for impending natural disaster.</li>
+      </ul>
+
+      <div class="callout">
+        <div class="label">◈ A City-Free Perk in the City</div>
+        <p><em>Danger Sense</em> works in natural environments specifically. In Alloy — the densest urban location in the timescape — Blaska does not get the perk. The mechanical inversion is the lived reality: she is at her most useless precisely where someone has chosen to put her.</p>
+      </div>
+    </section>
+
+    <!-- IX. SKILLS -->
+    <section id="skills">
+      <h2 class="section-title">IX. Skills &amp; Languages</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="group-label">Crafting</div>
+          <ul>
+            <li>Blacksmithing <span class="src">organization</span></li>
+            <li>Cooking <span class="src">upbringing</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Exploration</div>
+          <ul>
+            <li>Climb <span class="src">environment</span></li>
+            <li>Endurance <span class="src">career</span></li>
+            <li>Ride <span class="src">career</span></li>
+            <li>Swim <span class="src">subclass</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Interpersonal</div>
+          <ul>
+            <li>Handle Animals <span class="src">career</span></li>
+            <li>Read Person <span class="src">class</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Lore</div>
+          <ul>
+            <li>Psionics <span class="src">class</span></li>
+            <li>Strategy <span class="src">class</span></li>
+          </ul>
+        </div>
+      </div>
+      <h3 class="subhead">Languages</h3>
+      <p>Caelian <em>(default)</em>, Kalliac <em>(culture)</em>, High Kuric <em>(career)</em>.</p>
+      <div class="callout warn">
+        <div class="label">⚠ To-Do — Passionate Artisan Picks</div>
+        <p>The Orc trait <em>Passionate Artisan</em> grants two crafting skills of the player's choice (whether or not she already has them) with a +2 bonus to project rolls made with those skills. <strong>These two skills have not yet been selected in the source file</strong> and need to be chosen before play.</p>
+      </div>
+    </section>
+
+    <!-- X. COMPLICATION -->
+    <section id="complication">
+      <h2 class="section-title">X. Complication — Loner</h2>
+      <p>From the Draw Steel complication: <em>"You've always been a lone wolf. With no one else to lean on, you've picked up a million survival tricks. Which made it all the more surprising when you joined your current adventuring group and found the family you'd never known you needed."</em></p>
+      <table class="dossier-table">
+        <thead><tr><th>Aspect</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Loner Benefit</td><td>When she finishes a respite, she chooses a skill she doesn't have. She has that skill until the end of her next respite.</td></tr>
+          <tr><td>Loner Drawback</td><td>Now that she finally has people who care about her, she won't let anyone take them away. Whenever a creature reduces one of her allies to 0 Stamina, she is taunted by that creature until her ally's Stamina is higher than 0, another creature makes her taunted, or the end of the encounter.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout warn">
+        <div class="label">⚠ Tension Point</div>
+        <p>The complication assumes the lone wolf has already let people in. In Collateral, Blaska wakes up in a cell with four strangers — the complication frontloads its own emotional question: <em>how long until they count? And what happens to her position on the field when they do?</em> The drawback drives her toward whoever has just dropped an ally, often pulling her away from where she'd tactically prefer to be.</p>
+      </div>
+    </section>
+
+    <!-- XI. INCIDENT -->
+    <section id="incident">
+      <h2 class="section-title">XI. Inciting Incident — Blight</h2>
+      <p>From the Draw Steel inciting incident: <em>"A horrible blight swept over your homeland, sickening the livestock and causing crops to rot. No one knows whether the blight is of natural origin or something more malevolent, but you set out in search of a way to cleanse the land of this affliction."</em></p>
+      <div class="callout">
+        <div class="label">◈ How the Farm Was Lost</div>
+        <p>The campaign roster's hook — that Blaska <em>"lost her farm"</em> — runs through Blight. She did not lose it to a raid or a foreclosure but to something slower and more insidious: animals dying, fields rotting, no one with a clean answer for why. She left not because she gave up on the land but because she went looking for a way to cleanse it. Whether the blight is natural or <em>"something more malevolent"</em> is the open question the inciting incident hands to play.</p>
+      </div>
+      <div class="callout draft">
+        <div class="label">◇ Tie-In to Collateral <span class="draft-tag">draft</span></div>
+        <p>A Null whose homeland is dying of a possibly-supernatural plague has obvious resonance with a campaign about a debt held by a creditor whose nature is unclear. The Saffron Seal naming her as collateral while she is mid-quest to find a cure is a configuration with at least two readings — the Seal wants her sidelined, or the Seal is the thing that needs the cure to fail. Either is available to the Director.</p>
+      </div>
+    </section>
+
+    <!-- XII. CAMPAIGN POSITION -->
+    <section id="campaign">
+      <h2 class="section-title">XII. Position in Collateral <span class="draft-tag">draft</span></h2>
+      <div class="callout draft">
+        <div class="label">◇ Provisional · Drawn from Campaign Concept</div>
+        <p>The following is drawn from the <em>Collateral</em> campaign summary, which is explicitly marked as draft/provisional. Details are subject to change in Session Zero.</p>
+      </div>
+
+      <p>The premise: the player characters wake in the same holding cell in Alloy, the Free City of Brass, and are told <em>"The debt has defaulted. You belong to the Saffron Seal now."</em> None of them know who named them as collateral. Blaska's place in this is the strangest, because she had stopped doing this work. She had a farm. She is here because someone reached across worlds to pull her here, and the question of <em>who</em>, and <em>why her</em>, is the campaign's central mystery.</p>
+
+      <h3 class="subhead">Role on the Team</h3>
+      <p>Combat: <strong>melee anchor and anti-mage</strong>. Blaska's Null Field reduces enemy potencies, and her abilities punish anything trying to spend Malice within reach. She is built to stand inside the spell.</p>
+      <p>Out of combat: <strong>practical hands, animal handler, crafter, plain-spoken read of people.</strong> The bookish, faceman, and rumor-hunter roles belong to others. Blaska is the one who can build, mend, ride, swim, climb, cook the food, and tell whether someone is lying without needing to explain how she knows.</p>
+
+      <h3 class="subhead">Suspected Tension with the City</h3>
+      <p>Alloy is described in the campaign summary as the most magical city in the timescape. A Null in Alloy is, mechanically and thematically, a counter-pressure to the place itself. Whether the Saffron Seal sees her as a threat, a tool, or a problem to be parked is unresolved.</p>
+    </section>
+
+    <!-- XIII. ARC -->
+    <section id="arc">
+      <h2 class="section-title">XIII. Character Arc</h2>
+      <p>Two mechanics pull against each other across the campaign:</p>
+      <ul>
+        <li>The <strong>Null</strong> wants her to be alone in the center of the storm — discipline, composure, her body as a closed system that the supernatural can't enter.</li>
+        <li>The <strong>Loner complication</strong> tells her she has already found the family she didn't know she needed — and punishes her for losing them, mechanically taunting her toward whoever drops one of her people.</li>
+      </ul>
+      <p>The character was a peaceful orc who became a disciplined warrior who became a quiet farmer. The campaign asks her to become something fourth: a person whose stillness has to make room for other people inside it. The Saffron Seal may break her cover. The strangers in her cell may not stay strangers.</p>
+    </section>
+
+    <!-- COLOPHON -->
+    <footer class="colophon">
+      <div><span class="accent">// COLLATERAL FIELD DOSSIER · Cell 7 Booking</span></div>
+      <div style="margin-top:0.4rem;">BLASKA · ORC · NULL / METAKINETIC · LVL 1 · DEBT-HOLDER: THE SAFFRON SEAL</div>
+      <div style="margin-top:0.4rem;">Sheet mechanics: locked. Campaign frame: provisional, subject to Session Zero.</div>
+      <div style="margin-top:0.4rem;"><span class="accent">⚑ STATUS: START OF CAMPAIGN · INCITING INCIDENT: Blight · OUTSTANDING: Passionate Artisan crafting picks</span></div>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>
