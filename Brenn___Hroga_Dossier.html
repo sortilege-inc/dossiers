@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Field Journal — Brenn &amp; Hroga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=Special+Elite&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Brenn & Hroga: a leatherbound field journal kept by a dwarf
+       who used to thieve and now keeps to the wilderness with a boar.
+       Tobacco-tan vellum, oxblood ink, iron-black diagrams, a green
+       margin for Hroga's living entries. */
+    --vellum: #e2d2a8;
+    --vellum-deep: #c8b888;
+    --vellum-edge: #a08c5a;
+    --vellum-shadow: #6c5c30;
+
+    --ink: #1a1208;
+    --ink-soft: #3a2818;
+    --ink-faint: #6a5840;
+    --ink-pale: #948060;
+
+    --oxblood: #6a1418;
+    --oxblood-deep: #3a0808;
+    --oxblood-bright: #9a2028;
+
+    --iron: #1c1410;
+    --iron-soft: #38302a;
+
+    --moss: #4a5828;
+    --moss-deep: #2a3414;
+    --moss-bright: #7c8c48;
+    --moss-pale: #b8c488;
+
+    --rampage: #c84020;
+    --rampage-deep: #7a1a08;
+
+    --rune: #8c6c28;
+    --rune-bright: #c8a448;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:#0e0a04; color:var(--ink); font-family:'IM Fell DW Pica', Georgia, serif; font-size:16px; line-height:1.6; }
+  body {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(106,20,24,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 100%, rgba(74,88,40,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, #1a1208 0%, #0e0a04 60%, #050300 100%);
+    min-height: 100vh; padding: 2.5rem 1rem;
+  }
+  body::before {
+    content:''; position:fixed; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch' seed='5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    pointer-events:none; z-index:1000; mix-blend-mode:multiply; opacity:0.5;
+  }
+
+  .document {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--vellum);
+    position: relative;
+    /* aged vellum, stained corners, slight tilt to texture */
+    background-image:
+      /* corner stains */
+      radial-gradient(ellipse 220px 160px at 0% 0%, rgba(106,20,24,0.12) 0%, transparent 65%),
+      radial-gradient(ellipse 180px 140px at 100% 100%, rgba(106,20,24,0.10) 0%, transparent 65%),
+      radial-gradient(ellipse 160px 120px at 100% 0%, rgba(160,140,90,0.18) 0%, transparent 65%),
+      radial-gradient(ellipse 200px 140px at 0% 100%, rgba(160,140,90,0.16) 0%, transparent 65%),
+      /* aging tone */
+      linear-gradient(165deg, rgba(226,210,168,1) 0%, rgba(200,184,136,1) 50%, rgba(176,160,108,1) 100%);
+    /* leather-tooled bordering — double thick dark frame */
+    box-shadow:
+      0 0 0 1px var(--ink),
+      0 0 0 3px var(--vellum-edge),
+      0 0 0 4px var(--ink),
+      0 0 0 12px var(--iron),
+      0 0 0 13px var(--ink),
+      0 30px 80px rgba(0,0,0,0.75);
+  }
+
+  /* hand-inked corner ornaments */
+  .document .corner-flourish {
+    position: absolute;
+    width: 36px; height: 36px;
+    color: var(--oxblood-deep);
+    font-family:'IM Fell DW Pica', serif;
+    font-size: 1.8rem;
+    font-style: italic;
+    line-height: 36px;
+    text-align: center;
+    pointer-events: none;
+  }
+  .document .corner-flourish.tl { top: 16px; left: 16px; }
+  .document .corner-flourish.tr { top: 16px; right: 16px; transform: scaleX(-1); }
+  .document .corner-flourish.bl { bottom: 16px; left: 16px; transform: scaleY(-1); }
+  .document .corner-flourish.br { bottom: 16px; right: 16px; transform: scale(-1,-1); }
+
+  .doc-inner { padding: 3.5rem 4rem 4rem; position:relative; }
+
+  /* MASTHEAD — a journal frontispiece */
+  .masthead {
+    text-align: center;
+    margin-bottom: 1.4rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid var(--ink);
+    position: relative;
+  }
+  .masthead::after {
+    content:''; position: absolute; bottom: -5px; left: 0; right: 0;
+    border-bottom: 1px solid var(--ink);
+  }
+  .masthead .breadcrumb {
+    font-family:'Special Elite', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.4rem;
+  }
+  .masthead .title {
+    font-family:'IM Fell DW Pica', serif;
+    font-weight: 400;
+    font-size: 2.2rem;
+    color: var(--ink);
+    font-style: italic;
+    margin: 0.1rem 0 0.2rem;
+    letter-spacing: 0.02em;
+  }
+  .masthead .subtitle {
+    font-family:'Special Elite', monospace;
+    font-size: 0.86rem;
+    color: var(--oxblood);
+    letter-spacing: 0.08em;
+  }
+
+  /* INVOCATION */
+  .invocation {
+    text-align: center;
+    font-style: italic;
+    font-size: 1.04rem;
+    color: var(--ink-soft);
+    margin: 0 auto 2.4rem;
+    max-width: 64ch;
+    line-height: 1.6;
+    padding: 0 1rem;
+    border-bottom: 1px dotted var(--vellum-shadow);
+    padding-bottom: 1.2rem;
+  }
+  .invocation::before, .invocation::after {
+    display: block;
+    content: '✦';
+    color: var(--oxblood);
+    font-style: normal;
+    font-size: 0.9rem;
+    margin: 0.2rem auto;
+  }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 2.5rem;
+    align-items: flex-start;
+    margin-bottom: 2.4rem;
+  }
+  .portrait-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .portrait-frame {
+    width: 100%;
+    position: relative;
+    padding: 5px;
+    background: var(--iron);
+    box-shadow:
+      0 0 0 1px var(--ink),
+      0 0 0 3px var(--vellum),
+      0 0 0 4px var(--ink),
+      0 10px 24px rgba(0,0,0,0.4);
+  }
+  .portrait-frame.companion {
+    box-shadow:
+      0 0 0 1px var(--moss-deep),
+      0 0 0 3px var(--vellum),
+      0 0 0 4px var(--moss-deep),
+      0 10px 24px rgba(0,0,0,0.4);
+  }
+  .portrait-frame img {
+    width: 100%; display: block;
+    filter: contrast(1.05) sepia(0.08) saturate(0.92);
+  }
+  .portrait-label {
+    margin-top: 0.5rem;
+    font-family:'Special Elite', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+  }
+  .portrait-label .name {
+    display: block;
+    font-family:'IM Fell DW Pica', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink);
+    margin-bottom: 0.15rem;
+  }
+  .portrait-label.companion .name { color: var(--moss-deep); }
+
+  .hero-text { padding-top: 0.2rem; }
+  .eyebrow {
+    font-family:'Special Elite', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    color: var(--oxblood);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .eyebrow .sep { color: var(--ink-pale); margin: 0 0.5em; }
+
+  h1.character-name {
+    font-family:'IM Fell DW Pica', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 4.6rem;
+    line-height: 0.95;
+    color: var(--ink);
+    margin: 0.2rem 0 0.3rem;
+    letter-spacing: 0;
+  }
+  h1.character-name .partner {
+    display: block;
+    font-family:'IM Fell DW Pica', serif;
+    font-style: italic;
+    font-size: 0.45em;
+    color: var(--moss-deep);
+    margin-top: 0.4rem;
+  }
+  h1.character-name .partner::before { content: '— with — '; color: var(--ink-faint); font-size: 0.7em; font-style: normal; letter-spacing: 0.1em; text-transform: uppercase; margin-right: 0.4em; }
+  h1.character-name .epithet {
+    display: block;
+    font-family:'Special Elite', monospace;
+    font-style: normal;
+    font-size: 0.22em;
+    color: var(--ink-soft);
+    letter-spacing: 0.16em;
+    margin-top: 0.7rem;
+    text-transform: uppercase;
+  }
+
+  .tagline {
+    font-style: italic;
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    margin: 1rem 0 1.3rem;
+    max-width: 56ch;
+    line-height: 1.55;
+    border-left: 3px double var(--oxblood);
+    padding-left: 1rem;
+  }
+
+  .vitals-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    font-family:'Special Elite', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: 0.55rem 0;
+    margin-top: 1.2rem;
+    text-transform: uppercase;
+  }
+  .vitals-row .v { border-left: 1px solid var(--vellum-edge); padding: 0.1rem 0.8rem; white-space: nowrap; }
+  .vitals-row .v:first-child { border-left: none; padding-left: 0; }
+  .vitals-row .v strong { color: var(--oxblood-bright); margin-left: 0.4em; }
+  .vitals-row .v.moss strong { color: var(--moss-deep); }
+  .vitals-row .v.warn strong { color: var(--rampage); }
+
+  /* TOC */
+  nav.toc {
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 2.8rem;
+    columns: 2;
+    column-gap: 2.4rem;
+    position: relative;
+    background: rgba(106,20,24,0.025);
+  }
+  nav.toc::before {
+    content: '— Contents of this Volume —';
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--vellum);
+    padding: 0 1.2rem;
+    font-family:'IM Fell DW Pica', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--oxblood-deep);
+  }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+  nav.toc ol li { counter-increment: toc; font-size: 0.96rem; margin-bottom: 0.3rem; break-inside: avoid; font-style: italic; }
+  nav.toc ol li::before { content: counter(toc, lower-roman) ".  "; color: var(--oxblood); font-weight: 700; font-style: normal; }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--oxblood-bright); text-decoration: underline; }
+
+  section { margin-bottom: 2.8rem; }
+
+  h2.section-title {
+    font-family:'IM Fell DW Pica', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 1.8rem;
+    color: var(--ink);
+    margin: 0 0 1.1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--ink);
+    position: relative;
+  }
+  h2.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 100%; height: 1px;
+    background: var(--ink);
+  }
+  h2.section-title .num {
+    font-family:'Special Elite', monospace;
+    font-style: normal;
+    font-size: 0.5em;
+    letter-spacing: 0.2em;
+    color: var(--oxblood);
+    margin-right: 0.6rem;
+    vertical-align: 0.2em;
+  }
+
+  h3.subhead {
+    font-family:'IM Fell DW Pica', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.25rem;
+    color: var(--oxblood-deep);
+    margin: 1.6rem 0 0.4rem;
+  }
+  h3.subhead::before { content: '⸙ '; color: var(--rune); font-style: normal; }
+
+  h4.entry-label {
+    font-family:'Special Elite', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin: 1.3rem 0 0.5rem;
+    border-bottom: 1px dotted var(--vellum-shadow);
+    padding-bottom: 0.2rem;
+  }
+
+  p { margin: 0.7rem 0; }
+  p.drop-cap::first-letter {
+    font-family:'IM Fell DW Pica', serif;
+    font-style: italic;
+    font-size: 4.4rem;
+    float: left;
+    line-height: 0.85;
+    margin: 0.2rem 0.5rem -0.1rem 0;
+    color: var(--oxblood-deep);
+  }
+  em { font-style: italic; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 700; }
+
+  /* STAT GRID — wax-seal panels */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin: 1.5rem 0;
+    border: 2px solid var(--ink);
+  }
+  .stat-cell {
+    padding: 0.9rem 0.5rem;
+    text-align: center;
+    border-right: 1px solid var(--ink);
+    background: rgba(106,20,24,0.03);
+  }
+  .stat-cell:last-child { border-right: none; }
+  .stat-cell .label {
+    font-family:'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.25rem;
+  }
+  .stat-cell .value {
+    font-family:'IM Fell DW Pica', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 2.6rem;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .stat-cell .gloss {
+    font-family:'IM Fell DW Pica', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    margin-top: 0.4rem;
+    line-height: 1.3;
+  }
+  .stat-cell.high { background: rgba(106,20,24,0.08); }
+  .stat-cell.high .value { color: var(--oxblood-deep); }
+  .stat-cell.zero .value { color: var(--ink-faint); }
+
+  /* STATUS — three pools */
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .status-cell {
+    border: 1px solid var(--ink);
+    background: rgba(106,20,24,0.04);
+    padding: 1rem;
+  }
+  .status-cell .label {
+    font-family:'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--oxblood);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .status-cell .value {
+    font-family:'IM Fell DW Pica', serif;
+    font-style: italic;
+    font-size: 2.6rem;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .status-cell .value .sub { font-size: 0.4em; color: var(--ink-faint); }
+  .status-cell .note {
+    font-family:'IM Fell DW Pica', serif;
+    font-style: italic;
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+    margin-top: 0.5rem;
+    line-height: 1.4;
+  }
+  .status-cell .bar { height: 4px; background: rgba(26,18,8,0.12); margin-top: 0.5rem; }
+  .status-cell .bar .fill { height: 100%; background: var(--ink); }
+  .status-cell.ferocity { border-color: var(--oxblood); background: rgba(106,20,24,0.06); }
+  .status-cell.ferocity .bar .fill { background: var(--oxblood); }
+  .status-cell.rampage { border-color: var(--rampage-deep); background: rgba(200,64,32,0.06); }
+  .status-cell.rampage .bar .fill { background: var(--rampage); }
+
+  /* TABLES */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.96rem;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+  table.dossier-table th, table.dossier-table td {
+    text-align: left;
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--vellum-shadow);
+    vertical-align: top;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+  table.dossier-table th {
+    font-family:'Special Elite', monospace;
+    font-weight: 400;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+    background: rgba(0,0,0,0.04);
+  }
+  table.dossier-table td:first-child { font-weight: 700; color: var(--ink); width: 30%; }
+
+  /* ABILITY BLOCKS — pasted-in cuttings */
+  .ability-block {
+    border: 1px solid var(--ink);
+    background: rgba(226,210,168,0.5);
+    padding: 1rem 1.2rem;
+    margin: 0.9rem 0;
+    position: relative;
+    box-shadow:
+      2px 2px 0 rgba(26,18,8,0.06);
+  }
+  .ability-block.signature { border-left: 4px solid var(--oxblood); background: rgba(106,20,24,0.05); }
+  .ability-block.core { border-left: 4px solid var(--ink-soft); background: rgba(0,0,0,0.03); }
+  .ability-block.kit { border-left: 4px solid var(--rune); background: rgba(140,108,40,0.05); }
+  .ability-block.companion { border-left: 4px solid var(--moss-deep); background: rgba(74,88,40,0.05); }
+  .ability-block.collar { border-left: 4px solid var(--rampage); background: rgba(200,64,32,0.06); }
+  .ability-block .ability-name {
+    font-family:'IM Fell DW Pica', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.5rem;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+  .ability-block .ability-flavor {
+    font-family:'IM Fell DW Pica', serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+  .ability-block .ability-meta {
+    font-family:'Special Elite', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    margin-bottom: 0.6rem;
+    border-bottom: 1px dotted var(--vellum-shadow);
+    padding-bottom: 0.4rem;
+    text-transform: uppercase;
+  }
+  .tier-roll {
+    margin-top: 0.6rem;
+    padding: 0.5rem 0.8rem;
+    background: rgba(0,0,0,0.04);
+    border-left: 3px solid var(--oxblood);
+    font-size: 0.96rem;
+  }
+  .tier-roll .tier-label {
+    font-family:'Special Elite', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--oxblood-deep);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .tier-roll .tier { display: block; margin: 0.15rem 0; }
+  .tier-roll .tier b { color: var(--oxblood-deep); }
+
+  /* HROGA SIDEBAR — a major field-bestiary entry */
+  .hroga-card {
+    border: 2px solid var(--moss-deep);
+    background:
+      radial-gradient(ellipse 200px 140px at 20% 10%, rgba(124,140,72,0.06) 0%, transparent 65%),
+      radial-gradient(ellipse 180px 120px at 85% 90%, rgba(124,140,72,0.06) 0%, transparent 65%),
+      rgba(226,210,168,0.5);
+    padding: 1.6rem 1.8rem;
+    margin: 1rem 0 2rem;
+    position: relative;
+    box-shadow: 3px 3px 0 rgba(74,88,40,0.18);
+  }
+  .hroga-card::before {
+    content: '— Specimen Note —';
+    position: absolute; top: -12px; left: 1.5rem;
+    background: var(--vellum);
+    padding: 0 0.8rem;
+    font-family:'IM Fell DW Pica', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--moss-deep);
+  }
+  .hroga-card h3 {
+    font-family:'IM Fell DW Pica', serif;
+    font-style: italic;
+    font-size: 2rem;
+    color: var(--moss-deep);
+    margin: 0 0 0.2rem;
+    line-height: 1;
+  }
+  .hroga-card .subtitle {
+    font-family:'Special Elite', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 1rem;
+  }
+  .hroga-card .stat-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    font-family:'Special Elite', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--moss-deep);
+    border-bottom: 1px solid var(--moss-deep);
+    padding: 0.5rem 0;
+    margin-bottom: 1rem;
+  }
+  .hroga-card .stat-line .v { border-left: 1px solid var(--vellum-edge); padding: 0.1rem 0.7rem; white-space: nowrap; }
+  .hroga-card .stat-line .v:first-child { border-left: none; padding-left: 0; }
+  .hroga-card .stat-line .v strong { color: var(--moss-deep); margin-left: 0.4em; }
+  .hroga-card .char-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin: 0.8rem 0 1.2rem;
+  }
+  .hroga-card .char-cell {
+    border: 1px solid var(--moss-deep);
+    background: rgba(124,140,72,0.05);
+    padding: 0.5rem 0.3rem;
+    text-align: center;
+  }
+  .hroga-card .char-cell .label {
+    font-family:'Special Elite', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    color: var(--moss-deep);
+    text-transform: uppercase;
+  }
+  .hroga-card .char-cell .val {
+    font-family:'IM Fell DW Pica', serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--ink);
+    line-height: 1;
+    margin-top: 0.15rem;
+  }
+
+  /* RAMPAGE TABLE */
+  table.rampage-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.94rem;
+  }
+  table.rampage-table th, table.rampage-table td {
+    text-align: left;
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid var(--rampage-deep);
+    vertical-align: top;
+  }
+  table.rampage-table th {
+    font-family:'Special Elite', monospace;
+    font-weight: 400;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rampage-deep);
+    border-bottom: 2px solid var(--rampage-deep);
+    background: rgba(200,64,32,0.05);
+  }
+  table.rampage-table td:first-child {
+    font-family:'IM Fell DW Pica', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--rampage-deep);
+    width: 12%;
+    line-height: 1;
+  }
+  table.rampage-table td:nth-child(2) { width: 18%; font-size: 0.86rem; color: var(--ink-faint); font-style: italic; }
+
+  /* CALLOUTS */
+  .callout {
+    border: 1px solid var(--ink-soft);
+    background: rgba(0,0,0,0.04);
+    padding: 0.9rem 1.2rem;
+    margin: 1.2rem 0;
+    border-left: 4px solid var(--ink-soft);
+  }
+  .callout.warn {
+    border: 1px solid var(--rampage-deep);
+    background: rgba(200,64,32,0.06);
+    border-left: 4px solid var(--rampage);
+  }
+  .callout.moss {
+    border: 1px solid var(--moss-deep);
+    background: rgba(74,88,40,0.05);
+    border-left: 4px solid var(--moss-deep);
+  }
+  .callout.collar {
+    border: 1px solid var(--rampage-deep);
+    background: rgba(200,64,32,0.05);
+    border-left: 4px solid var(--rampage);
+  }
+  .callout.draft {
+    border: 1px dashed var(--ink-faint);
+    background: rgba(0,0,0,0.02);
+    border-left: 4px dashed var(--ink-faint);
+  }
+  .callout .label {
+    font-family:'Special Elite', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.3rem;
+  }
+  .callout.warn .label { color: var(--rampage-deep); }
+  .callout.moss .label { color: var(--moss-deep); }
+  .callout.collar .label { color: var(--rampage-deep); }
+  .callout.draft .label { color: var(--ink-faint); }
+  .callout p { margin: 0.3rem 0; }
+
+  .draft-tag {
+    display: inline-block;
+    font-family:'Special Elite', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    color: var(--oxblood-deep);
+    border: 1.5px solid var(--oxblood);
+    padding: 0.05rem 0.45rem;
+    text-transform: uppercase;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    background: rgba(226,210,168,0.7);
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.4rem;
+  }
+  .skill-group .group-label {
+    font-family:'IM Fell DW Pica', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--ink);
+    border-bottom: 1px solid var(--vellum-shadow);
+    padding-bottom: 0.1rem;
+    margin-bottom: 0.4rem;
+  }
+  .skill-group ul { list-style: none; margin: 0; padding: 0; font-size: 0.95rem; }
+  .skill-group ul li { padding: 0.18rem 0; border-bottom: 1px dotted var(--vellum-shadow); display: flex; justify-content: space-between; }
+  .skill-group ul li .src { font-size: 0.76rem; color: var(--ink-faint); font-style: italic; font-family:'IM Fell DW Pica', serif; }
+
+  /* FOOTER */
+  footer.colophon {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--ink);
+    font-family:'Special Elite', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    text-align: center;
+    text-transform: uppercase;
+  }
+  footer.colophon .accent { color: var(--oxblood-deep); }
+  footer.colophon .printer {
+    font-family:'IM Fell DW Pica', serif;
+    font-style: italic;
+    font-size: 0.96rem;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink-soft);
+    margin-top: 0.6rem;
+  }
+
+  @media (max-width: 780px) {
+    .doc-inner { padding: 2rem 1.5rem 3rem; }
+    .hero { grid-template-columns: 1fr; }
+    .portrait-stack { flex-direction: row; gap: 0.6rem; }
+    h1.character-name { font-size: 3rem; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .status-grid { grid-template-columns: 1fr; }
+    nav.toc { columns: 1; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .hroga-card .char-row { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+  <span class="corner-flourish tl">❦</span>
+  <span class="corner-flourish tr">❦</span>
+  <span class="corner-flourish bl">❦</span>
+  <span class="corner-flourish br">❦</span>
+
+  <div class="doc-inner">
+
+    <!-- MASTHEAD -->
+    <div class="masthead">
+      <div class="breadcrumb">Free City of Brass · Cell vii · Default of the Saffron Seal</div>
+      <div class="title">Field Journal of Brenn &amp; Hroga</div>
+      <div class="subtitle">Two specimens · one bond · one shared collar</div>
+    </div>
+
+    <!-- INVOCATION -->
+    <div class="invocation">
+      She picked the locks. She picked her share of the trouble those locks led to. The boar found her after, or she found him, depending on which of them you ask — and neither answers in words. The collar is older than the bond. The bond is older than the cell.
+    </div>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="portrait-stack">
+        <div>
+          <div class="portrait-frame">
+            <img src="brenn.png" alt="Brenn, a stone-skinned dwarf with axe and beard, hard-worn">
+          </div>
+          <div class="portrait-label">
+            <span class="name">Brenn</span>
+            Dwarf · Beastheart
+          </div>
+        </div>
+        <div>
+          <div class="portrait-frame companion">
+            <img src="hroga.png" alt="Hroga, a tusked boar with bristle-mane and ground-eating stance">
+          </div>
+          <div class="portrait-label companion">
+            <span class="name">Hroga</span>
+            Companion · Boar
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-text">
+        <div class="eyebrow">Dwarf <span class="sep">·</span> Beastheart <span class="sep">·</span> Prowler Subclass</div>
+        <h1 class="character-name">
+          Brenn
+          <span class="partner">Hroga</span>
+          <span class="epithet">Quit the work that hurt people. Kept the skills.</span>
+        </h1>
+        <div class="tagline">
+          Brenn stole to eat. She told herself it was a clean trade — taking from places that could spare it — until a job she pulled hurt someone who couldn't. She walked away from that life and into the wilderness. Hroga is what she found there, or the other side of what she left. They wear the same collar between them now, hers literal, his metaphorical, and they fight together because at this point they don't really know how to do anything else.
+        </div>
+        <div class="vitals-row">
+          <span class="v">Level <strong>1</strong></span>
+          <span class="v">Speed <strong>5</strong></span>
+          <span class="v">Stamina <strong>33</strong></span>
+          <span class="v">Recoveries <strong>12</strong></span>
+          <span class="v moss">Ferocity <strong>0</strong></span>
+          <span class="v warn">Hroga's Rampage <strong>0</strong></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- TOC -->
+    <nav class="toc">
+      <ol>
+        <li><a href="#identity">Identity &amp; Bond</a></li>
+        <li><a href="#stats">Brenn — Characteristics</a></li>
+        <li><a href="#hroga">Hroga — Specimen Note</a></li>
+        <li><a href="#ferocity">Ferocity &amp; Rampage</a></li>
+        <li><a href="#ancestry">Dwarf Traits</a></li>
+        <li><a href="#class">Beastheart Class Features</a></li>
+        <li><a href="#subclass">Prowler Subclass</a></li>
+        <li><a href="#kit">Pugilist Kit</a></li>
+        <li><a href="#abilities">Selected Abilities</a></li>
+        <li><a href="#culture">Culture &amp; Career</a></li>
+        <li><a href="#skills">Skills &amp; Languages</a></li>
+        <li><a href="#complication">Complication — War Dog Collar</a></li>
+        <li><a href="#incident">Inciting Incident — Simply Survival</a></li>
+        <li><a href="#campaign">Position in Collateral</a></li>
+        <li><a href="#arc">Character Arc</a></li>
+      </ol>
+    </nav>
+
+    <!-- I. IDENTITY -->
+    <section id="identity">
+      <h2 class="section-title"><span class="num">i.</span>Identity &amp; Bond</h2>
+      <p class="drop-cap">Brenn is a dwarf — stone-skinned, dense, descended through long lines from the long-extinct steel dwarves. She has a rune carved on her skin and an explosive collar she chose to keep. She came up among bandits, smugglers, and outlaws, and walked away from that life when one of her thefts ended somewhere it shouldn't have.</p>
+
+      <p>She is a <strong>Beastheart</strong>: a hero who fights bonded to a wild creature, never as a trainer with a pet but as a partner sharing senses and instincts. Her companion is <strong>Hroga</strong>, a boar. The boar is not domesticated and is not a mount. He is a creature with his own statistics and his own ability rolls, who shares Brenn's Stamina pool and her Recoveries, who can be summoned to her chest in emergencies, and who can — under pressure of accumulated ferocity — slip into a battle frenzy that may strike at allies and foes alike.</p>
+
+      <p>Her subclass is <strong>Prowler</strong>. She works from cover, takes opening shots, and uses Hroga to flank. The Pugilist kit fills out the close-quarters work; the Criminal career provides skills the new life still benefits from. She is the cell's most direct melee threat and its most resilient body — and, by some margin, its most physically loaded character: shared stamina between two creatures, two heroic resources, three runes' worth of utility, one explosive collar.</p>
+    </section>
+
+    <!-- II. BRENN CHARACTERISTICS -->
+    <section id="stats">
+      <h2 class="section-title"><span class="num">ii.</span>Brenn — Characteristics</h2>
+      <div class="stat-grid">
+        <div class="stat-cell high"><div class="label">Might</div><div class="value">+2</div><div class="gloss">Stone in the bones</div></div>
+        <div class="stat-cell"><div class="label">Agility</div><div class="value">+1</div><div class="gloss">Lock-picking hand</div></div>
+        <div class="stat-cell zero"><div class="label">Reason</div><div class="value">0</div><div class="gloss">Plain dealing</div></div>
+        <div class="stat-cell high"><div class="label">Intuition</div><div class="value">+2</div><div class="gloss">Reads the room</div></div>
+        <div class="stat-cell zero"><div class="label">Presence</div><div class="value">0</div><div class="gloss">Doesn't try</div></div>
+      </div>
+      <p><em>+2 Might and +2 Intuition — the Beastheart's two core characteristics. Might powers her strikes; Intuition powers the bond, her movement-via-Hroga, and her sneaking. +1 Agility supports the kit and the lockpicking. The flat zeros in Reason and Presence are the dwarf who would rather not explain herself.</em></p>
+
+      <div class="status-grid">
+        <div class="status-cell">
+          <div class="label">Stamina</div>
+          <div class="value">33<span class="sub"> / 33</span></div>
+          <div class="bar"><div class="fill" style="width:100%"></div></div>
+          <div class="note">21 class base + 6 Pugilist kit + 6 Spark Off Your Skin (echelon 1). Winded ≤ 16.</div>
+        </div>
+        <div class="status-cell">
+          <div class="label">Recoveries</div>
+          <div class="value">12<span class="sub"> / 12</span></div>
+          <div class="bar"><div class="fill" style="width:100%"></div></div>
+          <div class="note">Recovery value: 8. Hroga has no Recoveries of his own — when he would spend one, he spends one of Brenn's.</div>
+        </div>
+        <div class="status-cell ferocity">
+          <div class="label">Ferocity</div>
+          <div class="value">0</div>
+          <div class="bar"><div class="fill" style="width:0%"></div></div>
+          <div class="note">Heroic resource. 1d3 at the start of each turn; +2 when a creature adjacent to Hroga first takes damage in a round.</div>
+        </div>
+      </div>
+
+      <table class="dossier-table">
+        <thead><tr><th>Stat</th><th>Value &amp; Source</th></tr></thead>
+        <tbody>
+          <tr><td>Size</td><td><strong>1M</strong> — medium</td></tr>
+          <tr><td>Speed</td><td><strong>5</strong> — dwarf base; <strong>+2 from Pugilist</strong> applies as a kit speed bonus where the kit grants it</td></tr>
+          <tr><td>Stability</td><td><strong>1</strong> — from Pugilist kit</td></tr>
+          <tr><td>Active Rune</td><td>One rune at a time, carved with 10 uninterrupted minutes. Choices: <em>Detection</em>, <em>Light</em>, <em>Voice</em>. Selection unrecorded at start of campaign.</td></tr>
+          <tr><td>Stand Tough</td><td>Might treated as 1 higher for resisting potencies; edge on Might tests to resist environmental effects or a creature's traits/abilities</td></tr>
+          <tr><td>Wealth</td><td><strong>1</strong></td></tr>
+          <tr><td>Renown / XP / Hero Tokens</td><td>0 / 0 / 0</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- III. HROGA -->
+    <section id="hroga">
+      <h2 class="section-title"><span class="num">iii.</span>Hroga — Specimen Note</h2>
+      <p>The bond is not training. Brenn shares Hroga's senses and primal instincts; Hroga honors her wishes the way a partner does. Hroga has his own statistics, his own movement, and his own action economy. He shares Brenn's Stamina (their Stamina maxima are the same pool) and her Recoveries. He has no Recoveries of his own — when an effect would let him spend one, Brenn spends one of hers.</p>
+
+      <div class="hroga-card">
+        <h3>Hroga</h3>
+        <div class="subtitle">Boar · Animal · Companion · Level 0</div>
+        <div class="stat-line">
+          <span class="v">Size <strong>1M</strong></span>
+          <span class="v">Speed <strong>5</strong></span>
+          <span class="v">Stab <strong>2</strong></span>
+          <span class="v">FS dmg <strong>1 + M (3)</strong></span>
+          <span class="v">Stamina <strong>= Brenn's (33)</strong></span>
+        </div>
+        <div class="char-row">
+          <div class="char-cell"><div class="label">Might</div><div class="val">+2</div></div>
+          <div class="char-cell"><div class="label">Agility</div><div class="val">+1</div></div>
+          <div class="char-cell"><div class="label">Reason</div><div class="val">−1</div></div>
+          <div class="char-cell"><div class="label">Intuition</div><div class="val">+2</div></div>
+          <div class="char-cell"><div class="label">Presence</div><div class="val">+2</div></div>
+        </div>
+
+        <h4 class="entry-label">Hroga's Ability — Gore</h4>
+        <div class="ability-block companion">
+          <div class="ability-name">Gore</div>
+          <div class="ability-flavor">With an enraged snort, the boar lunges forward to rip open foes with his tusks.</div>
+          <div class="ability-meta">Maneuver · Companion, Melee 1, Weapon · One creature or object</div>
+          <div class="ability-desc">
+            <p>Hroga moves up to his speed in a straight line. When this movement ends, he can deal damage equal to <strong>3 + his Might score (5)</strong> to an adjacent target. If Hroga moved closer to the target as part of this movement, he deals extra damage equal to his Might score (<strong>+2</strong>).</p>
+            <p><strong>Spend 1 Ferocity:</strong> The target is <em>bleeding</em> until the end of their next turn.</p>
+          </div>
+        </div>
+
+        <h4 class="entry-label">Hroga's Trait — Spiteful Endurance</h4>
+        <p>While Hroga is winded, he has damage immunity equal to his Might score (<strong>2</strong>), and <strong>ignores the effects of bleeding</strong>. Pain makes him harder to kill, not easier.</p>
+
+        <h4 class="entry-label">Hroga's Skill</h4>
+        <p>Search — the boar's nose for what shouldn't be where it is.</p>
+
+        <h4 class="entry-label">Later-Level Features <span class="draft-tag">future</span></h4>
+        <p><em>Recorded on the character sheet but not yet active at L1:</em></p>
+        <ul style="margin:0.3rem 0;padding-left:1.4rem;">
+          <li><strong>Lv 3 — Greased Pig:</strong> While Hroga is rampaging, he has +2 speed and a double edge on the Escape Grab maneuver.</li>
+          <li><strong>Lv 6 — Wild Rush:</strong> While Hroga is rampaging, Brenn can use his Gore maneuver, and both can shift instead of move when using the Charge action or the Gore maneuver.</li>
+          <li><strong>Lv 10 — Immortal Rage:</strong> Whenever Brenn or Hroga uses an ability that deals damage while Hroga is rampaging, Brenn gains 10 temporary Stamina.</li>
+        </ul>
+      </div>
+
+      <div class="callout moss">
+        <div class="label">⸙ The Shared Body</div>
+        <p>The mechanic of <em>"Hroga's Stamina maximum equals Brenn's"</em> is structurally important. The two creatures don't have separate hit-point pools — damage to either drains the same number, and healing either restores from the same total. The pair is functionally a single very-high-stamina entity that occupies two squares and gets two action sets. Brenn at 33 Stamina is unremarkable. Brenn + Hroga together with 33 shared Stamina is enormous, because they can split damage between two bodies the enemies have to address separately. <strong>Heart of the Beast</strong> (the maneuver) makes the pool even more flexible — she can spend a Recovery to teleport Hroga to her space with temporary Stamina equal to her recovery value.</p>
+      </div>
+    </section>
+
+    <!-- IV. FEROCITY -->
+    <section id="ferocity">
+      <h2 class="section-title"><span class="num">iv.</span>Ferocity &amp; Rampage</h2>
+      <p>The Beastheart has <strong>two heroic resources</strong> — one belonging to Brenn, one to Hroga — and the relationship between them is the class's defining mechanic.</p>
+
+      <h3 class="subhead">Ferocity (Brenn's resource)</h3>
+      <p>Brenn and Hroga tap into a predator's bloodlust. Ferocity is what Brenn spends on her heroic abilities and what amplifies Hroga's strikes.</p>
+      <table class="dossier-table">
+        <thead><tr><th>Trigger</th><th>Gain</th></tr></thead>
+        <tbody>
+          <tr><td>Start of your turn</td><td><strong>1d3</strong></td></tr>
+          <tr><td>The first time in a round that a creature adjacent to Hroga takes damage</td><td><strong>+2</strong></td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="subhead">Rampage (Hroga's resource)</h3>
+      <p>Whenever Brenn or Hroga spends ferocity, Hroga gains rampage equal to the ferocity spent. He doesn't spend rampage to activate abilities — it accumulates, and when it crosses thresholds, it changes him. He loses all rampage at the end of the encounter.</p>
+
+      <table class="rampage-table">
+        <thead><tr><th>Rampage</th><th>Level</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>8</td>
+            <td>L1+</td>
+            <td>Hroga is <strong>rampaging</strong>. At the end of each of Brenn's turns, Hroga must use his Feral Strike ability as a free maneuver. Brenn can't willingly decrease the power roll outcome to a lower tier. For each ally damaged this way, Brenn gains <strong>2 surges</strong>, which she can use on this strike.</td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>L1+</td>
+            <td>Hroga has <strong>damage immunity equal to his Intuition score (2)</strong>.</td>
+          </tr>
+          <tr>
+            <td>16</td>
+            <td>L4+</td>
+            <td>When Hroga uses Feral Strike, he deals extra damage equal to his Intuition score to each target. Brenn gains 1 additional surge for each ally damaged this way.</td>
+          </tr>
+          <tr>
+            <td>20</td>
+            <td>L7+</td>
+            <td>As a free maneuver, Hroga can increase his size up to size 2, or by 1 if already size 2+. Lasts the encounter.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout warn">
+        <div class="label">⚠ The Edge They Walk</div>
+        <p>Rampage is a runaway feedback loop. The harder Brenn fights — more ferocity spent — the closer Hroga gets to the threshold at which he will turn on her teammates. At 8 rampage he will strike at allies who happen to be in the area of his Feral Strike, on a free maneuver, every turn, and Brenn can't pull the outcome to a lower tier to spare them. The mechanical compensation is that she gets <em>surges</em> for each ally so damaged — the class explicitly converts harm-to-friends into power-for-her. The character is a story about how someone who used to do harm-to-strangers-for-survival now does harm-to-friends-for-power, even though both of them want better. The whole point of the design is that the threshold sneaks up on you.</p>
+      </div>
+    </section>
+
+    <!-- V. ANCESTRY -->
+    <section id="ancestry">
+      <h2 class="section-title"><span class="num">v.</span>Dwarf Traits</h2>
+      <p>Dwarves are silico-organic — flesh infused with stone, physically denser than other humanoids. They are savvy engineers and technologists, inheriting lore from their elder siblings, the long-extinct steel dwarves. Brenn's three ancestry points are spent on the Stand Tough / Spark Off pair, and the Runic Carving baseline is always available.</p>
+
+      <h4 class="entry-label">Always Available — Runic Carving</h4>
+      <p>Brenn can carve a rune onto her skin with <strong>10 uninterrupted minutes of work</strong>, activated by the magic within her body. The rune determines the benefit. She can have one rune active at a time, and can change or remove a rune with the same 10 minutes of work.</p>
+      <ul style="margin:0.3rem 0;padding-left:1.4rem;">
+        <li><strong>Detection:</strong> Pick a specific type of creature (e.g., "goblins") or object (e.g., "gems"). The rune glows softly when she is within 20 squares of any creature/object of that type, even without line of effect. Type changeable as a maneuver.</li>
+        <li><strong>Light:</strong> Her skin sheds light for 10 squares. Toggle on/off as a maneuver.</li>
+        <li><strong>Voice:</strong> As a maneuver, she can communicate telepathically with a willing creature she has met before and who is within 1 mile of her. She must know the creature's name, and they must speak a language she knows.</li>
+      </ul>
+      <div class="callout draft">
+        <div class="label">Active Rune <span class="draft-tag">to specify</span></div>
+        <p>The currently carved rune is not recorded on the character sheet. Worth specifying at Session Zero — and the choice has campaign implications: <em>Detection</em> on "Saffron Seal agents" would be a meaningful first move once she wakes; <em>Voice</em> aimed at a specific contact (former crew, an old fence) would set up that contact as recurring; <em>Light</em> is the most utilitarian choice for a dwarf working in low-light cells and tunnels.</p>
+      </div>
+
+      <h4 class="entry-label">Selected — Dwarf Traits (3 points)</h4>
+      <table class="dossier-table">
+        <thead><tr><th>Trait</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>Stand Tough <em>(1 pt)</em></td><td>Her body is made to withstand the blows of her enemies. Her Might score is treated as 1 higher for resisting potencies, and she gains an edge on Might tests when called for to resist environmental effects or a creature's traits or abilities.</td></tr>
+          <tr><td>Spark Off Your Skin <em>(2 pts)</em></td><td>Her stone skin grants <strong>+6 Stamina at echelon 1</strong> (levels 1–3), increasing per echelon thereafter. Reflected in her current Stamina total of 33.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- VI. CLASS -->
+    <section id="class">
+      <h2 class="section-title"><span class="num">vi.</span>Beastheart Class Features</h2>
+
+      <h4 class="entry-label">Companion in Combat — How Hroga Acts</h4>
+      <p>Hroga acts on Brenn's turn as part of her action economy. He has his own movement and his own ability use, including the Feral Strike main action and the Gore maneuver. When Brenn dies or is incapacitated, Hroga's behavior is governed by the Companion Death rules (a companion can become dying at 0 Stamina, etc.). Brenn's death does not automatically end Hroga.</p>
+
+      <h4 class="entry-label">Class Ability — Heart of the Beast</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Heart of the Beast</div>
+        <div class="ability-flavor">"Better look away — this might not be pretty."</div>
+        <div class="ability-meta">Maneuver · Self</div>
+        <div class="ability-desc">
+          <p>Brenn must <strong>spend a Recovery without regaining Stamina</strong>. Hroga gains temporary Stamina equal to her recovery value (<strong>8</strong>) as he <em>leaps out of her chest</em>. Hroga teleports to Brenn's space from any distance, even if he doesn't have line of effect to her.</p>
+          <p><strong>Spend 1 Ferocity:</strong> Hroga can shift up to his speed.</p>
+          <p><strong>Spend 1+ Ferocity (repeatable):</strong> Hroga gains additional temporary Stamina equal to his Might score for each ferocity spent this way.</p>
+          <p><strong>Spend 5 Ferocity:</strong> Brenn restores her dead partner to life with 1 Stamina, even if his body was destroyed. He gains no temporary Stamina if she uses the ability this way.</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Class Ability — Feral Strike</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Feral Strike</div>
+        <div class="ability-flavor">Your companion lunges into the fray, attacking wildly with teeth, claws, or other weapons.</div>
+        <div class="ability-meta">Main Action · Each creature in a Burst 1 area</div>
+        <div class="ability-desc">
+          <p>Hroga moves up to a number of squares equal to his Intuition score (<strong>2</strong>) straight toward the closest enemy he is aware of, avoiding damaging terrain and ending the movement when he is adjacent to that enemy. Hroga then makes the following power roll:</p>
+        </div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Might</span>
+          <span class="tier"><b>Tier 1:</b> 1 + M damage</span>
+          <span class="tier"><b>Tier 2:</b> 3 + M damage</span>
+          <span class="tier"><b>Tier 3:</b> 4 + M damage</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Prowler Wild Nature Benefit:</b> Each enemy target is <strong>weakened</strong> until the start of Brenn's next turn.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- VII. SUBCLASS -->
+    <section id="subclass">
+      <h2 class="section-title"><span class="num">vii.</span>Prowler Subclass</h2>
+      <p><em>"You are an unseen ambusher that strikes from the shadows. Your prey is dead before they even know you're there."</em></p>
+
+      <p>The Prowler shapes the pair's combat doctrine: Brenn opens by hiding (Hide skill, granted by the subclass) and lets Hroga draw attention; she steps in from the side, ideally invisible, ideally on a target who hasn't seen her yet.</p>
+
+      <h4 class="entry-label">Lightning Leap</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Lightning Leap</div>
+        <div class="ability-flavor">You summon a lightning bolt and ride it into battle.</div>
+        <div class="ability-meta">Maneuver · Beastheart, Melee 1, Weapon · One creature</div>
+        <div class="ability-desc">
+          <p>The target takes damage equal to <strong>3 + Brenn's Might score (5)</strong>. Before she uses this ability, she can <strong>jump up to her Intuition score (2 squares)</strong> in a straight line. During this jump, enemies' spaces don't count as difficult terrain for her. The target takes <strong>extra lightning damage equal to the number of squares she jumped</strong>.</p>
+          <p><strong>Spend 1 Ferocity:</strong> The jump doesn't provoke opportunity attacks.</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Shadow in the Mist</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Shadow in the Mist</div>
+        <div class="ability-flavor">While everyone's eyes are drawn to your foe, you wreathe yourself in obscuring mist.</div>
+        <div class="ability-meta">Triggered Action · Magic · Self · Trigger: An enemy within 10 squares deals damage to a creature other than you</div>
+        <div class="ability-desc">
+          <p>Brenn becomes <strong>invisible</strong> until the end of her next turn or she deals damage. She can then use the Hide maneuver even if she is observed, and can move up to her Intuition score (2 squares) before or after using that maneuver.</p>
+          <p><strong>Spend 1 Ferocity:</strong> She can move up to twice her Intuition score (4 squares) and ignore difficult terrain during this movement.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIII. PUGILIST -->
+    <section id="kit">
+      <h2 class="section-title"><span class="num">viii.</span>Pugilist Kit</h2>
+      <p>The Pugilist kit is built for brawlers and boxers — a melee fighting style that gives a boost to Stamina and damage while keeping her light on her feet.</p>
+
+      <table class="dossier-table">
+        <thead><tr><th>Stat</th><th>Kit Bonus</th></tr></thead>
+        <tbody>
+          <tr><td>Stamina</td><td><strong>+6</strong> (already incorporated into her 33 total)</td></tr>
+          <tr><td>Speed</td><td><strong>+2</strong></td></tr>
+          <tr><td>Stability</td><td><strong>+1</strong></td></tr>
+          <tr><td>Melee Damage Bonus</td><td><strong>+1/+1/+1</strong> to weapon abilities at tiers 1/2/3</td></tr>
+          <tr><td>Weapon</td><td>Unarmed Strike</td></tr>
+          <tr><td>Armor</td><td>(none — she fights bare-knuckle)</td></tr>
+        </tbody>
+      </table>
+
+      <h4 class="entry-label">Kit Signature — Let's Dance</h4>
+      <div class="ability-block kit">
+        <div class="ability-name">Let's Dance</div>
+        <div class="ability-flavor">Keeping your enemies stumbling around the battlefield is second nature to you.</div>
+        <div class="ability-meta">Main Action · Melee 1, Strike, Weapon · One creature · Signature</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Might or Agility</span>
+          <span class="tier"><b>Tier 1:</b> 2 + M or A damage</span>
+          <span class="tier"><b>Tier 2:</b> 5 + M or A damage; slide 1</span>
+          <span class="tier"><b>Tier 3:</b> 7 + M or A damage; slide 2</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Effect:</b> Brenn can shift into any square the target leaves after she slides them.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- IX. SELECTED ABILITIES -->
+    <section id="abilities">
+      <h2 class="section-title"><span class="num">ix.</span>Selected Abilities</h2>
+      <p>One signature, one 3-Ferocity, one 5-Ferocity. All three coordinate Brenn and Hroga in some way — the build doesn't have a single ability that Brenn uses alone.</p>
+
+      <h4 class="entry-label">Signature — The Reposition</h4>
+      <div class="ability-block signature">
+        <div class="ability-name">Come On!</div>
+        <div class="ability-flavor">You launch a flurry of attacks to cover your movement.</div>
+        <div class="ability-meta">Main Action · Beastheart, Melee 1 or Ranged 5, Strike, Weapon · One creature or object</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Might</span>
+          <span class="tier"><b>Tier 1:</b> 2 + M damage</span>
+          <span class="tier"><b>Tier 2:</b> 3 + M damage</span>
+          <span class="tier"><b>Tier 3:</b> 4 + M damage</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Effect:</b> Hroga can make a melee free strike. Brenn and Hroga both shift up to a number of squares equal to her Intuition score (<strong>2</strong>).</span>
+        </div>
+      </div>
+
+      <h4 class="entry-label">3-Ferocity — The Sheepdog</h4>
+      <div class="ability-block">
+        <div class="ability-name">Herd the Sheep</div>
+        <div class="ability-flavor">Your companion circles your foe, luring them out of position with fake openings and unpredictable attacks.</div>
+        <div class="ability-meta">Main Action · Companion, Melee 1, Strike, Weapon · One creature · 3 Ferocity</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Might</span>
+          <span class="tier"><b>Tier 1:</b> 5 + M damage; slide 1; I&lt;[weak], weakened (save ends)</span>
+          <span class="tier"><b>Tier 2:</b> 8 + M damage; slide 2; I&lt;[average], weakened (save ends)</span>
+          <span class="tier"><b>Tier 3:</b> 11 + M damage; slide 4; I&lt;[strong], weakened (save ends)</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Effect:</b> Brenn and Hroga can shift up to a number of squares equal to the number of squares the target was force moved.</span>
+        </div>
+      </div>
+
+      <h4 class="entry-label">5-Ferocity — The Taunt</h4>
+      <div class="ability-block">
+        <div class="ability-name">All of You Versus All of Me</div>
+        <div class="ability-flavor">Let all of them come forward and shatter yourselves against your might!</div>
+        <div class="ability-meta">Maneuver · Area, Beastheart · Burst 3 · Each enemy in the area · 5 Ferocity</div>
+        <div class="ability-desc">
+          <p>Brenn can <strong>spend a Recovery and gain 3 temporary Stamina for each target</strong>. Each target is taunted by her until the end of their next turn.</p>
+          <p><strong>Spend 1 Ferocity:</strong> The ability also affects a 3 burst originating from Hroga. Targets in this second area are taunted by Hroga. An enemy in both areas is taunted only by Brenn.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="label">⸙ The Loadout's Shape</div>
+        <p>The picks form a coherent ladder. <em>Come On!</em> is a turn-by-turn standard — strike, Hroga gets a free strike, both reposition. <em>Herd the Sheep</em> is the burst-damage option for a single target, with Brenn and Hroga following the displacement. <em>All of You Versus All of Me</em> is the panic button: when surrounded, Brenn taunts everyone within 3, Hroga taunts a second area for an extra ferocity, and Brenn gets temporary Stamina scaling with the target count plus a free Recovery spend. The 5-cost burns her cheapest resource (a Recovery, which she has 12 of) and converts it into a survivability spike right when she needs it most.</p>
+      </div>
+    </section>
+
+    <!-- X. CULTURE & CAREER -->
+    <section id="culture">
+      <h2 class="section-title"><span class="num">x.</span>Culture &amp; Career</h2>
+
+      <h3 class="subhead">Culture — Outlaw Band</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Element</th><th>Choice &amp; Note</th></tr></thead>
+        <tbody>
+          <tr><td>Environment</td><td><strong>Wilderness</strong> — her people did not try to tame the terrain they lived in. <em>(Skill: Ride.)</em></td></tr>
+          <tr><td>Organization</td><td><strong>Communal</strong> — all members of the culture considered equal. <em>(Skill: Endurance.)</em></td></tr>
+          <tr><td>Upbringing</td><td><strong>Lawless</strong> — grew up among folk who performed activities others considered unlawful. <em>(Skill: Escape Artist.)</em></td></tr>
+          <tr><td>Cultural Language</td><td><strong>Zaliac</strong> (dwarven)</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="subhead">Career — Criminal</h3>
+      <p><em>"You once worked as a bandit, insurgent, smuggler, outlaw, or even as an assassin."</em></p>
+      <ul>
+        <li><strong>Skill:</strong> Criminal Underworld</li>
+        <li><strong>Intrigue Skills:</strong> Sabotage, Track</li>
+        <li><strong>Language:</strong> Uvalic</li>
+        <li><strong>Project Points:</strong> 120 (career bonus)</li>
+        <li><strong>Intrigue Perk:</strong> <em>Gum Up The Works</em> — She prevents a trap from activating. (Same career perk Pelorajax has, from a different career path — worth noting that both characters in the cell can disable mundane traps.)</li>
+      </ul>
+    </section>
+
+    <!-- XI. SKILLS -->
+    <section id="skills">
+      <h2 class="section-title"><span class="num">xi.</span>Skills &amp; Languages</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="group-label">Exploration</div>
+          <ul>
+            <li>Endurance <span class="src">organization</span></li>
+            <li>Ride <span class="src">environment</span></li>
+            <li>Swim <span class="src">class</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Interpersonal</div>
+          <ul>
+            <li>Handle Animals <span class="src">class</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Intrigue</div>
+          <ul>
+            <li>Escape Artist <span class="src">upbringing</span></li>
+            <li>Hide <span class="src">subclass (Prowler)</span></li>
+            <li>Sabotage <span class="src">career</span></li>
+            <li>Sneak <span class="src">class</span></li>
+            <li>Track <span class="src">career</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Lore</div>
+          <ul>
+            <li>Criminal Underworld <span class="src">career</span></li>
+          </ul>
+        </div>
+      </div>
+      <h3 class="subhead">Languages</h3>
+      <p>Caelian <em>(default)</em>, Zaliac <em>(dwarven cultural)</em>, Uvalic <em>(career)</em>.</p>
+      <h3 class="subhead">Hroga's Skill</h3>
+      <p>Search.</p>
+      <div class="callout">
+        <div class="label">⸙ The Intrigue Heavy</div>
+        <p>Five Intrigue skills (Escape Artist, Hide, Sabotage, Sneak, Track) is by far the most concentrated intrigue stack in the cell. She is the team's <strong>specialist for getting in and out of places quietly, and finding people who don't want to be found</strong>. The career she left behind built the kit the new life still relies on.</p>
+      </div>
+    </section>
+
+    <!-- XII. COMPLICATION -->
+    <section id="complication">
+      <h2 class="section-title"><span class="num">xii.</span>Complication — War Dog Collar</h2>
+      <p><em>"You wear a loyalty collar from one of Ajax's War Dogs. You've managed to rig the collar so it explodes outward while keeping you safe."</em></p>
+
+      <table class="dossier-table">
+        <thead><tr><th>Aspect</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>War Dog Collar Benefit</td><td>Even if Brenn is a war dog herself, <strong>other war dogs can't use their Posthumous Promotion ability on her</strong> while she wears her collar.</td></tr>
+          <tr><td>War Dog Collar Drawback</td><td>Each time she uses her Posthumous Retirement ability, the Director can spend <strong>3 Malice</strong> to make the collar malfunction and deal its damage to her in addition to the usual targets.</td></tr>
+        </tbody>
+      </table>
+
+      <h4 class="entry-label">Posthumous Retirement — The Detonation</h4>
+      <div class="ability-block collar">
+        <div class="ability-name">Posthumous Retirement</div>
+        <div class="ability-flavor">You make your modified collar explode.</div>
+        <div class="ability-meta">Maneuver · Burst 1 · Each enemy in the area</div>
+        <div class="ability-desc">
+          <p>Brenn's loyalty collar detonates, dealing fire damage equal to <strong>5 + her level (6 at L1)</strong> to each enemy in a Burst 1 area. <strong>Once she has used this ability, she can't use it again until she spends 1 minute out of combat resetting the collar.</strong></p>
+        </div>
+      </div>
+
+      <div class="callout collar">
+        <div class="label">⚠ Ajax's War Dogs — Faction Note</div>
+        <p>The complication ties Brenn to a faction by name: <strong>Ajax's War Dogs</strong>. The phrasing — "Even if you are a war dog yourself" — leaves open whether Brenn is, was, or has never been a war dog herself, and whether she stole the collar, was issued one, or is impersonating one. The fact that she rigged it to fire outward instead of inward is the operational tell: she does not trust Ajax to leave her collar passive, so she made the collar her weapon. The Saffron Seal's relationship to Ajax's War Dogs is, at present, unrecorded.</p>
+      </div>
+    </section>
+
+    <!-- XIII. INCIDENT -->
+    <section id="incident">
+      <h2 class="section-title"><span class="num">xiii.</span>Inciting Incident — Simply Survival</h2>
+      <p>From the Draw Steel inciting incident: <em>"Stealing was a matter of survival for you and not what defined you — at least in your mind. But when your thieving actions led to innocent folk being harmed, you knew you could be better. You turned your back on your old life, though your old skills come in handy."</em></p>
+      <div class="callout">
+        <div class="label">⸙ What's Established</div>
+        <ul style="margin:0.4rem 0;padding-left:1.4rem;">
+          <li>Brenn used to steal to survive.</li>
+          <li>She did not consider it her defining trait. <em>At least in her own mind.</em></li>
+          <li>One of her thefts led to innocent people being harmed.</li>
+          <li>She decided she could be better.</li>
+          <li>She turned her back on her old life.</li>
+          <li>The skills came with her. The career did not.</li>
+        </ul>
+      </div>
+      <div class="callout warn">
+        <div class="label">Open Threads</div>
+        <p>The incident text does not specify: what she stole, who was harmed, how badly, or whether the people she used to steal with would still recognize her. The War Dog Collar complication implies she was involved with Ajax's War Dogs <em>at some point</em> — possibly part of her crew, possibly her targets, possibly her employers. The collar is hers <em>now</em>. The relationship to the incident is for Session Zero. <strong>Hroga is not present in the incident text</strong>: where the boar came from, when she found him (or he found her), whether the bond predates her turning her back on the old life or began after, is unrecorded.</p>
+      </div>
+    </section>
+
+    <!-- XIV. CAMPAIGN -->
+    <section id="campaign">
+      <h2 class="section-title"><span class="num">xiv.</span>Position in Collateral <span class="draft-tag">draft</span></h2>
+      <div class="callout draft">
+        <div class="label">Provisional · Drawn from Campaign Concept</div>
+        <p>The Collateral campaign concept does not list Brenn &amp; Hroga in its primary roster — the pair was created after the campaign was first drafted, alongside Pelorajax, to test the Beastheart class. Connecting her to the campaign's central premise is a Session Zero exercise.</p>
+      </div>
+
+      <p>The premise: the player characters wake in the same holding cell in Alloy and are told <em>"The debt has defaulted. You belong to the Saffron Seal now."</em> Brenn's complication makes her arrival in the cell more loaded than most. She is wearing a loyalty collar belonging to a faction the Seal may or may not be aligned with. The collar is rigged to explode outward — she can use it as a weapon. She is also, by every operational measure, the cell's expert at getting out of places she shouldn't be.</p>
+
+      <h3 class="subhead">Role on the Team</h3>
+      <p>Combat: <strong>front-line bruiser plus mobile striker.</strong> 33 shared Stamina across two creatures, 12 Recoveries, the Pugilist kit's slide-and-follow signature, plus a 5-Ferocity panic taunt that converts Recoveries into bulk Stamina. She tanks for the casters, and Hroga flanks anything that won't engage her. If pressed, Posthumous Retirement is a maneuver-action burst of 6 fire damage to every enemy within 1 square — a once-per-reset weapon.</p>
+      <p>Out of combat: <strong>escape artist, sneak, sabotage specialist, tracker.</strong> Five intrigue skills. Gum Up The Works (career perk) prevents mundane traps from activating. Hide (Prowler) lets her start fights unseen. Hroga's nose (Search) finds things she can't. Brenn's runic carving gives her a rotating utility slot — detection of a named threat, telepathic conversation with a known contact, or 10-square illumination.</p>
+
+      <h3 class="subhead">Faction Connections</h3>
+      <p>Per her complication, Brenn is tied to <strong>Ajax's War Dogs</strong>. Whether the War Dogs are allied with, opposed to, or unaffiliated with the Saffron Seal is a campaign-level question. The Inciting Incident does not name her former crew, the location of the theft, or the harmed parties — any of which could be relevant. The Director has wide latitude.</p>
+    </section>
+
+    <!-- XV. ARC -->
+    <section id="arc">
+      <h2 class="section-title"><span class="num">xv.</span>Character Arc</h2>
+      <p>Three threads pull through Brenn's sheet.</p>
+      <p>The first is <strong>the bond and the threshold</strong>. Ferocity-spent becomes Rampage-built; at 8 Rampage, Hroga must Feral Strike at the end of every turn, allies-in-area included, and Brenn collects surges for each ally so damaged. The character runs <em>toward</em> a mechanic in which the cost of her power is harm to her own teammates. The campaign asks whether she can manage the threshold — and what it means when, inevitably, she doesn't.</p>
+      <p>The second is <strong>the skills and the life</strong>. The Inciting Incident says she turned her back on her old life but kept the skills. Five intrigue skills, a criminal career perk, an explosive collar from a faction she may or may not still be in good standing with — the new life uses every artifact of the old life. The arc question is whether using them is the same as keeping them: whether someone who picks locks for good reasons stays separated from someone who picks them for survival.</p>
+      <p>The third is <strong>two bodies, one stamina pool</strong>. Hroga is not a pet or a mount. He is a separate creature whose Stamina is hers, whose Recoveries are hers, whose teleport-to-her-chest move costs her one. The most physically loaded character in the cell is also the most dependent on the body she came in with sharing space — literally — with another creature she loves. The campaign asks what happens to her when, at some point, that pool runs out for one of them and not the other.</p>
+    </section>
+
+    <!-- COLOPHON -->
+    <footer class="colophon">
+      <div><span class="accent">— Field Journal · Cell vii · Free City of Brass —</span></div>
+      <div style="margin-top:0.4rem;">Brenn · Dwarf · Beastheart / Prowler · Level 1 — Hroga · Boar · Companion · Level 0 — Debt-holder: The Saffron Seal</div>
+      <div style="margin-top:0.4rem;">Sheet mechanics: locked. Campaign frame: provisional, subject to Session Zero.</div>
+      <div class="printer">Open: active rune, history with Ajax's War Dogs, when Hroga came to her, who was harmed.</div>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

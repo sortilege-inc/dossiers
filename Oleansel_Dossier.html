@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confidential Client Folio — Oleansel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Oleansel: a confidential client folio kept by some discreet
+       professional about an aristocratic patroness with a complicated
+       identity. Cream parchment, wine-red ink, gold leaf accents,
+       and a slate-grey "veil" tone for the parts that mask her. */
+    --paper: #ece2cc;
+    --paper-deep: #d6c8a6;
+    --paper-edge: #a68f64;
+    --paper-shadow: #6a553a;
+
+    --ink: #1a1208;
+    --ink-soft: #3a2818;
+    --ink-faint: #6a553a;
+    --ink-pale: #948060;
+
+    --wine: #6a1828;
+    --wine-deep: #3a0814;
+    --wine-bright: #9a2838;
+    --wine-pale: #b87080;
+
+    --gold: #a88c3c;
+    --gold-bright: #d8b04c;
+    --gold-pale: #e8c878;
+    --gold-deep: #6a5818;
+
+    --veil: #5c5a5e;
+    --veil-pale: #8e8c90;
+    --veil-deep: #3a3a3e;
+
+    --emerald: #2a5c3a;
+    --emerald-deep: #143a20;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:#1a0e0a; color:var(--ink); font-family:'Cormorant Garamond', Garamond, Georgia, serif; font-size:16px; line-height:1.7; }
+  body {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(106,24,40,0.10) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 100%, rgba(168,140,60,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, #2a1a14 0%, #1a0e0a 60%, #0e0604 100%);
+    min-height: 100vh; padding: 2.5rem 1rem;
+  }
+  body::before {
+    content:''; position:fixed; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch' seed='8'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events:none; z-index:1000; mix-blend-mode:multiply; opacity:0.55;
+  }
+
+  .document {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--paper);
+    position: relative;
+    background-image:
+      /* foxing at corners + light from above */
+      radial-gradient(circle at 0% 0%, rgba(168,140,60,0.10) 0%, transparent 18%),
+      radial-gradient(circle at 100% 100%, rgba(106,24,40,0.06) 0%, transparent 22%),
+      radial-gradient(ellipse 700px 280px at 50% 0%, rgba(216,176,76,0.06) 0%, transparent 60%),
+      /* horizontal hand-laid striation */
+      repeating-linear-gradient(0deg, transparent 0 28px, rgba(60,40,20,0.018) 28px 29px),
+      linear-gradient(170deg, rgba(236,226,204,1) 0%, rgba(220,210,184,1) 50%, rgba(204,192,160,1) 100%);
+    box-shadow:
+      0 0 0 1px var(--ink),
+      0 0 0 4px var(--paper),
+      0 0 0 5px var(--gold),
+      0 0 0 6px var(--ink),
+      0 30px 80px rgba(0,0,0,0.7);
+  }
+
+  /* GILT CORNER ORNAMENTS — small fleurons */
+  .corner-ornament {
+    position: absolute;
+    width: 32px; height: 32px;
+    color: var(--gold);
+    font-family: serif;
+    font-size: 1.6rem;
+    text-align: center;
+    line-height: 32px;
+    pointer-events: none;
+  }
+  .corner-ornament.tl { top: 16px; left: 16px; }
+  .corner-ornament.tr { top: 16px; right: 16px; }
+  .corner-ornament.bl { bottom: 16px; left: 16px; }
+  .corner-ornament.br { bottom: 16px; right: 16px; }
+
+  .doc-inner { padding: 4rem 4rem 4rem; position:relative; }
+
+  /* MASTHEAD — a courtly file header */
+  .masthead {
+    text-align: center;
+    margin-bottom: 1.4rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--ink);
+    position: relative;
+  }
+  .masthead::after {
+    content:''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%);
+    width: 60%; height: 1px; background: var(--gold);
+  }
+  .masthead .above-title {
+    font-family:'Cormorant SC', serif;
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.42em;
+    color: var(--wine);
+    margin-bottom: 0.4rem;
+  }
+  .masthead .title {
+    font-family:'Cinzel Decorative', serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--ink);
+    letter-spacing: 0.08em;
+    line-height: 1.1;
+    margin: 0.2rem 0;
+  }
+  .masthead .filing {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--ink-faint);
+    margin-top: 0.3rem;
+  }
+  .masthead .filing .stamp {
+    color: var(--wine-bright);
+    border: 1px solid var(--wine);
+    padding: 0.1rem 0.5rem;
+    margin-left: 0.6rem;
+    font-style: normal;
+    font-family:'Cormorant SC', serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    font-weight: 500;
+  }
+
+  /* MOTTO */
+  .motto {
+    text-align: center;
+    font-style: italic;
+    font-size: 1.06rem;
+    color: var(--ink-soft);
+    margin: 0 auto 2.4rem;
+    max-width: 60ch;
+    line-height: 1.6;
+  }
+  .motto::before, .motto::after {
+    display: block;
+    content: '❦';
+    color: var(--gold);
+    font-style: normal;
+    font-size: 1rem;
+    margin: 0.3rem auto;
+  }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 2.5rem;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+  }
+  .portrait-frame {
+    width: 100%;
+    position: relative;
+    padding: 4px;
+    background: var(--ink);
+    box-shadow:
+      0 0 0 1px var(--gold-deep),
+      0 0 0 4px var(--paper),
+      0 0 0 5px var(--gold),
+      0 0 0 6px var(--ink),
+      0 0 0 9px var(--paper-edge),
+      0 12px 36px rgba(0,0,0,0.5);
+  }
+  .portrait-frame img {
+    width:100%; display:block;
+    filter: contrast(1.05) saturate(0.95);
+  }
+  /* mirror/twin shadow behind portrait */
+  .portrait-stack {
+    position: relative;
+  }
+  .portrait-stack::before {
+    content: '';
+    position: absolute;
+    top: 8px; left: 8px; right: -8px; bottom: -8px;
+    border: 1px solid var(--veil-pale);
+    background: rgba(92,90,94,0.04);
+    z-index: -1;
+  }
+  .portrait-caption {
+    margin-top: 1rem;
+    font-family:'Cormorant SC', serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-align: center;
+    line-height: 1.6;
+  }
+  .portrait-caption .quote {
+    display: block;
+    margin-top: 0.4rem;
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: var(--ink-soft);
+  }
+
+  .hero-text { padding-top: 0.2rem; }
+  .eyebrow {
+    font-family:'Cormorant SC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--wine);
+    margin-bottom: 0.4rem;
+  }
+  .eyebrow .sep { color: var(--ink-pale); margin: 0 0.5em; }
+
+  /* Doubled-name: the visible name + a faint twin shadow */
+  h1.character-name {
+    font-family:'Cinzel Decorative', serif;
+    font-weight: 700;
+    font-size: 4.6rem;
+    line-height: 0.95;
+    color: var(--ink);
+    margin: 0.2rem 0 0.3rem;
+    letter-spacing: 0.03em;
+    position: relative;
+    text-shadow:
+      2px 2px 0 rgba(92,90,94,0.12),
+      4px 4px 0 rgba(92,90,94,0.05);
+  }
+  h1.character-name .epithet {
+    display: block;
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.22em;
+    font-weight: 500;
+    color: var(--ink-soft);
+    letter-spacing: 0.14em;
+    margin-top: 0.7rem;
+    text-shadow: none;
+  }
+
+  .tagline {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    margin: 1rem 0 1.3rem;
+    max-width: 56ch;
+    line-height: 1.55;
+    border-left: 3px double var(--wine);
+    padding-left: 1rem;
+  }
+
+  .vitals-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    font-family:'Cormorant SC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: 0.6rem 0;
+    margin-top: 1.2rem;
+  }
+  .vitals-row .v { border-left: 1px solid var(--paper-edge); padding: 0.1rem 0.9rem; white-space: nowrap; }
+  .vitals-row .v:first-child { border-left: none; padding-left: 0; }
+  .vitals-row .v strong { color: var(--wine-deep); margin-left: 0.4em; font-weight: 700; }
+  .vitals-row .v.veil strong { color: var(--veil); }
+  .vitals-row .v.gold strong { color: var(--gold-deep); }
+  .vitals-row .v.warn strong { color: var(--wine-bright); }
+
+  /* TOC */
+  nav.toc {
+    border-top: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
+    padding: 1.3rem 1.6rem;
+    margin-bottom: 2.8rem;
+    columns: 2;
+    column-gap: 2.4rem;
+    position: relative;
+    background: rgba(168,140,60,0.04);
+  }
+  nav.toc::before {
+    content: '⊰  Contents  ⊱';
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--paper);
+    padding: 0 1.2rem;
+    font-family:'Cinzel Decorative', serif;
+    font-size: 0.92rem;
+    color: var(--wine-deep);
+    letter-spacing: 0.16em;
+  }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+  nav.toc ol li { counter-increment: toc; font-size: 1rem; margin-bottom: 0.3rem; break-inside: avoid; font-style: italic; }
+  nav.toc ol li::before { content: counter(toc, lower-roman) ".  "; color: var(--wine); font-weight: 700; font-style: normal; }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--wine); text-decoration: underline; text-decoration-style: dotted; }
+
+  section { margin-bottom: 2.8rem; }
+
+  h2.section-title {
+    font-family:'Cinzel Decorative', serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--ink);
+    margin: 0 0 1.2rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--ink);
+    letter-spacing: 0.04em;
+    position: relative;
+    text-shadow: 1px 1px 0 rgba(92,90,94,0.08);
+  }
+  h2.section-title::after {
+    content:'';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 100%; height: 1px;
+    background: var(--gold);
+  }
+  h2.section-title .num {
+    font-family:'Cormorant SC', serif;
+    font-weight: 500;
+    font-size: 0.6em;
+    letter-spacing: 0.2em;
+    color: var(--wine);
+    margin-right: 0.6rem;
+    vertical-align: 0.1em;
+  }
+
+  h3.subhead {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: var(--wine-deep);
+    margin: 1.6rem 0 0.5rem;
+  }
+  h3.subhead::before { content: '❦ '; color: var(--gold); font-style: normal; }
+
+  h4.entry-label {
+    font-family:'Cormorant SC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.24em;
+    color: var(--ink-faint);
+    margin: 1.3rem 0 0.5rem;
+    border-bottom: 1px dotted var(--paper-edge);
+    padding-bottom: 0.2rem;
+  }
+
+  p { margin: 0.7rem 0; }
+  p.drop-cap::first-letter {
+    font-family:'Cinzel Decorative', serif;
+    font-weight: 700;
+    font-size: 4rem;
+    float: left;
+    line-height: 0.85;
+    margin: 0.2rem 0.5rem -0.1rem 0;
+    color: var(--wine-deep);
+    text-shadow: 2px 2px 0 rgba(92,90,94,0.1);
+  }
+  em { font-style: italic; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 700; }
+
+  /* STAT GRID */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin: 1.5rem 0;
+    border: 1px solid var(--ink);
+  }
+  .stat-cell {
+    padding: 0.9rem 0.6rem;
+    text-align: center;
+    border-right: 1px solid var(--ink);
+    background: rgba(168,140,60,0.03);
+  }
+  .stat-cell:last-child { border-right: none; }
+  .stat-cell .label {
+    font-family:'Cormorant SC', serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    margin-bottom: 0.3rem;
+  }
+  .stat-cell .value {
+    font-family:'Cinzel Decorative', serif;
+    font-weight: 700;
+    font-size: 2.4rem;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .stat-cell .gloss {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    margin-top: 0.4rem;
+    line-height: 1.3;
+  }
+  .stat-cell.high { background: rgba(106,24,40,0.06); }
+  .stat-cell.high .value { color: var(--wine-deep); }
+  .stat-cell.zero .value { color: var(--ink-faint); }
+
+  /* STATUS */
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .status-cell {
+    border: 1px solid var(--ink);
+    background: rgba(168,140,60,0.04);
+    padding: 1rem;
+  }
+  .status-cell .label {
+    font-family:'Cormorant SC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    color: var(--wine);
+    margin-bottom: 0.3rem;
+  }
+  .status-cell .value {
+    font-family:'Cinzel Decorative', serif;
+    font-weight: 700;
+    font-size: 2.4rem;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .status-cell .value .sub { font-size: 0.4em; color: var(--ink-faint); font-weight: 400; }
+  .status-cell .note {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.84rem;
+    color: var(--ink-faint);
+    margin-top: 0.5rem;
+    line-height: 1.4;
+  }
+  .status-cell .bar { height: 4px; background: rgba(26,18,8,0.12); margin-top: 0.5rem; }
+  .status-cell .bar .fill { height: 100%; background: var(--ink); }
+  .status-cell .bar.wine .fill { background: var(--wine); }
+  .status-cell .bar.gold .fill { background: var(--gold); }
+
+  /* TABLES */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.96rem;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  table.dossier-table th, table.dossier-table td {
+    text-align: left;
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--paper-edge);
+    vertical-align: top;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+  table.dossier-table th {
+    font-family:'Cormorant SC', serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    color: var(--wine-deep);
+    border-bottom: 1px solid var(--wine-deep);
+    background: rgba(106,24,40,0.04);
+  }
+  table.dossier-table td:first-child { font-weight: 700; color: var(--ink); width: 30%; }
+
+  /* ABILITY BLOCKS — letters of introduction */
+  .ability-block {
+    border: 1px solid var(--ink);
+    background: rgba(236,226,204,0.5);
+    padding: 1rem 1.2rem;
+    margin: 0.9rem 0;
+    position: relative;
+  }
+  .ability-block.signature { border-left: 4px solid var(--wine); background: rgba(106,24,40,0.05); }
+  .ability-block.core { border-left: 4px solid var(--ink-soft); background: rgba(0,0,0,0.03); }
+  .ability-block.kit { border-left: 4px solid var(--gold); background: rgba(168,140,60,0.05); }
+  .ability-block.trinket { border-left: 4px solid var(--emerald); background: rgba(42,92,58,0.04); }
+  .ability-block.veil { border-left: 4px solid var(--veil); background: rgba(92,90,94,0.05); }
+  .ability-block .ability-name {
+    font-family:'Cinzel Decorative', serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 0.2rem;
+    letter-spacing: 0.03em;
+  }
+  .ability-block .ability-flavor {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+  .ability-block .ability-meta {
+    font-family:'Cormorant SC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    margin-bottom: 0.6rem;
+    border-bottom: 1px dotted var(--paper-edge);
+    padding-bottom: 0.4rem;
+  }
+  .tier-roll {
+    margin-top: 0.6rem;
+    padding: 0.5rem 0.8rem;
+    background: rgba(106,24,40,0.04);
+    border-left: 3px solid var(--wine);
+    font-size: 0.96rem;
+  }
+  .tier-roll .tier-label {
+    font-family:'Cormorant SC', serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    color: var(--wine-deep);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .tier-roll .tier { display: block; margin: 0.15rem 0; }
+  .tier-roll .tier b { color: var(--wine-deep); }
+
+  /* CALLOUTS */
+  .callout {
+    border: 1px solid var(--ink-soft);
+    background: rgba(0,0,0,0.03);
+    padding: 0.9rem 1.2rem;
+    margin: 1.2rem 0;
+    border-left: 4px solid var(--ink-soft);
+  }
+  .callout.gold {
+    border: 1px solid var(--gold-deep);
+    background: rgba(168,140,60,0.07);
+    border-left: 4px solid var(--gold);
+  }
+  .callout.veil {
+    border: 1px solid var(--veil);
+    background: rgba(92,90,94,0.07);
+    border-left: 4px solid var(--veil);
+  }
+  .callout.warn {
+    border: 1px solid var(--wine);
+    background: rgba(106,24,40,0.06);
+    border-left: 4px solid var(--wine);
+  }
+  .callout.draft {
+    border: 1px dashed var(--ink-faint);
+    background: rgba(0,0,0,0.02);
+    border-left: 4px dashed var(--ink-faint);
+  }
+  .callout .label {
+    font-family:'Cormorant SC', serif;
+    font-weight: 600;
+    font-size: 0.84rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-soft);
+    margin-bottom: 0.3rem;
+  }
+  .callout.gold .label { color: var(--gold-deep); }
+  .callout.veil .label { color: var(--veil-deep); }
+  .callout.warn .label { color: var(--wine-deep); }
+  .callout.draft .label { color: var(--ink-faint); }
+  .callout p { margin: 0.3rem 0; }
+
+  .draft-tag {
+    display: inline-block;
+    font-family:'Cormorant SC', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--wine-deep);
+    border: 1.5px solid var(--wine);
+    padding: 0.05rem 0.45rem;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    background: rgba(236,226,204,0.7);
+  }
+
+  /* SEAL BLOCK — for the trinket section */
+  .seal-block {
+    border: 1px solid var(--gold);
+    background:
+      radial-gradient(ellipse 80px 60px at 10% 50%, rgba(168,140,60,0.06) 0%, transparent 70%),
+      rgba(168,140,60,0.04);
+    padding: 1.2rem 1.4rem;
+    margin: 1.2rem 0;
+    position: relative;
+  }
+  .seal-block::before {
+    content: '⊰  Item Folio  ⊱';
+    position: absolute;
+    top: -10px; left: 1.5rem;
+    background: var(--paper);
+    padding: 0 0.6rem;
+    font-family:'Cinzel Decorative', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    color: var(--gold-deep);
+  }
+  .seal-block .item-name {
+    font-family:'Cinzel Decorative', serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--ink);
+    margin-bottom: 0.15rem;
+    letter-spacing: 0.02em;
+  }
+  .seal-block .item-meta {
+    font-family:'Cormorant SC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    color: var(--gold-deep);
+    margin-bottom: 0.4rem;
+  }
+  .seal-block .item-flavor {
+    font-style: italic;
+    color: var(--ink-soft);
+    margin-bottom: 0.5rem;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.4rem;
+  }
+  .skill-group .group-label {
+    font-family:'Cinzel Decorative', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--wine-deep);
+    border-bottom: 1px solid var(--paper-edge);
+    padding-bottom: 0.2rem;
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.04em;
+  }
+  .skill-group ul { list-style: none; margin: 0; padding: 0; font-size: 0.96rem; }
+  .skill-group ul li { padding: 0.18rem 0; border-bottom: 1px dotted var(--paper-edge); display: flex; justify-content: space-between; }
+  .skill-group ul li .src { font-size: 0.78rem; color: var(--ink-faint); font-style: italic; font-family:'Cormorant Garamond', serif; }
+
+  /* FOOTER */
+  footer.colophon {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--gold);
+    font-family:'Cormorant SC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-align: center;
+  }
+  footer.colophon .accent { color: var(--wine-deep); font-weight: 600; }
+  footer.colophon .signature {
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-soft);
+    margin-top: 0.7rem;
+  }
+
+  @media (max-width: 780px) {
+    .doc-inner { padding: 2rem 1.5rem 3rem; }
+    .hero { grid-template-columns: 1fr; }
+    .portrait-frame { width: 70%; margin: 0 auto; }
+    .portrait-stack::before { display: none; }
+    h1.character-name { font-size: 3rem; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .status-grid { grid-template-columns: 1fr; }
+    nav.toc { columns: 1; }
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+  <span class="corner-ornament tl">❦</span>
+  <span class="corner-ornament tr">❦</span>
+  <span class="corner-ornament bl">❦</span>
+  <span class="corner-ornament br">❦</span>
+
+  <div class="doc-inner">
+
+    <!-- MASTHEAD -->
+    <div class="masthead">
+      <div class="above-title">Confidential Folio of a Discreet Client</div>
+      <div class="title">Oleansel</div>
+      <div class="filing">Cell vii · Free City of Brass <span class="stamp">Defaulted</span></div>
+    </div>
+
+    <!-- MOTTO -->
+    <div class="motto">
+      "The face I show is the face that suits the room. Of the others I keep, none belong to a confessor — and you, my dear, are not a confessor."
+    </div>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div>
+        <div class="portrait-stack">
+          <div class="portrait-frame">
+            <img src="Oleansel.png" alt="Oleansel, a red-haired high elf with veiled face, reading a scroll in fine cloth">
+          </div>
+        </div>
+        <div class="portrait-caption">
+          Oleansel · High Elf
+          <span class="quote">— as presented to the present examiner</span>
+        </div>
+      </div>
+
+      <div class="hero-text">
+        <div class="eyebrow">High Elf <span class="sep">·</span> Shadow <span class="sep">·</span> College of the Harlequin Mask</div>
+        <h1 class="character-name">
+          Oleansel
+          <span class="epithet">Aristocrat, defrocked. Rehabilitating in good faith.</span>
+        </h1>
+        <div class="tagline">
+          She defrauded other aristocrats and called it sport. The court worked out what she was doing and she lost her standing. She has — by her own account — turned over a new leaf and become a hero. She also wears her missing twin's bracer, walks with her twin's name and her twin's enemies, and is studying illusion at a college most people pretend not to know exists.
+        </div>
+        <div class="vitals-row">
+          <span class="v">Level <strong>1</strong></span>
+          <span class="v">Speed <strong>7</strong></span>
+          <span class="v">Stamina <strong>21</strong></span>
+          <span class="v gold">Renown <strong>1</strong></span>
+          <span class="v">Wealth <strong>1</strong></span>
+          <span class="v warn">Complication: <strong>Secret Twin</strong></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- TOC -->
+    <nav class="toc">
+      <ol>
+        <li><a href="#identity">Identity &amp; Standing</a></li>
+        <li><a href="#stats">Characteristics</a></li>
+        <li><a href="#insight">Insight &amp; Surges</a></li>
+        <li><a href="#ancestry">High Elf Traits</a></li>
+        <li><a href="#class">Shadow Class Features</a></li>
+        <li><a href="#subclass">College of the Harlequin Mask</a></li>
+        <li><a href="#kit">Cloak &amp; Dagger Kit</a></li>
+        <li><a href="#abilities">Selected Abilities</a></li>
+        <li><a href="#culture">Culture &amp; Career</a></li>
+        <li><a href="#skills">Skills &amp; Languages</a></li>
+        <li><a href="#complication">Complication — Secret Twin</a></li>
+        <li><a href="#trinket">The Bracer</a></li>
+        <li><a href="#incident">Inciting Incident — Charmed Life</a></li>
+        <li><a href="#campaign">Position in Collateral</a></li>
+        <li><a href="#arc">Character Arc</a></li>
+      </ol>
+    </nav>
+
+    <!-- I. IDENTITY -->
+    <section id="identity">
+      <h2 class="section-title"><span class="num">i.</span>Identity &amp; Standing</h2>
+      <p class="drop-cap">Oleansel is — or has been, or is being currently — a high elf aristocrat. Her people are children of the solar celestials, made to tend libraries and attend to the true elves as heralds; their history describes a better, vanished age of art and beauty. Oleansel's high elf glamor makes her appear and sound slightly different to every creature she meets. What is engaging to one might be different for another. She never, however, appears to be anyone other than herself.</p>
+
+      <p>That last clause has a complicated relationship to the rest of her sheet. Her class is <strong>Shadow</strong> — assassin, spy, commando, an alumna of one of the secret colleges. Her subclass is <strong>the Harlequin Mask</strong>, the illusionist's college, whose graduates infiltrate enemy strongholds and orchestrate chaos in combat. Her career was Aristocrat, which is to say no career at all — generational wealth, married into or conned into or simply born into. Her complication is a <strong>Secret Twin</strong>: an identical sibling (or simply someone who looked exactly like her) whose life she stepped into when they went missing. She wears the twin's bracer, which is etched with the dwarven word for <em>transfer</em>.</p>
+
+      <p>The Inciting Incident — Charmed Life — established what brought her low: she was defrauding other aristocrats for sport, was found out, lost her position. She turned hero. The bracer was on her wrist before any of that started; the twin was missing before any of that started; the college taught her before any of that started. The court that exposed her did not know any of the half of it.</p>
+    </section>
+
+    <!-- II. CHARACTERISTICS -->
+    <section id="stats">
+      <h2 class="section-title"><span class="num">ii.</span>Characteristics</h2>
+      <div class="stat-grid">
+        <div class="stat-cell zero"><div class="label">Might</div><div class="value">0</div><div class="gloss">No fighter</div></div>
+        <div class="stat-cell high"><div class="label">Agility</div><div class="value">+2</div><div class="gloss">Primary · the blade</div></div>
+        <div class="stat-cell"><div class="label">Reason</div><div class="value">+1</div><div class="gloss">A reader's mind</div></div>
+        <div class="stat-cell"><div class="label">Intuition</div><div class="value">+1</div><div class="gloss">Reads the room</div></div>
+        <div class="stat-cell"><div class="label">Presence</div><div class="value">+1</div><div class="gloss">Reads the host</div></div>
+      </div>
+      <p><em>Agility maxed (the Shadow's core characteristic), with three flat +1s spreading her capability evenly across the other social and perceptive characteristics. The flat 0 in Might fits — she does not fight by overpowering anyone. This is the array of a poisoner, a pickpocket, a knife-and-disappear specialist who is also the kind of person who can hold up an evening conversation as four different people.</em></p>
+
+      <div class="status-grid">
+        <div class="status-cell">
+          <div class="label">Stamina</div>
+          <div class="value">21<span class="sub"> / 21</span></div>
+          <div class="bar"><div class="fill" style="width:100%"></div></div>
+          <div class="note">18 class base + 3 from Cloak and Dagger kit. Winded ≤ 10.</div>
+        </div>
+        <div class="status-cell">
+          <div class="label">Recoveries</div>
+          <div class="value">8<span class="sub"> / 8</span></div>
+          <div class="bar gold"><div class="fill" style="width:100%"></div></div>
+          <div class="note">Recovery value: 7.</div>
+        </div>
+        <div class="status-cell">
+          <div class="label">Insight</div>
+          <div class="value">0</div>
+          <div class="bar wine"><div class="fill" style="width:0%"></div></div>
+          <div class="note">Heroic resource. 1d3 at the start of each turn; +1 the first time per round she deals surge-incorporating damage.</div>
+        </div>
+      </div>
+
+      <table class="dossier-table">
+        <thead><tr><th>Stat</th><th>Value &amp; Source</th></tr></thead>
+        <tbody>
+          <tr><td>Size</td><td><strong>1M</strong> — medium</td></tr>
+          <tr><td>Speed</td><td><strong>7</strong> — 5 high elf base + 2 from Cloak and Dagger kit</td></tr>
+          <tr><td>Stability</td><td><strong>0</strong></td></tr>
+          <tr><td>Disengage</td><td><strong>+1</strong> from kit</td></tr>
+          <tr><td>Melee / Ranged Damage Bonus</td><td><strong>+1 / +1</strong> at all tiers, from Cloak and Dagger kit</td></tr>
+          <tr><td>Wealth</td><td><strong>1</strong> <em>(includes Aristocrat career +1)</em></td></tr>
+          <tr><td>Renown</td><td><strong>1</strong> from Aristocrat career</td></tr>
+          <tr><td>XP / Hero Tokens</td><td>0 / 0</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- III. INSIGHT -->
+    <section id="insight">
+      <h2 class="section-title"><span class="num">iii.</span>Insight &amp; Surges</h2>
+      <p>The Shadow's heroic resource is <strong>Insight</strong>: read of the room, read of the target, read of the moment of weakness she is about to exploit. Surges are the universal Draw Steel power-up; Oleansel's class uses them as a converter — surges feed insight as long as she's hitting.</p>
+
+      <table class="dossier-table">
+        <thead><tr><th>Trigger</th><th>Gain</th></tr></thead>
+        <tbody>
+          <tr><td>Start of your turn</td><td><strong>1d3</strong></td></tr>
+          <tr><td>The first time each combat round that you deal damage incorporating 1 or more surges</td><td><strong>+1</strong></td></tr>
+        </tbody>
+      </table>
+
+      <h4 class="entry-label">Edge Discount</h4>
+      <p>When she uses a heroic ability that has a power roll, that ability costs <strong>1 less insight if she has an edge or double edge on it</strong>. If the ability has multiple targets, the cost is reduced even if the edge applies to only one target. <em>Surge spent on a power roll converts to damage and grants the edge discount; the system is built to be played from a position of advantage.</em></p>
+
+      <div class="callout gold">
+        <div class="label">The Class's Logic</div>
+        <p>Edge → cheaper ability → more surges accrued → more damage incorporating surges → more insight earned. The Shadow's economy compounds, but only if she's been setting up — flanking, hidden, with an ally adjacent to the target. Almost every selected ability on her sheet either gives her an edge condition or grants a surge.</p>
+      </div>
+    </section>
+
+    <!-- IV. ANCESTRY -->
+    <section id="ancestry">
+      <h2 class="section-title"><span class="num">iv.</span>High Elf Traits</h2>
+      <p>High elves were made by the solar celestials to tend libraries and serve the true elves as heralds. Their glamor is a magical reading-of-the-observer that makes them slightly different to every audience. <strong>Note: high elf glamor does not let her appear as anyone other than herself.</strong> Her Harlequin training is what lets her do that. The combination is the character.</p>
+
+      <h4 class="entry-label">Always Active — High Elf Glamor</h4>
+      <p>A magic glamor makes others perceive her as <strong>interesting and engaging</strong>, granting an edge on Presence tests using the Flirt or Persuade skills. The glamor makes her appear and sound slightly different to each creature she meets, since what is engaging to one might be different for another. <em>She never appears to be anyone other than herself</em> — this trait is calibration, not disguise.</p>
+
+      <h4 class="entry-label">Selected — High Elf Features (3 ancestry points)</h4>
+      <table class="dossier-table">
+        <thead><tr><th>Trait</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>Glamor of Terror <em>(2 pts)</em></td><td><strong>Triggered Action · Trigger: She takes damage from a creature.</strong> She can use a triggered action to make that creature <strong>frightened</strong> of her until the end of their next turn. The high elf glamor reverses — the thing the audience finds engaging becomes the thing they cannot bear to look at.</td></tr>
+          <tr><td>High Senses <em>(1 pt)</em></td><td>Her senses are especially keen and perceptive. <strong>Edge on tests made to notice threats.</strong></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- V. CLASS FEATURES -->
+    <section id="class">
+      <h2 class="section-title"><span class="num">v.</span>Shadow Class Features</h2>
+      <p>Shadows are graduates of the secret colleges — alchemy, illusion, shadow-magic. Their training and knowledge places them among the elite ranks of assassins, spies, and commandos. <em>"More potent than any weapon or sorcery is your insight into your enemies' weaknesses."</em></p>
+
+      <h4 class="entry-label">Always Available — Hesitation Is Weakness</h4>
+      <div class="ability-block core">
+        <div class="ability-name">Hesitation Is Weakness</div>
+        <div class="ability-flavor">Keep up the attack. Never give them a moment's grace.</div>
+        <div class="ability-meta">Free Triggered Action · Self · Trigger: Another hero ends their turn. That hero can't have used this ability to start their turn.</div>
+        <div class="ability-desc">
+          <p>Oleansel takes her turn after the triggering hero.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <div class="label">Why This Matters</div>
+        <p>Hesitation Is Weakness gives the Shadow turn-order flexibility no other class has: she can chain her turn directly after a teammate's, stacking flanking, setup, and combo damage without an enemy turn between to break the position. The constraint that the prior hero couldn't have used it to start <em>their</em> turn prevents indefinite stacking, but a coordinated cell can pass the chain back and forth.</p>
+      </div>
+    </section>
+
+    <!-- VI. SUBCLASS -->
+    <section id="subclass">
+      <h2 class="section-title"><span class="num">vi.</span>College of the Harlequin Mask</h2>
+      <p><em>"Graduates of the College of the Harlequin Mask learn illusion magic, which they use to infiltrate enemy strongholds and create orchestrated chaos in combat."</em></p>
+
+      <h4 class="entry-label">I'm No Threat</h4>
+      <div class="ability-block veil">
+        <div class="ability-name">I'm No Threat</div>
+        <div class="ability-flavor">Taking on the illusory countenance of another creature gives you an advantage on subterfuge.</div>
+        <div class="ability-meta">Maneuver · Self</div>
+        <div class="ability-desc">
+          <p>Oleansel envelops herself in an illusion that makes her appear nonthreatening and harmless to her enemies. She might take on the appearance of a harmless animal of her size, such as a sheep or capybara, or appear as a less heroic and unarmed version of herself.</p>
+          <p>While this illusion lasts, her <strong>strikes gain an edge</strong>, and when she takes the Disengage move action, she gains a <strong>+1 bonus to the distance she can shift</strong>.</p>
+          <p>The illusion ends when she harms another creature, when she physically interacts with a creature, when she uses this ability again, or when she ends the illusion (no action required). <strong>If she ends this illusion by harming another creature, she gains 1 surge.</strong></p>
+          <p><strong>Spend 1 Insight:</strong> Choose a creature whose size is no more than 1 greater than hers and who is within 10 squares. The ability's illusion makes her <strong>appear as that creature</strong>. The illusion covers her entire body, including clothing and armor, and alters her voice to sound like the creature. She gains an edge on tests made to convince the creature's allies that she is the creature.</p>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Clever Trick</h4>
+      <div class="ability-block veil">
+        <div class="ability-name">Clever Trick</div>
+        <div class="ability-flavor">You sow a moment of confusion in combat, to your enemy's peril.</div>
+        <div class="ability-meta">Triggered Action · Self · Trigger: An enemy targets you with a strike</div>
+        <div class="ability-desc">
+          <p>Oleansel chooses an enemy within distance of the triggering strike, <strong>including the enemy who targeted her</strong>. The strike targets that enemy instead.</p>
+        </div>
+      </div>
+
+      <div class="callout veil">
+        <div class="label">The Veil and the Mirror</div>
+        <p>I'm No Threat plus Clever Trick is the subclass condensed. The first turns her presence into something an enemy doesn't bother to swing at; the second turns an enemy's swing toward a target of her choice — possibly back at themselves, or at one of their allies, or at the illusion-thread she has spun. Combined with the Secret Twin complication, the build's central question is: <em>when she stops being the face that gets targeted, whose face does she become</em>?</p>
+      </div>
+
+      <h4 class="entry-label">Subclass Skill</h4>
+      <p><strong>Lie</strong> — selected at level 1 from the subclass's skill grant.</p>
+    </section>
+
+    <!-- VII. KIT -->
+    <section id="kit">
+      <h2 class="section-title"><span class="num">vii.</span>Cloak &amp; Dagger Kit</h2>
+      <p>Throwable light weapons and light armor easily concealed by a cloak. The kit favors short-range strikes, repositioning, and disengaging cleanly.</p>
+
+      <table class="dossier-table">
+        <thead><tr><th>Stat</th><th>Kit Bonus</th></tr></thead>
+        <tbody>
+          <tr><td>Armor</td><td>Light Armor</td></tr>
+          <tr><td>Weapon</td><td>Light Weapon (throwable)</td></tr>
+          <tr><td>Stamina</td><td>+3 (folded into her 21 total)</td></tr>
+          <tr><td>Speed</td><td>+2</td></tr>
+          <tr><td>Stability</td><td>0</td></tr>
+          <tr><td>Disengage</td><td>+1</td></tr>
+          <tr><td>Melee Damage Bonus</td><td>+1 / +1 / +1 (tiers 1/2/3)</td></tr>
+          <tr><td>Ranged Damage Bonus</td><td>+1 / +1 / +1 (tiers 1/2/3)</td></tr>
+          <tr><td>Ranged Distance</td><td>5 squares</td></tr>
+        </tbody>
+      </table>
+
+      <h4 class="entry-label">Kit Signature — Fade</h4>
+      <div class="ability-block kit">
+        <div class="ability-name">Fade</div>
+        <div class="ability-flavor">A stab, and a few quick, careful steps back.</div>
+        <div class="ability-meta">Main Action · Melee 1 or Ranged 5, Strike, Weapon · One creature · Signature</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Might or Agility</span>
+          <span class="tier"><b>Tier 1:</b> 2 + M or A damage; shift 1 square</span>
+          <span class="tier"><b>Tier 2:</b> 5 + M or A damage; shift up to 2 squares</span>
+          <span class="tier"><b>Tier 3:</b> 7 + M or A damage; shift up to 3 squares</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIII. SELECTED ABILITIES -->
+    <section id="abilities">
+      <h2 class="section-title"><span class="num">viii.</span>Selected Abilities</h2>
+      <p>One signature, one 3-Insight, one 5-Insight. The picks read like the table of contents of a heist novel.</p>
+
+      <h4 class="entry-label">Signature — The Cover Strike</h4>
+      <div class="ability-block signature">
+        <div class="ability-name">You Were Watching The Wrong One</div>
+        <div class="ability-flavor">They can't watch both of you at once.</div>
+        <div class="ability-meta">Main Action · Melee 1, Strike, Weapon · One creature</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Agility</span>
+          <span class="tier"><b>Tier 1:</b> 3 + A damage</span>
+          <span class="tier"><b>Tier 2:</b> 5 + A damage</span>
+          <span class="tier"><b>Tier 3:</b> 8 + A damage</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Effect:</b> As long as Oleansel has one or more allies within 5 squares of the target, she gains <strong>1 surge</strong>. If she is flanking the target when she uses this ability, she chooses one ally who is flanking with her. <strong>That ally also gains 1 surge.</strong></span>
+        </div>
+      </div>
+
+      <h4 class="entry-label">3-Insight — In and Out</h4>
+      <div class="ability-block">
+        <div class="ability-name">Get In Get Out</div>
+        <div class="ability-flavor">Move unexpectedly, strike fast, and be gone!</div>
+        <div class="ability-meta">Main Action · Melee 1, Strike, Weapon · One creature · 3 Insight</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Agility</span>
+          <span class="tier"><b>Tier 1:</b> 5 + A damage</span>
+          <span class="tier"><b>Tier 2:</b> 8 + A damage</span>
+          <span class="tier"><b>Tier 3:</b> 11 + A damage</span>
+          <span class="tier" style="margin-top:0.4rem;"><b>Effect:</b> She can shift up to her speed (<strong>7 squares</strong>), dividing that movement before or after her strike as desired.</span>
+        </div>
+      </div>
+
+      <h4 class="entry-label">5-Insight — The Setup</h4>
+      <div class="ability-block">
+        <div class="ability-name">Setup</div>
+        <div class="ability-flavor">Your friends will thank you.</div>
+        <div class="ability-meta">Main Action · Ranged 5, Strike, Weapon · One creature · 5 Insight</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll — Agility</span>
+          <span class="tier"><b>Tier 1:</b> 6 + A damage; R&lt;[weak], the target has damage weakness 5 (save ends)</span>
+          <span class="tier"><b>Tier 2:</b> 9 + A damage; R&lt;[average], the target has damage weakness 5 (save ends)</span>
+          <span class="tier"><b>Tier 3:</b> 13 + A damage; R&lt;[strong], the target has damage weakness 5 (save ends)</span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="label">The Loadout's Shape</div>
+        <p>All three are Agility-rolling strikes. <em>You Were Watching The Wrong One</em> is the every-turn pick when she has a flanking partner — free surge for her, free surge for the partner, plus the strike itself. <em>Get In Get Out</em> is a high-damage main action that lets her use her 7 speed before <em>and</em> after the strike, slicing through cover or escaping the moment of attention. <em>Setup</em> is the cell's force-multiplier — if she lands it, the target takes <strong>weakness 5</strong> until they save, which means every subsequent ally strike against them deals an extra 5 damage. Setup is named correctly: it is what she does <em>for</em> the team.</p>
+      </div>
+    </section>
+
+    <!-- IX. CULTURE & CAREER -->
+    <section id="culture">
+      <h2 class="section-title"><span class="num">ix.</span>Culture &amp; Career</h2>
+
+      <h3 class="subhead">Culture — Criminal Gang</h3>
+      <p>Her selected culture is the Professional archetype <strong>Criminal Gang</strong> — a pre-set Urban / Communal / Lawless bundle. The high elf cultural language (Hyrallic) carries through from her ancestry; her gang's working tongue is Vaslorian.</p>
+      <table class="dossier-table">
+        <thead><tr><th>Element</th><th>Choice &amp; Note</th></tr></thead>
+        <tbody>
+          <tr><td>Environment</td><td><strong>Urban</strong> — always centered in a city. <em>(Skill: Sneak.)</em></td></tr>
+          <tr><td>Organization</td><td><strong>Communal</strong> — all members of the culture considered equal. <em>(Skill: Jump.)</em></td></tr>
+          <tr><td>Upbringing</td><td><strong>Lawless</strong> — folk who performed activities others considered unlawful. <em>(Skill: Hide.)</em></td></tr>
+          <tr><td>Cultural Language (ancestry)</td><td><strong>Hyrallic</strong> (high elf)</td></tr>
+          <tr><td>Cultural Language (gang)</td><td><strong>Vaslorian</strong> (Criminal Gang professional culture)</td></tr>
+        </tbody>
+      </table>
+      <p><em>The "Criminal Gang" Professional culture is a Draw Steel option that bundles a recognizable subculture as a single culture pick. Oleansel was — in addition to being an aristocrat — a member of a criminal organization. The two facts coexist on her sheet without contradiction. Whether the gang was the cover for the aristocracy, or vice versa, or both for each other, is a question the Inciting Incident leaves open.</em></p>
+
+      <h3 class="subhead">Career — Aristocrat</h3>
+      <p><em>"Career? Who needs a career when you're born into money! Or marry into it! Or con your way into it! Whatever the case, you didn't need to work thanks to (someone's) generational wealth."</em></p>
+      <ul>
+        <li><strong>Interpersonal Skill:</strong> Interrogate</li>
+        <li><strong>Lore Skill:</strong> Rumors</li>
+        <li><strong>Language:</strong> Khoursirian</li>
+        <li><strong>Renown:</strong> +1</li>
+        <li><strong>Wealth:</strong> +1</li>
+        <li><strong>Lore Perk:</strong> <em>Eidetic Memory</em> — Her mind is an encyclopedia. When she finishes a respite, she chooses one skill from the lore skill group she doesn't have. She has that skill until she finishes her next respite. Additionally, if she spends 1 uninterrupted minute or more reading any page of text, she can <strong>memorize its contents</strong>, allowing her to memorize entire books with sufficient time.</li>
+      </ul>
+      <div class="callout gold">
+        <div class="label">Eidetic Memory — Operational Implications</div>
+        <p>The perk is enormous in <em>Collateral</em>'s setting. The campaign's premise is a debt instrument — a contract — naming her as collateral. Oleansel can pick up that contract, read it for one minute, and <strong>memorize it</strong>. She can then re-derive the text wherever and whenever she likes. Combined with her Lore: Rumors (career), Lore: Magic-or-other-rotating-lore (perk), and the fact that she's the only character on the cell's sheets with a per-respite rotating skill, she is the team's <strong>archivist</strong> by some margin.</p>
+      </div>
+    </section>
+
+    <!-- X. SKILLS -->
+    <section id="skills">
+      <h2 class="section-title"><span class="num">x.</span>Skills &amp; Languages</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="group-label">Exploration</div>
+          <ul>
+            <li>Climb <span class="src">class</span></li>
+            <li>Jump <span class="src">organization</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Interpersonal</div>
+          <ul>
+            <li>Handle Animals <span class="src">class</span></li>
+            <li>Interrogate <span class="src">career</span></li>
+            <li>Lie <span class="src">subclass (Harlequin Mask)</span></li>
+            <li>Perform <span class="src">class</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Intrigue</div>
+          <ul>
+            <li>Disguise <span class="src">class</span></li>
+            <li>Eavesdrop <span class="src">class</span></li>
+            <li>Hide <span class="src">upbringing</span></li>
+            <li>Pick Pocket <span class="src">class</span></li>
+            <li>Search <span class="src">class</span></li>
+            <li>Sneak <span class="src">environment</span></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="group-label">Lore</div>
+          <ul>
+            <li>Rumors <span class="src">career</span></li>
+            <li><em>+1 rotating lore skill via Eidetic Memory (changes each respite)</em></li>
+          </ul>
+        </div>
+      </div>
+      <h3 class="subhead">Languages</h3>
+      <p>Caelian <em>(default)</em>, Hyrallic <em>(high elf cultural)</em>, Vaslorian <em>(Criminal Gang culture pick)</em>, Khoursirian <em>(career)</em>.</p>
+      <div class="callout">
+        <div class="label">The Skill Bias</div>
+        <p>Six Intrigue skills (Disguise, Eavesdrop, Hide, Pick Pocket, Search, Sneak) plus four Interpersonal (Handle Animals, Interrogate, Lie, Perform). Both Brenn and Oleansel run intrigue-heavy stacks; their working specialties are different. Brenn is the breaker-and-entrance specialist (Escape Artist, Sabotage, Track, Sneak). Oleansel is the social-infiltration specialist (Disguise, Lie, Perform, Eavesdrop, Pick Pocket). The cell now has both versions of "I get into places I'm not supposed to be," and they don't overlap.</p>
+      </div>
+    </section>
+
+    <!-- XI. COMPLICATION -->
+    <section id="complication">
+      <h2 class="section-title"><span class="num">xi.</span>Complication — Secret Twin</h2>
+      <p>From the Draw Steel complication: <em>"You have an identical twin — either a sibling or someone who looks so much like you that none would ever know the difference. They had a life that you coveted, or they had obligations that couldn't go unfulfilled. So when they went missing, you stepped in and started living their life. Most folks are none the wiser."</em></p>
+
+      <table class="dossier-table">
+        <thead><tr><th>Aspect</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Secret Twin Benefit</td><td>She has a <strong>1st-echelon trinket of her choice</strong>. This was a signature treasure of her twin, and bears the twin's name or sigil somewhere. <em>(Selected: the Displacing Replacement Bracer — see Section XII.)</em></td></tr>
+          <tr><td>Secret Twin Drawback</td><td>Her twin disappeared because someone wanted them dead. Whenever she finishes a respite, she rolls a d10. <strong>On a 1 or 2, the Director can decide that her past catches up with her in the near future in some way</strong> — an assassin seeking the twin, someone who knows her real identity and threatens to reveal it, or a similar consequence.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout warn">
+        <div class="label">The Continuous Coin Flip</div>
+        <p>Every respite — every long rest — has a 20% chance of triggering a complication. Over a long campaign, the consequences accumulate. The drawback is structurally permanent: <em>her twin's enemies are still looking</em>, and the longer she wears the bracer, the more chances they get to find her.</p>
+      </div>
+    </section>
+
+    <!-- XII. TRINKET -->
+    <section id="trinket">
+      <h2 class="section-title"><span class="num">xii.</span>The Bracer</h2>
+
+      <div class="seal-block">
+        <div class="item-name">Displacing Replacement Bracer</div>
+        <div class="item-meta">Trinket · 1st Echelon · Arms, Psionic</div>
+        <div class="item-flavor">A wooden bangle etched with an ambigram sigil of the Zaliac word for "transfer."</div>
+
+        <h4 class="entry-label">Use Displacing Replacement Bracer</h4>
+        <div class="ability-block trinket">
+          <div class="ability-meta">Maneuver · No cost · One held object</div>
+          <div class="ability-desc">
+            <p>Oleansel transfers an object of size <strong>1S or 1T</strong> held in one hand with another object of the same size that is within <strong>10 squares</strong>. The objects change locations instantaneously and without creating any auditory or visual disturbance.</p>
+            <p>If another creature is wearing or holding the object she transfers to her hand, the source notes that <em>(text continues — confirm full conditions at session zero; the recorded text trailed off in extraction)</em>.</p>
+          </div>
+        </div>
+        <div class="callout draft">
+          <div class="label">Crafting Origin <span class="draft-tag">flavor</span></div>
+          <p>The bracer's crafting recipe requires <strong>petrified wood from a tree that has not been observed since falling</strong>, sourced from <strong>texts or lore in Zaliac</strong> (the dwarven language). Whoever made the original bracer was a dwarven craftworker — and the twin owned it. The ambigram sigil — readable both right-side-up and inverted — is consistent with the bracer's function: an object can leave and arrive looking the same from either side.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="label">Operational Notes</div>
+        <p>The bracer's specific use case is the kind of theft Oleansel was running before she got caught: she puts the dummy object on a noble's mantelpiece, she keeps the real one in her own hand, and at the right moment — silently, invisibly, at a distance of up to 10 squares — they switch. Pickpocketing without ever entering the target's reach. The mechanic is exactly the kind of treasure that would have facilitated her Inciting Incident, and the fact that it was her twin's suggests that the trick was the family business.</p>
+      </div>
+    </section>
+
+    <!-- XIII. INCIDENT -->
+    <section id="incident">
+      <h2 class="section-title"><span class="num">xiii.</span>Inciting Incident — Charmed Life</h2>
+      <p>From the Draw Steel inciting incident: <em>"Through some treasure or innate ability, you were able to defraud other aristocrats. You did it for fun. When you were found out, you lost your status. Whether you served time or escaped from punishment, you decided to rehabilitate yourself and became a hero."</em></p>
+      <div class="callout">
+        <div class="label">What's Established</div>
+        <ul style="margin:0.4rem 0;padding-left:1.4rem;">
+          <li>Oleansel defrauded other aristocrats.</li>
+          <li>She did it through some treasure <em>or</em> innate ability. (The Bracer fits the "treasure" reading exactly. The Harlequin training fits the "innate ability" reading. Both can be true.)</li>
+          <li>She did it for fun.</li>
+          <li>She was found out.</li>
+          <li>She lost her status.</li>
+          <li>She either served time or escaped from punishment — Director's call.</li>
+          <li>She has decided to rehabilitate herself and become a hero.</li>
+        </ul>
+      </div>
+      <div class="callout warn">
+        <div class="label">Open Threads — Where the Twin Sits</div>
+        <p>The Charmed Life text and the Secret Twin complication can be reconciled in multiple ways, and the choice matters:</p>
+        <ul style="margin:0.4rem 0;padding-left:1.4rem;">
+          <li><strong>The twin was the cover.</strong> Oleansel was caught defrauding aristocrats <em>under her twin's name</em>. The lost status is the twin's, not hers. She's been her twin for longer than the fall would suggest.</li>
+          <li><strong>The twin was the next move.</strong> Oleansel was caught as herself. When she lost status, she stepped into the twin's life — which was empty for her own reasons — and started over there.</li>
+          <li><strong>The fraud and the twin's disappearance are connected.</strong> Whoever wanted the twin dead is the same party who exposed Oleansel. The drawback's <em>"past catches up"</em> roll has been running ever since.</li>
+        </ul>
+        <p>The Director picks one. The mechanical sheet is consistent with all three.</p>
+      </div>
+    </section>
+
+    <!-- XIV. CAMPAIGN -->
+    <section id="campaign">
+      <h2 class="section-title"><span class="num">xiv.</span>Position in Collateral <span class="draft-tag">draft</span></h2>
+      <div class="callout draft">
+        <div class="label">Provisional · Drawn from Campaign Concept</div>
+        <p>The Collateral campaign concept identifies Oleansel as having a TBD prequel in the espionage / court-intrigue register. The Inciting Incident and complication confirm the genre. The specifics of <em>which court, whose enemies, what was stolen, and what the twin was doing</em> are Session Zero material.</p>
+      </div>
+
+      <p>The premise: the cell wakes in a holding room and is told <em>"The debt has defaulted. You belong to the Saffron Seal now."</em> Oleansel is the cell member who would <em>know</em> what the Saffron Seal is in any precise sense — she has Lore: Rumors, Lore: a rotating second skill via Eidetic Memory, and Renown 1 from a career spent in rooms where such instruments are issued and traded. If anyone in the cell can reconstruct the contract chain that named them all, it's her.</p>
+
+      <h3 class="subhead">Role on the Team</h3>
+      <p>Combat: <strong>striker, debuffer, and turn-order manipulator.</strong> Fade for repositioning, You Were Watching The Wrong One for flanking surges, Get In Get Out for high-damage break-and-vanish, Setup for the team's force multiplier (target weakness 5, save ends). Hesitation Is Weakness lets her chain her turn after a teammate's. Clever Trick redirects an enemy strike. Glamor of Terror frightens an attacker who hits her. The cell now has <strong>two illusionists</strong> (Oleansel via Harlequin Mask, Clasiena via Void's A Beyonding of Vision) but they read magic in different registers — Clasiena pierces illusions, Oleansel makes them.</p>
+      <p>Out of combat: <strong>social infiltrator, archivist, and pickpocket.</strong> Six Intrigue skills, four Interpersonal. Eidetic Memory rotates a lore skill per respite. The bracer silently swaps small objects across 10 squares. She is the cell's natural lead-investigator for political and contractual material — and the cell's natural face when the situation needs a face.</p>
+
+      <h3 class="subhead">Faction Connections</h3>
+      <p>The Aristocrat career and the lost status imply a specific <strong>court she fell from</strong>, which is unnamed. The Secret Twin complication implies a faction of the twin's enemies, which is unnamed. The Criminal Gang culture implies a working organization she belonged to, which is unnamed. <strong>Three separate faction-shapes are vacant in her backstory</strong> — Session Zero fills them, and any or all of them could be candidates for who named her as collateral.</p>
+    </section>
+
+    <!-- XV. ARC -->
+    <section id="arc">
+      <h2 class="section-title"><span class="num">xv.</span>Character Arc</h2>
+      <p>Three threads pull through Oleansel's sheet.</p>
+      <p>The first is <strong>the face question</strong>. High elf glamor calibrates her appearance to each observer's preference. Harlequin Mask training lets her appear as another specific creature. Secret Twin means she is already living as another person. The character's basic operating mode is: <em>I am the face the room wants</em>. The campaign arc is whether she can ever be present as someone who is no one else — and whether, after long enough, there is still such a person to be.</p>
+      <p>The second is <strong>rehabilitation in good faith</strong>. The Inciting Incident has her decide to become a hero. Whether she is doing this because she has reformed, because being a hero is the most useful cover yet, or because the lost status pushed her to a kind of authenticity she hadn't planned on, is the play question. The mechanical sheet is consistent with all three readings. The campaign's job is to make her commit to one.</p>
+      <p>The third is <strong>the twin still missing</strong>. The complication is a structural d10 — every respite, the Director may bring the past forward. The bracer is on Oleansel's wrist, etched with someone else's transfer-word, in a city full of debt instruments and people who collect on debts. The twin is not dead in the complication's text — only missing. Whether the twin is alive, recoverable, and looking for Oleansel in return is the long arc.</p>
+    </section>
+
+    <!-- COLOPHON -->
+    <footer class="colophon">
+      <div><span class="accent">⊰  Confidential Folio · Cell vii · Free City of Brass  ⊱</span></div>
+      <div style="margin-top:0.4rem;">Oleansel · High Elf · Shadow / College of the Harlequin Mask · Level 1 · Debt-holder: The Saffron Seal</div>
+      <div style="margin-top:0.4rem;">Sheet mechanics: locked. Campaign frame: provisional, subject to Session Zero.</div>
+      <div class="signature">Open: the court she fell from, the twin's whereabouts, the gang's name, the bracer's full second-page text.</div>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

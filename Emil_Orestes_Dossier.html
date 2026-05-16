@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Emil / Orestes, the Dictator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Shared / structural */
+    --bone:        #f4f1ec;
+    --bone-soft:   #ebe6dc;
+    --ink:         #0e0e10;
+
+    /* Persona — Emil (Apple/Scandi corporate-chic) */
+    --p-bg:        #f7f6f3;
+    --p-bg-2:      #ebe9e4;
+    --p-line:      #c8c5be;
+    --p-line-soft: #dcd9d2;
+    --p-ink:       #131316;
+    --p-ink-soft:  #4a4a52;
+    --p-ink-faint: #8a8a92;
+    --p-accent:    #1a1a1d;   /* matte black */
+    --p-warn:      #b8412f;   /* a single corporate "alert" red */
+
+    /* Paragon — Orestes (Greek-decadent: olive, oxblood, brass, marble) */
+    --g-bg:        #0f0d0a;
+    --g-bg-2:      #1a1612;
+    --g-marble:    #ece4d3;
+    --g-marble-d:  #d4c9b0;
+    --g-olive:     #5a6238;
+    --g-olive-d:   #3b4225;
+    --g-olive-l:   #8a9159;
+    --g-oxblood:   #6e1d22;
+    --g-oxblood-l: #a83235;
+    --g-brass:     #b89244;
+    --g-brass-l:   #d8b362;
+    --g-brass-d:   #7e6432;
+    --g-ink:       #1c1812;
+    --g-rule:      rgba(184,146,68,0.35);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: #1a1612;
+    background-image:
+      radial-gradient(ellipse at 25% 0%, rgba(247,246,243,0.25) 0%, transparent 45%),
+      radial-gradient(ellipse at 75% 100%, rgba(110,29,34,0.18) 0%, transparent 45%);
+    min-height: 100vh;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .frame {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 3rem 1rem 4rem;
+  }
+
+  /* ---------- MASTHEAD ---------- */
+  .masthead {
+    background: linear-gradient(90deg, var(--p-bg) 0%, var(--p-bg) 50%, var(--g-bg) 50%, var(--g-bg) 100%);
+    border: 1px solid var(--p-line);
+    border-right: 1px solid var(--g-brass-d);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+  .masthead::before {
+    /* d4 watermark, dead-center across the spine */
+    content: "";
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 1px; height: 100%;
+    background: linear-gradient(180deg,
+      transparent 0%,
+      var(--g-brass) 20%,
+      var(--g-brass-l) 50%,
+      var(--g-brass) 80%,
+      transparent 100%);
+    transform: translate(-50%, -50%);
+    opacity: 0.6;
+  }
+  .masthead-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .mast-side {
+    padding: 2rem 2.25rem;
+    display: grid;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .mast-persona {
+    color: var(--p-ink);
+    grid-template-columns: 130px 1fr;
+  }
+  .mast-paragon {
+    color: var(--g-marble);
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    grid-template-columns: 1fr 130px;
+  }
+
+  /* Portrait frames */
+  .mast-portrait {
+    width: 130px;
+    aspect-ratio: 3 / 4;
+    background: var(--p-bg-2);
+    overflow: hidden;
+    position: relative;
+  }
+  .mast-persona .mast-portrait {
+    border: 1px solid var(--p-line);
+    box-shadow: 0 1px 0 var(--p-line-soft);
+  }
+  .mast-paragon .mast-portrait {
+    background: var(--g-bg);
+    border: 1px solid var(--g-brass-d);
+    box-shadow: 0 0 0 1px rgba(184,146,68,0.15), 0 0 14px rgba(184,146,68,0.12);
+  }
+  .mast-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* Placeholder when no image is provided */
+  .mast-portrait.empty::after {
+    content: "PORTRAIT";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--p-ink-faint);
+  }
+  .mast-paragon .mast-portrait.empty::after {
+    font-family: "Cormorant SC", serif;
+    color: var(--g-brass);
+    letter-spacing: 0.32em;
+  }
+  .mast-text { min-width: 0; }
+
+  .mast-tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--p-ink-faint);
+    margin-bottom: 0.9rem;
+  }
+  .mast-paragon .mast-tag {
+    font-family: "Cormorant SC", serif;
+    color: var(--g-brass-l);
+    letter-spacing: 0.42em;
+  }
+  .mast-name {
+    font-size: 2.8rem;
+    line-height: 1;
+    font-weight: 200;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.35rem;
+  }
+  .mast-paragon .mast-name {
+    font-weight: 500;
+    font-style: italic;
+    letter-spacing: 0.01em;
+    font-size: 3rem;
+  }
+  .mast-sub {
+    color: var(--p-ink-soft);
+    font-size: 0.95rem;
+    font-weight: 400;
+    max-width: 28ch;
+  }
+  .mast-paragon .mast-sub {
+    color: var(--g-marble-d);
+    font-style: italic;
+    margin-left: auto;
+    font-size: 1.05rem;
+  }
+  .mast-meta {
+    margin-top: 1.25rem;
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.72rem;
+    font-family: "JetBrains Mono", monospace;
+    color: var(--p-ink-faint);
+    letter-spacing: 0.08em;
+  }
+  .mast-paragon .mast-meta {
+    justify-content: flex-end;
+    font-family: "Cormorant SC", serif;
+    color: var(--g-brass);
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+  }
+  .mast-meta span strong { color: var(--p-ink); font-weight: 600; }
+  .mast-paragon .mast-meta span strong { color: var(--g-marble); font-weight: 500; }
+
+  /* ---------- TWO-COLUMN SPINE ---------- */
+  .spine {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: linear-gradient(90deg, var(--p-bg) 0%, var(--p-bg) 50%, var(--g-bg) 50%, var(--g-bg) 100%);
+    border-left: 1px solid var(--p-line);
+    border-right: 1px solid var(--g-brass-d);
+    border-bottom: 1px solid var(--g-brass-d);
+  }
+  .col-persona {
+    padding: 2.5rem 2.25rem 3rem;
+    color: var(--p-ink);
+    border-right: 1px solid var(--g-brass-d);
+    background: var(--p-bg);
+  }
+  .col-paragon {
+    padding: 2.5rem 2.25rem 3rem;
+    color: var(--g-marble);
+    background: var(--g-bg);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.02rem;
+    background-image:
+      radial-gradient(ellipse at 90% 5%, rgba(184,146,68,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 0% 95%, rgba(110,29,34,0.08) 0%, transparent 55%);
+  }
+
+  /* ---------- PERSONA SIDE — APPLE/SWEDISH ---------- */
+  .col-persona h2 {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--p-ink-faint);
+    margin: 2.25rem 0 1rem;
+    padding-bottom: 0.45rem;
+    border-bottom: 1px solid var(--p-line-soft);
+  }
+  .col-persona h2:first-of-type { margin-top: 0; }
+  .col-persona p {
+    font-weight: 300;
+    margin-bottom: 0.85rem;
+    color: var(--p-ink-soft);
+  }
+  .col-persona p strong, .col-persona li strong { color: var(--p-ink); font-weight: 500; }
+  .col-persona ul { list-style: none; }
+  .col-persona ul li {
+    font-weight: 300;
+    color: var(--p-ink-soft);
+    margin-bottom: 0.6rem;
+    padding-left: 1rem;
+    position: relative;
+  }
+  .col-persona ul li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0.7em;
+    width: 6px; height: 1px;
+    background: var(--p-ink);
+  }
+
+  .quote-emil {
+    font-family: "Inter", sans-serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--p-ink);
+    border-left: 2px solid var(--p-accent);
+    padding: 0.2rem 0 0.2rem 1rem;
+    margin: 1.2rem 0;
+    line-height: 1.4;
+  }
+  .quote-emil cite {
+    display: block;
+    font-style: normal;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--p-ink-faint);
+    margin-top: 0.5rem;
+  }
+
+  .relationships {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-top: 1px solid var(--p-line-soft);
+  }
+  .rel {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--p-line-soft);
+    font-size: 0.92rem;
+  }
+  .rel-name {
+    font-weight: 600;
+    color: var(--p-ink);
+    font-family: "Inter", sans-serif;
+    letter-spacing: 0.02em;
+  }
+  .rel-note {
+    color: var(--p-ink-soft);
+    font-weight: 300;
+  }
+  .rel.brock .rel-name { color: var(--p-warn); }
+
+  .footnote-card {
+    background: var(--p-bg-2);
+    border: 1px solid var(--p-line-soft);
+    padding: 1.1rem 1.2rem;
+    margin: 1.25rem 0 0;
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--p-ink-soft);
+    line-height: 1.5;
+    position: relative;
+  }
+  .footnote-card::before {
+    content: "§";
+    position: absolute;
+    top: 0.6rem; right: 0.9rem;
+    font-family: "Cormorant Garamond", serif;
+    color: var(--p-ink-faint);
+    font-size: 1.1rem;
+  }
+  .footnote-card em { font-style: italic; color: var(--p-ink); }
+
+  /* ---------- PARAGON SIDE — GREEK-DECADENT ---------- */
+  .col-paragon h2 {
+    font-family: "Cormorant SC", serif;
+    font-weight: 500;
+    font-size: 0.88rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--g-brass-l);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--g-rule);
+    position: relative;
+  }
+  .col-paragon h2:first-of-type { margin-top: 0; }
+  .col-paragon h2::after {
+    content: "";
+    position: absolute;
+    bottom: -1px; left: 0;
+    width: 50px; height: 1px;
+    background: var(--g-brass);
+  }
+  .col-paragon p {
+    color: var(--g-marble-d);
+    margin-bottom: 0.9rem;
+  }
+  .col-paragon p strong, .col-paragon li strong { color: var(--g-marble); font-weight: 500; }
+  .col-paragon em.bright { color: var(--g-brass-l); font-style: italic; }
+
+  .epigraph {
+    font-style: italic;
+    color: var(--g-marble);
+    font-size: 1.1rem;
+    line-height: 1.4;
+    padding: 0.6rem 0;
+    border-top: 1px solid var(--g-rule);
+    border-bottom: 1px solid var(--g-rule);
+    margin: 1.2rem 0 1.5rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+  }
+  .epigraph::before, .epigraph::after {
+    content: "❦";
+    color: var(--g-brass);
+    font-style: normal;
+    display: block;
+    font-size: 0.8rem;
+    margin: 0.3rem 0;
+  }
+
+  /* ---------- MECHANICAL BLOCK (paragon side) ---------- */
+  .mech-section {
+    background: rgba(236,228,211,0.03);
+    border: 1px solid var(--g-rule);
+    padding: 1.25rem 1.25rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .mech-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--g-brass);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  /* Stats grid */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--g-rule);
+    background: rgba(15,13,10,0.5);
+    padding: 0.6rem 0.7rem;
+    text-align: center;
+    position: relative;
+  }
+  .stat-cell.highlight {
+    border-color: var(--g-brass);
+    background: rgba(184,146,68,0.08);
+  }
+  .stat-cell .stat-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--g-brass-l);
+    text-transform: uppercase;
+  }
+  .stat-cell .stat-val {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.85rem;
+    font-weight: 500;
+    color: var(--g-marble);
+    line-height: 1;
+    margin: 0.2rem 0;
+  }
+  .stat-cell .stat-desc {
+    font-size: 0.72rem;
+    color: var(--g-marble-d);
+    font-style: italic;
+    line-height: 1.25;
+  }
+
+  /* Defence/Health/Guard/Willpower row */
+  .def-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.6rem;
+    margin-top: 0.8rem;
+  }
+  .def-cell {
+    border: 1px solid var(--g-rule);
+    background: rgba(15,13,10,0.5);
+    padding: 0.55rem 0.4rem;
+    text-align: center;
+  }
+  .def-cell .def-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--g-brass-l);
+    text-transform: uppercase;
+  }
+  .def-cell .def-val {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--g-marble);
+    line-height: 1.1;
+  }
+  .def-cell .def-val small {
+    font-size: 0.7rem;
+    color: var(--g-marble-d);
+  }
+
+  /* Voice / Equipment / Look stripes */
+  .stripe {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 1rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--g-rule);
+    font-size: 0.95rem;
+  }
+  .stripe:last-child { border-bottom: none; }
+  .stripe .stripe-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--g-brass-l);
+    text-transform: uppercase;
+    padding-top: 0.15rem;
+  }
+  .stripe .stripe-val { color: var(--g-marble-d); }
+  .stripe .stripe-val em { color: var(--g-brass-l); font-style: italic; }
+
+  /* Emotional palette + scale */
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .palette-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--g-rule);
+    padding: 0.4rem 0.65rem;
+    background: rgba(15,13,10,0.45);
+    font-size: 0.84rem;
+    color: var(--g-marble-d);
+  }
+  .palette-chip.on {
+    background: rgba(184,146,68,0.12);
+    border-color: var(--g-brass);
+    color: var(--g-marble);
+  }
+  .palette-chip.on .pal-name { color: var(--g-brass-l); }
+  .pal-dot {
+    width: 0.55rem; height: 0.55rem;
+    border-radius: 50%;
+    background: rgba(184,146,68,0.25);
+    border: 1px solid var(--g-rule);
+    flex-shrink: 0;
+  }
+  .palette-chip.on .pal-dot { background: var(--g-brass); border-color: var(--g-brass-l); }
+  .palette-chip .pal-name {
+    font-family: "Cormorant SC", serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+  }
+  .palette-chip .pal-shades {
+    color: var(--g-marble-d);
+    font-style: italic;
+    font-size: 0.78rem;
+    margin-left: auto;
+    opacity: 0.7;
+  }
+
+  .scale-list { list-style: none; counter-reset: scale; margin-top: 0.5rem; }
+  .scale-list li {
+    counter-increment: scale;
+    padding: 0.45rem 0 0.45rem 2.4rem;
+    border-bottom: 1px dashed var(--g-rule);
+    position: relative;
+    color: var(--g-marble-d);
+    font-size: 0.92rem;
+  }
+  .scale-list li:last-child { border-bottom: none; }
+  .scale-list li::before {
+    content: counter(scale);
+    position: absolute;
+    left: 0; top: 0.35rem;
+    width: 1.6rem; height: 1.6rem;
+    text-align: center;
+    line-height: 1.55rem;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    color: var(--g-brass-l);
+    border: 1px solid var(--g-brass-d);
+    border-radius: 50%;
+    background: rgba(15,13,10,0.5);
+    font-size: 0.9rem;
+  }
+
+  /* ---------- EMOTION WHEEL SVG ---------- */
+  .wheel-wrap {
+    text-align: center;
+    margin: 1rem 0 0.5rem;
+  }
+  .wheel-wrap svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+  .wheel-caption {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    color: var(--g-brass);
+    text-transform: uppercase;
+    margin-top: 0.6rem;
+  }
+
+  /* ---------- FULL-WIDTH SECTIONS UNDER THE SPINE ---------- */
+  .undercroft {
+    background: var(--g-bg-2);
+    border-left: 1px solid var(--g-brass-d);
+    border-right: 1px solid var(--g-brass-d);
+    border-bottom: 1px solid var(--g-brass-d);
+    padding: 2.5rem 2.5rem 3rem;
+    color: var(--g-marble);
+    font-family: "Cormorant Garamond", serif;
+  }
+  .undercroft h2 {
+    font-family: "Cormorant SC", serif;
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: var(--g-brass-l);
+    margin: 0 0 1.5rem;
+    text-align: center;
+    position: relative;
+    padding-bottom: 0.8rem;
+  }
+  .undercroft h2::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 80px; height: 1px;
+    background: var(--g-brass);
+  }
+  .undercroft p {
+    color: var(--g-marble-d);
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  .undercroft p strong { color: var(--g-marble); font-weight: 500; }
+  .undercroft em.bright { color: var(--g-brass-l); }
+
+  .party-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.2rem;
+    margin: 1.2rem 0 2rem;
+  }
+  .party-card {
+    border: 1px solid var(--g-rule);
+    padding: 1rem 1rem 1.1rem;
+    background: rgba(15,13,10,0.5);
+    text-align: center;
+  }
+  .party-card.self {
+    border-color: var(--g-brass);
+    background: rgba(184,146,68,0.08);
+  }
+  .party-real {
+    font-family: "Inter", sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--g-marble-d);
+    margin-bottom: 0.4rem;
+  }
+  .party-paragon {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--g-marble);
+    line-height: 1.2;
+  }
+  .party-role {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--g-brass-l);
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+
+  /* Chronicle bullets */
+  .chronicle {
+    list-style: none;
+    counter-reset: chr;
+    padding: 0;
+    margin: 1rem 0 0;
+  }
+  .chronicle li {
+    counter-increment: chr;
+    padding: 0.7rem 0 0.9rem 3rem;
+    border-bottom: 1px solid var(--g-rule);
+    position: relative;
+    color: var(--g-marble-d);
+    font-size: 1.02rem;
+    line-height: 1.55;
+  }
+  .chronicle li:last-child { border-bottom: none; }
+  .chronicle li::before {
+    content: counter(chr, upper-roman);
+    position: absolute;
+    left: 0; top: 0.7rem;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    color: var(--g-brass-l);
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    min-width: 2.4rem;
+    text-align: right;
+    padding-right: 0.4rem;
+    border-right: 1px solid var(--g-rule);
+  }
+  .chronicle li strong { color: var(--g-marble); font-weight: 500; }
+
+  /* ---------- COLOPHON ---------- */
+  .colophon {
+    max-width: 1120px;
+    margin: 1.5rem auto 0;
+    text-align: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.3em;
+    color: rgba(212, 201, 176, 0.5);
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+  }
+  .colophon span { color: var(--g-brass); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 880px) {
+    .masthead-inner, .spine { grid-template-columns: 1fr; }
+    .col-persona { border-right: none; border-bottom: 4px solid var(--g-brass-d); }
+    .masthead-inner .mast-side { padding: 1.5rem 1.25rem; }
+    .mast-persona, .mast-paragon {
+      grid-template-columns: 100px 1fr;
+    }
+    .mast-paragon .mast-portrait { order: -1; }
+    .mast-portrait { width: 100px; }
+    .col-persona, .col-paragon { padding: 1.75rem 1.25rem 2.25rem; }
+    .undercroft { padding: 1.75rem 1.25rem 2.25rem; }
+    .masthead::before { display: none; }
+    .mast-paragon { text-align: left; }
+    .mast-paragon .mast-sub { margin-left: 0; }
+    .mast-paragon .mast-meta { justify-content: flex-start; }
+    .mast-name { font-size: 2.1rem; }
+    .mast-paragon .mast-name { font-size: 2.3rem; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .def-grid { grid-template-columns: repeat(2, 1fr); }
+    .stripe { grid-template-columns: 1fr; gap: 0.2rem; }
+    .rel { grid-template-columns: 1fr; gap: 0.2rem; }
+    .rel-name { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; }
+  }
+</style>
+</head>
+<body>
+
+<div class="frame">
+
+  <!-- ===================== MASTHEAD ===================== -->
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="mast-side mast-persona">
+        <!-- To use a portrait, replace .empty class with an <img>. Example:
+             <div class="mast-portrait"><img src="thumbs/emil.jpg" alt="Emil"></div> -->
+        <div class="mast-portrait empty"></div>
+        <div class="mast-text">
+          <div class="mast-tag">PERSONA &nbsp;·&nbsp; HE / HIM</div>
+          <div class="mast-name">Emil</div>
+          <p class="mast-sub">Metalhead in a ska band turned ruthless big-tech gay VC.</p>
+          <div class="mast-meta">
+            <span><strong>BAND</strong> &middot; bassist (he insisted: temporary)</span>
+            <span><strong>NOW</strong> &middot; Hooli, vested</span>
+          </div>
+        </div>
+      </div>
+      <div class="mast-side mast-paragon">
+        <div class="mast-text">
+          <div class="mast-tag">PARAGON · THE DICTATOR · d4</div>
+          <div class="mast-name">Orestes</div>
+          <p class="mast-sub">The resurrected ruler. A revolution killed him; the ground refused to keep him.</p>
+          <div class="mast-meta">
+            <span><strong>HE / SHE</strong></span>
+            <span><strong>CHARISMA</strong> · 4</span>
+          </div>
+        </div>
+        <div class="mast-portrait empty"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== SPINE: PERSONA | PARAGON ===================== -->
+  <div class="spine">
+
+    <!-- ============== PERSONA COLUMN — EMIL ============== -->
+    <section class="col-persona">
+
+      <h2>Profile</h2>
+      <p>Moved to the U.S. as a kid for his parents' work. <strong>Hated it.</strong> Long black hair, extreme metal, the whole shtick. Started bands; every band died on him.</p>
+      <p>Accepted a <em>temporary</em> role as bassist for the ska band. Said so explicitly. Was clear on this. <strong>It wasn't temporary.</strong> Too proud to do a shitty job, so he didn't. Wasn't out, then. Just "didn't date."</p>
+
+      <h2>Now</h2>
+      <p>Went corporate. Ponytail, tattoos under the cuff, marketing speak, elegant Euro-bizgeek vibe. Stock options vested at <strong>Hooli</strong>.</p>
+      <p>Married Brock overseas before it was legal in the U.S.; they've been together since around <strong>2007</strong>. Brock is a dudebro, gym rat, crypto hodl-er. Currently, massively, into <strong>NFTs</strong>.</p>
+
+      <div class="footnote-card">
+        <em>"These are non-fungible tokens (NFTs) like bitcoins. If the spouse who has been buying these digital assets reveals the assets as he or she is required to do according to the law, they can be identified and divided equally between the spouses if they were purchased with community property assets."</em>
+      </div>
+
+      <p style="margin-top:1.1rem;">The comeback tour is <strong>absolutely a ploy</strong> for dissipation of marital assets &mdash; and a way to stick it to Brock before the divorce finalises. Emil filed right after the options vested. The marriage has been functionally dead for a couple of years.</p>
+
+      <div class="quote-emil">
+        Yeah yeah fuck you I got this vanity effort funded.
+        <cite>— Emil, on the comeback tour</cite>
+      </div>
+
+      <h2>Relationships</h2>
+      <div class="relationships">
+        <div class="rel">
+          <div class="rel-name">Robbie</div>
+          <div class="rel-note">Good terms. They don't speak frequently.</div>
+        </div>
+        <div class="rel">
+          <div class="rel-name">Verner</div>
+          <div class="rel-note">Lost touch. Emil read things well, probably.</div>
+        </div>
+        <div class="rel">
+          <div class="rel-name">Anthony / Rose</div>
+          <div class="rel-note">Leveraged the family connections after the band broke up &mdash; then lapped him professionally. Some subconscious guilt. Avoids the interactions as a result.</div>
+        </div>
+        <div class="rel">
+          <div class="rel-name">Max</div>
+          <div class="rel-note">Different circles. Different life. Probably still gets a Christmas card from Emil's secretary.</div>
+        </div>
+        <div class="rel brock">
+          <div class="rel-name">Brock</div>
+          <div class="rel-note">Fuck that guy.</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============== PARAGON COLUMN — ORESTES ============== -->
+    <section class="col-paragon">
+
+      <p class="epigraph">
+        You read a sad story. You cry. Do you think that's sinister &mdash;<br>
+        as if someone has taken over your emotions?<br>
+        Of course not. That's just what art is.<br>
+        Anyone who's ever met a Dictator would disagree.
+      </p>
+
+      <!-- ====== STATS ====== -->
+      <h2>Stats</h2>
+      <div class="stat-grid">
+        <div class="stat-cell"><div class="stat-name">STR</div><div class="stat-val">2</div><div class="stat-desc">physicality, melee</div></div>
+        <div class="stat-cell"><div class="stat-name">DEX</div><div class="stat-val">2</div><div class="stat-desc">dodge, ranged, init.</div></div>
+        <div class="stat-cell"><div class="stat-name">CON</div><div class="stat-val">2</div><div class="stat-desc">health, endurance</div></div>
+        <div class="stat-cell"><div class="stat-name">WIS</div><div class="stat-val">2</div><div class="stat-desc">understanding, will</div></div>
+        <div class="stat-cell"><div class="stat-name">INT</div><div class="stat-val">2</div><div class="stat-desc">knowledge, perception</div></div>
+        <div class="stat-cell highlight"><div class="stat-name">CHA</div><div class="stat-val">4</div><div class="stat-desc">the instrument</div></div>
+      </div>
+
+      <div class="def-grid">
+        <div class="def-cell"><div class="def-name">Guard</div><div class="def-val">2<small> / 2</small></div></div>
+        <div class="def-cell"><div class="def-name">Health</div><div class="def-val">2<small> / 2</small></div></div>
+        <div class="def-cell"><div class="def-name">Defence</div><div class="def-val">0</div></div>
+        <div class="def-cell"><div class="def-name">Willpower</div><div class="def-val">4</div></div>
+      </div>
+
+      <!-- ====== EMOTIONAL PALETTE ====== -->
+      <h2>Emotional Palette</h2>
+      <p style="font-size:0.92rem; font-style: italic;">Every artist has their favourite themes. Four are selected. The rest are silent &mdash; for now.</p>
+      <div class="palette-grid">
+        <div class="palette-chip"><span class="pal-dot"></span><span class="pal-name">Ecstasy</span><span class="pal-shades">joy, serenity</span></div>
+        <div class="palette-chip on"><span class="pal-dot"></span><span class="pal-name">Admiration</span><span class="pal-shades">trust, acceptance</span></div>
+        <div class="palette-chip on"><span class="pal-dot"></span><span class="pal-name">Terror</span><span class="pal-shades">fear, apprehension</span></div>
+        <div class="palette-chip"><span class="pal-dot"></span><span class="pal-name">Amazement</span><span class="pal-shades">surprise, distraction</span></div>
+        <div class="palette-chip"><span class="pal-dot"></span><span class="pal-name">Grief</span><span class="pal-shades">sadness, pensiveness</span></div>
+        <div class="palette-chip on"><span class="pal-dot"></span><span class="pal-name">Loathing</span><span class="pal-shades">disgust, boredom</span></div>
+        <div class="palette-chip on"><span class="pal-dot"></span><span class="pal-name">Rage</span><span class="pal-shades">anger, annoyance</span></div>
+        <div class="palette-chip"><span class="pal-dot"></span><span class="pal-name">Vigilance</span><span class="pal-shades">anticipation, interest</span></div>
+      </div>
+
+      <!-- ====== EMOTION WHEEL SVG ====== -->
+      <div class="wheel-wrap">
+        <svg viewBox="0 0 460 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Plutchik's Wheel of Emotions, with Admiration, Terror, Loathing, and Rage marked as Orestes's selected emotions.">
+  <defs>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <circle cx="230" cy="230" r="218" fill="none" stroke="#3b4225" stroke-width="0.5" opacity="0.4"/>
+  <g transform="rotate(0 230 230)">
+    <path d="M 230.0 65.0 A 165 165 0 0 1 293.14 77.56 L 272.1 128.37 A 110 110 0 0 0 230.0 120.0 Z" fill="#f6e08a" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 65.0 A 165 165 0 0 0 166.86 77.56 L 187.9 128.37 A 110 110 0 0 1 230.0 120.0 Z" fill="#f6e08a" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 120.0 A 110 110 0 0 1 272.1 128.37 L 251.05 179.19 A 55 55 0 0 0 230.0 175.0 Z" fill="#eecb3e" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 120.0 A 110 110 0 0 0 187.9 128.37 L 208.95 179.19 A 55 55 0 0 1 230.0 175.0 Z" fill="#eecb3e" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 175.0 A 55 55 0 0 1 251.05 179.19 L 230 230 Z" fill="#d4a818" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 175.0 A 55 55 0 0 0 208.95 179.19 L 230 230 Z" fill="#d4a818" stroke="#0f0d0a" stroke-width="0.5"/>
+  </g>
+  <g transform="rotate(45 230 230)" filter="url(#glow)">
+    <path d="M 230.0 65.0 A 165 165 0 0 1 293.14 77.56 L 272.1 128.37 A 110 110 0 0 0 230.0 120.0 Z" fill="#c5dca0" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 65.0 A 165 165 0 0 0 166.86 77.56 L 187.9 128.37 A 110 110 0 0 1 230.0 120.0 Z" fill="#c5dca0" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 120.0 A 110 110 0 0 1 272.1 128.37 L 251.05 179.19 A 55 55 0 0 0 230.0 175.0 Z" fill="#9ec766" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 120.0 A 110 110 0 0 0 187.9 128.37 L 208.95 179.19 A 55 55 0 0 1 230.0 175.0 Z" fill="#9ec766" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 175.0 A 55 55 0 0 1 251.05 179.19 L 230 230 Z" fill="#6fa635" stroke="#d8b362" stroke-width="2"/>
+    <path d="M 230.0 175.0 A 55 55 0 0 0 208.95 179.19 L 230 230 Z" fill="#6fa635" stroke="#d8b362" stroke-width="2"/>
+  </g>
+  <g transform="rotate(90 230 230)" filter="url(#glow)">
+    <path d="M 230.0 65.0 A 165 165 0 0 1 293.14 77.56 L 272.1 128.37 A 110 110 0 0 0 230.0 120.0 Z" fill="#a6c8a0" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 65.0 A 165 165 0 0 0 166.86 77.56 L 187.9 128.37 A 110 110 0 0 1 230.0 120.0 Z" fill="#a6c8a0" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 120.0 A 110 110 0 0 1 272.1 128.37 L 251.05 179.19 A 55 55 0 0 0 230.0 175.0 Z" fill="#5da558" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 120.0 A 110 110 0 0 0 187.9 128.37 L 208.95 179.19 A 55 55 0 0 1 230.0 175.0 Z" fill="#5da558" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 175.0 A 55 55 0 0 1 251.05 179.19 L 230 230 Z" fill="#2f7a3a" stroke="#d8b362" stroke-width="2"/>
+    <path d="M 230.0 175.0 A 55 55 0 0 0 208.95 179.19 L 230 230 Z" fill="#2f7a3a" stroke="#d8b362" stroke-width="2"/>
+  </g>
+  <g transform="rotate(135 230 230)">
+    <path d="M 230.0 65.0 A 165 165 0 0 1 293.14 77.56 L 272.1 128.37 A 110 110 0 0 0 230.0 120.0 Z" fill="#a8d4d4" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 65.0 A 165 165 0 0 0 166.86 77.56 L 187.9 128.37 A 110 110 0 0 1 230.0 120.0 Z" fill="#a8d4d4" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 120.0 A 110 110 0 0 1 272.1 128.37 L 251.05 179.19 A 55 55 0 0 0 230.0 175.0 Z" fill="#6fb6c1" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 120.0 A 110 110 0 0 0 187.9 128.37 L 208.95 179.19 A 55 55 0 0 1 230.0 175.0 Z" fill="#6fb6c1" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 175.0 A 55 55 0 0 1 251.05 179.19 L 230 230 Z" fill="#3d8a99" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 175.0 A 55 55 0 0 0 208.95 179.19 L 230 230 Z" fill="#3d8a99" stroke="#0f0d0a" stroke-width="0.5"/>
+  </g>
+  <g transform="rotate(180 230 230)">
+    <path d="M 230.0 65.0 A 165 165 0 0 1 293.14 77.56 L 272.1 128.37 A 110 110 0 0 0 230.0 120.0 Z" fill="#a5b6d6" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 65.0 A 165 165 0 0 0 166.86 77.56 L 187.9 128.37 A 110 110 0 0 1 230.0 120.0 Z" fill="#a5b6d6" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 120.0 A 110 110 0 0 1 272.1 128.37 L 251.05 179.19 A 55 55 0 0 0 230.0 175.0 Z" fill="#6680b8" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 120.0 A 110 110 0 0 0 187.9 128.37 L 208.95 179.19 A 55 55 0 0 1 230.0 175.0 Z" fill="#6680b8" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 175.0 A 55 55 0 0 1 251.05 179.19 L 230 230 Z" fill="#34528a" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 175.0 A 55 55 0 0 0 208.95 179.19 L 230 230 Z" fill="#34528a" stroke="#0f0d0a" stroke-width="0.5"/>
+  </g>
+  <g transform="rotate(225 230 230)" filter="url(#glow)">
+    <path d="M 230.0 65.0 A 165 165 0 0 1 293.14 77.56 L 272.1 128.37 A 110 110 0 0 0 230.0 120.0 Z" fill="#c0a8c8" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 65.0 A 165 165 0 0 0 166.86 77.56 L 187.9 128.37 A 110 110 0 0 1 230.0 120.0 Z" fill="#c0a8c8" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 120.0 A 110 110 0 0 1 272.1 128.37 L 251.05 179.19 A 55 55 0 0 0 230.0 175.0 Z" fill="#8d669a" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 120.0 A 110 110 0 0 0 187.9 128.37 L 208.95 179.19 A 55 55 0 0 1 230.0 175.0 Z" fill="#8d669a" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 175.0 A 55 55 0 0 1 251.05 179.19 L 230 230 Z" fill="#5a3070" stroke="#d8b362" stroke-width="2"/>
+    <path d="M 230.0 175.0 A 55 55 0 0 0 208.95 179.19 L 230 230 Z" fill="#5a3070" stroke="#d8b362" stroke-width="2"/>
+  </g>
+  <g transform="rotate(270 230 230)" filter="url(#glow)">
+    <path d="M 230.0 65.0 A 165 165 0 0 1 293.14 77.56 L 272.1 128.37 A 110 110 0 0 0 230.0 120.0 Z" fill="#dca4a0" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 65.0 A 165 165 0 0 0 166.86 77.56 L 187.9 128.37 A 110 110 0 0 1 230.0 120.0 Z" fill="#dca4a0" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 120.0 A 110 110 0 0 1 272.1 128.37 L 251.05 179.19 A 55 55 0 0 0 230.0 175.0 Z" fill="#c45c50" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 120.0 A 110 110 0 0 0 187.9 128.37 L 208.95 179.19 A 55 55 0 0 1 230.0 175.0 Z" fill="#c45c50" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 175.0 A 55 55 0 0 1 251.05 179.19 L 230 230 Z" fill="#8a1f1f" stroke="#d8b362" stroke-width="2"/>
+    <path d="M 230.0 175.0 A 55 55 0 0 0 208.95 179.19 L 230 230 Z" fill="#8a1f1f" stroke="#d8b362" stroke-width="2"/>
+  </g>
+  <g transform="rotate(315 230 230)">
+    <path d="M 230.0 65.0 A 165 165 0 0 1 293.14 77.56 L 272.1 128.37 A 110 110 0 0 0 230.0 120.0 Z" fill="#f0c8a0" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 65.0 A 165 165 0 0 0 166.86 77.56 L 187.9 128.37 A 110 110 0 0 1 230.0 120.0 Z" fill="#f0c8a0" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 120.0 A 110 110 0 0 1 272.1 128.37 L 251.05 179.19 A 55 55 0 0 0 230.0 175.0 Z" fill="#e6985c" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 120.0 A 110 110 0 0 0 187.9 128.37 L 208.95 179.19 A 55 55 0 0 1 230.0 175.0 Z" fill="#e6985c" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 175.0 A 55 55 0 0 1 251.05 179.19 L 230 230 Z" fill="#c46818" stroke="#0f0d0a" stroke-width="0.5"/>
+    <path d="M 230.0 175.0 A 55 55 0 0 0 208.95 179.19 L 230 230 Z" fill="#c46818" stroke="#0f0d0a" stroke-width="0.5"/>
+  </g>
+  <text x="230.0" y="39.0" text-anchor="middle" font-family="Cormorant SC, serif" font-size="11" letter-spacing="1.5" fill="#d4c9b0" font-weight="400">JOY</text>
+  <text x="367.89" y="96.11" text-anchor="middle" font-family="Cormorant SC, serif" font-size="11" letter-spacing="1.5" fill="#d8b362" font-weight="600">ADMIRATION</text>
+  <text x="425.0" y="234.0" text-anchor="middle" font-family="Cormorant SC, serif" font-size="11" letter-spacing="1.5" fill="#d8b362" font-weight="600">TERROR</text>
+  <text x="367.89" y="371.89" text-anchor="middle" font-family="Cormorant SC, serif" font-size="11" letter-spacing="1.5" fill="#d4c9b0" font-weight="400">SURPRISE</text>
+  <text x="230.0" y="429.0" text-anchor="middle" font-family="Cormorant SC, serif" font-size="11" letter-spacing="1.5" fill="#d4c9b0" font-weight="400">SADNESS</text>
+  <text x="92.11" y="371.89" text-anchor="middle" font-family="Cormorant SC, serif" font-size="11" letter-spacing="1.5" fill="#d8b362" font-weight="600">LOATHING</text>
+  <text x="35.0" y="234.0" text-anchor="middle" font-family="Cormorant SC, serif" font-size="11" letter-spacing="1.5" fill="#d8b362" font-weight="600">RAGE</text>
+  <text x="92.11" y="96.11" text-anchor="middle" font-family="Cormorant SC, serif" font-size="11" letter-spacing="1.5" fill="#d4c9b0" font-weight="400">ANTICIPATION</text>
+</svg>
+        <div class="wheel-caption">The Four Petals He Pulls</div>
+      </div>
+
+      <!-- ====== EMOTIONAL SCALE ====== -->
+      <h2>Emotional Scale</h2>
+      <p style="font-size:0.92rem; font-style: italic;">The final number of successes is intensity. <em class="bright">+4</em> is success; <em class="bright">+6</em> triggers benefits.</p>
+      <ol class="scale-list">
+        <li>You feel it enough to influence you.</li>
+        <li>You feel it intensely. Hard to do anything not related to it.</li>
+        <li>As intensely as most people ever feel it. Active compulsions.</li>
+        <li>If we're talking love, more than you love your partner.</li>
+        <li>All-consuming obsession. The further reaches of madness.</li>
+        <li>Supernaturally intense. Beyond anything in reality.</li>
+      </ol>
+
+      <!-- ====== VOICE / EQUIPMENT / LOOK ====== -->
+      <h2>Manifestation &amp; Kit</h2>
+      <div class="stripe">
+        <div class="stripe-label">The Voice</div>
+        <div class="stripe-val"><em>Command words appear in the air.</em> He doesn't speak them &mdash; they form, in his script, hanging.</div>
+      </div>
+      <div class="stripe">
+        <div class="stripe-label">Equipment</div>
+        <div class="stripe-val"><em>The Dictator's Clothes</em> (Defence 0) &middot; <em>Magical Death Touch</em> (concealed, cannot be disarmed; may use DEX in place of STR for its dice pool)</div>
+      </div>
+      <div class="stripe">
+        <div class="stripe-label">Look</div>
+        <div class="stripe-val"><em>Spectacular eveningwear.</em></div>
+      </div>
+
+      <!-- ====== CLASS MECHANICS (CONDENSED) ====== -->
+      <h2>Performing With the d4</h2>
+      <p style="font-size:0.96rem;">Emotional Control is a <strong>Charisma dice pool</strong>; the d4 is added to it, but the d4 is <em class="bright">not counted as a die</em> &mdash; its number is the count of successes. Each success modifies the result by ±1. Note the result solemnly. Ceremonially pass the d4 to the affected player. <strong>Their character is now influenced by his abilities.</strong></p>
+      <p style="font-size:0.96rem;">To use the power on someone else, he must first <strong>reclaim the d4</strong> &mdash; which ends the previous compulsion.</p>
+
+      <div class="mech-section">
+        <div class="mech-label">A Little Emotional Nudge</div>
+        <p style="font-size:0.92rem; margin-bottom:0;">When he holds the d4 and subtle manipulation may give him an edge, he may roll the d4 into any pool. It does not count as a die; the number raises one die in the pool by that amount.</p>
+      </div>
+
+      <div class="mech-section">
+        <div class="mech-label">Resisting Him</div>
+        <p style="font-size:0.92rem; margin-bottom:0;">Measured by <strong>Willpower</strong> (INT + WIS). To permanently remove a target from combat, his successes must <em class="bright">match or exceed</em> their Willpower. Anything less and they are influenced, but not broken.</p>
+      </div>
+
+      <div class="mech-section" style="border-color: var(--g-oxblood-l); background: rgba(110,29,34,0.10);">
+        <div class="mech-label" style="color: #d88a8a;">Critical Failure</div>
+        <p style="font-size:0.92rem; margin-bottom:0;">On a critical failure, the emotional state cannot be removed. It is permanent. He has broken someone. Oh dear.<br><em class="bright" style="font-size:0.84rem;">(The d4 is ignored when calculating whether something is a critical fail.)</em></p>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- ===================== UNDERCROFT — CAMPAIGN + CHRONICLE ===================== -->
+  <section class="undercroft">
+
+    <h2>The Chorus</h2>
+    <p style="text-align:center; max-width: 60ch; margin: 0 auto 2rem;">
+      A Greek chorus &mdash; ghosts of the city Orestes once ruled &mdash; backs him up. They do not strike. They do not speak the commands. They <em class="bright">supplement the Voice</em>: a tide of sighing, of agreement, of grief in unison. When the words appear in the air, the chorus is the breath that makes them visible.
+    </p>
+
+    <h2>The Party &mdash; <span style="font-size:0.7rem; letter-spacing:0.22em; color: var(--g-marble-d);">BeggarTok DIE</span></h2>
+    <div class="party-grid">
+      <div class="party-card self">
+        <div class="party-real">Emil</div>
+        <div class="party-paragon">Orestes</div>
+        <div class="party-role">The Dictator</div>
+      </div>
+      <div class="party-card">
+        <div class="party-real">Rose <span style="color: var(--g-brass);">(was Anthony)</span></div>
+        <div class="party-paragon">Rosealina</div>
+        <div class="party-role">The Admiration Knight</div>
+      </div>
+      <div class="party-card">
+        <div class="party-real">Robbie</div>
+        <div class="party-paragon">Fucko</div>
+        <div class="party-role">The Fool</div>
+      </div>
+      <div class="party-card">
+        <div class="party-real">Max</div>
+        <div class="party-paragon">Vic</div>
+        <div class="party-role">The Godbinder (Alabastia)</div>
+      </div>
+      <div class="party-card">
+        <div class="party-real">Verner</div>
+        <div class="party-paragon">The Master</div>
+        <div class="party-role">GM</div>
+      </div>
+    </div>
+
+    <h2>Chronicle</h2>
+    <ol class="chronicle">
+      <li>
+        <strong>One show only.</strong> They have been told there is one show. The comeback tour is the doorway. Emil, ponytail and tattoos and quarterly forecasts, picks up the bass for the first time in years. On the other side: spectacular eveningwear. A resurrected ruler. A chorus.
+      </li>
+      <li>
+        <strong>A previous game, remembered.</strong> They trashed the world the last time they came through &mdash; under <em class="bright">Gorgoroth the Necromancer.</em> The land remembers. Orestes is the resurrected ruler of the city the previous characters ruled with an iron fist. A revolution killed him. It could not hold him down. <em class="bright">Who put him back is a mystery.</em>
+      </li>
+      <li>
+        <strong>Lady Magdalena's wedding.</strong> They wrecked it. Evidence was planted. The exact target of the frame is for the next session to remember; what is recorded here is that the wedding does not happen as planned, and someone takes the fall who was not supposed to.
+      </li>
+      <li>
+        <strong>The Factory.</strong> Worshippers of the god of the forge laboured there. The party found them &mdash; what came of it is still being written.
+      </li>
+      <li>
+        <strong>The alliance, sabotaged.</strong> The <em class="bright">Monhian Empire</em> and the <em class="bright">Brastedian Theocracy</em> were trying to come together. They are no longer trying to come together. Two countries, properly screwed up.
+      </li>
+    </ol>
+
+    <h2 style="margin-top: 2.5rem;">Why He Pulls the Strings</h2>
+    <p style="text-align:center; max-width: 62ch; margin: 0 auto;">
+      Emil feels that <em class="bright">love is not possible.</em> He has material wealth. He has the absence of community and the absence of social connection. He seeks to manipulate others to avoid feelings of inadequacy and loss.
+    </p>
+    <p style="text-align:center; max-width: 62ch; margin: 1rem auto 0; font-size: 0.95rem; color: var(--g-marble-d);">
+      <em>In D&amp;D terms, Dictators are like Bards &mdash; if everyone was fucking petrified of Bards.</em>
+    </p>
+
+  </section>
+
+</div>
+
+<div class="colophon">
+  <span>DIE</span> · TTRPG by Kieron Gillen · Persona &amp; Paragon · BeggarTok Campaign
+</div>
+
+</body>
+</html>
