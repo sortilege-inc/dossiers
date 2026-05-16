@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Miele, Resopath of Stars</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment:     #f2e8d0;
+    --parchment-dk:  #e0d0b0;
+    --parchment-dkr: #c8b88a;
+    --ink:           #1a1530;
+    --ink-soft:      #2f2950;
+    --ink-faint:     #5a5478;
+    --rule:          #8a86a8;
+    --rule-soft:     #b6b2cd;
+    --indigo:        #2a2570;
+    --indigo-deep:   #161240;
+    --indigo-light:  #4a44a0;
+    --moon:          #6f7faa;
+    --moon-pale:     #a8b5d2;
+    --silver:        #8c92ad;
+    --gold:          #b8860b;
+    --gold-light:    #d4a82a;
+    --gold-pale:     #e8cc80;
+    --shadow:        rgba(22, 18, 64, 0.22);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: #0a0820;
+    color: var(--ink);
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 17px; line-height: 1.65;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 8%, rgba(74, 68, 160, 0.22) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 92%, rgba(184,134,11,0.10) 0%, transparent 50%),
+      radial-gradient(circle 1px at 20% 30%, rgba(232, 204, 128, 0.7), transparent),
+      radial-gradient(circle 1px at 70% 15%, rgba(168, 181, 210, 0.8), transparent),
+      radial-gradient(circle 1px at 85% 60%, rgba(232, 204, 128, 0.6), transparent),
+      radial-gradient(circle 1px at 35% 75%, rgba(168, 181, 210, 0.7), transparent),
+      radial-gradient(circle 1px at 50% 50%, rgba(232, 204, 128, 0.5), transparent);
+    min-height: 100vh; padding: 2rem 1rem;
+  }
+  .document {
+    max-width: 880px; margin: 0 auto;
+    background: var(--parchment); padding: 0; position: relative;
+    box-shadow: 0 0 0 1px var(--rule), 0 4px 6px rgba(0,0,0,0.3),
+                0 16px 40px rgba(10, 8, 32, 0.65), inset 0 0 80px rgba(74, 68, 160, 0.08);
+  }
+  .document::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse at 0% 0%, rgba(42,37,112,0.06) 0%, transparent 40%),
+      radial-gradient(ellipse at 100% 100%, rgba(42,37,112,0.05) 0%, transparent 40%),
+      radial-gradient(ellipse at 50% 50%, rgba(22,18,64,0.03) 0%, transparent 60%);
+    z-index: 0;
+  }
+  .document-inner {
+    position: relative; z-index: 1;
+    padding: 3.5rem 4rem 4rem;
+    border: 1px solid var(--parchment-dkr); margin: 1rem;
+  }
+  .border-top, .border-bot {
+    height: 6px;
+    background: linear-gradient(90deg,
+      transparent 0%, var(--gold) 8%, var(--indigo) 25%, var(--gold) 50%,
+      var(--indigo) 75%, var(--gold) 92%, transparent 100%);
+    margin: 0 1rem;
+  }
+  .corner {
+    position: absolute; width: 28px; height: 28px;
+    border-color: var(--gold); border-style: solid;
+  }
+  .corner.tl { top: 5px; left: 5px; border-width: 2px 0 0 2px; }
+  .corner.tr { top: 5px; right: 5px; border-width: 2px 2px 0 0; }
+  .corner.bl { bottom: 5px; left: 5px; border-width: 0 0 2px 2px; }
+  .corner.br { bottom: 5px; right: 5px; border-width: 0 2px 2px 0; }
+  .eyebrow {
+    font-family: "Cinzel", serif; font-size: 0.68rem;
+    letter-spacing: 0.35em; color: var(--ink-faint);
+    text-transform: uppercase; text-align: center; margin-bottom: 0.5rem;
+  }
+  header.title-block {
+    text-align: center; border-bottom: 2px solid var(--rule);
+    padding-bottom: 2rem; margin-bottom: 2.5rem; position: relative;
+  }
+  header.title-block::after {
+    content: ""; display: block; width: 120px; height: 1px;
+    background: var(--gold); margin: 0.8rem auto 0;
+  }
+  h1.character-name {
+    font-family: "Cinzel Decorative", serif; font-weight: 400;
+    font-size: 2.6rem; line-height: 1.1; margin: 0.25rem 0 0.3rem;
+    letter-spacing: 0.04em; color: var(--ink);
+  }
+  .name-accent { color: var(--indigo-deep); }
+  .epithets {
+    font-family: "IM Fell English", serif; font-style: italic;
+    font-size: 1.05rem; color: var(--ink-soft); margin: 0.25rem 0 1rem;
+  }
+  .vitals-row {
+    display: flex; justify-content: center; flex-wrap: wrap;
+    gap: 0 1.8rem;
+    font-family: "Cinzel", serif; font-size: 0.72rem;
+    letter-spacing: 0.2em; color: var(--ink-faint); margin-top: 0.75rem;
+  }
+  .vitals-row span { border-left: 1px solid var(--rule-soft); padding-left: 1.5rem; }
+  .vitals-row span:first-child { border-left: none; padding-left: 0; }
+
+  /* SIGNATURE QUOTE / EPIGRAPH */
+  .epigraph {
+    margin: 0 auto 2.5rem;
+    max-width: 600px;
+    text-align: center;
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: var(--indigo-deep);
+    padding: 1rem 0;
+    position: relative;
+  }
+  .epigraph::before, .epigraph::after {
+    content: "";
+    display: block;
+    width: 80px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto;
+  }
+  .epigraph::before { margin-bottom: 1rem; }
+  .epigraph::after { margin-top: 1rem; }
+  .epigraph .glyph {
+    color: var(--gold-light); font-size: 0.9rem;
+    display: block; margin: 0.4rem 0; letter-spacing: 0.5rem;
+  }
+
+  section { margin-bottom: 2.5rem; }
+  h2.section-title {
+    font-family: "Cinzel", serif; font-weight: 600; font-size: 0.82rem;
+    letter-spacing: 0.32em; color: var(--indigo-deep); text-transform: uppercase;
+    border-bottom: 1px solid var(--rule-soft); padding-bottom: 0.4rem;
+    margin: 0 0 1.25rem;
+  }
+  h2.section-title::before { content: "✦"; color: var(--gold); margin-right: 0.6rem; font-size: 0.7rem; }
+  h3.subhead {
+    font-family: "Cinzel", serif; font-weight: 400; font-size: 0.95rem;
+    color: var(--gold); letter-spacing: 0.1em; margin: 1.5rem 0 0.4rem;
+  }
+  p { margin: 0 0 0.9rem; }
+  em { color: var(--ink-soft); font-style: italic; }
+  strong { font-weight: 600; color: var(--ink); }
+
+  blockquote.maxim {
+    font-family: "IM Fell English", serif; font-style: italic;
+    font-size: 1.05rem; line-height: 1.55; color: var(--indigo-deep);
+    border-left: 3px solid var(--gold);
+    padding: 0.5rem 0 0.5rem 1.5rem; margin: 1.5rem 0;
+    background: rgba(74, 68, 160, 0.05);
+  }
+  blockquote.maxim .attribution {
+    display: block; font-size: 0.82rem; font-style: normal;
+    color: var(--ink-faint); font-family: "Cinzel", serif;
+    letter-spacing: 0.14em; margin-top: 0.4rem;
+  }
+
+  table.dossier-table {
+    width: 100%; border-collapse: collapse;
+    margin: 0.75rem 0 1.25rem; font-size: 0.95rem;
+  }
+  table.dossier-table th {
+    text-align: left; font-family: "Cinzel", serif; font-weight: 600;
+    font-size: 0.68rem; letter-spacing: 0.2em; color: var(--ink-faint);
+    text-transform: uppercase; padding: 0.45rem 0.75rem;
+    border-bottom: 1.5px solid var(--rule);
+  }
+  table.dossier-table td {
+    padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--parchment-dkr);
+    vertical-align: top;
+  }
+  table.dossier-table td:first-child {
+    font-family: "Cinzel", serif; font-size: 0.82rem; font-weight: 600;
+    color: var(--ink); white-space: nowrap;
+    padding-right: 1rem; letter-spacing: 0.06em;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+
+  blockquote.field-note {
+    font-family: "Crimson Text", serif; font-size: 0.88rem; line-height: 1.55;
+    color: var(--ink-faint); background: rgba(22,18,64,0.06);
+    border: 1px dashed var(--parchment-dkr);
+    padding: 0.75rem 1rem; margin: 1rem 0;
+  }
+  blockquote.field-note .attribution {
+    display: block; font-family: "Cinzel", serif; font-size: 0.65rem;
+    letter-spacing: 0.18em; color: var(--ink-faint);
+    margin-top: 0.4rem; text-transform: uppercase;
+  }
+
+  .stat-bloc {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem; margin: 1rem 0 1.5rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule-soft); padding: 0.6rem 0.75rem;
+    background: rgba(22,18,64,0.04);
+  }
+  .stat-cell .label {
+    font-family: "Cinzel", serif; font-size: 0.62rem; letter-spacing: 0.2em;
+    color: var(--ink-faint); text-transform: uppercase; margin-bottom: 0.15rem;
+  }
+  .stat-cell .value {
+    font-family: "Cinzel", serif; font-size: 0.95rem; font-weight: 600; color: var(--ink);
+  }
+  .stat-cell .gloss {
+    font-family: "IM Fell English", serif; font-style: italic;
+    font-size: 0.82rem; color: var(--ink-soft);
+  }
+
+  /* POWER LISTS — themed for The Talent */
+  .powers-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem 1rem;
+    margin: 0.75rem 0 1rem;
+  }
+  .power-tier {
+    border: 1px solid var(--rule-soft);
+    background: rgba(74, 68, 160, 0.05);
+    padding: 0.75rem 0.9rem;
+  }
+  .power-tier .tier-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--indigo-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule-soft);
+    padding-bottom: 0.3rem;
+  }
+  .power-tier ul {
+    margin: 0; padding: 0;
+    list-style: none;
+  }
+  .power-tier li {
+    font-family: "IM Fell English", serif;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    padding: 0.18rem 0;
+    border-bottom: 1px dotted var(--parchment-dkr);
+  }
+  .power-tier li:last-child { border-bottom: none; }
+  .power-tier li::before {
+    content: "✧";
+    color: var(--gold);
+    margin-right: 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  /* STRAIN TABLE — distinctly themed */
+  .strain-bloc {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+    margin: 0.75rem 0 1rem;
+  }
+  .strain-cell {
+    border: 1px solid var(--rule-soft);
+    padding: 0.55rem 0.7rem;
+    background: rgba(22,18,64,0.05);
+    text-align: center;
+  }
+  .strain-cell .label {
+    font-family: "Cinzel", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+  .strain-cell .value {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 1.3rem;
+    color: var(--indigo-deep);
+  }
+
+  .ornament {
+    text-align: center; color: var(--gold);
+    font-size: 1rem; letter-spacing: 0.5rem;
+    margin: 1.5rem 0; user-select: none;
+  }
+
+  footer.doc-footer {
+    border-top: 1px solid var(--rule-soft);
+    margin-top: 3rem; padding-top: 1rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: "Cinzel", serif; font-size: 0.62rem;
+    letter-spacing: 0.18em; color: var(--ink-faint); text-transform: uppercase;
+  }
+
+  /* PORTRAIT */
+  .portrait-block { text-align: center; margin: 0 0 2.5rem; }
+  .portrait-block img {
+    max-width: 320px; width: 100%; height: auto;
+    border: 1px solid var(--rule);
+    box-shadow: 0 2px 8px rgba(22,18,64,0.35), inset 0 0 0 4px var(--parchment);
+    padding: 5px; background: var(--parchment-dk);
+  }
+  .portrait-caption {
+    font-family: "Cinzel", serif; font-size: 0.65rem;
+    letter-spacing: 0.2em; color: var(--ink-faint);
+    text-transform: uppercase; margin-top: 0.6rem;
+  }
+
+  @media (max-width: 680px) {
+    .document-inner { padding: 2rem 1.5rem; }
+    h1.character-name { font-size: 1.8rem; }
+    .stat-bloc { grid-template-columns: repeat(2, 1fr); }
+    .strain-bloc { grid-template-columns: repeat(3, 1fr); }
+    .powers-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="document">
+  <div class="border-top"></div>
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <div class="document-inner">
+
+    <div class="eyebrow">Skai Holt &amp; Ughardi Campaign · Character Dossier · Unplayed</div>
+
+    <header class="title-block">
+      <p class="epithets">Resopath of Stars &middot; Teacher in Exile &middot; The Awkward Tutor</p>
+      <h1 class="character-name"><span class="name-accent">Miele</span></h1>
+      <div class="vitals-row">
+        <span>Level 4</span>
+        <span>Satyr</span>
+        <span>Neutral</span>
+        <span>Resopath (Talent)</span>
+        <span>Sage</span>
+      </div>
+    </header>
+
+    <!-- EPIGRAPH -->
+    <div class="epigraph">
+      &ldquo;The stars tell all our stories.<br>
+      <span class="glyph">✦ ✦ ✦</span>
+      The birds speak the stars&rsquo; language to us.&rdquo;
+    </div>
+
+    <!-- PORTRAIT -->
+    <section id="portrait">
+      <h2 class="section-title">Portrait</h2>
+      <div class="portrait-block">
+        <img src="miele.png" alt="Portrait of Miele">
+        <div class="portrait-caption">Miele &middot; satyr resopath &middot; in contemplation beneath the moon</div>
+      </div>
+    </section>
+
+    <!-- I. IDENTITY -->
+    <section id="identity">
+      <h2 class="section-title">I. Identity (Character Sheet)</h2>
+
+      <table class="dossier-table">
+        <thead><tr><th>Field</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Name</td><td>Miele</td></tr>
+          <tr><td>Player</td><td>Jordan</td></tr>
+          <tr><td>Level</td><td>4</td></tr>
+          <tr><td>Ancestry</td><td>Satyr (fey)</td></tr>
+          <tr><td>Alignment</td><td>Neutral</td></tr>
+          <tr><td>Background</td><td>Sage</td></tr>
+          <tr><td>Specialization</td><td>Resopath 4 &mdash; The Talent</td></tr>
+          <tr><td>System</td><td>D&amp;D 5e + MCDM Talent</td></tr>
+          <tr><td>Status</td><td>Built for Skai Holt &amp; Ughardi; never brought to table</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- II. ROLEPLAY -->
+    <section id="roleplay">
+      <h2 class="section-title">II. Roleplaying (From Sheet)</h2>
+
+      <table class="dossier-table">
+        <thead><tr><th>Field</th><th>Text</th></tr></thead>
+        <tbody>
+          <tr><td>Personality Trait</td><td>I am horribly, horribly awkward in social situations.</td></tr>
+          <tr><td>Ideal</td><td>Logic. Emotions must not cloud our logical thinking.</td></tr>
+          <tr><td>Bond</td><td>It is my duty to protect my students.</td></tr>
+          <tr><td>Flaw</td><td>I overlook obvious solutions in favor of complicated ones.</td></tr>
+        </tbody>
+      </table>
+
+      <p>Miele is conceived as a teacher &mdash; he held that role before the campaign would have begun &mdash; though no specific students, school, or curriculum have been established. The bond points forward as well as back: any pupil he gathers in play would fall under the same duty.</p>
+    </section>
+
+    <!-- III. MECHANICAL PROFILE -->
+    <section id="mechanics">
+      <h2 class="section-title">III. Mechanical Profile</h2>
+
+      <h3 class="subhead">Ability Scores</h3>
+      <div class="stat-bloc">
+        <div class="stat-cell"><div class="label">STR</div><div class="value">10 (+0)</div><div class="gloss">Save +0</div></div>
+        <div class="stat-cell"><div class="label">DEX</div><div class="value">16 (+3)</div><div class="gloss">Save +3</div></div>
+        <div class="stat-cell"><div class="label">CON</div><div class="value">14 (+2)</div><div class="gloss">Save +2</div></div>
+        <div class="stat-cell"><div class="label">INT</div><div class="value">18 (+4)</div><div class="gloss">Save +6 (prof)</div></div>
+        <div class="stat-cell"><div class="label">WIS</div><div class="value">12 (+1)</div><div class="gloss">Save +3 (prof)</div></div>
+        <div class="stat-cell"><div class="label">CHA</div><div class="value">11 (+0)</div><div class="gloss">Save +0</div></div>
+      </div>
+
+      <h3 class="subhead">Combat Stats</h3>
+      <div class="stat-bloc">
+        <div class="stat-cell"><div class="label">HP</div><div class="value">26</div><div class="gloss">Hit Dice 4d6</div></div>
+        <div class="stat-cell"><div class="label">AC</div><div class="value">13</div><div class="gloss">Leather armor</div></div>
+        <div class="stat-cell"><div class="label">Initiative</div><div class="value">+3</div><div class="gloss">DEX</div></div>
+        <div class="stat-cell"><div class="label">Speed</div><div class="value">35 ft</div><div class="gloss">Mirthful Leaps</div></div>
+        <div class="stat-cell"><div class="label">Proficiency</div><div class="value">+2</div></div>
+        <div class="stat-cell"><div class="label">Passive Perception</div><div class="value">11</div></div>
+      </div>
+
+      <h3 class="subhead">Skills</h3>
+      <p>Arcana <strong>+8</strong> (expertise-tier), Acrobatics +5, Sleight of Hand +5, Stealth +5, Investigation +4, Nature +4, Religion +4, Insight +3, History +2, Performance +2, Persuasion +2, Survival +1. Other skills modify off raw ability scores.</p>
+
+      <h3 class="subhead">Proficiencies &amp; Languages</h3>
+      <ul style="margin: 0.4rem 0 1rem 1.5rem; padding: 0;">
+        <li><strong>Armor:</strong> Light</li>
+        <li><strong>Weapons:</strong> Clubs, daggers, light crossbows, slings, quarterstaffs, spears</li>
+        <li><strong>Tools:</strong> Pan flute</li>
+        <li><strong>Languages:</strong> Common, Sylvan, <em>[2 more &mdash; to specify]</em></li>
+      </ul>
+
+      <h3 class="subhead">Attacks</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Attack</th><th>Hit</th><th>Damage</th><th>Type</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Ram (unarmed)</td><td>+2</td><td>1d4</td><td>B</td><td>Head and horns; bludgeoning + STR mod</td></tr>
+          <tr><td>Spear</td><td>+2</td><td>1d6</td><td>P</td><td>Versatile (1d8); thrown 20/60</td></tr>
+          <tr><td>Light Crossbow</td><td>+5</td><td>1d8</td><td>P</td><td>Range 80/320; ammunition; loading; two-handed</td></tr>
+          <tr><td>Dagger</td><td>+5</td><td>1d4+3</td><td>P</td><td>Finesse, light, thrown 20/60 (×2 carried)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- IV. SATYR ANCESTRY -->
+    <section id="ancestry">
+      <h2 class="section-title">IV. Satyr Ancestry</h2>
+
+      <table class="dossier-table">
+        <thead><tr><th>Feature</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Fey</td><td>Creature type is fey, rather than humanoid.</td></tr>
+          <tr><td>Magic Resistance</td><td>Advantage on saving throws against spells and other magical effects.</td></tr>
+          <tr><td>Mirthful Leaps</td><td>On any long or high jump, roll a d8 and add the result to the feet covered &mdash; even on a standing jump. The extra distance costs movement as normal.</td></tr>
+          <tr><td>Ram</td><td>May use head and horns to make unarmed strikes. On a hit, deals bludgeoning damage equal to 1d4 + STR modifier.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- V. BACKGROUND: SAGE -->
+    <section id="background">
+      <h2 class="section-title">V. Sage Background</h2>
+
+      <p><strong>Feature: Researcher.</strong> When Miele attempts to learn or recall a piece of lore that he does not know, he often knows where and from whom to obtain it. Usually the source is a library, scriptorium, university, or another scholar or learned creature. The GM may rule that the knowledge is secreted away in an almost inaccessible place, or simply cannot be found &mdash; in which case unearthing it can occasion an adventure or a whole campaign.</p>
+
+      <blockquote class="field-note">
+        Miele&rsquo;s starting equipment includes <em>a letter from a dead colleague posing a question you have not yet been able to answer.</em> The question itself is deliberately unspecified &mdash; a blank hook waiting on the table that never came.
+        <span class="attribution">— Equipment note, character sheet</span>
+      </blockquote>
+    </section>
+
+    <!-- VI. THE TALENT / RESOPATH -->
+    <section id="talent">
+      <h2 class="section-title">VI. The Talent &mdash; Resopath</h2>
+
+      <p>Miele&rsquo;s class is <strong>Resopath</strong>, an MCDM <em>Talent</em> path centred on terrain manipulation and the resonant warping of space. Powers cost no slots; instead, the manifestation of higher-order powers risks <strong>strain</strong>.</p>
+
+      <h3 class="subhead">Talent Statistics</h3>
+      <div class="stat-bloc">
+        <div class="stat-cell"><div class="label">Power Save DC</div><div class="value">14</div><div class="gloss">8 + prof + INT</div></div>
+        <div class="stat-cell"><div class="label">Power Atk Bonus</div><div class="value">+6</div><div class="gloss">prof + INT</div></div>
+        <div class="stat-cell"><div class="label">Manifestation Die</div><div class="value">d4</div><div class="gloss">at level 4</div></div>
+      </div>
+
+      <h3 class="subhead">Resopath Class Features</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Feature</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Manipulate Terrain</td><td>Shape the terrain around Miele, making it disadvantageous for enemies &mdash; grasping hands, sentient vines, or other hindrances. <em>Bonus action:</em> choose a point on the ground within 60 ft. A 20-foot-square area centred on that point becomes difficult terrain for creatures of his choice. The effect remains for 1 minute, or until Miele uses this feature again. Once established, he may use a bonus action each round to move the area up to 20 ft, or to move one willing creature he can see within the area to any unoccupied space within the area. Usable a number of times equal to his INT modifier (minimum once) per long rest. <strong>Currently: 4 uses/day.</strong></td></tr>
+          <tr><td>Psionic Exertion: Expanded Power</td><td>After making a manifestation test for a power that creates an area of effect, Miele may gain strain equal to the power&rsquo;s order to <strong>double all dimensions of the area of effect.</strong></td></tr>
+          <tr><td>Learning from Others</td><td>Listed on sheet (Talent feature at level 4).</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="subhead">Powers Known</h3>
+      <div class="powers-grid">
+        <div class="power-tier">
+          <div class="tier-label">1st Order</div>
+          <ul>
+            <li>Concussive Slam</li>
+            <li>Glimpse</li>
+            <li>Illuminator</li>
+            <li>Invisible Force</li>
+            <li>Sharpened Senses</li>
+          </ul>
+        </div>
+        <div class="power-tier">
+          <div class="tier-label">2nd Order</div>
+          <ul>
+            <li>Adapt</li>
+            <li>Awe</li>
+            <li>Jaunt</li>
+            <li>Weight</li>
+            <li>Deserved Transfer</li>
+          </ul>
+        </div>
+        <div class="power-tier">
+          <div class="tier-label">3rd Order</div>
+          <ul>
+            <li>Elsewhere</li>
+            <li>Telekinetic Burst</li>
+          </ul>
+        </div>
+        <div class="power-tier">
+          <div class="tier-label">4th Order</div>
+          <ul>
+            <li>Stasis Field</li>
+            <li>Phase</li>
+          </ul>
+        </div>
+      </div>
+
+      <p style="font-size: 0.9rem; color: var(--ink-soft);">5th- and 6th-order tiers are unlocked at higher levels and are not yet available at Resopath 4.</p>
+
+      <h3 class="subhead">Manifestation Tests</h3>
+      <p>Every power of 2nd order or higher requires a manifestation test at the end of its manifestation time. Roll the manifestation die (d4) against the power&rsquo;s manifestation score (= its order, +1 per other concentrated power):</p>
+      <ul style="margin: 0.4rem 0 1rem 1.5rem; padding: 0;">
+        <li><strong>Higher:</strong> Power manifests cleanly.</li>
+        <li><strong>Equal:</strong> Power manifests; gain <strong>1 strain.</strong></li>
+        <li><strong>Lower:</strong> Power manifests; gain <strong>strain equal to the power&rsquo;s order.</strong></li>
+      </ul>
+      <p>If gained strain would exceed the strain maximum, Miele chooses: manifest then die, or do not manifest, gain no strain, drop to 0 HP.</p>
+
+      <h3 class="subhead">Strain</h3>
+      <div class="strain-bloc">
+        <div class="strain-cell">
+          <div class="label">Maximum</div>
+          <div class="value">8</div>
+        </div>
+        <div class="strain-cell">
+          <div class="label">Body</div>
+          <div class="value">0</div>
+        </div>
+        <div class="strain-cell">
+          <div class="label">Mind</div>
+          <div class="value">0</div>
+        </div>
+        <div class="strain-cell">
+          <div class="label">Soul</div>
+          <div class="value">0</div>
+        </div>
+        <div class="strain-cell">
+          <div class="label">Total</div>
+          <div class="value">0</div>
+        </div>
+        <div class="strain-cell">
+          <div class="label">Concentrating</div>
+          <div class="value">—</div>
+        </div>
+      </div>
+      <p style="font-size: 0.9rem; color: var(--ink-soft);">On gaining strain, Miele assigns it freely between Body, Mind, and Soul. Effects are cumulative per track per level. Short rest: spend Hit Dice to remove strain (1 per die). Long rest: strain returns to 0. Exceeding strain maximum kills him; if revived after a strain-death, he returns at maximum strain.</p>
+
+      <h3 class="subhead">Strain to Maintain</h3>
+      <p>On a failed Constitution save to maintain concentration on Talent powers, Miele may instead choose to gain strain equal to the sum of the orders of all powers being concentrated on, keeping them active.</p>
+    </section>
+
+    <!-- VII. EQUIPMENT -->
+    <section id="equipment">
+      <h2 class="section-title">VII. Equipment</h2>
+
+      <h3 class="subhead">Carried</h3>
+      <ul style="margin: 0.4rem 0 1rem 1.5rem; padding: 0;">
+        <li>Leather armor</li>
+        <li>A spear, <em>or</em> a light crossbow and 20 bolts (sage choice)</li>
+        <li>Two daggers</li>
+        <li>Scholar&rsquo;s pack <em>or</em> explorer&rsquo;s pack</li>
+      </ul>
+
+      <h3 class="subhead">Sage&rsquo;s Bundle</h3>
+      <ul style="margin: 0.4rem 0 1rem 1.5rem; padding: 0;">
+        <li>A bottle of black ink</li>
+        <li>A quill</li>
+        <li>A small knife</li>
+        <li><strong>A letter from a dead colleague, posing a question Miele has not yet been able to answer</strong></li>
+        <li>A set of common clothes</li>
+        <li>A pouch containing <strong>10 gp</strong></li>
+      </ul>
+    </section>
+
+    <!-- VIII. CHARACTER CONCEPT -->
+    <section id="concept">
+      <h2 class="section-title">VIII. Character Concept</h2>
+
+      <blockquote class="maxim">
+        The stars tell all our stories. The birds speak the stars&rsquo; language to us.
+        <span class="attribution">— Miele&rsquo;s signature line</span>
+      </blockquote>
+
+      <p>A young satyr scholar &mdash; horns just curling in from the temples, hair the colour of pale wheat &mdash; built around the contradiction between an INT of 18 and a CHA of 11. He thinks fast; he speaks awkwardly. He is most comfortable in libraries, in front of pupils, or alone with a sky.</p>
+
+      <p>The cosmology he carries is small and specific. The stars are the record of every story that has happened and every story that will. Birds &mdash; messengers between the high air and the low ground &mdash; carry that record down in song. To listen well to a bird is, in a real sense, to listen to a star. This is the kind of thing Miele believes <em>logically</em>, and which he would refuse to characterise as emotional or religious.</p>
+
+      <p>His Resopath powers belong to the same worldview. The Talent does not, in his framing, channel a god or a spirit; it is the same listening, made physical. Terrain bends because the world is already willing to bend; one only has to know how to ask.</p>
+
+      <p>His bond &mdash; <em>It is my duty to protect my students</em> &mdash; predates the campaign; he was a teacher before the table was meant to meet him. No specific pupils, institution, or fallen colleague have been written. The dead colleague&rsquo;s unanswered letter, his bond, and his flaw all gesture at the same shape: <strong>a man who would rather build an elegant cathedral of method than admit the obvious answer is in front of him.</strong></p>
+    </section>
+
+    <!-- IX. STATUS -->
+    <section id="status">
+      <h2 class="section-title">IX. Status</h2>
+
+      <blockquote class="field-note">
+        Miele was built for the Skai Holt &amp; Ughardi campaign but never brought to the table. No gameplay events, no in-fiction history, no party encounters. This dossier records the sheet as it stood, and the concept as it was imagined, before the character could be played.
+        <span class="attribution">— Compiler&rsquo;s note</span>
+      </blockquote>
+
+      <h3 class="subhead">To Specify Before Play</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Item</th><th>State</th></tr></thead>
+        <tbody>
+          <tr><td>Languages</td><td>Two additional languages beyond Common &amp; Sylvan to be chosen.</td></tr>
+          <tr><td>Dead Colleague</td><td>Name, relationship, field of study, and the unanswered question.</td></tr>
+          <tr><td>Students</td><td>Who they are, where they studied with him, where they are now.</td></tr>
+          <tr><td>Starting Pack</td><td>Scholar&rsquo;s vs. explorer&rsquo;s.</td></tr>
+          <tr><td>Spear or Crossbow</td><td>Initial weapon choice from sage background.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="ornament">— &nbsp; ✦ &nbsp; —</div>
+
+    <footer class="doc-footer">
+      <span>Skai Holt &amp; Ughardi</span>
+      <span>Miele &middot; Resopath 4</span>
+      <span>Unplayed &middot; compiled from character sheet</span>
+    </footer>
+
+  </div>
+  <div class="border-bot"></div>
+</div>
+
+</body>
+</html>

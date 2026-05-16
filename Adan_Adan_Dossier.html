@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Adan Adan, Witch Gnoll Oracle of Bones</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Cormorant+Upright:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  /* Mwangi Expanse / West African palette:
+     terracotta, hibiscus, gold, forest green, indigo, charcoal on bone */
+  --char:           #100804;
+  --char-soft:      #1c100a;
+  --char-mid:       #2a1810;
+  --bone:           #f0dfb8;          /* sun-cured cloth */
+  --bone-warm:      #ead0a3;
+  --bone-deep:      #c8aa78;
+  --terracotta:     #b34a1f;          /* fired clay */
+  --terracotta-bri: #d05a26;
+  --terracotta-dim: #7a2f12;
+  --terracotta-gh:  rgba(179,74,31,0.10);
+  --hibiscus:       #8a1818;          /* deep red, blood-of-the-hibiscus */
+  --hibiscus-bri:   #b02020;
+  --hibiscus-gh:    rgba(138,24,24,0.10);
+  --gold:           #d4a02a;          /* hammered gold */
+  --gold-bri:       #ecb938;
+  --gold-dim:       #9c7314;
+  --gold-gh:        rgba(212,160,42,0.10);
+  --forest:         #355c2e;          /* deep forest, Mwangi canopy */
+  --forest-bri:     #4d7d44;
+  --forest-gh:      rgba(53,92,46,0.10);
+  --indigo:         #1a2856;          /* indigo dye */
+  --indigo-bri:     #2e4488;
+  --indigo-gh:      rgba(26,40,86,0.10);
+  --ink:            #14100a;
+  --ink-soft:       #2e2014;
+  --ink-mid:        #5c4028;
+  --ink-faint:      #8a6a40;
+  --rule:           #d4a02a;
+  --rule-dim:       #9c7314;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--char);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 80% 0%, rgba(212,160,42,0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 80% at 10% 100%, rgba(138,24,24,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 50% 50%, rgba(26,40,86,0.06) 0%, transparent 70%);
+  min-height: 100vh;
+  padding: 3rem 1rem 4rem;
+  font-family: "IM Fell English", Georgia, "Times New Roman", serif;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+/* ==== Outer frame: woven mudcloth-inspired border ==== */
+.outer-frame {
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+  padding: 14px;
+  background:
+    /* mudcloth-style repeating geometric pattern in earth tones */
+    repeating-linear-gradient(0deg,
+      var(--terracotta-dim) 0px, var(--terracotta-dim) 4px,
+      var(--bone-deep) 4px, var(--bone-deep) 6px,
+      var(--terracotta) 6px, var(--terracotta) 10px,
+      var(--bone-deep) 10px, var(--bone-deep) 12px),
+    linear-gradient(135deg, var(--terracotta-dim), var(--terracotta), var(--hibiscus), var(--terracotta), var(--terracotta-dim));
+  background-blend-mode: multiply;
+  box-shadow:
+    0 0 0 1px var(--char),
+    0 0 40px rgba(179,74,31,0.25),
+    0 20px 60px rgba(0,0,0,0.7),
+    inset 0 1px 0 rgba(255,255,255,0.10);
+}
+
+/* Adinkra-inspired corner glyphs:
+   Dwennimmen (ram's horns) — strength and humility,
+   feels right for a wandering judge among kholo. */
+.outer-frame::before,
+.outer-frame::after,
+.corner-tr, .corner-bl {
+  position: absolute;
+  width: 32px; height: 32px;
+  background: var(--char);
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  z-index: 10;
+  display: flex; align-items: center; justify-content: center;
+  font-family: "Cinzel", serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+.outer-frame::before { content: "◆"; top: -8px; left: -8px; }
+.outer-frame::after  { content: "◆"; bottom: -8px; right: -8px; }
+.corner-tr { content: ""; top: -8px; right: -8px; }
+.corner-tr::after { content: "◆"; color: var(--gold); }
+.corner-bl { content: ""; bottom: -8px; left: -8px; }
+.corner-bl::after { content: "◆"; color: var(--gold); }
+
+/* ==== Inner document: bone cloth ==== */
+.document {
+  background: var(--bone);
+  background-image:
+    radial-gradient(ellipse at 0% 0%, rgba(212,160,42,0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 100%, rgba(138,24,24,0.07) 0%, transparent 55%),
+    radial-gradient(circle at 30% 70%, rgba(26,40,86,0.04) 0%, transparent 35%),
+    /* faint mudcloth weave texture */
+    repeating-linear-gradient(0deg,
+      transparent 0, transparent 23px,
+      rgba(120,80,40,0.025) 23px, rgba(120,80,40,0.025) 24px),
+    repeating-linear-gradient(90deg,
+      transparent 0, transparent 23px,
+      rgba(120,80,40,0.025) 23px, rgba(120,80,40,0.025) 24px);
+  padding: 3rem 3.4rem 3.5rem;
+  position: relative;
+  box-shadow: inset 0 0 80px rgba(120,80,40,0.18);
+}
+.document::before,
+.document::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+/* hibiscus blot, top right */
+.document::before {
+  top: 28px; right: 36px;
+  width: 120px; height: 120px;
+  background-image: radial-gradient(circle at 40% 40%, rgba(138,24,24,0.16) 0%, rgba(138,24,24,0.07) 35%, transparent 70%);
+  opacity: 0.7;
+}
+/* indigo bleed, bottom left */
+.document::after {
+  bottom: 36px; left: 30px;
+  width: 160px; height: 100px;
+  background-image: radial-gradient(ellipse at 50% 50%, rgba(26,40,86,0.14) 0%, transparent 70%);
+  opacity: 0.6;
+}
+
+/* ==== Mudcloth band: thin band of repeated geometric symbols ==== */
+.mudcloth-band {
+  height: 22px;
+  margin: 1.6rem 0 1.4rem;
+  background:
+    repeating-linear-gradient(90deg,
+      var(--char) 0, var(--char) 2px,
+      transparent 2px, transparent 16px,
+      var(--char) 16px, var(--char) 18px,
+      transparent 18px, transparent 32px),
+    repeating-linear-gradient(90deg,
+      transparent 0, transparent 8px,
+      var(--terracotta) 8px, var(--terracotta) 10px,
+      transparent 10px, transparent 24px,
+      var(--gold-dim) 24px, var(--gold-dim) 26px,
+      transparent 26px, transparent 32px);
+  border-top: 1px solid var(--char);
+  border-bottom: 1px solid var(--char);
+  opacity: 0.65;
+}
+.mudcloth-band.dense {
+  height: 14px;
+  margin: 0.9rem 0;
+  opacity: 0.55;
+}
+
+/* ==== Header ==== */
+.dossier-header {
+  text-align: center;
+  padding-bottom: 0.4rem;
+  margin-bottom: 1.8rem;
+  position: relative;
+}
+
+.eyebrow {
+  font-family: "Cinzel", serif;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.42em;
+  color: var(--terracotta-dim);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.title-block h1 {
+  font-family: "Cinzel", serif;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.35rem;
+  color: var(--char);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.4), 0 -1px 1px rgba(0,0,0,0.18);
+  line-height: 1.05;
+}
+.title-block .epithet {
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  font-size: 1.18rem;
+  color: var(--terracotta-dim);
+  margin-top: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.deceased-stamp {
+  display: inline-block;
+  font-family: "Cinzel", serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.5em;
+  color: var(--hibiscus);
+  border: 2px solid var(--hibiscus);
+  padding: 0.4rem 1.1rem 0.32rem 1.6rem;
+  margin-top: 1.1rem;
+  transform: rotate(-3deg);
+  opacity: 0.82;
+  background: rgba(138,24,24,0.04);
+  text-transform: uppercase;
+  box-shadow: 0 0 0 1px rgba(138,24,24,0.15), 2px 2px 0 rgba(138,24,24,0.18);
+}
+
+.id-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+  margin-top: 1.6rem;
+  padding-top: 1.2rem;
+  border-top: 1px dotted var(--rule-dim);
+}
+.id-cell { text-align: center; }
+.id-cell .id-label {
+  font-family: "Cinzel", serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.34em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+.id-cell .id-val {
+  font-family: "IM Fell English SC", serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: var(--char-soft);
+}
+
+/* ==== Portrait + bio strip ==== */
+.portrait-row {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 1.8rem;
+  margin: 0.5rem 0 1.6rem;
+  align-items: start;
+}
+.portrait-frame {
+  padding: 6px;
+  background:
+    repeating-linear-gradient(45deg,
+      var(--terracotta) 0px, var(--terracotta) 4px,
+      var(--gold-dim) 4px, var(--gold-dim) 6px,
+      var(--char) 6px, var(--char) 8px,
+      var(--gold-dim) 8px, var(--gold-dim) 10px),
+    linear-gradient(135deg, var(--terracotta-dim), var(--terracotta), var(--hibiscus), var(--terracotta));
+  background-blend-mode: multiply;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.18);
+}
+.portrait-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--char-mid);
+}
+.portrait-caption {
+  font-family: "Cinzel", serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.34em;
+  color: var(--ink-faint);
+  text-align: center;
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+}
+.bio-strip {
+  border-left: 4px solid var(--hibiscus);
+  padding: 0.4rem 0 0.4rem 1.4rem;
+  background: var(--hibiscus-gh);
+}
+.bio-strip dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  row-gap: 0.32rem;
+  column-gap: 1rem;
+  font-size: 0.96rem;
+}
+.bio-strip dt {
+  font-family: "Cinzel", serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.26em;
+  color: var(--hibiscus);
+  text-transform: uppercase;
+  padding-top: 0.18rem;
+}
+.bio-strip dd {
+  margin: 0;
+  font-family: "IM Fell English", serif;
+  color: var(--ink);
+}
+
+/* ==== Table of Contents ==== */
+.toc-wrapper {
+  background:
+    linear-gradient(180deg, rgba(212,160,42,0.08) 0%, rgba(138,24,24,0.04) 100%);
+  border: 1px solid var(--rule-dim);
+  border-left: 6px solid var(--gold);
+  padding: 1.3rem 1.7rem;
+  margin: 0 0 2rem;
+  position: relative;
+}
+.toc-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0; right: 0;
+  width: 8px; height: 100%;
+  background: repeating-linear-gradient(0deg,
+    var(--terracotta) 0px, var(--terracotta) 6px,
+    var(--gold) 6px, var(--gold) 10px,
+    var(--forest) 10px, var(--forest) 14px,
+    var(--gold) 14px, var(--gold) 18px);
+  opacity: 0.7;
+}
+.toc-title {
+  font-family: "Cinzel", serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  color: var(--hibiscus);
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+.toc-wrapper ol {
+  list-style: none;
+  padding: 0; margin: 0;
+  columns: 2;
+  column-gap: 2.5rem;
+  font-family: "IM Fell English", serif;
+  font-size: 0.95rem;
+}
+.toc-wrapper li {
+  padding: 0.18rem 0;
+  border-bottom: 1px dotted rgba(212,160,42,0.35);
+  break-inside: avoid;
+}
+.toc-wrapper li::before {
+  content: "◆";
+  color: var(--terracotta);
+  margin-right: 0.6rem;
+  font-size: 0.7em;
+  vertical-align: 0.1em;
+}
+.toc-wrapper a { color: var(--ink-soft); text-decoration: none; transition: color 0.15s; }
+.toc-wrapper a:hover { color: var(--hibiscus); }
+
+/* ==== Section headings ==== */
+section { margin-bottom: 2.4rem; }
+
+h2.section-title {
+  font-family: "Cinzel", serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--char);
+  text-transform: uppercase;
+  border-bottom: 3px double var(--terracotta);
+  padding-bottom: 0.45rem;
+  margin: 2.4rem 0 1.3rem;
+  position: relative;
+}
+h2.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: -7px; left: 0;
+  width: 100px; height: 2px;
+  background: var(--gold);
+}
+h2.section-title .numeral {
+  color: var(--gold-dim);
+  margin-right: 0.5rem;
+  font-size: 0.9em;
+}
+h3.subhead {
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.28rem;
+  color: var(--hibiscus);
+  margin: 1.7rem 0 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+h3.subhead::before {
+  content: "◆";
+  color: var(--gold);
+  font-size: 0.6em;
+  font-style: normal;
+}
+p { margin: 0 0 1rem; color: var(--ink-soft); }
+p:last-child { margin-bottom: 0; }
+
+/* ==== Callouts ==== */
+.callout {
+  border: 1px solid rgba(212,160,42,0.4);
+  border-left: 5px solid var(--gold);
+  background: var(--gold-gh);
+  padding: 0.95rem 1.4rem;
+  margin: 1.3rem 0;
+  font-size: 0.94rem;
+}
+.callout.indigo-box {
+  border-left-color: var(--indigo);
+  background: var(--indigo-gh);
+}
+.callout.indigo-box .cbox-label { color: var(--indigo); }
+.callout.blood-box {
+  border-left-color: var(--hibiscus);
+  background: var(--hibiscus-gh);
+}
+.callout.blood-box .cbox-label { color: var(--hibiscus); }
+.callout.forest-box {
+  border-left-color: var(--forest);
+  background: var(--forest-gh);
+}
+.callout.forest-box .cbox-label { color: var(--forest); }
+.callout .cbox-label {
+  font-family: "Cinzel", serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.32em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+  padding-left: 0.32em;
+}
+.callout p { margin: 0; }
+.callout p + p { margin-top: 0.6rem; }
+
+.source-note {
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+  margin: 0.7rem 0;
+  border-left: 2px solid var(--rule-dim);
+  padding-left: 0.9rem;
+}
+
+/* ==== Stat grids ==== */
+.stat-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.6rem; margin: 1.4rem 0; }
+.stat-cell {
+  background: rgba(20,16,10,0.04);
+  border: 1px solid rgba(212,160,42,0.35);
+  border-top: 5px solid var(--terracotta);
+  text-align: center;
+  padding: 0.65rem 0.25rem 0.5rem;
+  position: relative;
+}
+.stat-cell::after {
+  content: "";
+  position: absolute;
+  top: -5px; left: 0; right: 0;
+  height: 5px;
+  background: repeating-linear-gradient(90deg,
+    var(--char) 0px, var(--char) 2px,
+    transparent 2px, transparent 6px);
+  opacity: 0.45;
+}
+.stat-cell .score {
+  font-family: "Cormorant Upright", serif;
+  font-size: 1.95rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--char-soft);
+}
+.stat-cell .modifier { font-family: "Cinzel", serif; font-size: 0.95rem; font-weight: 600; color: var(--terracotta); line-height: 1.2; }
+.stat-cell .stat-name { font-family: "IM Fell English SC", serif; font-size: 0.58rem; letter-spacing: 0.18em; color: var(--ink-faint); display: block; margin-top: 0.25rem; text-transform: uppercase; }
+
+.combat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; margin: 1.2rem 0; }
+.combat-cell {
+  border: 1px solid rgba(212,160,42,0.35);
+  background: var(--indigo-gh);
+  border-top: 5px solid var(--indigo);
+  text-align: center;
+  padding: 0.7rem 0.5rem;
+  position: relative;
+}
+.combat-cell::after {
+  content: "";
+  position: absolute;
+  top: -5px; left: 0; right: 0;
+  height: 5px;
+  background: repeating-linear-gradient(90deg,
+    var(--char) 0px, var(--char) 2px,
+    transparent 2px, transparent 6px);
+  opacity: 0.45;
+}
+.combat-cell.hp-cell { border-top-color: var(--hibiscus); background: var(--hibiscus-gh); }
+.combat-cell.gold-cell { border-top-color: var(--gold); background: var(--gold-gh); }
+.combat-cell .val { font-family: "Cinzel", serif; font-size: 1.6rem; font-weight: 700; line-height: 1; color: var(--char-soft); }
+.combat-cell.hp-cell .val { color: var(--hibiscus); }
+.combat-cell .clabel { font-family: "IM Fell English SC", serif; font-size: 0.63rem; letter-spacing: 0.2em; color: var(--ink-faint); display: block; margin-top: 0.28rem; }
+
+/* ==== Skills ==== */
+.skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 2.5rem; margin: 1.2rem 0; }
+.skill-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dotted rgba(212,160,42,0.35);
+  padding: 0.25rem 0;
+}
+.skill-name { font-family: "IM Fell English SC", serif; font-size: 0.85rem; letter-spacing: 0.1em; color: var(--ink-soft); }
+.skill-val { font-family: "Cinzel", serif; font-weight: 700; font-size: 0.95rem; color: var(--char-soft); min-width: 2.5rem; text-align: right; }
+.skill-val.trained { color: var(--gold-dim); }
+.skill-val.expert  { color: var(--hibiscus); }
+
+/* ==== Ability blocks ==== */
+.ability-block {
+  border: 1px solid rgba(212,160,42,0.35);
+  padding: 1rem 1.3rem;
+  margin: 0.85rem 0;
+  background: rgba(240,223,184,0.5);
+  position: relative;
+}
+.ability-block::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--terracotta) 0%, var(--gold) 50%, var(--forest) 100%);
+}
+.ability-block.focus-block {
+  background: var(--hibiscus-gh);
+}
+.ability-block.focus-block::before {
+  background: linear-gradient(180deg, var(--hibiscus) 0%, var(--terracotta) 100%);
+}
+.ability-block.innate-block {
+  background: var(--indigo-gh);
+}
+.ability-block.innate-block::before {
+  background: linear-gradient(180deg, var(--indigo) 0%, var(--forest) 100%);
+}
+.ability-name {
+  font-family: "Cinzel", serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--char-soft);
+  text-transform: uppercase;
+  margin-bottom: 0.15rem;
+}
+.ability-meta { font-family: "IM Fell English SC", serif; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--ink-faint); margin-bottom: 0.3rem; }
+.ability-block .desc { margin: 0.35rem 0 0; font-size: 0.92rem; color: var(--ink-soft); }
+
+/* ==== Inventory table ==== */
+.inv-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 1.1rem 0; }
+.inv-table thead tr {
+  background: var(--char-soft);
+  color: var(--bone-warm);
+}
+.inv-table th {
+  font-family: "Cinzel", serif;
+  font-size: 0.63rem;
+  letter-spacing: 0.24em;
+  padding: 0.55rem 0.7rem;
+  text-align: left;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--gold);
+}
+.inv-table td {
+  padding: 0.5rem 0.7rem;
+  border-bottom: 1px dotted rgba(212,160,42,0.35);
+  vertical-align: top;
+}
+.inv-table tbody tr:nth-child(odd) { background: rgba(212,160,42,0.05); }
+.inv-table td.qty, .inv-table th.qty { text-align: center; width: 70px; }
+
+/* ==== Spell meta + slots ==== */
+.spell-meta-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem;
+  margin: 1rem 0 1.4rem;
+}
+.spell-meta-cell {
+  border: 1px solid rgba(212,160,42,0.35);
+  border-top: 5px solid var(--indigo);
+  background: var(--indigo-gh);
+  padding: 0.6rem 0.7rem;
+  text-align: center;
+  position: relative;
+}
+.spell-meta-cell::after {
+  content: "";
+  position: absolute;
+  top: -5px; left: 0; right: 0;
+  height: 5px;
+  background: repeating-linear-gradient(90deg,
+    var(--char) 0px, var(--char) 2px,
+    transparent 2px, transparent 6px);
+  opacity: 0.45;
+}
+.spell-meta-cell .val { font-family: "Cinzel", serif; font-size: 1.4rem; font-weight: 700; color: var(--char-soft); line-height: 1; }
+.spell-meta-cell .clabel { font-family: "IM Fell English SC", serif; font-size: 0.6rem; letter-spacing: 0.22em; color: var(--ink-faint); display: block; margin-top: 0.3rem; }
+
+.slot-table { width: 100%; border-collapse: collapse; margin: 0.6rem 0 1.4rem; font-size: 0.92rem; }
+.slot-table th, .slot-table td {
+  border: 1px solid rgba(212,160,42,0.4);
+  padding: 0.45rem 0.6rem;
+  text-align: center;
+}
+.slot-table thead th {
+  background: var(--char-soft);
+  color: var(--bone-warm);
+  font-family: "Cinzel", serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--gold);
+}
+.slot-table tbody td { font-family: "Cinzel", serif; font-weight: 700; color: var(--char-soft); }
+.slot-table tbody td.muted { color: var(--ink-faint); font-weight: 400; }
+
+.spell-list-header {
+  font-family: "Cinzel", serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  color: var(--hibiscus);
+  text-transform: uppercase;
+  margin: 1.4rem 0 0.5rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid rgba(138,24,24,0.4);
+}
+.spell-list { list-style: none; padding: 0; margin: 0 0 1.1rem; }
+.spell-list li {
+  font-family: "IM Fell English", serif;
+  font-size: 0.95rem;
+  padding: 0.22rem 0;
+  border-bottom: 1px dotted rgba(212,160,42,0.3);
+  display: flex;
+  justify-content: space-between;
+}
+.spell-list li:last-child { border-bottom: none; }
+.spell-list li .sp-name { color: var(--ink); }
+.spell-list li .sp-meta {
+  font-family: "IM Fell English SC", serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  color: var(--ink-faint);
+}
+
+/* ==== Chronicle list ==== */
+.chronicle-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.2rem 0;
+}
+.chronicle-list li {
+  border-left: 4px solid var(--hibiscus);
+  padding: 0.7rem 0 0.7rem 1.2rem;
+  margin-bottom: 1rem;
+  background: rgba(138,24,24,0.045);
+  position: relative;
+}
+.chronicle-list li::before {
+  content: "◆";
+  position: absolute;
+  left: -10px; top: 0.65rem;
+  background: var(--bone);
+  color: var(--hibiscus);
+  font-size: 0.9rem;
+  line-height: 1;
+  padding: 0 0.18rem;
+}
+.chronicle-list .chr-head {
+  font-family: "Cinzel", serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  color: var(--hibiscus);
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+.chronicle-list .chr-body {
+  font-family: "IM Fell English", serif;
+  color: var(--ink);
+  font-size: 0.96rem;
+}
+.chronicle-list .chr-body p { margin: 0 0 0.55rem; }
+.chronicle-list .chr-body p:last-child { margin-bottom: 0; }
+
+/* Open-questions block */
+.questions-block {
+  border: 1px dashed var(--terracotta-dim);
+  background: rgba(179,74,31,0.06);
+  padding: 1.1rem 1.4rem;
+  margin: 1.4rem 0;
+  position: relative;
+}
+.questions-block .qb-label {
+  font-family: "Cinzel", serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.32em;
+  color: var(--terracotta-dim);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+  font-weight: 700;
+}
+.questions-block ul { margin: 0; padding-left: 1.3rem; }
+.questions-block li {
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 0.55rem;
+  font-size: 0.96rem;
+}
+.questions-block li:last-child { margin-bottom: 0; }
+
+.flourish {
+  text-align: center;
+  color: var(--terracotta);
+  margin: 2.6rem 0 0.5rem;
+  font-size: 1.2rem;
+  letter-spacing: 0.5em;
+}
+.flourish span { color: var(--gold); }
+
+.colophon {
+  margin-top: 2.2rem;
+  padding-top: 1.3rem;
+  border-top: 1px solid var(--rule-dim);
+  text-align: center;
+  font-family: "Cinzel", serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.34em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+}
+
+@media (max-width: 720px) {
+  body { padding: 1.5rem 0.5rem; font-size: 16px; }
+  .document { padding: 2rem 1.3rem; }
+  .portrait-row { grid-template-columns: 1fr; }
+  .stat-grid { grid-template-columns: repeat(3, 1fr); }
+  .combat-grid { grid-template-columns: repeat(2, 1fr); }
+  .skills-grid { grid-template-columns: 1fr; }
+  .toc-wrapper ol { columns: 1; }
+  .id-strip { grid-template-columns: repeat(2, 1fr); }
+  .spell-meta-grid { grid-template-columns: 1fr; }
+  .title-block h1 { font-size: 2.1rem; }
+  .bio-strip dl { grid-template-columns: 96px 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="outer-frame">
+  <div class="corner-tr"></div>
+  <div class="corner-bl"></div>
+  <article class="document">
+
+  <!-- HEADER -->
+  <header class="dossier-header">
+    <div class="eyebrow">Player Character Dossier &nbsp;·&nbsp; The Slithering &nbsp;·&nbsp; Pathfinder 2nd Edition</div>
+    <div class="title-block">
+      <h1>Adan Adan</h1>
+      <div class="epithet">Kholo Oracle of Bones · Circuit Judge of the Mwangi Expanse</div>
+      <div class="deceased-stamp">Deceased</div>
+    </div>
+    <div class="id-strip">
+      <div class="id-cell"><div class="id-label">Ancestry</div><div class="id-val">Gnoll (Kholo)</div></div>
+      <div class="id-cell"><div class="id-label">Heritage</div><div class="id-val">Witch Gnoll</div></div>
+      <div class="id-cell"><div class="id-label">Class</div><div class="id-val">Oracle</div></div>
+      <div class="id-cell"><div class="id-label">Level</div><div class="id-val">5</div></div>
+    </div>
+  </header>
+
+  <div class="mudcloth-band"></div>
+
+  <!-- PORTRAIT + BIO STRIP -->
+  <div class="portrait-row">
+    <div>
+      <div class="portrait-frame">
+        <img src="Adan_Adan.jpg" alt="Portrait of Adan Adan, a Kholo witch gnoll oracle wrapped in fur, bone, and feathered cloak.">
+      </div>
+      <div class="portrait-caption">Likeness, taken in life</div>
+    </div>
+    <div class="bio-strip">
+      <dl>
+        <dt>Given Name</dt><dd>Adan Adan (used in full)</dd>
+        <dt>Ethnicity</dt><dd>Kholo</dd>
+        <dt>Nationality</dt><dd>Mwangi</dd>
+        <dt>Age</dt><dd>44</dd>
+        <dt>Gender</dt><dd>He / Him</dd>
+        <dt>Height</dt><dd>5′ 2″</dd>
+        <dt>Weight</dt><dd>130 lbs</dd>
+        <dt>Background</dt><dd>Circuit Judge</dd>
+        <dt>Mystery</dt><dd>Bones</dd>
+        <dt>Patron</dt><dd>Nethys <span style="color:var(--ink-faint); font-size:0.84em;">(mechanically registered; unnamed in life by Adan Adan himself)</span></dd>
+        <dt>Alignment</dt><dd>Neutral</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="mudcloth-band dense"></div>
+
+  <!-- TOC -->
+  <nav class="toc-wrapper">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#ability-scores">Ability Scores</a></li>
+      <li><a href="#combat">Combat Statistics</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#ancestry">Ancestry &amp; Heritage</a></li>
+      <li><a href="#class-features">Class Features &amp; Feats</a></li>
+      <li><a href="#archetype">Archetype, Skill &amp; General Feats</a></li>
+      <li><a href="#spells">Spellcasting</a></li>
+      <li><a href="#inventory">Inventory</a></li>
+      <li><a href="#chronicle">Chronicle of The Slithering</a></li>
+    </ol>
+  </nav>
+
+  <!-- I. OVERVIEW -->
+  <section id="overview">
+    <h2 class="section-title"><span class="numeral">I.</span> Overview</h2>
+    <p>Adan Adan is a 5th-level Kholo Witch Gnoll Oracle, set on the road as a Circuit Judge — a wandering arbiter of legal disputes carried, like the rains, from one settlement to the next. His mystery is <em>Bones</em>: the dead speak through him, and a curse for the privilege rides his every casting. He worships Nethys mechanically, though Adan Adan himself never named the god in life and credits his power to the dead rather than to any single deity.</p>
+    <p>At the time of the events recorded here, Adan Adan stood five-foot-two, weighed 130 pounds, was forty-four years of age, and dressed in fur, sinew, bone-fetishes, and a feathered cloak. He spoke softly in negotiation and laughed without warning. He carried a staff, a sling, and a small fortune of fifteen gold.</p>
+
+    <div class="callout indigo-box">
+      <div class="cbox-label">Senses</div>
+      <p>Low-Light Vision.</p>
+    </div>
+
+    <p class="source-note">No languages are recorded on the character sheet; no traits, resistances, immunities, or active conditions are listed.</p>
+  </section>
+
+  <!-- II. ABILITY SCORES -->
+  <section id="ability-scores">
+    <h2 class="section-title"><span class="numeral">II.</span> Ability Scores</h2>
+    <div class="stat-grid">
+      <div class="stat-cell"><div class="score">12</div><div class="modifier">+1</div><span class="stat-name">Strength</span></div>
+      <div class="stat-cell"><div class="score">10</div><div class="modifier">+0</div><span class="stat-name">Dexterity</span></div>
+      <div class="stat-cell"><div class="score">14</div><div class="modifier">+2</div><span class="stat-name">Constitution</span></div>
+      <div class="stat-cell"><div class="score">18</div><div class="modifier">+4</div><span class="stat-name">Intelligence</span></div>
+      <div class="stat-cell"><div class="score">14</div><div class="modifier">+2</div><span class="stat-name">Wisdom</span></div>
+      <div class="stat-cell"><div class="score">18</div><div class="modifier">+4</div><span class="stat-name">Charisma</span></div>
+    </div>
+    <p class="source-note">Key ability for class DC: Strength, per Foundry export. Spellcasting key ability: Charisma (oracle default).</p>
+  </section>
+
+  <!-- III. COMBAT -->
+  <section id="combat">
+    <h2 class="section-title"><span class="numeral">III.</span> Combat Statistics</h2>
+
+    <h3 class="subhead">Defences &amp; Core Values</h3>
+    <div class="combat-grid">
+      <div class="combat-cell"><div class="val">17</div><span class="clabel">Armour Class</span></div>
+      <div class="combat-cell hp-cell"><div class="val">58</div><span class="clabel">Max HP</span></div>
+      <div class="combat-cell"><div class="val">+9</div><span class="clabel">Perception</span></div>
+      <div class="combat-cell"><div class="val">25 ft.</div><span class="clabel">Speed</span></div>
+    </div>
+
+    <h3 class="subhead">Saving Throws</h3>
+    <div class="combat-grid">
+      <div class="combat-cell"><div class="val">+9</div><span class="clabel">Fortitude</span></div>
+      <div class="combat-cell"><div class="val">+7</div><span class="clabel">Reflex</span></div>
+      <div class="combat-cell"><div class="val">+11</div><span class="clabel">Will</span></div>
+      <div class="combat-cell gold-cell"><div class="val">+11</div><span class="clabel">Spell Attack</span></div>
+    </div>
+
+    <h3 class="subhead">Strikes</h3>
+    <table class="inv-table">
+      <thead>
+        <tr><th>Weapon</th><th>Type</th><th>Proficiency</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Staff</td><td>Melee</td><td>Simple (Trained)</td><td>Two-handed bludgeoning weapon.</td></tr>
+        <tr><td>Sling</td><td>Ranged</td><td>Simple (Trained)</td><td>Propulsive bludgeoning weapon.</td></tr>
+        <tr><td>Bite (Kholo)</td><td>Melee, unarmed</td><td>Trained</td><td>Granted by ancestry; piercing, jaws agape.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <div class="cbox-label">Proficiencies</div>
+      <p>Simple weapons: Trained · Martial weapons: Untrained · Unarmoured defence: Trained · Light armour: Trained.</p>
+    </div>
+
+    <p class="source-note">Individual Strike attack and damage lines are not filled in on the Pathfinder character sheet. Weapons listed above are confirmed by Foundry inventory and ancestry data.</p>
+  </section>
+
+  <!-- IV. SKILLS -->
+  <section id="skills">
+    <h2 class="section-title"><span class="numeral">IV.</span> Skills</h2>
+    <div class="skills-grid">
+      <div>
+        <div class="skill-row"><span class="skill-name">Acrobatics</span><span class="skill-val">+0</span></div>
+        <div class="skill-row"><span class="skill-name">Arcana</span><span class="skill-val">+4</span></div>
+        <div class="skill-row"><span class="skill-name">Athletics</span><span class="skill-val">+1</span></div>
+        <div class="skill-row"><span class="skill-name">Crafting</span><span class="skill-val">+4</span></div>
+        <div class="skill-row"><span class="skill-name">Deception</span><span class="skill-val expert">+13</span></div>
+        <div class="skill-row"><span class="skill-name">Diplomacy</span><span class="skill-val trained">+11</span></div>
+        <div class="skill-row"><span class="skill-name">Intimidation</span><span class="skill-val trained">+11</span></div>
+        <div class="skill-row"><span class="skill-name">Legal Lore</span><span class="skill-val trained">+11</span></div>
+        <div class="skill-row"><span class="skill-name">Medicine</span><span class="skill-val trained">+9</span></div>
+      </div>
+      <div>
+        <div class="skill-row"><span class="skill-name">Nature</span><span class="skill-val trained">+9</span></div>
+        <div class="skill-row"><span class="skill-name">Occultism</span><span class="skill-val trained">+11</span></div>
+        <div class="skill-row"><span class="skill-name">Performance</span><span class="skill-val trained">+11</span></div>
+        <div class="skill-row"><span class="skill-name">Religion</span><span class="skill-val trained">+9</span></div>
+        <div class="skill-row"><span class="skill-name">Society</span><span class="skill-val expert">+13</span></div>
+        <div class="skill-row"><span class="skill-name">Stealth</span><span class="skill-val">+0</span></div>
+        <div class="skill-row"><span class="skill-name">Survival</span><span class="skill-val trained">+9</span></div>
+        <div class="skill-row"><span class="skill-name">Thievery</span><span class="skill-val">+0</span></div>
+      </div>
+    </div>
+    <p class="source-note">Lore: <strong>Legal Lore</strong> (Trained, from Circuit Judge background). A second Lore line on the sheet is blank.</p>
+  </section>
+
+  <!-- V. ANCESTRY -->
+  <section id="ancestry">
+    <h2 class="section-title"><span class="numeral">V.</span> Ancestry &amp; Heritage</h2>
+
+    <div class="ability-block">
+      <div class="ability-name">Gnoll (Kholo)</div>
+      <div class="ability-meta">Ancestry · 1st</div>
+    </div>
+
+    <div class="ability-block">
+      <div class="ability-name">Witch Gnoll</div>
+      <div class="ability-meta">Heritage · 1st</div>
+    </div>
+
+    <div class="ability-block">
+      <div class="ability-name">Bite</div>
+      <div class="ability-meta">Ancestry Feature · 1st</div>
+      <p class="desc">Adan Adan's jaws are an unarmed strike, granted by Kholo blood.</p>
+    </div>
+
+    <div class="ability-block">
+      <div class="ability-name">Low-Light Vision</div>
+      <div class="ability-meta">Ancestry Feature · 1st</div>
+    </div>
+
+    <div class="ability-block">
+      <div class="ability-name">Crunch</div>
+      <div class="ability-meta">Ancestry Feat · 1st</div>
+    </div>
+
+    <div class="ability-block">
+      <div class="ability-name">Distant Cackle</div>
+      <div class="ability-meta">Ancestry Feat · 5th</div>
+    </div>
+
+    <p class="source-note">Mechanical text of these ancestry feats is not reproduced here; consult the Pathfinder 2e Kholo (Gnoll) ancestry rules and the Witch Gnoll heritage entry.</p>
+  </section>
+
+  <!-- VI. CLASS FEATURES & FEATS -->
+  <section id="class-features">
+    <h2 class="section-title"><span class="numeral">VI.</span> Class Features &amp; Feats</h2>
+
+    <h3 class="subhead">Oracle Features</h3>
+
+    <div class="ability-block">
+      <div class="ability-name">Mystery: Bones</div>
+      <div class="ability-meta">Class Feature · 1st</div>
+      <p class="desc">Adan Adan's mystery is Bones — death, decay, and the unquiet remains of the living. The Bones mystery grants the initial revelation spell <em>Touch of Undeath</em>, which is listed on the printed character sheet.</p>
+    </div>
+
+    <div class="ability-block">
+      <div class="ability-name">Divine Spellcasting (Oracle)</div>
+      <div class="ability-meta">Class Feature · 1st</div>
+      <p class="desc">Spontaneous divine caster, key ability Charisma.</p>
+    </div>
+
+    <div class="ability-block">
+      <div class="ability-name">Oracular Curse</div>
+      <div class="ability-meta">Class Feature · 1st</div>
+      <p class="desc">The Bones mystery exacts its toll in stages of cursebound effects whenever Adan Adan calls upon revelation magic.</p>
+    </div>
+
+    <div class="ability-block">
+      <div class="ability-name">Revelation Spells</div>
+      <div class="ability-meta">Class Feature · 1st</div>
+    </div>
+
+    <div class="ability-block">
+      <div class="ability-name">Spell Repertoire (Oracle)</div>
+      <div class="ability-meta">Class Feature · 1st</div>
+    </div>
+
+    <div class="ability-block">
+      <div class="ability-name">Bones</div>
+      <div class="ability-meta">Class Feature · 1st (mystery feature)</div>
+    </div>
+
+    <div class="ability-block">
+      <div class="ability-name">Signature Spells</div>
+      <div class="ability-meta">Class Feature · 3rd</div>
+    </div>
+
+    <h3 class="subhead">Oracle Class Feats</h3>
+
+    <div class="ability-block">
+      <div class="ability-name">Reach Spell</div>
+      <div class="ability-meta">Class Feat · 2nd</div>
+    </div>
+
+    <div class="ability-block">
+      <div class="ability-name">Domain Acumen</div>
+      <div class="ability-meta">Class Feat · 4th</div>
+      <p class="desc">Grants an initial domain spell from one of the Bones mystery's associated domains, cast as a revelation, and +1 to the focus pool. <em>Domain selection not recorded on the character sheet.</em></p>
+    </div>
+
+    <p class="source-note">Mechanical descriptions of these features and feats are not reproduced here; refer to the official Pathfinder 2e Oracle class rules.</p>
+  </section>
+
+  <!-- VII. OTHER FEATS -->
+  <section id="archetype">
+    <h2 class="section-title"><span class="numeral">VII.</span> Archetype, Skill &amp; General Feats</h2>
+
+    <h3 class="subhead">Archetype Feats</h3>
+
+    <div class="ability-block">
+      <div class="ability-name">Familiar Master Dedication</div>
+      <div class="ability-meta">Archetype Feat · 2nd</div>
+      <p class="desc">Adan Adan has taken the Familiar Master archetype. No familiar is listed by name on the character sheet.</p>
+    </div>
+
+    <div class="ability-block">
+      <div class="ability-name">Familiar Conduit</div>
+      <div class="ability-meta">Archetype Feat · 4th</div>
+    </div>
+
+    <h3 class="subhead">Background &amp; Skill Feats</h3>
+
+    <div class="ability-block">
+      <div class="ability-name">Lie to Me</div>
+      <div class="ability-meta">Background Skill Feat · Circuit Judge</div>
+    </div>
+
+    <div class="ability-block">
+      <div class="ability-name">Charming Liar</div>
+      <div class="ability-meta">Skill Feat · 2nd</div>
+    </div>
+
+    <div class="ability-block">
+      <div class="ability-name">Forensic Acumen</div>
+      <div class="ability-meta">Skill Feat · 4th</div>
+    </div>
+
+    <h3 class="subhead">General Feats</h3>
+
+    <div class="ability-block">
+      <div class="ability-name">Secret Speech</div>
+      <div class="ability-meta">General Feat · 3rd</div>
+    </div>
+
+    <p class="source-note">Mechanical descriptions of these feats are not reproduced; refer to the official Pathfinder 2e rules.</p>
+  </section>
+
+  <!-- VIII. SPELLS -->
+  <section id="spells">
+    <h2 class="section-title"><span class="numeral">VIII.</span> Spellcasting</h2>
+
+    <div class="callout indigo-box">
+      <div class="cbox-label">Tradition</div>
+      <p><strong>Divine — Spontaneous.</strong> Cantrips are cast at the highest available spell rank. Spells listed below are taken from Foundry export and the player's repertoire screenshots.</p>
+    </div>
+
+    <div class="spell-meta-grid">
+      <div class="spell-meta-cell"><div class="val">+11</div><span class="clabel">Spell Attack</span></div>
+      <div class="spell-meta-cell"><div class="val">21</div><span class="clabel">Spell DC</span></div>
+      <div class="spell-meta-cell"><div class="val">3 / 3</div><span class="clabel">Focus Points</span></div>
+    </div>
+
+    <h3 class="subhead">Spell Slots per Day</h3>
+    <table class="slot-table">
+      <thead>
+        <tr><th>Cantrip</th><th>1st</th><th>2nd</th><th>3rd</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>3</td><td>3</td><td>3</td><td>2</td></tr>
+      </tbody>
+    </table>
+
+    <div class="spell-list-header">Cantrips (Rank 3)</div>
+    <ul class="spell-list">
+      <li><span class="sp-name">Detect Magic</span><span class="sp-meta">Concentrate · 2 actions</span></li>
+      <li><span class="sp-name">Stabilize</span><span class="sp-meta">Range 30 ft · 2 actions</span></li>
+      <li><span class="sp-name">Guidance</span><span class="sp-meta">1 action</span></li>
+      <li><span class="sp-name">Read the Air</span><span class="sp-meta">2 actions</span></li>
+      <li><span class="sp-name">Torturous Trauma</span><span class="sp-meta">Range 30 ft · 2 actions</span></li>
+      <li><span class="sp-name">Invoke True Name</span><span class="sp-meta">Range 30 ft · 1 action</span></li>
+      <li><span class="sp-name">Chill Touch</span><span class="sp-meta">Touch · 2 actions</span></li>
+    </ul>
+
+    <div class="spell-list-header">1st Rank</div>
+    <ul class="spell-list">
+      <li><span class="sp-name">Fear</span><span class="sp-meta">Range 30 ft · 2 actions</span></li>
+      <li><span class="sp-name">Harm</span><span class="sp-meta">Variable actions (1–3)</span></li>
+      <li><span class="sp-name">Command</span><span class="sp-meta">Range 30 ft · 2 actions</span></li>
+    </ul>
+
+    <div class="spell-list-header">2nd Rank</div>
+    <ul class="spell-list">
+      <li><span class="sp-name">Comprehend Language</span><span class="sp-meta">Range 30 ft · 2 actions</span></li>
+      <li><span class="sp-name">Dispel Magic</span><span class="sp-meta">Range 120 ft · 2 actions</span></li>
+      <li><span class="sp-name">Fear (heightened)</span><span class="sp-meta">Range 30 ft · 2 actions</span></li>
+      <li><span class="sp-name">Remove Fear</span><span class="sp-meta">Touch · 2 actions</span></li>
+      <li><span class="sp-name">Harm (heightened)</span><span class="sp-meta">Variable actions</span></li>
+    </ul>
+
+    <div class="spell-list-header">3rd Rank</div>
+    <ul class="spell-list">
+      <li><span class="sp-name">Life Pact</span><span class="sp-meta">Touch · Material, Somatic, Verbal</span></li>
+      <li><span class="sp-name">Rouse Skeletons</span><span class="sp-meta">Range 60 ft · 2 actions</span></li>
+      <li><span class="sp-name">Fear (heightened)</span><span class="sp-meta">Range 30 ft · 2 actions</span></li>
+      <li><span class="sp-name">Harm (heightened)</span><span class="sp-meta">Variable actions</span></li>
+    </ul>
+
+    <h3 class="subhead">Innate Spells</h3>
+    <div class="ability-block innate-block">
+      <div class="ability-name">Ghost Sound</div>
+      <div class="ability-meta">Innate · 2 actions · Make false sounds</div>
+    </div>
+    <div class="ability-block innate-block">
+      <div class="ability-name">Ventriloquism</div>
+      <div class="ability-meta">Innate · 2 actions · Throw your voice</div>
+    </div>
+
+    <h3 class="subhead">Focus Spells</h3>
+    <div class="ability-block focus-block">
+      <div class="ability-name">Death's Call</div>
+      <div class="ability-meta">Focus · Reaction · Bones revelation</div>
+    </div>
+    <div class="ability-block focus-block">
+      <div class="ability-name">Soul Siphon</div>
+      <div class="ability-meta">Focus · 1 action · Range 30 ft</div>
+    </div>
+    <div class="ability-block focus-block">
+      <div class="ability-name">Touch of Undeath</div>
+      <div class="ability-meta">Focus · 1 action · Bones initial revelation (printed sheet)</div>
+      <p class="desc">Listed on the printed Pathfinder character sheet's Focus Spells block. It is the Bones mystery's initial revelation spell, but does not appear in the more recent Foundry focus-spell screenshot. Retained here for completeness.</p>
+    </div>
+
+    <p class="source-note">Three Fear entries and three Harm entries appear in the Foundry export, signifying the spell is in the repertoire at multiple ranks (signature spell behaviour). Spell mechanical descriptions are not reproduced here.</p>
+  </section>
+
+  <!-- IX. INVENTORY -->
+  <section id="inventory">
+    <h2 class="section-title"><span class="numeral">IX.</span> Inventory</h2>
+
+    <h3 class="subhead">Worn &amp; Wielded</h3>
+    <table class="inv-table">
+      <thead>
+        <tr><th>Item</th><th class="qty">Qty</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Leather Armor</td><td class="qty">1</td><td>Worn.</td></tr>
+        <tr><td>Staff</td><td class="qty">1</td><td>Wielded.</td></tr>
+        <tr><td>Sling</td><td class="qty">1</td><td>Carried.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="subhead">Carried Equipment</h3>
+    <table class="inv-table">
+      <thead>
+        <tr><th>Item</th><th class="qty">Qty</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Grim Sandglass</td><td class="qty">1</td><td>Equipment.</td></tr>
+        <tr><td>Persona Mask</td><td class="qty">1</td><td>Equipment.</td></tr>
+        <tr><td>Demon Mask</td><td class="qty">1</td><td>Equipment.</td></tr>
+        <tr><td>Corpse Compass</td><td class="qty">1</td><td>Equipment.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="subhead">Consumables</h3>
+    <table class="inv-table">
+      <thead>
+        <tr><th>Item</th><th class="qty">Qty</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Healing Potion (Minor)</td><td class="qty">1</td><td>Consumable.</td></tr>
+        <tr><td>Mesmerizing Opal</td><td class="qty">1</td><td>Consumable.</td></tr>
+        <tr><td>Potion of Expeditious Retreat</td><td class="qty">1</td><td>Consumable.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="subhead">Currency &amp; Bulk</h3>
+    <div class="combat-grid">
+      <div class="combat-cell"><div class="val">0</div><span class="clabel">Copper</span></div>
+      <div class="combat-cell"><div class="val">0</div><span class="clabel">Silver</span></div>
+      <div class="combat-cell gold-cell"><div class="val">15</div><span class="clabel">Gold</span></div>
+      <div class="combat-cell"><div class="val">0</div><span class="clabel">Platinum</span></div>
+    </div>
+
+    <p class="source-note">The Pathfinder character sheet records the bolt of cloth taken from the contested warehouse as already sold off; the gold above reflects the proceeds and prior funds. Encumbered at 6 Bulk; Maximum 11 Bulk. The PDF sheet lists Adan Adan as Unarmored — the Foundry export, used here, has Leather Armor worn.</p>
+  </section>
+
+  <div class="mudcloth-band"></div>
+
+  <!-- X. CHRONICLE -->
+  <section id="chronicle">
+    <h2 class="section-title"><span class="numeral">X.</span> Chronicle of The Slithering</h2>
+
+    <p>What follows is an account of Adan Adan's recorded actions during the campaign known as <em>The Slithering</em>, from his first commission through to his death in the Archive of the Sun. Other adventurers are mentioned where they intersect his story; this is Adan Adan's record.</p>
+
+    <ul class="chronicle-list">
+      <li>
+        <div class="chr-head">Commission · The Contested Warehouse</div>
+        <div class="chr-body">
+          <p>Adan Adan came to the warehouse to assess the property and adjudicate its ownership on behalf of Councilwoman Abayon Moonmay. He travelled in company; not all of his companions survived the work.</p>
+          <p>Adan Adan collected a bolt of cloth from the treasure room as payment-in-kind, and afterward sold it — though there was reason to suspect the bolt was stolen goods. He reported back to Abayon Moonmay. She felt some guilt over the deaths of the others. Adan Adan, for his part, did not.</p>
+        </div>
+      </li>
+      <li>
+        <div class="chr-head">Session of 29 May · Return to the Warehouse</div>
+        <div class="chr-body">
+          <p>Someone had been to the warehouse since the last visit. Adan Adan and his companions encountered thieves on the site. Adan Adan instructed the thieves to cede their claim; they attacked instead. The thieves' leader was killed — and the corpse <em>changed</em>, dissolving into what appeared to be a rust ooze (a slime typically found where industrial or urban pollution has saturated the ground). The remaining thieves fled, believing Adan Adan and the others had cursed their boss.</p>
+          <p>In the wreckage Adan Adan recovered a map and several gemstones. The gemstones bore the residue of some prior suspension, as though they had once been steeped in a liquid to amplify their magic; that liquid had since dried. Exposed and dry, the gems were judged safe. For now.</p>
+          <p>A document was recovered relating to a shipment from Oenopion in Nex to one <strong>Tomil Jabrin</strong> at the Khalibi Caravan House in Kibwe. Its key passage read, in Adan Adan's transcription:</p>
+        </div>
+        <div class="callout blood-box" style="margin-top:0.4rem;">
+          <div class="cbox-label">Recovered Correspondence</div>
+          <p><em>"Beware, Tomil. As the stones steep in their brew during the long trip to Kibwe, they gain power. How much power, I do not know; the curse might intensify enough that it is not limited to those who contact the stones, but could perhaps become transmittable by touch or even proximity."</em></p>
+        </div>
+      </li>
+      <li>
+        <div class="chr-head">Inquiries · Tomil &amp; the Cursebreaker</div>
+        <div class="chr-body">
+          <p>Adan Adan asked after Tomil Jabrin. People were very unwilling to speak of him; they did not know, or did not wish to know.</p>
+          <p>Adan Adan and his companions spoke to Councilwoman Abayon Moonmay about the curse on the stones. She gave them a key to the Archive of the Sun and a token granting entry. A Nexian emissary, intrigued by the shipment's origin, presented Adan Adan with a Diplomat's Badge.</p>
+          <p>Inside the Archive of the Sun stood a Cursebreaker Statue. It did not activate. Adan Adan did not know why.</p>
+        </div>
+      </li>
+      <li>
+        <div class="chr-head">The Archive of the Sun · Death</div>
+        <div class="chr-body">
+          <p>Adan Adan entered the Archive of the Sun in the company of Nucifera — sole other survivor of the earlier work — and three new arrivals: Nandanu, a Venomshield Nagaji cleric of Nalinivati; Meli, a Sacred Nagaji thaumaturge of Isis; and Dor Korn, a Hold-Scarred Orc warrior. (A fourth, Farbolt, was absent.)</p>
+          <p>Within the Archive they fought frog-people, a basilisk, and a lizard.</p>
+          <p>Adan Adan died walking up a staircase, triggering a poison dart trap. He had been to all the right places, asked all the right questions, and survived all the wrong fights, and was killed at last by an unattended mechanism on an ordinary set of stairs.</p>
+        </div>
+      </li>
+    </ul>
+
+    <h3 class="subhead">Adan Adan's Open Questions</h3>
+    <p>Adan Adan kept a running list of matters he had not resolved. They are reproduced here without answers, because Adan Adan did not live to find them.</p>
+    <div class="questions-block">
+      <div class="qb-label">Unresolved</div>
+      <ul>
+        <li>Was the bolt of cloth he collected — and sold — actually stolen?</li>
+        <li>Was the bolt of cloth, or any of the warehouse's contents, <em>brought</em> from Zatriba, or <em>taken</em> from Zatriba?</li>
+        <li>Who exactly is Tomil Jabrin of the Khalibi Caravan House in Kibwe, and why does no one in this city wish to speak of him?</li>
+        <li>Will the curse on the stones intensify with steeping, and become transmissable by touch or proximity, as the Nexian's letter feared?</li>
+        <li>Why did the Cursebreaker Statue in the Archive of the Sun fail to activate?</li>
+      </ul>
+    </div>
+
+    <h3 class="subhead">Players in Adan Adan's Story</h3>
+    <div class="callout forest-box">
+      <div class="cbox-label">Allies, Patrons &amp; Companions</div>
+      <p><strong>Abayon Moonmay</strong> — Councilwoman; commissioned Adan Adan to adjudicate ownership of the warehouse; later furnished access to the Archive of the Sun. Bore some guilt for the deaths suffered in her service.</p>
+      <p><strong>The Nexian Emissary</strong> — Interested in the shipment from Oenopion; rewarded Adan Adan with a Diplomat's Badge.</p>
+      <p><strong>Nucifera</strong> — Fellow survivor of the warehouse work; entered the Archive of the Sun with Adan Adan.</p>
+      <p><strong>Nandanu, Meli, Dor Korn</strong> (and the absent Farbolt) — Late additions to the company; with Adan Adan and Nucifera at the Archive of the Sun.</p>
+    </div>
+    <div class="callout blood-box">
+      <div class="cbox-label">Adversaries &amp; Unknowns</div>
+      <p><strong>The Thieves of the Warehouse</strong> — Refused to cede their claim. Their leader, on dying, became a rust ooze; the rest fled, believing themselves cursed by Adan Adan and his companions.</p>
+      <p><strong>Tomil Jabrin</strong> — Intended recipient of the Oenopion shipment. Spoken of unwillingly, or not at all.</p>
+      <p><strong>The frog-people, basilisk, and lizard of the Archive of the Sun</strong>, and finally <strong>an unattended poison dart trap on a staircase</strong>, which killed Adan Adan.</p>
+    </div>
+
+    <h3 class="subhead">Character Note — Player Intent</h3>
+    <div class="callout indigo-box">
+      <div class="cbox-label">Out-of-Character</div>
+      <p>The player noted an intent to lean further into the death theme of the Bones mystery — eventually treating Adan Adan as half-dead in flavour: harmed by positive damage, healed by negative effects, as if undead. This was a roleplay direction the player was pursuing rather than a finalised mechanical rule on the sheet, and it never had cause to be tested in play.</p>
+    </div>
+  </section>
+
+  <div class="flourish">◆ <span>◆</span> ◆</div>
+  <div class="colophon">
+    Pathfinder Second Edition &nbsp;·&nbsp; Statistics per official character sheet &amp; Foundry export
+  </div>
+
+  </article>
+</div>
+
+</body>
+</html>

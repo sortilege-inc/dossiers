@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Svafnir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=UnifrakturCook:wght@700&family=IM+Fell+English:ital,wght@0,400;1,400&family=Noto+Sans+Runic&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Scorched vellum & blood-on-snow palette */
+    --pitch:        #0d0a07;
+    --char:         #1a140d;
+    --hide:         #211a11;
+    --hide-warm:    #2a2117;
+    --tallow:       #3a2f20;
+    --ash:          #5c4d37;
+    --bone-dim:     #8e7a5f;
+    --bone:         #cbb88f;
+    --vellum:       #e8dcb8;
+    --vellum-bright:#f4ebcf;
+    --snow:         #f0e7d4;
+    --gore:         #a3261c;
+    --gore-deep:    #5e1410;
+    --gore-bright:  #c83a2c;
+    --gore-wet:     #8a1a14;
+    --moss:         #5a6b3c;
+    --moss-dim:     #3a4625;
+    --mead:         #b88a3f;
+    --mead-dim:     #6e4f1f;
+    --visions:      #7a5a8c;   /* mushroom haze */
+    --visions-dim:  #4a2f5c;
+    --rule:         rgba(203, 184, 143, 0.16);
+    --rule-bold:    rgba(203, 184, 143, 0.30);
+    --rune-glow:    rgba(200, 58, 44, 0.22);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--pitch);
+    color: var(--vellum);
+    font-family: "Cormorant Garamond", "IM Fell English", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+
+  /* Background: fimbulwinter dark, with blood and mushroom-haze radials */
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 12%, rgba(163, 38, 28, 0.10) 0%, transparent 42%),
+      radial-gradient(ellipse at 82% 88%, rgba(122, 90, 140, 0.08) 0%, transparent 40%),
+      radial-gradient(ellipse at 50% 50%, rgba(58, 47, 32, 0.45) 0%, transparent 75%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence baseFrequency='0.85' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.04 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--char);
+    /* Layered vellum texture */
+    background-image:
+      radial-gradient(ellipse at 30% 0%, rgba(163, 38, 28, 0.07) 0%, transparent 55%),
+      radial-gradient(ellipse at 70% 100%, rgba(122, 90, 140, 0.05) 0%, transparent 50%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='p'><feTurbulence baseFrequency='0.012' numOctaves='3' seed='7'/><feColorMatrix values='0 0 0 0 0.12  0 0 0 0 0.09  0 0 0 0 0.05  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23p)'/></svg>");
+    border: 1px solid var(--rule-bold);
+    box-shadow:
+      0 0 0 1px rgba(13, 10, 7, 0.9),
+      0 6px 24px rgba(0, 0, 0, 0.6),
+      inset 0 0 80px rgba(0, 0, 0, 0.5);
+    position: relative;
+  }
+
+  /* Subtle scorched edges */
+  .document::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(13,10,7,0.7), transparent 6%, transparent 94%, rgba(13,10,7,0.6)),
+      linear-gradient(90deg, rgba(13,10,7,0.4), transparent 4%, transparent 96%, rgba(13,10,7,0.4));
+  }
+
+  /* ─── HEADER ──────────────────────────────────────────── */
+  header.head {
+    position: relative;
+    padding: 2.6rem 3rem 2rem;
+    border-bottom: 1px solid var(--rule-bold);
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 2rem;
+    align-items: stretch;
+  }
+
+  /* Blood-spatter behind the header */
+  header.head::after {
+    content: "";
+    position: absolute;
+    top: 0; right: 240px; bottom: 0; left: 0;
+    background:
+      radial-gradient(circle at 12% 22%, rgba(163, 38, 28, 0.18) 0%, transparent 4%),
+      radial-gradient(circle at 8% 60%, rgba(163, 38, 28, 0.10) 0%, transparent 2%),
+      radial-gradient(circle at 22% 78%, rgba(163, 38, 28, 0.14) 0%, transparent 3%),
+      radial-gradient(circle at 35% 30%, rgba(163, 38, 28, 0.08) 0%, transparent 1.5%),
+      radial-gradient(circle at 45% 88%, rgba(163, 38, 28, 0.12) 0%, transparent 2.5%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .head-main { position: relative; z-index: 1; display: flex; flex-direction: column; }
+
+  .eyebrow {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gore);
+    margin-bottom: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .eyebrow::before, .eyebrow::after {
+    content: "";
+    width: 22px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gore-deep), transparent);
+  }
+
+  .char-name {
+    font-family: "UnifrakturCook", "Cormorant Garamond", serif;
+    font-size: 4.4rem;
+    font-weight: 700;
+    line-height: 0.95;
+    color: var(--vellum-bright);
+    letter-spacing: 0.005em;
+    text-shadow:
+      0 0 40px rgba(163, 38, 28, 0.35),
+      0 0 80px rgba(122, 90, 140, 0.18),
+      0 2px 3px rgba(0,0,0,0.85);
+    margin-bottom: 0.4rem;
+  }
+
+  .char-epithet {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--bone);
+    margin-bottom: 1.6rem;
+    letter-spacing: 0.04em;
+  }
+
+  .identity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.4rem 1.6rem;
+    margin-bottom: 1.5rem;
+  }
+  .id-pair { padding: 0.3rem 0; border-bottom: 1px dotted var(--rule); }
+  .id-label {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ash);
+    display: block;
+    margin-bottom: 0.1rem;
+  }
+  .id-value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    color: var(--vellum);
+    font-weight: 600;
+  }
+
+  .header-stats-bar {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    margin-top: auto;
+    padding-top: 1rem;
+  }
+  .stat-pill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--hide);
+    border: 1px solid var(--rule-bold);
+    padding: 0.4rem 0.9rem 0.35rem;
+    min-width: 64px;
+    position: relative;
+  }
+  .stat-pill.accent {
+    border-color: rgba(163,38,28,0.45);
+    background: linear-gradient(180deg, var(--hide), var(--hide-warm));
+  }
+  .stat-pill.accent .stat-num { color: var(--gore-bright); }
+  .stat-label {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.55rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--bone-dim);
+    margin-bottom: 0.18rem;
+  }
+  .stat-num {
+    font-family: "UnifrakturCook", serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--vellum);
+    line-height: 1;
+  }
+
+  /* Portrait frame */
+  .portrait-frame {
+    position: relative;
+    aspect-ratio: 1 / 1.18;
+    background: var(--hide-warm);
+    border: 1px solid var(--rule-bold);
+    box-shadow:
+      inset 0 0 30px rgba(0,0,0,0.6),
+      0 2px 12px rgba(0,0,0,0.5);
+    overflow: hidden;
+    z-index: 1;
+  }
+  .portrait-img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center top;
+    filter: saturate(0.92) contrast(1.02);
+  }
+  .portrait-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(13,10,7,0.95), transparent);
+    padding: 0.7rem 0.6rem 0.45rem;
+    text-align: center;
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bone);
+  }
+
+  /* ─── SECTIONS ──────────────────────────────────────── */
+  .body-wrap { padding: 0 3rem 3.2rem; position: relative; z-index: 1; }
+
+  section { padding: 2.4rem 0 0; position: relative; }
+  section + section {
+    border-top: 1px solid var(--rule);
+    margin-top: 0.6rem;
+  }
+
+  .section-heading {
+    font-family: "UnifrakturCook", serif;
+    font-size: 1.5rem;
+    color: var(--gore-bright);
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    letter-spacing: 0.02em;
+  }
+  .section-heading::before {
+    font-family: "Noto Sans Runic", serif;
+    color: var(--mead);
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+  .section-heading[data-rune="ᚢ"]::before { content: "ᚢ"; }
+  .section-heading[data-rune="ᚨ"]::before { content: "ᚨ"; }
+  .section-heading[data-rune="ᚱ"]::before { content: "ᚱ"; }
+  .section-heading[data-rune="ᚲ"]::before { content: "ᚲ"; }
+  .section-heading[data-rune="ᚷ"]::before { content: "ᚷ"; }
+  .section-heading[data-rune="ᚺ"]::before { content: "ᚺ"; }
+  .section-heading[data-rune="ᛁ"]::before { content: "ᛁ"; }
+  .section-heading[data-rune="ᛏ"]::before { content: "ᛏ"; }
+  .section-heading[data-rune="ᛞ"]::before { content: "ᛞ"; }
+  .section-heading[data-rune="ᛟ"]::before { content: "ᛟ"; }
+  .section-heading[data-rune="ᛗ"]::before { content: "ᛗ"; }
+  .section-heading[data-rune="ᛃ"]::before { content: "ᛃ"; }
+  .section-heading::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(163,38,28,0.4), transparent);
+  }
+
+  p { margin-bottom: 0.9rem; color: var(--vellum); }
+  p:last-child { margin-bottom: 0; }
+  em { color: var(--bone); font-style: italic; }
+  strong { color: var(--vellum-bright); font-weight: 600; }
+
+  .sub-label {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--bone-dim);
+    display: block;
+    margin-bottom: 0.55rem;
+    margin-top: 1.2rem;
+  }
+  .sub-label:first-child { margin-top: 0; }
+
+  /* ─── RUNE LOADOUT ─────────────────────────────────── */
+  .rune-loadout {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1.6rem;
+  }
+  .rune-cell {
+    aspect-ratio: 1 / 1.25;
+    background: linear-gradient(180deg, var(--hide-warm), var(--hide));
+    border: 1px solid var(--rule-bold);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 0.2rem;
+    position: relative;
+    text-align: center;
+  }
+  .rune-cell.free {
+    border-color: rgba(122, 90, 140, 0.45);
+    background: linear-gradient(180deg, rgba(74,47,92,0.18), var(--hide));
+  }
+  .rune-cell.free::after {
+    content: "FREE";
+    position: absolute;
+    top: -8px;
+    background: var(--visions-dim);
+    color: var(--vellum-bright);
+    font-family: "IM Fell English", serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.18em;
+    padding: 1px 4px;
+    border: 1px solid var(--visions);
+  }
+  .rune-glyph {
+    font-family: "Noto Sans Runic", serif;
+    font-size: 1.85rem;
+    color: var(--gore-bright);
+    line-height: 1;
+    text-shadow: 0 0 12px var(--rune-glow);
+    margin-bottom: 0.25rem;
+  }
+  .rune-cell.free .rune-glyph { color: var(--visions); text-shadow: 0 0 12px rgba(122,90,140,0.3); }
+  .rune-name {
+    font-family: "IM Fell English", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.05em;
+    color: var(--bone);
+    line-height: 1.1;
+  }
+
+  .rune-meanings {
+    background: var(--hide);
+    border: 1px solid var(--rule);
+    padding: 1.1rem 1.3rem;
+    margin-bottom: 0.8rem;
+  }
+  .rune-meanings dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: 1.1rem;
+    row-gap: 0.4rem;
+  }
+  .rune-meanings dt {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    color: var(--mead);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+  }
+  .rune-meanings dt .glyph {
+    font-family: "Noto Sans Runic", serif;
+    color: var(--gore);
+    margin-right: 0.4rem;
+    font-style: normal;
+  }
+  .rune-meanings dd {
+    color: var(--vellum);
+    font-size: 0.95rem;
+  }
+
+  /* ─── POWERS TABLE ─────────────────────────────────── */
+  .powers-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.4rem;
+    font-size: 0.92rem;
+  }
+  .powers-table thead th {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--bone-dim);
+    text-align: left;
+    padding: 0.5rem 0.7rem;
+    border-bottom: 1px solid var(--rule-bold);
+    font-weight: 400;
+  }
+  .powers-table tbody td {
+    padding: 0.55rem 0.7rem;
+    border-bottom: 1px dotted var(--rule);
+    vertical-align: top;
+    color: var(--vellum);
+  }
+  .powers-table tbody tr:last-child td { border-bottom: none; }
+  .powers-table .pwr-rune {
+    font-family: "Noto Sans Runic", serif;
+    color: var(--gore-bright);
+    font-size: 1.05rem;
+    width: 30px;
+    text-align: center;
+  }
+  .powers-table .pwr-runename {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    color: var(--mead);
+    width: 110px;
+  }
+  .powers-table .pwr-name {
+    color: var(--vellum-bright);
+    font-weight: 600;
+  }
+  .powers-table .pwr-source {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--ash);
+    width: 130px;
+  }
+  .powers-table .pwr-source.skald { color: var(--visions); }
+  .powers-table .pwr-source.note { color: var(--mead-dim); font-size: 0.72rem; }
+  .powers-table .pwr-desc {
+    color: var(--vellum);
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  /* ─── SKILLS ───────────────────────────────────────── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.55rem 1.3rem;
+  }
+  .skill-row {
+    display: grid;
+    grid-template-columns: 28px 100px 1fr auto;
+    gap: 0.6rem;
+    align-items: center;
+    padding: 0.45rem 0.7rem;
+    background: var(--hide);
+    border: 1px solid var(--rule);
+  }
+  .skill-row .s-glyph {
+    font-family: "Noto Sans Runic", serif;
+    color: var(--gore-bright);
+    font-size: 1rem;
+    text-align: center;
+  }
+  .skill-row .s-rune {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    color: var(--mead);
+    font-size: 0.85rem;
+  }
+  .skill-row .s-name {
+    color: var(--vellum-bright);
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
+  .skill-row .s-source {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.7rem;
+    color: var(--ash);
+  }
+
+  /* ─── COMBAT NOTES ─────────────────────────────────── */
+  .combat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .combat-box {
+    background: var(--hide);
+    border: 1px solid var(--rule);
+    border-left: 2px solid var(--gore-deep);
+    padding: 0.9rem 1.1rem;
+  }
+  .combat-box h4 {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gore-bright);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  .combat-box ul { list-style: none; padding-left: 0; }
+  .combat-box li {
+    font-size: 0.88rem;
+    color: var(--vellum);
+    padding: 0.18rem 0;
+    padding-left: 1rem;
+    position: relative;
+  }
+  .combat-box li::before {
+    content: "•";
+    color: var(--gore);
+    position: absolute;
+    left: 0;
+  }
+
+  .combat-disclaimer {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--ash);
+    padding: 0.8rem 1rem;
+    border-left: 2px solid var(--ash);
+    background: rgba(0,0,0,0.2);
+    margin-top: 1rem;
+  }
+
+  /* ─── EQUIPMENT ────────────────────────────────────── */
+  .equip-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.3rem 1.5rem;
+    margin-bottom: 0.6rem;
+  }
+  .equip-grid li {
+    list-style: none;
+    font-size: 0.92rem;
+    padding: 0.22rem 0 0.22rem 1rem;
+    color: var(--vellum);
+    position: relative;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .equip-grid li::before {
+    content: "ᛚ";
+    font-family: "Noto Sans Runic", serif;
+    position: absolute;
+    left: 0;
+    color: var(--mead-dim);
+    font-size: 0.85rem;
+  }
+  .equip-coin {
+    background: var(--hide-warm);
+    border: 1px solid var(--rule-bold);
+    padding: 0.6rem 1rem;
+    display: inline-block;
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    color: var(--mead);
+    margin-top: 0.5rem;
+  }
+  .equip-coin .coin-num { color: var(--vellum-bright); font-weight: 700; font-size: 1.1rem; }
+
+  /* ─── COMPANIONS ───────────────────────────────────── */
+  .companion-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .companion {
+    background: var(--hide);
+    border: 1px solid var(--rule);
+    padding: 1rem 1.2rem;
+    border-top: 2px solid var(--mead-dim);
+  }
+  .companion .c-name {
+    font-family: "UnifrakturCook", serif;
+    font-size: 1.4rem;
+    color: var(--vellum-bright);
+    margin-bottom: 0.1rem;
+  }
+  .companion .c-player {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    color: var(--ash);
+    font-size: 0.82rem;
+    margin-bottom: 0.5rem;
+  }
+  .companion .c-class {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    color: var(--mead);
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .companion .c-desc {
+    font-size: 0.92rem;
+    color: var(--vellum);
+    line-height: 1.55;
+  }
+
+  /* ─── TIES ────────────────────────────────────────── */
+  .ties-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+  .tie {
+    background: var(--hide);
+    border: 1px solid var(--rule);
+    padding: 0.85rem 1rem;
+    border-left: 2px solid var(--moss);
+  }
+  .tie .t-relation {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--moss);
+    margin-bottom: 0.2rem;
+  }
+  .tie .t-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--vellum-bright);
+    margin-bottom: 0.25rem;
+  }
+  .tie .t-desc {
+    font-size: 0.85rem;
+    color: var(--bone);
+    line-height: 1.5;
+  }
+
+  /* ─── FRAGMENTS (session notes as marginalia) ────── */
+  .fragments {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .fragment {
+    background: rgba(26,20,13,0.6);
+    border-left: 3px solid var(--gore-deep);
+    padding: 1rem 1.3rem;
+    position: relative;
+  }
+  .fragment.vision {
+    border-left-color: var(--visions);
+    background: linear-gradient(to right, rgba(74,47,92,0.18), rgba(26,20,13,0.4));
+  }
+  .fragment .frag-tag {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gore);
+    margin-bottom: 0.4rem;
+  }
+  .fragment.vision .frag-tag { color: var(--visions); }
+  .fragment p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+  .fragment p:last-child { margin-bottom: 0; }
+
+  /* ─── MARGINALIA ────────────────────────────────── */
+  .marginalia {
+    margin-top: 1.5rem;
+    padding: 1.1rem 1.3rem;
+    background: rgba(13,10,7,0.5);
+    border: 1px dashed var(--rule-bold);
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    color: var(--bone);
+    font-size: 0.92rem;
+    position: relative;
+  }
+  .marginalia::before {
+    content: "❦";
+    position: absolute;
+    top: -12px;
+    left: 1.1rem;
+    background: var(--char);
+    padding: 0 8px;
+    color: var(--gore);
+    font-size: 1rem;
+  }
+  .marginalia em { color: var(--mead); }
+
+  /* ─── BIOGRAPHY ──────────────────────────────────── */
+  .biography {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+  .biography p:first-of-type::first-letter {
+    font-family: "UnifrakturCook", serif;
+    float: left;
+    font-size: 4.5rem;
+    line-height: 0.85;
+    padding-right: 0.65rem;
+    padding-top: 0.3rem;
+    color: var(--gore);
+    text-shadow: 0 0 18px var(--rune-glow);
+  }
+
+  /* ─── FOOTER ──────────────────────────────────────── */
+  footer.foot {
+    padding: 1.6rem 3rem 2.4rem;
+    margin-top: 1rem;
+    border-top: 1px solid var(--rule-bold);
+    text-align: center;
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    color: var(--ash);
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    position: relative;
+  }
+  footer .runic-strip {
+    font-family: "Noto Sans Runic", serif;
+    color: var(--mead-dim);
+    font-size: 1.1rem;
+    letter-spacing: 0.4em;
+    margin-bottom: 0.6rem;
+  }
+
+  /* ─── RESPONSIVE ──────────────────────────────────── */
+  @media (max-width: 760px) {
+    body { padding: 1.2rem 0.5rem 2rem; }
+    .document { border-left: none; border-right: none; }
+    header.head { grid-template-columns: 1fr; padding: 1.8rem 1.4rem 1.4rem; }
+    header.head::after { right: 0; }
+    .portrait-frame { max-width: 220px; margin: 0 auto; }
+    .body-wrap { padding: 0 1.4rem 2rem; }
+    footer.foot { padding: 1.3rem 1.4rem 1.6rem; }
+    .char-name { font-size: 3rem; }
+    .identity-grid { grid-template-columns: 1fr 1fr; }
+    .rune-loadout { grid-template-columns: repeat(5, 1fr); }
+    .skills-grid, .companion-grid, .ties-grid, .combat-grid, .equip-grid {
+      grid-template-columns: 1fr;
+    }
+    .powers-table { font-size: 0.8rem; }
+    .powers-table .pwr-source, .powers-table .pwr-runename { display: none; }
+    .powers-table thead .pwr-source-h, .powers-table thead .pwr-runename-h { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="document">
+
+<!-- ════════════ HEADER ════════════ -->
+<header class="head">
+  <div class="head-main">
+    <div class="eyebrow">Ulfheðnar &nbsp;·&nbsp; Skald</div>
+    <h1 class="char-name">Svafnir</h1>
+    <div class="char-epithet">The Hallucinating Skald-Warrior &nbsp;·&nbsp; Courier of the Eleven Villages</div>
+
+    <div class="identity-grid">
+      <div class="id-pair">
+        <span class="id-label">Class</span>
+        <span class="id-value">Ulfheðnar (Rager)</span>
+      </div>
+      <div class="id-pair">
+        <span class="id-label">Multiclass</span>
+        <span class="id-value">Skald</span>
+      </div>
+      <div class="id-pair">
+        <span class="id-label">Standing</span>
+        <span class="id-value">Guide / Runner</span>
+      </div>
+      <div class="id-pair">
+        <span class="id-label">Personality</span>
+        <span class="id-value">Morally Ambiguous</span>
+      </div>
+      <div class="id-pair">
+        <span class="id-label">Motivation</span>
+        <span class="id-value">Identity — Renown</span>
+      </div>
+      <div class="id-pair">
+        <span class="id-label">Player</span>
+        <span class="id-value">Jordan</span>
+      </div>
+    </div>
+
+    <div class="header-stats-bar">
+      <div class="stat-pill accent">
+        <span class="stat-label">Level</span>
+        <span class="stat-num">16</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-label">Essence</span>
+        <span class="stat-num">8</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-label">Destiny</span>
+        <span class="stat-num">4</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-label">Runes</span>
+        <span class="stat-num">9</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portrait, rendered as SVG (red-haired, blood-painted warrior) -->
+  <div class="portrait-frame">
+    <img class="portrait-img" src="svafnir.jpg" alt="Svafnir — blood-painted warrior with red hair, in fur and leather">
+    <div class="portrait-caption">— as last seen on the Faroese strand —</div>
+  </div>
+</header>
+
+<div class="body-wrap">
+
+  <!-- ════════════ BIOGRAPHY ════════════ -->
+  <section>
+    <h2 class="section-heading" data-rune="ᚱ">The Tale Thus Far</h2>
+    <div class="biography">
+      <p>Svafnir was a successful courier — hardy, capable of defending himself, and welcome at every hearth he came to. He never arrived empty-mouthed: a new stanza, a fresh story, a verse half-finished and ripe for embellishment over the next horn of ale. He had begun to accumulate epics of his own. His critics, of course, claim his mead of poetry was the one Odin <em>shat</em>.</p>
+
+      <p>Since Fimbulwinter, the routes have grown teeth. Villages have gone silent or fallen to madness. Colleagues have been hunted down by cannibalistic peasants who could not bear another winter. Yet the rounds must be made. He leaves his homestead in the keeping of his cousin <strong>Yrsa</strong> and her partner <strong>Inge</strong>, since his circuits — once sixteen villages, now eleven — take up most of the year. The rest he lives on his own hunting and foraging.</p>
+
+      <p>He is not afraid of a fight. He doesn't particularly need the cause to be good if the pay is. Before battle he sings loudly and swallows the blends prepared for him by <strong>Harald</strong>, the medicine man — mushrooms and herbs that numb the pain and ignite his sight. The bloodlust comes wrapped in lurid hallucinations, and these provide entertaining, if not entirely accurate, fodder for the next stanza.</p>
+    </div>
+
+    <div class="marginalia">
+      <em>Marginalia, in a different hand:</em> &nbsp;Which of the meads of poetry did Svafnir partake in? &nbsp;&nbsp;<em>His critics say the one Odin shat.</em>
+    </div>
+  </section>
+
+  <!-- ════════════ RUNES ════════════ -->
+  <section>
+    <h2 class="section-heading" data-rune="ᚷ">Runes Bound to the Bag</h2>
+
+    <span class="sub-label">Loadout · Essence 8 (+ Gingungagap free) · Destiny 4 drawn</span>
+    <div class="rune-loadout">
+      <div class="rune-cell free">
+        <span class="rune-glyph">ᚷ</span>
+        <span class="rune-name">Gingungagap</span>
+      </div>
+      <div class="rune-cell">
+        <span class="rune-glyph">ᚢ</span>
+        <span class="rune-name">Uruz</span>
+      </div>
+      <div class="rune-cell">
+        <span class="rune-glyph">ᚲ</span>
+        <span class="rune-name">Cansuz</span>
+      </div>
+      <div class="rune-cell">
+        <span class="rune-glyph">ᚷ</span>
+        <span class="rune-name">Gebgift</span>
+      </div>
+      <div class="rune-cell">
+        <span class="rune-glyph">ᚺ</span>
+        <span class="rune-name">Hagalaz</span>
+      </div>
+      <div class="rune-cell">
+        <span class="rune-glyph">ᛁ</span>
+        <span class="rune-name">Isaice ⤬</span>
+      </div>
+      <div class="rune-cell">
+        <span class="rune-glyph">ᛉ</span>
+        <span class="rune-name">Elhaz</span>
+      </div>
+      <div class="rune-cell">
+        <span class="rune-glyph">ᛏ</span>
+        <span class="rune-name">Tiwaz</span>
+      </div>
+      <div class="rune-cell">
+        <span class="rune-glyph">ᛞ</span>
+        <span class="rune-name">Dagaz</span>
+      </div>
+    </div>
+
+    <span class="sub-label">Meanings & Resonance</span>
+    <div class="rune-meanings">
+      <dl>
+        <dt><span class="glyph">ᚢ</span>Uruz</dt><dd>Physical strength and conviction.</dd>
+        <dt><span class="glyph">ᚲ</span>Cansuz</dt><dd>Loss; death.</dd>
+        <dt><span class="glyph">ᚷ</span>Gebgift</dt><dd>To bestow a gift for another — a meaningful gift.</dd>
+        <dt><span class="glyph">ᚺ</span>Hagalaz</dt><dd>A path through chaos and turmoil; thriving in a storm.</dd>
+        <dt><span class="glyph">ᛁ</span>Isaice <em>(reversed)</em></dt><dd>Deceit and illusion; blindness to reality.</dd>
+        <dt><span class="glyph">ᛉ</span>Elhaz</dt><dd>Protection and warding.</dd>
+        <dt><span class="glyph">ᛏ</span>Tiwaz</dt><dd>Accomplishment and honor; reversed — strife and conflict.</dd>
+        <dt><span class="glyph">ᛞ</span>Dagaz</dt><dd>Primal; nature; sunrise. The duality of life and death.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ════════════ ACTIVE POWERS ════════════ -->
+  <section>
+    <h2 class="section-heading" data-rune="ᛏ">Active Powers</h2>
+    <table class="powers-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="pwr-runename-h">Rune</th>
+          <th>Power</th>
+          <th>Description</th>
+          <th class="pwr-source-h">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="pwr-rune">ᚷ</td>
+          <td class="pwr-runename">Gingungagap</td>
+          <td class="pwr-name">Aggressive Stance</td>
+          <td class="pwr-desc">Greater damage is inflicted on your foes as you take a combat stance.</td>
+          <td class="pwr-source">from Ulfheðnar — Rager</td>
+        </tr>
+        <tr>
+          <td class="pwr-rune">ᚷ</td>
+          <td class="pwr-runename">Gebgift</td>
+          <td class="pwr-name">Power Attack</td>
+          <td class="pwr-desc">The attacker studies their opponent for kinks in their armour and openings left after they attack. Capitalizing, the attacker can ignore some defences.</td>
+          <td class="pwr-source"></td>
+        </tr>
+        <tr>
+          <td class="pwr-rune">ᚲ</td>
+          <td class="pwr-runename">Cansuz</td>
+          <td class="pwr-name">Bear's Posture</td>
+          <td class="pwr-desc">Change your demeanor to emulate that of the sacred bear. You gain the increased ability to shake off attacks.</td>
+          <td class="pwr-source"></td>
+        </tr>
+        <tr>
+          <td class="pwr-rune">ᛁ</td>
+          <td class="pwr-runename">Isaice</td>
+          <td class="pwr-name">Death Charge</td>
+          <td class="pwr-desc">You charge through your opponents, attacking them as you do so.</td>
+          <td class="pwr-source"></td>
+        </tr>
+        <tr>
+          <td class="pwr-rune">ᚢ</td>
+          <td class="pwr-runename">Uruz</td>
+          <td class="pwr-name">Howl, Rally the Pack</td>
+          <td class="pwr-desc">Howl and invite other allies to join in to create a glorious lupine anthem that regenerates and rejuvenates.</td>
+          <td class="pwr-source"></td>
+        </tr>
+        <tr>
+          <td class="pwr-rune">ᛉ</td>
+          <td class="pwr-runename">Elhaz</td>
+          <td class="pwr-name">Reckless Power Attack</td>
+          <td class="pwr-desc">You push beyond your limits to use your weapon with great skill and accuracy, resulting in a mighty blow to your opponent.</td>
+          <td class="pwr-source"></td>
+        </tr>
+        <tr>
+          <td class="pwr-rune">ᛞ</td>
+          <td class="pwr-runename">Dagaz</td>
+          <td class="pwr-name">Muspeli Nightmare</td>
+          <td class="pwr-desc">The spell creates a small aperture through which the atmosphere of Muspelheim is drawn into the battlefield.</td>
+          <td class="pwr-source skald">via Skald</td>
+        </tr>
+        <tr>
+          <td class="pwr-rune">ᚺ</td>
+          <td class="pwr-runename">Hagalaz</td>
+          <td class="pwr-name">Snows of Jotunheim</td>
+          <td class="pwr-desc">Inject the victim's mind with illusions of being trapped or snared by the world around him/her, making your victim's responses slower.</td>
+          <td class="pwr-source skald">via Skald</td>
+        </tr>
+        <tr>
+          <td class="pwr-rune">ᛏ</td>
+          <td class="pwr-runename">Tiwaz</td>
+          <td class="pwr-name">Melody of Discord</td>
+          <td class="pwr-desc">Assail the victim's mind with a cacophony of voices. The wall of noise is not easily ignored.</td>
+          <td class="pwr-source note">[if I don't need to spend for the corner]</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ════════════ PASSIVE POWERS ════════════ -->
+  <section>
+    <h2 class="section-heading" data-rune="ᛟ">Passive Powers</h2>
+    <table class="powers-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="pwr-runename-h">Rune</th>
+          <th>Power</th>
+          <th class="pwr-source-h">Source / Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="pwr-rune">ᚷ</td><td class="pwr-runename">Gingungagap</td><td class="pwr-name">Enter Rage</td><td class="pwr-source">from Ulfheðnar — Rager</td></tr>
+        <tr><td class="pwr-rune">ᚷ</td><td class="pwr-runename">Gebgift</td><td class="pwr-name">Martial Prowess</td><td class="pwr-source"></td></tr>
+        <tr><td class="pwr-rune">ᚺ</td><td class="pwr-runename">Hagalaz</td><td class="pwr-name">Combat Awareness</td><td class="pwr-source"></td></tr>
+        <tr><td class="pwr-rune">ᛉ</td><td class="pwr-runename">Elhaz</td><td class="pwr-name">Frenzy</td><td class="pwr-source"></td></tr>
+        <tr><td class="pwr-rune">ᚢ</td><td class="pwr-runename">Uruz</td><td class="pwr-name">Stout</td><td class="pwr-source"></td></tr>
+        <tr><td class="pwr-rune">ᛏ</td><td class="pwr-runename">Tiwaz</td><td class="pwr-name">Giant Size</td><td class="pwr-source"></td></tr>
+        <tr><td class="pwr-rune">ᛞ</td><td class="pwr-runename">Dagaz</td><td class="pwr-name">Constitution</td><td class="pwr-source"></td></tr>
+        <tr><td class="pwr-rune">ᛁ</td><td class="pwr-runename">Isaice</td><td class="pwr-name">Drive Back</td><td class="pwr-source note">if not needed for the corner</td></tr>
+        <tr><td class="pwr-rune">ᚲ</td><td class="pwr-runename">Cansuz</td><td class="pwr-name">Warrior of Song</td><td class="pwr-source skald">from Skald</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ════════════ SKILLS ════════════ -->
+  <section>
+    <h2 class="section-heading" data-rune="ᚨ">Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-row"><span class="s-glyph">ᚷ</span><span class="s-rune">Gingungagap</span><span class="s-name">Intimidate</span><span class="s-source">from Ulfheðnar — Rager</span></div>
+      <div class="skill-row"><span class="s-glyph">ᛞ</span><span class="s-rune">Dagaz</span><span class="s-name">Perception</span><span class="s-source"></span></div>
+      <div class="skill-row"><span class="s-glyph">ᛉ</span><span class="s-rune">Elhaz</span><span class="s-name">Sense Motive</span><span class="s-source"></span></div>
+      <div class="skill-row"><span class="s-glyph">ᚺ</span><span class="s-rune">Hagalaz</span><span class="s-name">Verbal Manipulation</span><span class="s-source"></span></div>
+      <div class="skill-row"><span class="s-glyph">ᚲ</span><span class="s-rune">Cansuz</span><span class="s-name">Animal Empathy</span><span class="s-source"></span></div>
+      <div class="skill-row"><span class="s-glyph">ᛏ</span><span class="s-rune">Tiwaz</span><span class="s-name">Intimidate</span><span class="s-source"></span></div>
+      <div class="skill-row"><span class="s-glyph">ᛁ</span><span class="s-rune">Isaice</span><span class="s-name">Lore: Locales</span><span class="s-source"></span></div>
+      <div class="skill-row"><span class="s-glyph">ᚷ</span><span class="s-rune">Gebgift</span><span class="s-name">Intimidate</span><span class="s-source"></span></div>
+      <div class="skill-row"><span class="s-glyph">ᚢ</span><span class="s-rune">Uruz</span><span class="s-name">Drinking / Wenching</span><span class="s-source"></span></div>
+    </div>
+  </section>
+
+  <!-- ════════════ COMBAT NOTES ════════════ -->
+  <section>
+    <h2 class="section-heading" data-rune="ᛗ">Combat Notes</h2>
+    <div class="combat-grid">
+      <div class="combat-box">
+        <h4>Recurring Bonuses</h4>
+        <ul>
+          <li>Martial Prowess: <strong>+1 damage</strong></li>
+          <li>Rage: <strong>+1 damage</strong></li>
+          <li>Bear's Posture: <strong>+1 PF</strong></li>
+          <li>+1 DF and +1 PF on intensity-4 rounds (then escalates further)</li>
+        </ul>
+      </div>
+      <div class="combat-box">
+        <h4>Preferred Openings</h4>
+        <ul>
+          <li>Aggressive Stance to set the corner</li>
+          <li>Drive Back to stun & reposition</li>
+          <li>Death Charge to cleave a line of foes</li>
+          <li>Howl, Rally the Pack to anchor allies</li>
+        </ul>
+      </div>
+    </div>
+    <div class="combat-disclaimer">
+      Defence (DF) and Power (PF) totals are not fixed values in Fate of the Norns: Ragnarok — they emerge each round from rune placement at the corners of the bag. Svafnir's character sheet was lost after the campaign ended, so only the recurring bonuses he had recorded for himself survive here.
+    </div>
+  </section>
+
+  <!-- ════════════ EQUIPMENT ════════════ -->
+  <section>
+    <h2 class="section-heading" data-rune="ᚲ">Equipment & Holdings</h2>
+
+    <span class="sub-label">Holdings</span>
+    <ul class="equip-grid">
+      <li>Deed to a homestead</li>
+      <li>Land owner's deed</li>
+      <li>Small modest home</li>
+    </ul>
+
+    <span class="sub-label">Carried — On the Circuit</span>
+    <ul class="equip-grid">
+      <li>Two sets of clothes</li>
+      <li>Winter furs</li>
+      <li>Thick fur coat</li>
+      <li>Cloak</li>
+      <li>Complete wardrobe</li>
+      <li>Boots</li>
+      <li>Snowshoes</li>
+      <li>Backpack / traveling chest</li>
+      <li>Insulated tent</li>
+      <li>Camouflage tarps</li>
+      <li>Climbing gear</li>
+      <li>Rope</li>
+      <li>Lantern and oil</li>
+      <li>Cooking pots and utensils</li>
+      <li>Rations for a week</li>
+      <li>Dried rations</li>
+      <li>Mead</li>
+      <li>Tools of the trade</li>
+    </ul>
+
+    <span class="sub-label">Arms & Hunt</span>
+    <ul class="equip-grid">
+      <li>Hammer</li>
+      <li>Handaxe</li>
+      <li>Bow</li>
+      <li>Harpoon</li>
+      <li>Traps & hunting gear</li>
+    </ul>
+
+    <div class="equip-coin"><span class="coin-num">3</span> &nbsp;skatt remaining &nbsp;<em>(of 300 starting)</em></div>
+  </section>
+
+  <!-- ════════════ TIES ════════════ -->
+  <section>
+    <h2 class="section-heading" data-rune="ᛃ">Ties of Blood & Trade</h2>
+    <div class="ties-grid">
+      <div class="tie">
+        <div class="t-relation">Cousin</div>
+        <div class="t-name">Yrsa</div>
+        <div class="t-desc">Cousin; left in charge of the homestead together with her partner Inge, since Svafnir's circuits take most of the year.</div>
+      </div>
+      <div class="tie">
+        <div class="t-relation">Cousin's Partner</div>
+        <div class="t-name">Inge</div>
+        <div class="t-desc">Yrsa's partner. Cares for the land alongside her when Svafnir is on the road.</div>
+      </div>
+      <div class="tie">
+        <div class="t-relation">Social Connection — Medicine Man / Druid</div>
+        <div class="t-name">Harald</div>
+        <div class="t-desc">Magical practitioner who works with nature; good for healing. Supplies Svafnir's preferred blends of mushrooms and herbs — for tracking, hunting, and for the rage.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════ COMPANIONS ════════════ -->
+  <section>
+    <h2 class="section-heading" data-rune="ᚱ">Companions on the Circuit</h2>
+    <div class="companion-grid">
+      <div class="companion">
+        <div class="c-name">Dagfinn Alfsson</div>
+        <div class="c-player">— Gareth</div>
+        <div class="c-class">Outlaw Skald</div>
+        <div class="c-desc">Likely with the rest of the characters for protection (quite possibly without them knowing). Came alongside on the circuit under Svafnir's guard. Tends toward jokes — particularly at the local Jarl's expense — except when things turn grim, at which point his silence is its own warning.</div>
+      </div>
+      <div class="companion">
+        <div class="c-name">Obi</div>
+        <div class="c-player">— Lloyd</div>
+        <div class="c-class">Galdr</div>
+        <div class="c-desc">A man led to the party because he believes they will relieve him of the visions of the doomed future he has been having. Was once a town guard; tried to arrest Dagfinn — <em>"Do not mess with the mail."</em> — came along instead. Has armor. Has a young daughter, Nanna.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════ FRAGMENTS ════════════ -->
+  <section>
+    <h2 class="section-heading" data-rune="ᚺ">Fragments of the Saga</h2>
+    <div class="fragments">
+      <div class="fragment">
+        <div class="frag-tag">The Circuit Diminished</div>
+        <p>A sixteen-village circuit has been reduced to eleven. The next several settlements past Serkollr's hall have gone dark. The village itself is being torn down for scrap as folk retreat into the caves. The able-bodied are conspicuously absent. Rumors of warmer twilight to the south, of strong magic at Faroe, of folk moving to Islandia.</p>
+      </div>
+
+      <div class="fragment vision">
+        <div class="frag-tag">A Vision in Smoke</div>
+        <p>Svafnir gets high and seeks insight into the path forward. A vivid dream: <em>a hulking man bound in white chains, struggling, growing tired.</em> Obi, in the same hour, sees a king rising — and a power behind him that corrupts.</p>
+      </div>
+
+      <div class="fragment">
+        <div class="frag-tag">Bargain at Serkollr's Hall</div>
+        <p>The village is desperate — for food, for new accommodations. Svafnir extracts a ship, supplies, two children, and a mentor — Gunnvor Olaedottir, the navigator, late thirties — in exchange for taking them onward. Obi successfully petitions to add his daughter Nanna to the children sent away. Thormod Hrodisson and Siv Steinolfdottir round out the passengers. Jarl Styrkollr Atsurrsson, his wife Freydis Steinolfdottir, and his second Halaeif Holmgavtasson watch them sail.</p>
+      </div>
+
+      <div class="fragment">
+        <div class="frag-tag">Landfall in the Storm</div>
+        <p>A storm chases the ship into the bay. The trading town is ruins; everyone has gone inland. Shadows resolve into deserters in matching colours. Svafnir knocks one back stunned, brutally drives back the next, and cuts through three on the left with a Death Charge. One runs. Two surrender. Dagfinn says nothing the entire engagement — which is when Obi and Svafnir realize how bad it is.</p>
+      </div>
+
+      <div class="fragment">
+        <div class="frag-tag">Taken Down by the Draugr</div>
+        <p>Some draugr come for whoever stole something. Svafnir fights like a demon and is eventually brought down. Obi drags him out of the way. In the morning, one of the children says they saw a castle.</p>
+      </div>
+
+      <div class="fragment">
+        <div class="frag-tag">The Two Camps</div>
+        <p>The "castle" is the army of Haskell Torinson, sent by King Athelstan to gather villages and tribes at the Allthing. Two camps stand suspiciously close. Warnings are given against the camp of the White God. The monastery had been seized by a follower of Thor who threw out the priests. When Haskell's son was killed there, Baleygr whispered in Haskell's ear. Haskell entered, killed the man, desecrated the body, and threw it into the ocean — an honored enemy. He is now holed up apart from his own.</p>
+      </div>
+
+      <div class="fragment vision">
+        <div class="frag-tag">The Banshee Errand</div>
+        <p>A man named Hafdan refuses to let them speak to Haskell. They slip into the monastery anyway — a pair of tracks leads them in. Torn tapestries, hastily-built altars to Thor. A faint voice from inside: <em>"I'm here, come fetch me!"</em> Another: <em>"There's no banshee here."</em> Svafnir calls out — <em>"Haskell, I bring you word."</em> Hafdan is exasperated. Svafnir again: <em>"The white chains you struggle against make you weak."</em> Hafdan turns. <em>"I agree."</em></p>
+        <p>Obi speaks his vision. Haskell scoffs — <em>"Are these the Norns?"</em> Obi looks, for once, at Dagfinn: <em>"Please, please say something clever and cutting."</em> Dagfinn says nothing. The gods, Haskell says, have left us. Svafnir: <em>"Are we dependent on the gods?"</em> &nbsp;Hafdan explains the doctrine: only their god needs to forgive. Svafnir snorts. <em>"Well, that's convenient."</em> They are invited to Haskell's tent. The hunt for the banshee continues.</p>
+      </div>
+
+      <div class="fragment">
+        <div class="frag-tag">Loose Thread</div>
+        <p>Skoll and Hati, children of Fenrir.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="foot">
+  <div class="runic-strip">ᚢ ᚲ ᚷ ᚺ ᛁ ᛉ ᛏ ᛞ</div>
+  Dossier compiled in the eternal night of Fimbulwinter, recovered from a courier's pack on the Faroese strand.
+</footer>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier &mdash; Samuel "Sam" Hornton</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=IM+Fell+DW+Pica+SC&family=Special+Elite&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #efe4ce;
+    --paper-dark: #ddcfb3;
+    --paper-stained: #d6c499;
+    --ink: #1a1612;
+    --ink-soft: #3d342a;
+    --ink-faint: #6b5d49;
+    --whiskey: #8a4a1c;
+    --whiskey-deep: #5e3010;
+    --blood: #7a1f1f;
+    --blood-deep: #4d1212;
+    --brass: #a07b2e;
+    --brass-deep: #6f5418;
+    --lamp: #c89244;
+    --rule: #b09775;
+    --rule-soft: #c4ae8a;
+    --green: #3a4a2a;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: #2d1f15;
+    color: var(--ink);
+    font-family: "IM Fell DW Pica", "Cormorant Garamond", Georgia, serif;
+    font-size: 17px; line-height: 1.65; font-weight: 400;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 12%, rgba(200, 146, 68, 0.07) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 88%, rgba(122, 31, 31, 0.06) 0%, transparent 55%);
+    min-height: 100vh; padding: 2rem 1rem;
+  }
+  .document {
+    max-width: 900px; margin: 0 auto;
+    background: var(--paper);
+    background-image:
+      repeating-linear-gradient(0deg,
+        transparent 0px, transparent 27px,
+        rgba(107, 93, 73, 0.06) 27px, rgba(107, 93, 73, 0.06) 28px),
+      radial-gradient(circle at 12% 22%, rgba(138, 74, 28, 0.05) 0%, transparent 14%),
+      radial-gradient(circle at 88% 78%, rgba(94, 48, 16, 0.05) 0%, transparent 14%),
+      radial-gradient(circle at 65% 8%, rgba(122, 31, 31, 0.04) 0%, transparent 10%);
+    padding: 3.5rem 4rem 4.5rem;
+    box-shadow: 0 1px 2px rgba(28,24,20,.18), 0 12px 40px rgba(0,0,0,.45);
+    position: relative; border: 1px solid var(--rule);
+  }
+  .document::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+    background: linear-gradient(90deg,
+      var(--blood-deep) 0%,
+      var(--whiskey) 22%,
+      var(--brass) 50%,
+      var(--whiskey) 78%,
+      var(--blood-deep) 100%);
+  }
+  .document::after {
+    content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--rule) 18%, var(--brass) 50%, var(--rule) 82%, transparent 100%);
+  }
+
+  header.title-block {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 1.75rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 1.75rem;
+    align-items: end;
+  }
+  header.title-block::after {
+    content: "★"; display: block; color: var(--blood);
+    font-size: 0.95rem;
+    text-align: center;
+    margin: 1rem auto 0;
+    letter-spacing: 1.2em;
+    padding-left: 1.2em;
+    grid-column: 1 / -1;
+  }
+  .portrait {
+    width: 200px;
+    aspect-ratio: 4 / 5;
+    background: #1a120c;
+    border: 1px solid var(--ink);
+    box-shadow: 0 2px 8px rgba(0,0,0,.35), inset 0 0 0 4px var(--paper), inset 0 0 0 5px var(--brass-deep);
+    overflow: hidden;
+    position: relative;
+  }
+  .portrait img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    filter: sepia(0.18) contrast(1.02);
+  }
+  .portrait::after {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at center, transparent 55%, rgba(20, 14, 10, 0.35) 100%),
+      linear-gradient(180deg, rgba(255, 230, 180, 0.06) 0%, transparent 30%);
+    pointer-events: none;
+  }
+  .title-text { text-align: left; }
+  .eyebrow {
+    font-family: "IM Fell DW Pica SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.4em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  h1.character-name {
+    font-family: "IM Fell DW Pica", serif;
+    font-weight: 400; font-size: 3rem; line-height: 1.05;
+    margin: 0 0 0.4rem; letter-spacing: 0.01em; color: var(--ink);
+  }
+  .character-name .given { font-style: italic; color: var(--whiskey-deep); }
+  .character-name .alias {
+    display: block;
+    font-size: 0.42em;
+    font-style: italic;
+    color: var(--ink-faint);
+    margin-top: 0.35rem;
+    letter-spacing: 0.06em;
+  }
+  .motto {
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.95rem;
+    color: var(--blood-deep);
+    margin: 0.75rem 0 0.5rem;
+    letter-spacing: 0.02em;
+  }
+  .motto::before, .motto::after { content: "\""; color: var(--ink-faint); }
+  .vitals {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    margin-top: 1rem;
+    font-family: "IM Fell DW Pica SC", serif;
+    font-size: 0.78rem; letter-spacing: 0.18em;
+    color: var(--ink-soft);
+  }
+  .vitals span { border-left: 1px solid var(--rule); padding-left: 1rem; }
+  .vitals span:first-child { border-left: none; padding-left: 0; }
+
+  /* TABLE OF CONTENTS */
+  nav.toc {
+    border: 1px solid var(--rule);
+    background: rgba(255, 248, 232, 0.4);
+    padding: 1.1rem 1.5rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+  nav.toc::before {
+    content: ""; position: absolute; top: -1px; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--whiskey), transparent);
+  }
+  .toc-label {
+    font-family: "IM Fell DW Pica SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.32em;
+    color: var(--whiskey-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  nav.toc ol {
+    margin: 0; padding: 0 0 0 1.5rem;
+    columns: 2; column-gap: 2rem;
+  }
+  nav.toc li { margin: 0.15rem 0; }
+  nav.toc a { color: var(--ink-soft); text-decoration: none; }
+  nav.toc a:hover { color: var(--blood-deep); text-decoration: underline; }
+
+  section { margin-bottom: 2.75rem; }
+  h2.section-title {
+    font-family: "IM Fell DW Pica SC", serif;
+    font-weight: 400; font-size: 1.05rem;
+    letter-spacing: 0.3em; color: var(--blood-deep);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.5rem; margin: 0 0 1.5rem;
+  }
+  h2.section-title::before {
+    content: "★"; color: var(--brass);
+    margin-right: 0.7rem; font-size: 0.85em;
+  }
+  h3.subhead {
+    font-family: "IM Fell DW Pica", serif;
+    font-weight: 400; font-size: 1.35rem;
+    color: var(--whiskey-deep);
+    margin: 1.6rem 0 0.5rem;
+    font-style: italic;
+  }
+  h4.entry-label {
+    font-family: "IM Fell DW Pica SC", serif;
+    font-weight: 400; font-size: 0.78rem;
+    letter-spacing: 0.22em; color: var(--ink);
+    text-transform: uppercase;
+    margin: 1rem 0 0.25rem;
+  }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0.5rem 0 1rem 1.5rem; padding: 0; }
+  li { margin-bottom: 0.4rem; }
+  em { color: var(--ink-soft); }
+  strong { font-weight: 600; color: var(--ink); }
+  .drop-cap::first-letter {
+    font-family: "IM Fell DW Pica", serif;
+    font-size: 3.4rem; line-height: 0.85;
+    float: left; padding: 0.3rem 0.6rem 0 0;
+    color: var(--blood-deep); font-weight: 400;
+  }
+
+  /* DIE PILL */
+  .die {
+    display: inline-block;
+    font-family: "Special Elite", "Courier New", monospace;
+    font-weight: 400;
+    background: var(--paper-stained);
+    color: var(--ink);
+    border: 1px solid var(--brass-deep);
+    padding: 0.05rem 0.45rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    border-radius: 2px;
+    min-width: 2.1rem;
+    text-align: center;
+    line-height: 1.35;
+  }
+  .die.d10, .die.d12 {
+    background: var(--whiskey-deep);
+    color: var(--paper);
+    border-color: var(--whiskey-deep);
+  }
+  .die.d4, .die.d6 { color: var(--ink-soft); }
+  .die.d12 { background: var(--blood-deep); border-color: var(--blood-deep); }
+  .die.dimmed { opacity: 0.55; font-size: 0.75rem; }
+
+  /* VALUES GRID */
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem 1.1rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .value-cell {
+    border: 1px solid var(--rule);
+    background: rgba(255, 250, 235, 0.45);
+    padding: 0.75rem 0.95rem;
+    position: relative;
+  }
+  .value-cell .row1 {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 0.3rem;
+  }
+  .value-cell .name {
+    font-family: "IM Fell DW Pica SC", serif;
+    letter-spacing: 0.2em; font-size: 0.82rem;
+    color: var(--ink);
+  }
+  .value-cell .stmt {
+    font-style: italic;
+    font-size: 0.96rem;
+    color: var(--ink-soft);
+    line-height: 1.45;
+  }
+  .value-cell.high { border-color: var(--whiskey-deep); background: rgba(138, 74, 28, 0.07); }
+  .value-cell.high .name { color: var(--whiskey-deep); }
+  .value-cell.low { border-style: dashed; }
+
+  /* RELATIONSHIPS */
+  .rel-list { display: grid; grid-template-columns: 1fr; gap: 0; }
+  .rel {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--rule-soft);
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 0.85rem;
+    align-items: start;
+  }
+  .rel:last-child { border-bottom: none; }
+  .rel .die-col { padding-top: 0.15rem; text-align: center; }
+  .rel .who {
+    font-family: "IM Fell DW Pica", serif;
+    font-weight: 500; font-size: 1.08rem;
+    color: var(--ink);
+    margin-bottom: 0.1rem;
+  }
+  .rel .who .role {
+    font-style: italic;
+    color: var(--ink-faint);
+    font-weight: 400;
+    font-size: 0.92rem;
+  }
+  .rel .stmt {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+    line-height: 1.45;
+  }
+  .rel .ledger {
+    margin-top: 0.3rem;
+    font-family: "Special Elite", monospace;
+    font-size: 0.78rem;
+    color: var(--blood-deep);
+    letter-spacing: 0.02em;
+  }
+
+  /* DISTINCTIONS / ASSETS */
+  .distinction {
+    border: 1px solid var(--rule);
+    background: rgba(255, 250, 235, 0.4);
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.9rem;
+    position: relative;
+  }
+  .distinction::before {
+    content: ""; position: absolute; top: -1px; left: 0; height: 2px; width: 60px;
+    background: var(--whiskey);
+  }
+  .distinction .head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px dotted var(--rule);
+    padding-bottom: 0.35rem;
+  }
+  .distinction .head .name {
+    font-family: "IM Fell DW Pica", serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--whiskey-deep);
+  }
+  .triggers {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.4rem 0.85rem;
+    font-size: 0.92rem;
+  }
+  .triggers .tdie { padding-top: 0.15rem; }
+  .triggers .ttxt { color: var(--ink-soft); line-height: 1.4; }
+
+  /* EXTRAS + LOCATIONS table */
+  table.dossier-table {
+    width: 100%; border-collapse: collapse;
+    margin: 0.75rem 0 1.5rem; font-size: 0.95rem;
+  }
+  table.dossier-table th {
+    text-align: left;
+    font-family: "IM Fell DW Pica SC", serif;
+    font-weight: 400; font-size: 0.74rem;
+    letter-spacing: 0.18em; color: var(--ink-faint);
+    text-transform: uppercase;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  table.dossier-table td {
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top;
+  }
+  table.dossier-table td:first-child {
+    font-family: "IM Fell DW Pica", serif;
+    font-weight: 500; color: var(--ink);
+    padding-right: 1rem;
+  }
+  table.dossier-table td.die-col { width: 4rem; text-align: center; }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+  table.dossier-table tr.unfinalized td { opacity: 0.55; font-style: italic; }
+
+  /* STRESS BOX */
+  .stress-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+  .stress-cell {
+    text-align: center;
+    padding: 0.7rem 0.4rem;
+    border: 1px solid var(--rule);
+    background: rgba(255, 250, 235, 0.4);
+  }
+  .stress-cell .lab {
+    font-family: "IM Fell DW Pica SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .stress-cell .v {
+    font-family: "Special Elite", monospace;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    line-height: 1;
+  }
+  .stress-cell.unmarked .v { color: var(--ink-faint); font-style: italic; }
+
+  /* PLOT POINTS */
+  .pp-bar {
+    border: 1px solid var(--rule);
+    background: rgba(160, 123, 46, 0.07);
+    padding: 0.85rem 1.1rem;
+    margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .pp-bar .lab {
+    font-family: "IM Fell DW Pica SC", serif;
+    letter-spacing: 0.25em;
+    color: var(--brass-deep);
+    font-size: 0.82rem;
+  }
+  .pp-bar .pp-tokens {
+    font-family: "Special Elite", monospace;
+    font-size: 1.3rem;
+    color: var(--whiskey-deep);
+    letter-spacing: 0.25em;
+  }
+
+  /* CALLOUT */
+  .callout {
+    border: 1px solid var(--brass);
+    border-left: 4px solid var(--brass-deep);
+    background: rgba(160, 123, 46, 0.07);
+    padding: 1rem 1.4rem;
+    margin: 1.5rem 0;
+  }
+  .callout .label {
+    font-family: "IM Fell DW Pica SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    color: var(--brass-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .callout.blood {
+    border-color: var(--blood);
+    border-left-color: var(--blood-deep);
+    background: rgba(122, 31, 31, 0.06);
+  }
+  .callout.blood .label { color: var(--blood-deep); }
+
+  /* TIMELINE */
+  .timeline { margin: 1rem 0; }
+  .timeline-entry {
+    border-left: 2px solid var(--rule);
+    padding: 0 0 1rem 1.2rem;
+    margin-left: 0.3rem;
+    position: relative;
+  }
+  .timeline-entry::before {
+    content: "";
+    position: absolute;
+    left: -7px; top: 0.5rem;
+    width: 11px; height: 11px;
+    background: var(--paper);
+    border: 2px solid var(--whiskey-deep);
+    border-radius: 50%;
+  }
+  .timeline-entry.final::before { background: var(--blood-deep); border-color: var(--blood-deep); }
+  .timeline-entry .when {
+    font-family: "IM Fell DW Pica SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+  .timeline-entry .what {
+    font-family: "IM Fell DW Pica", serif;
+    font-size: 1.1rem;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+  }
+  .timeline-entry .detail {
+    font-size: 0.95rem; color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* COLOPHON */
+  footer.colophon {
+    margin-top: 3.5rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 1.25rem;
+    text-align: center;
+    font-family: "IM Fell DW Pica SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  footer.colophon::after {
+    content: "★"; display: block;
+    color: var(--brass); margin-top: 0.6rem;
+    font-size: 0.9rem; letter-spacing: 0.5em;
+    padding-left: 0.5em;
+  }
+
+  @media (max-width: 760px) {
+    .document { padding: 2rem 1.4rem 3rem; }
+    header.title-block { grid-template-columns: 1fr; }
+    .portrait { width: 160px; margin: 0 auto; }
+    h1.character-name { font-size: 2.2rem; }
+    .values-grid { grid-template-columns: 1fr; }
+    nav.toc ol { columns: 1; }
+    .stress-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+
+  <header class="title-block">
+    <div class="portrait">
+      <img src="sam-hornton.png" alt="Portrait of Sam Hornton">
+    </div>
+    <div class="title-text">
+      <div class="eyebrow">Proprietor's Dossier &middot; Fallstaff &middot; The Occident</div>
+      <h1 class="character-name">
+        <span class="given">Samuel</span> Hornton
+        <span class="alias">"Sam" &mdash; the Saloon Owner</span>
+      </h1>
+      <p class="motto">A deal's a deal.</p>
+      <div class="vitals">
+        <span>Cortex Prime &middot; Smallville (Western)</span>
+        <span>Played by Lane</span>
+        <span>Plot Points: 2</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <div class="toc-label">Contents</div>
+    <ol>
+      <li><a href="#standing">Standing &amp; Bearing</a></li>
+      <li><a href="#values">Values</a></li>
+      <li><a href="#relationships">Relationships</a></li>
+      <li><a href="#distinctions">Distinctions</a></li>
+      <li><a href="#extras">Extras &amp; Locations</a></li>
+      <li><a href="#stress">Stress, Growth &amp; Plot Points</a></li>
+      <li><a href="#play">What Happened in Play</a></li>
+      <li><a href="#ledger">The Ledger Closed</a></li>
+    </ol>
+  </nav>
+
+  <section id="standing">
+    <h2 class="section-title">I. Standing &amp; Bearing</h2>
+
+    <p class="drop-cap">Samuel Hornton owns and works <strong>The Occident</strong>, the principal saloon of <strong>Fallstaff</strong>. He pours, he listens, he remembers. Most things in town pass through his bar before they pass into the street, and Sam is the kind of proprietor who makes sure of it &mdash; not by demand but by attention. He keeps Hilary Duval in booze and women. He keeps Robards' Gang in whiskey and women. He keeps Phebe Souder paid to watch and listen. He kept the jailhouse standing after the fire. He keeps a soft spot for Finneus Varner, the old prospector. He keeps Ota Bouvier closer than anyone else, and he keeps Chicago Toluth alive in trade for a debt that hasn't run out.</p>
+
+    <p>By manner Sam is courteous, watchful, and unhurried &mdash; an Al Swearengen-coded operator, dressed in dark pinstriped vest and shirtsleeves, hair swept back, mustache and small beard kept exact. He runs the room from his end of the bar with a shot glass between two fingers and an eye on every door. He smiles when he means to. He keeps his voice low when he means it most. He has a gift for naming what a person needs before they have admitted it to themselves, and a corresponding gift for making them feel they have chosen freely.</p>
+
+    <h4 class="entry-label">Manner of Presence</h4>
+    <p>The civility is not a mask &mdash; it is the trade. Sam genuinely likes most of his clientele, in the way one likes a profitable seam. He does not raise his voice and does not need to; the room watches him for cues. When matters turn hard he becomes <em>quieter</em>, not louder. The hardness is in the eyes.</p>
+  </section>
+
+  <section id="values">
+    <h2 class="section-title">II. Values</h2>
+
+    <p><em>In this conversion of Cortex Prime / Smallville to the frontier, the six Values are <strong>Grit</strong>, <strong>Authority</strong>, <strong>Grace</strong>, <strong>Justice</strong>, <strong>Truth</strong>, and <strong>Love</strong>. Each carries a personal statement &mdash; the lie or truth Sam tells himself about it.</em></p>
+
+    <div class="values-grid">
+      <div class="value-cell">
+        <div class="row1"><span class="name">Grit</span><span class="die d6">d6</span></div>
+        <div class="stmt">"I have to be a hardass to get things done."</div>
+      </div>
+      <div class="value-cell">
+        <div class="row1"><span class="name">Authority</span><span class="die d6">d6</span></div>
+        <div class="stmt">"Whispering to the right person makes you the power behind the throne."</div>
+      </div>
+      <div class="value-cell high">
+        <div class="row1"><span class="name">Grace</span><span class="die d10">d10</span></div>
+        <div class="stmt">"When people love you, they'll go through hell for you."</div>
+      </div>
+      <div class="value-cell low">
+        <div class="row1"><span class="name">Justice</span><span class="die d4">d4</span></div>
+        <div class="stmt">"If God's in his heaven, He ain't looking down here."</div>
+      </div>
+      <div class="value-cell">
+        <div class="row1"><span class="name">Truth</span><span class="die d8">d8</span></div>
+        <div class="stmt">"Truth is a powerful commodity &mdash; especially when it's fool's gold."</div>
+      </div>
+      <div class="value-cell">
+        <div class="row1"><span class="name">Love</span><span class="die d8">d8</span></div>
+        <div class="stmt">"Everyone's got a lever, and if it's not connected to their heart, go south."</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="label">Reading the Sheet</div>
+      <p>Grace at d10 is the loudest number on Sam's values, and his statement is unmistakably operational: people who love him are useful, and he <em>knows</em> it. Justice at d4 is the floor &mdash; Sam does not believe the universe is keeping score, which is precisely what frees him to keep his own. Truth at d8 with the "fool's gold" statement is the engine of every con: he doesn't lie about whether things are true, he lies about whether they <em>matter</em>.</p>
+    </div>
+  </section>
+
+  <section id="relationships">
+    <h2 class="section-title">III. Relationships</h2>
+
+    <p><em>Sam's relationship dice are how he sees the other party &mdash; the lever, the leash, or the threat. Statements are his private ledger.</em></p>
+
+    <div class="rel-list">
+
+      <div class="rel">
+        <div class="die-col"><span class="die d6">d6</span></div>
+        <div>
+          <div class="who">Averin Dale <span class="role">&mdash; the Homesteader</span></div>
+          <div class="stmt">"A good man over his head. The perfect mark."</div>
+        </div>
+      </div>
+
+      <div class="rel">
+        <div class="die-col"><span class="die d4">d4</span></div>
+        <div>
+          <div class="who">Otto McVey <span class="role">&mdash; the Thief</span></div>
+          <div class="stmt">"A pain in the ass. Should have died years ago."</div>
+        </div>
+      </div>
+
+      <div class="rel">
+        <div class="die-col"><span class="die d6">d6</span></div>
+        <div>
+          <div class="who">Mr. Zephaniah Delmar <span class="role">&mdash; the Robber Baron</span></div>
+          <div class="stmt">"To be treated with care."</div>
+          <div class="ledger">Delmar's side of the ledger reads, of Sam: "Useful if he's on my side."</div>
+        </div>
+      </div>
+
+      <div class="rel">
+        <div class="die-col"><span class="die d4">d4</span></div>
+        <div>
+          <div class="who">Amos Williams <span class="role">&mdash; the Sheriff</span></div>
+          <div class="stmt">"A stick in the mud, but I can count on him for that."</div>
+          <div class="ledger">Amos's ledger of Sam: "An insufferable bastard, but he keeps the mob from going berserk."</div>
+        </div>
+      </div>
+
+      <div class="rel">
+        <div class="die-col"><span class="die d6">d6</span></div>
+        <div>
+          <div class="who">Ota Bouvier</div>
+          <div class="stmt">"My better half and the one I can trust with my life."</div>
+          <div class="ledger">On the map: <em>Sam's "voice" in town &mdash; she's tied into everything.</em></div>
+        </div>
+      </div>
+
+      <div class="rel">
+        <div class="die-col"><span class="die d6">d6</span></div>
+        <div>
+          <div class="who">Donald Haneman</div>
+          <div class="stmt">"He might end up useful."</div>
+          <div class="ledger">On the map: <em>Works for Sam. No end of trouble.</em></div>
+        </div>
+      </div>
+
+      <div class="rel">
+        <div class="die-col"><span class="die d4">d4</span></div>
+        <div>
+          <div class="who">Audrey Warris</div>
+          <div class="stmt">"Pain in my ass, but she's Chicago's sister."</div>
+          <div class="ledger">On the map: <em>She is not happy her brother works for Sam.</em></div>
+        </div>
+      </div>
+
+      <div class="rel">
+        <div class="die-col"><span class="die d6">d6</span></div>
+        <div>
+          <div class="who">Marian Krick</div>
+          <div class="stmt">"Can't trust her, but I need her contacts."</div>
+          <div class="ledger">On the map: <em>Runs much of the crime in the nearby town of Fallstaff.</em></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="distinctions">
+    <h2 class="section-title">IV. Distinctions &amp; Assets</h2>
+
+    <p><em>In Cortex Prime, a Distinction is rolled at its rated die in your dice pool, but may instead be invoked as a <span class="die d4">d4</span> to earn a Plot Point. The d4 / d8 / d12 triggers below are the Smallville-style special effects available at each step on the asset's die track.</em></p>
+
+    <div class="distinction">
+      <div class="head"><span class="name">Connected</span><span class="die d10">d10</span></div>
+      <div class="triggers">
+        <div class="tdie"><span class="die d4">d4</span></div>
+        <div class="ttxt">Spend a Plot Point to gain a d8 Relationship with a Feature for the rest of the scene.</div>
+        <div class="tdie"><span class="die d6">d8</span></div>
+        <div class="ttxt">Spend a Plot Point to reveal you "know a guy" who can provide information or material goods.</div>
+        <div class="tdie"><span class="die d12">d12</span></div>
+        <div class="ttxt">Spend a Plot Point to gain a 2d8 Location that you'd normally not have access to.</div>
+      </div>
+    </div>
+
+    <div class="distinction">
+      <div class="head"><span class="name">Popular</span><span class="die d8">d8</span></div>
+      <div class="triggers">
+        <div class="tdie"><span class="die d4">d4</span></div>
+        <div class="ttxt">Earn a Plot Point when you choose to be distracted by your own fame.</div>
+        <div class="tdie"><span class="die d6">d8</span></div>
+        <div class="ttxt">Spend a Plot Point to reroll a die in a Test or Contest involving people who aren't already your fans.</div>
+        <div class="tdie"><span class="die d12">d12</span></div>
+        <div class="ttxt">Spend a Plot Point to gain a d8 Relationship for one scene with a Feature with whom you don't already have a Relationship.</div>
+      </div>
+    </div>
+
+    <div class="distinction">
+      <div class="head"><span class="name">Clever</span><span class="die d6">d6</span></div>
+      <div class="triggers">
+        <div class="tdie"><span class="die d4">d4</span></div>
+        <div class="ttxt">Earn a Plot Point when you choose to show off your smarts in some annoying or frustrating manner.</div>
+        <div class="tdie"><span class="die d6">d8</span></div>
+        <div class="ttxt">Spend a Plot Point to reveal that you know a piece of useful trivia.</div>
+        <div class="tdie"><span class="die d12">d12</span></div>
+        <div class="ttxt">Earn a Plot Point and add a d6 to Trouble when your clever plan goes off the tracks.</div>
+      </div>
+    </div>
+
+    <div class="distinction">
+      <div class="head"><span class="name">Not Born Yesterday</span><span class="die d8">d8</span></div>
+      <div class="triggers">
+        <div class="tdie"><span class="die d4">d4</span></div>
+        <div class="ttxt">Earn a Plot Point when you choose to buy a reasonable lie.</div>
+        <div class="tdie"><span class="die d6">d8</span></div>
+        <div class="ttxt">Earn a Plot Point and give your opposition a d6 when confronted with a problem that defies normal common sense or logic.</div>
+        <div class="tdie"><span class="die d12">d12</span></div>
+        <div class="ttxt">Spend a Plot Point to reroll a die in a Contest or Test when you're convinced you're being lied to, swindled, or distracted.</div>
+      </div>
+    </div>
+
+    <div class="callout blood">
+      <div class="label">The Shape of the Pool</div>
+      <p>Connected at d10 plus Not Born Yesterday at d8 is the working hand: Sam is hard to swindle, and he knows the man who knows the man. Popular d8 and Clever d6 round him out as a public figure rather than a back-room operator. Nothing on this list is martial. He fights with the room.</p>
+    </div>
+  </section>
+
+  <section id="extras">
+    <h2 class="section-title">V. Extras &amp; Locations</h2>
+
+    <p><em>Extras are minor allies Sam can call upon; Locations are places he holds or controls. The "Specialty" column is Sam's private note on how each one is leashed.</em></p>
+
+    <h3 class="subhead">Extras</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Name</th><th class="die-col">Rating</th><th>Specialty / Leash</th></tr></thead>
+      <tr>
+        <td>Chicago Toluth</td>
+        <td class="die-col"><span class="die d8">2d8</span></td>
+        <td>Enforcer. Owes Sam his life.</td>
+      </tr>
+      <tr>
+        <td>Hilary Duval</td>
+        <td class="die-col"><span class="die d6">2d6</span></td>
+        <td>Sam keeps him in booze and women; Kitty has him kept.</td>
+      </tr>
+      <tr>
+        <td>Robards' Gang</td>
+        <td class="die-col"><span class="die d6">1d6</span></td>
+        <td>They like that Sam keeps them in whiskey and women. Dirty deeds done for the same.</td>
+      </tr>
+      <tr>
+        <td>Phebe Souder</td>
+        <td class="die-col"><span class="die d6">2d6</span></td>
+        <td>Paid to keep tabs.</td>
+      </tr>
+      <tr>
+        <td>Finneus Varner</td>
+        <td class="die-col"><span class="die d4">2d4</span></td>
+        <td>Prospector. Sam has a soft spot for him.</td>
+      </tr>
+      <tr class="unfinalized">
+        <td>Lora Whitmer</td>
+        <td class="die-col">&mdash;</td>
+        <td>(unfinalized on the sheet)</td>
+      </tr>
+    </table>
+
+    <h3 class="subhead">Locations</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Place</th><th class="die-col">Rating</th><th>Notes</th></tr></thead>
+      <tr>
+        <td>The Occident</td>
+        <td class="die-col"><span class="die d10">1d10</span></td>
+        <td>The principal saloon of Fallstaff. Sam's bar, Sam's room, Sam's eyes and ears.</td>
+      </tr>
+      <tr>
+        <td>Fallstaff</td>
+        <td class="die-col"><span class="die d6">2d6</span></td>
+        <td>The town itself, where Sam has "lots of connections."</td>
+      </tr>
+    </table>
+
+    <h4 class="entry-label">Adjacencies on the Town Map</h4>
+    <p>Sam also has a documented tie to <strong>Hangman's Rest</strong> (where he paid for repairs to the Jailhouse after the fire &mdash; a quiet investment in the Sheriff's continued tolerance), and runs his Fallstaff network through <strong>Marian Krick</strong>, who in turn handles the rougher work he does not. Of the locations on the table at start of play, the one that ended up mattering most was a parcel he did not yet hold: <strong>Lot 295</strong>.</p>
+  </section>
+
+  <section id="stress">
+    <h2 class="section-title">VI. Stress, Growth &amp; Plot Points</h2>
+
+    <h3 class="subhead">Stress Pools</h3>
+    <p><em>Cortex Prime / Smallville tracks five Stress types &mdash; pools that opponents step up against you. Sam's sheet shows all five unmarked at the snapshot &mdash; whatever he took in play, he had walked it off (or talked it off) by the time the dust settled.</em></p>
+    <div class="stress-grid">
+      <div class="stress-cell unmarked"><div class="lab">Afraid</div><div class="v">&mdash;</div></div>
+      <div class="stress-cell unmarked"><div class="lab">Angry</div><div class="v">&mdash;</div></div>
+      <div class="stress-cell unmarked"><div class="lab">Exhausted</div><div class="v">&mdash;</div></div>
+      <div class="stress-cell unmarked"><div class="lab">Insecure</div><div class="v">&mdash;</div></div>
+      <div class="stress-cell unmarked"><div class="lab">Injured</div><div class="v">&mdash;</div></div>
+    </div>
+
+    <h3 class="subhead">Growth Track</h3>
+    <p><em>The Growth track lets a Lead step a Value, Relationship, or Asset up after sufficient invocation. Sam's track is unmarked &mdash; he ended the game with the Occident still in his name and the sheet he came in with.</em></p>
+    <div class="stress-grid">
+      <div class="stress-cell unmarked"><div class="lab">d4</div><div class="v">&mdash;</div></div>
+      <div class="stress-cell unmarked"><div class="lab">d6</div><div class="v">&mdash;</div></div>
+      <div class="stress-cell unmarked"><div class="lab">d8</div><div class="v">&mdash;</div></div>
+      <div class="stress-cell unmarked"><div class="lab">d10</div><div class="v">&mdash;</div></div>
+      <div class="stress-cell unmarked"><div class="lab">d12</div><div class="v">&mdash;</div></div>
+    </div>
+
+    <h3 class="subhead">Plot Points</h3>
+    <div class="pp-bar">
+      <span class="lab">Current Pool</span>
+      <span class="pp-tokens">● ●</span>
+    </div>
+    <p><em>Plot Points are the universal currency. Sam's sheet ends the campaign with two on the table. The standard menu &mdash; reproduced here for reference &mdash; reads:</em></p>
+    <ul>
+      <li>Add more dice to a pool.</li>
+      <li>Activate an Opportunity (a 1 the GM rolls) to remove a die from the Doom Pool.</li>
+      <li>Create a d6 Relationship for the session.</li>
+      <li>Create a temporary Asset at d6.</li>
+      <li>Include more results in your total (extra dice).</li>
+      <li>Interfere in a Contest.</li>
+      <li>Keep an extra effect die.</li>
+      <li>Share an Asset you've made.</li>
+    </ul>
+  </section>
+
+  <section id="play">
+    <h2 class="section-title">VII. What Happened in Play</h2>
+
+    <p><em>The campaign &mdash; "Western" &mdash; ran two to three sessions and ended cleanly. The detailed beats are no longer recoverable; what follows is the shape of the thing as it can be read off the sheets, the relationship map, and the final positions of the pieces on the board.</em></p>
+
+    <div class="timeline">
+
+      <div class="timeline-entry">
+        <div class="when">The Standing Situation</div>
+        <div class="what">Two parcels, two ambitions, one saloon in the middle.</div>
+        <div class="detail">Zephaniah Delmar &mdash; the Robber Baron, holder of <strong>Shady Valley Ranch</strong> &mdash; was openly looking to expand onto <strong>Lot 295</strong>, the Homesteader Averin Dale's parcel. The Sheriff was minded to protect the homesteader. The Thief was Kitty Clayton's family. Sam Hornton, from the Occident, was tied to all four men and played each one at a different angle of the same triangle.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Sam's Position Going In</div>
+        <div class="what">"To be treated with care."</div>
+        <div class="detail">Sam's read on Delmar at start was a d6 &mdash; <em>not</em> an enemy. Delmar's read on Sam was a d8: <em>useful if he's on my side.</em> Both men entered the table believing they could use the other. Only one of them was correct.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">In the Middle</div>
+        <div class="what">The town's quieter machinery.</div>
+        <div class="detail">Ota Bouvier did the listening. Phebe Souder kept the tabs. Hilary Duval drank what Sam poured. Chicago Toluth stayed on the leash of an old debt. Marian Krick ran the rougher half of Fallstaff in parallel. Sam ran the bar, the room, and the conversation &mdash; and somewhere along the way arranged matters so that the question of who would end up holding the deed to Lot 295 had a third, unexpected answer.</div>
+      </div>
+
+      <div class="timeline-entry final">
+        <div class="when">The Resolution</div>
+        <div class="what">A shootout, a transferred deed, and a saloon still standing.</div>
+        <div class="detail">By the time the final guns came out, Sam was not in front of them. Bodies fell. Sam was not among them. When the smoke cleared, the Occident was still in his name &mdash; and <strong>Lot 295</strong> had quietly changed hands. The Homesteader's parcel, the one the Robber Baron had been trying to swallow, ended up Sam Hornton's. A deal's a deal.</div>
+      </div>
+
+    </div>
+
+    <div class="callout blood">
+      <div class="label">The Mechanical Throughline</div>
+      <p>The result is exactly what the sheet predicts. Sam's working hand is <strong>Connected d10 + Not Born Yesterday d8 + Truth d8</strong>: a man hard to swindle, a man who knows the right men, and a man who deploys truth as currency rather than principle. Grace at d10 ("when people love you, they'll go through hell for you") supplied the levers; Justice at d4 ("if God's in his heaven, He ain't looking down here") supplied the permission. Nothing on his sheet was set up to win a shootout, and so the resolution &mdash; on his end &mdash; was not one.</p>
+    </div>
+  </section>
+
+  <section id="ledger">
+    <h2 class="section-title">VIII. The Ledger Closed</h2>
+
+    <p>Sam Hornton walked out of "Western" with the things he started with and one thing he did not: the parcel the powerful man had wanted. The Robber Baron is dead or done. The Sheriff has his town back, more or less, and is probably no longer Sam's d4 relationship. The Thief, against the odds, lived. The Homesteader's lot is on the Occident's books.</p>
+
+    <h3 class="subhead">What the Sheet Was Always Pointed At</h3>
+    <ul>
+      <li><strong>The triangle of Grace d10, Truth d8, and Love d8</strong> &mdash; Sam never lied about what was true; he made people <em>want</em> what he wanted. The d10 in Grace was always going to be where the win came from.</li>
+      <li><strong>Connected d10 as the spine</strong> &mdash; every meaningful turn in this game ran through a person Sam already knew or could borrow from Marian. The d12 trigger ("gain a 2d8 Location you'd normally not have access to") is, in retrospect, almost on the nose.</li>
+      <li><strong>Justice d4 as the floor</strong> &mdash; the lowest number on the sheet is the one that made the ending possible. A man who scored the universe differently would not have walked out of the same room.</li>
+    </ul>
+
+    <h3 class="subhead">If There Were Another Session</h3>
+    <p>The d4 Sam carried for Otto McVey ("a pain in the ass; should have died years ago") survived the campaign. Otto did not die. That is an unresolved bill, and Otto's own d8 on Sam reads <em>playing too many sides</em>. The Thief is one of the two people in town who has Sam's measure. The other is Ota Bouvier, and her account is squared. Otto's is not.</p>
+
+    <p>And there is the matter of Audrey Warris, who is still not happy that her brother Chicago works for Sam. Lot 295 raises the rent on that particular grievance.</p>
+  </section>
+
+  <footer class="colophon">
+    The Occident &middot; Fallstaff &middot; Dossier Closed &middot; Campaign Past
+  </footer>
+
+</div>
+</body>
+</html>
