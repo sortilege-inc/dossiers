@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Miriam the Chronicler</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Reem+Kufi:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Miriam — Sephardic oxblood, parchment-gold, walnut-ink brown */
+    --ground:       #2c1818;
+    --ground-deep:  #1a0e0e;
+    --paper:        #ece2c4;        /* warm cream, slightly aged-yellow */
+    --paper-shade:  #ddd1ad;
+    --paper-edge:   #c5b890;
+    --ink:          #1f1812;
+    --ink-soft:     #3e2c20;
+    --ink-faint:    #6e5a48;
+    --accent:       #6e1818;        /* oxblood */
+    --accent-deep:  #4a0e0e;
+    --accent-pale:  #8e3838;
+    --walnut:       #5a3a1c;        /* walnut-ink brown */
+    --walnut-deep:  #3a2410;
+    --gold:         #a88c46;        /* parchment-gold */
+    --gold-deep:    #76612e;
+    --rule:         #ab9870;
+    --rule-soft:    #c6b58c;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 12%, rgba(110, 24, 24, 0.28) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 88%, rgba(26, 14, 14, 0.7) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(44, 24, 24, 0.5) 0%, transparent 80%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  /* ============ DOCUMENT FOLIO ============ */
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 3.75rem 4.25rem 4.5rem;
+    position: relative;
+    box-shadow:
+      0 1px 2px rgba(26, 14, 14, 0.45),
+      0 14px 56px rgba(26, 14, 14, 0.6),
+      inset 0 0 0 1px rgba(171, 152, 112, 0.4);
+    background-image:
+      radial-gradient(ellipse at 0% 0%, rgba(168, 140, 70, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 100%, rgba(90, 58, 28, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(60, 40, 20, 0.06) 100%);
+  }
+
+  /* Top folio band — oxblood / parchment-gold */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--ground-deep) 0%,
+      var(--accent-deep) 18%,
+      var(--accent) 38%,
+      var(--gold) 50%,
+      var(--accent) 62%,
+      var(--accent-deep) 82%,
+      var(--ground-deep) 100%);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--accent-deep) 20%,
+      var(--gold) 50%,
+      var(--accent-deep) 80%,
+      transparent 100%);
+    opacity: 0.7;
+  }
+
+  .vine-margin {
+    position: absolute;
+    top: 5px; bottom: 3px; left: 0;
+    width: 26px;
+    opacity: 0.24;
+    pointer-events: none;
+  }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2rem;
+  }
+  .masthead-left { min-width: 0; }
+  .masthead-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.38em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .masthead-eyebrow .dossier-no {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .masthead-eyebrow .museum-kufi {
+    font-family: "Reem Kufi", "Cormorant SC", serif;
+    letter-spacing: 0.08em;
+    font-size: 0.92rem;
+    margin-right: 0.6em;
+    color: var(--accent-deep);
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.35rem;
+    line-height: 1;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+  .character-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--accent-deep);
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .cartouche {
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+  }
+
+  /* ============ IDENTITY + PORTRAIT BAND ============ */
+  .identity-band {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 2.25rem;
+    margin-bottom: 2.5rem;
+    align-items: start;
+  }
+  .identity-block { min-width: 0; }
+  .identity-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0.4rem 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    align-items: baseline;
+  }
+  .identity-row:last-child { border-bottom: none; }
+  .identity-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .identity-value {
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+  }
+  .identity-value em {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  /* Portrait plate */
+  .portrait-plate { position: relative; }
+  .portrait-frame {
+    border: 1px solid var(--accent-deep);
+    padding: 6px;
+    background: var(--paper-shade);
+    box-shadow:
+      inset 0 0 0 1px var(--gold),
+      0 2px 8px rgba(26, 14, 14, 0.22);
+    position: relative;
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--accent-deep);
+  }
+  .portrait-frame::before {
+    top: -4px; left: -4px;
+    border-right: none; border-bottom: none;
+  }
+  .portrait-frame::after {
+    bottom: -4px; right: -4px;
+    border-left: none; border-top: none;
+  }
+  .portrait-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: sepia(0.15) saturate(0.93) brightness(0.97);
+  }
+  .portrait-caption {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.7rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .portrait-caption strong {
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+  }
+
+  /* ============ SECTION ORNAMENTS ============ */
+  .section { margin-top: 2.5rem; }
+  .section-head {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    justify-content: center;
+    margin-bottom: 0.7rem;
+  }
+  .section-rule-line {
+    flex: 1;
+    max-width: 180px;
+    height: 1px;
+    background: var(--rule);
+  }
+  .section-ornament {
+    width: 30px; height: 30px;
+    color: var(--accent-deep);
+    flex-shrink: 0;
+  }
+  h2.section-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.55rem;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  .section-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-faint);
+    margin: 0.25rem 0 0;
+  }
+
+  /* ============ BIO ============ */
+  .bio {
+    font-family: "EB Garamond", serif;
+    font-size: 1.08rem;
+    line-height: 1.72;
+    color: var(--ink-soft);
+    text-align: justify;
+    hyphens: auto;
+  }
+  .bio p { margin: 0 0 1em; }
+  .bio p:last-child { margin-bottom: 0; }
+  .bio p:first-child::first-letter {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.1em 0.12em 0 0;
+    color: var(--accent-deep);
+  }
+
+  /* ============ ABILITY SCORES ============ */
+  .abilities {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+  }
+  .ability-card {
+    border: 1px solid var(--rule);
+    background: var(--paper-shade);
+    padding: 0.85rem 0.4rem 0.7rem;
+    text-align: center;
+    position: relative;
+  }
+  .ability-card::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 8px; right: 8px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .ability-card.saveprof::before {
+    background: var(--gold);
+    height: 3px;
+  }
+  .ability-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .ability-score {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 0.15rem 0 0.05rem;
+  }
+  .ability-mod {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem;
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  .ability-save {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+    padding-top: 0.35rem;
+    border-top: 1px dotted var(--rule-soft);
+  }
+  .ability-save .save-val {
+    font-family: "EB Garamond", serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    font-weight: 500;
+    margin-left: 0.2em;
+  }
+  .ability-card.saveprof .ability-save .save-val {
+    color: var(--gold-deep);
+    font-weight: 600;
+  }
+
+  /* ============ COMBAT STATS ============ */
+  .combat-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 0.7rem 0.65rem;
+  }
+  .stat-cell-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .stat-cell-value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-top: 0.15rem;
+  }
+  .stat-cell-value small {
+    font-family: "EB Garamond", serif;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-left: 0.3em;
+  }
+
+  /* ============ SKILLS ============ */
+  .skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+  }
+  .skills-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .skills-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: baseline;
+  }
+  .skills-table tr:last-child td { border-bottom: none; }
+  .skills-table .bonus {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    color: var(--ink);
+    width: 70px;
+    text-align: center;
+  }
+  .skills-table .source {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+
+  /* ============ FEATURE BLOCKS ============ */
+  .feature {
+    margin: 0 0 1.1rem;
+    padding: 0.85rem 1rem;
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+  }
+  .feature.subclass {
+    border-left-color: var(--gold);
+  }
+  .feature.pact {
+    border-left-color: var(--accent-deep);
+    border-left-width: 4px;
+    background:
+      radial-gradient(ellipse at 95% 10%, rgba(110, 24, 24, 0.06) 0%, transparent 60%),
+      var(--paper-shade);
+  }
+  .feature-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    color: var(--ink);
+    margin: 0 0 0.3rem;
+    letter-spacing: 0.01em;
+  }
+  .feature-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .feature-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .feature-body p { margin: 0 0 0.55em; }
+  .feature-body p:last-child { margin-bottom: 0; }
+  .feature-body ul {
+    margin: 0.4em 0 0.2em;
+    padding-left: 1.4em;
+  }
+  .feature-body ul li {
+    padding: 0.15em 0;
+  }
+  .feature-body strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .feature-body em {
+    color: var(--accent-deep);
+  }
+
+  .features-cluster-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .features-cluster-title:first-child { margin-top: 0; }
+
+  /* ============ SPELLS ============ */
+  .spell-slots {
+    display: flex;
+    gap: 1rem;
+    margin: 0.5rem 0 1.25rem;
+    flex-wrap: wrap;
+  }
+  .slot-group {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--rule);
+    background: var(--paper-shade);
+  }
+  .slot-level {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .slot-count {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--accent-deep);
+  }
+  .slot-note {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin: 0 0 1rem;
+  }
+
+  .cantrips-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.85rem;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    list-style: none;
+  }
+  .cantrips-list li {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.02rem;
+    color: var(--ink);
+    padding: 0.15rem 0.7rem;
+    background: var(--paper-shade);
+    border: 1px solid var(--rule-soft);
+  }
+  .cantrips-list li.tome {
+    border-color: var(--gold);
+    border-left-width: 3px;
+  }
+
+  .spells-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+  }
+  .spells-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .spells-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: baseline;
+  }
+  .spells-table tr:last-child td { border-bottom: none; }
+  .spells-table .lvl {
+    font-family: "Cormorant Garamond", serif;
+    color: var(--accent-deep);
+    width: 50px;
+  }
+  .spells-table .spell-name {
+    font-style: italic;
+    color: var(--ink);
+    width: 220px;
+  }
+  .spells-table .note {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  /* Ritual book block */
+  .ritual-book {
+    margin-top: 1.5rem;
+    padding: 1rem 1.15rem;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent 0,
+        transparent 22px,
+        rgba(90, 58, 28, 0.04) 22px,
+        rgba(90, 58, 28, 0.04) 23px
+      ),
+      var(--paper);
+    border: 1px solid var(--walnut);
+    border-left-width: 3px;
+    position: relative;
+  }
+  .ritual-book::before {
+    content: "";
+    position: absolute;
+    left: 14px; top: 0; bottom: 0;
+    width: 1px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .ritual-book-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    color: var(--walnut-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    padding-left: 0.8rem;
+  }
+  .ritual-book-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.97rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    padding-left: 0.8rem;
+  }
+  .ritual-book-list {
+    margin: 0.4em 0 0;
+    padding-left: 1.4em;
+  }
+  .ritual-book-list li {
+    padding: 0.15em 0;
+  }
+  .ritual-book-list .scribed {
+    font-style: italic;
+    color: var(--ink);
+  }
+  .ritual-book-note {
+    margin-top: 0.7em;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--ink-faint);
+  }
+
+  /* ============ EQUIPMENT ============ */
+  .equipment-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .equip-block {
+    border: 1px solid var(--rule-soft);
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+  }
+  .equip-block-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 0 0 0.55rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .equip-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .equip-list li {
+    padding: 0.35rem 0;
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .equip-list li:last-child { border-bottom: none; }
+  .equip-list .item-name { font-weight: 500; }
+  .equip-list .item-detail {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-style: italic;
+  }
+  .money-line {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    padding: 0.85rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .money-line .amount {
+    font-family: "Cormorant Garamond", serif;
+    font-style: normal;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--gold-deep);
+    letter-spacing: 0.05em;
+    margin: 0 0.3em;
+  }
+
+  /* ============ PERSONALITY ============ */
+  .personality-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+  .personality-card {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--paper-shade);
+    border-top: 2px solid var(--accent);
+    position: relative;
+  }
+  .personality-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .personality-label .alignment-tag {
+    color: var(--ink-faint);
+    font-weight: 400;
+    margin-left: 0.4em;
+  }
+  .personality-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ============ CONNECTIONS ============ */
+  .connections-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .connections-list li {
+    padding: 0.65rem 0 0.65rem 1.5rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+    position: relative;
+  }
+  .connections-list li:last-child { border-bottom: none; }
+  .connections-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 1.1em;
+    width: 8px; height: 8px;
+    border: 1px solid var(--accent);
+    transform: rotate(45deg);
+    background: var(--paper);
+  }
+  .connections-list .conn-name {
+    font-weight: 500;
+    color: var(--accent-deep);
+  }
+
+  /* ============ PATRON'S NOTE ============ */
+  .patron-note {
+    margin: 2.75rem 0 0;
+    padding: 1.5rem 1.75rem 1.65rem;
+    border: 1px solid var(--gold);
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 8px,
+        rgba(168, 140, 70, 0.03) 8px,
+        rgba(168, 140, 70, 0.03) 16px
+      ),
+      var(--paper-shade);
+    position: relative;
+  }
+  .patron-note::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 2px;
+    background: linear-gradient(90deg,
+      var(--gold-deep) 0%,
+      var(--gold) 50%,
+      var(--gold-deep) 100%);
+  }
+  .patron-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--gold-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+  .patron-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+  .patron-signature {
+    margin-top: 0.85rem;
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    color: var(--ink-soft);
+  }
+  .patron-signature .sig-name {
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  /* ============ FOOT ============ */
+  .document-foot {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .foot-seal {
+    width: 38px; height: 38px;
+    color: var(--accent-deep);
+    opacity: 0.75;
+  }
+  .foot-text {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    flex: 1;
+  }
+  .foot-text .kufi {
+    font-family: "Reem Kufi", serif;
+    letter-spacing: 0.08em;
+    color: var(--accent-deep);
+    margin: 0 0.4em;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 760px) {
+    body { padding: 1rem 0.4rem 2rem; }
+    .document { padding: 2.25rem 1.5rem 2.75rem; }
+    h1.character-name { font-size: 2.3rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1rem; }
+    .cartouche { width: 80px; height: 80px; justify-self: start; }
+    .identity-band { grid-template-columns: 1fr; }
+    .portrait-plate { max-width: 240px; }
+    .abilities { grid-template-columns: repeat(3, 1fr); }
+    .combat-stats { grid-template-columns: repeat(2, 1fr); }
+    .personality-grid { grid-template-columns: 1fr; }
+    .vine-margin { display: none; }
+    .skills-table .source { display: none; }
+  }
+
+  @media (max-width: 460px) {
+    .abilities { grid-template-columns: repeat(2, 1fr); }
+    .identity-row { grid-template-columns: 1fr; gap: 0.1rem; }
+    .identity-label { font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Inline SVG definitions -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Miriam's section ornament: squared rosette with margin-flourish -->
+    <symbol id="manuscript-rosette" viewBox="0 0 30 30">
+      <g fill="none" stroke="currentColor" stroke-width="0.7">
+        <!-- Central squared rosette -->
+        <rect x="11" y="11" width="8" height="8" stroke-width="0.6"/>
+        <rect x="13" y="9" width="4" height="12" stroke-width="0.6"/>
+        <rect x="9" y="13" width="12" height="4" stroke-width="0.6"/>
+        <circle cx="15" cy="15" r="1.5" fill="currentColor" stroke="none"/>
+        <!-- Flourishes to either side (manuscript margin marginalia) -->
+        <path d="M 3 15 Q 5 13 7 15 Q 5 17 3 15 Z" fill="currentColor" fill-opacity="0.4" stroke-width="0.4"/>
+        <path d="M 27 15 Q 25 13 23 15 Q 25 17 27 15 Z" fill="currentColor" fill-opacity="0.4" stroke-width="0.4"/>
+        <!-- Top and bottom dots -->
+        <circle cx="15" cy="4" r="0.9" fill="currentColor" stroke="none"/>
+        <circle cx="15" cy="26" r="0.9" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Foot seal: small open codex -->
+    <symbol id="foot-seal" viewBox="0 0 40 40">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <circle cx="20" cy="20" r="17"/>
+        <circle cx="20" cy="20" r="13" stroke-dasharray="1 2"/>
+        <!-- Open book -->
+        <path d="M 8 14 L 20 17 L 32 14 L 32 28 L 20 31 L 8 28 Z" stroke-width="1.1"/>
+        <!-- Central spine -->
+        <line x1="20" y1="17" x2="20" y2="31" stroke-width="0.9"/>
+        <!-- Text lines (suggestive) -->
+        <line x1="11" y1="19" x2="17" y2="20.5" stroke-width="0.4"/>
+        <line x1="11" y1="22" x2="17" y2="23.5" stroke-width="0.4"/>
+        <line x1="11" y1="25" x2="17" y2="26.5" stroke-width="0.4"/>
+        <line x1="23" y1="20.5" x2="29" y2="19" stroke-width="0.4"/>
+        <line x1="23" y1="23.5" x2="29" y2="22" stroke-width="0.4"/>
+        <line x1="23" y1="26.5" x2="29" y2="25" stroke-width="0.4"/>
+      </g>
+    </symbol>
+
+    <!-- Miriam's cartouche: open book with four geometric glyph-shapes above
+         (Tetragrammaton-INSPIRED — never reproducing actual Hebrew letters,
+         which would be a real sacred name) -->
+    <symbol id="cartouche-miriam" viewBox="0 0 110 110">
+      <g fill="none" stroke="currentColor" stroke-width="1.1">
+        <!-- Outer ring -->
+        <circle cx="55" cy="55" r="50"/>
+        <!-- Inner ring, dashed -->
+        <circle cx="55" cy="55" r="42" stroke-width="0.7" stroke-dasharray="2 3"/>
+
+        <!-- Four geometric glyphs in a horizontal row (top portion of cartouche) -->
+        <!-- These are invented abstract glyphs, NOT Hebrew letters -->
+        <g transform="translate(0 22)">
+          <!-- Glyph 1: vertical bar with two small horizontals -->
+          <g transform="translate(33 0)">
+            <line x1="0" y1="0" x2="0" y2="10" stroke-width="1.4"/>
+            <line x1="-2" y1="2" x2="2" y2="2" stroke-width="0.8"/>
+            <line x1="-2" y1="8" x2="2" y2="8" stroke-width="0.8"/>
+          </g>
+          <!-- Glyph 2: small open-square hook -->
+          <g transform="translate(46 0)">
+            <path d="M -3 0 L 0 0 L 0 10 L 3 10" stroke-width="1.4" fill="none"/>
+          </g>
+          <!-- Glyph 3: triangular flag/banner shape -->
+          <g transform="translate(60 0)">
+            <line x1="0" y1="0" x2="0" y2="10" stroke-width="1.4"/>
+            <path d="M 0 1 L 4 4 L 0 6 Z" fill="currentColor" stroke="none"/>
+          </g>
+          <!-- Glyph 4: nested-bracket form -->
+          <g transform="translate(74 0)">
+            <path d="M 3 0 L 0 0 L 0 10 L 3 10 M 5 3 L 3 3 L 3 7 L 5 7" stroke-width="1.4" fill="none"/>
+          </g>
+        </g>
+
+        <!-- Underline beneath the four glyphs (suggesting Sephardic-style decorative band) -->
+        <line x1="28" y1="40" x2="82" y2="40" stroke-width="0.6"/>
+        <line x1="32" y1="42" x2="78" y2="42" stroke-width="0.4"/>
+
+        <!-- Open codex below -->
+        <g transform="translate(0 4)">
+          <!-- Pages -->
+          <path d="M 28 56 L 55 60 L 82 56 L 82 84 L 55 88 L 28 84 Z" fill="currentColor" fill-opacity="0.15" stroke-width="1.1"/>
+          <!-- Spine -->
+          <line x1="55" y1="60" x2="55" y2="88" stroke-width="1.1"/>
+          <!-- Text lines, suggestive -->
+          <line x1="33" y1="65" x2="50" y2="68" stroke-width="0.4"/>
+          <line x1="33" y1="70" x2="50" y2="73" stroke-width="0.4"/>
+          <line x1="33" y1="75" x2="50" y2="78" stroke-width="0.4"/>
+          <line x1="60" y1="68" x2="77" y2="65" stroke-width="0.4"/>
+          <line x1="60" y1="73" x2="77" y2="70" stroke-width="0.4"/>
+          <line x1="60" y1="78" x2="77" y2="75" stroke-width="0.4"/>
+        </g>
+
+        <!-- Side flourishes -->
+        <path d="M5 55 L11 52 L14 55 L11 58 Z" fill="currentColor" stroke="none"/>
+        <path d="M105 55 L99 52 L96 55 L99 58 Z" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Vine pattern: manuscript margin-style — alternating ink-blot and squared-rosette -->
+    <pattern id="vinePattern" width="26" height="160" patternUnits="userSpaceOnUse">
+      <g fill="currentColor" stroke="currentColor" stroke-width="0.7">
+        <!-- Vertical guide line -->
+        <line x1="13" y1="0" x2="13" y2="160" stroke-width="0.4" fill="none"/>
+        <!-- Squared rosette 1 -->
+        <g transform="translate(13 20)" fill="none">
+          <rect x="-3" y="-3" width="6" height="6"/>
+          <line x1="-2" y1="0" x2="2" y2="0"/>
+          <line x1="0" y1="-2" x2="0" y2="2"/>
+        </g>
+        <!-- Ink-blot dot -->
+        <circle cx="13" cy="50" r="2" stroke="none"/>
+        <circle cx="9" cy="56" r="0.6" stroke="none"/>
+        <!-- Squared rosette 2 -->
+        <g transform="translate(13 80)" fill="none">
+          <rect x="-3" y="-3" width="6" height="6"/>
+          <line x1="-2" y1="0" x2="2" y2="0"/>
+          <line x1="0" y1="-2" x2="0" y2="2"/>
+        </g>
+        <!-- Ink-blot -->
+        <circle cx="13" cy="110" r="2" stroke="none"/>
+        <circle cx="18" cy="116" r="0.6" stroke="none"/>
+        <!-- Squared rosette 3 -->
+        <g transform="translate(13 140)" fill="none">
+          <rect x="-3" y="-3" width="6" height="6"/>
+          <line x1="-2" y1="0" x2="2" y2="0"/>
+          <line x1="0" y1="-2" x2="0" y2="2"/>
+        </g>
+      </g>
+    </pattern>
+  </defs>
+</svg>
+
+<article class="document">
+
+  <svg class="vine-margin" preserveAspectRatio="none" aria-hidden="true" style="color: var(--walnut); width:26px; height:100%;">
+    <rect width="100%" height="100%" fill="url(#vinePattern)"/>
+  </svg>
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="masthead-eyebrow">
+        <span class="museum-kufi">دوسيه</span>
+        <span>Müze-i Hümâyûn</span> &middot; <span class="dossier-no">Dossier · Warlock</span>
+      </div>
+      <h1 class="character-name">Miriam the Chronicler</h1>
+      <p class="character-subtitle">Librarian of the Grand Bazaar &middot; The Ancient Sage</p>
+    </div>
+    <svg class="cartouche" aria-hidden="true" style="color: var(--accent-deep);">
+      <use href="#cartouche-miriam"/>
+    </svg>
+  </header>
+
+  <!-- ============ IDENTITY + PORTRAIT ============ -->
+  <section class="identity-band">
+    <div class="identity-block">
+      <div class="identity-row">
+        <span class="identity-label">Class &amp; Level</span>
+        <span class="identity-value">Warlock 3 &middot; The Ancient Sage</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Race</span>
+        <span class="identity-value">Human (standard)</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Background</span>
+        <span class="identity-value">Sage (Librarian)</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Age</span>
+        <span class="identity-value">42</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Heritage</span>
+        <span class="identity-value">Sephardic Jewish</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Faith</span>
+        <span class="identity-value">Judaism</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Alignment</span>
+        <span class="identity-value">Lawful Neutral</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Languages</span>
+        <span class="identity-value">Ottoman Turkish (Common), Ladino / Judeo-Spanish, Hebrew, Aramaic</span>
+      </div>
+    </div>
+
+    <div class="portrait-plate">
+      <div class="portrait-frame">
+        <img src="miriam.png" alt="Portrait of Miriam the Chronicler">
+      </div>
+      <div class="portrait-caption">
+        <strong>Miriam the Chronicler</strong><br>
+        Sephardic &middot; Aged Forty-Two
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BIO ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#manuscript-rosette"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">On the Subject</h2>
+    </div>
+    <div class="bio">
+      <p>Miriam channels the wisdom of ancient scholars to uncover forgotten truths. She works out of the arcane library tucked behind a quiet stall in the Grand Bazaar — a collection nominally maintained by the Sephardic community but quietly accessible to any serious scholar willing to pay her in rare manuscripts or older favors.</p>
+      <p>Her patrons among the long-dead speak through the artifacts they left behind, and Miriam has learned to listen. She is forty-two, unmarried by choice, and has uncovered more lost treasures in twenty years of careful reading than most adventurers find in a lifetime of digging.</p>
+    </div>
+  </section>
+
+  <!-- ============ ABILITY SCORES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#manuscript-rosette"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Faculties &amp; Saving Throws</h2>
+      <p class="section-subtitle">Base array 16, 13, 12, 12, 11, 7; Human +1 to each</p>
+    </div>
+    <div class="abilities">
+      <div class="ability-card">
+        <div class="ability-name">Strength</div>
+        <div class="ability-score">8</div>
+        <div class="ability-mod">&minus;1</div>
+        <div class="ability-save">Save <span class="save-val">&minus;1</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Dexterity</div>
+        <div class="ability-score">12</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Constitution</div>
+        <div class="ability-score">14</div>
+        <div class="ability-mod">+2</div>
+        <div class="ability-save">Save <span class="save-val">+2</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Intelligence</div>
+        <div class="ability-score">13</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Wisdom</div>
+        <div class="ability-score">13</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+3</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Charisma</div>
+        <div class="ability-score">17</div>
+        <div class="ability-mod">+3</div>
+        <div class="ability-save">Save <span class="save-val">+5</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMBAT STATS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#manuscript-rosette"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Bearing in the Field</h2>
+    </div>
+    <div class="combat-stats">
+      <div class="stat-cell">
+        <div class="stat-cell-label">Proficiency</div>
+        <div class="stat-cell-value">+2</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Armour Class</div>
+        <div class="stat-cell-value">13 <small>leather</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Initiative</div>
+        <div class="stat-cell-value">+1</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Speed</div>
+        <div class="stat-cell-value">30 <small>ft</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Points</div>
+        <div class="stat-cell-value">23</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Dice</div>
+        <div class="stat-cell-value">3d8</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Passive Perception</div>
+        <div class="stat-cell-value">11</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Spell Save DC</div>
+        <div class="stat-cell-value">13 <small>+5 atk</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#manuscript-rosette"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <table class="skills-table">
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th class="bonus" style="text-align:center;">Bonus</th>
+          <th class="source">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Arcana</td>            <td class="bonus">+3</td>  <td class="source">Sage</td></tr>
+        <tr><td>History</td>           <td class="bonus">+3</td>  <td class="source">Sage</td></tr>
+        <tr><td>Insight</td>           <td class="bonus">+3</td>  <td class="source">Human</td></tr>
+        <tr><td>Investigation</td>     <td class="bonus">+3</td>  <td class="source">Warlock</td></tr>
+        <tr><td>Medicine</td>          <td class="bonus">+3</td>  <td class="source">Ancient Sage (bonus prof)</td></tr>
+        <tr><td>Nature</td>            <td class="bonus">+3</td>  <td class="source">Ancient Sage (bonus prof)</td></tr>
+        <tr><td>Religion</td>          <td class="bonus">+3</td>  <td class="source">Warlock</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ CLASS FEATURES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#manuscript-rosette"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Class Features</h2>
+    </div>
+
+    <div class="features-cluster-title">Warlock — Base</div>
+
+    <div class="feature">
+      <div class="feature-title">Pact Magic</div>
+      <div class="feature-meta">Charisma · Save DC 13 · Attack +5 · Book of Shadows or Tetragrammaton talisman as focus</div>
+    </div>
+
+    <div class="features-cluster-title">The Ancient Sage — Otherworldly Patron</div>
+
+    <div class="feature subclass">
+      <div class="feature-title">The Wise Question</div>
+      <div class="feature-meta">Action · 2 uses per long rest · Level 1</div>
+      <div class="feature-body">
+        <p>Ask any sentient creature that understands her a logical, full-sentence question. Wis save vs <strong>DC 13</strong>. On a failure, the target is obliged to tell the unaltered truth. Undetectable by mundane skills — only spells, feats, and abilities that detect arcane powers reveal it.</p>
+        <p><em>She carries the engraved Tetragrammaton talisman that her patron-spirit speaks through; without it she cannot use this feature.</em></p>
+      </div>
+    </div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Bonus Proficiency</div>
+      <div class="feature-meta">Level 1</div>
+      <div class="feature-body">
+        <p>Two skills from History / Medicine / Nature / Arcana / Religion — picked <strong>Medicine</strong> and <strong>Nature</strong>.</p>
+      </div>
+    </div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Ancient Sage Expanded Spell List</div>
+      <div class="feature-meta">Always known · Do not count against spells known</div>
+      <div class="feature-body">
+        <p><strong>1st-level:</strong> <em>detect evil and good</em>, <em>wisdom of avicenna</em> <span style="font-size:0.85em;">(a.k.a. Mandate of the Sophists: Avicenna)</span>. <strong>2nd-level:</strong> <em>animal messenger</em>, <em>augury</em>.</p>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">Pact Boon — Pact of the Tome</div>
+
+    <div class="feature pact">
+      <div class="feature-title">Book of Shadows</div>
+      <div class="feature-meta">Level 3 · Arcane focus</div>
+      <div class="feature-body">
+        <p>The Book contains <strong>3 cantrips from any class list</strong>, which she can cast at will as warlock cantrips. Picked: <em>Sacred Flame</em>, <em>Mage Hand</em>, <em>Minor Illusion</em>.</p>
+        <p>If the Book is lost, she can perform a <strong>1-hour ceremony</strong> during a short or long rest to bond with a new copy. The old book burns to ash.</p>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">Eldritch Invocations</div>
+
+    <div class="feature">
+      <div class="feature-title">Agonizing Blast</div>
+      <div class="feature-meta">Requires Eldritch Blast</div>
+      <div class="feature-body">
+        <p>Each beam of <em>Eldritch Blast</em> deals an additional <strong>+3 force damage</strong> (Cha modifier).</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Eyes of the Rune Keeper</div>
+      <div class="feature-body">
+        <p>She can read all writing — known languages, ancient scripts, dead languages, cipher (with effort), and magical inscriptions provided they are not actively glamoured against her.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPELLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#manuscript-rosette"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Spells</h2>
+      <p class="section-subtitle">4 spells known, plus 4 subclass always-known; 5 cantrips (2 Warlock + 3 from Pact of the Tome)</p>
+    </div>
+
+    <div class="features-cluster-title">Cantrips Known</div>
+    <ul class="cantrips-list">
+      <li>Eldritch Blast</li>
+      <li>Guidance</li>
+      <li class="tome">Sacred Flame <span style="font-size:0.75em;color:var(--gold-deep);font-style:normal;">— Tome</span></li>
+      <li class="tome">Mage Hand <span style="font-size:0.75em;color:var(--gold-deep);font-style:normal;">— Tome</span></li>
+      <li class="tome">Minor Illusion <span style="font-size:0.75em;color:var(--gold-deep);font-style:normal;">— Tome</span></li>
+    </ul>
+
+    <div class="features-cluster-title">Spell Slots</div>
+    <div class="spell-slots">
+      <div class="slot-group">
+        <span class="slot-level">Both Slots</span>
+        <span class="slot-count">2 &times; 2nd</span>
+      </div>
+    </div>
+    <p class="slot-note">Warlock pact magic: both slots are 2nd level; recover on short rest.</p>
+
+    <div class="features-cluster-title">Known &amp; Subclass-Granted</div>
+    <table class="spells-table">
+      <thead>
+        <tr>
+          <th class="lvl">Lvl</th>
+          <th class="spell-name">Spell</th>
+          <th class="note">Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="lvl">1st</td><td class="spell-name">hex</td>                <td class="note">Concentration; +1d6 necrotic on weapon attacks vs target, disadvantage on chosen ability</td></tr>
+        <tr><td class="lvl">1st</td><td class="spell-name">charm person</td>      <td class="note">Wis save DC 13; charm humanoid for 1 hour</td></tr>
+        <tr><td class="lvl">2nd</td><td class="spell-name">detect thoughts</td>   <td class="note">Concentration; the signature scholar's spell</td></tr>
+        <tr><td class="lvl">2nd</td><td class="spell-name">suggestion</td>        <td class="note">Concentration; Wis save DC 13</td></tr>
+        <tr><td class="lvl">1st</td><td class="spell-name">detect evil and good</td><td class="note"><em>Subclass always-known</em></td></tr>
+        <tr><td class="lvl">1st</td><td class="spell-name">wisdom of avicenna</td><td class="note"><em>Subclass always-known</em>; ritual; advantage on Medicine 10 min, detect natural disease/poison</td></tr>
+        <tr><td class="lvl">2nd</td><td class="spell-name">animal messenger</td>  <td class="note"><em>Subclass always-known</em>; ritual</td></tr>
+        <tr><td class="lvl">2nd</td><td class="spell-name">augury</td>            <td class="note"><em>Subclass always-known</em>; ritual</td></tr>
+      </tbody>
+    </table>
+
+    <div class="ritual-book">
+      <div class="ritual-book-label">Ritual Book — Wizard Rituals (from Ritual Caster feat)</div>
+      <div class="ritual-book-body">
+        <p>Cast as rituals only (no slot needed). Scribed so far:</p>
+        <ul class="ritual-book-list">
+          <li><span class="scribed">Detect Magic</span> — 1st level, ritual</li>
+          <li><span class="scribed">Identify</span> — 1st level, ritual</li>
+        </ul>
+        <p class="ritual-book-note">Can scribe additional Wizard ritual spells into the book by finding them on scrolls or in other spellbooks. Cost: 50 gp per spell level, 2 hours per level.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEAT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#manuscript-rosette"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Feat</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Ritual Caster — Wizard</div>
+      <div class="feature-meta">Level 1</div>
+      <div class="feature-body">
+        <p>Grants the <strong>Ritual Book</strong> (Wizard class). Starts with 2 1st-level Wizard ritual spells scribed — <em>detect magic</em> and <em>identify</em>.</p>
+        <p>She can cast any Wizard ritual spell from her ritual book without preparing it, provided the spell has the ritual tag. She can add more Wizard ritual spells to her book as she finds them, paying 50 gp/level and spending 2 hours per spell level to copy them in.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BACKGROUND ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#manuscript-rosette"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Background — Sage (Librarian)</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Researcher</div>
+      <div class="feature-body">
+        <p>When she attempts to learn or recall a piece of lore, if she does not know it, she often knows where and from whom she can obtain it — a library, a sage, a particular merchant who deals in old scrolls, a rabbi who remembers an apocryphal text.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Specialty — Librarian</div>
+      <div class="feature-body">
+        <p>Assistant to and now successor of the Grand Bazaar's most respected Sephardic book-keeper.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EQUIPMENT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#manuscript-rosette"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Equipment</h2>
+    </div>
+    <div class="equipment-grid">
+      <div class="equip-block">
+        <div class="equip-block-title">Weapons</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Quarterstaff</span> &mdash; <span class="item-detail">1d6 bludgeoning; +1 to hit / 1d6 &minus;1 damage; also her walking stick</span></li>
+          <li><span class="item-name">Hanchar &times; 2</span> &mdash; <span class="item-detail">dagger stats: 1d4 piercing, finesse, light, thrown 20/60; +3 to hit / 1d4+1</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Armour</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Leather armour</span> &mdash; <span class="item-detail">a fitted leather jacket worn over her scholar's robes; AC 11 + Dex</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Arcane Focus</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Book of Shadows</span> &mdash; <span class="item-detail">primary focus (Pact of the Tome); a thick codex bound in dark blue leather, edges stained with age and ink, containing her cantrips and pact lore</span></li>
+          <li><span class="item-name">Engraved Tetragrammaton talisman</span> &mdash; <span class="item-detail">a worn copper plate the size of a coin, engraved with the four-letter Name in tiny Hebrew letters; worn on a chain at her throat under her clothes. Her patron-spirit speaks through it — this is the artifact required for <em>The Wise Question</em></span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Ritual Book</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Ritual book</span> &mdash; <span class="item-detail">from Ritual Caster feat; a separate, smaller leather-bound book containing Wizard rituals (<em>detect magic</em>, <em>identify</em> to start); kept in a leather satchel always at her side</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Personal Items</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Bottle of ink, quill, small knife</span> &mdash; <span class="item-detail">Sage</span></li>
+          <li><span class="item-name">Letter from a dead colleague</span> &mdash; <span class="item-detail">posing a still-unanswered question; Sage</span></li>
+          <li><span class="item-name">Common clothes</span> &mdash; <span class="item-detail">Sage</span></li>
+          <li><span class="item-name">Scholar's pack</span> &mdash; <span class="item-detail">backpack, book of lore, ink and pen, 10 sheets parchment, little bag of sand, small knife</span></li>
+          <li><span class="item-name">Magnifying glass</span> &mdash; <span class="item-detail">for reading damaged texts</span></li>
+          <li><span class="item-name">Case of reference fragments</span> &mdash; <span class="item-detail">sealed glass tubes containing samples of unusual inks she has identified</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Available — Not Carried</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Grand Bazaar arcane library</span> &mdash; <span class="item-detail">her workplace; behind a nondescript silk merchant's stall on the southwest gallery</span></li>
+          <li><span class="item-name">Apartment in the Jewish quarter</span> &mdash; <span class="item-detail">near the Galata Tower</span></li>
+        </ul>
+      </div>
+
+      <div class="money-line">
+        Carrying <span class="amount">10 gp</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERSONALITY ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#manuscript-rosette"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Personality</h2>
+    </div>
+    <div class="personality-grid">
+      <div class="personality-card">
+        <div class="personality-label">Trait</div>
+        <p class="personality-text">Every conversation is a citation. When I speak, I speak from a source, and I am always able to tell you where I learned what I am about to say.</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Ideal <span class="alignment-tag">— Knowledge · Neutral</span></div>
+        <p class="personality-text">The past has answers. The dead were not less wise than the living — frequently more so. To recover what they knew is the work I was set on this earth to do.</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Bond</div>
+        <p class="personality-text">There is a single manuscript I am chasing — referenced in three older texts, never seen, perhaps lost in a fire eleven centuries ago. I will find it or die having tried. My patron has hinted that I might, if I am patient.</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Flaw</div>
+        <p class="personality-text">I dismiss the practical and the present too quickly. The man in front of me asking for help cannot interest me half as much as a fragment of marginalia from the eighth century, and people have learned to feel my distraction.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONNECTIONS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#manuscript-rosette"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Connections</h2>
+    </div>
+    <ul class="connections-list">
+      <li>Collaborated with <span class="conn-name">Salih Celestialwalker</span> on deciphering ancient texts.</li>
+      <li>Shared intellectual debates with <span class="conn-name">Father Leonidas</span> on theology and philosophy.</li>
+    </ul>
+  </section>
+
+  <!-- ============ PATRON'S NOTE ============ -->
+  <section class="patron-note">
+    <div class="patron-label">From the Patron's Hand</div>
+    <p class="patron-text">Her expertise in ancient texts and history aligns with the archaeological work.</p>
+    <div class="patron-signature">
+      &mdash; <span class="sig-name">Osman Hamdi Bey</span>
+    </div>
+  </section>
+
+  <!-- ============ FOOT ============ -->
+  <footer class="document-foot">
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal"/></svg>
+    <div class="foot-text">
+      Compiled at the <span class="kufi">المتحف الإمبراطوري</span> Imperial Museum &middot; Constantinople
+    </div>
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal"/></svg>
+  </footer>
+
+</article>
+
+</body>
+</html>

@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Hassan Al-Kabir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Reem+Kufi:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Hassan — Brick, soot, rust copper */
+    --ground:       #2a1814;
+    --ground-deep:  #1a0e0a;
+    --paper:        #ece1c8;        /* warm, slightly smoke-darkened */
+    --paper-shade:  #ddd0b3;
+    --paper-edge:   #c4b699;
+    --ink:          #1f1612;
+    --ink-soft:     #3e2e26;
+    --ink-faint:    #6e5c50;
+    --accent:       #a13a26;        /* fired-clay brick red */
+    --accent-deep:  #6e2818;
+    --accent-pale:  #c66a52;
+    --soot:         #2c2420;
+    --copper:       #b06438;        /* rust copper */
+    --copper-deep:  #7a4220;
+    --gold:         #9c7a3c;        /* old brass */
+    --gold-deep:    #6e5424;
+    --rule:         #b0a283;
+    --rule-soft:    #cabd9c;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 12%, rgba(161, 58, 38, 0.28) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 88%, rgba(26, 14, 10, 0.7) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(42, 24, 20, 0.5) 0%, transparent 80%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  /* ============ DOCUMENT FOLIO ============ */
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 3.75rem 4.25rem 4.5rem;
+    position: relative;
+    box-shadow:
+      0 1px 2px rgba(26, 14, 10, 0.45),
+      0 14px 56px rgba(26, 14, 10, 0.6),
+      inset 0 0 0 1px rgba(176, 162, 131, 0.4);
+    background-image:
+      radial-gradient(ellipse at 0% 0%, rgba(176, 100, 56, 0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 100%, rgba(110, 40, 24, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(60, 40, 30, 0.06) 100%);
+  }
+
+  /* Top folio band — brick / copper gilt edge */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--ground-deep) 0%,
+      var(--accent-deep) 18%,
+      var(--accent) 38%,
+      var(--copper) 50%,
+      var(--accent) 62%,
+      var(--accent-deep) 82%,
+      var(--ground-deep) 100%);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--accent-deep) 20%,
+      var(--copper) 50%,
+      var(--accent-deep) 80%,
+      transparent 100%);
+    opacity: 0.7;
+  }
+
+  .vine-margin {
+    position: absolute;
+    top: 5px; bottom: 3px; left: 0;
+    width: 26px;
+    opacity: 0.24;
+    pointer-events: none;
+  }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2rem;
+  }
+  .masthead-left { min-width: 0; }
+  .masthead-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.38em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .masthead-eyebrow .dossier-no {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .masthead-eyebrow .museum-kufi {
+    font-family: "Reem Kufi", "Cormorant SC", serif;
+    letter-spacing: 0.08em;
+    font-size: 0.92rem;
+    margin-right: 0.6em;
+    color: var(--accent-deep);
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.35rem;
+    line-height: 1;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+  .character-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--accent-deep);
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .cartouche {
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+  }
+
+  /* ============ IDENTITY + PORTRAIT BAND ============ */
+  .identity-band {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 2.25rem;
+    margin-bottom: 2.5rem;
+    align-items: start;
+  }
+  .identity-block { min-width: 0; }
+  .identity-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0.4rem 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    align-items: baseline;
+  }
+  .identity-row:last-child { border-bottom: none; }
+  .identity-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .identity-value {
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+  }
+  .identity-value em {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  /* Portrait plate */
+  .portrait-plate { position: relative; }
+  .portrait-frame {
+    border: 1px solid var(--copper-deep);
+    padding: 6px;
+    background: var(--paper-shade);
+    box-shadow:
+      inset 0 0 0 1px var(--copper),
+      0 2px 8px rgba(26, 14, 10, 0.25);
+    position: relative;
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--accent-deep);
+  }
+  .portrait-frame::before {
+    top: -4px; left: -4px;
+    border-right: none; border-bottom: none;
+  }
+  .portrait-frame::after {
+    bottom: -4px; right: -4px;
+    border-left: none; border-top: none;
+  }
+  .portrait-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: sepia(0.15) saturate(0.95) contrast(1.02);
+  }
+  .portrait-caption {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.7rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .portrait-caption strong {
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+  }
+
+  /* ============ SECTION ORNAMENTS ============ */
+  .section { margin-top: 2.5rem; }
+  .section-head {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    justify-content: center;
+    margin-bottom: 0.7rem;
+  }
+  .section-rule-line {
+    flex: 1;
+    max-width: 180px;
+    height: 1px;
+    background: var(--rule);
+  }
+  .section-ornament {
+    width: 30px; height: 30px;
+    color: var(--accent-deep);
+    flex-shrink: 0;
+  }
+  h2.section-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.55rem;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  .section-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-faint);
+    margin: 0.25rem 0 0;
+  }
+
+  /* ============ BIO ============ */
+  .bio {
+    font-family: "EB Garamond", serif;
+    font-size: 1.08rem;
+    line-height: 1.72;
+    color: var(--ink-soft);
+    text-align: justify;
+    hyphens: auto;
+  }
+  .bio p { margin: 0 0 1em; }
+  .bio p:last-child { margin-bottom: 0; }
+  .bio p:first-child::first-letter {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.1em 0.12em 0 0;
+    color: var(--accent-deep);
+  }
+
+  /* ============ ABILITY SCORES ============ */
+  .abilities {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+  }
+  .ability-card {
+    border: 1px solid var(--rule);
+    background: var(--paper-shade);
+    padding: 0.85rem 0.4rem 0.7rem;
+    text-align: center;
+    position: relative;
+  }
+  .ability-card::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 8px; right: 8px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .ability-card.saveprof::before {
+    background: var(--copper);
+    height: 3px;
+  }
+  .ability-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .ability-score {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 0.15rem 0 0.05rem;
+  }
+  .ability-mod {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem;
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  .ability-save {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+    padding-top: 0.35rem;
+    border-top: 1px dotted var(--rule-soft);
+  }
+  .ability-save .save-val {
+    font-family: "EB Garamond", serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    font-weight: 500;
+    margin-left: 0.2em;
+  }
+  .ability-card.saveprof .ability-save .save-val {
+    color: var(--copper-deep);
+    font-weight: 600;
+  }
+
+  /* ============ COMBAT STATS ============ */
+  .combat-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 0.7rem 0.65rem;
+  }
+  .stat-cell-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .stat-cell-value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-top: 0.15rem;
+  }
+  .stat-cell-value small {
+    font-family: "EB Garamond", serif;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-left: 0.3em;
+  }
+  .combat-note {
+    grid-column: 1 / -1;
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    padding: 0.65rem 0.85rem;
+    background: var(--paper-shade);
+    border-left: 3px solid var(--accent);
+    margin-top: 0.25rem;
+  }
+
+  /* ============ SKILLS ============ */
+  .skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+  }
+  .skills-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .skills-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: baseline;
+  }
+  .skills-table tr:last-child td { border-bottom: none; }
+  .skills-table .bonus {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    color: var(--ink);
+    width: 70px;
+    text-align: center;
+  }
+  .skills-table .source {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+
+  /* ============ FEATURE BLOCKS ============ */
+  .feature {
+    margin: 0 0 1.1rem;
+    padding: 0.85rem 1rem;
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+  }
+  .feature.subclass {
+    border-left-color: var(--copper);
+  }
+  .feature-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    color: var(--ink);
+    margin: 0 0 0.3rem;
+    letter-spacing: 0.01em;
+  }
+  .feature-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .feature-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .feature-body p { margin: 0 0 0.55em; }
+  .feature-body p:last-child { margin-bottom: 0; }
+  .feature-body ul {
+    margin: 0.4em 0 0.2em;
+    padding-left: 1.4em;
+  }
+  .feature-body ul li {
+    padding: 0.15em 0;
+  }
+  .feature-body strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .feature-body em {
+    color: var(--accent-deep);
+  }
+
+  .features-cluster-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .features-cluster-title:first-child { margin-top: 0; }
+
+  /* Rage indicator pills */
+  .rage-pills {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin: 0.3rem 0 0.6rem;
+  }
+  .rage-pill {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--accent), var(--accent-deep));
+    border: 1px solid var(--copper-deep);
+    box-shadow: inset 0 -1px 2px rgba(0,0,0,0.3);
+  }
+  .rage-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-left: 0.4rem;
+  }
+
+  /* ============ EQUIPMENT ============ */
+  .equipment-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .equip-block {
+    border: 1px solid var(--rule-soft);
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+  }
+  .equip-block-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 0 0 0.55rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .equip-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .equip-list li {
+    padding: 0.35rem 0;
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .equip-list li:last-child { border-bottom: none; }
+  .equip-list .item-name { font-weight: 500; }
+  .equip-list .item-detail {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-style: italic;
+  }
+  .money-line {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    padding: 0.85rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .money-line .amount {
+    font-family: "Cormorant Garamond", serif;
+    font-style: normal;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--copper-deep);
+    letter-spacing: 0.05em;
+    margin: 0 0.3em;
+  }
+
+  /* ============ PERSONALITY ============ */
+  .personality-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+  .personality-card {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--paper-shade);
+    border-top: 2px solid var(--accent);
+    position: relative;
+  }
+  .personality-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .personality-label .alignment-tag {
+    color: var(--ink-faint);
+    font-weight: 400;
+    margin-left: 0.4em;
+  }
+  .personality-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ============ CONNECTIONS ============ */
+  .connections-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .connections-list li {
+    padding: 0.65rem 0 0.65rem 1.5rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+    position: relative;
+  }
+  .connections-list li:last-child { border-bottom: none; }
+  .connections-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 1.1em;
+    width: 8px; height: 8px;
+    border: 1px solid var(--accent);
+    transform: rotate(45deg);
+    background: var(--paper);
+  }
+  .connections-list .conn-name {
+    font-weight: 500;
+    color: var(--accent-deep);
+  }
+
+  /* ============ PATRON'S NOTE ============ */
+  .patron-note {
+    margin: 2.75rem 0 0;
+    padding: 1.5rem 1.75rem 1.65rem;
+    border: 1px solid var(--copper);
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 8px,
+        rgba(176, 100, 56, 0.03) 8px,
+        rgba(176, 100, 56, 0.03) 16px
+      ),
+      var(--paper-shade);
+    position: relative;
+  }
+  .patron-note::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 2px;
+    background: linear-gradient(90deg,
+      var(--copper-deep) 0%,
+      var(--copper) 50%,
+      var(--copper-deep) 100%);
+  }
+  .patron-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--copper-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+  .patron-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+  .patron-signature {
+    margin-top: 0.85rem;
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    color: var(--ink-soft);
+  }
+  .patron-signature .sig-name {
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  /* ============ FOOT ============ */
+  .document-foot {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .foot-seal {
+    width: 38px; height: 38px;
+    color: var(--accent-deep);
+    opacity: 0.75;
+  }
+  .foot-text {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    flex: 1;
+  }
+  .foot-text .kufi {
+    font-family: "Reem Kufi", serif;
+    letter-spacing: 0.08em;
+    color: var(--accent-deep);
+    margin: 0 0.4em;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 760px) {
+    body { padding: 1rem 0.4rem 2rem; }
+    .document { padding: 2.25rem 1.5rem 2.75rem; }
+    h1.character-name { font-size: 2.3rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1rem; }
+    .cartouche { width: 80px; height: 80px; justify-self: start; }
+    .identity-band { grid-template-columns: 1fr; }
+    .portrait-plate { max-width: 240px; }
+    .abilities { grid-template-columns: repeat(3, 1fr); }
+    .combat-stats { grid-template-columns: repeat(2, 1fr); }
+    .personality-grid { grid-template-columns: 1fr; }
+    .vine-margin { display: none; }
+    .skills-table .source { display: none; }
+  }
+
+  @media (max-width: 460px) {
+    .abilities { grid-template-columns: repeat(2, 1fr); }
+    .identity-row { grid-template-columns: 1fr; gap: 0.1rem; }
+    .identity-label { font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Inline SVG definitions -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Hassan's section ornament: heavy, irregular 8-point star, almost defaced -->
+    <symbol id="defaced-star" viewBox="0 0 30 30">
+      <g fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="miter">
+        <!-- 8-point star polygon (slightly irregular, soot-scratched feel) -->
+        <path d="M15 2 L17 12 L27 13 L19 17 L23 26 L15 21 L7 26 L11 17 L3 13 L13 12 Z" fill-opacity="0.65"/>
+        <!-- Scratched-over slash, as if defaced -->
+        <path d="M5 24 L25 6" stroke-width="1.2" stroke-linecap="butt"/>
+      </g>
+    </symbol>
+
+    <!-- Foot seal: kilij silhouette in a city-key shape -->
+    <symbol id="foot-seal" viewBox="0 0 40 40">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <circle cx="20" cy="20" r="17"/>
+        <circle cx="20" cy="20" r="13" stroke-dasharray="1 2"/>
+        <!-- Curved kilij blade -->
+        <path d="M14 28 Q 16 18 18 12 Q 20 8 23 6 L 25 8 Q 23 11 21 14 Q 18 22 16 30 Z" fill="currentColor" stroke="none" opacity="0.85"/>
+        <!-- Crossguard -->
+        <path d="M12 30 L 19 28" stroke-width="1.3" stroke-linecap="butt"/>
+      </g>
+    </symbol>
+
+    <!-- Hassan's cartouche: curved kilij crossed with a city-key -->
+    <symbol id="cartouche-hassan" viewBox="0 0 110 110">
+      <g fill="none" stroke="currentColor" stroke-width="1.1">
+        <!-- Outer ring (defaced, broken in places) -->
+        <path d="M 55 5 A 50 50 0 0 1 105 55 A 50 50 0 0 1 88 92 M 80 98 A 50 50 0 0 1 22 98 M 14 92 A 50 50 0 0 1 5 55 A 50 50 0 0 1 55 5"/>
+        <!-- Inner ring -->
+        <circle cx="55" cy="55" r="42" stroke-width="0.7" stroke-dasharray="2 3"/>
+        <!-- Curved kilij — diagonal blade -->
+        <g fill="currentColor" stroke="currentColor" stroke-width="0.6">
+          <path d="M30 28 Q 38 35 50 50 Q 62 65 76 80 L 78 76 Q 64 60 52 46 Q 40 32 33 24 Z" fill-opacity="0.85"/>
+          <!-- Hilt -->
+          <rect x="26" y="22" width="8" height="3" transform="rotate(40 30 23)" fill="currentColor"/>
+          <circle cx="27" cy="20" r="2" fill="currentColor"/>
+        </g>
+        <!-- City-key — diagonal opposing -->
+        <g fill="none" stroke="currentColor" stroke-width="1.3">
+          <!-- Key shaft -->
+          <line x1="30" y1="80" x2="76" y2="34" />
+          <!-- Key bow (circle at lower-left) -->
+          <circle cx="26" cy="84" r="6"/>
+          <!-- Key teeth at upper-right end -->
+          <path d="M 76 34 L 80 30 L 80 26 L 76 26 M 72 38 L 76 34"/>
+        </g>
+        <!-- Four cardinal flourishes -->
+        <path d="M55 3 L52 9 L55 12 L58 9 Z" fill="currentColor" stroke="none"/>
+        <path d="M55 107 L52 101 L55 98 L58 101 Z" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Vine pattern: rough chain-link / forged-iron motif for the margin -->
+    <pattern id="vinePattern" width="26" height="120" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="currentColor" stroke-width="0.9">
+        <!-- Chain link 1 -->
+        <ellipse cx="13" cy="15" rx="5" ry="9" stroke-width="1"/>
+        <!-- Chain link 2 (perpendicular) -->
+        <ellipse cx="13" cy="35" rx="9" ry="5" stroke-width="1"/>
+        <!-- Chain link 3 -->
+        <ellipse cx="13" cy="55" rx="5" ry="9" stroke-width="1"/>
+        <!-- Chain link 4 (perpendicular) -->
+        <ellipse cx="13" cy="75" rx="9" ry="5" stroke-width="1"/>
+        <!-- Chain link 5 -->
+        <ellipse cx="13" cy="95" rx="5" ry="9" stroke-width="1"/>
+        <!-- Chain link 6 (perpendicular) -->
+        <ellipse cx="13" cy="115" rx="9" ry="5" stroke-width="1"/>
+      </g>
+    </pattern>
+  </defs>
+</svg>
+
+<article class="document">
+
+  <svg class="vine-margin" preserveAspectRatio="none" aria-hidden="true" style="color: var(--accent-deep); width:26px; height:100%;">
+    <rect width="100%" height="100%" fill="url(#vinePattern)"/>
+  </svg>
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="masthead-eyebrow">
+        <span class="museum-kufi">دوسيه</span>
+        <span>Müze-i Hümâyûn</span> &middot; <span class="dossier-no">Dossier · Barbarian</span>
+      </div>
+      <h1 class="character-name">Hassan Al-Kabir</h1>
+      <p class="character-subtitle">Street-King of the Lower Quarters &middot; Urban Vagabond</p>
+    </div>
+    <svg class="cartouche" aria-hidden="true" style="color: var(--accent-deep);">
+      <use href="#cartouche-hassan"/>
+    </svg>
+  </header>
+
+  <!-- ============ IDENTITY + PORTRAIT ============ -->
+  <section class="identity-band">
+    <div class="identity-block">
+      <div class="identity-row">
+        <span class="identity-label">Class &amp; Level</span>
+        <span class="identity-value">Barbarian 3 &middot; Urban Vagabond</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Race</span>
+        <span class="identity-value">Human (standard)</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Background</span>
+        <span class="identity-value">Urchin</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Age</span>
+        <span class="identity-value">34</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Heritage</span>
+        <span class="identity-value">Turkish</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Faith</span>
+        <span class="identity-value">Sunni Islam</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Alignment</span>
+        <span class="identity-value">Chaotic Neutral</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Languages</span>
+        <span class="identity-value">Ottoman Turkish (Common), Arabic; <em>Greek (no proficiency)</em></span>
+      </div>
+    </div>
+
+    <div class="portrait-plate">
+      <div class="portrait-frame">
+        <img src="hassan.png" alt="Portrait of Hassan Al-Kabir">
+      </div>
+      <div class="portrait-caption">
+        <strong>Hassan Al-Kabir</strong><br>
+        Turkish &middot; Aged Thirty-Four
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BIO ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#defaced-star"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">On the Subject</h2>
+    </div>
+    <div class="bio">
+      <p>Hassan roams the back alleys of Constantinople, upholding his own brand of justice among the marginalized communities. He grew up in those same alleys — orphaned young, raised by the network of vendors, beggars, and corner-prophets that the city's poor have been quietly maintaining for centuries.</p>
+      <p>He came up tough and he came up fast, and the older he gets, the less patience he has for the well-dressed men in the upper districts who think the lower city is theirs to walk through. He is feared and respected by the street vendors he protects in equal measure. His temper is famous. He does not deny it.</p>
+    </div>
+  </section>
+
+  <!-- ============ ABILITY SCORES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#defaced-star"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Faculties &amp; Saving Throws</h2>
+      <p class="section-subtitle">Base array 17, 14, 11, 10, 9, 8; Human +1 to each; Urban Hunter feat +1 Wis</p>
+    </div>
+    <div class="abilities">
+      <div class="ability-card saveprof">
+        <div class="ability-name">Strength</div>
+        <div class="ability-score">18</div>
+        <div class="ability-mod">+4</div>
+        <div class="ability-save">Save <span class="save-val">+6</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Dexterity</div>
+        <div class="ability-score">12</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Constitution</div>
+        <div class="ability-score">15</div>
+        <div class="ability-mod">+2</div>
+        <div class="ability-save">Save <span class="save-val">+4</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Intelligence</div>
+        <div class="ability-score">10</div>
+        <div class="ability-mod">+0</div>
+        <div class="ability-save">Save <span class="save-val">+0</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Wisdom</div>
+        <div class="ability-score">12</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Charisma</div>
+        <div class="ability-score">9</div>
+        <div class="ability-mod">&minus;1</div>
+        <div class="ability-save">Save <span class="save-val">&minus;1</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMBAT STATS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#defaced-star"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Bearing in the Field</h2>
+    </div>
+    <div class="combat-stats">
+      <div class="stat-cell">
+        <div class="stat-cell-label">Proficiency</div>
+        <div class="stat-cell-value">+2</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Armour Class</div>
+        <div class="stat-cell-value">13 <small>unarmored</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Initiative</div>
+        <div class="stat-cell-value">+1</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Speed</div>
+        <div class="stat-cell-value">30 <small>ft</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Points</div>
+        <div class="stat-cell-value">32</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Dice</div>
+        <div class="stat-cell-value">3d12</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Passive Perception</div>
+        <div class="stat-cell-value">13</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">With Shield</div>
+        <div class="stat-cell-value">AC 15</div>
+      </div>
+      <div class="combat-note">
+        <strong>While raging:</strong> resistance to bludgeoning, piercing, and slashing damage (effectively doubles his HP against most physical threats); advantage on Strength checks and Str saves; +2 damage on melee Str-based weapon attacks.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#defaced-star"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <table class="skills-table">
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th class="bonus" style="text-align:center;">Bonus</th>
+          <th class="source">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Athletics</td>          <td class="bonus">+6</td>  <td class="source">Barbarian</td></tr>
+        <tr><td>Intimidation</td>       <td class="bonus">+1</td>  <td class="source">Barbarian</td></tr>
+        <tr><td>Perception</td>         <td class="bonus">+3</td>  <td class="source">Human</td></tr>
+        <tr><td>Sleight of Hand</td>    <td class="bonus">+3</td>  <td class="source">Urchin</td></tr>
+        <tr><td>Stealth</td>            <td class="bonus">+3</td>  <td class="source">Urchin</td></tr>
+        <tr><td>Survival</td>           <td class="bonus">+3</td>  <td class="source">Urban Hunter feat</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ CLASS FEATURES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#defaced-star"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Class Features</h2>
+    </div>
+
+    <div class="features-cluster-title">Barbarian — Base</div>
+
+    <div class="feature">
+      <div class="feature-title">Rage</div>
+      <div class="feature-meta">Bonus action · Level 1</div>
+      <div class="rage-pills">
+        <span class="rage-pill"></span>
+        <span class="rage-pill"></span>
+        <span class="rage-pill"></span>
+        <span class="rage-label">3 uses per long rest</span>
+      </div>
+      <div class="feature-body">
+        <p>Lasts 1 minute, or until ended, until he is incapacitated, or until he goes a turn without attacking a hostile creature or taking damage. Benefits while raging:</p>
+        <ul>
+          <li>Advantage on Strength checks and Strength saving throws</li>
+          <li><strong>+2 damage</strong> on melee Strength-based weapon attacks</li>
+          <li><strong>Resistance</strong> to bludgeoning, piercing, and slashing damage</li>
+          <li>Cannot cast spells or maintain concentration</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Unarmored Defense</div>
+      <div class="feature-meta">Level 1</div>
+      <div class="feature-body">
+        <p>When not wearing armor, AC = 10 + Dex + Con (already factored into AC 13).</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Reckless Attack</div>
+      <div class="feature-meta">Level 2</div>
+      <div class="feature-body">
+        <p>On his turn, can attack recklessly: gain advantage on melee Str attacks this turn; all attacks against him have advantage until his next turn.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Danger Sense</div>
+      <div class="feature-meta">Level 2</div>
+      <div class="feature-body">
+        <p>Advantage on Dexterity saves against effects he can see (traps, area spells, etc.), as long as he isn't blinded, deafened, or incapacitated.</p>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">Urban Vagabond</div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Wrath of the Vagabond</div>
+      <div class="feature-meta">1 use per rage · Level 3</div>
+      <div class="feature-body">
+        <p>When he rages, he invokes fear in his enemies' hearts. Up to <strong>2 creatures</strong> (Con mod) within 60 ft. that he can see make a Wisdom save vs <strong>DC 14</strong> (8 + PB 2 + Str 4) or be <strong>frightened for 1 minute</strong>. Affected creatures may repeat the save at the end of each of their turns.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEAT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#defaced-star"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Feat</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">The Urban Hunter</div>
+      <div class="feature-meta">Level 1 · +1 Wisdom applied · City of Crescent</div>
+      <div class="feature-body">
+        <p>Proficiency in the Survival skill. When he takes the Search action or makes a Survival check to analyze clues and tracks in an urban area, he can learn the <strong>creature's type</strong> (humanoid, fiend, djinn, beast, etc.).</p>
+        <p><em>Hassan reads the city itself — the chalk marks on doorways, the way a fruit cart was upended an hour ago, who walked through an alley and how recently.</em></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BACKGROUND ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#defaced-star"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Background — Urchin</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">City Secrets</div>
+      <div class="feature-body">
+        <p>Hassan knows the secret patterns and flow of Constantinople. He can lead his companions through the city at <strong>twice the normal travel pace</strong> between any two locations within its walls, using hidden routes — rooftop runs, basement tunnels, courtyards behind certain shops where the owners look the other way, the dry sections of cisterns no one official remembers exist.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Tool Proficiencies</div>
+      <div class="feature-body">
+        <p>Disguise kit and thieves' tools (Urchin).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EQUIPMENT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#defaced-star"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Equipment</h2>
+    </div>
+    <div class="equipment-grid">
+      <div class="equip-block">
+        <div class="equip-block-title">Weapons</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Mamluk Kilij</span> &mdash; <span class="item-detail">greatsword stats: 2d6 slashing, heavy, two-handed; +6 to hit / 2d6+4; heavy curved Ottoman saber, taken off a Mamluk corsair he killed in his early twenties</span></li>
+          <li><span class="item-name">Hanchar &times; 2</span> &mdash; <span class="item-detail">1d4 piercing, finesse, light, range, thrown 20/60; +6 to hit / 1d4+4; utility daggers, one on his belt, one in his boot</span></li>
+          <li><span class="item-name">Handaxe &times; 2</span> &mdash; <span class="item-detail">1d6 slashing, light, thrown 20/60; +6 to hit / 1d6+4; secondary; can be thrown</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Armour</div>
+        <ul class="equip-list">
+          <li><span class="item-name">None</span> &mdash; <span class="item-detail">Unarmored Defense; carries no shield by default, but one is available if he wants AC 15 for a particular fight</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Tools</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Disguise kit</span> &mdash; <span class="item-detail">worn, light — mostly used for changing class appearance rather than identity: scholar's vest, vendor's apron, dockworker's coat</span></li>
+          <li><span class="item-name">Thieves' tools</span> &mdash; <span class="item-detail">Urchin</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Personal Items</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Urchin pouch</span> &mdash; <span class="item-detail">a small leather pouch with a city map of Constantinople he drew himself, three knucklebone dice, a key to a door he won't say where</span></li>
+          <li><span class="item-name">Common clothes</span> &mdash; <span class="item-detail">deliberately unmemorable</span></li>
+          <li><span class="item-name">Neighborhood tokens</span> &mdash; <span class="item-detail">a small token from each major neighborhood he protects — markers of trust, recognized by locals who know what they mean (a flat copper coin from the Spice Bazaar vendors, a brass button from the Galata dockworkers, a strip of green ribbon from the Greek quarter laundresses, etc.)</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Available — Not Carried</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Safe room off the Hippodrome</span> &mdash; <span class="item-detail">bedroll, weapon cache, a chest of his belongings</span></li>
+        </ul>
+      </div>
+
+      <div class="money-line">
+        Carrying <span class="amount">10 gp</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERSONALITY ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#defaced-star"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Personality</h2>
+    </div>
+    <div class="personality-grid">
+      <div class="personality-card">
+        <div class="personality-label">Trait</div>
+        <p class="personality-text">I will fight you over an injustice to a man I have never met before, and I will buy you a drink afterward if you fought well.</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Ideal <span class="alignment-tag">— Justice · Chaotic</span></div>
+        <p class="personality-text">The state won't protect the people who need protecting. So someone has to. That someone is me, and the people like me.</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Bond</div>
+        <p class="personality-text">The vendors and beggars who raised me when I had no family — they are my family. I will spill blood for any of them. I have, more than once.</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Flaw</div>
+        <p class="personality-text">My temper is real, and it does not always wait for me to think. I have started fights I should have walked away from, and I will start more before I die.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONNECTIONS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#defaced-star"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Connections</h2>
+    </div>
+    <ul class="connections-list">
+      <li>Knows <span class="conn-name">Ayla Sürgün</span> from encounters in Constantinople's underground during her espionage work.</li>
+      <li>Protected <span class="conn-name">Miriam the Chronicler</span> when she was cornered by thieves in the city.</li>
+    </ul>
+  </section>
+
+  <!-- ============ PATRON'S NOTE ============ -->
+  <section class="patron-note">
+    <div class="patron-label">From the Patron's Hand</div>
+    <p class="patron-text">His knowledge of the streets and ability to protect the group would be invaluable in dealing with any dangers at the dig.</p>
+    <div class="patron-signature">
+      &mdash; <span class="sig-name">Osman Hamdi Bey</span>
+    </div>
+  </section>
+
+  <!-- ============ FOOT ============ -->
+  <footer class="document-foot">
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal"/></svg>
+    <div class="foot-text">
+      Compiled at the <span class="kufi">المتحف الإمبراطوري</span> Imperial Museum &middot; Constantinople
+    </div>
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal"/></svg>
+  </footer>
+
+</article>
+
+</body>
+</html>

@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Ayla Sürgün</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Reem+Kufi:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Ayla — Shadow-cipher: deep navy, oxblood, gunmetal, cold silver */
+    --ground:       #131826;
+    --ground-deep:  #080b18;
+    --paper:        #e6e2d2;        /* cool stone-cream, faintly gray */
+    --paper-shade:  #d8d3bf;
+    --paper-edge:   #beb9a3;
+    --ink:          #14171e;
+    --ink-soft:     #2e3340;
+    --ink-faint:    #5a5e6c;
+    --accent:       #1f2c50;        /* deep navy */
+    --accent-deep:  #0e1734;
+    --accent-pale:  #4a5878;
+    --oxblood:      #6e2424;        /* oxblood — used very sparingly */
+    --gunmetal:     #3c4250;        /* gunmetal */
+    --silver:       #969aa5;        /* cold silver */
+    --silver-deep:  #6e7280;
+    --gold:         #8b8479;        /* muted, almost no gold — this is a covert document */
+    --gold-deep:    #5e5950;
+    --rule:         #a09b8a;
+    --rule-soft:    #c0bba8;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 12%, rgba(31, 44, 80, 0.32) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 88%, rgba(8, 11, 24, 0.7) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(19, 24, 38, 0.5) 0%, transparent 80%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  /* ============ DOCUMENT FOLIO ============ */
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 3.75rem 4.25rem 4.5rem;
+    position: relative;
+    box-shadow:
+      0 1px 2px rgba(8, 11, 24, 0.45),
+      0 14px 56px rgba(8, 11, 24, 0.65),
+      inset 0 0 0 1px rgba(160, 155, 138, 0.4);
+    background-image:
+      radial-gradient(ellipse at 0% 0%, rgba(74, 88, 120, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 100%, rgba(60, 66, 80, 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(30, 35, 50, 0.05) 100%);
+  }
+
+  /* Top folio band — navy / gunmetal / silver — no warm gold */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--ground-deep) 0%,
+      var(--accent-deep) 18%,
+      var(--accent) 38%,
+      var(--silver) 50%,
+      var(--accent) 62%,
+      var(--accent-deep) 82%,
+      var(--ground-deep) 100%);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--accent-deep) 20%,
+      var(--silver) 50%,
+      var(--accent-deep) 80%,
+      transparent 100%);
+    opacity: 0.7;
+  }
+
+  /* Watermark stamp suggesting "CLASSIFIED" without using the word */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--ground-deep) 0%,
+      var(--accent-deep) 18%,
+      var(--accent) 38%,
+      var(--silver) 50%,
+      var(--accent) 62%,
+      var(--accent-deep) 82%,
+      var(--ground-deep) 100%);
+  }
+
+  .vine-margin {
+    position: absolute;
+    top: 5px; bottom: 3px; left: 0;
+    width: 26px;
+    opacity: 0.22;
+    pointer-events: none;
+  }
+
+  /* ============ COVERT WATERMARK ============ */
+  /* A faded "diplomatic seal" watermark in the upper-right of the document,
+     suggesting an unmarked-but-stamped covert file */
+  .covert-mark {
+    position: absolute;
+    top: 22px;
+    right: 32px;
+    width: 96px;
+    height: 96px;
+    opacity: 0.08;
+    pointer-events: none;
+    color: var(--accent);
+  }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2rem;
+  }
+  .masthead-left { min-width: 0; }
+  .masthead-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.38em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .masthead-eyebrow .dossier-no {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .masthead-eyebrow .museum-kufi {
+    font-family: "Reem Kufi", "Cormorant SC", serif;
+    letter-spacing: 0.08em;
+    font-size: 0.92rem;
+    margin-right: 0.6em;
+    color: var(--accent-deep);
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.35rem;
+    line-height: 1;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+  .character-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--accent-deep);
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .cartouche {
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+  }
+
+  /* ============ IDENTITY + PORTRAIT BAND ============ */
+  .identity-band {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 2.25rem;
+    margin-bottom: 2.5rem;
+    align-items: start;
+  }
+  .identity-block { min-width: 0; }
+  .identity-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0.4rem 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    align-items: baseline;
+  }
+  .identity-row:last-child { border-bottom: none; }
+  .identity-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .identity-value {
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+  }
+  .identity-value em {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  /* "Sürgün" — surname note */
+  .surname-note {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    display: block;
+    margin-top: 0.15rem;
+  }
+
+  /* Portrait plate */
+  .portrait-plate { position: relative; }
+  .portrait-frame {
+    border: 1px solid var(--accent-deep);
+    padding: 6px;
+    background: var(--paper-shade);
+    box-shadow:
+      inset 0 0 0 1px var(--silver),
+      0 2px 8px rgba(8, 11, 24, 0.22);
+    position: relative;
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--accent-deep);
+  }
+  .portrait-frame::before {
+    top: -4px; left: -4px;
+    border-right: none; border-bottom: none;
+  }
+  .portrait-frame::after {
+    bottom: -4px; right: -4px;
+    border-left: none; border-top: none;
+  }
+  .portrait-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: sepia(0.05) saturate(0.88) brightness(0.96);
+  }
+  .portrait-caption {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.7rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .portrait-caption strong {
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+  }
+  /* Three-aliases note under portrait */
+  .portrait-aliases {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--accent-deep);
+    text-align: center;
+    margin-top: 0.4rem;
+  }
+
+  /* ============ SECTION ORNAMENTS ============ */
+  .section { margin-top: 2.5rem; }
+  .section-head {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    justify-content: center;
+    margin-bottom: 0.7rem;
+  }
+  .section-rule-line {
+    flex: 1;
+    max-width: 180px;
+    height: 1px;
+    background: var(--rule);
+  }
+  .section-ornament {
+    width: 30px; height: 30px;
+    color: var(--accent-deep);
+    flex-shrink: 0;
+  }
+  h2.section-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.55rem;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  .section-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-faint);
+    margin: 0.25rem 0 0;
+  }
+
+  /* ============ BIO ============ */
+  .bio {
+    font-family: "EB Garamond", serif;
+    font-size: 1.08rem;
+    line-height: 1.72;
+    color: var(--ink-soft);
+    text-align: justify;
+    hyphens: auto;
+  }
+  .bio p { margin: 0 0 1em; }
+  .bio p:last-child { margin-bottom: 0; }
+  .bio p:first-child::first-letter {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.1em 0.12em 0 0;
+    color: var(--accent-deep);
+  }
+
+  /* ============ ABILITY SCORES ============ */
+  .abilities {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+  }
+  .ability-card {
+    border: 1px solid var(--rule);
+    background: var(--paper-shade);
+    padding: 0.85rem 0.4rem 0.7rem;
+    text-align: center;
+    position: relative;
+  }
+  .ability-card::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 8px; right: 8px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .ability-card.saveprof::before {
+    background: var(--silver-deep);
+    height: 3px;
+  }
+  .ability-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .ability-score {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 0.15rem 0 0.05rem;
+  }
+  .ability-mod {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem;
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  .ability-save {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+    padding-top: 0.35rem;
+    border-top: 1px dotted var(--rule-soft);
+  }
+  .ability-save .save-val {
+    font-family: "EB Garamond", serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    font-weight: 500;
+    margin-left: 0.2em;
+  }
+  .ability-card.saveprof .ability-save .save-val {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+
+  /* ============ COMBAT STATS ============ */
+  .combat-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 0.7rem 0.65rem;
+  }
+  .stat-cell-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .stat-cell-value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-top: 0.15rem;
+  }
+  .stat-cell-value small {
+    font-family: "EB Garamond", serif;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-left: 0.3em;
+  }
+
+  /* ============ SKILLS ============ */
+  .skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+  }
+  .skills-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .skills-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: baseline;
+  }
+  .skills-table tr:last-child td { border-bottom: none; }
+  .skills-table .bonus {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    color: var(--ink);
+    width: 70px;
+    text-align: center;
+  }
+  .skills-table .bonus.expertise {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .skills-table .bonus.exceptional {
+    color: var(--oxblood);
+    font-weight: 600;
+  }
+  .skills-table .source {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+  .skills-note {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    padding: 0.65rem 0.85rem;
+    background: var(--paper-shade);
+    border-left: 3px solid var(--accent);
+    margin-top: 0.8rem;
+  }
+
+  /* ============ FEATURE BLOCKS ============ */
+  .feature {
+    margin: 0 0 1.1rem;
+    padding: 0.85rem 1rem;
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+  }
+  .feature.subclass {
+    border-left-color: var(--silver-deep);
+  }
+  .feature-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    color: var(--ink);
+    margin: 0 0 0.3rem;
+    letter-spacing: 0.01em;
+  }
+  .feature-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .feature-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .feature-body p { margin: 0 0 0.55em; }
+  .feature-body p:last-child { margin-bottom: 0; }
+  .feature-body ul {
+    margin: 0.4em 0 0.2em;
+    padding-left: 1.4em;
+  }
+  .feature-body ul li {
+    padding: 0.15em 0;
+  }
+  .feature-body strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .feature-body em {
+    color: var(--accent-deep);
+  }
+
+  .features-cluster-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .features-cluster-title:first-child { margin-top: 0; }
+
+  /* Sneak Attack callout */
+  .sneak-attack {
+    margin: 0.5em 0;
+    padding: 0.55rem 0.85rem;
+    background: var(--paper);
+    border: 1px solid var(--silver-deep);
+    border-left: 3px solid var(--oxblood);
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    font-size: 0.97rem;
+  }
+  .sneak-attack-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .sneak-attack-dice {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    color: var(--oxblood);
+    font-size: 1.15rem;
+  }
+
+  /* Subtle Arcana spell pills */
+  .subtle-arcana-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    padding: 0;
+    margin: 0.5em 0 0;
+    list-style: none;
+  }
+  .subtle-arcana-list li {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.97rem;
+    color: var(--ink);
+    padding: 0.15rem 0.7rem;
+    background: var(--paper);
+    border: 1px solid var(--silver);
+    border-left-width: 3px;
+    border-left-color: var(--silver-deep);
+  }
+
+  /* ============ EQUIPMENT ============ */
+  .equipment-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .equip-block {
+    border: 1px solid var(--rule-soft);
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+  }
+  .equip-block-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 0 0 0.55rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .equip-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .equip-list li {
+    padding: 0.35rem 0;
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .equip-list li:last-child { border-bottom: none; }
+  .equip-list .item-name { font-weight: 500; }
+  .equip-list .item-detail {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-style: italic;
+  }
+  .money-line {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    padding: 0.85rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .money-line .amount {
+    font-family: "Cormorant Garamond", serif;
+    font-style: normal;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--silver-deep);
+    letter-spacing: 0.05em;
+    margin: 0 0.3em;
+  }
+
+  /* Safehouses list — special equipment block for an espionage character */
+  .safehouses {
+    margin-top: 1.1rem;
+    border: 1px solid var(--accent-deep);
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0,
+        transparent 24px,
+        rgba(31, 44, 80, 0.025) 24px,
+        rgba(31, 44, 80, 0.025) 48px
+      ),
+      var(--paper);
+    padding: 0.85rem 1rem;
+  }
+  .safehouses-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 0 0 0.6rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .safehouses-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.6rem 0.9rem;
+  }
+  .safehouse {
+    padding: 0.4rem 0.6rem;
+    background: var(--paper-shade);
+    border-left: 3px solid var(--silver-deep);
+    font-size: 0.94rem;
+  }
+  .safehouse-district {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.64rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+  .safehouse-cover {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    color: var(--ink);
+  }
+  .safehouse.real {
+    border-left-color: var(--oxblood);
+  }
+  .safehouse.real .safehouse-cover {
+    color: var(--oxblood);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  /* ============ PERSONALITY ============ */
+  .personality-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+  .personality-card {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--paper-shade);
+    border-top: 2px solid var(--accent);
+    position: relative;
+  }
+  .personality-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .personality-label .alignment-tag {
+    color: var(--ink-faint);
+    font-weight: 400;
+    margin-left: 0.4em;
+  }
+  .personality-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ============ CONNECTIONS ============ */
+  .connections-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .connections-list li {
+    padding: 0.65rem 0 0.65rem 1.5rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+    position: relative;
+  }
+  .connections-list li:last-child { border-bottom: none; }
+  .connections-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 1.1em;
+    width: 8px; height: 8px;
+    border: 1px solid var(--accent);
+    transform: rotate(45deg);
+    background: var(--paper);
+  }
+  .connections-list .conn-name {
+    font-weight: 500;
+    color: var(--accent-deep);
+  }
+
+  /* ============ PATRON'S NOTE ============ */
+  .patron-note {
+    margin: 2.75rem 0 0;
+    padding: 1.5rem 1.75rem 1.65rem;
+    border: 1px solid var(--silver-deep);
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 8px,
+        rgba(60, 66, 80, 0.03) 8px,
+        rgba(60, 66, 80, 0.03) 16px
+      ),
+      var(--paper-shade);
+    position: relative;
+  }
+  .patron-note::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 2px;
+    background: linear-gradient(90deg,
+      var(--gunmetal) 0%,
+      var(--silver) 50%,
+      var(--gunmetal) 100%);
+  }
+  .patron-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--silver-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+  .patron-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+  .patron-signature {
+    margin-top: 0.85rem;
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    color: var(--ink-soft);
+  }
+  .patron-signature .sig-name {
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  /* ============ FOOT ============ */
+  .document-foot {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .foot-seal {
+    width: 38px; height: 38px;
+    color: var(--accent-deep);
+    opacity: 0.75;
+  }
+  .foot-text {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    flex: 1;
+  }
+  .foot-text .kufi {
+    font-family: "Reem Kufi", serif;
+    letter-spacing: 0.08em;
+    color: var(--accent-deep);
+    margin: 0 0.4em;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 760px) {
+    body { padding: 1rem 0.4rem 2rem; }
+    .document { padding: 2.25rem 1.5rem 2.75rem; }
+    h1.character-name { font-size: 2.3rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1rem; }
+    .cartouche { width: 80px; height: 80px; justify-self: start; }
+    .identity-band { grid-template-columns: 1fr; }
+    .portrait-plate { max-width: 240px; }
+    .abilities { grid-template-columns: repeat(3, 1fr); }
+    .combat-stats { grid-template-columns: repeat(2, 1fr); }
+    .personality-grid { grid-template-columns: 1fr; }
+    .vine-margin { display: none; }
+    .skills-table .source { display: none; }
+    .safehouses-grid { grid-template-columns: 1fr; }
+    .covert-mark { display: none; }
+  }
+
+  @media (max-width: 460px) {
+    .abilities { grid-template-columns: repeat(2, 1fr); }
+    .identity-row { grid-template-columns: 1fr; gap: 0.1rem; }
+    .identity-label { font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Inline SVG definitions -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Ayla's section ornament: interlocking diamond cipher-grid -->
+    <symbol id="cipher-grid" viewBox="0 0 30 30">
+      <g fill="none" stroke="currentColor" stroke-width="0.7">
+        <!-- Outer diamond -->
+        <path d="M 15 4 L 26 15 L 15 26 L 4 15 Z"/>
+        <!-- Inner diamond -->
+        <path d="M 15 9 L 21 15 L 15 21 L 9 15 Z"/>
+        <!-- Cross hatch through center -->
+        <line x1="4" y1="15" x2="26" y2="15" stroke-width="0.5" stroke-dasharray="1 1.5"/>
+        <line x1="15" y1="4" x2="15" y2="26" stroke-width="0.5" stroke-dasharray="1 1.5"/>
+        <!-- Center marker dot -->
+        <circle cx="15" cy="15" r="1.3" fill="currentColor" stroke="none"/>
+        <!-- Four small corner dots (suggesting a cipher key) -->
+        <circle cx="4" cy="15" r="0.7" fill="currentColor" stroke="none"/>
+        <circle cx="26" cy="15" r="0.7" fill="currentColor" stroke="none"/>
+        <circle cx="15" cy="4" r="0.7" fill="currentColor" stroke="none"/>
+        <circle cx="15" cy="26" r="0.7" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Foot seal: small keyhole-in-compass -->
+    <symbol id="foot-seal" viewBox="0 0 40 40">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <circle cx="20" cy="20" r="17"/>
+        <circle cx="20" cy="20" r="13" stroke-dasharray="1 2"/>
+        <!-- Compass points (4 cardinal) -->
+        <path d="M 20 6 L 22 13 L 20 12 L 18 13 Z" fill="currentColor" stroke="none"/>
+        <path d="M 20 34 L 22 27 L 20 28 L 18 27 Z" fill="currentColor" stroke="none"/>
+        <path d="M 6 20 L 13 22 L 12 20 L 13 18 Z" fill="currentColor" stroke="none"/>
+        <path d="M 34 20 L 27 22 L 28 20 L 27 18 Z" fill="currentColor" stroke="none"/>
+        <!-- Keyhole in center -->
+        <circle cx="20" cy="18" r="2.5" stroke-width="1"/>
+        <path d="M 18.5 20 L 21.5 20 L 21 25 L 19 25 Z" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Ayla's cartouche: keyhole within a rose-of-the-winds (compass) -->
+    <symbol id="cartouche-ayla" viewBox="0 0 110 110">
+      <g fill="none" stroke="currentColor" stroke-width="1.1">
+        <!-- Outer ring -->
+        <circle cx="55" cy="55" r="50"/>
+        <!-- Inner ring, dashed -->
+        <circle cx="55" cy="55" r="42" stroke-width="0.7" stroke-dasharray="2 3"/>
+
+        <!-- Compass rose: 8 points (4 cardinal large, 4 ordinal small) -->
+        <g>
+          <!-- North/South/East/West (long) -->
+          <path d="M 55 14 L 59 50 L 55 55 L 51 50 Z" fill="currentColor" fill-opacity="0.7"/>
+          <path d="M 55 96 L 59 60 L 55 55 L 51 60 Z" fill="currentColor" fill-opacity="0.7"/>
+          <path d="M 14 55 L 50 59 L 55 55 L 50 51 Z" fill="currentColor" fill-opacity="0.7"/>
+          <path d="M 96 55 L 60 59 L 55 55 L 60 51 Z" fill="currentColor" fill-opacity="0.7"/>
+          <!-- Diagonals (shorter, lighter) -->
+          <path d="M 26 26 L 50 50 L 51 49 L 27 25 Z" fill="currentColor" fill-opacity="0.4"/>
+          <path d="M 84 26 L 60 50 L 59 49 L 83 25 Z" fill="currentColor" fill-opacity="0.4"/>
+          <path d="M 26 84 L 50 60 L 51 61 L 27 85 Z" fill="currentColor" fill-opacity="0.4"/>
+          <path d="M 84 84 L 60 60 L 59 61 L 83 85 Z" fill="currentColor" fill-opacity="0.4"/>
+        </g>
+
+        <!-- Central keyhole -->
+        <g>
+          <!-- Keyhole rim -->
+          <circle cx="55" cy="55" r="9" fill="var(--paper)" stroke="currentColor" stroke-width="1.2"/>
+          <!-- Keyhole upper circle -->
+          <circle cx="55" cy="52" r="3" fill="currentColor" stroke="none"/>
+          <!-- Keyhole bottom slot -->
+          <path d="M 53 54 L 57 54 L 56 62 L 54 62 Z" fill="currentColor" stroke="none"/>
+        </g>
+
+        <!-- Tiny cardinal direction marks at the outer ring -->
+        <text x="55" y="9" font-family="Cormorant SC, serif" font-size="6" fill="currentColor" text-anchor="middle" font-weight="600">N</text>
+        <text x="55" y="106" font-family="Cormorant SC, serif" font-size="6" fill="currentColor" text-anchor="middle" font-weight="600">S</text>
+        <text x="8" y="58" font-family="Cormorant SC, serif" font-size="6" fill="currentColor" text-anchor="middle" font-weight="600">W</text>
+        <text x="102" y="58" font-family="Cormorant SC, serif" font-size="6" fill="currentColor" text-anchor="middle" font-weight="600">E</text>
+      </g>
+    </symbol>
+
+    <!-- Covert mark: a faded diplomatic-style seal in the document corner -->
+    <symbol id="covert-mark" viewBox="0 0 96 96">
+      <g fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="48" cy="48" r="44"/>
+        <circle cx="48" cy="48" r="36" stroke-dasharray="3 4"/>
+        <circle cx="48" cy="48" r="28"/>
+        <!-- Pseudo-tugra-style flourish, abstract -->
+        <path d="M 30 50 Q 35 30 50 35 Q 60 40 55 55 Q 50 65 40 60" stroke-width="1.5"/>
+        <path d="M 35 65 L 65 65" stroke-width="1.2"/>
+        <path d="M 38 70 L 62 70" stroke-width="0.8"/>
+      </g>
+    </symbol>
+
+    <!-- Vine pattern: interlocking diamonds — cipher-grid motif -->
+    <pattern id="vinePattern" width="26" height="120" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="currentColor" stroke-width="0.8">
+        <!-- Diamond 1 -->
+        <path d="M 13 5 L 21 15 L 13 25 L 5 15 Z"/>
+        <!-- Diamond 2 -->
+        <path d="M 13 35 L 21 45 L 13 55 L 5 45 Z"/>
+        <!-- Diamond 3 -->
+        <path d="M 13 65 L 21 75 L 13 85 L 5 75 Z"/>
+        <!-- Diamond 4 -->
+        <path d="M 13 95 L 21 105 L 13 115 L 5 105 Z"/>
+        <!-- Center dots -->
+        <circle cx="13" cy="15" r="1" fill="currentColor" stroke="none"/>
+        <circle cx="13" cy="45" r="1" fill="currentColor" stroke="none"/>
+        <circle cx="13" cy="75" r="1" fill="currentColor" stroke="none"/>
+        <circle cx="13" cy="105" r="1" fill="currentColor" stroke="none"/>
+        <!-- Connecting lines between diamonds -->
+        <line x1="13" y1="25" x2="13" y2="35" stroke-width="0.4"/>
+        <line x1="13" y1="55" x2="13" y2="65" stroke-width="0.4"/>
+        <line x1="13" y1="85" x2="13" y2="95" stroke-width="0.4"/>
+      </g>
+    </pattern>
+  </defs>
+</svg>
+
+<article class="document">
+
+  <svg class="vine-margin" preserveAspectRatio="none" aria-hidden="true" style="color: var(--accent-deep); width:26px; height:100%;">
+    <rect width="100%" height="100%" fill="url(#vinePattern)"/>
+  </svg>
+
+  <!-- Covert watermark in the corner -->
+  <svg class="covert-mark" aria-hidden="true"><use href="#covert-mark"/></svg>
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="masthead-eyebrow">
+        <span class="museum-kufi">دوسيه</span>
+        <span>Müze-i Hümâyûn</span> &middot; <span class="dossier-no">Dossier · Rogue</span>
+      </div>
+      <h1 class="character-name">Ayla Sürgün</h1>
+      <p class="character-subtitle">Yörük Operative of an Unnamed Bureau &middot; The Secret Service</p>
+    </div>
+    <svg class="cartouche" aria-hidden="true" style="color: var(--accent-deep);">
+      <use href="#cartouche-ayla"/>
+    </svg>
+  </header>
+
+  <!-- ============ IDENTITY + PORTRAIT ============ -->
+  <section class="identity-band">
+    <div class="identity-block">
+      <div class="identity-row">
+        <span class="identity-label">Class &amp; Level</span>
+        <span class="identity-value">Rogue 3 &middot; The Secret Service</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Race</span>
+        <span class="identity-value">Human (standard)</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Background</span>
+        <span class="identity-value">Spy (Criminal variant)</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Age</span>
+        <span class="identity-value">33</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Heritage</span>
+        <span class="identity-value">Turkic (Yörük nomadic)</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Faith</span>
+        <span class="identity-value">Irreligious <em>— secular, but respects local traditions</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Alignment</span>
+        <span class="identity-value">Lawful Neutral</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Languages</span>
+        <span class="identity-value">Ottoman Turkish (Common), Persian, French, Russian, Greek
+          <span class="surname-note">Can read, write, and decode ciphers (Linguist feat).</span>
+        </span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Surname</span>
+        <span class="identity-value"><em>Sürgün — "exile"</em>
+          <span class="surname-note">Given to her by the bureau that recruited her. Not the name she was born with.</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="portrait-plate">
+      <div class="portrait-frame">
+        <img src="ayla.png" alt="Portrait of Ayla Sürgün">
+      </div>
+      <div class="portrait-caption">
+        <strong>Ayla Sürgün</strong><br>
+        Turkic / Yörük &middot; Aged Thirty-Three
+      </div>
+      <div class="portrait-aliases">never arrested for the same name twice</div>
+    </div>
+  </section>
+
+  <!-- ============ BIO ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cipher-grid"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">On the Subject</h2>
+    </div>
+    <div class="bio">
+      <p>A shadow operative for <em>A Certain Community</em> — the Sublime Porte's discreet intelligence bureau, never named openly in official correspondence and never acknowledged at all in foreign dispatches. Ayla unravels plots threatening the Ottoman Empire, working out of cafés, embassy salons, and rooftops alike.</p>
+      <p>Her Yörük heritage left her with the nomad's gift of vanishing into any landscape; her training has refined that gift into something closer to art. She speaks five languages, can pass for a courier, a maid, or a merchant's widow, and has never been arrested for the same name twice.</p>
+    </div>
+  </section>
+
+  <!-- ============ ABILITY SCORES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cipher-grid"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Faculties &amp; Saving Throws</h2>
+      <p class="section-subtitle">Base array 18, 15, 12, 12, 11, 10; Human +1 to each; Linguist feat +1 Int</p>
+    </div>
+    <div class="abilities">
+      <div class="ability-card">
+        <div class="ability-name">Strength</div>
+        <div class="ability-score">11</div>
+        <div class="ability-mod">+0</div>
+        <div class="ability-save">Save <span class="save-val">+0</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Dexterity</div>
+        <div class="ability-score">19</div>
+        <div class="ability-mod">+4</div>
+        <div class="ability-save">Save <span class="save-val">+6</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Constitution</div>
+        <div class="ability-score">13</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Intelligence</div>
+        <div class="ability-score">17</div>
+        <div class="ability-mod">+3</div>
+        <div class="ability-save">Save <span class="save-val">+5</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Wisdom</div>
+        <div class="ability-score">13</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Charisma</div>
+        <div class="ability-score">12</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMBAT STATS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cipher-grid"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Bearing in the Field</h2>
+    </div>
+    <div class="combat-stats">
+      <div class="stat-cell">
+        <div class="stat-cell-label">Proficiency</div>
+        <div class="stat-cell-value">+2</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Armour Class</div>
+        <div class="stat-cell-value">16 <small>studded</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Initiative</div>
+        <div class="stat-cell-value">+4</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Speed</div>
+        <div class="stat-cell-value">30 <small>ft</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Points</div>
+        <div class="stat-cell-value">21</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Dice</div>
+        <div class="stat-cell-value">3d8</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Passive Perception</div>
+        <div class="stat-cell-value">13</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Spell Save DC</div>
+        <div class="stat-cell-value">13 <small>+5 atk · Int</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cipher-grid"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Skills</h2>
+      <p class="section-subtitle">Expertise applied to Stealth and Investigation</p>
+    </div>
+    <table class="skills-table">
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th class="bonus" style="text-align:center;">Bonus</th>
+          <th class="source">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Deception</td>           <td class="bonus">+3</td>             <td class="source">Spy</td></tr>
+        <tr><td>Insight</td>             <td class="bonus">+3</td>             <td class="source">Rogue</td></tr>
+        <tr><td>Investigation</td>       <td class="bonus expertise">+7</td>   <td class="source">Rogue &middot; Expertise</td></tr>
+        <tr><td>Perception</td>          <td class="bonus">+3</td>             <td class="source">Rogue</td></tr>
+        <tr><td>Sleight of Hand</td>     <td class="bonus">+6</td>             <td class="source">Rogue</td></tr>
+        <tr><td>Stealth</td>             <td class="bonus expertise">+8</td>   <td class="source">Spy &middot; Expertise</td></tr>
+        <tr><td>Stealth <em>(+Int)</em></td><td class="bonus exceptional">+11</td><td class="source">when no disadvantage applies &middot; Secret Service</td></tr>
+        <tr><td>Survival</td>            <td class="bonus">+3</td>             <td class="source">Human</td></tr>
+      </tbody>
+    </table>
+    <div class="skills-note">
+      Tool proficiencies: thieves' tools (Rogue); gaming set — cards (Spy). Linguist feat allows her to craft written ciphers — others must succeed on an Intelligence check (<strong>DC 19</strong>: Int score 17 + PB 2) to decode an intercepted message.
+    </div>
+  </section>
+
+  <!-- ============ CLASS FEATURES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cipher-grid"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Class Features</h2>
+    </div>
+
+    <div class="features-cluster-title">Rogue — Base</div>
+
+    <div class="feature">
+      <div class="feature-title">Expertise</div>
+      <div class="feature-meta">Level 1 &middot; Level 3</div>
+      <div class="feature-body">
+        <p>Proficiency doubled on <strong>Stealth</strong> and <strong>Investigation</strong>.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Sneak Attack</div>
+      <div class="feature-meta">Once per turn &middot; Level 1</div>
+      <div class="sneak-attack">
+        <span class="sneak-attack-label">Damage</span>
+        <span class="sneak-attack-dice">2d6</span>
+        <span style="color:var(--ink-soft);font-style:italic;font-size:0.95rem;">extra, on a qualifying attack</span>
+      </div>
+      <div class="feature-body">
+        <p>Extra damage when she has advantage on the attack roll <strong>OR</strong> an enemy of the target is within 5 ft. of the target. Requires a finesse or ranged weapon.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Thieves' Cant</div>
+      <div class="feature-meta">Level 1</div>
+      <div class="feature-body">
+        <p>The hidden language and signs of the underworld.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Cunning Action</div>
+      <div class="feature-meta">Bonus action &middot; Level 2</div>
+      <div class="feature-body">
+        <p>Dash, Disengage, or Hide as a bonus action.</p>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">The Secret Service — Roguish Archetype</div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Subtle Arcana</div>
+      <div class="feature-meta">3 uses per long rest (Int mod) · Level 3</div>
+      <div class="feature-body">
+        <p>Casts each spell without expending a spell slot. <strong>Intelligence</strong> is her spellcasting ability. <strong>Spell save DC 13, spell attack +5.</strong></p>
+        <ul class="subtle-arcana-list">
+          <li>Disguise Self</li>
+          <li>Comprehend Languages</li>
+        </ul>
+        <p style="font-size:0.92rem;font-style:italic;color:var(--ink-faint);margin-top:0.7em;">At Level 5, learns alter self, detect thoughts, and invisibility — each 1/day without a slot.</p>
+      </div>
+    </div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Unmatched Training</div>
+      <div class="feature-meta">Level 3</div>
+      <div class="feature-body">
+        <ul>
+          <li>Can <strong>read lips</strong> (in any language she knows).</li>
+          <li>Can <strong>discern simple gestures and whispers</strong> in noisy environments within hearing range.</li>
+          <li>When she fails or rolls below 10 on a Wisdom or Charisma check, she adds her <strong>Int modifier (+3)</strong> to the result.</li>
+          <li>When she makes a Stealth check <strong>without disadvantage</strong>, she adds her <strong>Int modifier (+3)</strong> to the result. <em>(Already factored into the Stealth +11 line in the skills table.)</em></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEAT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cipher-grid"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Feat</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Linguist</div>
+      <div class="feature-meta">Level 1 · +1 Intelligence applied</div>
+      <div class="feature-body">
+        <p>Learns three additional languages of her choice — <strong>French, Russian, Greek</strong>.</p>
+        <p>She can craft written ciphers. Allies she shares the cipher key with can decode messages she writes; others must succeed on an Intelligence check (<strong>DC = Int score + PB = 17 + 2 = 19</strong>) to decode an intercepted message, with no limit on attempts.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BACKGROUND ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cipher-grid"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Background — Spy (Criminal Variant)</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Criminal Contact</div>
+      <div class="feature-body">
+        <p>Ayla has a reliable contact who acts as her liaison to a network of other criminals and informants. She knows how to get messages to and from this contact, even over great distances — specifically, she knows the local messengers, corrupt caravan masters, and seedy sailors who can deliver word for her.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Skill Grants</div>
+      <div class="feature-body">
+        <p>Deception and Stealth proficiencies (Spy background).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EQUIPMENT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cipher-grid"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Equipment</h2>
+    </div>
+    <div class="equipment-grid">
+      <div class="equip-block">
+        <div class="equip-block-title">Weapons</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Rapier</span> &mdash; <span class="item-detail">a slender European-style épée, French-made, carried under a long coat; 1d8 piercing, finesse; +6 to hit / 1d8+4</span></li>
+          <li><span class="item-name">Shortbow + 20 arrows</span> &mdash; <span class="item-detail">1d6 piercing, range 80/320; +6 to hit / 1d6+4</span></li>
+          <li><span class="item-name">Hanchar &times; 3</span> &mdash; <span class="item-detail">utility daggers, period Ottoman style; 1d4 piercing, finesse, light, thrown 20/60; +6 to hit / 1d4+4. One on her belt, one in her boot, one sewn into the lining of whichever coat she's wearing today</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Armour</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Studded leather</span> &mdash; <span class="item-detail">a fitted leather jacket reinforced with worked-iron studs, sewn into the lining to avoid detection on casual pat-down; AC 12 + Dex; total AC 16</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Tools</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Thieves' tools</span> &mdash; <span class="item-detail">Rogue proficiency</span></li>
+          <li><span class="item-name">Forgery kit</span> &mdash; <span class="item-detail">kept at her safehouse; not class-proficient</span></li>
+          <li><span class="item-name">Gaming set — cards</span> &mdash; <span class="item-detail">Spy</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Personal Items</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Bag of false identifications</span> &mdash; <span class="item-detail">travel papers under three different names</span></li>
+          <li><span class="item-name">Coded notebook</span> &mdash; <span class="item-detail">contacts and dead drops, encrypted with her own cipher</span></li>
+          <li><span class="item-name">Locket</span> &mdash; <span class="item-detail">with a portrait of someone she does not name and will not discuss</span></li>
+          <li><span class="item-name">Field kit</span> &mdash; <span class="item-detail">crowbar; hooded lantern; oil; tinderbox; 100 ft of hemp rope; bell on a thin wire; piton &times; 5; small mirror on a telescoping rod</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Disguise — Operational Note</div>
+        <ul class="equip-list">
+          <li><span class="item-detail">No proficiency with a disguise kit, but she has used one before unproficiently. For high-stakes operations she typically relies on her <em>disguise self</em> spell (Subtle Arcana) and an ally with the Help action rather than physical disguise tools.</span></li>
+        </ul>
+      </div>
+
+      <div class="safehouses">
+        <div class="safehouses-title">Available — Three Safehouses Across Constantinople</div>
+        <div class="safehouses-grid">
+          <div class="safehouse">
+            <div class="safehouse-district">Galata</div>
+            <div class="safehouse-cover">cover: laundress</div>
+          </div>
+          <div class="safehouse">
+            <div class="safehouse-district">Üsküdar</div>
+            <div class="safehouse-cover">cover: French widow</div>
+          </div>
+          <div class="safehouse real">
+            <div class="safehouse-district">Beyoğlu</div>
+            <div class="safehouse-cover">hers, in her real name</div>
+          </div>
+        </div>
+        <ul class="equip-list" style="margin-top:0.7rem;">
+          <li><span class="item-name">Stable of three contact-horses</span> &mdash; <span class="item-detail">she does not own them and will not be questioned for taking them</span></li>
+        </ul>
+      </div>
+
+      <div class="money-line">
+        Carrying <span class="amount">15 gp</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERSONALITY ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cipher-grid"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Personality</h2>
+    </div>
+    <div class="personality-grid">
+      <div class="personality-card">
+        <div class="personality-label">Trait</div>
+        <p class="personality-text">I learned five languages because every language has a word for what the speakers won't admit out loud. I listen for those.</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Ideal <span class="alignment-tag">— Discretion · Lawful</span></div>
+        <p class="personality-text">The empire endures because some of us know how to keep our mouths shut. I am one of those.</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Bond</div>
+        <p class="personality-text">There is one operative — one — whose life is mine to protect, regardless of what the bureau orders. The bureau does not know this. It is the only thing they don't know about me.</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Flaw</div>
+        <p class="personality-text">I do not believe anyone is telling me the truth, ever. This serves me in my work. It has cost me every friendship I have tried to keep.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONNECTIONS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cipher-grid"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Connections</h2>
+    </div>
+    <ul class="connections-list">
+      <li>Former co-conspirator with <span class="conn-name">Zehra of the Spinning Veil</span> during an undercover operation.</li>
+      <li>Respectful rival of <span class="conn-name">Damla "The Faceless" Sancaktar</span> in subterfuge and cunning.</li>
+    </ul>
+  </section>
+
+  <!-- ============ PATRON'S NOTE ============ -->
+  <section class="patron-note">
+    <div class="patron-label">From the Patron's Hand</div>
+    <p class="patron-text">Her sharp investigative skills and intuition make her ideal for solving mysteries.</p>
+    <div class="patron-signature">
+      &mdash; <span class="sig-name">Osman Hamdi Bey</span>
+    </div>
+  </section>
+
+  <!-- ============ FOOT ============ -->
+  <footer class="document-foot">
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal"/></svg>
+    <div class="foot-text">
+      Compiled at the <span class="kufi">المتحف الإمبراطوري</span> Imperial Museum &middot; Constantinople
+    </div>
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal"/></svg>
+  </footer>
+
+</article>
+
+</body>
+</html>

@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Leyla of the Blue Eye</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Reem+Kufi:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Leyla — Nazar blue: cobalt, sky-blue, antique brass, ivory */
+    --ground:       #0e2238;
+    --ground-deep:  #07172a;
+    --paper:        #eae0c6;        /* warm cream with very subtle blue cast */
+    --paper-shade:  #dbd0b2;
+    --paper-edge:   #beb295;
+    --ink:          #14202c;
+    --ink-soft:     #2a3848;
+    --ink-faint:    #5a6878;
+    --accent:       #1c3868;        /* cobalt nazar blue */
+    --accent-deep:  #0e2348;
+    --accent-pale:  #4a6da0;
+    --sky:          #5a8ec8;        /* nazar sky-blue (the eye iris) */
+    --sky-deep:     #3568a0;
+    --eye-white:    #f5ebd2;        /* the pale white of the eye */
+    --brass:        #9c7d3c;        /* antique brass */
+    --brass-deep:   #6e5524;
+    --gold:         #9c7d3c;
+    --gold-deep:    #6e5524;
+    --rule:         #a89c80;
+    --rule-soft:    #c4b89a;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 12%, rgba(74, 109, 160, 0.28) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 88%, rgba(7, 23, 42, 0.7) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(14, 34, 56, 0.5) 0%, transparent 80%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  /* ============ DOCUMENT FOLIO ============ */
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 3.75rem 4.25rem 4.5rem;
+    position: relative;
+    box-shadow:
+      0 1px 2px rgba(7, 23, 42, 0.45),
+      0 14px 56px rgba(7, 23, 42, 0.6),
+      inset 0 0 0 1px rgba(168, 156, 128, 0.4);
+    background-image:
+      radial-gradient(ellipse at 0% 0%, rgba(90, 142, 200, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 100%, rgba(156, 125, 60, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(28, 56, 104, 0.04) 100%);
+  }
+
+  /* Top folio band — cobalt / sky / brass */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--ground-deep) 0%,
+      var(--accent-deep) 18%,
+      var(--accent) 38%,
+      var(--sky) 50%,
+      var(--accent) 62%,
+      var(--accent-deep) 82%,
+      var(--ground-deep) 100%);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--accent-deep) 20%,
+      var(--brass) 50%,
+      var(--accent-deep) 80%,
+      transparent 100%);
+    opacity: 0.7;
+  }
+
+  .vine-margin {
+    position: absolute;
+    top: 5px; bottom: 3px; left: 0;
+    width: 26px;
+    opacity: 0.32;
+    pointer-events: none;
+  }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2rem;
+  }
+  .masthead-left { min-width: 0; }
+  .masthead-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.38em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .masthead-eyebrow .dossier-no {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .masthead-eyebrow .museum-kufi {
+    font-family: "Reem Kufi", "Cormorant SC", serif;
+    letter-spacing: 0.08em;
+    font-size: 0.92rem;
+    margin-right: 0.6em;
+    color: var(--accent-deep);
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.35rem;
+    line-height: 1;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+  .character-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--accent-deep);
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .cartouche {
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+  }
+
+  /* ============ IDENTITY + PORTRAIT BAND ============ */
+  .identity-band {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 2.25rem;
+    margin-bottom: 2.5rem;
+    align-items: start;
+  }
+  .identity-block { min-width: 0; }
+  .identity-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0.4rem 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    align-items: baseline;
+  }
+  .identity-row:last-child { border-bottom: none; }
+  .identity-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .identity-value {
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+  }
+  .identity-value em {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  /* Portrait plate */
+  .portrait-plate { position: relative; }
+  .portrait-frame {
+    border: 1px solid var(--accent-deep);
+    padding: 6px;
+    background: var(--paper-shade);
+    box-shadow:
+      inset 0 0 0 1px var(--brass),
+      0 2px 8px rgba(7, 23, 42, 0.22);
+    position: relative;
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--accent-deep);
+  }
+  .portrait-frame::before {
+    top: -4px; left: -4px;
+    border-right: none; border-bottom: none;
+  }
+  .portrait-frame::after {
+    bottom: -4px; right: -4px;
+    border-left: none; border-top: none;
+  }
+  .portrait-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: sepia(0.06) saturate(0.92) brightness(0.97);
+  }
+  .portrait-caption {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.7rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .portrait-caption strong {
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+  }
+  .portrait-detail {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--sky-deep);
+    text-align: center;
+    margin-top: 0.4rem;
+  }
+
+  /* ============ SECTION ORNAMENTS ============ */
+  .section { margin-top: 2.5rem; }
+  .section-head {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    justify-content: center;
+    margin-bottom: 0.7rem;
+  }
+  .section-rule-line {
+    flex: 1;
+    max-width: 180px;
+    height: 1px;
+    background: var(--rule);
+  }
+  .section-ornament {
+    width: 30px; height: 30px;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  h2.section-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.55rem;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  .section-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-faint);
+    margin: 0.25rem 0 0;
+  }
+
+  /* ============ BIO ============ */
+  .bio {
+    font-family: "EB Garamond", serif;
+    font-size: 1.08rem;
+    line-height: 1.72;
+    color: var(--ink-soft);
+    text-align: justify;
+    hyphens: auto;
+  }
+  .bio p { margin: 0 0 1em; }
+  .bio p:last-child { margin-bottom: 0; }
+  .bio p:first-child::first-letter {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.1em 0.12em 0 0;
+    color: var(--accent);
+  }
+
+  /* ============ ABILITY SCORES ============ */
+  .abilities {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+  }
+  .ability-card {
+    border: 1px solid var(--rule);
+    background: var(--paper-shade);
+    padding: 0.85rem 0.4rem 0.7rem;
+    text-align: center;
+    position: relative;
+  }
+  .ability-card::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 8px; right: 8px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .ability-card.saveprof::before {
+    background: var(--brass);
+    height: 3px;
+  }
+  .ability-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .ability-score {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 0.15rem 0 0.05rem;
+  }
+  .ability-mod {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .ability-save {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+    padding-top: 0.35rem;
+    border-top: 1px dotted var(--rule-soft);
+  }
+  .ability-save .save-val {
+    font-family: "EB Garamond", serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    font-weight: 500;
+    margin-left: 0.2em;
+  }
+  .ability-card.saveprof .ability-save .save-val {
+    color: var(--brass-deep);
+    font-weight: 600;
+  }
+
+  /* ============ COMBAT STATS ============ */
+  .combat-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 0.7rem 0.65rem;
+  }
+  .stat-cell-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .stat-cell-value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-top: 0.15rem;
+  }
+  .stat-cell-value small {
+    font-family: "EB Garamond", serif;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-left: 0.3em;
+  }
+  /* Passive Perception cell highlighted — Druid Wis specialty */
+  .stat-cell.perception-high {
+    border-color: var(--sky-deep);
+    background:
+      radial-gradient(circle at 80% 30%, rgba(90, 142, 200, 0.08) 0%, transparent 60%),
+      var(--paper);
+  }
+
+  /* ============ SKILLS ============ */
+  .skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+  }
+  .skills-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .skills-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: baseline;
+  }
+  .skills-table tr:last-child td { border-bottom: none; }
+  .skills-table .bonus {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    color: var(--ink);
+    width: 70px;
+    text-align: center;
+  }
+  .skills-table .source {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+
+  /* ============ FEATURE BLOCKS ============ */
+  .feature {
+    margin: 0 0 1.1rem;
+    padding: 0.85rem 1rem;
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+  }
+  .feature.subclass {
+    border-left-color: var(--sky-deep);
+  }
+  .feature-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    color: var(--ink);
+    margin: 0 0 0.3rem;
+    letter-spacing: 0.01em;
+  }
+  .feature-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .feature-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .feature-body p { margin: 0 0 0.55em; }
+  .feature-body p:last-child { margin-bottom: 0; }
+  .feature-body ul {
+    margin: 0.4em 0 0.2em;
+    padding-left: 1.4em;
+  }
+  .feature-body ul li {
+    padding: 0.15em 0;
+  }
+  .feature-body strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .feature-body em {
+    color: var(--accent);
+  }
+
+  .features-cluster-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .features-cluster-title:first-child { margin-top: 0; }
+
+  /* Good Eye sub-feature menu */
+  .good-eye-menu {
+    list-style: none;
+    margin: 0.5em 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+  .good-eye-menu li {
+    padding: 0.5em 0.75em;
+    background: var(--paper);
+    border-left: 2px solid var(--sky-deep);
+    font-size: 0.96rem;
+  }
+  .good-eye-menu .gem-name {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.2em;
+  }
+
+  /* Wild Shape tracker — small beast-token orbs */
+  .wild-shape-tracker {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    margin: 0.3rem 0 0.6rem;
+  }
+  .wild-shape-orb {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--sky), var(--sky-deep));
+    border: 1px solid var(--accent-deep);
+    box-shadow: inset 0 -1px 2px rgba(0,0,0,0.3);
+    position: relative;
+  }
+  /* Make the orbs look like little nazars */
+  .wild-shape-orb::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: var(--eye-white);
+    border: 0.5px solid var(--accent-deep);
+  }
+  .wild-shape-orb::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    border-radius: 50%;
+    background: var(--accent-deep);
+    z-index: 1;
+  }
+  .resource-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-left: 0.4rem;
+  }
+
+  /* Wild Shape forms - small list of known forms */
+  .wild-shape-forms {
+    list-style: none;
+    margin: 0.4em 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+  .wild-shape-form {
+    padding: 0.4rem 0.55rem;
+    background: var(--paper);
+    border: 1px solid var(--rule-soft);
+    border-top: 2px solid var(--sky-deep);
+    text-align: center;
+  }
+  .wild-shape-form.preferred {
+    border-top-color: var(--brass);
+  }
+  .form-name {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+  .form-cr {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.15rem;
+  }
+  .form-preferred-tag {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.22em;
+    color: var(--brass-deep);
+    text-transform: uppercase;
+    margin-top: 0.15rem;
+    display: block;
+  }
+
+  /* ============ SPELLS ============ */
+  .spell-slots {
+    display: flex;
+    gap: 1rem;
+    margin: 0.5rem 0 1.25rem;
+    flex-wrap: wrap;
+  }
+  .slot-group {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--rule);
+    background: var(--paper-shade);
+  }
+  .slot-level {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .slot-count {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--accent);
+  }
+
+  .cantrips-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.85rem;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    list-style: none;
+  }
+  .cantrips-list li {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.02rem;
+    color: var(--ink);
+    padding: 0.15rem 0.7rem;
+    background: var(--paper-shade);
+    border: 1px solid var(--rule-soft);
+  }
+  .cantrips-list li.circle {
+    border-color: var(--sky-deep);
+    border-left-width: 3px;
+  }
+
+  .spells-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+  }
+  .spells-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .spells-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: baseline;
+  }
+  .spells-table tr:last-child td { border-bottom: none; }
+  .spells-table .lvl {
+    font-family: "Cormorant Garamond", serif;
+    color: var(--accent);
+    width: 50px;
+  }
+  .spells-table .spell-name {
+    font-style: italic;
+    color: var(--ink);
+    width: 220px;
+  }
+  .spells-table .note {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .spells-table tr.circle-spell td {
+    background: rgba(90, 142, 200, 0.05);
+  }
+
+  /* ============ EQUIPMENT ============ */
+  .equipment-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .equip-block {
+    border: 1px solid var(--rule-soft);
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+  }
+  .equip-block-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 0 0 0.55rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .equip-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .equip-list li {
+    padding: 0.35rem 0;
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .equip-list li:last-child { border-bottom: none; }
+  .equip-list .item-name { font-weight: 500; }
+  .equip-list .item-detail {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-style: italic;
+  }
+  .money-line {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    padding: 0.85rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .money-line .amount {
+    font-family: "Cormorant Garamond", serif;
+    font-style: normal;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--brass-deep);
+    letter-spacing: 0.05em;
+    margin: 0 0.3em;
+  }
+
+  /* Druidic focus — special nazar-bead display */
+  .druidic-focus-block {
+    margin-top: 1.1rem;
+    padding: 1rem 1.15rem;
+    border: 1px solid var(--sky-deep);
+    border-left-width: 3px;
+    background:
+      radial-gradient(ellipse at 85% 20%, rgba(90, 142, 200, 0.06) 0%, transparent 60%),
+      var(--paper);
+    position: relative;
+  }
+  .druidic-focus-block::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 2px;
+    background: linear-gradient(90deg,
+      var(--sky-deep) 0%,
+      var(--sky) 50%,
+      var(--sky-deep) 100%);
+  }
+  .druidic-focus-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin: 0 0 0.55rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  /* Decorative bead strand */
+  .bead-strand {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    justify-content: center;
+    margin: 0.6em 0 0.8em;
+  }
+  .bead-strand-line {
+    flex: 1;
+    height: 1px;
+    background: var(--brass);
+    opacity: 0.4;
+  }
+  .nazar-bead {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--sky);
+    border: 1px solid var(--accent-deep);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .nazar-bead::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: var(--eye-white);
+  }
+  .nazar-bead::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border-radius: 50%;
+    background: var(--accent-deep);
+    z-index: 1;
+  }
+  .nazar-bead.small {
+    width: 12px; height: 12px;
+  }
+  .nazar-bead.small::after { inset: 2px; }
+  .nazar-bead.small::before { inset: 4px; }
+
+  /* ============ PERSONALITY ============ */
+  .personality-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+  .personality-card {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--paper-shade);
+    border-top: 2px solid var(--accent);
+    position: relative;
+  }
+  .personality-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .personality-label .alignment-tag {
+    color: var(--ink-faint);
+    font-weight: 400;
+    margin-left: 0.4em;
+  }
+  .personality-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ============ CONNECTIONS ============ */
+  .connections-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .connections-list li {
+    padding: 0.65rem 0 0.65rem 1.5rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+    position: relative;
+  }
+  .connections-list li:last-child { border-bottom: none; }
+  .connections-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 1.1em;
+    width: 8px; height: 8px;
+    border: 1px solid var(--accent);
+    transform: rotate(45deg);
+    background: var(--paper);
+  }
+  .connections-list .conn-name {
+    font-weight: 500;
+    color: var(--accent);
+  }
+
+  /* ============ PATRON'S NOTE ============ */
+  .patron-note {
+    margin: 2.75rem 0 0;
+    padding: 1.5rem 1.75rem 1.65rem;
+    border: 1px solid var(--brass);
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 8px,
+        rgba(156, 125, 60, 0.03) 8px,
+        rgba(156, 125, 60, 0.03) 16px
+      ),
+      var(--paper-shade);
+    position: relative;
+  }
+  .patron-note::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 2px;
+    background: linear-gradient(90deg,
+      var(--brass-deep) 0%,
+      var(--brass) 50%,
+      var(--brass-deep) 100%);
+  }
+  .patron-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--brass-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+  .patron-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+  .patron-signature {
+    margin-top: 0.85rem;
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    color: var(--ink-soft);
+  }
+  .patron-signature .sig-name {
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  /* ============ FOOT ============ */
+  .document-foot {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .foot-seal {
+    width: 38px; height: 38px;
+    color: var(--accent);
+    opacity: 0.75;
+  }
+  .foot-text {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    flex: 1;
+  }
+  .foot-text .kufi {
+    font-family: "Reem Kufi", serif;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin: 0 0.4em;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 760px) {
+    body { padding: 1rem 0.4rem 2rem; }
+    .document { padding: 2.25rem 1.5rem 2.75rem; }
+    h1.character-name { font-size: 2.3rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1rem; }
+    .cartouche { width: 80px; height: 80px; justify-self: start; }
+    .identity-band { grid-template-columns: 1fr; }
+    .portrait-plate { max-width: 240px; }
+    .abilities { grid-template-columns: repeat(3, 1fr); }
+    .combat-stats { grid-template-columns: repeat(2, 1fr); }
+    .personality-grid { grid-template-columns: 1fr; }
+    .vine-margin { display: none; }
+    .skills-table .source { display: none; }
+    .wild-shape-forms { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 460px) {
+    .abilities { grid-template-columns: repeat(2, 1fr); }
+    .identity-row { grid-template-columns: 1fr; gap: 0.1rem; }
+    .identity-label { font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Inline SVG definitions -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Leyla's section ornament: single nazar bead with concentric rings -->
+    <symbol id="nazar-bead-orn" viewBox="0 0 30 30">
+      <g stroke="currentColor" stroke-width="0.6">
+        <!-- Outer ring -->
+        <circle cx="15" cy="15" r="11" fill="none"/>
+        <!-- Mid ring -->
+        <circle cx="15" cy="15" r="8" fill="currentColor" fill-opacity="0.7" stroke="none"/>
+        <!-- White ring -->
+        <circle cx="15" cy="15" r="5" fill="var(--paper)" stroke="currentColor" stroke-width="0.4"/>
+        <!-- Iris -->
+        <circle cx="15" cy="15" r="2.5" fill="currentColor" stroke="none"/>
+        <!-- Tiny highlight off-center -->
+        <circle cx="14" cy="14" r="0.6" fill="var(--paper)" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Foot seal: small single nazar bead -->
+    <symbol id="foot-seal" viewBox="0 0 40 40">
+      <g stroke="currentColor" stroke-width="1">
+        <circle cx="20" cy="20" r="17" fill="none"/>
+        <circle cx="20" cy="20" r="13" stroke-dasharray="1 2" fill="none"/>
+        <!-- Nazar -->
+        <circle cx="20" cy="20" r="9" fill="currentColor" fill-opacity="0.75" stroke="none"/>
+        <circle cx="20" cy="20" r="5.5" fill="var(--paper)" stroke="currentColor" stroke-width="0.5"/>
+        <circle cx="20" cy="20" r="2.5" fill="currentColor" stroke="none"/>
+        <circle cx="19" cy="19" r="0.6" fill="var(--paper)" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Leyla's cartouche: three concentric nazar beads (the strand) within the ring -->
+    <symbol id="cartouche-leyla" viewBox="0 0 110 110">
+      <g stroke="currentColor" stroke-width="1.1">
+        <!-- Outer ring -->
+        <circle cx="55" cy="55" r="50" fill="none"/>
+        <!-- Inner ring -->
+        <circle cx="55" cy="55" r="42" stroke-width="0.7" fill="none" stroke-dasharray="2 3"/>
+
+        <!-- Three nazar beads in horizontal row -->
+        <!-- Left bead (smaller) -->
+        <g transform="translate(28 55)">
+          <circle cx="0" cy="0" r="11" fill="currentColor" fill-opacity="0.75" stroke="none"/>
+          <circle cx="0" cy="0" r="7" fill="var(--paper)" stroke="currentColor" stroke-width="0.5"/>
+          <circle cx="0" cy="0" r="3.5" fill="currentColor" stroke="none"/>
+          <circle cx="-1" cy="-1" r="0.9" fill="var(--paper)" stroke="none"/>
+        </g>
+        <!-- Center bead (largest) -->
+        <g transform="translate(55 55)">
+          <circle cx="0" cy="0" r="16" fill="currentColor" fill-opacity="0.85" stroke="currentColor" stroke-width="0.9"/>
+          <circle cx="0" cy="0" r="11" fill="var(--paper)" stroke="currentColor" stroke-width="0.6"/>
+          <circle cx="0" cy="0" r="6" fill="currentColor" stroke="none"/>
+          <circle cx="0" cy="0" r="3" fill="currentColor" stroke="currentColor" stroke-width="0.4"/>
+          <circle cx="-1.5" cy="-1.5" r="1.2" fill="var(--paper)" stroke="none"/>
+        </g>
+        <!-- Right bead (smaller) -->
+        <g transform="translate(82 55)">
+          <circle cx="0" cy="0" r="11" fill="currentColor" fill-opacity="0.75" stroke="none"/>
+          <circle cx="0" cy="0" r="7" fill="var(--paper)" stroke="currentColor" stroke-width="0.5"/>
+          <circle cx="0" cy="0" r="3.5" fill="currentColor" stroke="none"/>
+          <circle cx="-1" cy="-1" r="0.9" fill="var(--paper)" stroke="none"/>
+        </g>
+
+        <!-- Connecting thread between beads -->
+        <line x1="14" y1="55" x2="96" y2="55" stroke-width="0.5" stroke-dasharray="2 1.5"/>
+
+        <!-- Small ornamental tassel below center bead -->
+        <g transform="translate(55 78)">
+          <line x1="0" y1="0" x2="0" y2="14" stroke-width="0.6"/>
+          <line x1="-3" y1="2" x2="-3" y2="12" stroke-width="0.5"/>
+          <line x1="3" y1="2" x2="3" y2="12" stroke-width="0.5"/>
+        </g>
+
+        <!-- Four cardinal accents -->
+        <circle cx="55" cy="8" r="1.5" fill="currentColor" stroke="none"/>
+        <circle cx="55" cy="102" r="1.5" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Vine pattern: chain of small nazars connected by thread -->
+    <pattern id="vinePattern" width="26" height="120" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="currentColor" stroke-width="0.6">
+        <!-- Thread -->
+        <line x1="13" y1="0" x2="13" y2="120" stroke-width="0.4" stroke-dasharray="2 2"/>
+        <!-- Nazar 1 -->
+        <g transform="translate(13 15)">
+          <circle cx="0" cy="0" r="4" fill="currentColor" fill-opacity="0.7" stroke="none"/>
+          <circle cx="0" cy="0" r="2.3" fill="var(--paper)" stroke-width="0.4"/>
+          <circle cx="0" cy="0" r="1" fill="currentColor" stroke="none"/>
+        </g>
+        <!-- Nazar 2 -->
+        <g transform="translate(13 50)">
+          <circle cx="0" cy="0" r="4" fill="currentColor" fill-opacity="0.7" stroke="none"/>
+          <circle cx="0" cy="0" r="2.3" fill="var(--paper)" stroke-width="0.4"/>
+          <circle cx="0" cy="0" r="1" fill="currentColor" stroke="none"/>
+        </g>
+        <!-- Nazar 3 -->
+        <g transform="translate(13 85)">
+          <circle cx="0" cy="0" r="4" fill="currentColor" fill-opacity="0.7" stroke="none"/>
+          <circle cx="0" cy="0" r="2.3" fill="var(--paper)" stroke-width="0.4"/>
+          <circle cx="0" cy="0" r="1" fill="currentColor" stroke="none"/>
+        </g>
+      </g>
+    </pattern>
+  </defs>
+</svg>
+
+<article class="document">
+
+  <svg class="vine-margin" preserveAspectRatio="none" aria-hidden="true" style="color: var(--accent); width:26px; height:100%;">
+    <rect width="100%" height="100%" fill="url(#vinePattern)"/>
+  </svg>
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="masthead-eyebrow">
+        <span class="museum-kufi">دوسيه</span>
+        <span>Müze-i Hümâyûn</span> &middot; <span class="dossier-no">Dossier · Druid</span>
+      </div>
+      <h1 class="character-name">Leyla of the Blue Eye</h1>
+      <p class="character-subtitle">Charm-maker of the Spice Market &middot; Circle of Nazar</p>
+    </div>
+    <svg class="cartouche" aria-hidden="true" style="color: var(--accent);">
+      <use href="#cartouche-leyla"/>
+    </svg>
+  </header>
+
+  <!-- ============ IDENTITY + PORTRAIT ============ -->
+  <section class="identity-band">
+    <div class="identity-block">
+      <div class="identity-row">
+        <span class="identity-label">Class &amp; Level</span>
+        <span class="identity-value">Druid 3 &middot; Circle of Nazar</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Race</span>
+        <span class="identity-value">Human (standard)</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Background</span>
+        <span class="identity-value">Guild Artisan <em>— Charm-maker / Beadworker</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Age</span>
+        <span class="identity-value">32</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Heritage</span>
+        <span class="identity-value">Anatolian Greek</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Faith</span>
+        <span class="identity-value">Greek Orthodox Christianity</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Alignment</span>
+        <span class="identity-value">Neutral Good</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Languages</span>
+        <span class="identity-value">Ottoman Turkish (Common), Greek, Armenian, Druidic</span>
+      </div>
+    </div>
+
+    <div class="portrait-plate">
+      <div class="portrait-frame">
+        <img src="leyla.png" alt="Portrait of Leyla of the Blue Eye">
+      </div>
+      <div class="portrait-caption">
+        <strong>Leyla of the Blue Eye</strong><br>
+        Anatolian Greek &middot; Aged Thirty-Two
+      </div>
+      <div class="portrait-detail">wears a strand of nazar beads at her waist</div>
+    </div>
+  </section>
+
+  <!-- ============ BIO ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazar-bead-orn"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">On the Subject</h2>
+    </div>
+    <div class="bio">
+      <p>Leyla crafts protective charms and wards for Constantinople's denizens. Her work is subtle yet effective; her beads of Nazar silently protect those who trust her craft, and her wards are placed where they will do the most good with the least attention. She is a member in good standing of the city's Charm-makers' Guild — beadworkers and amulet-crafters whose stalls dot the smaller bazaars — and the guild has never quite understood why her pieces work so much better than anyone else's.</p>
+      <p>Her customers, however, have noticed. Some of them have begun to bring her problems no bead can solve.</p>
+    </div>
+  </section>
+
+  <!-- ============ ABILITY SCORES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazar-bead-orn"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Faculties &amp; Saving Throws</h2>
+      <p class="section-subtitle">Base array 14, 14, 13, 13, 9, 8; Human +1 to each; Fortune-teller feat +1 Wis</p>
+    </div>
+    <div class="abilities">
+      <div class="ability-card">
+        <div class="ability-name">Strength</div>
+        <div class="ability-score">9</div>
+        <div class="ability-mod">&minus;1</div>
+        <div class="ability-save">Save <span class="save-val">&minus;1</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Dexterity</div>
+        <div class="ability-score">14</div>
+        <div class="ability-mod">+2</div>
+        <div class="ability-save">Save <span class="save-val">+2</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Constitution</div>
+        <div class="ability-score">15</div>
+        <div class="ability-mod">+2</div>
+        <div class="ability-save">Save <span class="save-val">+2</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Intelligence</div>
+        <div class="ability-score">14</div>
+        <div class="ability-mod">+2</div>
+        <div class="ability-save">Save <span class="save-val">+4</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Wisdom</div>
+        <div class="ability-score">16</div>
+        <div class="ability-mod">+3</div>
+        <div class="ability-save">Save <span class="save-val">+5</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Charisma</div>
+        <div class="ability-score">10</div>
+        <div class="ability-mod">+0</div>
+        <div class="ability-save">Save <span class="save-val">+0</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMBAT STATS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazar-bead-orn"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Bearing in the Field</h2>
+    </div>
+    <div class="combat-stats">
+      <div class="stat-cell">
+        <div class="stat-cell-label">Proficiency</div>
+        <div class="stat-cell-value">+2</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Armour Class</div>
+        <div class="stat-cell-value">14 <small>studded leather</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Initiative</div>
+        <div class="stat-cell-value">+2</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Speed</div>
+        <div class="stat-cell-value">30 <small>ft</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Points</div>
+        <div class="stat-cell-value">24</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Dice</div>
+        <div class="stat-cell-value">3d8</div>
+      </div>
+      <div class="stat-cell perception-high">
+        <div class="stat-cell-label">Passive Perception</div>
+        <div class="stat-cell-value">15</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Spell Save DC</div>
+        <div class="stat-cell-value">13 <small>+5 atk · Wis</small></div>
+      </div>
+    </div>
+    <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:0.92rem;color:var(--ink-soft);margin: 0.8rem 0 0;">
+      Druids will not wear armour or use shields made of metal. Her studded leather is embellished with worked bone and wooden studs — no metal. She may use a wooden shield if she chooses (none in current loadout).
+    </p>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazar-bead-orn"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <table class="skills-table">
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th class="bonus" style="text-align:center;">Bonus</th>
+          <th class="source">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Insight</td>          <td class="bonus">+5</td>  <td class="source">Guild Artisan</td></tr>
+        <tr><td>Medicine</td>         <td class="bonus">+5</td>  <td class="source">Druid</td></tr>
+        <tr><td>Perception</td>       <td class="bonus">+5</td>  <td class="source">Druid</td></tr>
+        <tr><td>Persuasion</td>       <td class="bonus">+2</td>  <td class="source">Guild Artisan</td></tr>
+        <tr><td>Religion</td>         <td class="bonus">+4</td>  <td class="source">Human</td></tr>
+      </tbody>
+    </table>
+    <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:0.92rem;color:var(--ink-soft);margin: 0.7rem 0 0;">
+      Tool proficiencies: jeweler's tools (Guild Artisan — for bead-making, amulet repair, fine wire work).
+    </p>
+  </section>
+
+  <!-- ============ CLASS FEATURES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazar-bead-orn"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Class Features</h2>
+    </div>
+
+    <div class="features-cluster-title">Druid — Base</div>
+
+    <div class="feature">
+      <div class="feature-title">Spellcasting</div>
+      <div class="feature-meta">Wisdom · Save DC 13 · Attack +5 · Strand of Nazar beads as druidic focus</div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Druidic</div>
+      <div class="feature-meta">Level 1</div>
+      <div class="feature-body">
+        <p>The secret druid sign-language; only other druids understand. Counts as one of her known languages.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Wild Shape</div>
+      <div class="feature-meta">Action · Level 2</div>
+      <div class="wild-shape-tracker">
+        <span class="wild-shape-orb"></span>
+        <span class="wild-shape-orb"></span>
+        <span class="resource-label">2 uses per short or long rest</span>
+      </div>
+      <div class="feature-body">
+        <p>Transform into a beast she has seen, CR ≤ <strong>1/4</strong> (no fly or swim speeds until L4). Lasts <strong>1 hour</strong>.</p>
+        <p style="margin-top:0.7em;font-family:'Cormorant SC',serif;font-size:0.66rem;letter-spacing:0.22em;color:var(--ink-faint);text-transform:uppercase;">Forms observed and available</p>
+        <ul class="wild-shape-forms">
+          <li class="wild-shape-form preferred">
+            <div class="form-name">Cat</div>
+            <div class="form-cr">CR 0</div>
+            <span class="form-preferred-tag">Preferred</span>
+          </li>
+          <li class="wild-shape-form">
+            <div class="form-name">Mastiff</div>
+            <div class="form-cr">CR 1/8</div>
+          </li>
+          <li class="wild-shape-form">
+            <div class="form-name">Constrictor Snake</div>
+            <div class="form-cr">CR 1/4</div>
+          </li>
+        </ul>
+        <p style="margin-top:0.7em;font-style:italic;font-size:0.92rem;">Cat form for urban infiltration, scouting, navigating crowds unseen. Other forms as situations demand.</p>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">Circle of Nazar — Druid Circle</div>
+
+    <div class="feature subclass">
+      <div class="feature-title">The Good Eye</div>
+      <div class="feature-meta">Level 2 · 2 uses per long rest (proficiency)</div>
+      <div class="feature-body">
+        <p>The Circle's signature ability — three branches:</p>
+        <ul class="good-eye-menu">
+          <li>
+            <span class="gem-name">Touch Detection</span>
+            By touching a creature she can detect any <em>nazars</em> (evil-eye spells), curses (<em>bestow curse</em>, etc.), and active spells affecting it. She knows exactly which effects are present. <strong>2 uses per long rest.</strong>
+          </li>
+          <li>
+            <span class="gem-name">Bonus Cantrip — Purifying Breath</span>
+            Chosen from <em>spare the dying / purifying breath</em>. Can be cast as a <strong>bonus action</strong>. (City of Crescent cantrip; described in the Spells section.)
+          </li>
+          <li>
+            <span class="gem-name">Wild Shape Exchange</span>
+            By spending <strong>one Wild Shape use</strong>, her touch immediately removes <em>Djinnspeak</em> effects and the <em>evil eye</em> cantrip's effects from a creature.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Circle Spells</div>
+      <div class="feature-meta">Always prepared · Do not count against prepared limit · Level 2</div>
+      <div class="feature-body">
+        <p>The Circle of Nazar grants always-prepared spells at Druid levels 2, 3, 5, 7, 9. At Level 3, Leyla has:</p>
+        <ul>
+          <li><strong>1st-level</strong> <em>(L2)</em>: <em>mandate of the sophists: avicenna</em>, <em>protection from evil and good</em></li>
+          <li><strong>2nd-level</strong> <em>(L3)</em>: <em>lesser restoration</em>, <em>detect djinni</em></li>
+        </ul>
+        <p style="margin-top:0.5em;font-size:0.92rem;color:var(--ink-faint);font-style:italic;">At Druid 5: <em>exorcize djinni</em>, <em>remove curse</em>. At L7: <em>divination</em>, <em>polymorph</em>. At L9: <em>greater restoration</em>, <em>sense the sinner</em>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPELLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazar-bead-orn"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Spells</h2>
+      <p class="section-subtitle">6 prepared (Wis 3 + Druid 3), plus 4 Circle always-prepared</p>
+    </div>
+
+    <div class="features-cluster-title">Cantrips Known</div>
+    <ul class="cantrips-list">
+      <li>Druidcraft</li>
+      <li>Produce Flame</li>
+      <li class="circle">Purifying Breath <span style="font-size:0.75em;color:var(--sky-deep);font-style:normal;">— Good Eye</span></li>
+    </ul>
+    <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:0.92rem;color:var(--ink-soft);margin: 0 0 1rem;">
+      <em>Purifying Breath</em> (City of Crescent cantrip): blow out a supernatural boon — good luck, increased fertility, or other ways to undo a curse on the target. Cast as a <strong>bonus action</strong>.
+    </p>
+
+    <div class="features-cluster-title">Spell Slots</div>
+    <div class="spell-slots">
+      <div class="slot-group">
+        <span class="slot-level">1st Level</span>
+        <span class="slot-count">4</span>
+      </div>
+      <div class="slot-group">
+        <span class="slot-level">2nd Level</span>
+        <span class="slot-count">2</span>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">Prepared</div>
+    <table class="spells-table">
+      <thead>
+        <tr>
+          <th class="lvl">Lvl</th>
+          <th class="spell-name">Spell</th>
+          <th class="note">Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="circle-spell"><td class="lvl">1st</td><td class="spell-name">mandate of the sophists: avicenna</td><td class="note"><em>Circle always-prepared</em>; ritual; advantage on Medicine 10 min</td></tr>
+        <tr class="circle-spell"><td class="lvl">1st</td><td class="spell-name">protection from evil and good</td><td class="note"><em>Circle always-prepared</em>; concentration; anti-supernatural</td></tr>
+        <tr><td class="lvl">1st</td><td class="spell-name">cure wounds</td>           <td class="note">Touch; 1d8+3</td></tr>
+        <tr><td class="lvl">1st</td><td class="spell-name">healing word</td>          <td class="note">Bonus action ranged heal</td></tr>
+        <tr><td class="lvl">1st</td><td class="spell-name">goodberry</td>             <td class="note">10 berries, 1 HP each</td></tr>
+        <tr><td class="lvl">1st</td><td class="spell-name">entangle</td>              <td class="note">Concentration; battlefield control</td></tr>
+        <tr class="circle-spell"><td class="lvl">2nd</td><td class="spell-name">lesser restoration</td><td class="note"><em>Circle always-prepared</em>; end one disease or condition (blinded, deafened, paralyzed, poisoned)</td></tr>
+        <tr class="circle-spell"><td class="lvl">2nd</td><td class="spell-name">detect djinni</td>     <td class="note"><em>Circle always-prepared</em>; ritual; sense djinn within 30 ft. for 10 min</td></tr>
+        <tr><td class="lvl">2nd</td><td class="spell-name">pass without trace</td>   <td class="note">Concentration; party +10 Stealth, can't be tracked</td></tr>
+        <tr><td class="lvl">2nd</td><td class="spell-name">moonbeam</td>              <td class="note">Concentration; 5 ft cylinder, 2d10 radiant on creatures entering or starting turn there</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ FEAT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazar-bead-orn"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Feat</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">The Fortune-teller</div>
+      <div class="feature-meta">Level 1 · City of Crescent · +1 Wisdom applied</div>
+      <div class="feature-body">
+        <p>Her inner eye has awakened — glimpses of possible futures pass through her sight at idle moments.</p>
+        <p>Can cast <em>augury</em> <strong>once per day as a ritual</strong>, without expending a spell slot. Uses cultural fortune-telling components: nazar beads, marble-mugs, someone else's hand, tarot cards, arrow heads, etc.</p>
+        <p>When cast this way, <em>augury</em> targets <strong>a specific creature</strong> (rather than an event), revealing omens about that creature's near future (love life, death, opportunities, treachery, etc.) up to 30 minutes ahead.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BACKGROUND ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazar-bead-orn"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Background — Guild Artisan (Charm-maker / Beadworker)</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Guild Membership</div>
+      <div class="feature-body">
+        <p>The Charm-makers' Guild of Constantinople provides lodging and food in cities with a chapter; fellow guild members will assist with reasonable requests; legal aid in commercial disputes; political voice in her trade. She is expected to pay guild dues (<strong>5 gp/month</strong>) and represent the guild's interests.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EQUIPMENT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazar-bead-orn"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Equipment</h2>
+    </div>
+    <div class="equipment-grid">
+      <div class="equip-block">
+        <div class="equip-block-title">Weapons</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Quarterstaff</span> &mdash; <span class="item-detail">1d6 bludgeoning, versatile 1d8; +1 to hit / 1d6 &minus;1 damage; also her walking staff</span></li>
+          <li><span class="item-name">Shimshir</span> &mdash; <span class="item-detail">period scimitar; 1d6 slashing, finesse, light; +4 to hit / 1d6+2; Druids can use scimitars — her grandmother's</span></li>
+          <li><span class="item-name">Sling + 20 sling bullets</span> &mdash; <span class="item-detail">1d4 bludgeoning, range 30/120; +4 to hit / 1d4+2</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Armour</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Studded leather</span> &mdash; <span class="item-detail">AC 12 + Dex; total AC 14. Embellished with worked bone and wooden studs (no metal); cut to look like a craftswoman's heavy apron over her dress</span></li>
+        </ul>
+      </div>
+
+      <div class="druidic-focus-block">
+        <div class="druidic-focus-label">Druidic Focus — Strand of Nazar Beads</div>
+        <div class="bead-strand">
+          <div class="bead-strand-line"></div>
+          <div class="nazar-bead small"></div>
+          <div class="nazar-bead"></div>
+          <div class="nazar-bead small"></div>
+          <div class="nazar-bead"></div>
+          <div class="nazar-bead small"></div>
+          <div class="nazar-bead"></div>
+          <div class="nazar-bead small"></div>
+          <div class="bead-strand-line"></div>
+        </div>
+        <p style="font-family:'EB Garamond',serif;font-size:0.95rem;color:var(--ink-soft);margin:0;font-style:italic;text-align:center;">
+          A long, hand-strung cord of blue glass eye-beads worn at her waist — each bead a finished charm she has never sold. Functions as her druidic focus.
+        </p>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Personal Items</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Jeweler's tools</span> &mdash; <span class="item-detail">Guild Artisan; for bead-making, amulet repair, fine wire work</span></li>
+          <li><span class="item-name">Letter of introduction from her guild</span></li>
+          <li><span class="item-name">Traveler's clothes</span></li>
+          <li><span class="item-name">Velvet pouch of finished Nazar beads</span> &mdash; <span class="item-detail">~20 beads; for emergency gifts and spell components</span></li>
+          <li><span class="item-name">Linen scroll of customer requests</span> &mdash; <span class="item-detail">commissions she has not yet been able to fulfill</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Available — Not Carried</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Stall in the smaller bazaar near the Spice Market</span> &mdash; <span class="item-detail">bench, vise, glass-blowing tools, and her account-books</span></li>
+          <li><span class="item-name">Modest apartment in Fener</span> &mdash; <span class="item-detail">shared with her widowed mother, in the Greek quarter</span></li>
+        </ul>
+      </div>
+
+      <div class="money-line">
+        Carrying <span class="amount">15 gp</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERSONALITY ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazar-bead-orn"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Personality</h2>
+    </div>
+    <div class="personality-grid">
+      <div class="personality-card">
+        <div class="personality-label">Trait</div>
+        <p class="personality-text">I work quietly. The best protection is the one that the person never needs to think about — and the best protector is one whose work is never noticed.</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Ideal <span class="alignment-tag">— Protection · Good</span></div>
+        <p class="personality-text">The poor have enemies they cannot see and cannot fight. The least I can do is give them a fighting chance, even if they will never know it was me.</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Bond</div>
+        <p class="personality-text">I learned to read the evil eye from my grandmother, who taught me as a child by tying a thread between us and refusing to cut it for a year. I do not know if she was a Druid as I am. I suspect she was. I miss her.</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Flaw</div>
+        <p class="personality-text">I do not stand up for myself. I give my work away too cheaply, take on jobs I should refuse, and let louder voices override mine. My patron — and my grandmother's memory — deserve better of me.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONNECTIONS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazar-bead-orn"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Connections</h2>
+    </div>
+    <ul class="connections-list">
+      <li>Trusted confidante of <span class="conn-name">Salih Celestialwalker</span> during his stargazing expeditions.</li>
+      <li>Former apprentice to <span class="conn-name">Miriam the Chronicler</span> in her youth.</li>
+    </ul>
+  </section>
+
+  <!-- ============ PATRON'S NOTE ============ -->
+  <section class="patron-note">
+    <div class="patron-label">From the Patron's Hand</div>
+    <p class="patron-text">Her ability to sense natural and supernatural disturbances is crucial for exploring ancient sites.</p>
+    <div class="patron-signature">
+      &mdash; <span class="sig-name">Osman Hamdi Bey</span>
+    </div>
+  </section>
+
+  <!-- ============ FOOT ============ -->
+  <footer class="document-foot">
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal"/></svg>
+    <div class="foot-text">
+      Compiled at the <span class="kufi">المتحف الإمبراطوري</span> Imperial Museum &middot; Constantinople
+    </div>
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal"/></svg>
+  </footer>
+
+</article>
+
+</body>
+</html>

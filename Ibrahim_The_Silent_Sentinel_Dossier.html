@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Ibrahim the Silent Sentinel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Reem+Kufi:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Ibrahim — Slate, brushed steel, oxblood. Ascetic, monumental, quiet. */
+    --ground:       #1c2026;
+    --ground-deep:  #0e1116;
+    --paper:        #e6e1d2;        /* cool stone-cream, monumental */
+    --paper-shade:  #d8d2bf;
+    --paper-edge:   #beb8a3;
+    --ink:          #14171c;
+    --ink-soft:     #2e3340;
+    --ink-faint:    #58606a;
+    --accent:       #3a424e;        /* slate */
+    --accent-deep:  #1f2530;
+    --accent-pale:  #6a7280;
+    --steel:        #8a8e94;        /* brushed steel */
+    --steel-deep:   #5e6168;
+    --oxblood:      #6e2424;        /* oxblood — used sparingly for vow/oath emphasis */
+    --oxblood-deep: #4a1616;
+    --gold:         #8a8e94;
+    --gold-deep:    --steel-deep;
+    --rule:         #9e9a85;
+    --rule-soft:    #bfbaa3;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 12%, rgba(58, 66, 78, 0.28) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 88%, rgba(14, 17, 22, 0.7) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(28, 32, 38, 0.5) 0%, transparent 80%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  /* ============ DOCUMENT FOLIO ============ */
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 3.75rem 4.25rem 4.5rem;
+    position: relative;
+    box-shadow:
+      0 1px 2px rgba(14, 17, 22, 0.45),
+      0 14px 56px rgba(14, 17, 22, 0.6),
+      inset 0 0 0 1px rgba(158, 154, 133, 0.4);
+    background-image:
+      radial-gradient(ellipse at 0% 0%, rgba(138, 142, 148, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 100%, rgba(58, 66, 78, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(40, 44, 50, 0.05) 100%);
+  }
+
+  /* Top folio band — slate / steel, with single oxblood line for the vow */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--ground-deep) 0%,
+      var(--accent-deep) 18%,
+      var(--accent) 38%,
+      var(--steel) 50%,
+      var(--accent) 62%,
+      var(--accent-deep) 82%,
+      var(--ground-deep) 100%);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--accent-deep) 20%,
+      var(--steel) 50%,
+      var(--accent-deep) 80%,
+      transparent 100%);
+    opacity: 0.7;
+  }
+
+  .vine-margin {
+    position: absolute;
+    top: 5px; bottom: 3px; left: 0;
+    width: 26px;
+    opacity: 0.24;
+    pointer-events: none;
+  }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2rem;
+  }
+  .masthead-left { min-width: 0; }
+  .masthead-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.38em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .masthead-eyebrow .dossier-no {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .masthead-eyebrow .museum-kufi {
+    font-family: "Reem Kufi", "Cormorant SC", serif;
+    letter-spacing: 0.08em;
+    font-size: 0.92rem;
+    margin-right: 0.6em;
+    color: var(--accent-deep);
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.35rem;
+    line-height: 1;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+  .character-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--accent-deep);
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .cartouche {
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+  }
+
+  /* ============ IDENTITY + PORTRAIT BAND ============ */
+  .identity-band {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 2.25rem;
+    margin-bottom: 2.5rem;
+    align-items: start;
+  }
+  .identity-block { min-width: 0; }
+  .identity-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0.4rem 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    align-items: baseline;
+  }
+  .identity-row:last-child { border-bottom: none; }
+  .identity-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .identity-value {
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+  }
+  .identity-value em {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  .vow-note {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--oxblood-deep);
+    display: block;
+    margin-top: 0.15rem;
+  }
+
+  /* Portrait plate */
+  .portrait-plate { position: relative; }
+  .portrait-frame {
+    border: 1px solid var(--accent-deep);
+    padding: 6px;
+    background: var(--paper-shade);
+    box-shadow:
+      inset 0 0 0 1px var(--steel),
+      0 2px 8px rgba(14, 17, 22, 0.22);
+    position: relative;
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--accent-deep);
+  }
+  .portrait-frame::before {
+    top: -4px; left: -4px;
+    border-right: none; border-bottom: none;
+  }
+  .portrait-frame::after {
+    bottom: -4px; right: -4px;
+    border-left: none; border-top: none;
+  }
+  .portrait-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: sepia(0.08) saturate(0.88) brightness(0.96);
+  }
+  .portrait-caption {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.7rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .portrait-caption strong {
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+  }
+  .portrait-vow {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--oxblood-deep);
+    text-align: center;
+    margin-top: 0.4rem;
+  }
+
+  /* ============ SECTION ORNAMENTS ============ */
+  .section { margin-top: 2.5rem; }
+  .section-head {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    justify-content: center;
+    margin-bottom: 0.7rem;
+  }
+  .section-rule-line {
+    flex: 1;
+    max-width: 180px;
+    height: 1px;
+    background: var(--rule);
+  }
+  .section-ornament {
+    width: 30px; height: 30px;
+    color: var(--accent-deep);
+    flex-shrink: 0;
+  }
+  h2.section-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.55rem;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  .section-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-faint);
+    margin: 0.25rem 0 0;
+  }
+
+  /* ============ BIO ============ */
+  .bio {
+    font-family: "EB Garamond", serif;
+    font-size: 1.08rem;
+    line-height: 1.72;
+    color: var(--ink-soft);
+    text-align: justify;
+    hyphens: auto;
+  }
+  .bio p { margin: 0 0 1em; }
+  .bio p:last-child { margin-bottom: 0; }
+  .bio p:first-child::first-letter {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.1em 0.12em 0 0;
+    color: var(--accent-deep);
+  }
+
+  /* Tenets banner — the three Oath of Silence tenets, presented as a quiet inscription */
+  .tenets-banner {
+    margin: 1.5rem 0 0;
+    padding: 1.1rem 1.4rem 1.2rem;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0,
+        transparent 28px,
+        rgba(110, 36, 36, 0.025) 28px,
+        rgba(110, 36, 36, 0.025) 56px
+      ),
+      var(--paper-shade);
+    border-top: 1px solid var(--oxblood);
+    border-bottom: 1px solid var(--oxblood);
+    position: relative;
+  }
+  .tenets-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.34em;
+    color: var(--oxblood-deep);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 0.7rem;
+  }
+  .tenets-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.9rem;
+  }
+  .tenets-list li {
+    text-align: center;
+    padding: 0.4em 0.6em;
+  }
+  .tenet-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--oxblood-deep);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+  .tenet-text {
+    font-family: "EB Garamond", serif;
+    font-size: 0.94rem;
+    font-style: italic;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ============ ABILITY SCORES ============ */
+  .abilities {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+  }
+  .ability-card {
+    border: 1px solid var(--rule);
+    background: var(--paper-shade);
+    padding: 0.85rem 0.4rem 0.7rem;
+    text-align: center;
+    position: relative;
+  }
+  .ability-card::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 8px; right: 8px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .ability-card.saveprof::before {
+    background: var(--steel);
+    height: 3px;
+  }
+  .ability-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .ability-score {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 0.15rem 0 0.05rem;
+  }
+  .ability-mod {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem;
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  .ability-save {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+    padding-top: 0.35rem;
+    border-top: 1px dotted var(--rule-soft);
+  }
+  .ability-save .save-val {
+    font-family: "EB Garamond", serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    font-weight: 500;
+    margin-left: 0.2em;
+  }
+  .ability-card.saveprof .ability-save .save-val {
+    color: var(--steel-deep);
+    font-weight: 600;
+  }
+
+  /* ============ COMBAT STATS ============ */
+  .combat-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 0.7rem 0.65rem;
+  }
+  .stat-cell-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .stat-cell-value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-top: 0.15rem;
+  }
+  .stat-cell-value small {
+    font-family: "EB Garamond", serif;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-left: 0.3em;
+  }
+  /* Resistance stat cell — special chrome */
+  .stat-cell.resistance {
+    border-color: var(--oxblood);
+    background:
+      radial-gradient(circle at 80% 30%, rgba(110, 36, 36, 0.06) 0%, transparent 60%),
+      var(--paper);
+  }
+
+  /* AC dual-configuration cell */
+  .ac-dual {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  .ac-config {
+    padding: 0.7rem 0.65rem;
+    border-right: 1px dotted var(--rule-soft);
+  }
+  .ac-config:last-child { border-right: none; }
+  .ac-config-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.15rem;
+  }
+  .ac-config-value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .ac-config-value small {
+    font-family: "EB Garamond", serif;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-weight: 400;
+    margin-left: 0.3em;
+  }
+
+  /* ============ SKILLS ============ */
+  .skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+  }
+  .skills-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .skills-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: baseline;
+  }
+  .skills-table tr:last-child td { border-bottom: none; }
+  .skills-table .bonus {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    color: var(--ink);
+    width: 70px;
+    text-align: center;
+  }
+  .skills-table .source {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+
+  /* ============ FEATURE BLOCKS ============ */
+  .feature {
+    margin: 0 0 1.1rem;
+    padding: 0.85rem 1rem;
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+  }
+  .feature.subclass {
+    border-left-color: var(--steel-deep);
+  }
+  .feature.oath {
+    border-left-color: var(--oxblood);
+    border-left-width: 4px;
+    background:
+      radial-gradient(ellipse at 95% 10%, rgba(110, 36, 36, 0.05) 0%, transparent 60%),
+      var(--paper-shade);
+  }
+  .feature-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    color: var(--ink);
+    margin: 0 0 0.3rem;
+    letter-spacing: 0.01em;
+  }
+  .feature-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .feature-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .feature-body p { margin: 0 0 0.55em; }
+  .feature-body p:last-child { margin-bottom: 0; }
+  .feature-body ul {
+    margin: 0.4em 0 0.2em;
+    padding-left: 1.4em;
+  }
+  .feature-body ul li {
+    padding: 0.15em 0;
+  }
+  .feature-body strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .feature-body em {
+    color: var(--accent-deep);
+  }
+  .feature-body .vow-em {
+    color: var(--oxblood-deep);
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .features-cluster-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .features-cluster-title:first-child { margin-top: 0; }
+
+  /* Lay on Hands pool — visual block */
+  .lay-on-hands-pool {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin: 0.35rem 0 0.6rem;
+    padding: 0.4rem 0.75rem;
+    background: var(--paper);
+    border: 1px solid var(--rule-soft);
+    border-left: 3px solid var(--oxblood);
+    width: fit-content;
+  }
+  .pool-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .pool-value {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: var(--oxblood-deep);
+  }
+  .pool-detail {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+  }
+
+  /* Divine Sense uses tracker */
+  .resource-tracker {
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+    margin: 0.3rem 0 0.6rem;
+  }
+  .resource-orb {
+    width: 13px; height: 13px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--steel), var(--steel-deep));
+    border: 1px solid var(--accent-deep);
+    box-shadow: inset 0 -1px 2px rgba(0,0,0,0.3);
+  }
+  .resource-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-left: 0.4rem;
+  }
+
+  /* ============ SPELLS ============ */
+  .spell-slots {
+    display: flex;
+    gap: 1rem;
+    margin: 0.5rem 0 1.25rem;
+    flex-wrap: wrap;
+  }
+  .slot-group {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--rule);
+    background: var(--paper-shade);
+  }
+  .slot-level {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .slot-count {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--accent-deep);
+  }
+
+  .spells-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+  }
+  .spells-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .spells-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: baseline;
+  }
+  .spells-table tr:last-child td { border-bottom: none; }
+  .spells-table .lvl {
+    font-family: "Cormorant Garamond", serif;
+    color: var(--accent-deep);
+    width: 50px;
+  }
+  .spells-table .spell-name {
+    font-style: italic;
+    color: var(--ink);
+    width: 200px;
+  }
+  .spells-table .note {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .spells-table tr.oath-spell td {
+    background: rgba(110, 36, 36, 0.04);
+  }
+
+  /* ============ EQUIPMENT ============ */
+  .equipment-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .equip-block {
+    border: 1px solid var(--rule-soft);
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+  }
+  .equip-block-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 0 0 0.55rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .equip-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .equip-list li {
+    padding: 0.35rem 0;
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .equip-list li:last-child { border-bottom: none; }
+  .equip-list .item-name { font-weight: 500; }
+  .equip-list .item-detail {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-style: italic;
+  }
+  .money-line {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    padding: 0.85rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .money-line .amount {
+    font-family: "Cormorant Garamond", serif;
+    font-style: normal;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--steel-deep);
+    letter-spacing: 0.05em;
+    margin: 0 0.3em;
+  }
+
+  /* ============ PERSONALITY ============ */
+  .personality-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+  .personality-card {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--paper-shade);
+    border-top: 2px solid var(--accent);
+    position: relative;
+  }
+  .personality-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .personality-label .alignment-tag {
+    color: var(--ink-faint);
+    font-weight: 400;
+    margin-left: 0.4em;
+  }
+  .personality-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ============ CONNECTIONS ============ */
+  .connections-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .connections-list li {
+    padding: 0.65rem 0 0.65rem 1.5rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+    position: relative;
+  }
+  .connections-list li:last-child { border-bottom: none; }
+  .connections-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 1.1em;
+    width: 8px; height: 8px;
+    border: 1px solid var(--accent);
+    transform: rotate(45deg);
+    background: var(--paper);
+  }
+  .connections-list .conn-name {
+    font-weight: 500;
+    color: var(--accent-deep);
+  }
+
+  /* ============ PATRON'S NOTE ============ */
+  .patron-note {
+    margin: 2.75rem 0 0;
+    padding: 1.5rem 1.75rem 1.65rem;
+    border: 1px solid var(--steel-deep);
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 8px,
+        rgba(58, 66, 78, 0.03) 8px,
+        rgba(58, 66, 78, 0.03) 16px
+      ),
+      var(--paper-shade);
+    position: relative;
+  }
+  .patron-note::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 2px;
+    background: linear-gradient(90deg,
+      var(--steel-deep) 0%,
+      var(--steel) 50%,
+      var(--steel-deep) 100%);
+  }
+  .patron-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--steel-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+  .patron-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+  .patron-signature {
+    margin-top: 0.85rem;
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    color: var(--ink-soft);
+  }
+  .patron-signature .sig-name {
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  /* ============ FOOT ============ */
+  .document-foot {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .foot-seal {
+    width: 38px; height: 38px;
+    color: var(--accent-deep);
+    opacity: 0.75;
+  }
+  .foot-text {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    flex: 1;
+  }
+  .foot-text .kufi {
+    font-family: "Reem Kufi", serif;
+    letter-spacing: 0.08em;
+    color: var(--accent-deep);
+    margin: 0 0.4em;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 760px) {
+    body { padding: 1rem 0.4rem 2rem; }
+    .document { padding: 2.25rem 1.5rem 2.75rem; }
+    h1.character-name { font-size: 2.3rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1rem; }
+    .cartouche { width: 80px; height: 80px; justify-self: start; }
+    .identity-band { grid-template-columns: 1fr; }
+    .portrait-plate { max-width: 240px; }
+    .abilities { grid-template-columns: repeat(3, 1fr); }
+    .combat-stats { grid-template-columns: repeat(2, 1fr); }
+    .personality-grid { grid-template-columns: 1fr; }
+    .vine-margin { display: none; }
+    .skills-table .source { display: none; }
+    .tenets-list { grid-template-columns: 1fr; gap: 0.6rem; }
+    .ac-dual { grid-column: span 2; }
+  }
+
+  @media (max-width: 460px) {
+    .abilities { grid-template-columns: repeat(2, 1fr); }
+    .identity-row { grid-template-columns: 1fr; gap: 0.1rem; }
+    .identity-label { font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Inline SVG definitions -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Ibrahim's section ornament: interlace-lock — Islamic geometric knot suggesting a sealed mouth, but abstract -->
+    <symbol id="interlace-lock" viewBox="0 0 30 30">
+      <g fill="none" stroke="currentColor" stroke-width="0.7">
+        <!-- Outer diamond -->
+        <path d="M 15 4 L 26 15 L 15 26 L 4 15 Z" stroke-width="0.6"/>
+        <!-- Inner interlace pattern: two crossing arcs forming a knot -->
+        <path d="M 9 11 Q 15 5 21 11 Q 21 19 15 21 Q 9 19 9 11 Z" stroke-width="0.65"/>
+        <path d="M 11 9 Q 15 15 19 21 M 19 9 Q 15 15 11 21" stroke-width="0.5"/>
+        <!-- Center bar (the sealed lock) -->
+        <line x1="10" y1="15" x2="20" y2="15" stroke-width="1.2"/>
+        <circle cx="15" cy="15" r="1.1" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Foot seal: small halberd with vow-band crossed -->
+    <symbol id="foot-seal" viewBox="0 0 40 40">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <circle cx="20" cy="20" r="17"/>
+        <circle cx="20" cy="20" r="13" stroke-dasharray="1 2"/>
+        <!-- Halberd shaft (vertical) -->
+        <line x1="20" y1="8" x2="20" y2="32" stroke-width="1.4"/>
+        <!-- Halberd blade (axe head at top) -->
+        <path d="M 20 10 L 27 14 L 25 17 L 20 16 Z" fill="currentColor" stroke-width="0.8"/>
+        <!-- Halberd spike (small at top) -->
+        <line x1="20" y1="6" x2="20" y2="10" stroke-width="1"/>
+        <!-- Vow-band (horizontal) -->
+        <rect x="11" y="22" width="18" height="2" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Ibrahim's cartouche: halberd crossed with a vow-band (a band/cord representing the sealed vow) -->
+    <symbol id="cartouche-ibrahim" viewBox="0 0 110 110">
+      <g fill="none" stroke="currentColor" stroke-width="1.1">
+        <!-- Outer ring -->
+        <circle cx="55" cy="55" r="50"/>
+        <!-- Inner ring -->
+        <circle cx="55" cy="55" r="42" stroke-width="0.7" stroke-dasharray="2 3"/>
+
+        <!-- Halberd shaft (vertical, slightly off-center to suggest motion frozen) -->
+        <g>
+          <!-- Shaft -->
+          <line x1="55" y1="14" x2="55" y2="96" stroke-width="2.4"/>
+          <!-- Top spike (slim) -->
+          <path d="M 55 6 L 53 14 L 55 14 L 57 14 Z" fill="currentColor" stroke="none"/>
+          <!-- Halberd blade — axe head + back-hook -->
+          <path d="M 55 18 L 78 26 L 73 36 L 55 30 Z" fill="currentColor" fill-opacity="0.85" stroke-width="1"/>
+          <!-- Back hook -->
+          <path d="M 55 24 L 38 30 L 40 36 L 55 32 Z" fill="currentColor" fill-opacity="0.6" stroke-width="0.8"/>
+          <!-- Butt-cap -->
+          <rect x="51" y="94" width="8" height="6" fill="currentColor" stroke="none"/>
+        </g>
+
+        <!-- Vow-band: a horizontal band crossing the halberd (the seal of silence) -->
+        <g>
+          <!-- The band itself -->
+          <rect x="20" y="58" width="70" height="8" fill="var(--paper)" stroke="currentColor" stroke-width="1.1"/>
+          <!-- Three small inscription dots on the band (suggesting words written but not spoken) -->
+          <circle cx="35" cy="62" r="1" fill="currentColor" stroke="none"/>
+          <circle cx="55" cy="62" r="1" fill="currentColor" stroke="none"/>
+          <circle cx="75" cy="62" r="1" fill="currentColor" stroke="none"/>
+          <!-- A small lock/seal mark in the center of the band -->
+          <rect x="51" y="59" width="8" height="6" fill="currentColor" fill-opacity="0.85" stroke="none"/>
+        </g>
+
+        <!-- Four cardinal flourishes — minimal, ascetic -->
+        <line x1="55" y1="2" x2="55" y2="5" stroke-width="0.7"/>
+        <line x1="55" y1="105" x2="55" y2="108" stroke-width="0.7"/>
+        <line x1="2" y1="55" x2="5" y2="55" stroke-width="0.7"/>
+        <line x1="105" y1="55" x2="108" y2="55" stroke-width="0.7"/>
+      </g>
+    </symbol>
+
+    <!-- Vine pattern: interlace knots — Islamic geometric knot motif suggesting bound vow -->
+    <pattern id="vinePattern" width="26" height="140" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="currentColor" stroke-width="0.7">
+        <!-- Interlace knot 1 -->
+        <g transform="translate(13 25)">
+          <path d="M -8 0 Q 0 -8 8 0 Q 0 8 -8 0 Z" fill="none" stroke-width="0.8"/>
+          <line x1="-5" y1="-3" x2="5" y2="3" stroke-width="0.6"/>
+          <line x1="5" y1="-3" x2="-5" y2="3" stroke-width="0.6"/>
+        </g>
+        <!-- Connecting line -->
+        <line x1="13" y1="38" x2="13" y2="68" stroke-width="0.5" stroke-dasharray="2 2"/>
+        <!-- Interlace knot 2 -->
+        <g transform="translate(13 80)">
+          <path d="M -8 0 Q 0 -8 8 0 Q 0 8 -8 0 Z" fill="none" stroke-width="0.8"/>
+          <line x1="-5" y1="-3" x2="5" y2="3" stroke-width="0.6"/>
+          <line x1="5" y1="-3" x2="-5" y2="3" stroke-width="0.6"/>
+        </g>
+        <!-- Connecting line -->
+        <line x1="13" y1="93" x2="13" y2="123" stroke-width="0.5" stroke-dasharray="2 2"/>
+        <!-- Interlace knot 3 -->
+        <g transform="translate(13 135)">
+          <path d="M -8 0 Q 0 -8 8 0 Q 0 8 -8 0 Z" fill="none" stroke-width="0.8"/>
+          <line x1="-5" y1="-3" x2="5" y2="3" stroke-width="0.6"/>
+          <line x1="5" y1="-3" x2="-5" y2="3" stroke-width="0.6"/>
+        </g>
+      </g>
+    </pattern>
+  </defs>
+</svg>
+
+<article class="document">
+
+  <svg class="vine-margin" preserveAspectRatio="none" aria-hidden="true" style="color: var(--accent); width:26px; height:100%;">
+    <rect width="100%" height="100%" fill="url(#vinePattern)"/>
+  </svg>
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="masthead-eyebrow">
+        <span class="museum-kufi">دوسيه</span>
+        <span>Müze-i Hümâyûn</span> &middot; <span class="dossier-no">Dossier · Paladin</span>
+      </div>
+      <h1 class="character-name">Ibrahim the Silent Sentinel</h1>
+      <p class="character-subtitle">Warden of the Poorer Quarters &middot; Oath of Silence</p>
+    </div>
+    <svg class="cartouche" aria-hidden="true" style="color: var(--accent-deep);">
+      <use href="#cartouche-ibrahim"/>
+    </svg>
+  </header>
+
+  <!-- ============ IDENTITY + PORTRAIT ============ -->
+  <section class="identity-band">
+    <div class="identity-block">
+      <div class="identity-row">
+        <span class="identity-label">Class &amp; Level</span>
+        <span class="identity-value">Paladin 3 &middot; Oath of Silence</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Race</span>
+        <span class="identity-value">Human (standard)</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Background</span>
+        <span class="identity-value">Folk Hero <em>— formerly a stonemason</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Age</span>
+        <span class="identity-value">37</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Heritage</span>
+        <span class="identity-value">Arab</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Faith</span>
+        <span class="identity-value">Sunni Islam</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Alignment</span>
+        <span class="identity-value">Lawful Good</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Languages</span>
+        <span class="identity-value">Ottoman Turkish (Common), Arabic
+          <span class="vow-note">Ibrahim does not speak any language aloud. He communicates by telepathic projection of words or images within 30 ft. — see <em>Silence as a Whole</em>.</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="portrait-plate">
+      <div class="portrait-frame">
+        <img src="ibrahim.png" alt="Portrait of Ibrahim the Silent Sentinel">
+      </div>
+      <div class="portrait-caption">
+        <strong>Ibrahim the Silent Sentinel</strong><br>
+        Arab &middot; Aged Thirty-Seven
+      </div>
+      <div class="portrait-vow">has not spoken in seven years</div>
+    </div>
+  </section>
+
+  <!-- ============ BIO ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#interlace-lock"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">On the Subject</h2>
+    </div>
+    <div class="bio">
+      <p>Ibrahim has taken a vow of silence to combat the djinn who plague Constantinople's less fortunate. He walks the city's poorer quarters in armor he no longer takes off, halberd in hand, and where he stops to stand watch the night is quieter — and the morning brings fewer corpses. He does not speak. He has not spoken in seven years.</p>
+      <p>He projects his thoughts to those nearby in fragments of words and stark images, and most of those he protects have learned to read his stillness better than they ever read men's words. He holds three Tenets of Silence.</p>
+    </div>
+
+    <div class="tenets-banner">
+      <div class="tenets-label">The Three Tenets of Silence</div>
+      <ul class="tenets-list">
+        <li>
+          <span class="tenet-name">Silence</span>
+          <span class="tenet-text">Do not speak. Let your unspoken words be your fuel.</span>
+        </li>
+        <li>
+          <span class="tenet-name">Patience</span>
+          <span class="tenet-text">Do not act rashly. Do not jump to conclusions. Think twice, walk once.</span>
+        </li>
+        <li>
+          <span class="tenet-name">Acceptance</span>
+          <span class="tenet-text">See the world as it is. Do not deny the facts. Swallow the truth and accept it.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ ABILITY SCORES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#interlace-lock"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Faculties &amp; Saving Throws</h2>
+      <p class="section-subtitle">Base array 16, 16, 16, 15, 15, 13; Human +1 to each</p>
+    </div>
+    <div class="abilities">
+      <div class="ability-card">
+        <div class="ability-name">Strength</div>
+        <div class="ability-score">17</div>
+        <div class="ability-mod">+3</div>
+        <div class="ability-save">Save <span class="save-val">+3</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Dexterity</div>
+        <div class="ability-score">16</div>
+        <div class="ability-mod">+3</div>
+        <div class="ability-save">Save <span class="save-val">+3</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Constitution</div>
+        <div class="ability-score">17</div>
+        <div class="ability-mod">+3</div>
+        <div class="ability-save">Save <span class="save-val">+3</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Intelligence</div>
+        <div class="ability-score">14</div>
+        <div class="ability-mod">+2</div>
+        <div class="ability-save">Save <span class="save-val">+2</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Wisdom</div>
+        <div class="ability-score">16</div>
+        <div class="ability-mod">+3</div>
+        <div class="ability-save">Save <span class="save-val">+5</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Charisma</div>
+        <div class="ability-score">17</div>
+        <div class="ability-mod">+3</div>
+        <div class="ability-save">Save <span class="save-val">+5</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMBAT STATS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#interlace-lock"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Bearing in the Field</h2>
+    </div>
+    <div class="combat-stats">
+      <div class="stat-cell">
+        <div class="stat-cell-label">Proficiency</div>
+        <div class="stat-cell-value">+2</div>
+      </div>
+      <div class="ac-dual">
+        <div class="ac-config">
+          <div class="ac-config-label">AC — Halberd</div>
+          <div class="ac-config-value">17 <small>splint, two-handed</small></div>
+        </div>
+        <div class="ac-config">
+          <div class="ac-config-label">AC — Sword + Shield</div>
+          <div class="ac-config-value">19 <small>splint + shield</small></div>
+        </div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Initiative</div>
+        <div class="stat-cell-value">+3</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Speed</div>
+        <div class="stat-cell-value">30 <small>ft</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Points</div>
+        <div class="stat-cell-value">31</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Dice</div>
+        <div class="stat-cell-value">3d10</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Passive Perception</div>
+        <div class="stat-cell-value">13</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Spell Save DC</div>
+        <div class="stat-cell-value">13 <small>+5 atk · Cha</small></div>
+      </div>
+      <div class="stat-cell resistance">
+        <div class="stat-cell-label">Resistance</div>
+        <div class="stat-cell-value">Thunder <small>Silence as a Whole</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#interlace-lock"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <table class="skills-table">
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th class="bonus" style="text-align:center;">Bonus</th>
+          <th class="source">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Animal Handling</td>   <td class="bonus">+5</td>  <td class="source">Folk Hero</td></tr>
+        <tr><td>Insight</td>           <td class="bonus">+5</td>  <td class="source">Paladin</td></tr>
+        <tr><td>Intimidation</td>      <td class="bonus">+5</td>  <td class="source">Human</td></tr>
+        <tr><td>Religion</td>          <td class="bonus">+4</td>  <td class="source">Paladin</td></tr>
+        <tr><td>Survival</td>          <td class="bonus">+5</td>  <td class="source">Folk Hero</td></tr>
+      </tbody>
+    </table>
+    <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:0.92rem;color:var(--ink-soft);margin: 0.7rem 0 0;">
+      Tool proficiencies: mason's tools (Folk Hero); vehicles (land).
+    </p>
+  </section>
+
+  <!-- ============ CLASS FEATURES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#interlace-lock"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Class Features</h2>
+    </div>
+
+    <div class="features-cluster-title">Paladin — Base</div>
+
+    <div class="feature">
+      <div class="feature-title">Divine Sense</div>
+      <div class="feature-meta">Action · until end of next turn · Level 1</div>
+      <div class="resource-tracker">
+        <span class="resource-orb"></span>
+        <span class="resource-orb"></span>
+        <span class="resource-orb"></span>
+        <span class="resource-orb"></span>
+        <span class="resource-label">4 uses per long rest (1 + Cha)</span>
+      </div>
+      <div class="feature-body">
+        <p>Sense celestials, fiends, undead, <span class="vow-em">and djinns</span> within 60 ft., even through total cover (not behind 1 ft. stone / 1 inch metal / 1 ft. wood / 3 ft. dirt). <span class="vow-em">Djinn detection is the Oath of Silence modification.</span></p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Lay on Hands</div>
+      <div class="feature-meta">Action · touch · Level 1</div>
+      <div class="lay-on-hands-pool">
+        <span class="pool-label">Pool</span>
+        <span class="pool-value">15 HP</span>
+        <span class="pool-detail">5 × paladin level · refreshes on long rest</span>
+      </div>
+      <div class="feature-body">
+        <p>Spend from the pool to heal a creature by any amount up to the remaining pool, or:</p>
+        <ul>
+          <li>5 points to cure one disease or poison.</li>
+          <li><span class="vow-em">5 points to end the <em>djinnstruck</em> condition — Oath of Silence modification.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Fighting Style — Great Weapon Fighting</div>
+      <div class="feature-meta">Level 2</div>
+      <div class="feature-body">
+        <p>When he rolls a <strong>1 or 2 on a damage die</strong> for an attack with a two-handed melee weapon, he can reroll the die and must use the new roll. Significant DPR boost for halberd attacks (1d10) and Divine Smite damage (extra d8s).</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Spellcasting</div>
+      <div class="feature-meta">Charisma · Save DC 13 · Attack +5 · holy symbol as focus · Level 2</div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Divine Smite</div>
+      <div class="feature-meta">On melee hit · Level 2</div>
+      <div class="feature-body">
+        <p>Expend a spell slot to deal <strong>+2d8 radiant</strong> (1st slot). <span class="vow-em">+1d8 vs fiends, undead, or djinns — Oath of Silence modification.</span></p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Divine Health</div>
+      <div class="feature-meta">Level 3</div>
+      <div class="feature-body">
+        <p>Immune to disease.</p>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">Oath of Silence — Sacred Oath</div>
+
+    <div class="feature oath">
+      <div class="feature-title">Channel Divinity — Unrivaled Silence</div>
+      <div class="feature-meta">Action · 1/short or long rest · Level 3</div>
+      <div class="feature-body">
+        <p>Create an aura of silence around himself for <strong>10 minutes</strong>. Can use Stealth <strong>without disadvantage while wearing heavy armor</strong>.</p>
+      </div>
+    </div>
+
+    <div class="feature oath">
+      <div class="feature-title">Channel Divinity — The Words, Unspoken</div>
+      <div class="feature-meta">Action · 1/short or long rest · Level 3</div>
+      <div class="feature-body">
+        <p>Present holy symbol; target up to <strong>3 creatures within 60 ft.</strong> Charisma save vs <strong>DC 13</strong>. On a failure: <strong>silenced for 1 minute</strong>.</p>
+        <p style="margin-top:0.5em;font-size:0.9rem;color:var(--ink-faint);font-style:italic;">Note: Channel Divinity has only one use per rest, shared between Unrivaled Silence and The Words, Unspoken.</p>
+      </div>
+    </div>
+
+    <div class="feature oath">
+      <div class="feature-title">Silent Spell</div>
+      <div class="feature-meta">Level 3 · Permanent</div>
+      <div class="feature-body">
+        <p>All Paladin spells cast <strong>without verbal components</strong>. Spells that have only verbal components substitute somatic instead. <span class="vow-em">He can cast normally despite his vow.</span></p>
+      </div>
+    </div>
+
+    <div class="feature oath">
+      <div class="feature-title">Silence as a Whole</div>
+      <div class="feature-meta">Level 3 · Permanent</div>
+      <div class="feature-body">
+        <p>His vow forbids speaking. He can <strong>telepathically communicate</strong> with creatures within <strong>30 ft.</strong>: project words OR images at a primitive level (not for manipulation, only communication). Up to <strong>5 creatures</strong> can receive at once. Recipients cannot respond telepathically unless they have their own such ability.</p>
+        <p style="margin-top:0.5em;"><span class="vow-em">Resistance to thunder damage.</span></p>
+      </div>
+    </div>
+
+    <div class="feature oath">
+      <div class="feature-title">Oath Spells</div>
+      <div class="feature-meta">Always prepared · Do not count against prepared limit</div>
+      <div class="feature-body">
+        <p><em>shield of faith</em>, <em>thunderwave</em></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPELLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#interlace-lock"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Spells</h2>
+      <p class="section-subtitle">4 prepared (Cha 3 + half level 1), plus 2 oath always-prepared</p>
+    </div>
+
+    <div class="features-cluster-title">Spell Slots</div>
+    <div class="spell-slots">
+      <div class="slot-group">
+        <span class="slot-level">1st Level</span>
+        <span class="slot-count">3</span>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">Prepared</div>
+    <table class="spells-table">
+      <thead>
+        <tr>
+          <th class="lvl">Lvl</th>
+          <th class="spell-name">Spell</th>
+          <th class="note">Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="oath-spell"><td class="lvl">1st</td><td class="spell-name">shield of faith</td>    <td class="note"><em>Oath always-prepared</em>; concentration; +2 AC to ally for 10 min</td></tr>
+        <tr class="oath-spell"><td class="lvl">1st</td><td class="spell-name">thunderwave</td>        <td class="note"><em>Oath always-prepared</em>; 15 ft cube, 2d8 thunder + push; pairs with his thunder resistance</td></tr>
+        <tr><td class="lvl">1st</td><td class="spell-name">bless</td>                                  <td class="note">Concentration; +1d4 to 3 allies' attacks/saves</td></tr>
+        <tr><td class="lvl">1st</td><td class="spell-name">protection from evil and good</td>         <td class="note">Concentration; anti-djinn/fiend/undead aura</td></tr>
+        <tr><td class="lvl">1st</td><td class="spell-name">cure wounds</td>                            <td class="note">Touch healing</td></tr>
+        <tr><td class="lvl">1st</td><td class="spell-name">command</td>                                <td class="note">Wis save DC 13; one-word command for one turn</td></tr>
+      </tbody>
+    </table>
+    <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:0.92rem;color:var(--ink-soft);margin: 0.7rem 0 0;">
+      Paladin does not yet have 2nd-level slots; those open at Level 5.
+    </p>
+  </section>
+
+  <!-- ============ FEAT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#interlace-lock"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Feat</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Sentinel</div>
+      <div class="feature-meta">Level 1</div>
+      <div class="feature-body">
+        <ul>
+          <li>When he hits a creature with an opportunity attack, the creature's <strong>speed becomes 0</strong> for the rest of the turn.</li>
+          <li>Creatures provoke opportunity attacks even if they take the <strong>Disengage</strong> action before leaving his reach.</li>
+          <li>When a creature within 5 ft. makes an attack against a target other than him (and the target doesn't also have Sentinel), he can use his <strong>reaction</strong> to make a melee weapon attack against the attacker.</li>
+        </ul>
+        <p style="margin-top:0.7em;font-style:italic;">The Sentinel feat embodied. With a halberd's <strong>10-foot reach</strong>, his threatened area is enormous.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BACKGROUND ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#interlace-lock"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Background — Folk Hero</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Rustic Hospitality</div>
+      <div class="feature-body">
+        <p>Common folk will provide Ibrahim with simple lodging and food, and will shield him from those who pursue him — though they will not risk their lives for him. He fits in among the poor and laboring classes of Constantinople and never has to pay for a place to sleep among them.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Defining Event</div>
+      <div class="feature-body">
+        <p>He stood between a possessed neighbor and the family the djinn would have killed, pinning the possessed body for hours through the night until a priest and a mullah — sent for separately, arriving together — could perform the exorcism. He took the vow of silence afterward. <span class="vow-em">He does not discuss what the djinn made him hear through the possessed man's mouth before it left.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EQUIPMENT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#interlace-lock"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Equipment</h2>
+    </div>
+    <div class="equipment-grid">
+      <div class="equip-block">
+        <div class="equip-block-title">Weapons</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Tabar</span> &mdash; <span class="item-detail">halberd stats: 1d10 slashing; reach 10 ft, heavy, two-handed; +5 to hit / 1d10+3 damage. A Turkish halberd of the kind dervishes and woodcutters carry; his is a soldier's-grade weapon, not a working tool</span></li>
+          <li><span class="item-name">Yatagan</span> &mdash; <span class="item-detail">longsword stats: 1d8 slashing, versatile 1d10; +5 to hit / 1d8+3 one-handed, 1d10+3 two-handed; sidearm for when shield is needed</span></li>
+          <li><span class="item-name">Jereed &times; 4</span> &mdash; <span class="item-detail">javelin stats: 1d6 piercing; thrown 30/120; +5 to hit / 1d6+3; wood-and-metal throwing weapons</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Armour</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Splint armour</span> &mdash; <span class="item-detail">heavy; AC 17, no Dex bonus, Str 15 req — Ibrahim: Str 17 ✓; stealth disadvantage <em>(negated within Unrivaled Silence aura)</em>. Reskinned as a heavy lamellar coat over a mail shirt, period-appropriate for an Arab warrior in Ottoman service</span></li>
+          <li><span class="item-name">Shield</span> &mdash; <span class="item-detail">+2 AC, used with the yatagan sidearm; slung on his back when wielding the halberd</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Holy Symbol &amp; Personal Items</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Holy symbol</span> &mdash; <span class="item-detail">a worn brass disc engraved with the Throne Verse (<em>Ayat al-Kursi</em>) in Arabic, worn on a thong against his chest. He runs his thumb over the engraving when he prays. Functions as his divine focus</span></li>
+          <li><span class="item-name">Prayer beads</span> &mdash; <span class="item-detail">99 beads, black wood</span></li>
+          <li><span class="item-name">Wooden token</span> &mdash; <span class="item-detail">from a child he saved during his defining event — kept in a pouch at his belt; he has never returned it</span></li>
+          <li><span class="item-name">Mason's tools</span> &mdash; <span class="item-detail">Folk Hero; he was a stonemason before taking the vow — useful for examining structures, fortifications, masonry-set wards</span></li>
+          <li><span class="item-name">Common clothes</span> &mdash; <span class="item-detail">Folk Hero</span></li>
+          <li><span class="item-name">Shovel and iron pot</span> &mdash; <span class="item-detail">Folk Hero</span></li>
+          <li><span class="item-name">Belt pouch</span></li>
+        </ul>
+      </div>
+
+      <div class="money-line">
+        Carrying <span class="amount">10 gp</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERSONALITY ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#interlace-lock"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Personality</h2>
+    </div>
+    <div class="personality-grid">
+      <div class="personality-card">
+        <div class="personality-label">Trait</div>
+        <p class="personality-text">I move slowly, choose my path before stepping, and never act on the first thought that rises in my mind. The Tenets demand patience, and I have learned to find peace in it.</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Ideal <span class="alignment-tag">— Protection · Lawful Good</span></div>
+        <p class="personality-text">Those who cannot defend themselves are owed defense. The djinn prey on the poor because the poor have no one. I am that "someone".</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Bond</div>
+        <p class="personality-text">Seven years ago, through the mouth of a possessed neighbor I held down for one whole night, I heard something a djinn whispered that no man should hear. I took my vow that morning. If I speak, I do not trust myself to keep the words from coming out.</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Flaw</div>
+        <p class="personality-text">I judge the powerful harshly and quickly. I have stood between mighty men and the people they would have hurt, and I have never been wrong yet. One day I will be wrong, and I will be late realizing it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONNECTIONS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#interlace-lock"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Connections</h2>
+    </div>
+    <ul class="connections-list">
+      <li>Worked with <span class="conn-name">Osman Hamdi Bey</span> on a previous security mission for an Ottoman artifact.</li>
+      <li>Has mutual respect for <span class="conn-name">Father Leonidas</span>, seeing him as a spiritual equal.</li>
+    </ul>
+  </section>
+
+  <!-- ============ PATRON'S NOTE ============ -->
+  <section class="patron-note">
+    <div class="patron-label">From the Patron's Hand</div>
+    <p class="patron-text">His silence and dedication make him an ideal guardian for delicate work.</p>
+    <div class="patron-signature">
+      &mdash; <span class="sig-name">Osman Hamdi Bey</span>
+    </div>
+  </section>
+
+  <!-- ============ FOOT ============ -->
+  <footer class="document-foot">
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal"/></svg>
+    <div class="foot-text">
+      Compiled at the <span class="kufi">المتحف الإمبراطوري</span> Imperial Museum &middot; Constantinople
+    </div>
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal"/></svg>
+  </footer>
+
+</article>
+
+</body>
+</html>

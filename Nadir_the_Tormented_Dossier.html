@@ -1,0 +1,1833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Nadir the Tormented</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Reem+Kufi:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Nadir — Djinnpossessed: bone white, blood crimson, sickly verdigris */
+    /* The parchment is DELIBERATELY wrong — sickly green-tinted ivory.
+       This is the visual signature that ONLY Nadir carries. */
+    --ground:       #1a1518;
+    --ground-deep:  #0e0a0c;
+    --paper:        #e2dcc4;        /* bone-ivory with faint sickly cast */
+    --paper-shade:  #d2cbab;        /* shaded — pushed slightly verdigris */
+    --paper-edge:   #b8b094;
+    --ink:          #1a1c14;
+    --ink-soft:     #353429;
+    --ink-faint:    #5e5a48;
+    --accent:       #4a5840;        /* sickly verdigris */
+    --accent-deep:  #2d3528;
+    --accent-pale:  #758266;
+    --crimson:      #7a1818;        /* blood crimson */
+    --crimson-deep: #4e0c0c;
+    --crimson-pale: #9c4040;
+    --bone:         #f0e8c8;        /* bone-white highlight */
+    --gold:         #8a7038;        /* dull, tarnished gold */
+    --gold-deep:    #5e4c24;
+    --rule:         #9c9472;
+    --rule-soft:    #bdb38a;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 12%, rgba(74, 88, 64, 0.22) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 88%, rgba(14, 10, 12, 0.7) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(26, 21, 24, 0.5) 0%, transparent 80%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  /* ============ DOCUMENT FOLIO ============ */
+  /* THE PAPER IS TINTED SICKLY GREEN — visible especially at the edges */
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 3.75rem 4.25rem 4.5rem;
+    position: relative;
+    box-shadow:
+      0 1px 2px rgba(14, 10, 12, 0.45),
+      0 14px 56px rgba(14, 10, 12, 0.65),
+      inset 0 0 0 1px rgba(156, 148, 114, 0.45);
+    /* Tint patterns: verdigris stains seeping inward, faint crimson seepage in the deep corners */
+    background-image:
+      radial-gradient(ellipse at 5% 8%, rgba(74, 88, 64, 0.12) 0%, transparent 35%),
+      radial-gradient(ellipse at 95% 8%, rgba(74, 88, 64, 0.10) 0%, transparent 35%),
+      radial-gradient(ellipse at 5% 95%, rgba(74, 88, 64, 0.14) 0%, transparent 40%),
+      radial-gradient(ellipse at 95% 95%, rgba(122, 24, 24, 0.06) 0%, transparent 35%),
+      radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(74, 88, 64, 0.06) 100%);
+  }
+
+  /* Top folio band — verdigris / crimson — the wrong colors */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--ground-deep) 0%,
+      var(--accent-deep) 18%,
+      var(--accent) 38%,
+      var(--crimson) 50%,
+      var(--accent) 62%,
+      var(--accent-deep) 82%,
+      var(--ground-deep) 100%);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--accent-deep) 20%,
+      var(--crimson) 50%,
+      var(--accent-deep) 80%,
+      transparent 100%);
+    opacity: 0.7;
+  }
+
+  .vine-margin {
+    position: absolute;
+    top: 5px; bottom: 3px; left: 0;
+    width: 26px;
+    opacity: 0.28;
+    pointer-events: none;
+  }
+
+  /* "Wrong" cracking visible on the right margin — a deliberate flaw in the document */
+  .crack-overlay {
+    position: absolute;
+    top: 5px; bottom: 3px; right: 0;
+    width: 26px;
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2rem;
+  }
+  .masthead-left { min-width: 0; }
+  .masthead-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.38em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .masthead-eyebrow .dossier-no {
+    color: var(--crimson-deep);
+    font-weight: 600;
+  }
+  .masthead-eyebrow .museum-kufi {
+    font-family: "Reem Kufi", "Cormorant SC", serif;
+    letter-spacing: 0.08em;
+    font-size: 0.92rem;
+    margin-right: 0.6em;
+    color: var(--accent-deep);
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.35rem;
+    line-height: 1;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+  .character-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--crimson-deep);
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .cartouche {
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+  }
+
+  /* ============ IDENTITY + PORTRAIT BAND ============ */
+  .identity-band {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 2.25rem;
+    margin-bottom: 2.5rem;
+    align-items: start;
+  }
+  .identity-block { min-width: 0; }
+  .identity-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0.4rem 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    align-items: baseline;
+  }
+  .identity-row:last-child { border-bottom: none; }
+  .identity-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .identity-value {
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+  }
+  .identity-value em {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  .djinn-note {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--crimson-deep);
+    display: block;
+    margin-top: 0.15rem;
+  }
+
+  /* Portrait plate */
+  .portrait-plate { position: relative; }
+  .portrait-frame {
+    border: 1px solid var(--accent-deep);
+    padding: 6px;
+    background: var(--paper-shade);
+    box-shadow:
+      inset 0 0 0 1px var(--crimson),
+      0 2px 8px rgba(14, 10, 12, 0.22);
+    position: relative;
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--accent-deep);
+  }
+  .portrait-frame::before {
+    top: -4px; left: -4px;
+    border-right: none; border-bottom: none;
+  }
+  .portrait-frame::after {
+    bottom: -4px; right: -4px;
+    border-left: none; border-top: none;
+  }
+  .portrait-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: sepia(0.10) saturate(0.85) brightness(0.94);
+  }
+  .portrait-caption {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.7rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .portrait-caption strong {
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+  }
+  .portrait-warning {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--crimson-deep);
+    text-align: center;
+    margin-top: 0.4rem;
+  }
+
+  /* ============ SECTION ORNAMENTS ============ */
+  .section { margin-top: 2.5rem; }
+  .section-head {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    justify-content: center;
+    margin-bottom: 0.7rem;
+  }
+  .section-rule-line {
+    flex: 1;
+    max-width: 180px;
+    height: 1px;
+    background: var(--rule);
+  }
+  .section-ornament {
+    width: 30px; height: 30px;
+    color: var(--accent-deep);
+    flex-shrink: 0;
+  }
+  h2.section-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.55rem;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  .section-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-faint);
+    margin: 0.25rem 0 0;
+  }
+
+  /* ============ BIO ============ */
+  .bio {
+    font-family: "EB Garamond", serif;
+    font-size: 1.08rem;
+    line-height: 1.72;
+    color: var(--ink-soft);
+    text-align: justify;
+    hyphens: auto;
+  }
+  .bio p { margin: 0 0 1em; }
+  .bio p:last-child { margin-bottom: 0; }
+  .bio p:first-child::first-letter {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.1em 0.12em 0 0;
+    color: var(--crimson-deep);
+  }
+
+  /* Origin banner — the d6 roll result, presented as a marked entry */
+  .origin-banner {
+    margin: 1.5rem 0 0;
+    padding: 1rem 1.25rem 1.1rem;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0,
+        transparent 22px,
+        rgba(74, 88, 64, 0.025) 22px,
+        rgba(74, 88, 64, 0.025) 44px
+      ),
+      var(--paper-shade);
+    border-left: 4px solid var(--crimson);
+    border-right: 1px solid var(--accent);
+    position: relative;
+  }
+  .origin-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.32em;
+    color: var(--crimson-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .origin-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.08rem;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+  }
+  .origin-d6 {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.55rem;
+  }
+
+  /* ============ ABILITY SCORES ============ */
+  .abilities {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+  }
+  .ability-card {
+    border: 1px solid var(--rule);
+    background: var(--paper-shade);
+    padding: 0.85rem 0.4rem 0.7rem;
+    text-align: center;
+    position: relative;
+  }
+  .ability-card::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 8px; right: 8px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .ability-card.saveprof::before {
+    background: var(--crimson);
+    height: 3px;
+  }
+  .ability-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .ability-score {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 0.15rem 0 0.05rem;
+  }
+  .ability-mod {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem;
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  .ability-save {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+    padding-top: 0.35rem;
+    border-top: 1px dotted var(--rule-soft);
+  }
+  .ability-save .save-val {
+    font-family: "EB Garamond", serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    font-weight: 500;
+    margin-left: 0.2em;
+  }
+  .ability-card.saveprof .ability-save .save-val {
+    color: var(--crimson-deep);
+    font-weight: 600;
+  }
+
+  /* ============ COMBAT STATS ============ */
+  .combat-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 0.7rem 0.65rem;
+  }
+  .stat-cell-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .stat-cell-value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-top: 0.15rem;
+  }
+  .stat-cell-value small {
+    font-family: "EB Garamond", serif;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-left: 0.3em;
+  }
+  /* AC cell highlighted as a warning — Nadir's fragility */
+  .stat-cell.fragile {
+    border-color: var(--crimson);
+    background:
+      radial-gradient(circle at 80% 30%, rgba(122, 24, 24, 0.06) 0%, transparent 60%),
+      var(--paper);
+  }
+  .stat-cell.fragile .stat-cell-value {
+    color: var(--crimson-deep);
+  }
+
+  .fragility-note {
+    margin-top: 0.8rem;
+    padding: 0.65rem 0.85rem;
+    background: var(--paper-shade);
+    border-left: 3px solid var(--crimson);
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+
+  /* ============ SKILLS ============ */
+  .skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+  }
+  .skills-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .skills-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: baseline;
+  }
+  .skills-table tr:last-child td { border-bottom: none; }
+  .skills-table .bonus {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    color: var(--ink);
+    width: 70px;
+    text-align: center;
+  }
+  .skills-table .source {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+
+  /* ============ FEATURE BLOCKS ============ */
+  .feature {
+    margin: 0 0 1.1rem;
+    padding: 0.85rem 1rem;
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+  }
+  .feature.subclass {
+    border-left-color: var(--crimson);
+  }
+  .feature.djinn-feature {
+    border-left-color: var(--crimson-deep);
+    border-left-width: 4px;
+    background:
+      radial-gradient(ellipse at 95% 10%, rgba(122, 24, 24, 0.07) 0%, transparent 60%),
+      var(--paper-shade);
+  }
+  .feature-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    color: var(--ink);
+    margin: 0 0 0.3rem;
+    letter-spacing: 0.01em;
+  }
+  .feature-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .feature-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .feature-body p { margin: 0 0 0.55em; }
+  .feature-body p:last-child { margin-bottom: 0; }
+  .feature-body ul {
+    margin: 0.4em 0 0.2em;
+    padding-left: 1.4em;
+  }
+  .feature-body ul li {
+    padding: 0.15em 0;
+  }
+  .feature-body strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .feature-body em {
+    color: var(--crimson-deep);
+  }
+  .feature-body .djinn-em {
+    color: var(--crimson-deep);
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .features-cluster-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .features-cluster-title:first-child { margin-top: 0; }
+
+  /* Djinntouched — the three afflictions menu */
+  .affliction-menu {
+    list-style: none;
+    margin: 0.5em 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem 0.75rem;
+  }
+  .affliction-menu li {
+    padding: 0.5em 0.7em;
+    background: var(--paper);
+    border-left: 2px solid var(--crimson);
+    font-size: 0.94rem;
+  }
+  .affliction-menu .aff-name {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--crimson-deep);
+    display: block;
+    margin-bottom: 0.2em;
+  }
+
+  /* Sorcery points / metamagic tracker */
+  .sorcery-tracker {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    margin: 0.3rem 0 0.6rem;
+  }
+  .sorcery-orb {
+    width: 15px; height: 15px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--crimson-pale), var(--crimson-deep));
+    border: 1px solid var(--accent-deep);
+    box-shadow: inset 0 -1px 2px rgba(0,0,0,0.3);
+  }
+  .resource-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-left: 0.4rem;
+  }
+
+  /* Metamagic options */
+  .metamagic-options {
+    list-style: none;
+    margin: 0.5em 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 0.75rem;
+  }
+  .metamagic-options li {
+    padding: 0.5em 0.7em;
+    background: var(--paper);
+    border-left: 2px solid var(--accent);
+    font-size: 0.94rem;
+  }
+  .metamagic-options .meta-name {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--accent-deep);
+    display: block;
+    margin-bottom: 0.2em;
+  }
+  .metamagic-options .meta-cost {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-left: 0.3em;
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  /* Exorcism difficulty meter — campaign hook */
+  .exorcism-block {
+    margin-top: 0.6rem;
+    padding: 0.85rem 1rem;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 8px,
+        rgba(122, 24, 24, 0.05) 8px,
+        rgba(122, 24, 24, 0.05) 16px
+      ),
+      var(--paper);
+    border: 1px dashed var(--crimson);
+  }
+  .exorcism-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.28em;
+    color: var(--crimson-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .exorcism-value {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin-bottom: 0.4rem;
+  }
+  .exorcism-num {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.55rem;
+    color: var(--crimson-deep);
+  }
+  .exorcism-rises {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.94rem;
+    color: var(--ink-soft);
+  }
+
+  /* ============ SPELLS ============ */
+  .spell-slots {
+    display: flex;
+    gap: 1rem;
+    margin: 0.5rem 0 1.25rem;
+    flex-wrap: wrap;
+  }
+  .slot-group {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--rule);
+    background: var(--paper-shade);
+  }
+  .slot-level {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .slot-count {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--crimson-deep);
+  }
+
+  .cantrips-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.85rem;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    list-style: none;
+  }
+  .cantrips-list li {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.02rem;
+    color: var(--ink);
+    padding: 0.15rem 0.7rem;
+    background: var(--paper-shade);
+    border: 1px solid var(--rule-soft);
+  }
+  .cantrips-list li.feat {
+    border-color: var(--crimson);
+    border-left-width: 3px;
+  }
+
+  .spells-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+  }
+  .spells-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .spells-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: baseline;
+  }
+  .spells-table tr:last-child td { border-bottom: none; }
+  .spells-table .lvl {
+    font-family: "Cormorant Garamond", serif;
+    color: var(--crimson-deep);
+    width: 50px;
+  }
+  .spells-table .spell-name {
+    font-style: italic;
+    color: var(--ink);
+    width: 200px;
+  }
+  .spells-table .note {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .spells-table tr.djinn-spell td {
+    background: rgba(122, 24, 24, 0.04);
+  }
+
+  /* Free spell from feat */
+  .free-spell-block {
+    margin-top: 1.2rem;
+    padding: 0.9rem 1.1rem;
+    background:
+      radial-gradient(ellipse at 85% 25%, rgba(122, 24, 24, 0.07) 0%, transparent 60%),
+      var(--paper);
+    border: 1px solid var(--crimson);
+    border-left-width: 3px;
+  }
+  .free-spell-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    color: var(--crimson-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  /* ============ EQUIPMENT ============ */
+  .equipment-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .equip-block {
+    border: 1px solid var(--rule-soft);
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+  }
+  .equip-block-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 0 0 0.55rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .equip-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .equip-list li {
+    padding: 0.35rem 0;
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .equip-list li:last-child { border-bottom: none; }
+  .equip-list .item-name { font-weight: 500; }
+  .equip-list .item-detail {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-style: italic;
+  }
+  .money-line {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    padding: 0.85rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .money-line .amount {
+    font-family: "Cormorant Garamond", serif;
+    font-style: normal;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--crimson-deep);
+    letter-spacing: 0.05em;
+    margin: 0 0.3em;
+  }
+
+  /* The Cursed Focus — special block for the glass orb */
+  .cursed-focus-block {
+    margin-top: 1.1rem;
+    padding: 1rem 1.15rem 1.1rem;
+    border: 1px solid var(--crimson);
+    border-left-width: 4px;
+    background:
+      radial-gradient(ellipse at 25% 25%, rgba(122, 24, 24, 0.06) 0%, transparent 40%),
+      radial-gradient(ellipse at 75% 80%, rgba(74, 88, 64, 0.05) 0%, transparent 40%),
+      var(--paper);
+    position: relative;
+  }
+  .cursed-focus-block::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 2px;
+    background: linear-gradient(90deg,
+      var(--crimson-deep) 0%,
+      var(--crimson) 50%,
+      var(--crimson-deep) 100%);
+  }
+  .cursed-focus-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    color: var(--crimson-deep);
+    text-transform: uppercase;
+    margin: 0 0 0.55rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .cursed-focus-name {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  .cursed-focus-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* ============ PERSONALITY ============ */
+  .personality-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+  .personality-card {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--paper-shade);
+    border-top: 2px solid var(--crimson);
+    position: relative;
+  }
+  .personality-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    color: var(--crimson-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .personality-label .alignment-tag {
+    color: var(--ink-faint);
+    font-weight: 400;
+    margin-left: 0.4em;
+  }
+  .personality-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ============ CONNECTIONS ============ */
+  .connections-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .connections-list li {
+    padding: 0.65rem 0 0.65rem 1.5rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+    position: relative;
+  }
+  .connections-list li:last-child { border-bottom: none; }
+  .connections-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 1.1em;
+    width: 8px; height: 8px;
+    border: 1px solid var(--crimson);
+    transform: rotate(45deg);
+    background: var(--paper);
+  }
+  .connections-list .conn-name {
+    font-weight: 500;
+    color: var(--crimson-deep);
+  }
+
+  /* ============ PATRON'S NOTE ============ */
+  .patron-note {
+    margin: 2.75rem 0 0;
+    padding: 1.5rem 1.75rem 1.65rem;
+    border: 1px solid var(--accent);
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 8px,
+        rgba(74, 88, 64, 0.04) 8px,
+        rgba(74, 88, 64, 0.04) 16px
+      ),
+      var(--paper-shade);
+    position: relative;
+  }
+  .patron-note::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 2px;
+    background: linear-gradient(90deg,
+      var(--accent-deep) 0%,
+      var(--accent) 50%,
+      var(--accent-deep) 100%);
+  }
+  .patron-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+  .patron-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+  .patron-aside {
+    margin-top: 0.7rem;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    border-top: 1px dotted var(--rule-soft);
+    padding-top: 0.7rem;
+  }
+  .patron-signature {
+    margin-top: 0.85rem;
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    color: var(--ink-soft);
+  }
+  .patron-signature .sig-name {
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  /* ============ FOOT ============ */
+  .document-foot {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .foot-seal {
+    width: 38px; height: 38px;
+    color: var(--accent-deep);
+    opacity: 0.75;
+  }
+  .foot-text {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    flex: 1;
+  }
+  .foot-text .kufi {
+    font-family: "Reem Kufi", serif;
+    letter-spacing: 0.08em;
+    color: var(--accent-deep);
+    margin: 0 0.4em;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 760px) {
+    body { padding: 1rem 0.4rem 2rem; }
+    .document { padding: 2.25rem 1.5rem 2.75rem; }
+    h1.character-name { font-size: 2.3rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1rem; }
+    .cartouche { width: 80px; height: 80px; justify-self: start; }
+    .identity-band { grid-template-columns: 1fr; }
+    .portrait-plate { max-width: 240px; }
+    .abilities { grid-template-columns: repeat(3, 1fr); }
+    .combat-stats { grid-template-columns: repeat(2, 1fr); }
+    .personality-grid { grid-template-columns: 1fr; }
+    .vine-margin, .crack-overlay { display: none; }
+    .skills-table .source { display: none; }
+    .affliction-menu, .metamagic-options { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 460px) {
+    .abilities { grid-template-columns: repeat(2, 1fr); }
+    .identity-row { grid-template-columns: 1fr; gap: 0.1rem; }
+    .identity-label { font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Inline SVG definitions -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Nadir's section ornament: cracked-glass shard with single eye -->
+    <symbol id="cracked-shard" viewBox="0 0 30 30">
+      <g fill="none" stroke="currentColor" stroke-width="0.6">
+        <!-- Outer shard outline -->
+        <path d="M 15 4 L 24 10 L 26 18 L 20 25 L 11 26 L 4 19 L 4 11 Z"/>
+        <!-- Crack lines radiating from center -->
+        <path d="M 15 4 L 15 15 L 11 26" stroke-width="0.5"/>
+        <path d="M 24 10 L 15 15 L 4 19" stroke-width="0.5"/>
+        <path d="M 26 18 L 15 15 L 4 11" stroke-width="0.5"/>
+        <path d="M 20 25 L 15 15 L 15 4" stroke-width="0.4"/>
+        <!-- Central eye -->
+        <ellipse cx="15" cy="15" rx="3" ry="1.8" fill="var(--paper)" stroke-width="0.5"/>
+        <circle cx="15" cy="15" r="1" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Foot seal: cracked vessel with iris-eye inside -->
+    <symbol id="foot-seal" viewBox="0 0 40 40">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <circle cx="20" cy="20" r="17"/>
+        <circle cx="20" cy="20" r="13" stroke-dasharray="1 2"/>
+        <!-- Glass vessel: tear-drop shape -->
+        <path d="M 20 8 Q 28 14 28 24 Q 28 32 20 32 Q 12 32 12 24 Q 12 14 20 8 Z" fill="currentColor" fill-opacity="0.55"/>
+        <!-- Crack -->
+        <path d="M 16 12 L 19 17 L 16 22 L 20 26" stroke="var(--paper)" stroke-width="0.6" fill="none"/>
+        <!-- Eye inside -->
+        <ellipse cx="20" cy="22" rx="3" ry="2" fill="var(--paper)" stroke-width="0.4"/>
+        <circle cx="20" cy="22" r="1" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Nadir's cartouche: cracked glass vessel with an iris-eye inside -->
+    <symbol id="cartouche-nadir" viewBox="0 0 110 110">
+      <g fill="none" stroke="currentColor" stroke-width="1.1">
+        <!-- Outer ring -->
+        <circle cx="55" cy="55" r="50"/>
+        <!-- Inner ring, dashed - irregular dashes for unease -->
+        <circle cx="55" cy="55" r="42" stroke-width="0.7" stroke-dasharray="2 4 1 3"/>
+
+        <!-- Cracked glass vessel — Persian style, tear-drop -->
+        <g>
+          <!-- Body of the vessel -->
+          <path d="M 55 18
+                   Q 75 30 75 55
+                   Q 75 80 55 85
+                   Q 35 80 35 55
+                   Q 35 30 55 18 Z"
+                fill="currentColor" fill-opacity="0.5"
+                stroke-width="1.4"/>
+          <!-- Highlight on the vessel suggesting glass -->
+          <path d="M 45 30 Q 42 45 45 60" stroke="var(--paper)" stroke-width="1" fill="none" opacity="0.6"/>
+          <!-- Crack — jagged line down the front -->
+          <path d="M 50 24
+                   L 53 32
+                   L 48 42
+                   L 54 52
+                   L 49 62
+                   L 56 75
+                   L 52 82"
+                stroke="var(--paper)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          <!-- Second smaller crack branching -->
+          <path d="M 48 42 L 42 50" stroke="var(--paper)" stroke-width="0.8" fill="none"/>
+          <path d="M 54 52 L 62 58" stroke="var(--paper)" stroke-width="0.8" fill="none"/>
+
+          <!-- The eye inside the vessel (the djinn watching) -->
+          <g transform="translate(55 55)">
+            <ellipse cx="0" cy="0" rx="13" ry="8" fill="var(--paper)" stroke="currentColor" stroke-width="0.9"/>
+            <circle cx="0" cy="0" r="6" fill="currentColor" fill-opacity="0.85"/>
+            <circle cx="0" cy="0" r="3" fill="var(--ground-deep)" stroke="currentColor" stroke-width="0.4"/>
+            <!-- Highlight glint -->
+            <circle cx="-2" cy="-1.5" r="1" fill="var(--paper)" stroke="none"/>
+          </g>
+
+          <!-- Vessel neck/lip at top -->
+          <path d="M 50 16 L 60 16 L 58 22 L 52 22 Z" fill="currentColor" stroke-width="0.8"/>
+        </g>
+
+        <!-- Cardinal accents — irregular, "off" -->
+        <circle cx="55" cy="6" r="1.5" fill="currentColor" stroke="none"/>
+        <circle cx="55" cy="104" r="1" fill="currentColor" stroke="none"/>
+        <circle cx="6" cy="55" r="1.3" fill="currentColor" stroke="none"/>
+        <circle cx="104" cy="55" r="1.7" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Vine pattern: cracked-glass shards alternating with the djinn-eye -->
+    <pattern id="vinePattern" width="26" height="160" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="currentColor" stroke-width="0.6">
+        <!-- Eye 1 -->
+        <g transform="translate(13 25)">
+          <ellipse cx="0" cy="0" rx="6" ry="3.5" stroke-width="0.5"/>
+          <circle cx="0" cy="0" r="2" fill="currentColor" stroke="none"/>
+          <circle cx="0" cy="0" r="0.7" fill="var(--paper)" stroke="none"/>
+        </g>
+        <!-- Crack -->
+        <path d="M 13 38 L 10 50 L 16 60 L 13 72" stroke-width="0.6" stroke-dasharray="2 1.5"/>
+        <!-- Eye 2 -->
+        <g transform="translate(13 85)">
+          <ellipse cx="0" cy="0" rx="6" ry="3.5" stroke-width="0.5"/>
+          <circle cx="0" cy="0" r="2" fill="currentColor" stroke="none"/>
+          <circle cx="0" cy="0" r="0.7" fill="var(--paper)" stroke="none"/>
+        </g>
+        <!-- Crack -->
+        <path d="M 13 98 L 16 110 L 10 120 L 13 132" stroke-width="0.6" stroke-dasharray="2 1.5"/>
+        <!-- Eye 3 -->
+        <g transform="translate(13 145)">
+          <ellipse cx="0" cy="0" rx="6" ry="3.5" stroke-width="0.5"/>
+          <circle cx="0" cy="0" r="2" fill="currentColor" stroke="none"/>
+          <circle cx="0" cy="0" r="0.7" fill="var(--paper)" stroke="none"/>
+        </g>
+      </g>
+    </pattern>
+
+    <!-- Crack overlay — jagged crack lines down the right margin -->
+    <pattern id="crackPattern" width="26" height="180" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="currentColor" stroke-width="0.5">
+        <path d="M 13 0 L 10 20 L 16 40 L 11 60 L 17 80 L 12 100 L 18 120 L 11 140 L 15 160 L 12 180" stroke-linecap="round"/>
+        <path d="M 8 30 L 13 35 M 18 70 L 13 75 M 7 110 L 13 115 M 19 150 L 14 155" stroke-width="0.4"/>
+      </g>
+    </pattern>
+  </defs>
+</svg>
+
+<article class="document">
+
+  <svg class="vine-margin" preserveAspectRatio="none" aria-hidden="true" style="color: var(--crimson-deep); width:26px; height:100%;">
+    <rect width="100%" height="100%" fill="url(#vinePattern)"/>
+  </svg>
+
+  <!-- Crack overlay on the right margin — "the document itself is failing" -->
+  <svg class="crack-overlay" preserveAspectRatio="none" aria-hidden="true" style="color: var(--crimson-deep); width:26px; height:100%;">
+    <rect width="100%" height="100%" fill="url(#crackPattern)"/>
+  </svg>
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="masthead-eyebrow">
+        <span class="museum-kufi">دوسيه</span>
+        <span>Müze-i Hümâyûn</span> &middot; <span class="dossier-no">Dossier · Sorcerer</span>
+      </div>
+      <h1 class="character-name">Nadir the Tormented</h1>
+      <p class="character-subtitle">Glassblower of the Golden Horn &middot; Djinnpossessed Origin</p>
+    </div>
+    <svg class="cartouche" aria-hidden="true" style="color: var(--accent-deep);">
+      <use href="#cartouche-nadir"/>
+    </svg>
+  </header>
+
+  <!-- ============ IDENTITY + PORTRAIT ============ -->
+  <section class="identity-band">
+    <div class="identity-block">
+      <div class="identity-row">
+        <span class="identity-label">Class &amp; Level</span>
+        <span class="identity-value">Sorcerer 3 &middot; Djinnpossessed Origin</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Race</span>
+        <span class="identity-value">Human (standard)</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Background</span>
+        <span class="identity-value">Guild Artisan <em>— Glassblower</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Age</span>
+        <span class="identity-value">36</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Heritage</span>
+        <span class="identity-value">Persian</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Faith</span>
+        <span class="identity-value">Zoroastrianism</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Alignment</span>
+        <span class="identity-value">Chaotic Neutral</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Languages</span>
+        <span class="identity-value">Ottoman Turkish (Common), Persian, Arabic, Aramaic, Djinnspeak
+          <span class="djinn-note">Djinnspeak from the Djinntouched feature — he did not learn it willingly.</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="portrait-plate">
+      <div class="portrait-frame">
+        <img src="nadir.png" alt="Portrait of Nadir the Tormented">
+      </div>
+      <div class="portrait-caption">
+        <strong>Nadir the Tormented</strong><br>
+        Persian &middot; Aged Thirty-Six
+      </div>
+      <div class="portrait-warning">skin cracks like cooling crystal &middot; voices at night</div>
+    </div>
+  </section>
+
+  <!-- ============ BIO ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cracked-shard"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">On the Subject</h2>
+    </div>
+    <div class="bio">
+      <p>A once-brilliant glassblower whose craft was interrupted by a pact he did not agree to. Tricked by a djinn who promised to grant his wishes — but who, in truth, came only to make Nadir grant <em>his</em> — Nadir now shares his body with the thing that deceived him.</p>
+      <p>His glasswork has never been finer; the vessels he blows shimmer with otherworldly brilliance, and the wealthy of Constantinople pay handsomely for them. But his hands tremble more each year, his skin has begun to crack like cooling crystal, and at night he hears voices in a tongue he has been forced to learn. He came to this city believing he could find a way to be free of the thing inside him. He has not, yet.</p>
+    </div>
+
+    <div class="origin-banner">
+      <div class="origin-label">Origin Roll</div>
+      <p class="origin-text">"You were tricked by a Djinn, believing that he would grant you wishes — but instead you just granted his."</p>
+      <div class="origin-d6">d6 #4 &middot; Djinnpossessed Origin Table</div>
+    </div>
+  </section>
+
+  <!-- ============ ABILITY SCORES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cracked-shard"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Faculties &amp; Saving Throws</h2>
+      <p class="section-subtitle">Base array 13, 13, 10, 9, 9, 7; Human +1 to each</p>
+    </div>
+    <div class="abilities">
+      <div class="ability-card">
+        <div class="ability-name">Strength</div>
+        <div class="ability-score">8</div>
+        <div class="ability-mod">&minus;1</div>
+        <div class="ability-save">Save <span class="save-val">&minus;1</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Dexterity</div>
+        <div class="ability-score">11</div>
+        <div class="ability-mod">+0</div>
+        <div class="ability-save">Save <span class="save-val">+0</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Constitution</div>
+        <div class="ability-score">14</div>
+        <div class="ability-mod">+2</div>
+        <div class="ability-save">Save <span class="save-val">+4</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Intelligence</div>
+        <div class="ability-score">10</div>
+        <div class="ability-mod">+0</div>
+        <div class="ability-save">Save <span class="save-val">+0</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Wisdom</div>
+        <div class="ability-score">10</div>
+        <div class="ability-mod">+0</div>
+        <div class="ability-save">Save <span class="save-val">+0</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Charisma</div>
+        <div class="ability-score">14</div>
+        <div class="ability-mod">+2</div>
+        <div class="ability-save">Save <span class="save-val">+4</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMBAT STATS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cracked-shard"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Bearing in the Field</h2>
+    </div>
+    <div class="combat-stats">
+      <div class="stat-cell">
+        <div class="stat-cell-label">Proficiency</div>
+        <div class="stat-cell-value">+2</div>
+      </div>
+      <div class="stat-cell fragile">
+        <div class="stat-cell-label">Armour Class</div>
+        <div class="stat-cell-value">10 <small>unarmored</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Initiative</div>
+        <div class="stat-cell-value">+0</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Speed</div>
+        <div class="stat-cell-value">30 <small>ft</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Points</div>
+        <div class="stat-cell-value">20</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Dice</div>
+        <div class="stat-cell-value">3d6</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Passive Perception</div>
+        <div class="stat-cell-value">10</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Spell Save DC</div>
+        <div class="stat-cell-value">12 <small>+4 atk · Cha</small></div>
+      </div>
+    </div>
+    <div class="fragility-note">
+      Nadir is mechanically the party's most fragile member. He should stay behind the line and rely on illusion, defensive spells (<em>shield</em>, <em>mirror image</em>), and the djinn's protection rather than direct confrontation.
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cracked-shard"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <table class="skills-table">
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th class="bonus" style="text-align:center;">Bonus</th>
+          <th class="source">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Arcana</td>         <td class="bonus">+2</td>  <td class="source">Sorcerer</td></tr>
+        <tr><td>Deception</td>      <td class="bonus">+4</td>  <td class="source">Sorcerer</td></tr>
+        <tr><td>Insight</td>        <td class="bonus">+2</td>  <td class="source">Guild Artisan</td></tr>
+        <tr><td>Performance</td>    <td class="bonus">+4</td>  <td class="source">Human</td></tr>
+        <tr><td>Persuasion</td>     <td class="bonus">+4</td>  <td class="source">Guild Artisan</td></tr>
+      </tbody>
+    </table>
+    <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:0.92rem;color:var(--ink-soft);margin: 0.7rem 0 0;">
+      Tool proficiency: glassblower's tools (Guild Artisan).
+    </p>
+  </section>
+
+  <!-- ============ CLASS FEATURES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cracked-shard"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Class Features</h2>
+    </div>
+
+    <div class="features-cluster-title">Sorcerer — Base</div>
+
+    <div class="feature">
+      <div class="feature-title">Spellcasting</div>
+      <div class="feature-meta">Charisma · Save DC 12 · Attack +4 · Arcane focus</div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Font of Magic</div>
+      <div class="feature-meta">Level 2</div>
+      <div class="sorcery-tracker">
+        <span class="sorcery-orb"></span>
+        <span class="sorcery-orb"></span>
+        <span class="sorcery-orb"></span>
+        <span class="resource-label">3 sorcery points &middot; refresh on long rest</span>
+      </div>
+      <div class="feature-body">
+        <p>Convert (bonus action):</p>
+        <ul>
+          <li><strong>Spell slot → sorcery points:</strong> 1st slot = 2 pts, 2nd slot = 3 pts</li>
+          <li><strong>Sorcery points → spell slot:</strong> 2 pts = 1st slot, 3 pts = 2nd slot</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Metamagic</div>
+      <div class="feature-meta">Level 3 · 2 options chosen</div>
+      <ul class="metamagic-options">
+        <li>
+          <span class="meta-name">Subtle Spell <span class="meta-cost">1 sp</span></span>
+          Cast a spell without somatic or verbal components.
+        </li>
+        <li>
+          <span class="meta-name">Twinned Spell <span class="meta-cost">sp = spell level (min 1)</span></span>
+          When casting a single-target spell (range &gt; 0, not self), target a second creature in range with the same spell.
+        </li>
+      </ul>
+    </div>
+
+    <div class="features-cluster-title">Djinnpossessed Origin — Sorcerous Origin</div>
+
+    <div class="feature djinn-feature">
+      <div class="feature-title">Djinntouched</div>
+      <div class="feature-meta">Level 1 · Spend a 1st-level slot · Touch · DC 12 Save</div>
+      <div class="feature-body">
+        <p>By touching a creature and expending a <strong>1st-level spell slot only</strong>, force a save vs <strong>DC 12</strong>. On a failure, Nadir chooses one of three afflictions for the target:</p>
+        <ul class="affliction-menu">
+          <li>
+            <span class="aff-name">Silence</span>
+            Loses the ability to speak for <strong>1 hour</strong>.
+          </li>
+          <li>
+            <span class="aff-name">Exhaustion</span>
+            Gains <strong>1 level of exhaustion</strong> (max 2 levels from this feature).
+          </li>
+          <li>
+            <span class="aff-name">Fear of the Dark</span>
+            <strong>Disadvantage on saves in dim light or darkness</strong> for 1 hour.
+          </li>
+        </ul>
+        <p style="margin-top:0.7em;"><span class="djinn-em">Only 1st-level slots may be spent on this ability.</span></p>
+        <p>Also: <strong>knows Djinnspeak</strong>.</p>
+      </div>
+    </div>
+
+    <div class="feature djinn-feature">
+      <div class="feature-title">Djinnpossessed Magic</div>
+      <div class="feature-meta">Level 1 · Always known</div>
+      <div class="feature-body">
+        <p>Always knows <em>hellish rebuke</em> and <em>unseen servant</em> as additional Sorcerer spells. <strong>Do not count against spells known.</strong> Always available.</p>
+      </div>
+    </div>
+
+    <div class="feature djinn-feature">
+      <div class="feature-title">The Djinn Inside</div>
+      <div class="feature-meta">Level 1 · Campaign hook</div>
+      <div class="feature-body">
+        <p>If the djinn is ever exorcised through the <em>Exorcism Sacrament</em>, Nadir would be reborn as a <strong>Djinnmaster Warlock</strong> with the djinn as patron. Each level of Sorcerer raises the Exorcism Difficulty by 1.</p>
+        <div class="exorcism-block">
+          <div class="exorcism-label">Exorcism Difficulty</div>
+          <div class="exorcism-value">
+            <span class="exorcism-num">+3</span>
+            <span class="exorcism-rises">rises by +1 each Sorcerer level</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPELLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cracked-shard"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Spells</h2>
+      <p class="section-subtitle">4 spells known, plus 2 always-known from Djinnpossessed; 5 cantrips (4 Sorcerer + 1 feat)</p>
+    </div>
+
+    <div class="features-cluster-title">Cantrips Known</div>
+    <ul class="cantrips-list">
+      <li>Fire Bolt</li>
+      <li>Prestidigitation</li>
+      <li>Minor Illusion</li>
+      <li>Chill Touch</li>
+      <li class="feat">Vicious Mockery <span style="font-size:0.75em;color:var(--crimson-deep);font-style:normal;">— Djinn's Foul Touch feat</span></li>
+    </ul>
+    <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:0.92rem;color:var(--ink-soft);margin: 0 0 1rem;">
+      <em>Fire Bolt</em>: superheated glass at his fingertips. <em>Prestidigitation</em>: a glassblower's pocket-tool. <em>Vicious Mockery</em>: <span class="djinn-em">sometimes the words slip out in a voice that isn't his.</span>
+    </p>
+
+    <div class="features-cluster-title">Spell Slots</div>
+    <div class="spell-slots">
+      <div class="slot-group">
+        <span class="slot-level">1st Level</span>
+        <span class="slot-count">4</span>
+      </div>
+      <div class="slot-group">
+        <span class="slot-level">2nd Level</span>
+        <span class="slot-count">2</span>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">Spells Known</div>
+    <table class="spells-table">
+      <thead>
+        <tr>
+          <th class="lvl">Lvl</th>
+          <th class="spell-name">Spell</th>
+          <th class="note">Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="lvl">1st</td><td class="spell-name">shield</td>          <td class="note">Reaction; +5 AC until next turn — critical given AC 10</td></tr>
+        <tr><td class="lvl">1st</td><td class="spell-name">charm person</td>    <td class="note">Wis save DC 12; charm humanoid for 1 hour</td></tr>
+        <tr><td class="lvl">1st</td><td class="spell-name">burning hands</td>   <td class="note">15 ft cone, 3d6 fire; flavor from his trade</td></tr>
+        <tr><td class="lvl">2nd</td><td class="spell-name">mirror image</td>    <td class="note">Three illusory duplicates; near-essential survival tool</td></tr>
+        <tr class="djinn-spell"><td class="lvl">1st</td><td class="spell-name">hellish rebuke</td>  <td class="note"><em>Djinnpossessed always-known</em>; reaction; 2d10 fire on Dex save fail</td></tr>
+        <tr class="djinn-spell"><td class="lvl">1st</td><td class="spell-name">unseen servant</td>  <td class="note"><em>Djinnpossessed always-known</em>; ritual</td></tr>
+      </tbody>
+    </table>
+
+    <div class="free-spell-block">
+      <div class="free-spell-label">Free Spell — Djinn's Foul Touch Feat</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:1.1rem;color:var(--ink);margin-bottom:0.3rem;">
+        bestow curse
+      </div>
+      <div style="font-family:'EB Garamond',serif;font-size:0.96rem;color:var(--ink-soft);line-height:1.55;">
+        Normally 3rd level, cast as a <strong>3rd-level spell once per long rest without a slot</strong>. Spell save DC 12, concentration up to 1 minute. <span class="djinn-em">Significant power boost — the djinn's parting gift.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEAT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cracked-shard"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Feat</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Djinn's Foul Touch</div>
+      <div class="feature-meta">Level 1</div>
+      <div class="feature-body">
+        <ul>
+          <li>Learns the <em>vicious mockery</em> cantrip.</li>
+          <li>Can cast <em>bestow curse</em> <strong>1/day without expending a spell slot</strong>. Refreshes on long rest.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BACKGROUND ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cracked-shard"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Background — Guild Artisan (Glassblower)</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Guild Membership</div>
+      <div class="feature-body">
+        <p>The Constantinople glassblowers' guild provides lodging and food in cities with a chapter; fellow guild members will assist Nadir with reasonable requests; legal aid in commercial disputes; political voice in his trade. In return, he is expected to pay guild dues (<strong>5 gp/month</strong>) and represent the guild's interests.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EQUIPMENT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cracked-shard"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Equipment</h2>
+    </div>
+    <div class="equipment-grid">
+      <div class="equip-block">
+        <div class="equip-block-title">Weapons</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Hanchar &times; 2</span> &mdash; <span class="item-detail">dagger stats: 1d4 piercing, finesse, light, thrown 20/60; +2 to hit / 1d4 +0 damage</span></li>
+          <li><span class="item-name">Light crossbow + 20 bolts</span> &mdash; <span class="item-detail">1d8 piercing, range 80/320; +2 to hit / 1d8 +0 damage</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Armour</div>
+        <ul class="equip-list">
+          <li><span class="item-name">None</span> &mdash; <span class="item-detail">Sorcerers have no armor proficiency; relies on <em>shield</em>, <em>mirror image</em>, and staying back from the line</span></li>
+        </ul>
+      </div>
+
+      <div class="cursed-focus-block">
+        <div class="cursed-focus-label">Arcane Focus — The First Vessel</div>
+        <div class="cursed-focus-name">A small blown-glass orb, the size of a hen's egg, threaded through with veins of gold</div>
+        <div class="cursed-focus-body">
+          The first piece he ever made under the djinn's influence. He hates it. He cannot stop using it.
+        </div>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Personal Items</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Glassblower's tools</span> &mdash; <span class="item-detail">Guild Artisan; full kit fits in a leather case</span></li>
+          <li><span class="item-name">Letter of introduction from his guild</span></li>
+          <li><span class="item-name">Traveler's clothes</span></li>
+          <li><span class="item-name">Belt pouch</span></li>
+          <li><span class="item-name">Identification papers</span> &mdash; <span class="item-detail">stamped with the seal of the Constantinople glassblowers' guild</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Available — Not Carried</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Furnace and workshop</span> &mdash; <span class="item-detail">in the artisan quarter near the Golden Horn</span></li>
+        </ul>
+      </div>
+
+      <div class="money-line">
+        Carrying <span class="amount">15 gp</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERSONALITY ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cracked-shard"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Personality</h2>
+    </div>
+    <div class="personality-grid">
+      <div class="personality-card">
+        <div class="personality-label">Trait</div>
+        <p class="personality-text">I speak softly and never finish a sentence the same way twice — I am never quite sure who is speaking, me or the other.</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Ideal <span class="alignment-tag">— Freedom · Chaotic</span></div>
+        <p class="personality-text">No man should be a vessel for another's will. Not even mine.</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Bond</div>
+        <p class="personality-text">Somewhere in this city is the means to expel the thing inside me. I will find it, or die trying. Both outcomes have their appeal.</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Flaw</div>
+        <p class="personality-text">My body is failing. I know I have years, perhaps less. I take risks a healthier man would not — because what is there to lose?</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONNECTIONS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#cracked-shard"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Connections</h2>
+    </div>
+    <ul class="connections-list">
+      <li>Secretly exchanged notes on djinn-related phenomena with <span class="conn-name">Selim the Bound</span>.</li>
+      <li>Reluctantly partnered with <span class="conn-name">Miriam the Chronicler</span> to create a protective artifact.</li>
+    </ul>
+  </section>
+
+  <!-- ============ PATRON'S NOTE ============ -->
+  <section class="patron-note">
+    <div class="patron-label">From the Patron's Hand</div>
+    <p class="patron-text">His glassmaking expertise could help analyze and recover fragile artifacts.</p>
+    <p class="patron-aside">Osman Hamdi Bey may or may not know about the djinn.</p>
+    <div class="patron-signature">
+      &mdash; <span class="sig-name">Osman Hamdi Bey</span>
+    </div>
+  </section>
+
+  <!-- ============ FOOT ============ -->
+  <footer class="document-foot">
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal"/></svg>
+    <div class="foot-text">
+      Compiled at the <span class="kufi">المتحف الإمبراطوري</span> Imperial Museum &middot; Constantinople
+    </div>
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal"/></svg>
+  </footer>
+
+</article>
+
+</body>
+</html>
