@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naval Board File — Rear Admiral Stephen Kent, USN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:        #ece4d2;
+    --paper-shade:  #ddd1b5;
+    --paper-deep:   #c4b692;
+    --foxing:       #b89a6a;
+    --rule:         #8a7a5a;
+    --rule-soft:    #b09d78;
+    --ink:          #1a1a22;
+    --ink-soft:     #34353f;
+    --ink-faint:    #5f6068;
+    --navy:         #1c2a44;
+    --navy-deep:    #0e1830;
+    --navy-mid:     #2c3e60;
+    --brass:        #8a6f2c;
+    --brass-deep:   #5e4a15;
+    --brass-bright: #b08e3e;
+    --oxblood:      #5a1818;
+    --crimson:      #7c2020;
+    --tarnish:      #4a5530;
+    --stamp-blue:   #244a78;
+    --stamp-red:    #802020;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--paper-shade);
+    color: var(--ink);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 8% 5%,  rgba(90, 24, 24, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 92% 95%, rgba(28, 42, 68, 0.06) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(184, 154, 106, 0.05) 0%, transparent 70%);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  .document {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 4rem 4.5rem 5rem;
+    box-shadow:
+      0 1px 2px rgba(20, 18, 14, 0.10),
+      0 8px 40px rgba(20, 18, 14, 0.18);
+    position: relative;
+    border: 1px solid var(--rule);
+  }
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background:
+      repeating-linear-gradient(90deg,
+        var(--navy-deep) 0,
+        var(--navy-deep) 12px,
+        var(--brass) 12px,
+        var(--brass) 14px,
+        var(--navy-deep) 14px,
+        var(--navy-deep) 26px);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%, var(--rule) 25%, var(--brass) 50%, var(--rule) 75%, transparent 100%);
+  }
+
+  /* ─────────── HEADER ─────────── */
+  header.title-block {
+    text-align: center;
+    border-bottom: 2px solid var(--navy-deep);
+    padding-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+  .header-inner {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2.2rem;
+    align-items: center;
+    text-align: left;
+  }
+  .header-text { text-align: center; }
+  .portrait-plate {
+    position: relative;
+    width: 200px;
+    padding: 0.55rem 0.55rem 0.45rem;
+    background: linear-gradient(135deg,
+      var(--brass-bright) 0%,
+      var(--brass) 35%,
+      var(--brass-deep) 65%,
+      var(--brass) 100%);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.18) inset,
+      0 1px 3px rgba(20, 18, 14, 0.25),
+      0 6px 18px rgba(20, 18, 14, 0.20);
+    border: 1px solid var(--brass-deep);
+  }
+  .portrait-plate::before {
+    content: "";
+    position: absolute;
+    inset: 0.35rem;
+    border: 1px solid rgba(20, 18, 14, 0.45);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .portrait-plate img {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* tone the oil portrait toward period sepia; absorbs the modern signature */
+    filter: sepia(0.32) saturate(0.78) contrast(1.04) brightness(0.94);
+    aspect-ratio: 5 / 7;
+    object-fit: cover;
+    object-position: center 28%;
+  }
+  .portrait-plate .plate-caption {
+    background: var(--paper);
+    margin: 0.55rem -0.55rem -0.45rem;
+    padding: 0.55rem 0.6rem 0.6rem;
+    border-top: 1px solid var(--brass-deep);
+    text-align: center;
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    line-height: 1.45;
+  }
+  .portrait-plate .plate-caption .name-line {
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    color: var(--navy-deep);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+  .portrait-plate .plate-caption em {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.76rem;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: var(--ink-faint);
+    display: block;
+    margin-top: 0.25rem;
+  }
+  .file-stamp {
+    position: absolute;
+    top: -1.4rem; right: -0.5rem;
+    transform: rotate(4deg);
+    border: 3px double var(--stamp-red);
+    color: var(--stamp-red);
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    padding: 0.45rem 0.9rem 0.35rem;
+    background: rgba(236, 228, 210, 0.7);
+    opacity: 0.82;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+  .file-stamp.blue {
+    top: auto; bottom: -1.2rem;
+    right: auto; left: -0.5rem;
+    transform: rotate(-3deg);
+    border-color: var(--stamp-blue);
+    color: var(--stamp-blue);
+  }
+  .eyebrow {
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 1.6rem;
+  }
+  .seal-line {
+    font-family: "Cinzel", "Cormorant Garamond", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.42em;
+    color: var(--navy);
+    text-transform: uppercase;
+    margin-bottom: 0.9rem;
+  }
+  .seal-line::before,
+  .seal-line::after {
+    content: "✦";
+    margin: 0 1rem;
+    color: var(--brass);
+  }
+  h1.character-name {
+    font-family: "Cinzel", "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 2.7rem;
+    line-height: 1.1;
+    margin: 0 0 0.6rem;
+    color: var(--navy-deep);
+    letter-spacing: 0.04em;
+  }
+  h1.character-name .rank {
+    display: block;
+    font-family: "Cinzel", serif;
+    font-weight: 400;
+    font-size: 0.5em;
+    color: var(--ink-faint);
+    letter-spacing: 0.32em;
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+  }
+  h1.character-name .small {
+    display: block;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.45em;
+    color: var(--ink-faint);
+    margin-top: 0.6rem;
+    letter-spacing: 0.04em;
+    font-weight: 400;
+  }
+  .epithets {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.04rem;
+    color: var(--ink-soft);
+    margin: 0.8rem auto 1rem;
+    max-width: 640px;
+    line-height: 1.55;
+  }
+  .vitals {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.4rem;
+    margin-top: 1.5rem;
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-soft);
+  }
+  .vitals span { border-left: 1px solid var(--rule); padding-left: 1.2rem; }
+  .vitals span:first-child { border-left: none; padding-left: 0; }
+
+  /* ─────────── BOARD CARTOUCHE ─────────── */
+  .board-cartouche {
+    border: 1px solid var(--navy);
+    border-top-width: 3px;
+    padding: 1rem 1.4rem 0.9rem;
+    margin: 0 0 2.5rem;
+    background: rgba(28, 42, 68, 0.04);
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .board-cartouche .heading {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.28em;
+    color: var(--navy-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .board-cartouche .field-row {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.4rem 1.2rem;
+    margin-bottom: 0.1rem;
+  }
+  .board-cartouche .label {
+    color: var(--ink-faint);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    padding-top: 0.1rem;
+  }
+  .board-cartouche .value { color: var(--ink); }
+
+  /* ─────────── SECTIONS ─────────── */
+  section { margin-bottom: 2.8rem; }
+  h2.section-title {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.96rem;
+    letter-spacing: 0.28em;
+    color: var(--navy-deep);
+    text-transform: uppercase;
+    border-bottom: 1.5px solid var(--navy);
+    padding-bottom: 0.5rem;
+    margin: 0 0 1.5rem;
+    position: relative;
+  }
+  h2.section-title::before {
+    content: "⚓";
+    color: var(--brass);
+    margin-right: 0.8rem;
+    font-size: 0.95em;
+  }
+  h3.subhead {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.32rem;
+    color: var(--navy-mid);
+    margin: 1.6rem 0 0.5rem;
+    font-style: italic;
+  }
+  h4.entry-label {
+    font-family: "Cinzel", serif;
+    font-weight: 400;
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 1.1rem 0 0.3rem;
+  }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0.5rem 0 1rem 1.6rem; padding: 0; }
+  li { margin-bottom: 0.4rem; }
+  em { color: var(--ink-soft); }
+  strong { font-weight: 600; color: var(--ink); }
+
+  .drop-cap::first-letter {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 3.2rem;
+    line-height: 0.85;
+    float: left;
+    padding: 0.3rem 0.65rem 0 0;
+    color: var(--navy-deep);
+  }
+
+  /* ─────────── TABLES ─────────── */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.96rem;
+  }
+  table.dossier-table th {
+    text-align: left;
+    font-family: "Cinzel", serif;
+    font-weight: 400;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--navy);
+  }
+  table.dossier-table td {
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top;
+  }
+  table.dossier-table td:first-child {
+    font-weight: 500;
+    color: var(--ink);
+    white-space: nowrap;
+    padding-right: 1.5rem;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+
+  /* ─────────── STAT CELLS ─────────── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+  .stat-grid-5 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+  .stat-cell {
+    text-align: center;
+    padding: 0.85rem 0.4rem 0.55rem;
+    border: 1px solid var(--rule);
+    background: rgba(255, 255, 255, 0.32);
+  }
+  .stat-cell .label {
+    font-family: "Cinzel", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+  .stat-cell .value {
+    font-family: "Cinzel", serif;
+    font-size: 1.85rem;
+    font-weight: 600;
+    color: var(--navy-deep);
+    line-height: 1;
+  }
+  .stat-cell .half {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 0.78rem;
+    font-style: italic;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+  }
+  .stat-cell.high .value { color: var(--brass-deep); }
+  .stat-cell.low  .value { color: var(--oxblood); }
+  .stat-cell.derived {
+    background: rgba(28, 42, 68, 0.05);
+    border-color: var(--navy);
+  }
+  .stat-cell.derived .value { color: var(--navy); font-size: 1.5rem; }
+
+  /* ─────────── STATUS BANNER ─────────── */
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .status-cell {
+    border: 1px solid var(--rule);
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.32);
+    text-align: center;
+  }
+  .status-cell .label {
+    font-family: "Cinzel", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .status-cell .value {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 2rem;
+    color: var(--navy-mid);
+    line-height: 1;
+  }
+  .status-cell .of {
+    font-size: 1rem; color: var(--ink-faint); font-weight: 400;
+    margin-left: 0.15rem;
+  }
+  .status-cell .delta {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.84rem;
+    color: var(--ink-faint);
+    margin-top: 0.35rem;
+  }
+  .status-cell.warn { border-color: var(--oxblood); background: rgba(90, 24, 24, 0.05); }
+  .status-cell.warn .value { color: var(--oxblood); }
+  .status-cell.brass { border-color: var(--brass); background: rgba(138, 111, 44, 0.06); }
+  .status-cell.brass .value { color: var(--brass-deep); }
+
+  /* ─────────── SKILLS ─────────── */
+  .skill-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.35rem 1.5rem;
+    margin: 0.8rem 0;
+  }
+  .skill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px dotted var(--rule-soft);
+    padding: 0.18rem 0;
+  }
+  .skill-row .name { color: var(--ink); }
+  .skill-row .val  { font-weight: 500; color: var(--ink); margin-left: 1rem; }
+  .skill-row.high .name { color: var(--brass-deep); font-weight: 500; }
+  .skill-row.high .val  { color: var(--brass-deep); }
+  .skill-row.mid .name  { color: var(--navy-mid); }
+  .skill-row.mid .val   { color: var(--navy-mid); }
+  .skill-row.low .name  { color: var(--ink-faint); font-style: italic; }
+  .skill-row.low .val   { color: var(--ink-faint); }
+
+  /* ─────────── WEAPONS ─────────── */
+  .weapon-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.94rem;
+  }
+  .weapon-table th {
+    text-align: left;
+    font-family: "Cinzel", serif;
+    font-weight: 400;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    padding: 0.45rem 0.7rem;
+    border-bottom: 1.5px solid var(--navy);
+  }
+  .weapon-table td {
+    padding: 0.55rem 0.7rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: top;
+  }
+  .weapon-table .wname { font-weight: 500; }
+  .weapon-table .wskill { text-align: center; }
+  .weapon-table .wdmg { text-align: right; }
+  .weapon-table .wnote { font-style: italic; font-size: 0.88rem; color: var(--ink-soft); }
+  .weapon-table tr:last-child td { border-bottom: none; }
+
+  /* ─────────── CALLOUTS ─────────── */
+  .callout {
+    border: 1px solid var(--navy);
+    border-left: 4px solid var(--navy-mid);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: rgba(28, 42, 68, 0.04);
+  }
+  .callout .label {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--navy);
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout.blood {
+    border-color: var(--oxblood);
+    border-left-color: var(--crimson);
+    background: rgba(90, 24, 24, 0.05);
+  }
+  .callout.blood .label { color: var(--oxblood); }
+  .callout.brass {
+    border-color: var(--brass);
+    border-left-color: var(--brass-deep);
+    background: rgba(138, 111, 44, 0.06);
+  }
+  .callout.brass .label { color: var(--brass-deep); }
+  .callout.tarnish {
+    border-color: var(--tarnish);
+    border-left-color: var(--tarnish);
+    background: rgba(74, 85, 48, 0.05);
+  }
+  .callout.tarnish .label { color: var(--tarnish); }
+
+  /* ─────────── TIMELINE ─────────── */
+  .timeline { display: flex; flex-direction: column; gap: 1.2rem; margin: 1rem 0; }
+  .timeline-entry {
+    border-left: 2px solid var(--rule);
+    padding: 0.3rem 0 0.3rem 1.5rem;
+    position: relative;
+  }
+  .timeline-entry::before {
+    content: "";
+    position: absolute;
+    left: -5px; top: 0.65rem;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--rule);
+    border: 2px solid var(--paper);
+  }
+  .timeline-entry.navy { border-left-color: var(--navy); }
+  .timeline-entry.navy::before { background: var(--navy); }
+  .timeline-entry.brass { border-left-color: var(--brass); }
+  .timeline-entry.brass::before { background: var(--brass); }
+  .timeline-entry.blood { border-left-color: var(--oxblood); }
+  .timeline-entry.blood::before { background: var(--oxblood); }
+  .timeline-entry .when {
+    font-family: "Cinzel", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+  .timeline-entry .what {
+    font-weight: 500;
+    font-size: 1.06rem;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+  .timeline-entry .detail { font-size: 0.94rem; color: var(--ink-soft); }
+
+  /* ─────────── TOC ─────────── */
+  nav.toc {
+    border: 1px solid var(--rule);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 3rem;
+    background: rgba(255, 255, 255, 0.32);
+    columns: 2;
+    column-gap: 2rem;
+  }
+  nav.toc .toc-label {
+    font-family: "Cinzel", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    column-span: all;
+  }
+  nav.toc ol {
+    list-style: none; margin: 0; padding: 0;
+    counter-reset: toc;
+  }
+  nav.toc ol li {
+    counter-increment: toc;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+    break-inside: avoid;
+  }
+  nav.toc ol li::before {
+    content: counter(toc, upper-roman) ". ";
+    color: var(--brass-deep);
+    font-style: italic;
+    margin-right: 0.3rem;
+  }
+  nav.toc a {
+    color: var(--ink); text-decoration: none;
+    border-bottom: 1px dotted transparent;
+  }
+  nav.toc a:hover { border-bottom-color: var(--navy); }
+
+  /* ─────────── RELATIONS ─────────── */
+  .relations-grid { display: flex; flex-direction: column; gap: 1.1rem; margin: 1rem 0; }
+  .relation {
+    border-left: 2px solid var(--rule);
+    padding: 0.3rem 0 0.3rem 1.2rem;
+  }
+  .relation .name {
+    font-weight: 500;
+    font-size: 1.05rem;
+    margin-bottom: 0.15rem;
+  }
+  .relation .name .role {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink-faint);
+    font-size: 0.92rem;
+  }
+  .relation .text { font-size: 0.94rem; color: var(--ink-soft); }
+
+  /* ─────────── FINAL ENTRY BLOCK ─────────── */
+  .final-entry {
+    border: 1px solid var(--oxblood);
+    border-top-width: 3px;
+    padding: 1.6rem 1.8rem 1.4rem;
+    margin: 2rem 0;
+    background: rgba(90, 24, 24, 0.04);
+    position: relative;
+  }
+  .final-entry .heading {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.82rem;
+    letter-spacing: 0.28em;
+    color: var(--oxblood);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--oxblood);
+  }
+  .final-entry p:last-child { margin-bottom: 0; }
+  .final-entry .quote {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    color: var(--ink-soft);
+    text-align: center;
+    margin: 1rem 0;
+    line-height: 1.4;
+  }
+
+  /* ─────────── COLOPHON ─────────── */
+  footer.colophon {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--navy-deep);
+    text-align: center;
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    line-height: 1.7;
+  }
+
+  /* ─────────── RESPONSIVE ─────────── */
+  @media (max-width: 700px) {
+    body { padding: 1rem 0.5rem; }
+    .document { padding: 2rem 1.4rem 3rem; }
+    h1.character-name { font-size: 2rem; }
+    .header-inner { grid-template-columns: 1fr; gap: 1.4rem; justify-items: center; }
+    .portrait-plate { width: 160px; }
+    .stat-grid, .stat-grid-5 { grid-template-columns: repeat(4, 1fr); }
+    .status-grid { grid-template-columns: 1fr 1fr; }
+    .skill-grid { grid-template-columns: 1fr; }
+    nav.toc { columns: 1; }
+    .vitals { gap: 0.5rem; font-size: 0.62rem; }
+    .vitals span { border-left: none; padding: 0; }
+    .file-stamp { top: -0.8rem; right: 0; transform: rotate(3deg) scale(0.85); }
+    .file-stamp.blue { bottom: -0.5rem; left: 0; transform: rotate(-3deg) scale(0.85); }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+
+  <header class="title-block">
+    <div class="file-stamp">Missing &mdash; Presumed</div>
+    <div class="file-stamp blue">Confidential</div>
+    <div class="header-inner">
+      <figure class="portrait-plate">
+        <img src="kent.png" alt="Portrait of Rear Admiral Stephen Kent, USN">
+        <figcaption class="plate-caption">
+          <span class="name-line">Stephen Kent</span>
+          Rear Admiral, USN<br>
+          Portrait, oil on canvas<br>
+          <em>From the wardroom collection</em>
+        </figcaption>
+      </figure>
+      <div class="header-text">
+        <div class="eyebrow">Player Character Dossier &nbsp;·&nbsp; Naval Board File &nbsp;·&nbsp; Call of Cthulhu 7e &nbsp;·&nbsp; One-Shot &mdash; Concluded</div>
+        <div class="seal-line">United States Navy</div>
+        <h1 class="character-name">
+          <span class="rank">Rear Admiral</span>
+          Stephen Kent
+          <span class="small">USN (Ret. of necessity) &middot; Naval Officer &middot; Late of St. Louis, Missouri</span>
+        </h1>
+        <p class="epithets">Mahan&rsquo;s man &middot; widower of a fortnight &middot; the officer who walked into the Boston house and did not walk out &middot; the one who chose to stay and help her remember</p>
+        <div class="vitals">
+          <span>Born St. Louis &middot; Age 59</span>
+          <span>Male &middot; Caucasian</span>
+          <span>USN, Flag Rank</span>
+          <span>Sanity 25 / 99 &middot; Luck 75</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─────────── BOARD CARTOUCHE ─────────── -->
+  <div class="board-cartouche">
+    <div class="heading">Convening Authority &mdash; Preliminary File</div>
+    <div class="field-row">
+      <div class="label">Subject</div>
+      <div class="value">KENT, Stephen &mdash; Rear Admiral, United States Navy</div>
+    </div>
+    <div class="field-row">
+      <div class="label">Last Known</div>
+      <div class="value">A private residence, Boston, Massachusetts</div>
+    </div>
+    <div class="field-row">
+      <div class="label">Status</div>
+      <div class="value">Unaccounted for. Presumed deceased. No body recovered.</div>
+    </div>
+    <div class="field-row">
+      <div class="label">Compiled</div>
+      <div class="value">From service record, personal effects, and the testimony of fellow visitors to the property</div>
+    </div>
+    <div class="field-row">
+      <div class="label">Note</div>
+      <div class="value">Mrs. Kent predeceased him by a matter of days. The Board records the fact for context. It was, by every account, the proximate cause.</div>
+    </div>
+  </div>
+
+  <!-- ─────────── TOC ─────────── -->
+  <nav class="toc">
+    <div class="toc-label">Index of Contents</div>
+    <ol>
+      <li><a href="#identity">Identity &amp; Station</a></li>
+      <li><a href="#mechanical">Mechanical Profile</a></li>
+      <li><a href="#skills">Skill Profile</a></li>
+      <li><a href="#combat">Combat &amp; Equipment</a></li>
+      <li><a href="#interior">Standing Disposition</a></li>
+      <li><a href="#relations">Significant Persons</a></li>
+      <li><a href="#locations">Meaningful Locations</a></li>
+      <li><a href="#career">Service Career</a></li>
+      <li><a href="#wife">The Wife</a></li>
+      <li><a href="#house">The House in Boston</a></li>
+      <li><a href="#final">Final Entry</a></li>
+    </ol>
+  </nav>
+
+  <!-- ═══════ I. IDENTITY ═══════ -->
+  <section id="identity">
+    <h2 class="section-title">I. Identity &amp; Station</h2>
+
+    <p class="drop-cap">Rear Admiral Stephen Kent, United States Navy, was born in St. Louis, Missouri, and was fifty-nine years of age at the time of his disappearance. He held flag rank, having risen through a career that began under Captain Alfred Thayer Mahan and passed through a Boston ship-of-the-line in the 1890s and a varied series of postings in Washington and elsewhere during the late war.</p>
+
+    <p>He was, by the testimony of every officer who served with him and every man who served under him, a quiet and competent flag officer of the Mahanian school: schooled in sea power as doctrine, schooled in patience as method. He believed in American values; he believed, more particularly, that persuasion must take into account the material concerns of the persuaded. He was a pragmatist before he was an idealist, which is to say that he was an idealist who had learned what idealism costs.</p>
+
+    <p>He was a married man for the greater part of his adult life. His wife was, at the time of her recent passing, institutionalised in a private facility &mdash; her decline, by the medical record, consistent with senile dementia. He visited her religiously: every Christmas, every Easter. He had done so for years. The visits had grown long enough ago to have a shape, and the shape was that she did not always know him.</p>
+
+    <h4 class="entry-label">Physical Description</h4>
+    <p>A heavy-set, full-bearded man of medium build. The beard is substantial &mdash; close to the chest at its longest, in the older naval style of officers of the previous century rather than the clean-shaven fashion of the present service. Auburn going to chestnut, with no great quantity of grey yet, though the hair at the temples is beginning. The face is weathered by sea air and by the long indoor years that followed it: lined across the forehead, set about the eyes. Caucasian. He carries himself stiffly &mdash; a stiffness the surgeon who attended him in his fifties attributed to the long sea posture rather than to any specific injury of service. Hard of hearing in his later years; the impairment is listed on the medical sheet but was not, by his preference, accommodated in conversation. He preferred that one repeat oneself.</p>
+
+    <p>The portrait in the wardroom collection, reproduced as the head of this file, shows him in dress blues with the epaulettes of flag rank, looking somewhat aside and downward, as if from a quarterdeck at a thing on the water that has not yet decided what it is. The painter is not named on the record returned to the Board. The sitting is undated, and the Board does not speculate.</p>
+
+    <h4 class="entry-label">Manner of Presence</h4>
+    <p>The character sheet records his traits in five words: <em>taciturn</em>, <em>loyal</em>, <em>skeptical</em>, <em>straightforward</em>, <em>attentive</em>. The five describe a particular kind of officer &mdash; one who listens before he speaks, who is hard to flatter and harder to deceive, and who, when he commits, commits without reservation. The five do not describe a man easily turned. They will be relevant to what follows.</p>
+  </section>
+
+  <!-- ═══════ II. MECHANICAL PROFILE ═══════ -->
+  <section id="mechanical">
+    <h2 class="section-title">II. Mechanical Profile</h2>
+
+    <h3 class="subhead">Characteristics</h3>
+    <div class="stat-grid">
+      <div class="stat-cell"><div class="label">STR</div><div class="value">65</div><div class="half">32 / 13</div></div>
+      <div class="stat-cell"><div class="label">CON</div><div class="value">50</div><div class="half">25 / 10</div></div>
+      <div class="stat-cell"><div class="label">SIZ</div><div class="value">60</div><div class="half">30 / 12</div></div>
+      <div class="stat-cell low"><div class="label">DEX</div><div class="value">40</div><div class="half">20 / 8</div></div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-cell"><div class="label">APP</div><div class="value">60</div><div class="half">30 / 12</div></div>
+      <div class="stat-cell high"><div class="label">INT (Idea)</div><div class="value">80</div><div class="half">40 / 16</div></div>
+      <div class="stat-cell low"><div class="label">POW</div><div class="value">25</div><div class="half">12 / 5</div></div>
+      <div class="stat-cell high"><div class="label">EDU</div><div class="value">80</div><div class="half">40 / 16</div></div>
+    </div>
+
+    <h3 class="subhead">Derived &amp; Combat</h3>
+    <div class="stat-grid-5">
+      <div class="stat-cell derived"><div class="label">Move</div><div class="value">6</div></div>
+      <div class="stat-cell derived"><div class="label">Build</div><div class="value">+1</div></div>
+      <div class="stat-cell derived"><div class="label">Dmg Bonus</div><div class="value">+1D4</div></div>
+      <div class="stat-cell derived"><div class="label">Dodge</div><div class="value">20</div></div>
+      <div class="stat-cell derived"><div class="label">Maj. Wound</div><div class="value">5</div></div>
+    </div>
+
+    <h3 class="subhead">Current Status</h3>
+    <div class="status-grid">
+      <div class="status-cell">
+        <div class="label">Hit Points</div>
+        <div class="value">11<span class="of"> / 11</span></div>
+        <div class="delta">No injury sustained in scenario</div>
+      </div>
+      <div class="status-cell warn">
+        <div class="label">Sanity</div>
+        <div class="value">25<span class="of"> / 99</span></div>
+        <div class="delta">Collapse of 74 points in a single night</div>
+      </div>
+      <div class="status-cell">
+        <div class="label">Magic Points</div>
+        <div class="value">5<span class="of"> / 5</span></div>
+        <div class="delta">POW &times; 1/5 = 5; full</div>
+      </div>
+      <div class="status-cell brass">
+        <div class="label">Luck</div>
+        <div class="value">75</div>
+        <div class="delta">Of which he had been generous</div>
+      </div>
+    </div>
+
+    <div class="callout blood">
+      <div class="label">Note on the Sanity Arc</div>
+      <p>The investigator entered the scenario at the standard starting Sanity of POW &times; 5 = 99 and ended at 25. The precise distribution of the loss across the evening is not preserved on the present file &mdash; whether bled out incident by incident or taken in one or two larger blows is no longer recoverable from the record. What is preserved is the outcome: he ended the night at the very threshold at which a permanent break with reality becomes the most parsimonious account of his behaviour. A loss of one-fifth or more of current Sanity in a single roll would have tipped him from the temporary into the indefinite. The Board is content to record that the relevant threshold was, in functional terms, crossed.</p>
+      <p>Cthulhu Mythos is recorded at 0. The Occult skill is recorded at 5, base. No spells. No tomes. No prior encounters with strange entities are listed on the sheet &mdash; he came into the Boston house with no defences of theory or experience.</p>
+    </div>
+  </section>
+
+  <!-- ═══════ III. SKILL PROFILE ═══════ -->
+  <section id="skills">
+    <h2 class="section-title">III. Skill Profile</h2>
+
+    <p><em>The skill list is recognisably that of a senior naval officer of the period: a wide intellectual and social base, strong in command and observation, light in the practical and the manual. The high scores cluster in two regions &mdash; the perceptive (Spot Hidden 65) and the executive (Law, Intimidate, Persuade, History, First Aid, Drive Auto, all in the 50&ndash;55 range, suitable to a man who has spent decades signing for things, briefing politicians, and being driven to engagements). The strong gap between his INT of 80 and his Library Use of 20 is the gap of a man who is intelligent in the room and not in the archive &mdash; an operational intelligence, not a scholarly one.</em></p>
+
+    <h3 class="subhead">Skills at 30 or Above</h3>
+    <div class="skill-grid">
+      <div class="skill-row high"><span class="name">Spot Hidden</span><span class="val">65</span></div>
+      <div class="skill-row mid"><span class="name">Law</span><span class="val">55</span></div>
+      <div class="skill-row mid"><span class="name">Intimidate</span><span class="val">55</span></div>
+      <div class="skill-row mid"><span class="name">Persuade</span><span class="val">55</span></div>
+      <div class="skill-row mid"><span class="name">First Aid</span><span class="val">50</span></div>
+      <div class="skill-row mid"><span class="name">Firearms (Handgun)</span><span class="val">50</span></div>
+      <div class="skill-row mid"><span class="name">History</span><span class="val">50</span></div>
+      <div class="skill-row mid"><span class="name">Swim</span><span class="val">50</span></div>
+      <div class="skill-row mid"><span class="name">Drive Auto</span><span class="val">40</span></div>
+      <div class="skill-row mid"><span class="name">Navigate</span><span class="val">40</span></div>
+      <div class="skill-row mid"><span class="name">Psychology</span><span class="val">40</span></div>
+      <div class="skill-row"><span class="name">Survival</span><span class="val">30</span></div>
+      <div class="skill-row"><span class="name">Credit Rating</span><span class="val">30</span></div>
+      <div class="skill-row"><span class="name">Accounting</span><span class="val">25</span></div>
+      <div class="skill-row"><span class="name">Fighting (Brawl)</span><span class="val">25</span></div>
+      <div class="skill-row"><span class="name">Firearms (Rifle/Shotgun)</span><span class="val">25</span></div>
+    </div>
+
+    <h3 class="subhead">Skills at Base or Near Base</h3>
+    <div class="skill-grid">
+      <div class="skill-row low"><span class="name">Listen</span><span class="val">20</span></div>
+      <div class="skill-row low"><span class="name">Library Use</span><span class="val">20</span></div>
+      <div class="skill-row low"><span class="name">Climb</span><span class="val">20</span></div>
+      <div class="skill-row low"><span class="name">Stealth</span><span class="val">20</span></div>
+      <div class="skill-row low"><span class="name">Throw</span><span class="val">20</span></div>
+      <div class="skill-row low"><span class="name">Jump</span><span class="val">20</span></div>
+      <div class="skill-row low"><span class="name">Charm</span><span class="val">15</span></div>
+      <div class="skill-row low"><span class="name">Mechanical Repair</span><span class="val">10</span></div>
+      <div class="skill-row low"><span class="name">Natural World</span><span class="val">10</span></div>
+      <div class="skill-row low"><span class="name">Sleight of Hand</span><span class="val">10</span></div>
+      <div class="skill-row low"><span class="name">Track</span><span class="val">10</span></div>
+      <div class="skill-row low"><span class="name">Elec. Repair</span><span class="val">10</span></div>
+      <div class="skill-row low"><span class="name">Occult</span><span class="val">5</span></div>
+      <div class="skill-row low"><span class="name">Disguise</span><span class="val">5</span></div>
+      <div class="skill-row low"><span class="name">Art/Craft</span><span class="val">5</span></div>
+      <div class="skill-row low"><span class="name">Ride</span><span class="val">5</span></div>
+      <div class="skill-row low"><span class="name">Appraise</span><span class="val">5</span></div>
+      <div class="skill-row low"><span class="name">Fast Talk</span><span class="val">5</span></div>
+      <div class="skill-row low"><span class="name">Language (Own &mdash; English)</span><span class="val">80</span></div>
+      <div class="skill-row low"><span class="name">Cthulhu Mythos</span><span class="val">0</span></div>
+    </div>
+
+    <div class="callout">
+      <div class="label">Operational Reading</div>
+      <p>The profile shows a man who would notice a thing in a room before anyone else (Spot Hidden 65) but be slow to hear it across one (Listen 20 &mdash; consistent with the hard-of-hearing entry under Injuries &amp; Scars). He could compose himself for a senator or a foreign attach&eacute; (Persuade 55, Intimidate 55, Law 55) and shoot a sidearm at need (Handgun 50). He could not pick a lock, climb a wall, or move quietly through a darkened house. In a haunted residence at night, with his hearing compromised and his moral defences gone, the operational picture was unfavourable from the start.</p>
+    </div>
+  </section>
+
+  <!-- ═══════ IV. COMBAT & EQUIPMENT ═══════ -->
+  <section id="combat">
+    <h2 class="section-title">IV. Combat &amp; Equipment</h2>
+
+    <h3 class="subhead">Weapons of Record</h3>
+    <table class="weapon-table">
+      <thead><tr><th>Weapon</th><th>Regular</th><th>Hard</th><th>Extreme</th><th>Damage</th><th>Attacks</th></tr></thead>
+      <tr>
+        <td class="wname">Unarmed</td>
+        <td class="wskill">25</td>
+        <td class="wskill">12</td>
+        <td class="wskill">5</td>
+        <td class="wdmg">1d3 + 1d4</td>
+        <td class="wskill">1</td>
+      </tr>
+    </table>
+    <p><em>Only Unarmed is listed on the present sheet. The Handgun skill stands at 50 by background, but no sidearm is registered as carried on the night in question &mdash; a fact the Board notes without comment. He was, at the time of the engagement, a civilian flag officer paying a private call.</em></p>
+
+    <h3 class="subhead">Treasured Possessions</h3>
+    <ul>
+      <li>Photographs of his wife, taken in the years of her health.</li>
+      <li>Photographs of his parents.</li>
+      <li>His uniform &mdash; the dress, not the working pattern. Kept in the wardrobe.</li>
+    </ul>
+
+    <h3 class="subhead">Cash &amp; Assets</h3>
+    <table class="dossier-table">
+      <tr><td>Spending Level</td><td>$10 / day</td></tr>
+      <tr><td>Cash</td><td>$60</td></tr>
+      <tr><td>Assets</td><td>$1,500</td></tr>
+      <tr><td>Credit Rating</td><td>30 &mdash; comfortable but not wealthy; a flag officer&rsquo;s pension, not a magnate&rsquo;s purse</td></tr>
+    </table>
+  </section>
+
+  <!-- ═══════ V. STANDING DISPOSITION ═══════ -->
+  <section id="interior">
+    <h2 class="section-title">V. Standing Disposition</h2>
+
+    <h3 class="subhead">Ideology &amp; Beliefs</h3>
+    <p>The character sheet records his ideology in two sentences. The first: he is a <em>political pragmatist</em>. The second, which is the more important: he believes in American values, <em>but that persuasion must take into account their material concerns</em>. This is not the creed of a sentimentalist. It is the creed of a man who has spent thirty-five years briefing congressmen, allocating procurement, and being lied to by people who wanted ships. He knows what people want. He knows that what people say they want and what they will accept are different things. He brings the habit with him into every room he enters.</p>
+
+    <p>The Board records this not as character detail but as forensics. A pragmatist of his cast is not naturally susceptible to the supernatural &mdash; he does not believe in it, and his Occult of 5 and Cthulhu Mythos of 0 reflect that. He is susceptible, however, to the specific argument that one ought to do for a loved one what one can do, while one can. That is not credulity. That is the operating principle of his life.</p>
+
+    <h3 class="subhead">Traits</h3>
+    <p>Five words on the sheet: <strong>taciturn, loyal, skeptical, straightforward, attentive</strong>.</p>
+
+    <p>Of the five, <em>loyal</em> is the operative term in what followed, and <em>skeptical</em> is the term that, in his case, failed. The skepticism of an officer of his school is a working skepticism &mdash; applied to claims, to estimates, to the dispatches of optimistic captains. It is not metaphysical. When the metaphysical presented itself with the face he had longed for, his skepticism had no purchase on it, because the question it asked was not <em>is this real?</em> but <em>do I let her go again?</em></p>
+
+    <h3 class="subhead">Phobias &amp; Manias</h3>
+    <p>None recorded prior to entry. The space on the sheet is blank. Whatever the Boston house gave him in the way of phobia or fixation, it gave him at the very end, and there was no further play in which to record it.</p>
+
+    <h3 class="subhead">Encounters with Strange Entities</h3>
+    <p>None recorded prior to entry. The space on the sheet is blank. He came to the house a virgin in this particular sense, which the Board observes is precisely the category the house preys upon.</p>
+  </section>
+
+  <!-- ═══════ VI. SIGNIFICANT PERSONS ═══════ -->
+  <section id="relations">
+    <h2 class="section-title">VI. Significant Persons</h2>
+
+    <div class="relations-grid">
+
+      <div class="relation">
+        <div class="name">His Wife <span class="role">&mdash; name not preserved in the file</span></div>
+        <div class="text">The sheet records her in a single line: <em>institutionalised; likely dementia. He visits her religiously: on Christmas and Easter.</em> She died shortly before the scenario opened. The visits had been the shape of his year for some time. The phrase the sheet uses is &ldquo;religiously&rdquo; &mdash; not metaphorical. It was the closest thing to a sacrament his life still admitted.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Captain Alfred Thayer Mahan <span class="role">&mdash; commanding officer, junior service</span></div>
+        <div class="text">Stephen Kent served under Mahan early in his career. The detail is recorded on the sheet without elaboration and the Board does not elaborate. It is enough to say that he was schooled in sea power as doctrine by the man who wrote the doctrine, and that the schooling left him with a particular cast of mind: the long view, the structural cause, the patience to wait for the right wind. None of it served him at the end.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">His Parents <span class="role">&mdash; deceased, of St. Louis</span></div>
+        <div class="text">Not named on the sheet. Recorded only by the photographs in his treasured possessions. He kept them. The Board records the keeping.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Fellow Visitors to the Boston House <span class="role">&mdash; the party of the night</span></div>
+        <div class="text">Other persons entered the house with him. Their names and particulars are not preserved in the file the Board has received. They left. He did not. That is the whole of what is recorded of them.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════ VII. MEANINGFUL LOCATIONS ═══════ -->
+  <section id="locations">
+    <h2 class="section-title">VII. Meaningful Locations</h2>
+
+    <table class="dossier-table">
+      <thead><tr><th>Place</th><th>Significance</th></tr></thead>
+      <tr><td>St. Louis, Missouri</td><td>Birthplace. Home in the long civilian intervals. The marital house, when he had one ashore.</td></tr>
+      <tr><td>Boston, Massachusetts &mdash; the ship of the 1890s</td><td>A formative posting. The city he knew best on the eastern seaboard. The city to which he returned, in the end, for a different reason entirely.</td></tr>
+      <tr><td>Washington, D.C. &mdash; and various postings, the late war</td><td>The administrative half of a flag officer&rsquo;s life. Briefings, allocations, the war run from desks. He emerged from it tired in a way ships had never tired him.</td></tr>
+      <tr><td>The Boston House &mdash; the residence of the scenario</td><td>The final entry. See &sect;X.</td></tr>
+    </table>
+
+    <div class="callout brass">
+      <div class="label">The Resonance of Boston</div>
+      <p>It is a coincidence the Board does not consider trivial. The city he served in as a young officer in the 1890s, and the city in which he was last seen in the present year, are the same city. He returned to the place where, three decades earlier, he had been a man not yet married. The Board offers no theory of mind on the matter. It is recorded.</p>
+    </div>
+  </section>
+
+  <!-- ═══════ VIII. CAREER ═══════ -->
+  <section id="career">
+    <h2 class="section-title">VIII. Service Career</h2>
+
+    <p><em>The character sheet provides only the broad shape: service under Mahan in the junior years; a Boston ship in the 1890s; Washington and various locations during the World War; the rank of Rear Admiral by retirement. Specific commands, decorations, and dates of promotion are not recorded on the present file. The timeline below is reconstructed from the sheet and from the dates of his life; it does not invent commands he did not hold.</em></p>
+
+    <div class="timeline">
+
+      <div class="timeline-entry">
+        <div class="when">c. 1864 / 1865</div>
+        <div class="what">Born, St. Louis, Missouri</div>
+        <div class="detail">Date calculated from his age of 59 at the time of the scenario. The sheet records the place; the year is inference.</div>
+      </div>
+
+      <div class="timeline-entry brass">
+        <div class="when">Early Career</div>
+        <div class="what">Service under Captain Alfred Thayer Mahan</div>
+        <div class="detail">Recorded on the sheet as a Significant Person of his career. Specific ship and date not preserved. He was shaped, in this period, by the foremost American theorist of naval power.</div>
+      </div>
+
+      <div class="timeline-entry navy">
+        <div class="when">The 1890s</div>
+        <div class="what">Boston Ship Posting</div>
+        <div class="detail">Recorded on the sheet under Meaningful Locations as &ldquo;Boston (ship) in 1890s.&rdquo; A career-defining decade for the United States Navy at large &mdash; the years of the New Steel Navy, the Spanish-American War, and the construction of the fleet Mahan had argued for. He was at sea, in Boston-affiliated service, through some portion of it.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">Prior to the War</div>
+        <div class="what">Marriage</div>
+        <div class="detail">Date not preserved on the sheet. She predeceased him in his fifty-ninth year; the marriage was therefore of long standing. He kept her photograph among his treasured possessions, and the photographs of his parents beside it.</div>
+      </div>
+
+      <div class="timeline-entry navy">
+        <div class="when">1917 &ndash; 1918, and the years adjacent</div>
+        <div class="what">Washington, D.C. and various locations, the World War</div>
+        <div class="detail">The administrative half of his career: a flag officer&rsquo;s war, not a sea-going one. Briefings, allocations, the management of the Navy&rsquo;s contribution to the Allied effort. He emerged from it with rank and without illusion.</div>
+      </div>
+
+      <div class="timeline-entry brass">
+        <div class="when">By the 1920s</div>
+        <div class="what">Rear Admiral, retired or near-retired</div>
+        <div class="detail">The rank is on the sheet. Whether he remained on the active list at the time of the scenario or had taken retirement is not specified; in either case the life of his last year was a civilian&rsquo;s, organised around the visits to the institution.</div>
+      </div>
+
+      <div class="timeline-entry blood">
+        <div class="when">Some Weeks Before the Scenario</div>
+        <div class="what">Death of his wife</div>
+        <div class="detail">She died in the institution. The dementia had been long. The Board records the death as fact and as proximate cause. He attended the funeral. He returned to an emptied house.</div>
+      </div>
+
+      <div class="timeline-entry blood">
+        <div class="when">The Night of the Scenario</div>
+        <div class="what">The Boston House</div>
+        <div class="detail">See &sect;X. He went in with a party. He did not come out.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════ IX. THE WIFE ═══════ -->
+  <section id="wife">
+    <h2 class="section-title">IX. The Wife</h2>
+
+    <p>The Board records the matter of his wife with the care it merits, because every other section of the present file is downstream of it.</p>
+
+    <p>She had been institutionalised for a period the sheet does not specify. The diagnosis was, by the medical record, likely dementia &mdash; senile dementia in the language of the period; what a later medicine would name more specifically. The disease had taken her gradually, in the way it takes people. The most particular cruelty of the long form is that the body persists while the woman departs, and the man who married her finds himself, year by year, visiting a room in which someone who looks like his wife is being kept comfortable by professional strangers.</p>
+
+    <p>He visited her on Christmas and Easter. The sheet uses the word <em>religiously</em>. The two visits a year mark the calendar of a man whose work and travel had long since detached him from any closer rhythm. On the high holidays he came. He brought, the Board presumes, the photographs &mdash; perhaps the same photographs that survive in his effects. He sat with her. By the end, by every account such cases offer, she did not always know him. By the very end, she did not know him at all.</p>
+
+    <p>She died some weeks before the scenario. The proximate cause is not recorded in the file the Board has received and is not material to the question before it. What is material is this: the woman he had married had departed long before the body. The grief he carried into the Boston house was therefore a grief of two losses &mdash; the actual death, recent, raw; and the longer death of recognition, which had been going on for years and which had now closed.</p>
+
+    <div class="callout blood">
+      <div class="label">The Operative Detail</div>
+      <p>She did not know him at the end. This is the detail the Board asks the convening authority to hold in mind. It will recur.</p>
+    </div>
+  </section>
+
+  <!-- ═══════ X. THE HOUSE ═══════ -->
+  <section id="house">
+    <h2 class="section-title">X. The House in Boston</h2>
+
+    <p><em>The Board presents what is known of the events of the night in the most conservative form available. Witness statements are inconsistent on several points, as one expects in such matters; only the points on which they converge are recorded here.</em></p>
+
+    <h3 class="subhead">The Premises</h3>
+    <p>A private residence in Boston, of a kind known locally to be troubled. The history of the property is not the subject of this file and is in any case better established in other quarters than in the testimony of any witness the Board has interviewed. It is sufficient to say that the property had a reputation; that the reputation was the reason a party of investigators visited it; and that Rear Admiral Kent attended in the company of others whose names the present file does not preserve.</p>
+
+    <p>Why he attended is the question. He had no prior interest in such matters. His Occult skill stood at 5, base. His Cthulhu Mythos skill stood at 0. He had no recorded encounters with the strange. He was newly widowed. He had come to Boston, the Board observes, for reasons that are not on the sheet but are not difficult to surmise. A man recently bereaved and lately retired, returning to the city of his young manhood, attaching himself to a party going to a house that was said to be haunted &mdash; the Board does not pretend to read his mind. It records the pattern.</p>
+
+    <h3 class="subhead">What Happened Inside</h3>
+    <p>The Board has only the broad shape, and presents the broad shape.</p>
+
+    <p>Within the house, there was a presence. The party encountered phenomena consistent with a haunting of the type the property is known for. In the course of the night, Rear Admiral Kent encountered, or believed he encountered, a female presence within the building. He came to understand this presence as his wife.</p>
+
+    <p>His Sanity, which had entered at 99, was at 25 by the close of the night. Whether the collapse was incremental or catastrophic is no longer recoverable from the record. The Board notes only that a man who has lost three-quarters of his Sanity in a single evening is, by any clinical standard, no longer reliable in his judgments of what he sees. The Board also notes that this is the precise condition the house produces in those it keeps.</p>
+
+    <div class="callout tarnish">
+      <div class="label">The Mechanism</div>
+      <p>The presence did not recognise him. This is the point on which every witness statement converges, and it is the point on which the Board&rsquo;s reconstruction depends.</p>
+      <p>The presence did not know who he was. It looked at him as a stranger. And this, paradoxically, is what convinced him. Because the woman he had been visiting on Christmas and Easter for the better part of a decade had also, at the end, not known who he was. The not-knowing was the signature of his wife. The not-knowing matched. He read it as her.</p>
+      <p>The house offered him, in the form of the haunting, the exact condition of his loss &mdash; and offered it as something he could still be of use to. He could not help his wife remember in the institution. He had tried, and the disease had refused him. Here, in this house, with this presence, he could try again. He could stay. He could help her remember.</p>
+    </div>
+
+    <h3 class="subhead">The Choice</h3>
+    <p>At the close of the scenario, when the rest of the party departed, Rear Admiral Stephen Kent remained in the house. He did so by choice and over the objections, in some form or other, of his fellow visitors. The Board presumes the objections; no statement of them is preserved.</p>
+
+    <p>He took no physical injury that night. His Hit Points are recorded as 11 of 11. He was, in the strict mechanical sense, in perfect health when last seen. He was also, in any sense the Board would care to defend, indefinitely insane &mdash; bereaved, delusional, and operating under a fixed idea of duty toward a presence the house had shaped for him.</p>
+
+    <p>The party left. He remained. The door closed. No one has seen him since.</p>
+  </section>
+
+  <!-- ═══════ XI. FINAL ENTRY ═══════ -->
+  <section id="final">
+    <h2 class="section-title">XI. Final Entry</h2>
+
+    <div class="final-entry">
+      <div class="heading">Disposition of the File</div>
+      <p>The Board finds the following.</p>
+      <p>That Rear Admiral Stephen Kent, United States Navy, of St. Louis, Missouri, aged fifty-nine, in good physical health and of demonstrated competence throughout his service career, entered a private residence in Boston, Massachusetts, in the company of a party of investigators, in or about the present month.</p>
+      <p>That his wife, of long marriage, predeceased him by some weeks, having suffered for an extended period from a form of senile dementia under which she had ceased to recognise him.</p>
+      <p>That within the house he encountered a presence which he identified as his wife.</p>
+      <p>That the presence did not recognise him, and that he interpreted this failure of recognition as confirmation rather than as refutation, in light of his recent experience.</p>
+      <p>That he elected, at the close of the night, to remain in the house, with the stated purpose of helping the presence to remember him.</p>
+      <p>That no witness has reported sighting him since.</p>
+      <p>That his Sanity, at his disappearance, stood at 25 of 99 &mdash; consistent with indefinite insanity and with a fixed delusion of the kind here described.</p>
+
+      <div class="quote">&ldquo;To see my dead wife but one more time is worth everything.&rdquo;</div>
+
+      <p>The phrase is recorded by his own player, in his own hand, as the operative line of the night. The Board accepts it as such. The Rear Admiral did not, in his own understanding, lose anything in the Boston house. He found what he had gone there to find. He stayed with it.</p>
+      <p>The Board recommends the file be closed.</p>
+      <p>Status: <strong>Unaccounted for. Presumed deceased.</strong> No body recovered. Effects: photographs of wife and parents, uniform &mdash; returned to the estate.</p>
+      <p>So entered.</p>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    Player Character &middot; One-Shot Concluded &middot; Compiled Boston, the 1920s<br>
+    Call of Cthulhu 7e &middot; Haunted House (Sandy Petersen) &middot; Player: Jordan Peacock
+  </footer>
+
+</div>
+</body>
+</html>

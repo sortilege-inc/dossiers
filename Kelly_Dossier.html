@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kelly — Hunter Dossier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&family=Permanent+Marker&family=Special+Elite&family=Shadows+Into+Light&family=Cinzel:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:        #fbf6e9;
+    --paper-edge:   #ece3c8;
+    --paper-shadow: #d8cfb2;
+    --rule-blue:    #8fb4d4;
+    --margin-red:   #d96a78;
+    --ink:          #2a2620;
+    --ink-pencil:   #4a4438;
+    --ink-pen:      #1a3b6e;
+    --ink-purple:   #5a3a8a;
+    --ink-pink:     #c83a7a;
+    --ink-marker:   #d8801c;
+    --ink-green:    #3a7a4a;
+    --crimson:      #a02828;
+    --tape-yellow:  rgba(240, 210, 90, 0.55);
+    --tape-pink:    rgba(238, 140, 178, 0.55);
+    --tape-blue:    rgba(140, 190, 230, 0.55);
+    --tape-mint:    rgba(160, 220, 180, 0.5);
+    --parchment:    #ede0c2;
+    --parchment-d:  #c8b48a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #4a3a2a;
+    background-image:
+      radial-gradient(ellipse at 30% 20%, rgba(0,0,0,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 80%, rgba(0,0,0,0.2) 0%, transparent 60%);
+    font-family: 'Kalam', 'Caveat', cursive;
+    color: var(--ink);
+    padding: 2.5rem 1rem;
+    min-height: 100vh;
+  }
+
+  .binder {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    background-image:
+      /* horizontal rule lines */
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 31px,
+        rgba(143, 180, 212, 0.32) 31px,
+        rgba(143, 180, 212, 0.32) 32px
+      ),
+      /* paper grain noise */
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    background-size: auto, 300px 300px;
+    background-position: 0 0;
+    box-shadow:
+      0 0 0 1px var(--paper-shadow),
+      0 20px 60px rgba(0,0,0,0.5),
+      inset 0 0 80px rgba(216, 207, 178, 0.4);
+    padding: 3.5rem 2.5rem 3rem 4.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* red left margin line */
+  .binder::before {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 3.25rem;
+    width: 1.5px;
+    background: var(--margin-red);
+    opacity: 0.55;
+    z-index: 1;
+  }
+
+  /* binder holes */
+  .binder::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0.8rem;
+    width: 1.4rem;
+    background-image:
+      radial-gradient(circle at center, rgba(0,0,0,0.18) 0 9px, transparent 10px);
+    background-size: 100% 180px;
+    background-position: 0 8%;
+    background-repeat: repeat-y;
+    z-index: 2;
+  }
+
+  /* CONTENT WRAPPER — keep above margin/holes */
+  .content { position: relative; z-index: 3; }
+
+  /* TAPE */
+  .tape {
+    position: absolute;
+    width: 88px;
+    height: 22px;
+    background: var(--tape-yellow);
+    box-shadow:
+      0 2px 4px rgba(0,0,0,0.18),
+      inset 0 0 0 1px rgba(255,255,255,0.3);
+    z-index: 5;
+  }
+  .tape::before, .tape::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 4px;
+    background-image:
+      linear-gradient(to right, transparent 0, rgba(255,255,255,0.4) 50%, transparent 100%);
+  }
+  .tape::before { left: -2px; }
+  .tape::after  { right: -2px; }
+  .tape.pink { background: var(--tape-pink); }
+  .tape.blue { background: var(--tape-blue); }
+  .tape.mint { background: var(--tape-mint); }
+
+  /* HEADER */
+  .header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.25rem 2rem;
+    align-items: start;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .polaroid {
+    background: white;
+    padding: 0.6rem 0.6rem 2rem;
+    box-shadow:
+      0 1px 2px rgba(0,0,0,0.15),
+      0 6px 18px rgba(0,0,0,0.25);
+    transform: rotate(-3deg);
+    position: relative;
+    z-index: 4;
+  }
+  .polaroid img {
+    display: block;
+    width: 200px;
+    height: 240px;
+    object-fit: cover;
+    background: linear-gradient(180deg, #e8d8f0 0%, #f0d0b8 100%);
+    filter: sepia(0.05) saturate(1.05);
+  }
+  .polaroid .ph-caption {
+    position: absolute;
+    bottom: 0.35rem;
+    left: 0; right: 0;
+    text-align: center;
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    color: var(--ink-pen);
+    transform: rotate(-1deg);
+  }
+  .polaroid .tape.pink {
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%) rotate(2deg);
+  }
+
+  .name-block {
+    padding-top: 0.25rem;
+  }
+  .file-stamp {
+    display: inline-block;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--crimson);
+    border: 1.5px solid var(--crimson);
+    padding: 0.15rem 0.55rem;
+    text-transform: uppercase;
+    transform: rotate(-2deg);
+    margin-bottom: 0.6rem;
+    opacity: 0.85;
+  }
+  h1.name {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 4.4rem;
+    line-height: 0.95;
+    color: var(--ink-pink);
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.05);
+    margin-bottom: 0.2rem;
+    transform: rotate(-1.2deg);
+    display: inline-block;
+  }
+  .name-underline {
+    height: 6px;
+    background: var(--ink-marker);
+    width: 60%;
+    margin-bottom: 0.85rem;
+    border-radius: 3px;
+    transform: rotate(-0.5deg) translateX(0.5rem);
+    opacity: 0.7;
+  }
+  .playbook {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-pen);
+    margin-bottom: 1rem;
+  }
+  .playbook .star {
+    color: var(--ink-marker);
+    font-size: 1rem;
+    margin: 0 0.6rem;
+  }
+
+  .quick-facts {
+    font-family: 'Kalam', cursive;
+    font-size: 1rem;
+    color: var(--ink-pencil);
+    line-height: 1.55;
+  }
+  .quick-facts .label {
+    font-family: 'Special Elite', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-pen);
+    margin-right: 0.4rem;
+  }
+  .quick-facts .row { margin-bottom: 0.3rem; }
+  .quick-facts em {
+    font-style: normal;
+    background: rgba(240, 210, 90, 0.35);
+    padding: 0 0.2rem;
+  }
+
+  /* SECTION HEADINGS */
+  .section {
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  h2.sec-head {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.65rem;
+    color: var(--ink-pen);
+    margin-bottom: 0.75rem;
+    display: inline-block;
+    position: relative;
+    z-index: 3;
+  }
+  h2.sec-head::after {
+    content: "";
+    position: absolute;
+    left: -4px;
+    right: -4px;
+    bottom: 4px;
+    height: 14px;
+    background: rgba(240, 210, 90, 0.45);
+    z-index: -1;
+    transform: skewX(-2deg);
+  }
+  h2.sec-head .nb {
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    color: var(--ink-pink);
+    margin-left: 0.6rem;
+    letter-spacing: 0;
+  }
+
+  /* STATS */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .stat-box {
+    background: white;
+    border: 2px solid var(--ink-pencil);
+    border-radius: 8px;
+    padding: 0.6rem 0.4rem;
+    text-align: center;
+    position: relative;
+    transform: rotate(-0.5deg);
+    box-shadow: 1px 2px 0 rgba(0,0,0,0.08);
+  }
+  .stat-box:nth-child(2n) { transform: rotate(0.6deg); }
+  .stat-box:nth-child(3n) { transform: rotate(-0.3deg); }
+  .stat-box .s-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-pen);
+    margin-bottom: 0.2rem;
+  }
+  .stat-box .s-val {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--ink-pink);
+  }
+  .stat-box .s-val.neg { color: var(--ink-pencil); }
+  .stat-box .s-sub {
+    font-family: 'Kalam', cursive;
+    font-size: 0.72rem;
+    color: var(--ink-pencil);
+    margin-top: 0.25rem;
+    line-height: 1.25;
+  }
+
+  /* TRACKERS */
+  .trackers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  .tracker {
+    background: rgba(255,255,255,0.4);
+    border: 1.5px dashed var(--ink-pencil);
+    padding: 0.7rem 0.85rem;
+    border-radius: 4px;
+    position: relative;
+  }
+  .tracker-title {
+    font-family: 'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-pen);
+    margin-bottom: 0.4rem;
+  }
+  .tracker-title .endcap {
+    color: var(--crimson);
+    margin: 0 0.35rem;
+  }
+  .boxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    align-items: center;
+  }
+  .box {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--ink-pencil);
+    border-radius: 2px;
+    background: white;
+    position: relative;
+  }
+  .box.filled::after {
+    content: "✕";
+    position: absolute;
+    inset: -4px 0 0 0;
+    text-align: center;
+    font-family: 'Permanent Marker', cursive;
+    color: var(--ink-pink);
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+  .box.harm { border-radius: 50%; }
+  .box.harm.filled::after { color: var(--crimson); }
+  .box.divider {
+    border: none;
+    width: auto;
+    color: var(--ink-pencil);
+    font-family: 'Special Elite', monospace;
+    padding: 0 0.15rem;
+  }
+  .tracker-end {
+    font-family: 'Special Elite', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    color: var(--crimson);
+    margin-left: 0.5rem;
+    text-transform: uppercase;
+  }
+  .tracker-note {
+    font-family: 'Caveat', cursive;
+    font-size: 0.95rem;
+    color: var(--ink-pencil);
+    margin-top: 0.4rem;
+    font-style: italic;
+  }
+
+  /* CHOSEN SPECIAL CALLOUT */
+  .callout {
+    background: var(--parchment);
+    border: 1px solid var(--parchment-d);
+    padding: 0.7rem 1rem;
+    margin-top: 0.85rem;
+    font-family: 'Kalam', cursive;
+    font-size: 0.95rem;
+    color: var(--ink);
+    position: relative;
+    line-height: 1.45;
+  }
+  .callout::before {
+    content: "★";
+    position: absolute;
+    top: -10px;
+    left: 12px;
+    color: var(--ink-marker);
+    background: var(--paper);
+    padding: 0 6px;
+    font-size: 1rem;
+  }
+  .callout strong {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-pen);
+  }
+
+  /* TWO COLUMNS */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 2rem;
+  }
+
+  /* MOVES */
+  .move {
+    margin-bottom: 0.95rem;
+    padding-left: 0.25rem;
+    position: relative;
+  }
+  .move-name {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--ink-purple);
+    line-height: 1.1;
+    display: inline-block;
+    margin-right: 0.4rem;
+  }
+  .move-check {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--ink-purple);
+    border-radius: 3px;
+    vertical-align: 2px;
+    margin-right: 0.4rem;
+    position: relative;
+    background: white;
+  }
+  .move-check.on::after {
+    content: "✓";
+    position: absolute;
+    inset: -7px 0 0 1px;
+    color: var(--ink-pink);
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+  .move-check.mandatory {
+    background: var(--ink-purple);
+  }
+  .move-check.mandatory::after {
+    content: "■";
+    position: absolute;
+    inset: -4px 0 0 0;
+    color: white;
+    font-size: 0.7rem;
+    text-align: center;
+  }
+  .move-body {
+    font-family: 'Kalam', cursive;
+    font-size: 0.95rem;
+    color: var(--ink-pencil);
+    line-height: 1.5;
+    padding-left: 1.5rem;
+    margin-top: 0.15rem;
+  }
+  .move-tag {
+    font-family: 'Special Elite', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--crimson);
+    margin-left: 0.3rem;
+  }
+
+  /* WEAPON CARD */
+  .weapon-card {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.2) 100%),
+      var(--parchment);
+    border: 1.5px solid var(--parchment-d);
+    padding: 1rem 1.2rem 1.1rem;
+    position: relative;
+    transform: rotate(0.4deg);
+    box-shadow: 1px 3px 6px rgba(0,0,0,0.1);
+  }
+  .weapon-card .weapon-name {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.6rem;
+    color: var(--ink-purple);
+    margin-bottom: 0.15rem;
+  }
+  .weapon-card .weapon-build {
+    font-family: 'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-pen);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .weapon-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-bottom: 0.6rem;
+  }
+  .wtag {
+    font-family: 'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: white;
+    border: 1px solid var(--ink-pencil);
+    padding: 0.15rem 0.5rem;
+    color: var(--ink);
+  }
+  .wtag.harm { background: var(--ink-pink); color: white; border-color: var(--ink-pink); }
+  .wtag.magic { background: var(--ink-purple); color: white; border-color: var(--ink-purple); }
+  .weapon-card p {
+    font-family: 'Kalam', cursive;
+    font-size: 0.92rem;
+    color: var(--ink-pencil);
+    line-height: 1.45;
+  }
+
+  /* GEAR LIST */
+  .gear-list { font-family: 'Kalam', cursive; font-size: 0.95rem; line-height: 1.6; }
+  .gear-list li {
+    list-style: none;
+    padding-left: 1.4rem;
+    text-indent: -1.4rem;
+    margin-bottom: 0.25rem;
+  }
+  .gear-list li::before {
+    content: "□";
+    color: var(--ink-pencil);
+    margin-right: 0.5rem;
+  }
+  .gear-list li.checked::before {
+    content: "☑";
+    color: var(--ink-green);
+  }
+  .gear-list li.lost {
+    color: var(--ink-pencil);
+    text-decoration: line-through;
+    text-decoration-color: var(--crimson);
+  }
+  .gear-note {
+    font-family: 'Caveat', cursive;
+    font-size: 0.95rem;
+    color: var(--ink-pink);
+    margin-left: 1.4rem;
+  }
+
+  /* FATE — PROPHECY HANDOUT */
+  .prophecy {
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.4) 0%, transparent 70%),
+      var(--parchment);
+    background-color: var(--parchment);
+    border: 1px solid var(--parchment-d);
+    padding: 1.5rem 1.75rem 1.75rem;
+    margin-top: 0.5rem;
+    position: relative;
+    box-shadow:
+      0 2px 6px rgba(0,0,0,0.12),
+      inset 0 0 30px rgba(168, 138, 74, 0.1);
+    transform: rotate(-0.6deg);
+  }
+  .prophecy::before, .prophecy::after {
+    content: "";
+    position: absolute;
+    width: 90px;
+    height: 24px;
+    background: var(--tape-yellow);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  }
+  .prophecy::before { top: -12px; left: 20%; transform: rotate(-4deg); }
+  .prophecy::after  { top: -12px; right: 20%; transform: rotate(3deg); }
+
+  .prophecy-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--ink-pen);
+    margin-bottom: 0.4rem;
+  }
+  .prophecy-sub {
+    text-align: center;
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    color: var(--ink-pencil);
+    margin-bottom: 1.1rem;
+    font-style: italic;
+  }
+  .fate-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 1.5rem;
+  }
+  .fate-col-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--parchment-d);
+  }
+  .fate-col-title.heroic { color: var(--ink-green); }
+  .fate-col-title.doom { color: var(--crimson); }
+  .fate-tag {
+    font-family: 'Kalam', cursive;
+    font-size: 1rem;
+    line-height: 1.3;
+    padding: 0.35rem 0.55rem;
+    margin-bottom: 0.35rem;
+    background: rgba(255,255,255,0.45);
+    border-left: 3px solid transparent;
+  }
+  .fate-tag.heroic { border-left-color: var(--ink-green); }
+  .fate-tag.doom { border-left-color: var(--crimson); }
+  .fate-tag .ck {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--ink-pink);
+    margin-right: 0.3rem;
+  }
+  .fate-meta {
+    margin-top: 1rem;
+    padding-top: 0.7rem;
+    border-top: 1px dashed var(--parchment-d);
+    text-align: center;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-pen);
+  }
+  .fate-meta strong {
+    color: var(--ink-pink);
+    font-family: 'Permanent Marker', cursive;
+    letter-spacing: 0.04em;
+    font-size: 0.85rem;
+  }
+
+  /* HISTORY / SESSION LOG */
+  .log-entry {
+    margin-bottom: 1.1rem;
+    padding-left: 1rem;
+    border-left: 3px solid var(--rule-blue);
+    position: relative;
+  }
+  .log-entry .log-time {
+    font-family: 'Special Elite', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-pen);
+    margin-bottom: 0.1rem;
+  }
+  .log-entry .log-title {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--ink-purple);
+    line-height: 1.15;
+    margin-bottom: 0.25rem;
+  }
+  .log-entry p {
+    font-family: 'Kalam', cursive;
+    font-size: 0.95rem;
+    color: var(--ink-pencil);
+    line-height: 1.55;
+    margin-bottom: 0.35rem;
+  }
+  .log-entry .roll {
+    display: inline-block;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    background: rgba(143, 180, 212, 0.2);
+    padding: 0.1rem 0.45rem;
+    border: 1px solid var(--rule-blue);
+    color: var(--ink-pen);
+    text-transform: uppercase;
+    margin-right: 0.3rem;
+  }
+  .log-entry .roll.success { background: rgba(58, 122, 74, 0.18); border-color: var(--ink-green); color: var(--ink-green); }
+  .log-entry .roll.mixed { background: rgba(216, 128, 28, 0.18); border-color: var(--ink-marker); color: var(--ink-marker); }
+  .log-entry .roll.crit { background: rgba(200, 58, 122, 0.22); border-color: var(--ink-pink); color: var(--ink-pink); }
+
+  .doodle {
+    position: absolute;
+    font-family: 'Caveat', cursive;
+    color: var(--ink-marker);
+    font-size: 1.05rem;
+    transform: rotate(-8deg);
+    pointer-events: none;
+    line-height: 1.1;
+  }
+
+  /* INTRO TEXT (drop cap) */
+  .intro {
+    font-family: 'Kalam', cursive;
+    font-size: 1.02rem;
+    color: var(--ink);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+  .intro::first-letter {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2.5rem;
+    float: left;
+    line-height: 0.9;
+    padding: 0.15rem 0.35rem 0 0;
+    color: var(--ink-pink);
+  }
+
+  /* PSYCH / HISTORY GRID */
+  .psych-item {
+    margin-bottom: 0.85rem;
+    padding: 0.6rem 0.85rem;
+    background: rgba(255,255,255,0.35);
+    border-left: 3px solid var(--ink-pink);
+  }
+  .psych-item .ps-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-pen);
+    margin-bottom: 0.2rem;
+  }
+  .psych-item .ps-text {
+    font-family: 'Kalam', cursive;
+    font-size: 0.96rem;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  /* RELATIONS */
+  .relation {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 0.85rem;
+    margin-bottom: 0.7rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px dotted var(--ink-pencil);
+  }
+  .relation:last-child { border-bottom: none; }
+  .relation .r-name {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--ink-purple);
+    line-height: 1.15;
+  }
+  .relation .r-role {
+    font-family: 'Special Elite', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-pen);
+  }
+  .relation .r-desc {
+    font-family: 'Kalam', cursive;
+    font-size: 0.95rem;
+    color: var(--ink-pencil);
+    line-height: 1.5;
+  }
+
+  /* FOOTER */
+  .footer-stamp {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 2px solid var(--ink-pencil);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-pencil);
+  }
+  .footer-stamp .stamp {
+    border: 2px solid var(--crimson);
+    color: var(--crimson);
+    padding: 0.25rem 0.7rem;
+    transform: rotate(-3deg);
+    letter-spacing: 0.2em;
+  }
+
+  @media (max-width: 720px) {
+    .binder { padding: 2.5rem 1rem 2.5rem 3rem; }
+    .binder::before { left: 2rem; }
+    .binder::after { left: 0.4rem; width: 1rem; }
+    .header { grid-template-columns: 1fr; }
+    .polaroid { transform: rotate(-2deg); margin: 0 auto; }
+    .polaroid img { width: 160px; height: 200px; }
+    h1.name { font-size: 3.2rem; }
+    .stats-row { grid-template-columns: repeat(5, 1fr); gap: 0.3rem; }
+    .stat-box { padding: 0.4rem 0.2rem; }
+    .stat-box .s-val { font-size: 1.8rem; }
+    .stat-box .s-name { font-size: 0.65rem; }
+    .stat-box .s-sub { display: none; }
+    .trackers { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    .fate-grid { grid-template-columns: 1fr; }
+    .prophecy::before, .prophecy::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="binder">
+
+  <span class="tape" style="top: 18px; left: 38%; transform: rotate(-4deg);"></span>
+  <span class="tape blue" style="top: 14px; right: 6%; transform: rotate(6deg);"></span>
+
+  <div class="content">
+
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+      <div class="polaroid">
+        <span class="tape pink"></span>
+        <img src="kelly.png" alt="Kelly — Polaroid portrait">
+        <div class="ph-caption">that's me ♥</div>
+      </div>
+
+      <div class="name-block">
+        <div class="file-stamp">Hunter File · No. 001</div>
+        <h1 class="name">Kelly</h1>
+        <div class="name-underline"></div>
+        <div class="playbook">The Chosen <span class="star">✦</span> She Who Bears the Bone Chain</div>
+
+        <div class="quick-facts">
+          <div class="row"><span class="label">Look</span>Teenage girl &middot; hopeful face &middot; preppy clothes</div>
+          <div class="row"><span class="label">Tells</span>black hair, intricate headband, on her phone constantly</div>
+          <div class="row"><span class="label">Status</span><em>still in high school</em> &middot; currently passing trigonometry (allegedly)</div>
+          <div class="row"><span class="label">Order</span>not yet specified &mdash; <em>not</em> Thomas's order</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="intro">Her birth was prophesied. She knows that part &mdash; some weirdo told her. She knows it involves finding someone. She is not, today, totally clear on who. What she <em>is</em> clear on: there is a splintered black phone in her bag from her order, the rose gold one is from her parents, and she had a trig test this morning that has been mysteriously &ldquo;taken care of.&rdquo; Tonight she goes out alone for the first time.</p>
+
+
+    <!-- ===== STATS ===== -->
+    <section class="section">
+      <h2 class="sec-head">Ratings <span class="nb">&mdash; pick a line ✓</span></h2>
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="s-name">Charm</div>
+          <div class="s-val">+1</div>
+          <div class="s-sub">manipulate someone</div>
+        </div>
+        <div class="stat-box">
+          <div class="s-name">Cool</div>
+          <div class="s-val">+2</div>
+          <div class="s-sub">act under pressure<br>help out</div>
+        </div>
+        <div class="stat-box">
+          <div class="s-name">Sharp</div>
+          <div class="s-val">+1</div>
+          <div class="s-sub">investigate · read a bad situation</div>
+        </div>
+        <div class="stat-box">
+          <div class="s-name">Tough</div>
+          <div class="s-val">+1</div>
+          <div class="s-sub">kick some ass<br>protect someone</div>
+        </div>
+        <div class="stat-box">
+          <div class="s-name">Weird</div>
+          <div class="s-val neg">&minus;1</div>
+          <div class="s-sub">use magic</div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===== TRACKERS ===== -->
+    <section class="section">
+      <h2 class="sec-head">Trackers</h2>
+
+      <div class="trackers">
+
+        <div class="tracker">
+          <div class="tracker-title">Luck <span class="endcap">›</span> Okay <span class="tracker-end">&mdash; Doomed</span></div>
+          <div class="boxes">
+            <span class="box"></span>
+            <span class="box"></span>
+            <span class="box"></span>
+            <span class="box"></span>
+            <span class="box"></span>
+            <span class="box"></span>
+            <span class="box"></span>
+          </div>
+          <div class="tracker-note">7 / 7 remaining &mdash; when she burns a point, the Keeper brings her fate into play.</div>
+        </div>
+
+        <div class="tracker">
+          <div class="tracker-title">Experience</div>
+          <div class="boxes">
+            <span class="box filled"></span>
+            <span class="box filled"></span>
+            <span class="box"></span>
+            <span class="box"></span>
+            <span class="box"></span>
+          </div>
+          <div class="tracker-note">2 / 5 &mdash; from a Destiny's Plaything trigger and a 6&minus; on Protect Someone.</div>
+        </div>
+
+        <div class="tracker" style="grid-column: 1 / -1;">
+          <div class="tracker-title">Harm <span class="endcap">›</span> Okay <span class="tracker-end">&mdash; Dying</span></div>
+          <div class="boxes">
+            <span class="box harm filled"></span>
+            <span class="box harm"></span>
+            <span class="box harm"></span>
+            <span class="box divider">|</span>
+            <span class="box harm"></span>
+            <span class="box harm"></span>
+            <span class="box harm"></span>
+            <span class="box harm"></span>
+            <span style="font-family: 'Special Elite', monospace; font-size: 0.7rem; color: var(--crimson); margin-left: 0.8rem; letter-spacing: 0.14em;">UNSTABLE □</span>
+          </div>
+          <div class="tracker-note">1 harm taken &mdash; burn on the leg, the kind a parent might believe came from a curling iron. Needs a couple stitches.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Chosen Special</strong> &mdash; When Kelly spends a point of Luck, the Keeper will bring her fate into play. Visions, a nemesis, normalcy, sympathy &mdash; one of the threads tightens around her neck.
+      </div>
+    </section>
+
+
+    <!-- ===== MOVES ===== -->
+    <section class="section">
+      <h2 class="sec-head">Chosen Moves</h2>
+
+      <div class="two-col">
+        <div>
+          <div class="move">
+            <span class="move-check mandatory"></span>
+            <span class="move-name">Destiny's Plaything</span>
+            <span class="move-tag">+Weird · always</span>
+            <div class="move-body">At the start of each mystery, roll +Weird. On 10+, the Keeper reveals a useful detail about the coming mystery; on 7&ndash;9, a vague hint; on a miss, something bad is coming. The vision usually arrives as the feeling of every drop of air being pulled from her lungs.</div>
+          </div>
+
+          <div class="move">
+            <span class="move-check mandatory"></span>
+            <span class="move-name">I'm Here For A Reason</span>
+            <span class="move-tag">narrative</span>
+            <div class="move-body">There is something Kelly is destined to do &mdash; finding someone. Until that is resolved, she cannot die. If she falls in play, she spends a Luck point and somehow recovers or is returned. Once the task is done, or her Luck runs out, all bets are off.</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="move">
+            <span class="move-check on"></span>
+            <span class="move-name">The Big Entrance</span>
+            <span class="move-tag">+Cool</span>
+            <div class="move-body">When she makes a showy entrance into a dangerous situation, roll +Cool. On 10+, everyone stops to watch and listen until she finishes her opening speech. On 7&ndash;9, she picks one person or monster to stop and listen. On a miss, every enemy present marks her as the biggest threat in the room.</div>
+          </div>
+
+          <div class="move">
+            <span class="move-check on"></span>
+            <span class="move-name">Invincible</span>
+            <span class="move-tag">passive · 2-armour</span>
+            <div class="move-body">She always counts as having 2-armour. Doesn't stack with worn protection. Doesn't help against magic &mdash; a fey blade still leaves acid burns; a vampiric bite still gets under the guard. Against teeth, claws and bullets, however, she is harder to kill than she looks.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===== WEAPON + GEAR ===== -->
+    <section class="section">
+      <h2 class="sec-head">Weapon &amp; Gear</h2>
+
+      <div class="two-col">
+        <div>
+          <div class="weapon-card">
+            <div class="weapon-name">The Bone Chain</div>
+            <div class="weapon-build">chain · artifact · spikes · chain (×2) · bone</div>
+            <div class="weapon-tags">
+              <span class="wtag harm">1-harm</span>
+              <span class="wtag">hand</span>
+              <span class="wtag">area</span>
+              <span class="wtag magic">magic</span>
+              <span class="wtag">messy</span>
+            </div>
+            <p>A length of jointed bone, spiked, that Thomas's order delivered to her about a year ago. Wraps around an arm for a guard, lashes out in an arc. Bit a fey prince through to the bone of his arm. Once protected her shoulder from a mutated werewolf's jaws.</p>
+          </div>
+
+          <p style="font-family: 'Caveat', cursive; font-size: 1.05rem; color: var(--ink-pen); margin-top: 1rem; padding-left: 0.3rem;">No worn armour &mdash; Invincible covers it.</p>
+        </div>
+
+        <div>
+          <div style="font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-pen); margin-bottom: 0.55rem;">Mission Loadout · Oberon's Hunt</div>
+          <ul class="gear-list">
+            <li class="checked">cold iron binding net &mdash; <em>fey can't touch it; drains their power</em></li>
+            <li class="checked">silver six-shooter &mdash; <em>low-tech, runs near fey magic</em></li>
+            <li class="checked">8 silver bullets</li>
+            <li class="checked">binding ritual components &mdash; <em>6-hour cast, within ~1 mile of Oberon</em></li>
+            <li>splintered black phone (Order issue)</li>
+            <li class="lost">rose gold cell phone (parents)</li>
+          </ul>
+          <div class="gear-note">^ left it on a barn ledge climbing up. ↑ rude.</div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===== FATE / PROPHECY ===== -->
+    <section class="section">
+      <h2 class="sec-head">Her Fate</h2>
+
+      <div class="prophecy">
+        <div class="prophecy-title">Prophecy &middot; Sealed</div>
+        <div class="prophecy-sub">how she found out: some weirdo told her</div>
+
+        <div class="fate-grid">
+          <div>
+            <div class="fate-col-title heroic">Heroic</div>
+            <div class="fate-tag heroic"><span class="ck">✓</span>Visions</div>
+            <div class="fate-tag heroic"><span class="ck">✓</span>A normal life</div>
+          </div>
+          <div>
+            <div class="fate-col-title doom">Doom</div>
+            <div class="fate-tag doom"><span class="ck">✓</span>A nemesis</div>
+            <div class="fate-tag doom"><span class="ck">✓</span>Sympathy with the enemy</div>
+          </div>
+        </div>
+
+        <div class="fate-meta">
+          Destined Task &nbsp;›&nbsp; <strong>To find someone</strong> &nbsp;·&nbsp; details unknown
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===== HISTORY / WORLD ===== -->
+    <section class="section">
+      <h2 class="sec-head">Background <span class="nb">&mdash; what we know so far</span></h2>
+
+      <div class="two-col">
+        <div>
+          <div class="psych-item">
+            <div class="ps-label">Two Lives</div>
+            <div class="ps-text">Lives with her parents, who got her a rose-gold cell phone and don't know any of this. Was studying for a trigonometry test the night the call came in. Her order takes care of inconveniences like tests.</div>
+          </div>
+          <div class="psych-item">
+            <div class="ps-label">Visions</div>
+            <div class="ps-text">When a mystery is coming, she gets a headache and the feeling of being unable to breathe &mdash; as if all the air had been pulled out of her. It has happened often enough to be a known signal.</div>
+          </div>
+          <div class="psych-item">
+            <div class="ps-label">Her Order</div>
+            <div class="ps-text">In training &ldquo;quite some time.&rdquo; Was approached by Thomas's order before being claimed by another &mdash; the order she's with now &mdash; whose name she has never been asked to give. Tonight is her first solo mission.</div>
+          </div>
+        </div>
+        <div>
+          <div class="psych-item">
+            <div class="ps-label">The Bone Chain</div>
+            <div class="ps-text">Delivered to her about a year ago, dropped off by a younger apprentice (James) on behalf of Thomas. The order before her order considered her a recruitment loss. Thomas, on the other hand, still has notes.</div>
+          </div>
+          <div class="psych-item">
+            <div class="ps-label">Known Powers</div>
+            <div class="ps-text">The Fae are real. Queen Rosalind sits at the head of their council. Werewolves are real and natural-born. Vampires are real enough that a half-mutated jaw is recognisable on sight. None of the deals the Fae offer are simple ones.</div>
+          </div>
+          <div class="psych-item">
+            <div class="ps-label">Out at Night</div>
+            <div class="ps-text">Came home from this one covered in blood, a deep cut on her leg, and had to sneak past her parents to get into the shower.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===== RELATIONS ===== -->
+    <section class="section">
+      <h2 class="sec-head">Relationships</h2>
+
+      <div class="relation">
+        <div>
+          <div class="r-name">Thomas</div>
+          <div class="r-role">other hunter · other order</div>
+        </div>
+        <div class="r-desc">Veteran of a rival order, the one that <em>didn't</em> get to keep her. Delivered the Bone Chain to her about a year ago. Now on official assignment to evaluate her, find out which order she answers to, and figure out why he couldn't recruit her the first time. She is not supposed to know any of that, but he is not subtle.</div>
+      </div>
+
+      <div class="relation">
+        <div>
+          <div class="r-name">James</div>
+          <div class="r-role">apprentice · Thomas's</div>
+        </div>
+        <div class="r-desc">The teenage apprentice who actually dropped the Bone Chain off. Tagging along on this mission as a glorified bag-carrier. Thomas would dearly love to be rid of him, which Kelly may or may not have picked up on. Ended up saving the night with a silver crossbow arrow when she shouted his name.</div>
+      </div>
+
+      <div class="relation">
+        <div>
+          <div class="r-name">Steve Johnson</div>
+          <div class="r-role">handler · driver</div>
+        </div>
+        <div class="r-desc">Casually dressed, &ldquo;trustworthy-looking,&rdquo; drives a tactical van full of weapons. Knows about fey-electronics interference. Stops for bathroom breaks. Will leave at midnight if they fail.</div>
+      </div>
+
+      <div class="relation">
+        <div>
+          <div class="r-name">Queen Rosalind</div>
+          <div class="r-role">fey · head of council</div>
+        </div>
+        <div class="r-desc">Sits at the head of the Fae Council. Could not, by Fae law, kill her own nephew. Hired Kelly's order to do it. Offered, afterwards, a standing invitation: if Kelly ever wants insight into her destiny, she may call.</div>
+      </div>
+
+      <div class="relation">
+        <div>
+          <div class="r-name">Prince Oberon</div>
+          <div class="r-role">target · deceased</div>
+        </div>
+        <div class="r-desc">Rosalind's nephew. Defied fey law to crossbreed werewolves with vampire mutations and raise an army to overthrow her. Killed by Kelly with the Bone Chain. Began to say &ldquo;wait, I'll give you &mdash;&rdquo; and didn't finish.</div>
+      </div>
+    </section>
+
+
+    <!-- ===== SESSION LOG ===== -->
+    <section class="section">
+      <h2 class="sec-head">Session Log <span class="nb">&mdash; Oberon's Hunt, a one-shot</span></h2>
+
+      <div class="log-entry">
+        <div class="log-time">Night before · her bedroom</div>
+        <div class="log-title">The Air Goes Out of the Room</div>
+        <p>Studying for tomorrow's trig test. Falling asleep. The headache comes in &mdash; the feeling of every drop of air pulled from her body, then it's gone. The splintered black phone rings: <em>first solo mission, 10 AM, outside your school. We owe a favour. Trig test is handled.</em></p>
+        <p><span class="roll">Destiny's Plaything · 6&minus;</span> Marks experience. Vision is a known one &mdash; a recurring sensation, not a new symbol.</p>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-time">10:00 AM · outside the school</div>
+        <div class="log-title">Ditching Class for Steve Johnson's Van</div>
+        <p>Walks out of class without a backward glance. Climbs into a tactical van with no windows. Recognises both men inside &mdash; the older one (Thomas) who came with the Bone Chain a year ago, and his apprentice (James). She knows who they are; she does not, particularly, want to talk to them. Spends the entire four-hour drive on her phone.</p>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-time">4:00 PM · Denver / Wyoming border</div>
+        <div class="log-title">Briefing in the Tall Grass</div>
+        <p>Wide open fields. A house in the middle distance. Steve hands envelopes and explains: Prince Oberon, nephew of Queen Rosalind, has been mutating werewolves into werewolf-vampire hybrids to overthrow her. He has until midnight to ritually transform a mass of them; she has until midnight to stop him. Gear granted: cold iron binding net, silver six-shooter, eight silver bullets, a binding ritual that needs six undisturbed hours within a mile.</p>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-time">Dusk · approaching the property</div>
+        <div class="log-title">A Mile From the House the Air Gets Electric</div>
+        <p>The fey magic thickens as they cross the fields. Modern electronics begin to die at the perimeter &mdash; which is why the van couldn't approach. House, barn 500 ft northeast, lake to the northwest. They circle in from the back of the barn.</p>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-time">Early evening · barn loft</div>
+        <div class="log-title">The Phone on the Ledge</div>
+        <p>Tries to climb to the hayloft using the Bone Chain as a grappling line. Distracted &mdash; still rattled from the van &mdash; she'd put her personal phone in her pocket instead of her bag. As she climbs, it slips out and lands on a ledge below.</p>
+        <p><span class="roll mixed">Act Under Pressure · 7&ndash;9 · hard choice</span> Goes back for the phone. The hook comes loose; she retrieves the rose-gold phone and the climb is over. Stuck six feet up on the wrong ledge with the chain-grapple ringing on the ground at Thomas's feet. Jumps down, startles James on the landing.</p>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-time">Dusk · the side door</div>
+        <div class="log-title">Listening At a Door That's Already Ajar</div>
+        <p>Puts her ear to the side door of the barn.</p>
+        <p><span class="roll crit">Read a Bad Situation · 13 · hold 3</span> Heavy, deep breathing on the far side &mdash; something sleeping. The side door is ajar, used, won't make noise. The biggest threat is whatever is breathing in there.</p>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-time">Dusk · the barn floor</div>
+        <div class="log-title">Two Sets of Red Eyes in the Dark</div>
+        <p>Inside: a steel cage holding dozens of werewolves. A stench like open-sore mange that isn't coming from them. A howl &mdash; two larger creatures step into the back doorway, blocking the last of the sunlight. Red eyes, elongated fangs. <em>Mutated.</em></p>
+        <p><span class="roll success">Act Under Pressure · pass</span> Resists what would have been overwhelming fear.</p>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-time">Dusk · grappled</div>
+        <div class="log-title">A Bite That Doesn't Land</div>
+        <p>One of the mutants closes the distance faster than anything she's seen and bites for her arm. The Bone Chain &mdash; wrapped over the forearm as a guard &mdash; takes the bite. No harm. She has it grappled. She drags it backwards into the still-falling sunlight.</p>
+        <p><span class="roll mixed">Act Under Pressure to keep it in the sun · 7&ndash;9</span> The creature screams; red marks bloom on its skin like a vampire's burn. It manages to slip past her guard and sink its teeth into her &mdash; small wound, but enough to register: <em>this thing is partly vampire, and people can be turned.</em> Takes 2 harm, reduced to 0 by Invincible's 2-armour.</p>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-time">Dusk · the cold iron net</div>
+        <div class="log-title">Tangle, Investigate</div>
+        <p>Throws the cold iron net. The mutant scrambles backward and tangles in the chains between the stalls and the central cage.</p>
+        <p><span class="roll">Investigate a Mystery · &ldquo;what happened here?&rdquo;</span> The sunlight burns are healing &mdash; slowly. Most werewolves heal supernaturally fast; this one doesn't. Sunlight is a weakness for the mutants the way silver is a weakness for werewolves. Confirmed: vampire mutation.</p>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-time">Dusk · botched mercy</div>
+        <div class="log-title">It Healed Just Enough</div>
+        <p>Moves in to put the tangled mutant down.</p>
+        <p><span class="roll mixed">Kick Some Ass · 7&ndash;9</span> The chain lifts and the wolf has healed just enough. It bolts past them, going for James. Thomas spends Fortunes to be where he's needed, calls out, and James plants a silver crossbow arrow in its throat for two harm. Down.</p>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-time">Dusk · the burning barn</div>
+        <div class="log-title">Fire, and Something on the Wall</div>
+        <p>Thomas uses Magic to light his oiled walking-stick and shove it into the dry hay. The barn goes up fast. As the back of the barn lights, Kelly hears a cough &mdash; turns &mdash; sees a pale figure chained to the wall, drained of blood. There is no time to save it. The magic's problematic side effect: <em>they killed something that could have helped them.</em></p>
+        <p>She gets the cage open and forces the unmutated werewolves out into the field. They scatter in every direction, none of them with red eyes. Takes a burn on the leg through her armour. <strong>1 harm.</strong></p>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-time">Sunset · the open field</div>
+        <div class="log-title">Oberon Arrives Furious</div>
+        <p>A wide-winged bird with a long beak &mdash; that turns into a horse &mdash; descends. Behind it, a tall fey elf in a gold crown and breastplate, sword drawn. <em>&ldquo;You ruined everything.&rdquo;</em></p>
+        <p><span class="roll success">Kick Some Ass · 10+ · first strike</span> Closes with the Bone Chain. His sword glances off &mdash; <em>nothing for it to bite on Invincible</em>. Her spikes sink into his arm. Blood sprays.</p>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-time">Sunset · second exchange</div>
+        <div class="log-title">Force Him Where You Want Him</div>
+        <p><span class="roll success">Kick Some Ass · 10+</span> (Thomas gives +1 forward.) She brings the Bone Chain down again &mdash; 4 harm. Oberon goes <em>unstable</em>. The bird-horse strikes at her, but in his current state it doesn't matter; it doesn't hurt.</p>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-time">Sunset · finishing</div>
+        <div class="log-title">&ldquo;Wait &mdash; I'll give you &mdash;&rdquo;</div>
+        <p>Thomas one-shots the bird-horse with a Luck-spent 12 on his silver sword. Kelly raises the Bone Chain one last time.</p>
+        <p><span class="roll success">Kick Some Ass · 10+</span> Oberon starts to bargain. She brings the chain down through his head. He doesn't finish the sentence.</p>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-time">After · slow clapping</div>
+        <div class="log-title">An Offer From the Queen</div>
+        <p>Both of them on the ground, covered in his blood, the barn burning behind them. Queen Rosalind walks out of a portal with two fey attendants, applauding. Her people lift Kelly aside and retrieve Oberon's body and the magic he had been siphoning from the land.</p>
+        <p>To Kelly, she says: <em>&ldquo;If you ever want insight into your destiny, feel free to give us a call.&rdquo;</em> The portal closes. Steve arrives twenty minutes later in the van.</p>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-time">Late · home</div>
+        <div class="log-title">Don't Let Your Parents See</div>
+        <p>Sneaks back into the house covered in fey-prince blood with a deep cut on her leg that will need a couple of stitches. The rose-gold phone is somewhere on a barn ledge, now somewhere in a pile of ash. The order will not be replacing it.</p>
+      </div>
+    </section>
+
+
+    <!-- ===== FOOTER ===== -->
+    <div class="footer-stamp">
+      <span>Monster of the Week &middot; The Chosen</span>
+      <span class="stamp">First Solo &mdash; Cleared</span>
+      <span>Kelly &middot; She Who Bears the Bone Chain</span>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /binder -->
+
+</body>
+</html>
