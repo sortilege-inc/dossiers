@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Patience Bataille</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=Italianno&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Paper & ink — pressed-petal regency stationery */
+    --paper:        #f6efe1;
+    --paper-warm:   #efe5d2;
+    --paper-deep:   #e4d8bf;
+    --ink:          #2a221c;
+    --ink-soft:     #4f4338;
+    --ink-faint:    #8a7d6b;
+
+    /* Botanical accent palette — drawn from her gown */
+    --rose:         #b06870;     /* dusty rose, the flowers in her hair */
+    --rose-deep:    #864048;
+    --rose-pale:    #d8a6ac;
+    --rose-wash:    rgba(176, 104, 112, 0.07);
+
+    --pearl:        #e7dcc6;     /* her necklace, the gown ground */
+    --pearl-deep:   #c8b890;
+
+    --sage:         #5e6e4a;     /* the vine embroidery */
+    --sage-deep:    #3e4a30;
+    --sage-pale:    #98a482;
+
+    /* Martinique blue — the sea she came from */
+    --azure:        #4a6a82;
+    --azure-deep:   #2e4458;
+    --azure-pale:   #8aa4ba;
+
+    /* Gilt — locket, signet, candlelight */
+    --gilt:         #9a7a36;
+    --gilt-deep:    #6e5520;
+    --gilt-pale:    #c8a868;
+
+    --rule:         #c9b890;
+    --rule-soft:    #d9cbab;
+    --panel:        rgba(176, 104, 112, 0.06);
+    --panel-sage:   rgba(94, 110, 74, 0.06);
+    --panel-azure:  rgba(74, 106, 130, 0.06);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--paper-deep);
+    color: var(--ink);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+    font-weight: 400;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse at 12% 6%,  rgba(176,104,112,0.10) 0%, transparent 48%),
+      radial-gradient(ellipse at 88% 96%, rgba(94,110,74,0.08) 0%, transparent 52%),
+      radial-gradient(ellipse at 50% 50%, rgba(154,122,54,0.04) 0%, transparent 60%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    min-height: 100vh;
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  .letter {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 4.5rem 5rem 5rem;
+    box-shadow:
+      0 2px 4px rgba(42, 34, 28, 0.12),
+      0 14px 50px rgba(42, 34, 28, 0.20),
+      inset 0 0 120px rgba(176, 104, 112, 0.04);
+    position: relative;
+    border: 1px solid var(--rule);
+  }
+
+  /* Top floral rule */
+  .letter::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg,
+      var(--sage-deep) 0%,
+      var(--rose-deep) 22%,
+      var(--gilt) 50%,
+      var(--rose-deep) 78%,
+      var(--sage-deep) 100%);
+  }
+  .letter::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%, var(--rule) 20%, var(--gilt-pale) 50%, var(--rule) 80%, transparent 100%);
+  }
+
+  /* Corner sprig flourishes */
+  .corner-sprig {
+    position: absolute;
+    width: 56px; height: 56px;
+    opacity: 0.55;
+  }
+  .corner-sprig svg { width: 100%; height: 100%; }
+  .corner-sprig.tl { top: 14px; left: 14px; }
+  .corner-sprig.tr { top: 14px; right: 14px; transform: scaleX(-1); }
+  .corner-sprig.bl { bottom: 14px; left: 14px; transform: scaleY(-1); }
+  .corner-sprig.br { bottom: 14px; right: 14px; transform: scale(-1,-1); }
+
+  /* ─── HEADER ─── */
+  header.title-block {
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 2.4rem;
+    margin-bottom: 2.4rem;
+    position: relative;
+  }
+
+  .filemark {
+    display: flex;
+    justify-content: space-between;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 1.6rem;
+  }
+
+  .eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.34em;
+    color: var(--rose-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+  }
+
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 3rem;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.01em;
+  }
+  h1 .surname {
+    font-style: normal;
+    display: block;
+    font-size: 2.6rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+
+  .name-sub {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    display: block;
+    margin-bottom: 1.2rem;
+  }
+
+  .tagline {
+    font-family: "Italianno", "Mrs Saint Delafield", cursive;
+    font-size: 2rem;
+    color: var(--rose-deep);
+    line-height: 1.25;
+    margin: 0.4rem auto 0.3rem;
+    max-width: 580px;
+  }
+  .tagline-ascription {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+  }
+
+  /* Portrait */
+  .portrait-frame {
+    width: 320px;
+    margin: 1.6rem auto 0;
+    padding: 10px;
+    background: var(--pearl);
+    border: 1px solid var(--gilt);
+    box-shadow:
+      0 0 0 2px var(--paper),
+      0 0 0 3px var(--gilt-pale),
+      0 8px 24px rgba(42, 34, 28, 0.22);
+    position: relative;
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    width: 18px; height: 18px;
+    border: 1px solid var(--gilt-deep);
+  }
+  .portrait-frame::before { top: -6px; left: -6px; border-right: none; border-bottom: none; }
+  .portrait-frame::after { bottom: -6px; right: -6px; border-left: none; border-top: none; }
+  .portrait-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: sepia(0.06) saturate(0.94);
+  }
+  .portrait-caption {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.7rem;
+  }
+
+  /* ─── DRAMATIS PERSONAE PANEL (vitals) ─── */
+  .vitals {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 2.4rem;
+    margin: 2.2rem auto 0;
+    max-width: 640px;
+    padding: 1.4rem 1.6rem;
+    background: var(--panel);
+    border: 1px solid var(--rule-soft);
+    position: relative;
+  }
+  .vitals::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 14%; right: 14%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--rose-pale), transparent);
+  }
+  .vital-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.8rem;
+    padding: 0.25rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .vital-row:nth-last-child(-n+2) { border-bottom: none; }
+  .vital-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .vital-value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    text-align: right;
+  }
+  .vital-value em {
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+
+  /* ─── SECTIONS ─── */
+  section { margin: 2.6rem 0; }
+
+  h2.section-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.55rem;
+    color: var(--ink);
+    margin: 0 0 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    letter-spacing: 0.02em;
+  }
+  h2.section-title .numeral {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--rose-deep);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  h2.section-title .title-text {
+    font-style: italic;
+  }
+  h2.section-title .ornament {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--rule), transparent);
+    margin-bottom: 0.35rem;
+  }
+
+  h3.subhead {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.28em;
+    color: var(--rose-deep);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 1.6rem 0 0.65rem;
+  }
+
+  p { margin: 0.6rem 0 1rem; }
+  p.lead {
+    font-size: 1.08rem;
+    line-height: 1.7;
+  }
+  p.lead::first-letter {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 3.2rem;
+    float: left;
+    line-height: 0.9;
+    padding: 0.25rem 0.55rem 0 0;
+    color: var(--rose-deep);
+  }
+
+  em { color: var(--ink-soft); }
+
+  /* Cornerstone / Desire / etc. — labelled definition blocks */
+  .figured-block {
+    margin: 0.8rem 0 1.2rem;
+    padding: 1rem 1.3rem;
+    background: var(--panel-azure);
+    border-left: 3px solid var(--azure);
+    border-right: 1px solid var(--rule-soft);
+  }
+  .figured-block.rose {
+    background: var(--panel);
+    border-left-color: var(--rose-deep);
+  }
+  .figured-block.sage {
+    background: var(--panel-sage);
+    border-left-color: var(--sage-deep);
+  }
+  .figured-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.35rem;
+  }
+  .figured-content {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.05rem;
+    color: var(--ink);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* Reputation tags */
+  .rep-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+    margin: 1rem 0 0.5rem;
+  }
+  .rep-column h4 {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    margin: 0 0 0.7rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .rep-column.pos h4 { color: var(--sage-deep); }
+  .rep-column.neg h4 { color: var(--rose-deep); }
+  .rep-list {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .rep-list li {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.02rem;
+    padding: 0.32rem 0.7rem;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule-soft);
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .rep-list .symbol {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.86rem;
+    line-height: 1;
+  }
+  .rep-column.pos .symbol { color: var(--sage-deep); }
+  .rep-column.neg .symbol { color: var(--rose-deep); }
+
+  /* Tokens — Resolve & MT */
+  .token-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+    margin: 0.8rem 0;
+  }
+  .token-block {
+    padding: 1rem 1.2rem;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule-soft);
+  }
+  .token-block h4 {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin: 0 0 0.7rem;
+  }
+  .token-row {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 0.6rem;
+  }
+  .token-row .label {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.94rem;
+    color: var(--ink-soft);
+    width: 90px;
+    flex-shrink: 0;
+  }
+  .pip-row {
+    display: flex;
+    gap: 0.32rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .pip {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 1px solid var(--gilt-deep);
+    background: var(--paper);
+    display: inline-block;
+  }
+  .pip.filled {
+    background: radial-gradient(circle at 30% 30%, var(--gilt-pale), var(--gilt-deep));
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.2);
+  }
+  .pip-note {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    margin-top: 0.4rem;
+  }
+
+  /* Monologue indicator */
+  .monologue-tag {
+    display: inline-block;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.7rem;
+    background: var(--paper);
+    border: 1px solid var(--rose-pale);
+    color: var(--rose-deep);
+  }
+
+  /* Connection card (Ernest) */
+  .connection-card {
+    margin: 1rem 0;
+    padding: 1.3rem 1.5rem;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule-soft);
+    border-top: 3px double var(--gilt-pale);
+    position: relative;
+  }
+  .connection-card .conn-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.7rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .conn-name {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.3rem;
+    color: var(--ink);
+  }
+  .conn-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .conn-relationship {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    margin-bottom: 0.6rem;
+  }
+  .conn-impression {
+    font-family: "Cormorant Garamond", serif;
+    color: var(--ink);
+    padding: 0.55rem 0.85rem;
+    background: var(--paper);
+    border-left: 2px solid var(--rose-pale);
+    margin: 0.5rem 0;
+    font-style: italic;
+  }
+  .conn-impression .who {
+    font-family: "Cormorant SC", serif;
+    font-style: normal;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rose-deep);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  /* The web of connections (major characters) */
+  .web-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 0.8rem 0;
+  }
+  .web-card {
+    padding: 0.9rem 1.1rem;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule-soft);
+    border-left: 3px solid var(--rule);
+  }
+  .web-card.govinda { border-left-color: var(--rose-deep); }
+  .web-card.jane    { border-left-color: var(--sage); }
+  .web-card.caitlin { border-left-color: var(--azure-deep); }
+  .web-card.hugh    { border-left-color: var(--gilt-deep); }
+  .web-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 1.08rem;
+    color: var(--ink);
+    margin-bottom: 0.15rem;
+  }
+  .web-role {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .web-tie {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 0.96rem;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  /* Whispers (rumour) */
+  .whisper-block {
+    margin: 1rem 0;
+    padding: 1.1rem 1.4rem;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule-soft);
+    position: relative;
+  }
+  .whisper-block::before {
+    content: "❦";
+    position: absolute;
+    top: 8px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.85rem;
+    color: var(--rose-pale);
+    background: var(--paper-warm);
+    padding: 0 0.4rem;
+  }
+  .whisper-list {
+    list-style: none;
+    padding: 0.5rem 0 0;
+    margin: 0;
+  }
+  .whisper-list li {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    padding: 0.45rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+  .whisper-list li:last-child { border-bottom: none; }
+  .whisper-list .status {
+    font-family: "Cormorant SC", serif;
+    font-style: normal;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rose-deep);
+    flex-shrink: 0;
+    padding: 0.1rem 0.45rem;
+    background: var(--paper);
+    border: 1px solid var(--rose-pale);
+  }
+  .whisper-list .status.fading {
+    color: var(--ink-faint);
+    border-color: var(--rule-soft);
+  }
+
+  /* Table — collaboration */
+  .table-mark {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 0.4rem 1.4rem;
+    margin: 0.8rem 0;
+  }
+  .table-mark dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    padding: 0.3rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .table-mark dd {
+    font-family: "Cormorant Garamond", serif;
+    margin: 0;
+    color: var(--ink);
+    padding: 0.3rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .table-mark dd em { font-style: italic; color: var(--ink-soft); font-size: 0.92rem; }
+
+  /* Pull-quote */
+  blockquote.epistle {
+    margin: 1.4rem 1rem;
+    padding: 1.2rem 1.6rem;
+    background: var(--panel);
+    border-left: 3px solid var(--rose-deep);
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 1.04rem;
+    line-height: 1.55;
+    position: relative;
+  }
+  blockquote.epistle::before {
+    content: "“";
+    position: absolute;
+    top: -10px; left: 12px;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 3.4rem;
+    color: var(--rose-pale);
+    line-height: 1;
+  }
+  blockquote.epistle cite {
+    display: block;
+    font-style: normal;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 0.7rem;
+  }
+
+  /* The transcripts-pending placeholder */
+  .pending {
+    margin: 1rem 0;
+    padding: 1.1rem 1.4rem;
+    border: 1px dashed var(--rule);
+    background: rgba(154, 122, 54, 0.04);
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+  .pending .stamp {
+    display: inline-block;
+    font-family: "Cormorant SC", serif;
+    font-style: normal;
+    font-size: 0.66rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gilt-deep);
+    border: 1px solid var(--gilt);
+    padding: 0.18rem 0.7rem;
+    margin-bottom: 0.55rem;
+  }
+
+  /* Closing flourish */
+  .closing {
+    margin-top: 3rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+  }
+  .closing .signature {
+    font-family: "Mrs Saint Delafield", "Italianno", cursive;
+    font-size: 2.2rem;
+    color: var(--rose-deep);
+    line-height: 1;
+    margin: 0.4rem 0 0.2rem;
+  }
+  .closing .signoff {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+
+  /* Responsive */
+  @media (max-width: 720px) {
+    body { padding: 1.2rem 0.4rem 2rem; }
+    .letter { padding: 2.4rem 1.5rem 3rem; }
+    h1.character-name { font-size: 2.3rem; }
+    h1 .surname { font-size: 2rem; }
+    .tagline { font-size: 1.55rem; }
+    .portrait-frame { width: 240px; }
+    .vitals { grid-template-columns: 1fr; gap: 0.2rem; padding: 1.1rem; }
+    .web-grid, .rep-display, .token-grid { grid-template-columns: 1fr; }
+    .table-mark { grid-template-columns: 1fr; gap: 0; }
+    .table-mark dt { border-bottom: none; padding-bottom: 0; }
+  }
+</style>
+</head>
+<body>
+
+<article class="letter">
+
+  <!-- Corner sprigs -->
+  <div class="corner-sprig tl"><svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="#5e6e4a" stroke-width="1.1" stroke-linecap="round">
+      <path d="M6 6 Q 22 18, 36 36 T 54 54"/>
+      <path d="M14 10 Q 18 14, 20 22"/>
+      <path d="M20 16 Q 24 20, 26 28"/>
+      <path d="M26 22 Q 30 26, 32 34"/>
+      <path d="M32 28 Q 36 32, 38 40"/>
+    </g>
+    <g fill="#b06870" opacity="0.85">
+      <circle cx="14" cy="8" r="2.2"/>
+      <circle cx="22" cy="14" r="1.8"/>
+      <circle cx="28" cy="20" r="1.6"/>
+    </g>
+  </svg></div>
+  <div class="corner-sprig tr"><svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="#5e6e4a" stroke-width="1.1" stroke-linecap="round">
+      <path d="M6 6 Q 22 18, 36 36 T 54 54"/>
+      <path d="M14 10 Q 18 14, 20 22"/>
+      <path d="M20 16 Q 24 20, 26 28"/>
+      <path d="M26 22 Q 30 26, 32 34"/>
+      <path d="M32 28 Q 36 32, 38 40"/>
+    </g>
+    <g fill="#b06870" opacity="0.85">
+      <circle cx="14" cy="8" r="2.2"/>
+      <circle cx="22" cy="14" r="1.8"/>
+      <circle cx="28" cy="20" r="1.6"/>
+    </g>
+  </svg></div>
+  <div class="corner-sprig bl"><svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="#5e6e4a" stroke-width="1.1" stroke-linecap="round">
+      <path d="M6 6 Q 22 18, 36 36 T 54 54"/>
+      <path d="M14 10 Q 18 14, 20 22"/>
+      <path d="M20 16 Q 24 20, 26 28"/>
+      <path d="M26 22 Q 30 26, 32 34"/>
+      <path d="M32 28 Q 36 32, 38 40"/>
+    </g>
+    <g fill="#b06870" opacity="0.85">
+      <circle cx="14" cy="8" r="2.2"/>
+      <circle cx="22" cy="14" r="1.8"/>
+      <circle cx="28" cy="20" r="1.6"/>
+    </g>
+  </svg></div>
+  <div class="corner-sprig br"><svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="#5e6e4a" stroke-width="1.1" stroke-linecap="round">
+      <path d="M6 6 Q 22 18, 36 36 T 54 54"/>
+      <path d="M14 10 Q 18 14, 20 22"/>
+      <path d="M20 16 Q 24 20, 26 28"/>
+      <path d="M26 22 Q 30 26, 32 34"/>
+      <path d="M32 28 Q 36 32, 38 40"/>
+    </g>
+    <g fill="#b06870" opacity="0.85">
+      <circle cx="14" cy="8" r="2.2"/>
+      <circle cx="22" cy="14" r="1.8"/>
+      <circle cx="28" cy="20" r="1.6"/>
+    </g>
+  </svg></div>
+
+  <!-- HEADER -->
+  <header class="title-block">
+    <div class="filemark">
+      <span>Dramatis Personæ</span>
+      <span>The Harrington Season</span>
+      <span>Concluded</span>
+    </div>
+
+    <div class="eyebrow">Good Society &middot; A Jane Austen Roleplaying Game</div>
+
+    <h1 class="character-name">
+      Patience
+      <span class="surname">Bataille</span>
+    </h1>
+    <span class="name-sub">she / her &middot; aged two-and-twenty</span>
+
+    <p class="tagline">“You can go to India.<br>I am staying on continent.”</p>
+    <div class="tagline-ascription">&mdash; The Final Word of the Season</div>
+
+    <div class="portrait-frame">
+      <img src="patience-portrait.jpg" alt="Portrait of Patience Bataille, holding a locket, dressed for the ball.">
+    </div>
+    <p class="portrait-caption">A miniature, taken at a ball &mdash; the locket about her throat is her own.</p>
+
+    <div class="vitals">
+      <div class="vital-row"><span class="vital-label">Cornerstone</span><span class="vital-value">Dependant</span></div>
+      <div class="vital-row"><span class="vital-label">Background</span><span class="vital-value">Humble Origins</span></div>
+      <div class="vital-row"><span class="vital-label">Household</span><span class="vital-value">In residence with the Harringtons</span></div>
+      <div class="vital-row"><span class="vital-label">Capacity</span><span class="vital-value"><em>Companion to Miss Jane Harrington</em></span></div>
+      <div class="vital-row"><span class="vital-label">Born</span><span class="vital-value">Martinique</span></div>
+      <div class="vital-row"><span class="vital-label">Most Recently</span><span class="vital-value">Returned from France</span></div>
+      <div class="vital-row"><span class="vital-label">Player</span><span class="vital-value">Jordan (he/him)</span></div>
+      <div class="vital-row"><span class="vital-label">Game</span><span class="vital-value"><em>Good Society</em> &middot; March 2021</span></div>
+    </div>
+  </header>
+
+
+  <!-- I. THE WOMAN -->
+  <section>
+    <h2 class="section-title">
+      <span class="numeral">I.</span>
+      <span class="title-text">The Young Lady in Question</span>
+      <span class="ornament"></span>
+    </h2>
+
+    <p class="lead">Born in Martinique of an English mother and a French sailor, Patience spent portions of her upbringing in all three countries. Her parents died while she was a minor, and she has been tossed between the two families ever since. She is recently returned from France &mdash; returned to the man she believes is waiting for her &mdash; and hoping, at last, to find a place she might call home.</p>
+
+    <p>She is currently in residence with the Harringtons, cousins on her mother&rsquo;s side, in the official capacity of companion to Miss Jane Harrington. The arrangement suits everyone but is a kindness undertaken on conditional terms: she lives under another family&rsquo;s roof, and a Dependant&rsquo;s welcome can be withdrawn.</p>
+
+    <p>To the table she presents as &mdash; in the words of one fellow socialite &mdash; <em>a charming and interesting conversationalist; a bit reckless; worldly; fascinating; could be tamed.</em></p>
+
+    <blockquote class="epistle">
+      To be tossed between two families is to learn, very early, that neither is your own. Patience is twenty-two years old, three nations behind her, and has decided that the next address she keeps will be a roof of her choosing.
+    </blockquote>
+  </section>
+
+
+  <!-- II. MECHANICAL PROFILE -->
+  <section>
+    <h2 class="section-title">
+      <span class="numeral">II.</span>
+      <span class="title-text">The Mechanical Profile</span>
+      <span class="ornament"></span>
+    </h2>
+
+    <h3 class="subhead">Cornerstone &amp; Background</h3>
+    <div class="figured-block">
+      <div class="figured-label">Cornerstone &mdash; Dependant</div>
+      <div class="figured-content">She lives within another family&rsquo;s walls, on another family&rsquo;s sufferance. Her presence at any given table is the gift of someone who could withdraw it.</div>
+    </div>
+    <div class="figured-block sage">
+      <div class="figured-label">Background &mdash; Humble Origins</div>
+      <div class="figured-content">She was not born to the rooms she now keeps. Three countries&rsquo; worth of in-between has fitted her to all of them and to none.</div>
+    </div>
+
+    <h3 class="subhead">Desire</h3>
+    <div class="figured-block rose">
+      <div class="figured-label">Her Singular Object</div>
+      <div class="figured-content">Make sure your secret fiancé marries you.</div>
+    </div>
+
+    <h3 class="subhead">Reputation</h3>
+    <div class="rep-display">
+      <div class="rep-column pos">
+        <h4>&#9650; Positive Tags</h4>
+        <ul class="rep-list">
+          <li><span class="symbol">&#9650;</span> Tough</li>
+          <li><span class="symbol">&#9650;</span> Patient</li>
+        </ul>
+      </div>
+      <div class="rep-column neg">
+        <h4>&#9660; Negative Tags</h4>
+        <ul class="rep-list">
+          <li><span class="symbol">&#9660;</span> Dangerous</li>
+          <li><span class="symbol">&#9660;</span> Reprooving</li>
+          <li><span class="symbol">&#9660;</span> Decadent</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="subhead">Tokens at March&rsquo;s End</h3>
+    <div class="token-grid">
+      <div class="token-block">
+        <h4>Resolve</h4>
+        <div class="pip-row">
+          <span class="pip filled"></span>
+          <span class="pip filled"></span>
+          <span class="pip"></span>
+          <span class="pip"></span>
+          <span class="pip"></span>
+          <span class="pip"></span>
+        </div>
+        <div class="pip-note">Two of six in hand. Hers to spend.</div>
+      </div>
+      <div class="token-block">
+        <h4>Major-Character Tokens</h4>
+        <div class="pip-row">
+          <span class="pip filled"></span>
+          <span class="pip filled"></span>
+          <span class="pip"></span>
+          <span class="pip"></span>
+          <span class="pip"></span>
+          <span class="pip"></span>
+        </div>
+        <div class="pip-note">Two of six remain.</div>
+      </div>
+    </div>
+
+    <h3 class="subhead">This Cycle</h3>
+    <p>She has <span class="monologue-tag">Monologued this Cycle &mdash; Yes</span> &nbsp; Upkeep refreshes Resolve to three.</p>
+  </section>
+
+
+  <!-- III. THE OTHERS -->
+  <section>
+    <h2 class="section-title">
+      <span class="numeral">III.</span>
+      <span class="title-text">A Web of Acquaintance</span>
+      <span class="ornament"></span>
+    </h2>
+
+    <h3 class="subhead">Major Characters</h3>
+    <div class="web-grid">
+      <div class="web-card govinda">
+        <div class="web-name">Mr Govinda Choudry</div>
+        <div class="web-role">Heir &middot; New Money &middot; he/him, 24</div>
+        <div class="web-tie">Secretly engaged to her. In love with her. Intended publicly for Caitlin.</div>
+      </div>
+      <div class="web-card jane">
+        <div class="web-name">Miss Jane Harrington</div>
+        <div class="web-role">Socialite &middot; Old Money &middot; she/her, 20</div>
+        <div class="web-tie">Cousin on the mother&rsquo;s side. The young lady to whom Patience is companion.</div>
+      </div>
+      <div class="web-card caitlin">
+        <div class="web-name">Miss Caitlin Harrington</div>
+        <div class="web-role">Cornerstone &middot; Old Money &middot; she/her, 28</div>
+        <div class="web-tie">Cousin and head of the household. The roof above her. The one to whom Govinda is publicly intended.</div>
+      </div>
+      <div class="web-card hugh">
+        <div class="web-name">Mr Hugh Weatherby</div>
+        <div class="web-role">New Arrival &middot; Peerage &middot; he/him, 30</div>
+        <div class="web-tie">Lately come into society. Of indeterminate intention.</div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Her Connection &mdash; Unsolicited and Unrequited</h3>
+    <div class="connection-card">
+      <div class="conn-header">
+        <span class="conn-name">Mr Ernest Burgess</span>
+        <span class="conn-meta">he / him &middot; 28</span>
+      </div>
+      <p class="conn-relationship">Patience&rsquo;s unsolicited and unrequited suitor.</p>
+      <p>Ernie is not a romantic, and is not trying to marry for love, but he is interested in having a companion whose company he can delight in. He is getting pressure from his family to marry, and as his wealth is not in danger, there is less pressure for him to &ldquo;marry well.&rdquo;</p>
+      <div class="conn-impression">
+        <span class="who">Ernest, of Patience</span>
+        a charming and interesting conversationalist; a bit reckless; worldly; fascinating; could be tamed.
+      </div>
+    </div>
+  </section>
+
+
+  <!-- IV. WHISPERS -->
+  <section>
+    <h2 class="section-title">
+      <span class="numeral">IV.</span>
+      <span class="title-text">Whispers Concerning Her</span>
+      <span class="ornament"></span>
+    </h2>
+
+    <p>What follows is the talk &mdash; abroad in drawing rooms, behind fans, between cousins &mdash; that has touched her name during the Season. None of it is to be repeated.</p>
+
+    <div class="whisper-block">
+      <ul class="whisper-list">
+        <li><span class="status">Spreading</span> Mr Govinda was not so attentive to Miss Caitlin at the ball as he ought to have been.</li>
+        <li><span class="status">Spreading</span> A certain Aunt Vayu knows the conditions that will allow Govinda to access more than a mere stipend.</li>
+        <li><span class="status">Spreading</span> A certain young lady &mdash; recently returned from the Continent &mdash; is closer to her cousin than circumstance alone would explain.</li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- V. THE TABLE & ITS COMPACT -->
+  <section>
+    <h2 class="section-title">
+      <span class="numeral">V.</span>
+      <span class="title-text">The Compact of the Table</span>
+      <span class="ornament"></span>
+    </h2>
+
+    <p>The collaborative agreements set at the outset of play, recorded here for completeness of record.</p>
+
+    <dl class="table-mark">
+      <dt>Tone</dt><dd>Drama. <em>Things are difficult and actions have serious consequences. Tensions are quick to inflame. Connections viciously pursue their own ends. Society is harsh and judgemental.</em></dd>
+      <dt>Historical Accuracy</dt><dd>Somewhat Important. <em>We will try to get it right where it counts, but will never stop the game to find out a historical fact.</em></dd>
+      <dt>Gender Balance</dt><dd>Historical. <em>Standard Regency patriarchy.</em></dd>
+      <dt>Hidden Information</dt><dd>None. <em>Desires and private relationships are public player knowledge; they remain secrets in the fiction.</em></dd>
+      <dt>Lines</dt><dd>Spousal rape / rape generally; Domestic Violence; Suicide and suicidal characters; Racism; Emotional Abuse; Slavery.</dd>
+      <dt>Veils</dt><dd>Homophobia; Transphobia; Addiction; Sex roleplaying.</dd>
+      <dt>Invited In</dt><dd>Positive sibling relationships; romance; a grand ball; letter-writing; favourite-child dynamics; tedious relatives; pointless card games; picnics; <em>fashion</em>; banter; a play; card games with <em>consequences</em>; fox hunting.</dd>
+    </dl>
+  </section>
+
+
+  <!-- VI. EVENTS — TRANSCRIPTS PENDING -->
+  <section>
+    <h2 class="section-title">
+      <span class="numeral">VI.</span>
+      <span class="title-text">From the Course of the Season</span>
+      <span class="ornament"></span>
+    </h2>
+
+    <p>An accounting of important events from play &mdash; the picnics that mattered, the letters that crossed, the words spoken in stairwells, and the closing scene from which her final line was drawn.</p>
+
+    <div class="pending">
+      <div class="stamp">Awaiting Transcripts</div>
+      This section is to be expanded once the session transcripts are to hand. The closing line &mdash; <em>&ldquo;You can go to India. I am staying on continent.&rdquo;</em> &mdash; belongs here, in its proper context.
+    </div>
+  </section>
+
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); margin-bottom: 0.3rem;">
+      I remain, as ever, your most obedient servant,
+    </p>
+    <div class="signature">Patience Bataille</div>
+    <div class="signoff">End of the Season &middot; March MMXXI</div>
+  </div>
+
+</article>
+
+</body>
+</html>

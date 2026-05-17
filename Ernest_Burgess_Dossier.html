@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Ernest Burgess, Profane Sorcerer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=IM+Fell+DW+Pica:ital@0;1&family=IM+Fell+DW+Pica+SC&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* — Strand-magazine paper palette — */
+    --paper:          #efe6d3;   /* deep cream, like Strand stock */
+    --paper-mid:      #e4d8be;
+    --paper-deep:     #d4c4a0;
+    --paper-edge:     #c4b48c;   /* foxed margins */
+
+    /* — Ink (typeset late-Victorian, slightly blue-black) — */
+    --ink:            #18171a;
+    --ink-soft:       #2b2820;
+    --ink-faint:      #6a6555;
+    --ink-ghost:      #8b8472;
+
+    /* — Oxblood: the demonic accent. Used sparingly. — */
+    --oxblood:        #6e1a18;
+    --oxblood-mid:    #8b2a26;
+    --oxblood-pale:   #b85648;
+    --oxblood-light:  #d68a78;
+    --brimstone:      #4a1812;   /* near-black with warmth */
+
+    /* — Eau-de-nil pulled from Ernie's cravat in the portrait — */
+    --eau:            #6b8a92;
+    --eau-mid:        #88a4a8;
+    --eau-pale:       #aabec0;
+    --eau-light:      #cad9d8;
+
+    /* — Tarnished gilt: the Club, the Peerage, his money — */
+    --gilt:           #7a5a18;
+    --gilt-mid:       #9c7828;
+    --gilt-pale:      #c8a448;
+    --gilt-light:     #e0c878;
+
+    --rule:           #b8a878;   /* warm rule lines */
+    --rule-soft:      #d2c498;
+    --rule-faint:     #d8cca0;
+    --panel:          rgba(110, 26, 24, 0.04);
+    --panel-eau:      rgba(107, 138, 146, 0.07);
+    --panel-gilt:     rgba(122, 90, 24, 0.05);
+    --panel-ink:      rgba(24, 23, 26, 0.05);
+    --panel-warn:     rgba(110, 26, 24, 0.08);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--paper-mid);
+    color: var(--ink);
+    font-family: "IM Fell English", "Cormorant Garamond", Georgia, serif;
+    font-size: 16.5px;
+    line-height: 1.62;
+  }
+
+  body {
+    background-image:
+      /* paper foxing in corners */
+      radial-gradient(ellipse at 5% 0%,   rgba(110,26,24,0.07) 0%, transparent 35%),
+      radial-gradient(ellipse at 95% 100%, rgba(107,138,146,0.06) 0%, transparent 35%),
+      radial-gradient(ellipse at 50% 50%, rgba(122,90,24,0.03) 0%, transparent 60%),
+      /* paper grain via SVG noise */
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    min-height: 100vh;
+    padding: 2.25rem 1rem 5rem;
+  }
+
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 4rem 4.75rem 5rem;
+    position: relative;
+    border: 1px solid var(--rule);
+    box-shadow:
+      0 2px 4px rgba(24, 23, 26, 0.10),
+      0 14px 48px rgba(24, 23, 26, 0.20),
+      inset 0 0 120px rgba(74, 24, 18, 0.025);
+  }
+
+  /* Document edge: heavy ink rule with hairline beneath. The Strand house style. */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: var(--ink);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    top: 8px; left: 0; right: 0;
+    height: 1px;
+    background: var(--ink);
+  }
+
+  /* Corner cuts in the manner of a bureau dossier folder */
+  .corner {
+    position: absolute;
+    width: 22px; height: 22px;
+    border: 1.5px solid var(--ink);
+  }
+  .corner.tl { top: 18px; left: 18px; border-right: none; border-bottom: none; }
+  .corner.tr { top: 18px; right: 18px; border-left: none; border-bottom: none; }
+  .corner.bl { bottom: 18px; left: 18px; border-right: none; border-top: none; }
+  .corner.br { bottom: 18px; right: 18px; border-left: none; border-top: none; }
+
+  /* ====== MASTHEAD ====== */
+
+  .filemark {
+    font-family: "IM Fell English SC", "IM Fell English", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.34em;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+  }
+
+  .registry {
+    text-align: center;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: 0.55rem 0;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .registry::before, .registry::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    height: 1px;
+    background: var(--ink);
+  }
+  .registry::before { top: 2px; }
+  .registry::after  { bottom: 2px; }
+  .registry-line {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .registry-line + .registry-line {
+    margin-top: 0.15rem;
+    font-size: 0.66rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+  }
+
+  /* The stamp — oxblood, slightly skewed, for the seal */
+  .stamp {
+    position: absolute;
+    top: 8.5rem;
+    right: 2rem;
+    transform: rotate(-7deg);
+    border: 2px double var(--oxblood);
+    color: var(--oxblood);
+    padding: 0.45rem 0.7rem 0.35rem;
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.26em;
+    line-height: 1.18;
+    text-align: center;
+    background: rgba(110, 26, 24, 0.04);
+    opacity: 0.82;
+    z-index: 5;
+  }
+  .stamp .lg { font-size: 0.78rem; letter-spacing: 0.18em; display: block; margin-bottom: 0.18rem; }
+
+  .name-block {
+    text-align: center;
+    margin: 1.4rem 0 0.4rem;
+  }
+  h1.character-name {
+    font-family: "IM Fell DW Pica SC", "IM Fell English SC", serif;
+    font-weight: 400;
+    font-size: 2.9rem;
+    line-height: 1.05;
+    margin: 0 0 0.3rem;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+  }
+  .name-block .name-italic {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+  .name-sub {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* Vitals strip — three columns under the name */
+  .vitals {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    margin: 1.5rem 0 1rem;
+    padding: 0.65rem 0;
+  }
+  .vital {
+    text-align: center;
+    border-right: 1px solid var(--rule-soft);
+    padding: 0 0.5rem;
+  }
+  .vital:last-child { border-right: none; }
+  .vital .v-label {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.18rem;
+  }
+  .vital .v-val {
+    font-family: "IM Fell English", serif;
+    font-size: 0.96rem;
+    color: var(--ink-soft);
+  }
+  .vital .v-val em { font-style: italic; color: var(--ink); }
+
+  /* Epigraph beneath vitals */
+  .epigraph {
+    text-align: center;
+    margin: 1rem auto 2rem;
+    max-width: 620px;
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 1.04rem;
+    line-height: 1.5;
+    position: relative;
+    padding: 0.4rem 1.6rem;
+  }
+  .epigraph::before, .epigraph::after {
+    color: var(--oxblood);
+    font-size: 1.6rem;
+    font-style: normal;
+    line-height: 1;
+    position: absolute;
+  }
+  .epigraph::before { content: "“"; left: 0;  top: 0; }
+  .epigraph::after  { content: "”"; right: 0; bottom: -0.4rem; }
+
+  /* ====== TABLE OF CONTENTS ====== */
+  .toc {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 1rem 1.4rem 1.1rem;
+    margin: 1.6rem 0 2.6rem;
+    position: relative;
+  }
+  .toc::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 1rem; right: 1rem;
+    height: 1px;
+    background: var(--ink);
+  }
+  .toc-label {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-align: center;
+    margin-bottom: 0.7rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .toc-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.2rem 1.5rem;
+    list-style: none;
+    margin: 0; padding: 0;
+    font-family: "IM Fell English", serif;
+    font-size: 0.96rem;
+  }
+  .toc-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    color: var(--ink-soft);
+  }
+  .toc-list a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .toc-list a:hover { color: var(--oxblood); }
+  .toc-list .num {
+    font-family: "IM Fell English SC", serif;
+    color: var(--ink-faint);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    min-width: 2.4em;
+  }
+  .toc-list .dots {
+    flex: 1;
+    border-bottom: 1px dotted var(--rule);
+    transform: translateY(-0.25em);
+    min-width: 1rem;
+  }
+
+  /* ====== SECTIONS ====== */
+  section {
+    margin: 2.6rem 0;
+  }
+  h2.section-title {
+    font-family: "IM Fell DW Pica SC", "IM Fell English SC", serif;
+    font-weight: 400;
+    font-size: 1.55rem;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin: 0 0 1.2rem;
+    padding-bottom: 0.5rem;
+    position: relative;
+    text-transform: none;
+  }
+  h2.section-title::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg,
+      var(--ink) 0%,
+      var(--ink) 22%,
+      var(--oxblood) 22%,
+      var(--oxblood) 26%,
+      transparent 26%);
+  }
+  h2.section-title .roman {
+    font-style: italic;
+    color: var(--oxblood);
+    margin-right: 0.5em;
+  }
+  h3.subhead {
+    font-family: "IM Fell English SC", serif;
+    font-weight: 400;
+    font-size: 0.95rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 1.6rem 0 0.55rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  h4.minihead {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    margin: 1.1rem 0 0.35rem;
+  }
+
+  p { margin: 0 0 0.85rem; }
+  p.lede {
+    font-size: 1.08rem;
+  }
+  p.lede::first-letter {
+    font-family: "IM Fell DW Pica", "IM Fell English", serif;
+    font-size: 3.4rem;
+    float: left;
+    line-height: 0.86;
+    padding: 0.3rem 0.4rem 0 0;
+    color: var(--oxblood);
+    font-style: italic;
+  }
+
+  em { color: var(--ink-soft); }
+  strong { font-weight: 600; color: var(--ink); }
+
+  /* — Portrait frame — */
+  .portrait-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 1.6rem;
+    margin: 0 0 1.4rem;
+    align-items: start;
+  }
+  .portrait-frame {
+    border: 1px solid var(--ink);
+    padding: 6px;
+    background: var(--paper-mid);
+    box-shadow:
+      inset 0 0 0 1px var(--paper),
+      0 2px 6px rgba(24, 23, 26, 0.16);
+  }
+  .portrait-frame .inner {
+    border: 1px solid var(--rule);
+    padding: 4px;
+  }
+  .portrait-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .portrait-caption {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-align: center;
+    color: var(--ink-faint);
+    margin-top: 0.45rem;
+    text-transform: uppercase;
+  }
+
+  /* — Pull quote — */
+  .pullquote {
+    border-left: 3px solid var(--oxblood);
+    background: var(--panel);
+    padding: 0.9rem 1.2rem;
+    margin: 1.2rem 0;
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 1.02rem;
+    line-height: 1.5;
+  }
+  .pullquote .attrib {
+    display: block;
+    margin-top: 0.4rem;
+    font-family: "IM Fell English SC", serif;
+    font-style: normal;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+
+  /* — Aside / sidebar box (the irony-of-ignorance note, etc.) — */
+  .aside {
+    background: var(--panel-eau);
+    border: 1px solid var(--eau-mid);
+    border-left: 4px solid var(--eau);
+    padding: 1rem 1.2rem;
+    margin: 1.3rem 0;
+    font-size: 0.97rem;
+    line-height: 1.55;
+    position: relative;
+  }
+  .aside .aside-label {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--eau);
+    display: block;
+    margin-bottom: 0.45rem;
+  }
+  .aside p { margin: 0 0 0.6rem; }
+  .aside p:last-child { margin-bottom: 0; }
+
+  /* The grimmer variant for the demon/attention sections */
+  .aside.dark {
+    background: var(--panel-warn);
+    border-color: var(--oxblood);
+    border-left-color: var(--brimstone);
+  }
+  .aside.dark .aside-label { color: var(--oxblood); }
+
+  .aside.gilt {
+    background: var(--panel-gilt);
+    border-color: var(--gilt-mid);
+    border-left-color: var(--gilt);
+  }
+  .aside.gilt .aside-label { color: var(--gilt); }
+
+  /* ====== FATE CHARACTER SHEET ====== */
+  .sheet-frame {
+    border: 2px solid var(--ink);
+    padding: 1.4rem 1.4rem 1rem;
+    margin: 0.8rem 0 1.4rem;
+    background: var(--paper);
+    position: relative;
+  }
+  .sheet-frame::before {
+    content: "FATE CORE — Kerberos Club";
+    position: absolute;
+    top: -0.7rem; left: 1rem;
+    background: var(--paper);
+    padding: 0 0.5rem;
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.32em;
+    color: var(--ink);
+    text-transform: uppercase;
+  }
+  .sheet-frame::after {
+    content: "snapshot · ca. 1835";
+    position: absolute;
+    top: -0.7rem; right: 1rem;
+    background: var(--paper);
+    padding: 0 0.5rem;
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+  }
+
+  .id-grid {
+    display: grid;
+    grid-template-columns: 2.2fr 1fr;
+    gap: 0.6rem 1.4rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .id-field {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .id-field .id-label {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    min-width: 4.5em;
+  }
+  .id-field .id-val {
+    font-family: "IM Fell English", serif;
+    color: var(--ink);
+    border-bottom: 1px solid var(--rule);
+    flex: 1;
+    padding-bottom: 0.1rem;
+  }
+  .id-field .id-val.refresh {
+    font-family: "IM Fell DW Pica", serif;
+    font-size: 1.6rem;
+    text-align: center;
+    color: var(--oxblood);
+    font-style: italic;
+    border-bottom: none;
+  }
+
+  /* Aspects block */
+  .aspect-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    align-items: baseline;
+    border-bottom: 1px dotted var(--rule-soft);
+    padding: 0.45rem 0;
+  }
+  .aspect-row:last-of-type { border-bottom: none; }
+  .aspect-row .a-label {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .aspect-row .a-value {
+    font-family: "IM Fell English", serif;
+    font-size: 1.1rem;
+    color: var(--ink);
+    font-style: italic;
+  }
+  .aspect-row.high-concept .a-value { color: var(--ink); }
+  .aspect-row.trouble .a-value { color: var(--oxblood); }
+  .aspect-row.added .a-label { color: var(--oxblood); }
+  .aspect-row.added .a-value {
+    color: var(--oxblood-mid);
+  }
+  .aspect-row.added .a-value::before {
+    content: "✦ ";
+    color: var(--oxblood);
+    font-style: normal;
+  }
+
+  /* Skills pyramid */
+  .skills-block { margin-top: 1.1rem; }
+  .skill-tier {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    align-items: baseline;
+    padding: 0.3rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .skill-tier:last-child { border-bottom: none; }
+  .skill-tier .t-label {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .skill-tier .t-label .tier-num {
+    color: var(--ink);
+    font-family: "IM Fell DW Pica", serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-left: 0.3em;
+  }
+  .skill-tier .t-skills {
+    font-family: "IM Fell English", serif;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+  .skill-tier .t-skills span + span::before {
+    content: " · ";
+    color: var(--ink-ghost);
+  }
+  .skill-tier.empty .t-skills {
+    color: var(--ink-ghost);
+    font-style: italic;
+  }
+
+  /* Stunts / extras */
+  .stunt-list {
+    list-style: none;
+    margin: 0.4rem 0 0;
+    padding: 0;
+  }
+  .stunt-list > li {
+    padding: 0.45rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .stunt-list > li:last-child { border-bottom: none; }
+  .stunt-name {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.84rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .stunt-cost {
+    font-family: "IM Fell DW Pica", serif;
+    font-style: italic;
+    color: var(--oxblood);
+    margin-left: 0.3em;
+  }
+  .stunt-desc {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.94rem;
+    margin-top: 0.15rem;
+    display: block;
+  }
+  .stunt-sub {
+    list-style: none;
+    margin: 0.3rem 0 0 1.1rem;
+    padding: 0;
+  }
+  .stunt-sub li {
+    font-family: "IM Fell English", serif;
+    font-size: 0.94rem;
+    color: var(--ink-soft);
+    padding: 0.15rem 0;
+  }
+  .stunt-sub li::before {
+    content: "— ";
+    color: var(--ink-faint);
+  }
+
+  /* Stress tracks & consequences */
+  .stress-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+    border-top: 1px dotted var(--rule);
+  }
+  .stress {
+    font-family: "IM Fell English", serif;
+  }
+  .stress-label {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.4rem;
+  }
+  .pip-row {
+    display: flex;
+    gap: 0.4rem;
+  }
+  .pip {
+    width: 28px; height: 28px;
+    border: 1.5px solid var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    font-family: "IM Fell DW Pica", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: var(--paper);
+  }
+  .pip.faded {
+    border-color: var(--ink-ghost);
+    color: var(--ink-ghost);
+    background: transparent;
+  }
+  .pip.taken {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .pip.scarred {
+    background: var(--oxblood);
+    border-color: var(--brimstone);
+    color: var(--paper);
+  }
+
+  .consequence-list {
+    margin-top: 0.9rem;
+  }
+  .conseq-row {
+    display: grid;
+    grid-template-columns: 80px 28px 1fr;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.35rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .conseq-row:last-child { border-bottom: none; }
+  .conseq-row .c-tier {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .conseq-row .c-cost {
+    font-family: "IM Fell DW Pica", serif;
+    font-style: italic;
+    color: var(--ink);
+    text-align: center;
+  }
+  .conseq-row .c-text {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+  }
+  .conseq-row .c-text.empty {
+    color: var(--ink-ghost);
+  }
+  .conseq-row .c-text.severe {
+    color: var(--oxblood);
+  }
+
+  /* ====== SPELL TABLE ====== */
+  .spell-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin: 0.8rem 0 0.6rem;
+    font-size: 0.92rem;
+  }
+  .spell-table thead th {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: left;
+    padding: 0.5rem 0.6rem 0.4rem;
+    border-bottom: 1.5px solid var(--ink);
+    background: transparent;
+  }
+  .spell-table tbody td {
+    padding: 0.55rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: top;
+    font-family: "IM Fell English", serif;
+    color: var(--ink-soft);
+    overflow-wrap: break-word;
+  }
+  .spell-table tbody td.sp-name {
+    overflow-wrap: normal;
+  }
+  .spell-table .sp-name {
+    font-family: "IM Fell English SC", serif;
+    color: var(--ink);
+    letter-spacing: 0.06em;
+    font-size: 0.84rem;
+    text-transform: uppercase;
+  }
+  .spell-table .sp-when {
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+  .spell-table .sp-result {
+    color: var(--ink-soft);
+  }
+  .spell-table .sp-result .ok,
+  .spell-table .sp-result .blow,
+  .spell-table .sp-result .partial,
+  .spell-table .sp-result .fail {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.25;
+    display: inline-block;
+  }
+  .spell-table .sp-result .ok    { color: var(--gilt); }
+  .spell-table .sp-result .blow  { color: var(--oxblood); }
+  .spell-table .sp-result .partial { color: var(--eau); }
+  .spell-table .sp-result .fail  { color: var(--ink-faint); }
+
+  /* ====== ENTITIES whose attention Ernie has drawn ====== */
+  .entities {
+    margin: 0.6rem 0 0.4rem;
+  }
+  .entity {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 1.1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .entity:last-child { border-bottom: none; }
+  .entity .e-id {
+    border-left: 3px solid var(--oxblood);
+    padding-left: 0.8rem;
+  }
+  .entity .e-name {
+    font-family: "IM Fell DW Pica SC", "IM Fell English SC", serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-bottom: 0.15rem;
+  }
+  .entity .e-class {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.86rem;
+    color: var(--ink-faint);
+  }
+  .entity .e-body {
+    font-family: "IM Fell English", serif;
+    color: var(--ink-soft);
+    font-size: 0.97rem;
+  }
+  .entity .e-body p { margin: 0 0 0.5rem; }
+  .entity .e-body p:last-child { margin-bottom: 0; }
+
+  .entity.balaam .e-id { border-left-color: var(--brimstone); background: linear-gradient(90deg, rgba(74,24,18,0.05) 0%, transparent 100%); }
+  .entity.balaam .e-name { color: var(--brimstone); }
+  .entity.fae .e-id { border-left-color: var(--gilt); }
+  .entity.fae .e-name { color: var(--gilt); }
+  .entity.kinsataan .e-id { border-left-color: var(--gilt-mid); }
+  .entity.kinsataan .e-name { color: var(--gilt-mid); }
+  .entity.anayehu .e-id { border-left-color: var(--eau); }
+  .entity.anayehu .e-name { color: var(--eau); }
+  .entity.forest .e-id { border-left-color: var(--ink-soft); }
+  .entity.forest .e-name { color: var(--ink-soft); }
+  .entity.ocean .e-id { border-left-color: var(--eau-mid); }
+  .entity.ocean .e-name { color: var(--eau-mid); }
+  .entity.holler .e-id { border-left-color: var(--oxblood-pale); }
+  .entity.holler .e-name { color: var(--oxblood-pale); }
+
+  /* Timeline / arcs */
+  .timeline {
+    border-left: 1.5px solid var(--ink);
+    padding-left: 1.4rem;
+    margin: 0.8rem 0;
+    position: relative;
+  }
+  .epoch {
+    margin: 0 0 1.6rem;
+    position: relative;
+  }
+  .epoch::before {
+    content: "";
+    position: absolute;
+    left: -1.78rem;
+    top: 0.4rem;
+    width: 10px; height: 10px;
+    background: var(--ink);
+    border-radius: 50%;
+  }
+  .epoch.crisis::before { background: var(--oxblood); }
+  .epoch-when {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.2rem;
+  }
+  .epoch-title {
+    font-family: "IM Fell DW Pica", "IM Fell English", serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  .epoch-body {
+    font-family: "IM Fell English", serif;
+    color: var(--ink-soft);
+    font-size: 0.97rem;
+    line-height: 1.55;
+  }
+  .epoch-body p { margin: 0 0 0.45rem; }
+
+  /* ====== Relationship index ====== */
+  .rel-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1.4rem;
+  }
+  .rel {
+    padding: 0.55rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .rel-name {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .rel-class {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.84rem;
+    color: var(--ink-faint);
+  }
+  .rel-note {
+    font-family: "IM Fell English", serif;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin-top: 0.1rem;
+  }
+
+  /* ====== COLOPHON ====== */
+  .colophon {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1.5px solid var(--ink);
+    text-align: center;
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .colophon::after {
+    content: "";
+    display: block;
+    width: 50px; height: 1px;
+    background: var(--oxblood);
+    margin: 0.6rem auto 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 720px) {
+    body { padding: 1rem 0.5rem 3rem; }
+    .document { padding: 2.5rem 1.4rem 3rem; }
+    h1.character-name { font-size: 2rem; }
+    .vitals { grid-template-columns: 1fr; gap: 0.6rem; padding: 0.4rem 0; }
+    .vital { border-right: none; border-bottom: 1px solid var(--rule-soft); padding: 0.4rem 0; }
+    .vital:last-child { border-bottom: none; }
+    .portrait-row { grid-template-columns: 1fr; }
+    .toc-list { grid-template-columns: 1fr; }
+    .id-grid { grid-template-columns: 1fr; }
+    .aspect-row { grid-template-columns: 1fr; gap: 0.05rem; padding: 0.55rem 0; }
+    .skill-tier { grid-template-columns: 1fr; gap: 0.05rem; padding: 0.4rem 0; }
+    .stress-block { grid-template-columns: 1fr; }
+    .entity { grid-template-columns: 1fr; }
+    .entity .e-id { border-left: none; border-top: 3px solid var(--oxblood); padding-left: 0; padding-top: 0.5rem; }
+    .rel-grid { grid-template-columns: 1fr; }
+    .stamp { position: static; transform: none; display: inline-block; margin: 0.5rem auto 0; }
+    .conseq-row { grid-template-columns: 80px 1fr; }
+    .conseq-row .c-cost { display: none; }
+
+    /* Spell table → stacked card layout on mobile */
+    .spell-table, .spell-table thead, .spell-table tbody,
+    .spell-table tr, .spell-table td { display: block; width: 100%; }
+    .spell-table colgroup { display: none; }
+    .spell-table thead { display: none; }
+    .spell-table tbody tr {
+      border-top: 2px solid var(--ink);
+      padding: 0.8rem 0 0.6rem;
+      margin-bottom: 0.4rem;
+    }
+    .spell-table tbody td {
+      border-bottom: none;
+      padding: 0.2rem 0;
+    }
+    .spell-table tbody td.sp-name {
+      font-size: 0.95rem;
+      letter-spacing: 0.1em;
+      padding-bottom: 0.35rem;
+    }
+    .spell-table tbody td.sp-when {
+      font-size: 0.86rem;
+      color: var(--ink-faint);
+      padding-bottom: 0.45rem;
+    }
+    .spell-table tbody td.sp-result {
+      padding-bottom: 0.35rem;
+    }
+    .spell-table tbody td.sp-result:last-child {
+      text-align: right;
+      padding-top: 0.3rem;
+    }
+  }
+</style>
+</head>
+<body>
+<article class="document">
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <div class="filemark">File № K.C. / B-1830 / xiv &middot; Profane Sorcerer &middot; Sponsored Member</div>
+
+  <div class="registry">
+    <div class="registry-line">The Kerberos Club &middot; London</div>
+    <div class="registry-line">Registry of the Strange &mdash; Members &amp; Curiosities</div>
+  </div>
+
+  <div class="stamp">
+    <span class="lg">K. C.</span>
+    Sponsored Member<br>
+    Madame LaFonte<br>
+    A.D. MDCCCXXXIV
+  </div>
+
+  <div class="name-block">
+    <h1 class="character-name">Ernest <span class="name-italic">&ldquo;Ernie&rdquo;</span> Burgess</h1>
+    <p class="name-sub">Second son of Sir Milton Onslow, Earl of Onslow &mdash; of Clandon Park, Surrey</p>
+  </div>
+
+  <div class="vitals">
+    <div class="vital">
+      <div class="v-label">System</div>
+      <div class="v-val"><em>FATE Core</em> &mdash; Kerberos Club</div>
+    </div>
+    <div class="vital">
+      <div class="v-label">Calling</div>
+      <div class="v-val"><em>Profane Sorcerer</em></div>
+    </div>
+    <div class="vital">
+      <div class="v-label">Active</div>
+      <div class="v-val">A.D. <em>1830&ndash;1836</em></div>
+    </div>
+  </div>
+
+  <p class="epigraph">
+    The occult had been, for a young man of his appetites, a remarkably efficient introduction
+    society. It was only later &mdash; and rather inconveniently &mdash; that the magic proved real.
+  </p>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <div class="toc-label">Contents of this Dossier</div>
+    <ol class="toc-list">
+      <li><span class="num">I.</span><a href="#biography">Biography &amp; Antecedents</a><span class="dots"></span></li>
+      <li><span class="num">II.</span><a href="#sheet">The Character Sheet</a><span class="dots"></span></li>
+      <li><span class="num">III.</span><a href="#sorcery">Profane Sorcery &mdash; A Catalogue</a><span class="dots"></span></li>
+      <li><span class="num">IV.</span><a href="#attention">Entities Whose Attention He Has Drawn</a><span class="dots"></span></li>
+      <li><span class="num">V.</span><a href="#chronicle">Chronicle of Notable Events</a><span class="dots"></span></li>
+      <li><span class="num">VI.</span><a href="#thibault">Concerning Monsieur Bélanger</a><span class="dots"></span></li>
+      <li><span class="num">VII.</span><a href="#relations">Relations &amp; Connexions</a><span class="dots"></span></li>
+      <li><span class="num">VIII.</span><a href="#assessment">Assessment &amp; Disposition</a><span class="dots"></span></li>
+    </ol>
+  </nav>
+
+  <!-- ======================================================= -->
+  <!-- I. BIOGRAPHY                                            -->
+  <!-- ======================================================= -->
+  <section id="biography">
+    <h2 class="section-title"><span class="roman">I.</span> Biography &amp; Antecedents</h2>
+
+    <div class="portrait-row">
+      <div>
+        <div class="portrait-frame">
+          <div class="inner">
+            <img class="portrait-svg" src="ernie.jpg" alt="Portrait of Ernest Burgess">
+          </div>
+        </div>
+        <div class="portrait-caption">E. Burgess &mdash; Pastel, ca. 1834</div>
+      </div>
+      <div>
+        <p class="lede">Ernest Burgess is the second son of an earl, which is to say he has the manners of money, the income of an allowance, and the prospects of nothing in particular. The eldest, Thomas, will inherit the Onslow viscountcy and the seat at Clandon Park in due course. Ernest will inherit, by his own father&rsquo;s decree, a quarterly remittance and the firm understanding that he is to remain decorative, dissipated, and out of the newspapers.</p>
+
+        <p>He very nearly managed two of the three.</p>
+
+        <p>What his family failed to anticipate &mdash; what Ernest himself failed to anticipate, for some time &mdash; was that the demimonde he had taken up as cover (occultism being, in the 1830s, an extraordinarily permissive social circle for a young man of <em>his</em> tastes) was not, in fact, the elaborate fashionable nonsense it pretended to be. Several of the séances were real. Some of the bargains were binding. And his own latent talent &mdash; the high concept on his sheet reads simply <em>Inadvertent Adept</em> &mdash; began to manifest with an enthusiasm that quite outran his understanding of it.</p>
+      </div>
+    </div>
+
+    <h3 class="subhead">Early Life &amp; Disposition</h3>
+    <p>Educated as befits the second son of a Surrey peer &mdash; tutors, a brief and undistinguished interval at one of the older universities, the Grand Tour curtailed by some unspecified embarrassment. He returned to London with sufficient French to be useful, sufficient Italian to be charming, and a recently acquired enthusiasm for the more rarified end of art collecting. His ostensible occupation, insofar as he has one, is that of a connoisseur and minor patron; his correspondence with Continental dealers is voluminous, his actual purchases somewhat more modest.</p>
+
+    <p>The trouble on his sheet &mdash; <em>What goes around comes around</em> &mdash; was at first read by Mr. Burgess as a charming aphorism about the karmic rewards of generosity. By the close of his time with the Club, he had come to read it differently.</p>
+
+    <h3 class="subhead">Admission to the Kerberos Club</h3>
+    <p>Mr. Burgess came to the Club&rsquo;s attention in the winter of 1830, by way of an incident at a London soir&eacute;e &mdash; an angry female revenant, fragmented like a broken mirror, addressing herself with some specificity to a gentleman named Simon. The shade in question had been called up by Mr. Burgess at Simon&rsquo;s coercion several days prior, and now declined to depart without satisfaction. The matter was resolved, at length, with the assistance of <strong>Madame LaFonte</strong> (whose Limehouse establishment Mr. Burgess had been frequenting for unrelated reasons), the widow <strong>Eug&eacute;nie</strong>, and three persons who would shortly become his colleagues: <strong>Natalie Brighton</strong>, <strong>Myron MacCurrach</strong> (then trading as &ldquo;Albert Tremblay&rdquo;), and the gargoyle <strong>Louis</strong>.</p>
+
+    <p>The Duchess Mary Somerville of Fairfax extended membership the following morning, on Madame LaFonte&rsquo;s sponsorship. Mr. Burgess accepted.</p>
+
+    <div class="pullquote">
+      It is quite odd indeed to have five new in such a short time.
+      <span class="attrib">&mdash; The Duchess of Fairfax, on the admission</span>
+    </div>
+  </section>
+
+  <!-- ======================================================= -->
+  <!-- II. CHARACTER SHEET                                     -->
+  <!-- ======================================================= -->
+  <section id="sheet">
+    <h2 class="section-title"><span class="roman">II.</span> The Character Sheet</h2>
+
+    <p>The following is reproduced from the player&rsquo;s mid-campaign sheet (signed and dated late 1834). Annotations in <span style="color:var(--oxblood);">oxblood</span> mark elements that emerged in play after the snapshot was taken; the sheet itself was not revised in the player&rsquo;s hand, but the campaign&rsquo;s events make these additions effectively canonical.</p>
+
+    <div class="sheet-frame">
+      <div class="id-grid">
+        <div class="id-field">
+          <span class="id-label">Name</span>
+          <span class="id-val">Ernest (Ernie) Burgess</span>
+        </div>
+        <div class="id-field">
+          <span class="id-label">Refresh</span>
+          <span class="id-val refresh">2</span>
+        </div>
+      </div>
+
+      <h4 class="minihead">Aspects</h4>
+      <div class="aspects-block">
+        <div class="aspect-row high-concept">
+          <div class="a-label">High Concept</div>
+          <div class="a-value">Inadvertent Adept</div>
+        </div>
+        <div class="aspect-row trouble">
+          <div class="a-label">Trouble</div>
+          <div class="a-value">What goes around comes around</div>
+        </div>
+        <div class="aspect-row">
+          <div class="a-label">Aspect</div>
+          <div class="a-value">Foppish Dandy</div>
+        </div>
+        <div class="aspect-row">
+          <div class="a-label">Aspect</div>
+          <div class="a-value">Student of the Renaissance</div>
+        </div>
+        <div class="aspect-row">
+          <div class="a-label">Aspect</div>
+          <div class="a-value">Obsession: Qabbalah</div>
+        </div>
+        <div class="aspect-row added">
+          <div class="a-label">Acquired</div>
+          <div class="a-value">A year and a life still owing</div>
+        </div>
+      </div>
+
+      <h4 class="minihead" style="margin-top:1.4rem;">Skills</h4>
+      <div class="skills-block">
+        <div class="skill-tier empty">
+          <div class="t-label">Superb<span class="tier-num">+5</span></div>
+          <div class="t-skills">&mdash;</div>
+        </div>
+        <div class="skill-tier">
+          <div class="t-label">Great<span class="tier-num">+4</span></div>
+          <div class="t-skills"><span>Resources</span></div>
+        </div>
+        <div class="skill-tier">
+          <div class="t-label">Good<span class="tier-num">+3</span></div>
+          <div class="t-skills"><span>Occult</span><span>Presence</span></div>
+        </div>
+        <div class="skill-tier">
+          <div class="t-label">Fair<span class="tier-num">+2</span></div>
+          <div class="t-skills"><span>Deceit</span><span>Academics</span><span>Contacting</span></div>
+        </div>
+        <div class="skill-tier">
+          <div class="t-label">Average<span class="tier-num">+1</span></div>
+          <div class="t-skills"><span>Stealth</span><span>Alertness</span><span>Art</span><span>Science</span></div>
+        </div>
+      </div>
+
+      <h4 class="minihead" style="margin-top:1.4rem;">Stunts</h4>
+      <ul class="stunt-list">
+        <li>
+          <span class="stunt-name">Profane Sorcery</span>
+          <span class="stunt-cost">(2 refresh)</span>
+          <span class="stunt-desc">Ernest works magic. He has no formal training in any tradition that has not yet failed him, and his repertoire is improvised on the spot, pitched to the table, and resolved by Occult roll &mdash; with consequences scaled to ambition.</span>
+          <ul class="stunt-sub">
+            <li><strong>Astral Body</strong> &mdash; the spirit may leave the flesh and travel at distance. Reliable. Frequently abused.</li>
+            <li><strong>Summon Entity</strong> &mdash; the calling-forth of ghosts, daemons, and lesser spirits, by name where the name is known.</li>
+          </ul>
+        </li>
+        <li>
+          <span class="stunt-name">Wealthy Socialite</span>
+          <span class="stunt-cost">(2 refresh)</span>
+          <span class="stunt-desc">An income, a name, and the standing to dine where he pleases &mdash; or, when matters require it, to commit a social outrage of sufficient magnitude to fuel a working of magic.</span>
+        </li>
+      </ul>
+
+      <h4 class="minihead" style="margin-top:1.4rem;">Extras</h4>
+      <p style="font-family:'IM Fell English',serif; color:var(--ink-soft); margin:0.3rem 0 0;"><strong>Occult Library.</strong> The Burgess townhouse contains a working collection &mdash; treatises, grimoires of questionable provenance, several volumes of the Baltic <em>sissetulek</em> material, and (latterly, illicitly) a number of Thibault B&eacute;langer&rsquo;s books concerning moonstones, the founding of Atlantis, and the cataloguing of ancient sites.</p>
+
+      <div class="stress-block">
+        <div class="stress">
+          <div class="stress-label">Physical Stress &mdash; Physique</div>
+          <div class="pip-row">
+            <div class="pip">1</div>
+            <div class="pip">2</div>
+            <div class="pip faded">3</div>
+            <div class="pip faded">4</div>
+          </div>
+        </div>
+        <div class="stress">
+          <div class="stress-label">Mental Stress &mdash; Will</div>
+          <div class="pip-row">
+            <div class="pip">1</div>
+            <div class="pip">2</div>
+            <div class="pip faded">3</div>
+            <div class="pip faded">4</div>
+          </div>
+        </div>
+      </div>
+
+      <h4 class="minihead" style="margin-top:1.4rem;">Consequences <em style="font-size:0.78em; color:var(--ink-faint);">&mdash; as the chronicle stands at its close</em></h4>
+      <div class="consequence-list">
+        <div class="conseq-row">
+          <span class="c-tier">Mild</span>
+          <span class="c-cost">2</span>
+          <span class="c-text">&mdash;</span>
+        </div>
+        <div class="conseq-row">
+          <span class="c-tier">Mild</span>
+          <span class="c-cost">2</span>
+          <span class="c-text">&mdash;</span>
+        </div>
+        <div class="conseq-row">
+          <span class="c-tier">Moderate</span>
+          <span class="c-cost">4</span>
+          <span class="c-text">&mdash;</span>
+        </div>
+        <div class="conseq-row">
+          <span class="c-tier">Severe</span>
+          <span class="c-cost">6</span>
+          <span class="c-text severe">Exsanguinated &amp; recovering &mdash; took on the bleeding for a god (Carolinas, 1836)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="aside">
+      <span class="aside-label">A Note on the Magic, as Played</span>
+      <p>The Profane Sorcery stunt was, in this campaign, run without a fixed spell list. Mr. Burgess&rsquo; player pitched effects as they were imagined &mdash; the larger the conceptual swing, the greater the chance of an extraordinary initial success, and equally the greater the cost on a failure.</p>
+      <p>The pattern that emerged was an unusual one: <strong>his magic works best the first time he attempts a given effect, ignorantly and on instinct.</strong> The vase-into-moonstone simulacrum, the binding inkwell exorcism, the swap of souls with Spencer &mdash; all were tried &ldquo;blind&rdquo; and all succeeded extravagantly. Afterwards there is a <em>valley</em>: he struggles to understand what he did, can rarely repeat it cleanly, and produces blowback when he tries. Only with time and study does the effect become a reliable tool. <strong>Astral Body</strong> is the model of this latter category &mdash; once erratic and trance-prone, latterly his most dependable working.</p>
+    </div>
+  </section>
+
+  <!-- ======================================================= -->
+  <!-- III. SORCERY CATALOGUE                                  -->
+  <!-- ======================================================= -->
+  <section id="sorcery">
+    <h2 class="section-title"><span class="roman">III.</span> Profane Sorcery &mdash; A Catalogue</h2>
+
+    <p>What follows is, so far as the Club&rsquo;s archivists can reconstruct it, the substance of Mr. Burgess&rsquo; magical practice over the course of his association. The list is not exhaustive &mdash; trances of less consequence are omitted &mdash; but the named workings below are those that proved consequential, instructive, or catastrophic.</p>
+
+    <table class="spell-table">
+      <colgroup>
+        <col style="width:17%;">
+        <col style="width:22%;">
+        <col style="width:46%;">
+        <col style="width:15%;">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Working</th>
+          <th>Circumstance</th>
+          <th>Effect &amp; Outcome</th>
+          <th>Disposition</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="sp-name">Summoning</td>
+          <td class="sp-when">London, 1830 &mdash; under duress</td>
+          <td class="sp-result">The shade of <em>Katherine</em> Stevins, called up at Simon&rsquo;s coercion. Came through fragmented &mdash; &ldquo;as if seen through shattered glass.&rdquo; Returned later, on her own terms, to seek satisfaction of her murderer.</td>
+          <td class="sp-result"><span class="ok">Succeeded</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Banishing Rite</td>
+          <td class="sp-when">Limehouse, 1830</td>
+          <td class="sp-result">A circle of six, joined hands, the speaking of the true name <em>Katherine Stevins</em> in her mother tongue. Eug&eacute;nie led the chant; Mr. Burgess provided the link. The shade departed and was at peace.</td>
+          <td class="sp-result"><span class="ok">Succeeded</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Astral Projection</td>
+          <td class="sp-when">Henley-on-Thames, 1832</td>
+          <td class="sp-result">Early use, at distance, to confirm a flat had not seen violence and to read the residue of an artist&rsquo;s work. The trance was deep and difficult to break; he was woken with cold water by an intimate friend.</td>
+          <td class="sp-result"><span class="partial">Costly</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Astral Projection &mdash; Painting</td>
+          <td class="sp-when">Oxford, 1832</td>
+          <td class="sp-result">Into a Whitby canvas at the Bodleian. The painting drew him in across an enormous, painful distance; he could not hold himself there. The first hint that the paintings were doors, not pictures.</td>
+          <td class="sp-result"><span class="partial">Partial</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Sympathetic Resonance</td>
+          <td class="sp-when">London, 1833 &mdash; seeking the missing Serafina</td>
+          <td class="sp-result">A ritual bath, the wearing of her cleaned dress, the brushing of his hair where hers had been brushed. Resonance achieved &mdash; and a vampyre fed upon him at distance through the link. Two punctures, two red marks, on waking.</td>
+          <td class="sp-result"><span class="blow">Blowback</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Summoning of a Daemon</td>
+          <td class="sp-when">London, 1833 &mdash; in his cellar, by night</td>
+          <td class="sp-result">The first call to <strong>Balaam</strong>, traded a life and a year of his own for instruction in the killing of <em>vampiir</em>. Holy water, beheading, garlic packed in the cavity. The information was true; the price has not yet been collected in full. <em>See &sect; IV.</em></td>
+          <td class="sp-result"><span class="ok">Bargain Struck</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Astral Suggestion</td>
+          <td class="sp-when">Kerberos Club garden, 1834</td>
+          <td class="sp-result">Cast on the winged vampyre Miss Hayes mid-flight to provoke her into diving on him &mdash; trusting Myron, with a shotgun, to make the shot. He did.</td>
+          <td class="sp-result"><span class="ok">Succeeded</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Warding</td>
+          <td class="sp-when">London, 1833</td>
+          <td class="sp-result">A ward on the cellar door against passage of the evil or unnatural &mdash; unclear whether it would refuse Serafina, by then in transition. Set and held; the question was not put to the test.</td>
+          <td class="sp-result"><span class="ok">Succeeded</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Sympathetic Sealing</td>
+          <td class="sp-when">Nice, December 1834</td>
+          <td class="sp-result">Two letters to Thibault, sealed paired so that the breaking of one would shatter the other. A small thing, well executed. Whether the seal was ever broken, Ernest has not learned.</td>
+          <td class="sp-result"><span class="ok">Succeeded</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Transmutation &mdash; Scandal</td>
+          <td class="sp-when">Nice, December 1834 &mdash; Lascaris&rsquo; soir&eacute;e</td>
+          <td class="sp-result">A Chinese vase, ancient and priceless, recast in the moonstone&rsquo;s likeness to permit a substitution. Powered by the social scandal of a peer&rsquo;s daughter alone with him in a locked room &mdash; an outrage manufactured for the purpose. The first working, of its kind, attempted blind. It was magnificent. The blowback came in the morning, by writ of his brother.</td>
+          <td class="sp-result"><span class="ok">Succeeded</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Pyrokinesis</td>
+          <td class="sp-when">Asylum near Nice, December 1834</td>
+          <td class="sp-result">Walls scrawled with sigils in burnt book-spine charcoal; the lock at the door incinerated, the bedding fused, the night-nurse left fainting. Ernest has no memory of any of this. The work was Balaam&rsquo;s, performed in his flesh while he slept.</td>
+          <td class="sp-result"><span class="blow">Not His</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Astral Projection &mdash; Ocean</td>
+          <td class="sp-when">South Carolina, 1835</td>
+          <td class="sp-result">Stretched himself thin along the coast, searching for the source of an industrial hum. The ocean became aware of him. He very nearly did not return; the others retrieved his body, levitating and slowly being drawn outward, by packing it in a steamer trunk and binding it tight enough to remind him he was an individual thing.</td>
+          <td class="sp-result"><span class="blow">Blowback</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Exorcism by Inkwell</td>
+          <td class="sp-when">Blythewood, S. C., 1836</td>
+          <td class="sp-result">A Latin rite delivered by astral projection through a sealed inkwell that Myron held aloft over a Holler-twisted Misha. Pitched in absolute desperation, attempted for the first and only time. It worked. Mr. Burgess could not believe it had.</td>
+          <td class="sp-result"><span class="ok">Succeeded</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Rapid Decay</td>
+          <td class="sp-when">Roman aqueducts beneath London, 1836</td>
+          <td class="sp-result">A working pitched at the tentacled thing nesting in the reservoir &mdash; accelerated age, putrefaction, the swift collapse of the corruption it had drawn from the ley line. Used on the refuse-creature in the aqueduct chamber. Effective; uneasy-making.</td>
+          <td class="sp-result"><span class="ok">Succeeded</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Binding</td>
+          <td class="sp-when">Penrith, 1833 &mdash; against the thug Horace</td>
+          <td class="sp-result">A muttered binding to hold the muttonchopped enforcer in place for questioning. He slipped it and ran.</td>
+          <td class="sp-result"><span class="fail">Failed</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Soul Exchange</td>
+          <td class="sp-when">The Holler, Carolinas, 1836</td>
+          <td class="sp-result">At mega-difficulty, pitched on the spot to interrupt Spencer&rsquo;s shot. Result: Ernest&rsquo;s soul in Spencer; Myron&rsquo;s soul drawn into Ernest&rsquo;s body by mistake; Balaam, riding along, taking the vacancy as opportunity and installing itself in Ernest&rsquo;s flesh, now sharing it with Myron. Of all the workings here listed, this is the one Ernie pitched with the least understanding of what he was actually doing.</td>
+          <td class="sp-result"><span class="blow">Cascade</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Possession &mdash; Willing</td>
+          <td class="sp-when">Airship over the Carolinas, 1836</td>
+          <td class="sp-result">Ernest&rsquo;s astral self into the gargoyle Louis, briefly, to redirect him toward his abandoned body. Subservient, &ldquo;on a short leash;&rdquo; gave Louis nothing he would not have done anyway.</td>
+          <td class="sp-result"><span class="ok">Succeeded</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Possession &mdash; Forced</td>
+          <td class="sp-when">Airship over the Carolinas, 1836</td>
+          <td class="sp-result">Re-entered the operative Spencer&rsquo;s body, shot him in the knee with his own pistol, threatened the next in his own voice: &ldquo;The next one goes in the mouth.&rdquo; Mr. Burgess noted privately that this crossed a line.</td>
+          <td class="sp-result"><span class="ok">Succeeded</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Pyromantic Working</td>
+          <td class="sp-when">The cave, Capefair, 1836</td>
+          <td class="sp-result">To free Thibault from a wall of stalactite bars: he braced a hand to each and heated the stone, by sheer working, until it glowed and steamed. His thermometer burst in his pocket; for a moment, witnesses saw horns and leathery wings flicker about his silhouette, and a goatee that was not his appear and vanish. Thibault flattened himself against the back wall and asked to find his own way out.</td>
+          <td class="sp-result"><span class="ok">Succeeded</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Transmutation &mdash; Blood</td>
+          <td class="sp-when">The cave chamber, Capefair, 1836 &mdash; the climactic working</td>
+          <td class="sp-result">Pricked a finger, touched the silver tendril of the Clockwork God&rsquo;s feed, and changed the substance to blood &mdash; <em>his</em> blood. The creature drank, the body emptied, Ernest dropped ashen and very nearly dead. The Clockwork God did not wake. Myron asked how much blood is in a person; the answer is &ldquo;not as much as Ernie was prepared to spend.&rdquo;</td>
+          <td class="sp-result"><span class="ok">Succeeded</span></td>
+        </tr>
+        <tr>
+          <td class="sp-name">Petition</td>
+          <td class="sp-when">A river, the deep forest, Carolinas, 1836</td>
+          <td class="sp-result">In extremity, called upon Kinsataan via the coin in his pocket. Anayehu came instead. She bound him in webbing, considered eating him, and was talked out of it. <em>See &sect; IV.</em></td>
+          <td class="sp-result"><span class="partial">Answered</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="subhead">A Note on Frequency</h3>
+    <p><strong>Astral Body</strong> is the working Ernest attempted most often by an order of magnitude &mdash; perhaps a dozen times in the campaign, and routinely as a matter of course by the end. <strong>Summon Entity</strong> ran a distant second, with five named callings (Katherine, James Grayson, Balaam, the petition to Kinsataan, and an attempted contact with a river-spirit that hid from him). Every other working in the catalogue above was, in this campaign, performed essentially <em>once</em>.</p>
+  </section>
+
+  <!-- ======================================================= -->
+  <!-- IV. ENTITIES                                            -->
+  <!-- ======================================================= -->
+  <section id="attention">
+    <h2 class="section-title"><span class="roman">IV.</span> Entities Whose Attention He Has Drawn</h2>
+
+    <p>The following powers, persons, or things took notice of Mr. Burgess in the course of his work. The Club&rsquo;s archivists wish to be plain: these are not <em>his</em> patrons. He is not held by any of them. Some merely watched. Some intervened. One is owed payment and has not yet collected.</p>
+
+    <div class="entities">
+
+      <div class="entity balaam">
+        <div class="e-id">
+          <div class="e-name">Balaam</div>
+          <div class="e-class">A daemon, summoned by name. Latterly self-styled &ldquo;Eddie.&rdquo;</div>
+        </div>
+        <div class="e-body">
+          <p>Called up in Ernest&rsquo;s cellar one night in 1833, in trade for information on how to kill the <em>vampiir</em>. The price agreed was <em>a year and a life</em> &mdash; the latter being Miss Hayes&rsquo; man, the former being drawn from Ernest&rsquo;s own.</p>
+          <p>Balaam has been a steady presence since. It rode along during the asylum committal in Nice and used Ernest&rsquo;s sleeping body to escape; it walked Ernest&rsquo;s flesh into Thibault&rsquo;s townhouse to retrieve the moonstone simulacrum and the books, and bargained briefly with Myron in a dream (offering &ldquo;true invisibility&rdquo; for &ldquo;making sure the mage holds the stone&rdquo;). In the Holler, when the body-swap left Ernest&rsquo;s flesh vacant, it moved in openly, introducing itself to the dig-team as <em>Eddie</em> with one of Myron&rsquo;s small mannerisms borrowed for verisimilitude.</p>
+          <p>In the cave-chamber, with Kelly Keating&rsquo;s knife in its borrowed ribs and the ritual trying to <em>fix</em> it in place, Ernest fought his way back into his own body and <strong>evicted</strong> Balaam by violence to self &mdash; biting and clawing his own flesh from within. The eviction held. The bargain did not close. Of the agreed year, Balaam reckons it has used <em>twenty-three hours and thirty-six seconds</em>. The remainder, and the life, remain outstanding.</p>
+          <p>Balaam considers Ernest&rsquo;s choices &ldquo;truly amazing&rdquo; and the soap opera of his life its preferred entertainment. This is not, on the whole, reassuring.</p>
+        </div>
+      </div>
+
+      <div class="entity fae">
+        <div class="e-id">
+          <div class="e-name">The Maker of Twisted Ones</div>
+          <div class="e-class">A power of the Carolina backwoods. Likely Fae-allied, of the Holler.</div>
+        </div>
+        <div class="e-body">
+          <p>The presence behind the binding of a man inside an animal&rsquo;s skull and skeleton &mdash; the &ldquo;Twisted One&rdquo; that nearly was Misha. Ernest&rsquo;s improvised Latin exorcism, broadcast through Myron&rsquo;s held inkwell, broke its hold. The thing remembered. In the cave-passage that followed, the Holler reached for Ernest at a distance and very briefly held him fast through the painted forest. He did not enjoy the experience.</p>
+        </div>
+      </div>
+
+      <div class="entity forest">
+        <div class="e-id">
+          <div class="e-name">The God of the Forest</div>
+          <div class="e-class">A presence felt always to the west. Vast. Hungry. Bound, until it was not.</div>
+        </div>
+        <div class="e-body">
+          <p>The brooding pressure of the interior of the continent &mdash; the thing called by some <em>the Clockwork God</em>, a god of war once bound by older powers and sealed beneath the cave. Ernest felt it from the Carolina shore and again, more keenly, on the airship. Spencer and Kelly Keating intended to wake it as the first prong of a Union war upon the peoples of the interior; Ernest, having heard arguments on both sides, agreed with Anayehu to <em>some smaller war, then,</em> and offered his own blood instead of the fluxonium they meant to use. The barrier to the interior fell. The god did not wake. The forest, west of where the barrier had stood, is no longer so wholly spidery as it was &mdash; though much of it remains itself.</p>
+        </div>
+      </div>
+
+      <div class="entity ocean">
+        <div class="e-id">
+          <div class="e-name">The Presence in the Ocean</div>
+          <div class="e-class">A power off the Atlantic seaboard, vast and impersonal.</div>
+        </div>
+        <div class="e-body">
+          <p>Encountered first by astral projection along the Carolina coast, when Ernest stretched himself too thin and the water began, gently at first, to draw him in. He yielded; he was nearly absorbed. His friends saved him by binding him bodily into a steamer trunk, where the constriction reminded him where he ended. Nothing has been heard from the ocean since &mdash; not because it does not remember, but because the Americas are full of more pressing matters.</p>
+        </div>
+      </div>
+
+      <div class="entity kinsataan">
+        <div class="e-id">
+          <div class="e-name">Kinsataan</div>
+          <div class="e-class">A god of the Tik people. Trickster. The forge of the coin.</div>
+        </div>
+        <div class="e-body">
+          <p>Antonia&rsquo;s grandmother named him &ldquo;that trickster&rdquo; with the resignation of one who has known him a long time. He gave Ernest a coin &mdash; a two-headed creature stamped in metal, useful as a key to wake the bound god, or as something else entirely. Ernest carries it still. He has called upon it twice; both times Anayehu came instead.</p>
+        </div>
+      </div>
+
+      <div class="entity anayehu">
+        <div class="e-id">
+          <div class="e-name">Anayehu</div>
+          <div class="e-class">A god of the deep forest. A spider, taller than the trees.</div>
+        </div>
+        <div class="e-body">
+          <p>Ernest reached for Kinsataan in the river-fight and reached, instead, Anayehu. She cocooned his astral self in webbing and hung him from a branch while she made her own arrangements with his companions on the ground. Subsequently they talked &mdash; about war, about waking the Clockwork God, about whether his coin would be used or laid down. She did not eat him.</p>
+          <p>She returned, in the cave chamber, when the working was nearly done. She mended Thibault&rsquo;s broken leg with a touch and accepted nothing in payment, only saying that they had given her enough already. To Ernest she said: <em>I will see if I can find you a mentor. But I think you are farther along than you think you are.</em></p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="aside dark">
+      <span class="aside-label">A standing debt &mdash; for the attention of the Club&rsquo;s officers</span>
+      <p>Mr. Burgess is, at the close of this dossier, in possession of working sorcery, an unpaid debt to a daemon known to him by two names, the recognised regard of two deities of the Americas, and the lingering interest of a god of the western ocean. The Club may wish to take note. He himself has, since the close of the affair, become rather more attentive to such matters.</p>
+    </div>
+  </section>
+
+  <!-- ======================================================= -->
+  <!-- V. CHRONICLE                                            -->
+  <!-- ======================================================= -->
+  <section id="chronicle">
+    <h2 class="section-title"><span class="roman">V.</span> Chronicle of Notable Events</h2>
+
+    <div class="timeline">
+
+      <div class="epoch">
+        <div class="epoch-when">London &middot; Winter 1830</div>
+        <div class="epoch-title">The Soir&eacute;e, &amp; the Calling of Katherine</div>
+        <div class="epoch-body">
+          <p>Mr. Burgess summons Katherine Stevins under coercion. The shade attaches and returns of her own accord at a soir&eacute;e. With Madame LaFonte, Eug&eacute;nie, Natalie Brighton, Myron MacCurrach, and the gargoyle Louis, she is brought to peace. Simon, her widower-murderer, is collared. Sponsorship to the Kerberos Club follows.</p>
+        </div>
+      </div>
+
+      <div class="epoch">
+        <div class="epoch-when">Henley-on-Thames &amp; Oxford &middot; 1832</div>
+        <div class="epoch-title">The Whitby Affair</div>
+        <div class="epoch-body">
+          <p>The Duchess of Fairfax sets the company to investigate the theft of a Whitby painting. Mr. Burgess discovers the paintings to be doors. He steals one from the Bodleian. He travels through one to a French farmhouse and finds his way back overland. Trial of Peers, Uffington, September 1835: he is declared <em>Guilty</em> and immediately pleads the Privilege of the Peerage. The matter ends there.</p>
+        </div>
+      </div>
+
+      <div class="epoch crisis">
+        <div class="epoch-when">London &middot; 1833</div>
+        <div class="epoch-title">The Vampyres, &amp; the Bargain in the Cellar</div>
+        <div class="epoch-body">
+          <p>Serafina Grafton is taken; LaChappelle is taken; Louis breaks French doors; Myron acquires holy water by oblique means. Ernest calls Balaam from his cellar and trades a year of his life and the man Wright&rsquo;s for instruction in the killing of <em>vampiir</em>. The information proves accurate. Miss Hayes evades them.</p>
+        </div>
+      </div>
+
+      <div class="epoch">
+        <div class="epoch-when">The Jurassic Coast &amp; Beyond &middot; 1833&ndash;1834</div>
+        <div class="epoch-title">Finding Whitby</div>
+        <div class="epoch-body">
+          <p>Through a painting of a Dorset beach, the company crosses to a tropical lagoon under an unfamiliar sun. They find Lise, then Norman Whitby himself, living on an island somewhere off the colonies. He refuses to return. He sends a letter to the Duchess attesting his safety; Ernest carries it home.</p>
+        </div>
+      </div>
+
+      <div class="epoch crisis">
+        <div class="epoch-when">Nice &middot; December 1834</div>
+        <div class="epoch-title">The Moonstone, the Scandal, the Asylum</div>
+        <div class="epoch-body">
+          <p>At Lascaris&rsquo; soir&eacute;e, Mr. Burgess engineers the social outrage required to power a transmutation &mdash; alone with the young Grand Duchess Olga Nikolaevna in the Collections Room. A vase becomes the moonraker&rsquo;s stone. He hides the original. He is ejected. The Empress is not amused.</p>
+          <p>A letter from Thibault, two days delayed, was already an answered prayer; by the time it reached his hand the writer was gone, on the <em>Art&eacute;mise</em> for the New World. Mr. Burgess drinks himself out of LaChappelle&rsquo;s credit and is collected, by paid arrangement, by orderlies of an asylum on the outskirts of the city. His brother Thomas signed the order.</p>
+          <p>The asylum did not hold him. Balaam, walking his sleeping flesh, sigil-burned the door, the cot, and the night-nurse&rsquo;s composure, and took him to Thibault&rsquo;s shuttered townhouse to retrieve the books and the stone. Of these events, he himself remembers nothing.</p>
+        </div>
+      </div>
+
+      <div class="epoch">
+        <div class="epoch-when">The Atlantic &amp; the Carolinas &middot; 1835</div>
+        <div class="epoch-title">Savannah, the Tik, &amp; the Coin</div>
+        <div class="epoch-body">
+          <p>From Nice by way of the painting and the deal with the Siren, they cross to the Americas. The swamp. Antonia&rsquo;s people. Kinsataan&rsquo;s coin. The reach of the ocean from the Carolina shore. The growing certainty that something to the west is awake and watching, and that something else, ahead of him, is calling.</p>
+        </div>
+      </div>
+
+      <div class="epoch crisis">
+        <div class="epoch-when">Capefair &middot; 1836</div>
+        <div class="epoch-title">The Airship, the Cave, the Clockwork God</div>
+        <div class="epoch-body">
+          <p>Spencer and Kelly Keating, Union operatives by way of the office Myron once nominally worked for, mean to wake the bound war-god beneath the cave and pour him over the barrier into the interior. Thibault, who has been working the site for his own academic purposes, has been imprisoned for protesting the schedule. Ernest finds him behind stalactite bars and, in a working that flickers with horns and wings about him, melts the stone.</p>
+          <p>The body-swap with Spencer goes sideways; Balaam takes the vacancy. In the deep chamber the dig crew threads fluxonium pipes into the chamber-walls (which are not walls). Ernest transmutes the silver to his own blood and offers it instead. The thing drinks. He drops ashen.</p>
+          <p>Anayehu comes. She heals Thibault. The barrier breaks. Spencer is &ldquo;handed off to the deep forest&rdquo; by Antonia and does not survive. Kelly Keating is shot. Ernest lives.</p>
+        </div>
+      </div>
+
+      <div class="epoch">
+        <div class="epoch-when">After &middot; 1836</div>
+        <div class="epoch-title">Atlantis, &amp; a Painting Returned</div>
+        <div class="epoch-body">
+          <p>Mr. Burgess presents to Thibault a Whitby painting of the French countryside &mdash; pried from LaChappelle&rsquo;s reluctant hands &mdash; that Thibault had long sought. They go to Atlantis together at Antonia&rsquo;s invitation; Thibault does not stay. He keeps a house on the coast in the New World, and visits Ernest through the painting at his pleasure. Ernest, knowing now what the daemon is and what it is owed, prefers it that way.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================= -->
+  <!-- VI. THIBAULT                                            -->
+  <!-- ======================================================= -->
+  <section id="thibault">
+    <h2 class="section-title"><span class="roman">VI.</span> Concerning Monsieur B&eacute;langer</h2>
+
+    <p>If the occult was Mr. Burgess&rsquo; on-ramp, Thibault B&eacute;langer is &mdash; by the close of the chronicle &mdash; the actual purpose of it. A French baron of central-western descent, an erudite and red-bearded scholar of antiquities, met at cards in Nice in the autumn of 1834. They were briefly happy.</p>
+
+    <p>Thibault&rsquo;s father had died, the story is told only later, in a room that looked as if something had exploded in it &mdash; ruined by his own obsession with magic. Thibault has therefore reasons to mistrust the practice itself, separate from his fondness for the practitioner.</p>
+
+    <p>The misunderstanding in Nice was, in the event, a misunderstanding only of timing: Thibault had written to propose a reconciliation, his letter took two days to reach Ernest, and by the time it was opened the writer had taken passage on the <em>Art&eacute;mise</em> for the New World. Ernest, who had stolen and read several of Thibault&rsquo;s books while Balaam wore him through Thibault&rsquo;s townhouse, followed under his own steam, by way of a daemon-haunted asylum, an Atlantic crossing, a swamp, and a god.</p>
+
+    <p>In the cave Ernest told Thibault, plainly, what he had been concealing from himself &mdash; that the powers he channelled were vaster than his discipline, that what he could do he could not always undo, and that several large and patient things now knew his name. Thibault listened. He has accepted the painting; he has accepted, with reservations, the man.</p>
+
+    <p><strong>The arrangement, as it now stands:</strong> Thibault keeps a small house on the Carolina coast. The Whitby painting hangs over its mantle. Through it, at his choosing, he visits Ernest in Atlantis &mdash; or at the Burgess house in London, or wherever Ernest can be found. They share lives. They do not live together. Ernest, for the first time in a number of years, considers this the responsible thing to do.</p>
+
+    <div class="pullquote">
+      You convinced LaChappelle to give this to you, to give to me. I have been trying to get this. I have been trying to convince him, for some time, to give me this painting.
+      <span class="attrib">&mdash; Thibault B&eacute;langer, on opening the box</span>
+    </div>
+  </section>
+
+  <!-- ======================================================= -->
+  <!-- VII. RELATIONSHIPS                                      -->
+  <!-- ======================================================= -->
+  <section id="relations">
+    <h2 class="section-title"><span class="roman">VII.</span> Relations &amp; Connexions</h2>
+
+    <h3 class="subhead">Of the Club &amp; the Cause</h3>
+    <div class="rel-grid">
+      <div class="rel">
+        <span class="rel-name">Madame LaFonte</span>
+        <span class="rel-class">— Medium, of Limehouse. Sponsor.</span>
+        <div class="rel-note">Brought him in. Taught him what little he was prepared to learn.</div>
+      </div>
+      <div class="rel">
+        <span class="rel-name">Duchess Mary Somerville of Fairfax</span>
+        <span class="rel-class">— Of the Club&rsquo;s governing board.</span>
+        <div class="rel-note">His patron, more or less. Set the Whitby business in motion.</div>
+      </div>
+      <div class="rel">
+        <span class="rel-name">Dr. Monroe</span>
+        <span class="rel-class">— Kerberan. Often exasperated.</span>
+        <div class="rel-note">Has flounced past him, been flounced past by him.</div>
+      </div>
+      <div class="rel">
+        <span class="rel-name">Eug&eacute;nie</span>
+        <span class="rel-class">— Widow, witch, of the older generation.</span>
+        <div class="rel-note">Stomp-mode only. Built the shamble that found Katherine.</div>
+      </div>
+      <div class="rel">
+        <span class="rel-name">Natalie Brighton</span>
+        <span class="rel-class">— Tinker, fellow-Kerberan, sometime co-conspirator.</span>
+        <div class="rel-note">One of the four. Has stood beside him in most of his worse decisions.</div>
+      </div>
+      <div class="rel">
+        <span class="rel-name">Myron MacCurrach</span>
+        <span class="rel-class">— Spy, hat-wearer, fellow-Kerberan.</span>
+        <div class="rel-note">Briefly tenanted Ernest&rsquo;s body during the Holler affair. They are friends.</div>
+      </div>
+      <div class="rel">
+        <span class="rel-name">Louis</span>
+        <span class="rel-class">— Gargoyle. Of the Limehouse rooftops.</span>
+        <div class="rel-note">Treats Ernest as a chew-toy of long acquaintance. The affection is mutual.</div>
+      </div>
+      <div class="rel">
+        <span class="rel-name">Misha</span>
+        <span class="rel-class">— Russian, occasionally a pug.</span>
+        <div class="rel-note">Cousin to the Imperial family. Has not forgiven the moonstone scandal.</div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Of the Continent &amp; the New World</h3>
+    <div class="rel-grid">
+      <div class="rel">
+        <span class="rel-name">Thibault B&eacute;langer</span>
+        <span class="rel-class">— French baron, archaeologist, scholar of Atlantis.</span>
+        <div class="rel-note">The point of everything since 1834. <em>See &sect; VI.</em></div>
+      </div>
+      <div class="rel">
+        <span class="rel-name">Monsieur LaChappelle</span>
+        <span class="rel-class">— French art connoisseur. Survives all things.</span>
+        <div class="rel-note">Has paid his tab in Nice; surrendered the Whitby canvas; carries on.</div>
+      </div>
+      <div class="rel">
+        <span class="rel-name">Antonia Isabella Eva Chiara</span>
+        <span class="rel-class">— Tarot reader. Of the Tik. Does not miss.</span>
+        <div class="rel-note">Guide, conscience, exasperation. Made the Spencer problem disappear.</div>
+      </div>
+      <div class="rel">
+        <span class="rel-name">Serafina Grafton</span>
+        <span class="rel-class">— Engineer, latterly <em>vampiir</em>.</span>
+        <div class="rel-note">Survived. Lives at distance with Lise. Cannot, now, cross running water.</div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Of His Own Blood</h3>
+    <div class="rel-grid">
+      <div class="rel">
+        <span class="rel-name">Thomas Burgess, Viscount</span>
+        <span class="rel-class">— Elder brother. Heir to the earldom.</span>
+        <div class="rel-note">Signed the asylum order. Sober. Disapproving. Genuinely concerned, in his way.</div>
+      </div>
+      <div class="rel">
+        <span class="rel-name">Sir Milton Onslow, Earl of Onslow</span>
+        <span class="rel-class">— Father. Of Clandon Park.</span>
+        <div class="rel-note">Has not seen his second son in some considerable time, and is not actively looking.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================= -->
+  <!-- VIII. ASSESSMENT                                        -->
+  <!-- ======================================================= -->
+  <section id="assessment">
+    <h2 class="section-title"><span class="roman">VIII.</span> Assessment &amp; Disposition</h2>
+
+    <p>Mr. Burgess began this chronicle a foppish dandy with a habit, a Trouble he did not yet understand, and a curiosity that exceeded his sense. He ends it &mdash; nominally &mdash; in retirement at Atlantis with a French archaeologist, a coin from a god, a daemon&rsquo;s pending invoice, and the standing acknowledgment of three powers that ought, by every reasonable metric, to have eaten him.</p>
+
+    <p>The Trouble has paid out, in full. Several times.</p>
+
+    <p>The Club&rsquo;s archivists note the following, by way of summary:</p>
+
+    <div class="aside gilt">
+      <span class="aside-label">Standing &mdash; at the close of the chronicle</span>
+      <p><strong>Of the Kerberos Club:</strong> Member in good standing, by Madame LaFonte&rsquo;s sponsorship. Has been declared Guilty by a Trial of Peers and immediately pleaded the Privilege. Has not, otherwise, brought public disgrace upon the Club; what disgrace he has brought has been upon himself, his brother&rsquo;s patience, and the diplomatic relations of the Russian Empire.</p>
+      <p><strong>Of the law:</strong> Wanted in Nice for the unauthorised removal of priceless artefacts (the Lascaris moonraker), for the engineered scandal of a foreign Grand Duchess, and for the burning down of a private asylum. Has not returned to Nice.</p>
+      <p><strong>Of his own father:</strong> Cut off, then quietly reinstated, then cut off, then reinstated again. The remittance continues, on the understanding that he remains abroad.</p>
+      <p><strong>Of his magic:</strong> Considerably better than when he began, and worse than what is asked of it. Anayehu thought him farther along than he thinks he is. She may be right; she may simply have been kind.</p>
+    </div>
+
+    <div class="aside dark">
+      <span class="aside-label">Liability &mdash; for the file</span>
+      <p>The Balaam bargain is open and bears interest. Should Mr. Burgess be called upon for further service to the Club, the Club is advised that the engagement of one Profane Sorcerer entails, by extension, the engagement of the daemon attached to him. The daemon finds the soap opera entertaining. So far this has worked in the Club&rsquo;s favour. It will not necessarily continue to.</p>
+    </div>
+
+    <p style="margin-top:1.6rem; font-style:italic; color:var(--ink-soft); text-align:center;">
+      Filed by the Recording Secretary, K. C. &middot; London &middot; copies one and two
+    </p>
+  </section>
+
+  <div class="colophon">
+    Kerberos Club &middot; London &middot; The Strange Made Civil
+  </div>
+
+</article>
+</body>
+</html>
