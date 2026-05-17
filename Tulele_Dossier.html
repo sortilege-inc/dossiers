@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Tulele Einarsvard, Proprietor of Knuckleheads</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=IM+Fell+DW+Pica:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Tavern & Parchment palette — Waterdeep, Sword Coast */
+    --paper: #efe3c7;
+    --paper-deep: #e1d2ad;
+    --paper-shadow: #c8b487;
+    --vellum-stain: rgba(102, 64, 30, 0.08);
+    --ink: #2a1d0e;
+    --ink-soft: #4a371f;
+    --ink-faint: #7a6543;
+
+    --teal: #1f5b66;            /* his shirt — also Knuckleheads accent */
+    --teal-deep: #103339;
+    --teal-pale: #5a8a91;
+
+    --brass: #b5893c;
+    --brass-deep: #8a6420;
+    --brass-pale: #d8b367;
+
+    --ember: #8a2818;            /* axe edges, blood, anger */
+    --ember-deep: #5a1810;
+
+    --cedar: #3a2613;            /* wood paneling */
+    --cedar-deep: #20140a;
+
+    --rule: #a08654;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(58, 38, 19, 0.45) 0%, transparent 60%),
+      radial-gradient(ellipse at 0% 100%, rgba(20, 20, 10, 0.6) 0%, transparent 50%),
+      linear-gradient(180deg, #1a1108 0%, #0e0905 100%);
+    min-height: 100vh;
+    padding: 2.5rem 1rem 4rem;
+    color: var(--ink);
+    font-family: "IM Fell English", "IM Fell DW Pica", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.62;
+  }
+
+  /* --- The document itself --- */
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background-color: var(--paper);
+    background-image:
+      radial-gradient(circle at 12% 18%, var(--vellum-stain) 0%, transparent 14%),
+      radial-gradient(circle at 88% 9%, var(--vellum-stain) 0%, transparent 12%),
+      radial-gradient(circle at 70% 92%, rgba(80, 50, 20, 0.10) 0%, transparent 18%),
+      radial-gradient(circle at 20% 78%, rgba(80, 50, 20, 0.06) 0%, transparent 16%),
+      repeating-linear-gradient(0deg, transparent 0 4px, rgba(70,45,18,0.012) 4px 5px);
+    border: 1px solid var(--rule);
+    box-shadow:
+      0 0 0 1px rgba(160,134,84,0.4),
+      0 2px 0 rgba(0,0,0,0.2),
+      0 30px 80px rgba(0,0,0,0.6);
+    position: relative;
+    padding: 3.5rem 4rem 5rem;
+  }
+  .document::before {
+    content: "";
+    position: absolute; inset: 10px;
+    border: 1px solid rgba(138, 100, 32, 0.35);
+    pointer-events: none;
+  }
+  .document::after {
+    content: "";
+    position: absolute; inset: 16px;
+    border-top: 2px solid rgba(138, 100, 32, 0.55);
+    border-bottom: 2px solid rgba(138, 100, 32, 0.55);
+    pointer-events: none;
+  }
+
+  /* --- Header / Title --- */
+  .title-block {
+    text-align: center;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  .crest {
+    width: 92px; height: 92px;
+    margin: 0 auto 1rem;
+    display: block;
+  }
+  .eyebrow {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--ember-deep);
+    margin-bottom: 0.4rem;
+  }
+  .eyebrow .dot { color: var(--brass-deep); }
+  h1.character-name {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 3.6rem;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    margin: 0;
+    color: var(--cedar-deep);
+    text-shadow: 0 1px 0 rgba(255,240,210,0.6);
+  }
+  .surname {
+    font-family: "Cinzel", serif;
+    font-weight: 500;
+    font-size: 1.4rem;
+    letter-spacing: 0.34em;
+    color: var(--teal-deep);
+    margin-top: 0.6rem;
+  }
+  .epithet-quote {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    color: var(--ink-soft);
+    margin-top: 1.2rem;
+    position: relative;
+    display: inline-block;
+    padding: 0 1.6rem;
+  }
+  .epithet-quote::before, .epithet-quote::after {
+    content: "❦";
+    color: var(--brass-deep);
+    position: absolute; top: 0;
+    font-size: 0.9rem;
+  }
+  .epithet-quote::before { left: 0; }
+  .epithet-quote::after { right: 0; }
+
+  .vitals {
+    display: flex;
+    justify-content: center;
+    gap: 1.6rem;
+    margin-top: 1.6rem;
+    flex-wrap: wrap;
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .vitals span { white-space: nowrap; }
+  .vitals span + span::before {
+    content: "✦";
+    color: var(--brass-deep);
+    margin-right: 1.4rem;
+    margin-left: -0.4rem;
+  }
+
+  /* --- Hero image --- */
+  .hero-figure {
+    margin: 0 -2rem 2.5rem;
+    border: 1px solid var(--brass-deep);
+    box-shadow:
+      inset 0 0 0 8px var(--paper),
+      inset 0 0 0 9px var(--brass-deep),
+      0 8px 20px rgba(0,0,0,0.2);
+    padding: 10px;
+    background: var(--cedar-deep);
+    position: relative;
+  }
+  .hero-figure img { display: block; width: 100%; height: auto; }
+  .hero-figure figcaption {
+    text-align: center;
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--paper);
+    padding: 0.7rem 0.4rem 0.2rem;
+    letter-spacing: 0.03em;
+  }
+
+  .portrait-card {
+    margin: 0;
+  }
+  .portrait-frame {
+    border: 1px solid var(--brass-deep);
+    box-shadow:
+      inset 0 0 0 6px var(--paper),
+      inset 0 0 0 7px var(--brass-deep),
+      0 6px 18px rgba(0,0,0,0.22);
+    padding: 8px;
+    background: var(--cedar-deep);
+    position: relative;
+  }
+  .portrait-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: center top;
+  }
+  .portrait-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 2rem 0 2.5rem;
+  }
+  .portrait-card figcaption {
+    text-align: center;
+    margin-top: 0.7rem;
+  }
+  .portrait-card .portrait-caption {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--cedar-deep);
+  }
+  .portrait-card .portrait-sub {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    color: var(--ink-faint);
+    font-size: 0.88rem;
+    margin-top: 0.15rem;
+  }
+
+  /* --- Section structure --- */
+  section { margin: 3rem 0; position: relative; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 1.4rem;
+  }
+  .section-numeral {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--brass-deep);
+    letter-spacing: 0.18em;
+    background: var(--paper-deep);
+    border: 1px solid var(--brass-deep);
+    padding: 0.4rem 0.7rem 0.3rem;
+    min-width: 3rem;
+    text-align: center;
+  }
+  h2.section-title {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 0.12em;
+    color: var(--teal-deep);
+    margin: 0;
+    text-transform: uppercase;
+    flex: 1;
+    border-bottom: 1px solid var(--brass-deep);
+    padding-bottom: 0.4rem;
+  }
+  h3.subhead {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ember-deep);
+    margin: 2rem 0 0.8rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px dotted var(--brass-deep);
+  }
+  h4.minorhead {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    margin: 1.4rem 0 0.4rem;
+  }
+
+  p { margin: 0 0 1rem; }
+  p.lead {
+    font-size: 1.06rem;
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+  em.heat { color: var(--ember-deep); font-style: italic; }
+  strong.teal { color: var(--teal-deep); }
+
+  /* drop cap for first section */
+  .with-dropcap p:first-of-type::first-letter {
+    font-family: "Cinzel", serif;
+    font-size: 4.2rem;
+    line-height: 0.85;
+    float: left;
+    padding: 0.4rem 0.7rem 0 0;
+    color: var(--ember-deep);
+    font-weight: 700;
+  }
+
+  /* --- Stat block grid --- */
+  .vital-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.7rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .vital-cell {
+    background: var(--paper-deep);
+    border: 1px solid var(--brass-deep);
+    padding: 0.6rem 0.4rem;
+    text-align: center;
+  }
+  .vital-cell .label {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .vital-cell .value {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--cedar-deep);
+    margin-top: 0.1rem;
+  }
+  .vital-cell .sub {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.7rem;
+    margin: 1rem 0;
+  }
+  .stat-cell {
+    background:
+      linear-gradient(180deg, var(--paper) 0%, var(--paper-deep) 100%);
+    border: 1px solid var(--brass-deep);
+    text-align: center;
+    padding: 0.7rem 0.3rem 0.6rem;
+    position: relative;
+  }
+  .stat-cell .name {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+  }
+  .stat-cell .mod {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 1.9rem;
+    color: var(--cedar-deep);
+    line-height: 1;
+    margin: 0.4rem 0 0.2rem;
+  }
+  .stat-cell .raw {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+  }
+  .stat-cell.prof::after {
+    content: "✦";
+    position: absolute;
+    top: 4px; right: 6px;
+    color: var(--ember-deep);
+    font-size: 0.7rem;
+  }
+
+  table.skills-table, table.saves-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.6rem 0 1.2rem;
+    font-size: 0.95rem;
+  }
+  .skills-table th, .saves-table th {
+    text-align: left;
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.3rem 0.6rem;
+  }
+  .skills-table th:nth-child(2), .skills-table th:nth-child(3),
+  .saves-table th:nth-child(2), .saves-table th:nth-child(3) {
+    text-align: center;
+  }
+  .skills-table td, .saves-table td {
+    padding: 0.32rem 0.6rem;
+    border-bottom: 1px dotted rgba(160, 134, 84, 0.35);
+    font-family: "IM Fell English", serif;
+  }
+  .skills-table td:nth-child(2), .skills-table td:nth-child(3),
+  .saves-table td:nth-child(2), .saves-table td:nth-child(3) {
+    text-align: center;
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+  }
+  .skills-table tr.prof td:first-child::before {
+    content: "✦ ";
+    color: var(--ember-deep);
+  }
+  .skills-table tr.prof td:first-child { color: var(--cedar-deep); }
+  .skill-stat {
+    color: var(--ink-faint);
+    font-size: 0.78rem;
+    font-family: "IM Fell English SC", serif;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.6rem;
+    margin: 1rem 0;
+  }
+
+  /* Trait blocks */
+  .trait-block {
+    background: var(--paper-deep);
+    border-left: 3px solid var(--ember-deep);
+    padding: 0.8rem 1rem 0.8rem 1.1rem;
+    margin: 0.8rem 0;
+  }
+  .trait-block .trait-name {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    margin-bottom: 0.2rem;
+  }
+  .trait-block .trait-source {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    margin-bottom: 0.4rem;
+  }
+  .trait-block p {
+    margin: 0.3rem 0;
+    font-size: 0.94rem;
+    line-height: 1.55;
+  }
+
+  /* Spells */
+  .spell-block {
+    border-top: 1px solid var(--brass-deep);
+    padding-top: 0.6rem;
+    margin: 0.4rem 0 1rem;
+  }
+  .spell-name {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    color: var(--ember-deep);
+  }
+  .spell-school {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-left: 0.5rem;
+  }
+  .spell-meta {
+    font-family: "IM Fell English", serif;
+    font-size: 0.84rem;
+    color: var(--ink-soft);
+    margin: 0.2rem 0 0.4rem;
+  }
+  .spell-meta span + span::before { content: " · "; color: var(--brass-deep); }
+
+  .spell-slots {
+    display: flex; gap: 0.5rem; align-items: center;
+    margin: 0.6rem 0 1.2rem;
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .slot-pip {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border: 1px solid var(--ember-deep);
+    background: radial-gradient(circle at 30% 30%, var(--ember), var(--ember-deep) 70%);
+    transform: rotate(45deg);
+    margin: 0 2px;
+  }
+
+  /* Equipment */
+  .item-block {
+    background: var(--paper);
+    border: 1px solid var(--brass-deep);
+    padding: 0.9rem 1.1rem;
+    margin: 0.8rem 0;
+    position: relative;
+  }
+  .item-block .item-name {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+    color: var(--cedar-deep);
+  }
+  .item-block .item-name .tag {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ember-deep);
+    margin-left: 0.6rem;
+    text-transform: uppercase;
+  }
+  .item-block .item-rarity {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.82rem;
+    color: var(--brass-deep);
+    margin-bottom: 0.4rem;
+  }
+  .item-block p { margin: 0.3rem 0; font-size: 0.94rem; }
+  .item-block.cursed {
+    border: 1px solid var(--ember-deep);
+    background:
+      linear-gradient(180deg, rgba(138,40,24,0.04), rgba(138,40,24,0.10));
+  }
+  .item-block.cursed .item-name { color: var(--ember-deep); }
+  .item-block.cursed::before {
+    content: "✦ CURSED ✦";
+    position: absolute; top: -10px; right: 16px;
+    background: var(--paper);
+    color: var(--ember-deep);
+    padding: 0 0.6rem;
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+  }
+  .item-block.boon {
+    border-left: 4px solid var(--brass-deep);
+  }
+
+  ul.inv-list {
+    columns: 2;
+    column-gap: 2rem;
+    list-style: none;
+    padding: 0; margin: 0.6rem 0;
+  }
+  ul.inv-list li {
+    padding: 0.25rem 0 0.25rem 1.2rem;
+    position: relative;
+    font-size: 0.95rem;
+    break-inside: avoid;
+  }
+  ul.inv-list li::before {
+    content: "❧";
+    color: var(--brass-deep);
+    position: absolute; left: 0; top: 0;
+  }
+
+  /* Chronicle / timeline */
+  .chronicle { position: relative; padding-left: 2rem; }
+  .chronicle::before {
+    content: "";
+    position: absolute;
+    left: 0.7rem; top: 0; bottom: 0;
+    width: 1px;
+    background: repeating-linear-gradient(180deg, var(--brass-deep) 0 4px, transparent 4px 9px);
+  }
+  .entry { margin-bottom: 1.6rem; position: relative; }
+  .entry::before {
+    content: "✦";
+    position: absolute; left: -1.7rem; top: 0.05rem;
+    color: var(--ember-deep);
+    font-size: 0.95rem;
+  }
+  .entry .when {
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brass-deep);
+    margin-bottom: 0.2rem;
+  }
+  .entry .what {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 1.08rem;
+    color: var(--cedar-deep);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.2rem;
+  }
+  .entry p { font-size: 0.96rem; margin: 0.3rem 0; }
+
+  /* Dub / verse block */
+  .verse {
+    background:
+      linear-gradient(180deg, var(--paper) 0%, var(--paper-deep) 100%);
+    border: 1px solid var(--brass-deep);
+    border-left: 4px solid var(--ember-deep);
+    padding: 1.2rem 1.6rem;
+    margin: 1rem 0 1.4rem;
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    line-height: 1.55;
+    position: relative;
+  }
+  .verse .verse-title {
+    font-family: "Cinzel", serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 0.92rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ember-deep);
+    margin-bottom: 0.6rem;
+  }
+  .verse p { margin: 0.45rem 0; font-size: 0.97rem; }
+  .verse p:last-child { margin-bottom: 0; }
+  .verse-attribution {
+    text-align: right;
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 0.7rem;
+    font-style: normal;
+  }
+
+  /* Relationship cards */
+  .rel-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  .rel-card {
+    background: var(--paper-deep);
+    border: 1px solid var(--rule);
+    padding: 0.8rem 1rem;
+  }
+  .rel-card .who {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 0.98rem;
+    letter-spacing: 0.08em;
+    color: var(--teal-deep);
+  }
+  .rel-card .role {
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 0.82rem;
+    color: var(--ember-deep);
+    margin-bottom: 0.3rem;
+  }
+  .rel-card p { font-size: 0.92rem; margin: 0.2rem 0; }
+
+  /* Pull-quote */
+  .pull-quote {
+    text-align: center;
+    font-family: "IM Fell English", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    color: var(--teal-deep);
+    margin: 2rem 0;
+    padding: 0 3rem;
+    position: relative;
+  }
+  .pull-quote::before, .pull-quote::after {
+    content: "❦";
+    position: absolute;
+    color: var(--brass-deep);
+    font-size: 1.2rem;
+  }
+  .pull-quote::before { left: 1rem; top: 0; }
+  .pull-quote::after { right: 1rem; bottom: 0; }
+
+  /* footer */
+  .signoff {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--brass-deep);
+    font-family: "IM Fell English SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  /* responsive */
+  @media (max-width: 720px) {
+    body { padding: 1rem 0.5rem 2rem; }
+    .document { padding: 2rem 1.3rem 3rem; }
+    h1.character-name { font-size: 2.4rem; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .vital-row { grid-template-columns: repeat(2, 1fr); }
+    .two-col, .rel-grid, .portrait-pair { grid-template-columns: 1fr; }
+    .hero-figure { margin-left: 0; margin-right: 0; }
+    ul.inv-list { columns: 1; }
+    .pull-quote { padding: 0 1.6rem; font-size: 1rem; }
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .document { box-shadow: none; padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+
+  <!-- ========== TITLE BLOCK ========== -->
+  <div class="title-block">
+    <!-- Knuckleheads crest: shield with crossed axes -->
+    <svg class="crest" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="shieldGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#20140a"/>
+          <stop offset="100%" stop-color="#0a0604"/>
+        </linearGradient>
+      </defs>
+      <path d="M50 4 L92 12 L92 50 Q92 82 50 96 Q8 82 8 50 L8 12 Z" fill="url(#shieldGrad)" stroke="#b5893c" stroke-width="2"/>
+      <!-- crossed axes -->
+      <g transform="translate(50 52)">
+        <!-- left axe -->
+        <g transform="rotate(-30)">
+          <rect x="-1.4" y="-30" width="2.8" height="60" fill="#b5893c"/>
+          <path d="M -2 -22 Q -16 -18 -14 -8 Q -2 -10 -2 -22 Z" fill="#d8b367" stroke="#8a6420" stroke-width="0.7"/>
+          <path d="M 2 -22 Q 16 -18 14 -8 Q 2 -10 2 -22 Z" fill="#d8b367" stroke="#8a6420" stroke-width="0.7"/>
+        </g>
+        <!-- right axe -->
+        <g transform="rotate(30)">
+          <rect x="-1.4" y="-30" width="2.8" height="60" fill="#b5893c"/>
+          <path d="M -2 -22 Q -16 -18 -14 -8 Q -2 -10 -2 -22 Z" fill="#d8b367" stroke="#8a6420" stroke-width="0.7"/>
+          <path d="M 2 -22 Q 16 -18 14 -8 Q 2 -10 2 -22 Z" fill="#d8b367" stroke="#8a6420" stroke-width="0.7"/>
+        </g>
+        <circle r="3.2" fill="#8a2818" stroke="#b5893c" stroke-width="0.8"/>
+      </g>
+    </svg>
+
+    <div class="eyebrow">Dossier <span class="dot">✦</span> Waterdeep <span class="dot">✦</span> Dragon Heist</div>
+    <h1 class="character-name">TULELE</h1>
+    <div class="surname">EINARSVARD</div>
+    <div class="epithet-quote">"Insulter-for-Hire. Come drink at Knuckleheads."</div>
+
+    <div class="vitals">
+      <span>Human, Male</span>
+      <span>Barbarian 3 / Bard 4</span>
+      <span>Chaotic Good</span>
+      <span>Far Traveler</span>
+      <span>5′10″ · 220 lb</span>
+    </div>
+  </div>
+
+  <!-- ========== HERO IMAGE ========== -->
+  <figure class="hero-figure">
+    <img src="Knuckleheads.png" alt="Tulele and Katarina at the bar of Knuckleheads, with Hu the wereshark bartending beneath the establishment's axe sigil.">
+    <figcaption>Knuckleheads, afternoon hours. Tulele, Katarina, and Hu behind the bar.</figcaption>
+  </figure>
+
+  <!-- Standalone portrait placeholders -->
+  <div class="portrait-pair">
+    <figure class="portrait-card">
+      <div class="portrait-frame">
+        <img class="portrait-img" src="Tulele_Portrait.png" alt="Painterly oil portrait of Tulele: dark curling hair, traditional shoulder and chest tattoos, teal shawl, gold earring and pendant, three-quarter view turned aside.">
+      </div>
+      <figcaption>
+        <div class="portrait-caption">Tulele</div>
+        <div class="portrait-sub">Barbarian-Bard, proprietor</div>
+      </figcaption>
+    </figure>
+    <figure class="portrait-card">
+      <div class="portrait-frame">
+        <img class="portrait-img" src="Katarina_Portrait.png" alt="Painterly oil portrait of Katarina: long chestnut hair, pale skin, fine features, dark high-necked tunic, three-quarter view against a teal-grey atmospheric ground.">
+      </div>
+      <figcaption>
+        <div class="portrait-caption">Katarina</div>
+        <div class="portrait-sub">Scribe of the Watchful Order</div>
+      </figcaption>
+    </figure>
+  </div>
+
+  <!-- ========== I. IDENTITY ========== -->
+  <section id="identity" class="with-dropcap">
+    <div class="section-header">
+      <div class="section-numeral">I</div>
+      <h2 class="section-title">Identity &amp; Standing</h2>
+    </div>
+
+    <p class="lead">A Calishite-born castaway among Illuskans, washed ashore in Waterdeep with a stolen culture, an axe, and a tongue sharp enough to cost noblemen their reputations. He insults for pay, owns a tavern by accident, and is working — slowly, with significant detours — toward becoming a skald.</p>
+
+    <p>Tulele was a child-slave in Calimshan. When Illuskan raiders fell upon the household, he negotiated himself aboard their ship and threw himself wholesale into the culture of his captors: their gods, their oral traditions, their violent ways. He sailed and raided with them until a falling-out with the captain on a last voyage left him in the surf. He walked into Waterdeep, leaned into his foreignness, and discovered the city would pay him to be exactly what he was: loud, marked, and unforgiving with a verse.</p>
+
+    <p>He <em class="heat">specializes in dub</em> — the public takedown-in-rhyme, delivered for hire or to settle a score. His Calishite slave-tattoos sit alongside the ritual scarification and skalding-marks he has added since; a contradiction he has stopped trying to resolve. His patois is thick. Most Waterdhavians have to lean in to follow him. They lean in.</p>
+
+    <h3 class="subhead">Standing in the City</h3>
+    <div class="two-col">
+      <div>
+        <h4 class="minorhead">Proprietor</h4>
+        <p>Owner of <strong class="teal">Knuckleheads</strong>, a tavern in Trollskull Alley acquired at auction after he killed its previous owner in self-defence. The sign reads <em>Welcome to Knuckleheads</em>. The sigil is a black shield with a single axe.</p>
+        <h4 class="minorhead">Resident</h4>
+        <p>Holds a roughly 15% stake in <strong class="teal">Trollskull Manor</strong>, the boarding house next door, run by Mr. &amp; Mrs. Peabody.</p>
+      </div>
+      <div>
+        <h4 class="minorhead">Affiliations</h4>
+        <p>Sworn agent of the <strong class="teal">Force Grey</strong> (Grey Hand) under <strong class="teal">Vajra Safahr</strong>, the Blackstaff. Informal protector of the doppelganger refugees of Bonnie's network.</p>
+        <h4 class="minorhead">Income (mid-campaign)</h4>
+        <p>Knuckleheads grosses ~160 dragons/mo. After Hu (30), the Peabodies (40), and Amifre (20), Tulele clears ~70/mo. Trollskull share adds ~10–15/mo. Gambling operation included.</p>
+      </div>
+    </div>
+
+    <div class="pull-quote">He was here because of exile, and stayed because the rent was paid in stories.</div>
+  </section>
+
+  <!-- ========== II. CHARACTER SHEET ========== -->
+  <section id="sheet">
+    <div class="section-header">
+      <div class="section-numeral">II</div>
+      <h2 class="section-title">The Character Sheet</h2>
+    </div>
+
+    <p style="font-style:italic; color: var(--ink-soft); font-size: 0.95rem;">Snapshot: <strong>Barbarian 3 / Bard 4</strong>, mid-campaign. Later acquisitions (Barrier Tattoo, council gifts, additional rings) are noted below in Equipment and the Chronicle but do not alter these baseline numbers.</p>
+
+    <h3 class="subhead">Vitals</h3>
+    <div class="vital-row">
+      <div class="vital-cell"><div class="label">Hit Points</div><div class="value">62 / 62</div><div class="sub">3d12 + 4d8</div></div>
+      <div class="vital-cell"><div class="label">Armor Class</div><div class="value">16</div><div class="sub">Unarmored Def. + shield</div></div>
+      <div class="vital-cell"><div class="label">Initiative</div><div class="value">+0</div><div class="sub">Dex</div></div>
+      <div class="vital-cell"><div class="label">Speed</div><div class="value">30 ft</div><div class="sub">—</div></div>
+      <div class="vital-cell"><div class="label">Proficiency</div><div class="value">+3</div><div class="sub">Bonus</div></div>
+      <div class="vital-cell"><div class="label">Spell Save</div><div class="value">DC 15</div><div class="sub">8 + Prof + Cha</div></div>
+      <div class="vital-cell"><div class="label">Spell Atk</div><div class="value">+7</div><div class="sub">Prof + Cha</div></div>
+      <div class="vital-cell"><div class="label">Cast Stat</div><div class="value">Cha</div><div class="sub">+4 (Jack)</div></div>
+    </div>
+
+    <h3 class="subhead">Abilities</h3>
+    <div class="stat-grid">
+      <div class="stat-cell prof"><div class="name">Strength</div><div class="mod">+3</div><div class="raw">16</div></div>
+      <div class="stat-cell"><div class="name">Dexterity</div><div class="mod">+0</div><div class="raw">10</div></div>
+      <div class="stat-cell prof"><div class="name">Constitution</div><div class="mod">+3</div><div class="raw">16</div></div>
+      <div class="stat-cell"><div class="name">Intelligence</div><div class="mod">+2</div><div class="raw">14</div></div>
+      <div class="stat-cell"><div class="name">Wisdom</div><div class="mod">+0</div><div class="raw">10</div></div>
+      <div class="stat-cell"><div class="name">Charisma</div><div class="mod">+3</div><div class="raw">17</div></div>
+    </div>
+    <p style="font-size: 0.85rem; color: var(--ink-faint); font-style: italic;">✦ marks proficient saving throw (Strength, Constitution).</p>
+
+    <h3 class="subhead">Skills</h3>
+    <p style="font-size: 0.88rem; color: var(--ink-faint); font-style: italic; margin-bottom: 0.6rem;">Per player's reconciled proficiency list: Athletics &amp; Intimidation (Barbarian) · Insight &amp; Perception (Far Traveler) · Persuasion (Bard). All other non-proficient skills receive <strong>+1 from Jack of All Trades</strong> (half proficiency).</p>
+    <table class="skills-table">
+      <thead>
+        <tr><th>Skill</th><th>Mod.</th><th>Note</th><th class="skill-stat" style="text-align:right">Stat</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Acrobatics</td><td>+1</td><td>JoAT</td><td class="skill-stat" style="text-align:right">Dex</td></tr>
+        <tr><td>Animal Handling</td><td>+1</td><td>JoAT</td><td class="skill-stat" style="text-align:right">Wis</td></tr>
+        <tr><td>Arcana</td><td>+3</td><td>JoAT</td><td class="skill-stat" style="text-align:right">Int</td></tr>
+        <tr class="prof"><td>Athletics</td><td>+6</td><td>Barbarian</td><td class="skill-stat" style="text-align:right">Str</td></tr>
+        <tr><td>Deception</td><td>+4</td><td>JoAT</td><td class="skill-stat" style="text-align:right">Cha</td></tr>
+        <tr><td>History</td><td>+3</td><td>JoAT</td><td class="skill-stat" style="text-align:right">Int</td></tr>
+        <tr class="prof"><td>Insight</td><td>+3</td><td>Far Traveler</td><td class="skill-stat" style="text-align:right">Wis</td></tr>
+        <tr class="prof"><td>Intimidation</td><td>+6</td><td>Barbarian</td><td class="skill-stat" style="text-align:right">Cha</td></tr>
+        <tr><td>Investigation</td><td>+3</td><td>JoAT</td><td class="skill-stat" style="text-align:right">Int</td></tr>
+        <tr><td>Medicine</td><td>+1</td><td>JoAT</td><td class="skill-stat" style="text-align:right">Wis</td></tr>
+        <tr><td>Nature</td><td>+3</td><td>JoAT</td><td class="skill-stat" style="text-align:right">Int</td></tr>
+        <tr class="prof"><td>Perception</td><td>+3</td><td>Far Traveler</td><td class="skill-stat" style="text-align:right">Wis</td></tr>
+        <tr><td>Performance</td><td>+4</td><td>JoAT</td><td class="skill-stat" style="text-align:right">Cha</td></tr>
+        <tr class="prof"><td>Persuasion</td><td>+6</td><td>Bard</td><td class="skill-stat" style="text-align:right">Cha</td></tr>
+        <tr><td>Religion</td><td>+3</td><td>JoAT</td><td class="skill-stat" style="text-align:right">Int</td></tr>
+        <tr><td>Sleight of Hand</td><td>+1</td><td>JoAT</td><td class="skill-stat" style="text-align:right">Dex</td></tr>
+        <tr><td>Stealth</td><td>+1</td><td>JoAT</td><td class="skill-stat" style="text-align:right">Dex</td></tr>
+        <tr><td>Survival</td><td>+1</td><td>JoAT</td><td class="skill-stat" style="text-align:right">Wis</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="subhead">Proficiencies &amp; Languages</h3>
+    <div class="two-col">
+      <div>
+        <h4 class="minorhead">Armor &amp; Weapons</h4>
+        <p>Light, medium, shields. Simple &amp; martial weapons, hand crossbows.</p>
+        <h4 class="minorhead">Saving Throws</h4>
+        <p>Strength, Constitution.</p>
+      </div>
+      <div>
+        <h4 class="minorhead">Languages</h4>
+        <p>Common, Illuskan, Dwarvish, Elvish, Giant. <em>Can swear in Draconic.</em></p>
+        <h4 class="minorhead">Tools &amp; Games</h4>
+        <p>Pan flute. <em>Three Dragon Ante</em> (and reputedly the man to see for a high-stakes private game — 1,000-dragon buy-in, location undisclosed).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== III. TRAITS & FEATURES ========== -->
+  <section id="features">
+    <div class="section-header">
+      <div class="section-numeral">III</div>
+      <h2 class="section-title">Features, Traits &amp; Feats</h2>
+    </div>
+
+    <h3 class="subhead">Barbarian — Path of the Ancestral Guardian</h3>
+
+    <div class="trait-block">
+      <div class="trait-name">Rage (3 / long rest)</div>
+      <div class="trait-source">Barbarian 1 — bonus action</div>
+      <p>While raging and unarmored: advantage on Strength checks &amp; saves, +2 rage damage on Str melee attacks, resistance to bludgeoning/piercing/slashing. No spells while raging. 1 minute, ends if no attack/damage in a turn.</p>
+    </div>
+
+    <div class="trait-block">
+      <div class="trait-name">Unarmored Defense</div>
+      <div class="trait-source">Barbarian 1</div>
+      <p>AC = 10 + Dex + Con (= 13) when not wearing armor. Shield permitted (+1 magical shield brings AC to 16).</p>
+    </div>
+
+    <div class="trait-block">
+      <div class="trait-name">Reckless Attack</div>
+      <div class="trait-source">Barbarian 2</div>
+      <p>Advantage on Str-based melee attack rolls this turn; attacks against him have advantage until his next turn.</p>
+    </div>
+
+    <div class="trait-block">
+      <div class="trait-name">Danger Sense</div>
+      <div class="trait-source">Barbarian 2</div>
+      <p>Advantage on Dex saves vs. seen effects (traps, spells) unless blinded, deafened, or incapacitated.</p>
+    </div>
+
+    <div class="trait-block">
+      <div class="trait-name">Ancestral Protectors</div>
+      <div class="trait-source">Path of the Ancestral Guardian, Barbarian 3</div>
+      <p>While raging, spectral warriors haunt the first creature he hits each turn. That target has disadvantage on attacks not aimed at Tulele, and creatures it does hit gain resistance to its damage until the start of his next turn.</p>
+    </div>
+
+    <h3 class="subhead">Bard — College of Lore (heading toward Heralds)</h3>
+
+    <div class="trait-block">
+      <div class="trait-name">Bardic Inspiration (d6 · 3/rest)</div>
+      <div class="trait-source">Bard 1 — bonus action</div>
+      <p>Grant a d6 inspiration die to one creature within 60 ft. who can hear him; usable on one ability check, attack, or save within 10 minutes. Recharges on long rest. Die grows to d8 at Bard 5.</p>
+    </div>
+
+    <div class="trait-block">
+      <div class="trait-name">Jack of All Trades</div>
+      <div class="trait-source">Bard 2</div>
+      <p>Adds +1 (half proficiency) to any ability check that does not already include proficiency. Applied throughout the skill table above.</p>
+    </div>
+
+    <div class="trait-block">
+      <div class="trait-name">Song of Rest (d6)</div>
+      <div class="trait-source">Bard 2</div>
+      <p>During a short rest, allies who hear his performance and spend Hit Dice regain an extra 1d6 each.</p>
+    </div>
+
+    <div class="trait-block">
+      <div class="trait-name">Cutting Words</div>
+      <div class="trait-source">College of Lore, Bard 3 — reaction</div>
+      <p>When a creature within 60 ft. makes an attack, ability check, or damage roll, expend one use of Bardic Inspiration to subtract the rolled die from theirs. Charmed-immune or unable-to-hear targets are immune. Tulele's preferred way of ruining someone's day in mixed company.</p>
+    </div>
+
+    <h3 class="subhead">Background &amp; Feats</h3>
+
+    <div class="trait-block">
+      <div class="trait-name">All Eyes On You</div>
+      <div class="trait-source">Background — Far Traveler</div>
+      <p>His accent, tattoos, and manner mark him as foreign. Curious glances follow him; scholars, nobles, and merchant princes will grant audiences he might not otherwise have, eager to hear of his "distant homeland." He milks this shamelessly.</p>
+    </div>
+
+    <div class="trait-block">
+      <div class="trait-name">Inspiring Leader</div>
+      <div class="trait-source">Feat — earned with a magic gem</div>
+      <p>Ten minutes of inspiring speech: up to six creatures within 30 ft. (including himself) gain temp HP equal to <strong>level + Cha modifier</strong>. At Lv 7 / Cha +3 = <strong>10 temp HP</strong>; later levels scale. Usable per creature once per short or long rest. Tulele has put this to work before every serious fight.</p>
+    </div>
+  </section>
+
+  <!-- ========== IV. SPELLS ========== -->
+  <section id="spells">
+    <div class="section-header">
+      <div class="section-numeral">IV</div>
+      <h2 class="section-title">Spells &amp; Verses</h2>
+    </div>
+
+    <p style="font-style: italic; color: var(--ink-soft);">Spells Known: 7. Cantrips at will. Cha is his spellcasting ability; DC 15, +7 to attack.</p>
+    <div class="spell-slots">
+      <span>1st-level slots:</span>
+      <span class="slot-pip"></span><span class="slot-pip"></span><span class="slot-pip"></span><span class="slot-pip"></span>
+      <span style="margin-left: 1.4rem;">2nd-level slots:</span>
+      <span class="slot-pip"></span><span class="slot-pip"></span><span class="slot-pip"></span>
+    </div>
+
+    <h3 class="subhead">Cantrips</h3>
+
+    <div class="spell-block">
+      <div><span class="spell-name">Vicious Mockery</span><span class="spell-school">Enchantment</span></div>
+      <div class="spell-meta"><span>Action</span><span>60 ft.</span><span>V</span><span>Instant</span><span>Wis save</span></div>
+      <p>Insults laced with subtle enchantment. On failed save: 1d4 psychic; disadvantage on its next attack. <em>His professional instrument.</em></p>
+    </div>
+
+    <div class="spell-block">
+      <div><span class="spell-name">True Strike</span><span class="spell-school">Divination</span></div>
+      <div class="spell-meta"><span>Action</span><span>30 ft.</span><span>S</span><span>Conc. 1 rd.</span></div>
+      <p>Advantage on his next attack against the target — useful before the Dwarven Bane swing.</p>
+    </div>
+
+    <h3 class="subhead">1st-Level Spells</h3>
+
+    <div class="spell-block">
+      <div><span class="spell-name">Cause Fear</span><span class="spell-school">Necromancy</span></div>
+      <div class="spell-meta"><span>Action</span><span>60 ft.</span><span>V</span><span>Conc., up to 1 min.</span><span>Wis save</span></div>
+      <p>Awakens the sense of mortality. Frightened until the spell ends; save again at end of each turn. Constructs &amp; undead immune.</p>
+    </div>
+
+    <div class="spell-block">
+      <div><span class="spell-name">Command</span><span class="spell-school">Enchantment</span></div>
+      <div class="spell-meta"><span>Action</span><span>60 ft.</span><span>V</span><span>1 rd.</span><span>Wis save</span></div>
+      <p>One-word command: Approach, Drop, Flee, Grovel, Halt. Affects undead and language-comprehending targets only.</p>
+    </div>
+
+    <div class="spell-block">
+      <div><span class="spell-name">Charm Person</span><span class="spell-school">Enchantment</span></div>
+      <div class="spell-meta"><span>Action</span><span>30 ft.</span><span>V, S</span><span>1 hr.</span><span>Wis save</span></div>
+      <p>Humanoid regards him as a friendly acquaintance until the spell ends or harm befalls them. They know they were charmed when it ends.</p>
+    </div>
+
+    <div class="spell-block">
+      <div><span class="spell-name">Dissonant Whispers</span><span class="spell-school">Enchantment</span></div>
+      <div class="spell-meta"><span>Action</span><span>60 ft.</span><span>V</span><span>Instant</span><span>Wis save</span></div>
+      <p>Discordant melody only the target hears: 3d6 psychic and a forced reaction-move away from him on a failed save; half damage and no movement on a success.</p>
+    </div>
+
+    <div class="spell-block">
+      <div><span class="spell-name">Earth Tremor</span><span class="spell-school">Evocation</span></div>
+      <div class="spell-meta"><span>Action</span><span>Self (10-ft. radius)</span><span>V, S</span><span>Instant</span><span>Dex save</span></div>
+      <p>1d6 bludgeoning and prone in a 10-ft. radius; loose ground becomes difficult terrain.</p>
+    </div>
+
+    <h3 class="subhead">2nd-Level Spells</h3>
+
+    <div class="spell-block">
+      <div><span class="spell-name">Magic Mouth</span><span class="spell-school">Illusion (Ritual)</span></div>
+      <div class="spell-meta"><span>1 min.</span><span>30 ft.</span><span>V, S, M (10 gp honeycomb &amp; jade)</span><span>Until dispelled</span></div>
+      <p>Implants a 25-word message in an object that speaks when a triggered condition is met. Used liberally for tavern atmosphere and pranks.</p>
+    </div>
+
+    <div class="spell-block">
+      <div><span class="spell-name">Skywrite</span><span class="spell-school">Transmutation (Ritual)</span></div>
+      <div class="spell-meta"><span>Action</span><span>Sight</span><span>V, S</span><span>Conc., up to 1 hr.</span></div>
+      <p>Up to ten words form in the sky as cloud-script. Strong wind ends it early. <em>How he advertises specials.</em></p>
+    </div>
+  </section>
+
+  <!-- ========== V. EQUIPMENT ========== -->
+  <section id="equipment">
+    <div class="section-header">
+      <div class="section-numeral">V</div>
+      <h2 class="section-title">Arms, Armour &amp; Reliquaries</h2>
+    </div>
+
+    <h3 class="subhead">Weapons</h3>
+
+    <div class="item-block">
+      <div class="item-name">Dwarven Bane <span class="tag">Attuned · Battleaxe</span></div>
+      <div class="item-rarity">Very rare · magic weapon (requires attunement)</div>
+      <p>+2 to attack &amp; damage. Crits on a 19 or 20. On a melee hit: +1d8 damage, or <strong>+2d8 against giants</strong>. Discovered on the wall of his own tavern during an inventory audit of the previous owner's stock — Tulele simply took it down and adopted it. <em>Unregistered.</em></p>
+    </div>
+
+    <div class="item-block">
+      <div class="item-name">Greataxe <span class="tag">Heavy · Two-handed</span></div>
+      <p>1d12 + 4 slashing. His original swing — kept on his back as backup and for sentimental reasons.</p>
+    </div>
+
+    <div class="item-block">
+      <div class="item-name">Javelins ×4</div>
+      <p>For throwing or, in a pinch, for emphasizing a particularly pointed remark.</p>
+    </div>
+
+    <h3 class="subhead">Armour</h3>
+
+    <div class="item-block cursed">
+      <div class="item-name">The Shield of Void <span class="tag">Attuned · +1</span></div>
+      <div class="item-rarity">Rare · magic shield (requires attunement) — <strong style="color: var(--ember-deep);">CURSED</strong></div>
+      <p>A dull black, featureless shield that appears to be made from nothingness itself. While wielding it, he is treated as being in dim light when in bright light for the purpose of being perceived (with no effect on his senses).</p>
+      <p><strong>Saving grace:</strong> if he fails a saving throw against a spell or magical effect, he may use a reaction to <strong>negate it entirely</strong>. Once per long rest.</p>
+      <p><strong>The Call of the Void.</strong> Attuning extends the curse to him; <em>remove curse</em> or similar magic ends it. While cursed, he is unwilling to part with the shield and keeps it within reach at all times. Whenever presented with a scenario that could lead to certain death, he must succeed a DC 10 Charisma save or pursue the most-likely-fatal course of action.</p>
+    </div>
+
+    <h3 class="subhead">Wondrous Items &amp; Reliquaries</h3>
+
+    <div class="item-block">
+      <div class="item-name">Soprano Longhorn (pan flute) <span class="tag">Magical · attuned to his hand</span></div>
+      <p>Once per day, during a short rest: add 3d4 hit dice roll to a creature's healing.</p>
+      <p>Once per day, cast <em>Sleep</em> on all occupants of the room he is in (limited to the room — does not pass through open doorways; in combat, a target rolls a d20 vs. a DM-set threshold).</p>
+      <p>Once per day, permanently change one of: eye colour (−1 Perception), hair colour (−1 to be assigned), or skin colour (−1 Stealth).</p>
+      <p style="font-style: italic; color: var(--brass-deep); margin-top: 0.5rem;">Inspiration-unlocked feature: cast <em>Zone of Truth</em> targeted on one creature (no save, 5 minutes); Tulele also receives it (DC 15 Will save — success: 5 minutes; failure: 10). Used to memorable effect against the intellect-devourer agents at Griffin Hold.</p>
+    </div>
+
+    <div class="item-block">
+      <div class="item-name">Fire-Roasted Chestnuts ×21</div>
+      <div class="item-rarity">Wondrous</div>
+      <p>Action to consume: restores 1 HP and sustains the eater for a day.</p>
+    </div>
+
+    <div class="item-block">
+      <div class="item-name">Paper Birds</div>
+      <p>Sealed parchment messengers — each carries one note to a named member of the party.</p>
+    </div>
+
+    <h3 class="subhead">Mid- &amp; Late-Campaign Acquisitions</h3>
+
+    <div class="item-block boon">
+      <div class="item-name">The Barrier Tattoo (reactivation stone)</div>
+      <div class="item-rarity">Gift of the Secret Council of Waterdeep</div>
+      <p>A small stone that re-awakens his ancestral ink. When unarmored, his AC is treated as <strong>15</strong> (replacing the usual Unarmored Defense calculation). A standing recognition of the spectral kin already at his shoulder. <em>Permanent.</em></p>
+    </div>
+
+    <div class="item-block boon">
+      <div class="item-name">The Cassalanter Earring</div>
+      <div class="item-rarity">Won at cards from Lord Osvaldo Cassalanter</div>
+      <p>+5 to Charisma checks. Acquired on the night of <em>the great Knuckleheads card game</em>, when it joined the pot in lieu of additional dragons; Tulele drew a straight flush against Bresnoss Artemel's flush and took both pot and earring.</p>
+    </div>
+
+    <div class="item-block boon">
+      <div class="item-name">Artemel's Ring</div>
+      <div class="item-rarity">Won at cards · luck</div>
+      <p>Grants advantage on any check. Stripped from Bresnoss Artemel's hand at the same card game once Tulele identified him as palming it for advantage.</p>
+    </div>
+
+    <div class="item-block boon">
+      <div class="item-name">The Cards' Pair of d6 (legendary)</div>
+      <div class="item-rarity">Gift of the fortune-teller, Belulah</div>
+      <p>Ancient dice. When uncertain of an answer, he rolls; above half yields some manner of reply. <strong>Cannot be taken from him unwillingly.</strong></p>
+    </div>
+
+    <div class="item-block boon">
+      <div class="item-name">Magical Microphone</div>
+      <div class="item-rarity">Midsummer Festival prize · ~100 gp</div>
+      <p>A short metal rod with a spongy end; amplifies the voice of whoever speaks into it. Used at Knuckleheads on busy nights.</p>
+    </div>
+
+    <div class="item-block boon">
+      <div class="item-name">The Giant-Sword Trophy</div>
+      <div class="item-rarity">Milk-bottle prize, Midsummer</div>
+      <p>An enormous greatsword, suspiciously light, painted gold with a dragon-hilt. Decorative. Hangs over the Knuckleheads bar.</p>
+    </div>
+
+    <h3 class="subhead">The Hoard, Sundries &amp; Sentiment</h3>
+    <ul class="inv-list">
+      <li>Three Dragon Ante deck</li>
+      <li>Traveler's clothes</li>
+      <li>Explorer's pack</li>
+      <li>Poor map of homeland</li>
+      <li>Native jewelry (10 gp) — neck-piece &amp; belt</li>
+      <li>Book on etiquette (well-thumbed)</li>
+      <li>Horn</li>
+      <li>250 gp worth of gems</li>
+      <li>Winter clothing set (+2 Survival vs. cold)</li>
+      <li>The trio-of-kittens tattoo (left breast, black cats, silver-yarn down chest)</li>
+      <li>Golden cowbell (festival trophy)</li>
+    </ul>
+  </section>
+
+  <!-- ========== VI. CHRONICLE ========== -->
+  <section id="chronicle">
+    <div class="section-header">
+      <div class="section-numeral">VI</div>
+      <h2 class="section-title">Chronicle of Waterdeep</h2>
+    </div>
+
+    <p class="lead">A summer that ran from a Trolltide brawl to a council-rebuilt city. These are the moments Tulele tells about — and the ones he won't.</p>
+
+    <div class="chronicle">
+
+      <div class="entry">
+        <div class="when">Earlier · Of Note</div>
+        <div class="what">The Running Joke of Non-Lethal Force</div>
+        <p>Every time Tulele specifically called a non-lethal blow, the damage came up lethal. Eventually he stopped calling it.</p>
+      </div>
+
+      <div class="entry">
+        <div class="when">Earlier · Of Note</div>
+        <div class="what">The Kidnapper Conflagration (proposed)</div>
+        <p>It had to be explained to him, in some detail, that burning a building down with the kidnappers inside was both <em>bad</em> and <em>punishable by death</em>. He accepted this with grace and went looking for another option.</p>
+      </div>
+
+      <div class="entry">
+        <div class="when">Acquisition</div>
+        <div class="what">The Tavern That Became Knuckleheads</div>
+        <p>A competing publican escalated his harassment until he tried to kill the party. The party killed him instead. Tulele bought his bar at auction the next week, renamed it <strong>Knuckleheads</strong>, and hung up the sigil of the single axe.</p>
+      </div>
+
+      <div class="entry">
+        <div class="when">Commission</div>
+        <div class="what">Syphilitic Ord</div>
+        <p>Hired by one nobleman's son to ruin another, Tulele led a crowd in a public ode to <em>Syphilitic Ord Artemel</em>. The verse circulated in taverns for weeks. Ord's family did not forget.</p>
+      </div>
+
+      <div class="entry">
+        <div class="when">Aftermath</div>
+        <div class="what">A Beating in the Alley</div>
+        <p>Bresnoss Artemel — Ord's father — set a hired goon on Tulele, who was beaten nearly to death. <strong>Hu the wereshark saved him</strong>, dragging him off the cobbles. The medical debt that followed was forged onto Tulele's name with a magical pen and sold to an unknown party. It would compound at <em>25% daily interest</em>.</p>
+      </div>
+
+      <div class="entry">
+        <div class="when">A House Quietly Filling Up</div>
+        <div class="what">Refugees of the Manor</div>
+        <p>Bonnie's network of doppelgangers came under increasing threat. The Manor began to house 20–25 of them in hiding. Tulele helped extract the captured werebear from the city to study with Halm, the monk on Mount Waterdeep — who later revealed that the children sheltering at Trollskull were <em>his agents, placed as a test</em>. The party passed.</p>
+      </div>
+
+      <div class="entry">
+        <div class="when">A Murder &amp; Speaking with the Dead</div>
+        <div class="what">Kahana (Greta)</div>
+        <p>Hu's cousin Kahana was found murdered — brutally, hatefully. The party performed <em>Speak with Dead</em> over her body. Tulele asked the questions. She answered: hoods, loud, roaring; she would not join, would not give up her brothers and sisters. A cult of forced loyalty. <strong>Black</strong>, a tattooed man near the docks, was set up as the intermediary; Tulele paid him a registered axe for a meeting with the slavers at <em>Dock 10, 2 a.m., two nights hence</em>.</p>
+      </div>
+
+      <div class="entry">
+        <div class="when">The Card Game at Knuckleheads</div>
+        <div class="what">Up and Down the River</div>
+        <p>A private invitational night. Hu, Katarina, Bonnie's people, Jarlaxle (in his "Benedict" guise), the reporter Elvin, the PI Vincent. Uninvited: Bresnoss Artemel and his half-orc, holding the forged medical debt — by then ~20,000 dragons. Tulele played in three rounds against Artemel and Cassalanter at the same table, made Artemel shuffle and switch hands at a critical moment, then accused him of palming a luck ring. The pot escalated to 80,000. Cassalanter put up his luck ring and then his charisma earring. Final round, double-or-nothing: <strong>Tulele's straight flush over Artemel's flush</strong>. He took the debt-papers from the pot. The half-orc threw a poisoned dagger into Tulele's shoulder. Hu snapped its neck. Cassalanter took him to his wife to be cured — and incurred a favour Tulele would later repay with the Stone of Golorr.</p>
+      </div>
+
+      <div class="entry">
+        <div class="when">An Ill-Advised Romance</div>
+        <div class="what">"Two arrows shot from the same bow."</div>
+        <p>Katarina, a pirate's daughter trying to make herself respectable as a scribe at the Watchful Order, played cards with Greta and brought the doppelganger-book to be quietly copied. Tulele met her over that thread. He told her: <em>"If we only had tonight, I would be yours without reservation, as who can predict tomorrow? But there is a glimmer of hope that you might be a fellow traveler. Should you advise discretion for a time, by my ancestors I will abide."</em> She replied: <em>"Cheesy, but let us see where this goes."</em> They dated secretly until Mrs. Peabody caught them — and was delighted. A 4-tier cake followed.</p>
+      </div>
+
+      <div class="entry">
+        <div class="when">The Shield, the Dragon, &amp; the Banner</div>
+        <div class="what">The Aerial Advertising Incident</div>
+        <p>During an altercation, the captain-of-the-watch <strong>Barnabas</strong> read Tulele's mind through a lie and stripped him of the Shield of Void, handing it to <strong>Ignatius</strong> (the party's dragonborn). Tulele <em>raged</em>, threw off three guards, and charged. Ignatius panicked and transformed into a <strong>full dragon</strong> out of sheer fear.</p>
+        <p>Later, when the Grey Hand needed the Nimblewright Detector flown over Waterdeep for reconnaissance, Tulele filed for <em>aerial advertising permission</em> — and made dragon-Ignatius do the flight with the detector strapped to him and a banner streaming from his tail: <em>"Celebrate Midsummer: Butter up in Trollskull Tavern, get Toasted at Knuckleheads!"</em> Ignatius hated every minute of it. Tulele recouped the cost of his medical bills in foot traffic alone.</p>
+      </div>
+
+      <div class="entry">
+        <div class="when">An Apprenticeship Behind the Bar</div>
+        <div class="what">Rory the Shapeshifter</div>
+        <p>Rory, the traumatized young doppelganger cousin spared from the slavers, eventually became Tulele's backup bartender. The arrangement was meant to be temporary. It was not temporary.</p>
+      </div>
+
+      <div class="entry">
+        <div class="when">Conversion of a Rival</div>
+        <div class="what">A Dub for Lily</div>
+        <p>At the Midsummer tavern festival, Tulele faced a competing performer — Lily, 5'7", green-eyed, blond, daughter of an established skald, working her father's circuit. He took her apart in verse before a room of 100. Earned 4 points of dub damage. Won a golden cowbell, a kitten tattoo, an absurd ceremonial greatsword, and a magical microphone. <em>Verses preserved below.</em></p>
+      </div>
+
+      <div class="entry">
+        <div class="when">Day of Wonders &amp; the Nimblewright</div>
+        <div class="what">The Grulhund Investigation</div>
+        <p>The party tracked a runaway nimblewright through the Day of Wonders parade and into the wealthy Grulhund estate, where they prevented a kidnapping by Zhentarim operatives. Resulting fine for the unauthorized rescue: 1,000 dragons split three ways. The Grulhunds later <em>lied serenely</em> about the whole affair while serving lunch. The nimblewright was recovered later, hiding in garbage in a very nice cloak, carrying a map: <strong>an X over a tomb in the City of the Dead</strong>.</p>
+      </div>
+
+      <div class="entry">
+        <div class="when">The Mausoleum</div>
+        <div class="what">A Cassalanter Crypt &amp; an Asmodean Ritual</div>
+        <p>The crypt under the Cassalanter mausoleum led to two corpses and one cult survivor. <strong>Arn and Seffia took the Stone of Golorr to an old windmill in the Southern Ward</strong> — an unregistered Asmodean ritual site. Tulele, recognizing the Cassalanter name, threatened the woman in a rage and nearly tore both her arms from her body before Ignatius pulled him back. He fled upstairs in shame.</p>
+        <p>Later: the cultist <em>was</em> cursed by the shield. He took the prisoner — quietly proposing to deliver her himself, <em>"to cut my own deal,"</em> a plan he was talked out of.</p>
+      </div>
+
+      <div class="entry">
+        <div class="when">Zone of Truth</div>
+        <div class="what">The Secret Council Receives Him</div>
+        <p>Walking into the Blackstaff's chamber, Tulele realized he was standing in a <em>Zone of Truth</em>. A halfling threw a knife at him as introduction. He chose to tell them the truth: the cultists of Tiamat first, then Asmodeus, then his own intentions. He was offered informal mentorship in the Secret Council. He was instructed to give the Stone of Golorr to Lord Cassalanter — discharging the favour from the card game.</p>
+      </div>
+
+      <div class="entry">
+        <div class="when">Council Gifts</div>
+        <div class="what">A Tattoo Reawakened</div>
+        <p>The party received gifts: a healer's brooch for Amifre, an enhanced holy symbol for Ra, a one-use time-reversal orb for Ignatius — and for Tulele, <strong>the Barrier Tattoo reactivation stone</strong>, returning ancestral power to his ink. <em>AC 15 unarmored, permanently.</em></p>
+      </div>
+
+      <div class="entry">
+        <div class="when">The Saltpeter Plot</div>
+        <div class="what">Stopping the Six A.M.</div>
+        <p>With explosive saltpeter barrels seeded across Waterdeep and detonators set for 6 a.m., the party had three actions and roughly six hours. Tulele used the code phrase <strong>"Bulgar"</strong> with the Captain of the Guard to unlock full emergency access to the city's defences, then organized a city-wide quiet evacuation disguised as a civic drill. <strong>No panic. Thousands saved.</strong> At Griffin Hold he intimidated the final two drop-agents under the Soprano Longhorn's <em>Zone of Truth</em>; they turned out to be reanimated bodies hosting <em>intellect devourers</em>, donated by Xanathar cultists. The party tracked them to the lair.</p>
+      </div>
+
+      <div class="entry">
+        <div class="when">Xanathar's Lair</div>
+        <div class="what">The Tentacle &amp; the Athletics Check</div>
+        <p>The beholder Xanathar nearly killed Ignatius, driving a tentacle toward his brain. <strong>Tulele tore the tentacle free in a heroic Athletics check</strong>, barely preventing brain-death. The beholder fell shortly after. Loot: Ring of Mind Shielding (Ra), Ring of Invisibility (Amifre), Ring of Radiant Resistance (unclaimed at the time), 10,000 gp.</p>
+      </div>
+
+      <div class="entry">
+        <div class="when">The Bombing</div>
+        <div class="what">A Crater &amp; a Wake</div>
+        <p>The neighborhood was flattened in a coordinated attack on the Council. Trollskull Alley, the Blackstaff Tower, the Castle of Waterdeep, the Griffin Fields — all hit. Lomin was lost. Ignatius had been assimilated by Lomin in the days before; the loss compounded. The party held a wake at Knuckleheads. Rory came running in; the streets were full of crater and dust.</p>
+      </div>
+
+      <div class="entry">
+        <div class="when">The Vault</div>
+        <div class="what">"Let the hammer fall, and the anvil ring."</div>
+        <p>Beneath the old summer mill: a vault of dwarvish runes — <em>"three kings bring three keys"</em> — a temple to Dumathoin (opened by a confessed secret), a 10-ft. statue of Gorm Gulthyn over an adamantine trap door (Tulele tried it and took 22 fire damage), and at the bottom, a gold dragon in the form of an elderly dwarf guarding the city's half-million-dragon treasury. A moving speech, magic bags that teleported the gold to the Blackstaff, and Waterdeep's economy was restored.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== VII. DUBS ========== -->
+  <section id="dubs">
+    <div class="section-header">
+      <div class="section-numeral">VII</div>
+      <h2 class="section-title">Dubs of Record</h2>
+    </div>
+
+    <p class="lead">Commissioned and performance verses, preserved as delivered. Both have circulated in copy among Knuckleheads regulars. Use is not recommended in mixed company.</p>
+
+    <div class="verse">
+      <div class="verse-title">Ode to Syphilitic Ord</div>
+      <p>This here's the tale of Syphilitic Ord<br>
+      Facts are facts but mum lost the word<br>
+      Lost her son as well to a halvey's teat<br>
+      It's only in keeping he mishandled it</p>
+
+      <p>Loving's not complicated mate, so how<br>
+      Did your seed manage to miss her furrow?<br>
+      I'll grant your plow's small but it made its way to the cow,<br>
+      The sheep, the goat, the horse, and to Osvaldo's sow</p>
+
+      <p>It's astonishing to me that you'd attempt a tryst in profile<br>
+      Instead of deputizing the screwing in your family's style<br>
+      No one shipped you two, perhaps you thought that she'd just vanish<br>
+      Post the blustery delivery of your wee syphilitic package</p>
+
+      <p>Perhaps your aptitude for business struck,<br>
+      With any luck to shuck the gossipy clucks<br>
+      But your coin's no good if it's refused —<br>
+      That's twice rejected by your abused</p>
+
+      <p>Call me Tulele, and if you must wield<br>
+      Pay me, and a song will make your enemy yield<br>
+      All dragons but Ord's are tender to me; ideally<br>
+      Tomorrow to Knuckleheads; to open and drink freely</p>
+      <div class="verse-attribution">— Commissioned · attribution undisclosed</div>
+    </div>
+
+    <div class="verse">
+      <div class="verse-title">A Verse for Lily, Midsummer</div>
+      <p>I can lap my competition when I'm sitting grabbing teat<br>
+      Milk a cow and on my way before he's got back on his seat<br>
+      My pipes will a room of rowdy trolls and dwarves direct to sleep<br>
+      And my words will bury you from head to tail in cattle shiiit</p>
+
+      <p>But you didn't come to hear the tales of a tattooed Quasimodo —<br>
+      Let's direct the limelight to the lady laggard plough ho.</p>
+
+      <p>Lily dear here wants to hoard the mic to herself<br>
+      Needling the clientele up from her perch on the shelf<br>
+      You preserve your golden head like a dragon from tales old<br>
+      But the green-eyed monster fails to recognize the fool's gold</p>
+
+      <p>It's all well to win a comp and leave the competition sad<br>
+      But sadder still is winning at the job you got from your dad.</p>
+      <div class="verse-attribution">— Midsummer Festival, Trollskull Alley</div>
+    </div>
+  </section>
+
+  <!-- ========== VIII. PEOPLE ========== -->
+  <section id="people">
+    <div class="section-header">
+      <div class="section-numeral">VIII</div>
+      <h2 class="section-title">Of People &amp; Bonds</h2>
+    </div>
+
+    <div class="rel-grid">
+      <div class="rel-card">
+        <div class="who">Katarina</div>
+        <div class="role">Scribe · pirate's daughter · beloved</div>
+        <p>The fellow traveler. Played cards with Greta. Translated the Asmodean ritual-book and turned the evidence over. Eventually his wife. Mother of his two children.</p>
+      </div>
+
+      <div class="rel-card">
+        <div class="who">Hu</div>
+        <div class="role">Wereshark · monk · bartender · brother</div>
+        <p>Saved his life in the alley. Snapped the half-orc's neck in the card game. The shark behind the bar in the Knuckleheads art. Receives 30 dragons a month and loyalty without end.</p>
+      </div>
+
+      <div class="rel-card">
+        <div class="who">Rory</div>
+        <div class="role">Doppelganger child · backup bartender · later, son</div>
+        <p>Spared in the Greta investigation. Adopted in time. Grew up at Knuckleheads. As an adult, ran the manor and then the tavern after Tulele.</p>
+      </div>
+
+      <div class="rel-card">
+        <div class="who">Mr. &amp; Mrs. Peabody</div>
+        <div class="role">Gnomes · landlords · family</div>
+        <p>The Peabodies caught the romance with Katarina and produced a 4-tier cake within the week. Tulele eventually invited Katarina's mother to live with them at the Manor.</p>
+      </div>
+
+      <div class="rel-card">
+        <div class="who">Lomin · Ra · Amifre · Ignatius</div>
+        <div class="role">The party</div>
+        <p>Lomin lost in the bombing. Ignatius assimilated by Lomin in the days before, redeemed and remade. Ra carried the soul-stone for centuries. Amifre left to build Dragonborn's Haven. They all eventually came home to each other in the afterlife.</p>
+      </div>
+
+      <div class="rel-card">
+        <div class="who">Vajra Safahr · The Blackstaff</div>
+        <div class="role">Patron · Council leader</div>
+        <p>Brought him into the Force Grey. Named him Grey Hand. Gave him the riddles he kept solving.</p>
+      </div>
+
+      <div class="rel-card">
+        <div class="who">Halm</div>
+        <div class="role">Reclusive monk · Mount Waterdeep</div>
+        <p>Tested him with unseen taps. Took the werebear as student. "Just tell your new friends to come fetch me." Warned that <em>evil would hit by winter; evil was a him.</em></p>
+      </div>
+
+      <div class="rel-card">
+        <div class="who">Bresnoss &amp; Ord Artemel</div>
+        <div class="role">The grudge</div>
+        <p>The father bought his medical debt and forged it; the son was the original Syphilitic. Resolved at the card table when Tulele took the papers in the pot.</p>
+      </div>
+
+      <div class="rel-card">
+        <div class="who">Osvaldo Cassalanter</div>
+        <div class="role">Lord · debtor · cultist</div>
+        <p>Saved Tulele's life from poison after the card game and now owes him no longer; was paid in the Stone of Golorr. His wife was where the Asmodean trail led.</p>
+      </div>
+
+      <div class="rel-card">
+        <div class="who">Jarlaxle Baenre ("Benedict")</div>
+        <div class="role">Drow mercenary · carnivale-master</div>
+        <p>Owner of the Sea Maiden's Fair carnivale. Tulele called him Benedict, because it was amusing to him.</p>
+      </div>
+
+      <div class="rel-card">
+        <div class="who">Black</div>
+        <div class="role">Dock fixer</div>
+        <p>The tattooed man at the nameless dive. Sold meetings. Paid in registered axes.</p>
+      </div>
+
+      <div class="rel-card">
+        <div class="who">Bonnie</div>
+        <div class="role">Doppelganger matriarch</div>
+        <p>The reason the Manor housed 20–25 in hiding. Gave Tulele the ultimatum on the werebear. Trusted him.</p>
+      </div>
+
+      <div class="rel-card">
+        <div class="who">Belulah</div>
+        <div class="role">Fortune-teller, Midsummer</div>
+        <p>Read his palm: <em>he would save millions</em>. Gave him the two legendary d6's. Warned of a difficult parting in the near future — death, or departure.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== IX. EPILOGUE ========== -->
+  <section id="epilogue">
+    <div class="section-header">
+      <div class="section-numeral">IX</div>
+      <h2 class="section-title">Epilogue · Of a Long Life</h2>
+    </div>
+
+    <p class="lead">Of those who survived the Heist, Tulele chose to stay.</p>
+
+    <p>He married Katarina. The Council gifted him a tree: carve a name or a place into its roots, and you may always return to them. He carved Katarina's name on their wedding night. They had two children. Rory was given a childhood for the first time, and grew up among them; eventually he ran the manor, and then the tavern.</p>
+
+    <p>His daughter took the tree and went into the world. His son ran Knuckleheads after him, and Tulele gave him a magical ship — to take him further than he might want to go, to give him the option of going. The boy became a staple of the city he chose; <em>taverns are places of political discourse and political discord,</em> as Tulele had long maintained.</p>
+
+    <p>Katarina kept scribing and translated some beautiful, dangerous books. She also became an adept fighter, in her own quiet way.</p>
+
+    <p>Amifre left Waterdeep, renounced the Stormwind name, and built <strong>Dragonborn's Haven</strong> in the south — a sanctuary for orphans, doppelgangers, the unwanted, and the pig Snowball. Ra wandered for centuries. Ignatius lived as a protector and councillor of Waterdeep, and a statue was raised in his honour.</p>
+
+    <p>Tulele aged. He was surrounded, in the end, by everyone — Katarina, Rory, his children, Amifre, Ignatius, Ra at the foot of the bed. He passed peacefully. His ancestors — once doubtful of the boy who had walked into the longhouse of his captors and asked to learn their songs — welcomed him with pride. Tulele teased Ra in the afterlife. Ignatius breathed fire. They all laughed.</p>
+
+    <div class="pull-quote">They were not gods. But they were legends.</div>
+
+    <p style="text-align:center; font-style: italic; color: var(--ink-soft); margin-top: 1.5rem;">
+      The smallest choices you made shaped the world<br>
+      in ways none of you could have predicted.
+    </p>
+  </section>
+
+  <div class="signoff">
+    Knuckleheads · Trollskull Alley · Waterdeep<br>
+    Compiled in memory of all who drank there
+  </div>
+
+</div>
+</body>
+</html>
