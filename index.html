@@ -250,6 +250,29 @@
     border-color: var(--ink);
     color: var(--paper);
   }
+  .preset-select {
+    font-family: "EB Garamond", serif;
+    font-size: 0.92rem;
+    padding: 0.22rem 0.7rem 0.22rem 0.65rem;
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: background 0.12s, border-color 0.12s, color 0.12s;
+    line-height: 1.4;
+    appearance: auto;
+  }
+  .preset-select:hover, .preset-select:focus {
+    border-color: var(--accent-deep);
+    color: var(--ink);
+    outline: none;
+  }
+  .preset-select.active {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
 
   .result-count {
     text-align: center;
@@ -447,6 +470,14 @@
     <div class="view-toggles">
       <div class="toggle-group">
         <button class="toggle on" id="featured-btn">Featured</button>
+        <select id="preset-select" class="preset-select" aria-label="Preset view">
+          <option value="">&#8212;</option>
+          <option value="now-playing">Now Playing</option>
+          <option value="bushi-oni">The Bushi Oni</option>
+          <option value="collateral">Collateral</option>
+          <option value="crescent-city">Historica Arcanum: Istanbul</option>
+          <option value="retired">Retired</option>
+        </select>
       </div>
       <div class="toggle-group">
         <span class="toggle-group-label">Status</span>
@@ -1787,6 +1818,15 @@
 
   const roster = shuffle(characters);
 
+  // ----- Preset views -----
+  const PRESETS = {
+    'now-playing':   { statuses: ['active'],   roles: ['pc'],      campaign: '',                system: '' },
+    'bushi-oni':     { statuses: ['unplayed'], roles: ['pre-gen'], campaign: 'The Bushi Oni',   system: '' },
+    'collateral':    { statuses: ['active'],   roles: ['pre-gen'], campaign: 'Collateral',      system: '' },
+    'crescent-city': { statuses: ['unplayed'], roles: ['pre-gen'], campaign: 'The Crescent City', system: '' },
+    'retired':       { statuses: ['past'],     roles: ['pc'],      campaign: '',                system: '' },
+  };
+
   // ----- Filter state -----
   let featuredMode   = true;
   let activeStatuses = new Set(['active']);
@@ -1826,6 +1866,35 @@
     }
   }
 
+  function clearPreset() {
+    const sel = document.getElementById('preset-select');
+    if (sel && sel.value) { sel.value = ''; sel.classList.remove('active'); }
+  }
+
+  function applyPreset(key) {
+    const p = PRESETS[key];
+    if (!p) return;
+    // Update state
+    activeStatuses = new Set(p.statuses);
+    activeRoles    = new Set(p.roles);
+    // Update status toggles
+    document.querySelectorAll('.toggle[data-status]').forEach(btn => {
+      btn.classList.toggle('on', activeStatuses.has(btn.dataset.status));
+    });
+    // Update role toggles
+    document.querySelectorAll('.toggle[data-role]').forEach(btn => {
+      btn.classList.toggle('on', activeRoles.has(btn.dataset.role));
+    });
+    // Update text inputs
+    sysInput.value  = p.system;
+    campInput.value = p.campaign;
+    sysInput.parentElement.querySelector('.clear-btn').classList.toggle('visible', p.system.length > 0);
+    campInput.parentElement.querySelector('.clear-btn').classList.toggle('visible', p.campaign.length > 0);
+    // Style the select
+    document.getElementById('preset-select').classList.add('active');
+    render();
+  }
+
   function render() {
     let filtered;
     if (featuredMode) {
@@ -1856,12 +1925,14 @@
   document.getElementById('featured-btn').addEventListener('click', () => {
     featuredMode = true;
     document.getElementById('featured-btn').classList.add('on');
+    clearPreset();
     render();
   });
 
   document.querySelectorAll('.toggle[data-status]').forEach(btn => {
     btn.addEventListener('click', () => {
       exitFeatured();
+      clearPreset();
       const s = btn.dataset.status;
       if (activeStatuses.has(s)) { activeStatuses.delete(s); btn.classList.remove('on'); }
       else                        { activeStatuses.add(s);    btn.classList.add('on');    }
@@ -1872,6 +1943,7 @@
   document.querySelectorAll('.toggle[data-role]').forEach(btn => {
     btn.addEventListener('click', () => {
       exitFeatured();
+      clearPreset();
       const r = btn.dataset.role;
       if (activeRoles.has(r)) { activeRoles.delete(r); btn.classList.remove('on'); }
       else                     { activeRoles.add(r);    btn.classList.add('on');    }
@@ -1925,6 +1997,7 @@
     input.addEventListener('focus', open);
     input.addEventListener('input', () => {
       exitFeatured();
+      clearPreset();
       clearBtn.classList.toggle('visible', input.value.length > 0);
       refreshSuggestions();
       suggEl.classList.add('open');
@@ -1990,6 +2063,13 @@
       if (!input.parentElement.contains(e.target)) close();
     });
   }
+
+  document.getElementById('preset-select').addEventListener('change', (e) => {
+    const key = e.target.value;
+    if (!key) { e.target.classList.remove('active'); return; }
+    exitFeatured();
+    applyPreset(key);
+  });
 
   setupAutocomplete(sysInput, sysSugg, 'system');
   setupAutocomplete(campInput, campSugg, 'campaign');
