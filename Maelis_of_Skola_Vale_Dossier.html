@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Maelis of Skola Vale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --marble:        #ece8df;
+    --marble-warm:   #e2dccf;
+    --marble-cool:   #d8d4c8;
+    --marble-deep:   #c4bfb2;
+    --vein:          #b6b0a2;
+    --ink:           #1a1a18;
+    --ink-soft:      #3a3a36;
+    --ink-faint:     #6e6a60;
+    --rule:          #968f80;
+    --rule-soft:     #b4ada0;
+
+    /* Patron-deity accent — Pharika (apothecary-green) */
+    --accent:        #3a6a4a;
+    --accent-dark:   #1f3d2a;
+    --accent-sec:    #a0734a;
+    --accent-glaze:  rgba(58, 106, 74, 0.10);
+
+    --seal:      #6b3e26;
+    --seal-dark: #3d2415;
+
+    --class-tint: rgba(58,106,74,0.05);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--marble);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.045' numOctaves='2' seed='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.42 0 0 0 0 0.38 0 0 0 0.4 0'/></filter><rect width='100%25' height='100%25' filter='url(%23m)'/></svg>"),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 600px 600px, 200px 200px;
+    opacity: 0.55;
+    mix-blend-mode: multiply;
+    z-index: 0;
+  }
+  body {
+    background-image:
+      linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 25%, var(--marble) 75%, var(--marble-cool) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 0 5rem;
+  }
+
+  .stele {
+    max-width: 1140px;
+    margin: 0 auto;
+    background:
+      linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 8%, var(--marble) 92%, var(--marble-cool) 100%);
+    padding: 0;
+    box-shadow:
+      0 1px 2px rgba(26, 22, 18, 0.10),
+      0 10px 32px rgba(26, 22, 18, 0.16),
+      0 28px 64px rgba(26, 22, 18, 0.10);
+    position: relative;
+    border: 1px solid var(--rule);
+    z-index: 1;
+  }
+  .stele::before,
+  .stele::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-dark) 100%);
+    opacity: 0.5;
+  }
+  .stele::before { left: 0; }
+  .stele::after  { right: 0; }
+
+  .doc { padding: 0 5rem 4rem; }
+
+  .meander {
+    height: 22px;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='22' viewBox='0 0 44 22'><path d='M0 17 L0 5 L11 5 L11 12 L6 12 L6 8 L17 8 L17 17 L11 17 L11 13 L22 13 L22 5 L33 5 L33 12 L28 12 L28 8 L39 8 L39 17 L44 17' fill='none' stroke='%231f3d2a' stroke-width='1.4' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: auto 18px;
+    opacity: 0.85;
+    margin: 0;
+  }
+  .meander.thick { height: 30px; }
+  .meander.thick { background-size: auto 24px; }
+
+  .masthead-band {
+    position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+    padding: 3rem 5rem 2.75rem;
+  }
+  .masthead-band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  .masthead-band::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px; height: 28px;
+    background:
+      linear-gradient(135deg, transparent 49.5%, var(--marble) 50%) left bottom / 50% 100% no-repeat,
+      linear-gradient(225deg, transparent 49.5%, var(--marble) 50%) right bottom / 50% 100% no-repeat;
+    z-index: 2;
+  }
+  .masthead {
+    position: relative;
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    z-index: 1;
+  }
+  .portrait-frame {
+    position: relative;
+    width: 360px; height: 480px;
+    background: var(--marble-deep);
+    padding: 8px;
+    border: 1px solid var(--ink-soft);
+    box-shadow:
+      inset 0 0 0 2px var(--accent-sec),
+      inset 0 0 0 4px var(--marble-deep),
+      0 4px 14px rgba(0,0,0,0.30);
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    left: -1px; right: -1px; height: 12px;
+    background:
+      linear-gradient(180deg, var(--accent-sec) 0%, var(--accent) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .portrait-frame::before { top: -14px; }
+  .portrait-frame::after  { bottom: -14px; }
+  .portrait-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.03) saturate(0.97);
+  }
+  .portrait-frame.empty {
+    display: flex;
+    align-items: center; justify-content: center;
+    background: linear-gradient(180deg, var(--marble), var(--marble-deep));
+  }
+  .portrait-frame.empty .empty-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0 1rem;
+    line-height: 1.4;
+  }
+
+  .name-block { padding: 0.5rem 0 0; color: var(--marble); position: relative; z-index: 1; }
+  .name-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.52em;
+    color: rgba(255, 250, 235, 0.85);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  h1.dossier-name {
+    font-family: "Cinzel", serif;
+    font-weight: 800;
+    font-size: 4.4rem;
+    line-height: 0.95;
+    letter-spacing: 0.04em;
+    color: var(--marble);
+    margin: 0 0 0.45rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.35);
+    text-transform: uppercase;
+  }
+  .dossier-name .given { display: block; color: var(--marble); }
+  .dossier-name .epithet {
+    display: block;
+    font-weight: 500;
+    font-size: 0.55em;
+    color: var(--accent-sec);
+    letter-spacing: 0.18em;
+    margin-top: 0.4rem;
+    font-style: italic;
+    font-variant: normal;
+    text-transform: none;
+  }
+  .tagline {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: rgba(255, 250, 235, 0.95);
+    margin: 1.2rem 0 1.5rem;
+    max-width: 38em;
+    padding-left: 1rem;
+    border-left: 2px solid var(--accent-sec);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .identity-inscription {
+    margin: 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(255, 250, 235, 0.3);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 2.25rem;
+  }
+  .id-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+  .id-row dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: rgba(255, 250, 235, 0.55);
+    text-transform: uppercase;
+  }
+  .id-row dd {
+    margin: 0;
+    color: rgba(255, 250, 235, 0.96);
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  }
+
+  .deity-mark {
+    display: inline-block;
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--accent-sec);
+    margin-left: 0.6rem;
+    vertical-align: middle;
+    line-height: 1;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  }
+
+  .timeline-section {
+    background: var(--accent-glaze);
+    padding: 1.6rem 5rem;
+    position: relative;
+  }
+  .tl-label {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin: 0 0 1.1rem;
+  }
+  .tl-track {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 7rem;
+    position: relative;
+    padding: 0;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .tl-track::before {
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 16%; right: 16%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-sec), var(--accent), var(--accent-sec));
+    z-index: 0;
+  }
+  .tl-node {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: var(--ink-soft);
+    font-family: "EB Garamond", serif;
+    transition: color 0.2s ease;
+    min-width: 100px;
+  }
+  .tl-dot {
+    width: 18px; height: 18px;
+    border: 2px solid var(--accent-dark);
+    background: var(--marble);
+    margin-bottom: 0.55rem;
+    box-shadow: 0 0 0 3px var(--marble);
+    transition: all 0.2s ease;
+    transform: rotate(45deg);
+  }
+  .tl-node:hover .tl-dot {
+    border-color: var(--accent);
+    transform: rotate(45deg) scale(1.12);
+  }
+  .tl-node.active .tl-dot {
+    background: var(--seal);
+    border-color: var(--seal-dark);
+    box-shadow: 0 0 0 3px var(--marble), 0 0 0 5px rgba(107,62,38,0.25);
+  }
+  .tl-node.active { color: var(--ink); }
+  .tl-top {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .tl-node.active .tl-top { color: var(--accent-dark); }
+  .tl-bot {
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+    font-style: italic;
+  }
+
+  section.block { margin: 2.5rem 0 0; padding: 0.5rem 0 1.5rem; position: relative; }
+  section.block + section.block { margin-top: 2rem; }
+
+  .section-h {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--accent-dark);
+    margin: 0 0 1.5rem;
+    padding: 0;
+    border: none;
+    text-align: center;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    position: relative;
+    display: block;
+  }
+  .section-h::before {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 14px;
+    margin: 0 auto 0.85rem;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%231f3d2a' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.85;
+  }
+  .section-h .greek-chap {
+    display: block;
+    font-family: "Cinzel", serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.5em;
+    color: var(--accent);
+    margin-top: 0.5rem;
+    font-style: normal;
+    text-transform: uppercase;
+  }
+  h3.sub-h {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--accent-dark);
+    margin: 1.5rem 0 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  h4.subsub-h {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.32em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 1.1rem 0 0.5rem;
+    font-weight: 500;
+  }
+  p { margin: 0 0 1rem; }
+
+  .summary-strip {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    margin: 0.5rem 0;
+    background: var(--accent-glaze);
+    padding: 1rem 0.5rem;
+    border-top: 1.5px solid var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+  }
+  .sum-plate { text-align: center; padding: 0 0.5rem; border-right: 1px solid var(--rule-soft); }
+  .sum-plate:last-child { border-right: none; }
+  .sum-plate .sp-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .sum-plate .sp-value {
+    font-family: "Cinzel", serif;
+    font-size: 1.7rem;
+    color: var(--accent-dark);
+    line-height: 1.1;
+    font-weight: 700;
+    margin-top: 0.15rem;
+  }
+  .sum-plate .sp-sub {
+    font-family: "EB Garamond", serif;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 0.1rem;
+  }
+
+  .abilities-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+    margin: 0.5rem 0 1.25rem;
+  }
+  .ab-cell {
+    text-align: center;
+    padding: 1rem 0.4rem 0.85rem;
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--accent);
+    position: relative;
+  }
+  .ab-cell.primary {
+    border-top-width: 4px;
+    border-top-color: var(--accent-dark);
+    background: linear-gradient(180deg, rgba(160, 115, 74, 0.20) 0%, var(--marble-warm) 60%);
+  }
+  .ab-cell .ab-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .ab-cell .ab-mod {
+    font-family: "Cinzel", serif;
+    font-size: 2.1rem;
+    line-height: 1;
+    color: var(--ink);
+    font-weight: 800;
+  }
+  .ab-cell .ab-score {
+    font-family: "EB Garamond", serif;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+  }
+  .ab-cell .ab-save {
+    margin-top: 0.5rem;
+    padding-top: 0.4rem;
+    border-top: 1px dotted var(--rule);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .ab-cell .ab-save .save-bonus {
+    font-family: "Cinzel", serif;
+    font-size: 0.95rem;
+    color: var(--accent-dark);
+    margin-left: 0.25rem;
+    font-weight: 600;
+  }
+  .ab-cell .ab-save.prof::after {
+    content: " ★";
+    color: var(--seal);
+    margin-left: 0.15rem;
+  }
+  .ab-note { font-size: 0.88rem; color: var(--ink-faint); font-style: italic; text-align: center; margin-top: 0.5rem; }
+
+  .combat-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem 2.5rem;
+    margin: 0.5rem 0;
+  }
+  .combat-block dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; }
+  .combat-block dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    align-self: baseline;
+  }
+  .combat-block dd { margin: 0; font-family: "EB Garamond", serif; font-size: 0.98rem; color: var(--ink); }
+  .combat-block dd em { color: var(--ink-faint); font-size: 0.88rem; }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.1rem; margin: 1rem 0 1.5rem; }
+  .skill-cat { border-top: 2px solid var(--accent); padding-top: 0.6rem; }
+  .skill-cat-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    text-align: center;
+  }
+  .skill-row { display: flex; align-items: baseline; justify-content: space-between; gap: 0.4rem; padding: 0.18rem 0; font-size: 0.92rem; line-height: 1.3; color: var(--ink); }
+  .skill-row.dim { color: var(--ink-faint); font-style: italic; }
+  .skill-row .skill-name { flex: 1; }
+  .skill-row .skill-bonus { font-family: "Cinzel", serif; font-weight: 600; color: var(--accent-dark); }
+  .skill-row.expertise .skill-bonus { color: var(--seal); }
+  .skill-source { font-size: 0.82rem; color: var(--ink-faint); text-align: center; font-style: italic; margin-top: 0.6rem; }
+
+  .feat-block { font-size: 0.98rem; font-family: "EB Garamond", serif; }
+  .feat-block ul { padding-left: 1.2rem; margin: 0.5rem 0 1rem; }
+  .feat-block li { margin-bottom: 0.45rem; }
+  .feat-block strong { color: var(--accent-dark); font-weight: 600; }
+  .feat-block em { color: var(--ink-soft); }
+  .feat-block .aside {
+    font-style: italic;
+    color: var(--ink-faint);
+    font-size: 0.92rem;
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-soft);
+    margin: 0.6rem 0 1rem;
+  }
+  .feat-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    margin: 1rem 0;
+  }
+
+  .patron-section {
+    margin: 2.5rem -5rem 2.5rem;
+    padding: 0;
+    position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+  }
+  .patron-section::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: -22px; height: 22px;
+    background:
+      linear-gradient(45deg, transparent 49.5%, var(--accent) 50%) left top / 50% 100% no-repeat,
+      linear-gradient(315deg, transparent 49.5%, var(--accent) 50%) right top / 50% 100% no-repeat;
+    z-index: 0;
+  }
+  .patron-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+    z-index: 0;
+  }
+  .patron-inner {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem 6.5rem 2.75rem;
+  }
+  .patron-inner::before,
+  .patron-inner::after {
+    content: "";
+    position: absolute;
+    top: 2rem; bottom: 2rem;
+    width: 28px;
+    background:
+      linear-gradient(180deg,
+        var(--accent-sec) 0%, var(--accent-sec) 6%,
+        rgba(255,250,235,0.25) 6%, rgba(255,250,235,0.25) 8%,
+        rgba(255,250,235,0.15) 8%, rgba(255,250,235,0.15) 92%,
+        rgba(255,250,235,0.25) 92%, rgba(255,250,235,0.25) 94%,
+        var(--accent-sec) 94%, var(--accent-sec) 100%);
+    border-left: 1px solid rgba(255,250,235,0.25);
+    border-right: 1px solid rgba(255,250,235,0.25);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.10);
+  }
+  .patron-inner::before { left: 2.5rem; }
+  .patron-inner::after  { right: 2.5rem; }
+  .patron-section .section-h {
+    color: var(--marble);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.30);
+    letter-spacing: 0.36em;
+    margin-bottom: 1.5rem;
+  }
+  .patron-section .section-h::before {
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%23a0734a' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+  }
+  .patron-section .section-h .greek-chap { color: var(--accent-sec); }
+  .patron-section h3.sub-h, .patron-section h4.subsub-h {
+    color: rgba(255, 250, 235, 0.95);
+    border-bottom-color: rgba(255, 250, 235, 0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.22);
+  }
+  .patron-section .feat-block { color: rgba(255, 250, 235, 0.94); }
+  .patron-section .feat-block strong { color: var(--accent-sec); }
+  .patron-section .feat-block em { color: rgba(255, 250, 235, 0.74); }
+  .patron-section .feat-block .aside {
+    color: rgba(255, 250, 235, 0.78);
+    border-left-color: rgba(255, 250, 235, 0.4);
+  }
+
+  .spell-block {
+    background: var(--class-tint);
+    border: 1px solid var(--rule-soft);
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+  .spell-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .spell-stats .ss-cell { text-align: center; padding: 0.25rem; }
+  .spell-stats .ss-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .spell-stats .ss-value { font-family: "Cinzel", serif; font-size: 1.4rem; color: var(--accent-dark); font-weight: 700; }
+  .spell-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .spell-table th, .spell-table td { text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px dotted var(--rule-soft); }
+  .spell-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .spell-table td.lvl { width: 3em; color: var(--accent-dark); font-weight: 600; font-family: "Cinzel", serif; }
+  .spell-table td.spell-name { font-style: italic; color: var(--ink); }
+  .slot-table { width: auto; margin: 0.5rem 0 1rem; border-collapse: collapse; font-size: 0.94rem; }
+  .slot-table th, .slot-table td { text-align: center; padding: 0.3rem 1rem; border: 1px solid var(--rule-soft); }
+  .slot-table th {
+    background: var(--accent-glaze);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .slot-table td { font-family: "Cinzel", serif; font-weight: 700; color: var(--accent-dark); }
+
+  .weapon-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .weapon-table th, .weapon-table td { text-align: left; padding: 0.45rem 0.7rem; border-bottom: 1px dotted var(--rule-soft); }
+  .weapon-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .weapon-table td.atk, .weapon-table td.dmg {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    color: var(--accent-dark);
+    white-space: nowrap;
+  }
+  .armor-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.2rem;
+    margin: 0.6rem 0;
+  }
+  .armor-name { font-family: "Cinzel", serif; font-weight: 700; font-size: 1rem; color: var(--accent-dark); letter-spacing: 0.06em; }
+  .armor-props { font-size: 0.88rem; color: var(--ink-soft); font-style: italic; margin-top: 0.25rem; }
+
+  .personality-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.5rem 0 1rem; }
+  .pers-card {
+    border-left: 3px solid var(--accent);
+    padding: 0.6rem 1.1rem;
+    background: var(--accent-glaze);
+  }
+  .pers-card.flaw {
+    border-left-color: var(--seal);
+    background: rgba(107, 62, 38, 0.06);
+  }
+  .pers-label {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .pers-card.flaw .pers-label { color: var(--seal-dark); }
+  .pers-text { font-style: italic; color: var(--ink); font-size: 1rem; line-height: 1.5; margin: 0; }
+
+  .connections-list { margin: 0.5rem 0 1rem; padding-left: 0; list-style: none; }
+  .connections-list li {
+    margin-bottom: 0.7rem;
+    padding-left: 1.4rem;
+    position: relative;
+    line-height: 1.55;
+  }
+  .connections-list li::before {
+    content: "▲";
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    top: 0.32em;
+    font-size: 0.65rem;
+  }
+  .connections-list strong { color: var(--accent-dark); }
+
+  .expedition-callout {
+    background: linear-gradient(180deg, var(--accent-glaze) 0%, rgba(58,106,74,0.03) 100%);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    padding: 1.5rem 1.75rem;
+    margin: 1rem 0 0;
+    font-size: 1.02rem;
+    line-height: 1.6;
+  }
+  .expedition-callout p:last-child { margin-bottom: 0; }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    margin-top: 3rem;
+    color: var(--ink-faint);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+  }
+  .footer .meander {
+    margin-bottom: 1rem;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 1000px) {
+    .doc { padding: 0 1.5rem 2.5rem; }
+    .timeline-section { padding: 1.5rem 1.5rem; }
+    .masthead-band { padding: 2rem 1.5rem 2.5rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1.5rem; }
+    .portrait-frame { width: 100%; max-width: 320px; height: auto; aspect-ratio: 3/4; margin: 0 auto; }
+    h1.dossier-name { font-size: 2.8rem; }
+    .identity-inscription { grid-template-columns: 1fr; }
+    .summary-strip, .abilities-grid { grid-template-columns: repeat(3, 1fr); }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .combat-block, .personality-grid { grid-template-columns: 1fr; }
+    .patron-section { margin: 2rem -1.5rem; }
+    .patron-inner { padding: 2rem 1.5rem; }
+    .patron-inner::before, .patron-inner::after { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="stele">
+
+<!-- ============== MASTHEAD ============== -->
+<div class="masthead-band">
+  <div class="masthead">
+
+    <div class="portrait-frame">
+      <img src="../Theros 1st pass/Maelis.png" alt="Maelis of Skola Vale portrait">
+    </div>
+
+    <div class="name-block">
+      <div class="name-eyebrow">Dossier · Oracle of Pharika's Coven</div>
+      <h1 class="dossier-name">
+        <span class="given">Maelis</span>
+        <span class="epithet">of Skola Vale</span>
+      </h1>
+      <p class="tagline">
+        A recluse-witch in a serpent-haunted valley; Pharika visited her there, and the visions came afterward — in a language she did not learn but somehow understands.
+      </p>
+      <dl class="identity-inscription" id="identity-target"><!-- populated --></dl>
+    </div>
+
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- ============== TIMELINE ============== -->
+<div class="timeline-section">
+  <div class="tl-label">Stage of Career</div>
+  <div class="tl-track" id="timeline">
+    <button class="tl-node active" data-stage="0" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 1</div>
+      <div class="tl-bot">Witch of Skola Vale</div>
+    </button>
+    <button class="tl-node" data-stage="1" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 5</div>
+      <div class="tl-bot">Coven of the Claw</div>
+    </button>
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<div class="doc">
+
+<!-- BIO -->
+<section class="block">
+  <h2 class="section-h">Bio<span class="greek-chap">α · Vita</span></h2>
+  <p>Maelis retreated from society after a life-altering event — she has not said what it was, and her isolation has only deepened her sense that ordinary people are weak, and that meddling in their affairs causes more trouble than it solves. Skola Vale is her home now: a hard valley, dry-grassed and edged with serpent-haunted rocks, where she keeps her own counsel and her own garden. Pharika visited her there. Maelis learned the goddess's secrets from a talking serpent — and ever since, dark thoughts have moved in her like a second pulse. She believes everyone dies. She believes their brief lives may as well be put to use.</p>
+  <p>The visions came afterward. She did not ask for them. They come anyway, in Celestial — a language she understands without having been taught — and Pharika sometimes speaks through her in a voice that is not quite her own. She is an oracle by nature now, whatever she was before, and Pharika's will moves through her into the world.</p>
+  <p id="bio-l5-extra"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- SUMMARY STRIP -->
+<section class="block">
+  <h2 class="section-h">At a Glance<span class="greek-chap">β · Synopsis</span></h2>
+  <div class="summary-strip" id="summary-target"></div>
+</section>
+
+<!-- ABILITY SCORES -->
+<section class="block">
+  <h2 class="section-h">Ability Scores<span class="greek-chap">γ · Dynámeis</span></h2>
+  <div class="abilities-grid" id="abilities-target"></div>
+  <p class="ab-note" id="ab-note-target"></p>
+</section>
+
+<!-- COMBAT & SENSES -->
+<section class="block">
+  <h2 class="section-h">Combat &amp; Senses<span class="greek-chap">δ · Mákhē</span></h2>
+  <div class="combat-block" id="combat-target"></div>
+</section>
+
+<!-- SKILLS -->
+<section class="block">
+  <h2 class="section-h">Skill Proficiencies<span class="greek-chap">ε · Tékhnai</span></h2>
+  <div class="skills-grid" id="skills-target"></div>
+  <p class="skill-source" id="skill-tool-target"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- CLASS FEATURES -->
+<section class="block">
+  <h2 class="section-h">Class Features<span class="greek-chap">ζ · Tákta</span></h2>
+  <div class="feat-block" id="features-target"></div>
+</section>
+
+<!-- RACIAL FEATURES -->
+<section class="block">
+  <h2 class="section-h">Racial Features — Variant Human<span class="greek-chap">η · Génos</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Ability Score Increase</strong>: +1 Con, +1 Wis (already applied).</li>
+      <li><strong>Skill Proficiency</strong>: Arcana.</li>
+      <li><strong>Feat</strong>: Ritual Caster (see below).</li>
+      <li><strong>Languages</strong>: Common + one of choice. <em>Chosen: Sylvan.</em></li>
+    </ul>
+  </div>
+
+  <h3 class="sub-h">Feat: Ritual Caster (Cleric list, Wis-based)</h3>
+  <div class="feat-card">
+    <ul>
+      <li>Class chosen: <strong>Cleric</strong>. Spellcasting ability = <strong>Wisdom</strong>.</li>
+      <li>Starts with a <strong>ritual book</strong> containing <strong>two 1st-level ritual spells</strong> from the chosen class's list.
+        <ul>
+          <li><strong>Starting rituals</strong>: <em>Ceremony</em>, <em>Purify Food and Drink</em>.</li>
+        </ul>
+      </li>
+      <li>Can only cast these as <strong>rituals</strong> (cast time +10 min, no slot). Cannot cast normally.</li>
+      <li>Can add new rituals: Cleric list, ritual tag, max spell level = your level / 2 round up. Cost: 2 hours and 50 gp per spell level.</li>
+    </ul>
+    <p class="aside" id="ritual-note-target"></p>
+  </div>
+</section>
+
+<!-- SUPERNATURAL GIFT -->
+<section class="block">
+  <h2 class="section-h">Supernatural Gift — Oracle (Pharika's voice)<span class="greek-chap">θ · Dóron</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Ears of the Oracle</strong>: You speak, read, and write <strong>Celestial</strong>, the language of the gods. Pharika may deliver a message through you — in your voice, or letting hers come through in any language you speak.</li>
+      <li><strong>Oracle's Insight</strong>: When you make an <strong>ability check</strong>, you can roll a <strong>d10</strong> and add it to the total. Wait to decide until after the d20 but commit before the DM declares success/failure. <strong>1/short or long rest.</strong></li>
+      <li><strong>Oracle's Piety</strong>: Your oracle traits <strong>replace</strong> Pharika's normal piety benefits — following the Augur → Seer → Sibyl → Divine Oracle progression. Wisdom is the spellcasting ability.</li>
+    </ul>
+    <p class="aside">Oracle's Piety REPLACES Pharika's normal piety benefits. Maelis does NOT have Pharika's standard Devotee <em>ray of sickness</em> trait. At Piety 3+ she casts <em>augury</em> as a ritual instead — see the Patron God panel.</p>
+  </div>
+</section>
+
+</div>
+
+<!-- PATRON GOD — temple panel -->
+<section class="patron-section">
+  <div class="patron-inner">
+    <h2 class="section-h">Patron God — Pharika, of the Black Sap<span class="greek-chap">ι · Theós</span></h2>
+    <div class="feat-block" id="patron-target"></div>
+  </div>
+</section>
+
+<div class="doc" style="padding-top: 1rem;">
+
+<!-- BACKGROUND -->
+<section class="block">
+  <h2 class="section-h">Background — Hermit (Pharika-cultist recluse)<span class="greek-chap">κ · Bíos</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Skill Proficiencies</strong>: Medicine, Religion.</li>
+      <li><strong>Tool Proficiencies</strong>: Herbalism Kit.</li>
+      <li><strong>Languages</strong>: One of choice. <em>Chosen: Draconic</em> <em>(Theros serpents and dragon-touched monstrosities; fits a Pharika-touched recluse who has parleyed with the snake that taught her)</em>.</li>
+      <li><strong>Equipment</strong>: Scroll case (notes from studies/prayers), winter blanket, common clothes, Herbalism Kit, 5 gp.</li>
+      <li><strong>Feature — Discovery</strong>: The quiet seclusion of your extended hermitage gave you access to a unique and powerful <strong>discovery</strong> — exact nature is up to the DM. Possibilities for Maelis: a poultice formula, a heretical theological insight, a forgotten ceremony of Pharika, or something a serpent told her about who really runs things.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SPELLCASTING -->
+<section class="block">
+  <h2 class="section-h">Spellcasting<span class="greek-chap">λ · Goēteía</span></h2>
+  <div id="spellcasting-target"></div>
+</section>
+
+<!-- EQUIPMENT -->
+<section class="block">
+  <h2 class="section-h">Equipment<span class="greek-chap">μ · Hopla</span></h2>
+  <div id="equipment-target"></div>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- PERSONALITY -->
+<section class="block">
+  <h2 class="section-h">Personality<span class="greek-chap">ν · Êthos</span></h2>
+  <div class="personality-grid">
+    <div class="pers-card">
+      <div class="pers-label">Trait</div>
+      <p class="pers-text">"She is oblivious to etiquette and social expectations."</p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Ideal</div>
+      <p class="pers-text">"Meddling in the affairs of others only causes trouble." <em>(Hermit ideal. Pharika-aligned alternative — Fatalism: "Everyone dies. I may as well use their brief lives for my own purposes.")</em></p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Bond</div>
+      <p class="pers-text">"Her isolation has given her insight into a great evil only she can destroy."</p>
+    </div>
+    <div class="pers-card flaw">
+      <div class="pers-label">Flaw</div>
+      <p class="pers-text">"She harbors dark, bloodthirsty thoughts that her isolation failed to quell."</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECTIONS -->
+<section class="block">
+  <h2 class="section-h">Connections<span class="greek-chap">ξ · Philíai</span></h2>
+  <ul class="connections-list">
+    <li><em>(Source marks Connections as TBD. Candidate threads include <strong>Chrythra Thanessa</strong> — Pharika-aligned isolated mystic kinship; <strong>Alesta Centaur-Speaker</strong> — herbalism/poison trade; <strong>Skotia Drephina</strong> — borderlands path through Skola Vale.)</em></li>
+  </ul>
+</section>
+
+<!-- EXPEDITION -->
+<section class="block">
+  <h2 class="section-h">Why Maelis is on the Expedition<span class="greek-chap">ο · Hodós</span></h2>
+  <div class="expedition-callout">
+    <p><strong>Pharika in the Famine.</strong> Maelis's isolation and connection to Pharika could make her privy to alchemical secrets or curses causing the grain's failure. Her fatalistic worldview might lead her to use the crisis as an opportunity to gain influence, even at the expense of others.</p>
+    <p>The Fallow Year is exactly the kind of cosmic wound Pharika feeds on — every dying field, every desperate alchemical bargain, every person turning to a serpent-cult for answers they can't get from Karametra. Maelis is positioned to thrive in it, and to learn things from it.</p>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div class="meander" aria-hidden="true"></div>
+  Player Character Dossier · Theros, The Fallow Season
+</footer>
+
+</div>
+
+<script>
+const SNAPSHOTS = [
+  {
+    stage: "L1",
+    level: 1,
+    pb: 2,
+    identity: { class_long: "Witch 1", age: "—", hp_breakdown: "9 (d8 max 8 + Con +1)" },
+    summary: { hp: 9, ac: 12, init: "+1", speed: "30 ft.", pb: "+2", pp: 13 },
+    abilities: {
+      str:{score: 8, mod:"−1", save:"−1", prof:false},
+      dex:{score:12, mod:"+1", save:"+1", prof:false},
+      con:{score:12, mod:"+1", save:"+1", prof:false},
+      int:{score:10, mod:"+0", save:"+0", prof:false},
+      wis:{score:16, mod:"+3", save:"+5", prof:true},
+      cha:{score:10, mod:"+0", save:"+2", prof:true}
+    },
+    ab_note: "Rolled array 8, 10, 10, 11, 12, 15 → Str 8 / Dex 12 / Con 11 / Int 10 / Wis 15 / Cha 10. Variant Human +1 Con (→12), +1 Wis (→16).",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+2</dd>
+        <dt>Armor Class</dt><dd>12 <em>(leather armor 11 + Dex +1)</em></dd>
+        <dt>Initiative</dt><dd>+1</dd>
+        <dt>Speed</dt><dd>30 ft.</dd>
+        <dt>Hit Points</dt><dd>9 <em>(d8 max 8 + Con +1)</em></dd>
+        <dt>Hit Dice</dt><dd>1d8</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>13 <em>(10 + Wis +3; not proficient)</em></dd>
+        <dt>Special Senses</dt><dd>—</dd>
+        <dt>Creature Type</dt><dd>Humanoid (Human)</dd>
+        <dt>Witch Spell DC / Atk</dt><dd><strong>13</strong> / +5 <em>(8 + PB +2 + Wis +3)</em></dd>
+      </dl>
+    `,
+    skills: [
+      {name:"Animal Handling", ability:"wis", bonus:"+5", source:"Witch"},
+      {name:"Arcana",          ability:"int", bonus:"+2", source:"Variant Human"},
+      {name:"Medicine",        ability:"wis", bonus:"+5", source:"Hermit"},
+      {name:"Religion",        ability:"int", bonus:"+2", source:"Hermit"},
+      {name:"Survival",        ability:"wis", bonus:"+5", source:"Witch"}
+    ],
+    tool_text: "Tools: Alchemist's Supplies, Cook's Utensils (Witch — two artisan's tools chosen); Herbalism Kit (Hermit).",
+    ritual_note: "At L1, Maelis can copy rituals up to 1st level only (half her level rounded up). At L5, that ceiling rises to 3rd level.",
+    features_html: `
+      <h3 class="sub-h">Witch (Level 1)</h3>
+      <p class="aside">Worlds Beyond Number Witch playtest v3.1, ported to 2014 framework. "Emanation" → "centered-on-self radius"; "D20 Test" → ability check / attack roll / saving throw; prepared spells handled like a fixed Cleric-style prep count from the Witch table.</p>
+      <ul>
+        <li><strong>Spellcasting</strong>: <strong>Wisdom</strong> is the spellcasting ability. <strong>Arcane Focus</strong> is a wand (default) or a meaningful homemade/repurposed object dedicated with 1 hour of meditation (broom, kitchen knife, kettle, doll, etc.).
+          <ul>
+            <li><strong>Prepared Spells</strong> (fixed by Witch table): <strong>4 at L1</strong>. Spells must be of a level for which you have spell slots. Change on long rest.</li>
+            <li><strong>Cantrips</strong>: 3 known at L1, retrainable on level-up.</li>
+          </ul>
+        </li>
+        <li><strong>Witchcraft Tokens</strong>: Craft any Witch spell of level 1 that targets one or more creatures into a single-use token using Artisan's Tools or Herbalism Kit. 1 hour of labor during a short or long rest, an unexpended spell slot of the spell's level (you need not have it prepared), and a <strong>Wis (Artisan's Tools) check, DC 10 + spell level</strong>. On failure, the spell slot is expended unless you accept the item isn't created. Tokens take a form fitting their tool (potion from Herbalism, cupcake from Cook's). The holder uses your spell save DC, attack bonus, and ability; concentration if needed transfers to the holder. <strong>Max active tokens = PB (2 at L1).</strong></li>
+        <li><strong>Witch's Familiar</strong>: A lifelong magical companion (CR 0 from the class list). HP = max(Witch level, statblock HP). Speaks one language you speak. Telepathic connection at any distance; bonus action sense-share; magical assistant for touch-range spells and concentration takeover (once per short/long rest). Rolls own initiative; revive via 10-gp ritual.</li>
+      </ul>
+      <p class="aside">Suggested familiar — <strong>Venomous Snake</strong>. Fits Pharika directly; foreshadows Coven of the Claw at L3. Alternatives: Cat (stealth), Raven (Mimicry + flight), Owl (Flyby + Keen senses).</p>
+      <p class="aside">Retributive Curses at L2; Witch Subclass at L3; ASI at L4; Witchcraft Talismans at L5 — not at L1.</p>
+    `,
+    patron_html: `
+      <h3 class="sub-h">Pharika Piety 3 — Augur (via Oracle's Piety)</h3>
+      <ul>
+        <li><strong>Source of godly favor</strong> <em>(d6 #6)</em>: "You learned the secrets of Pharika from a talking serpent."</li>
+        <li><strong>Godly ideal</strong> <em>(d6 #3)</em>: <em>Fatalism.</em> "Everyone dies. I may as well use their brief lives for my own purposes." (Neutral Evil)</li>
+        <li><strong>Oracle's Curse</strong> <em>(d8 #5)</em>: "A horrible monster in Nyx watches me constantly, and I see it every time I venture outdoors."</li>
+        <li><strong>Augur (Piety 3+)</strong>: Cast <em>augury</em> as a ritual with this trait. <strong>1/long rest.</strong> Wisdom is the spellcasting ability.</li>
+      </ul>
+      <p class="aside">Oracle Gift overrides Pharika's standard Devotee trait. Maelis is on the Oracle's Piety track (Augur → Seer → Sibyl → Divine Oracle). Her Augur ritual is <em>augury</em>, not Pharika's standard <em>ray of sickness</em>.</p>
+    `,
+    spellcasting_html: `
+      <div class="spell-block">
+        <div class="spell-stats">
+          <div class="ss-cell"><div class="ss-label">Save DC</div><div class="ss-value">13</div></div>
+          <div class="ss-cell"><div class="ss-label">Spell Attack</div><div class="ss-value">+5</div></div>
+          <div class="ss-cell"><div class="ss-label">Prepared</div><div class="ss-value">4</div></div>
+          <div class="ss-cell"><div class="ss-label">Ability</div><div class="ss-value">Wis</div></div>
+        </div>
+
+        <h3 class="sub-h">Spell Slots</h3>
+        <table class="slot-table">
+          <thead><tr><th>1st</th></tr></thead>
+          <tbody><tr><td>2</td></tr></tbody>
+        </table>
+
+        <h3 class="sub-h">Cantrips Known (3 at L1)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Spell</th><th>School</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="spell-name">Cackle</td><td>Enchantment (Witch)</td><td>60 ft, Wis save DC 13 or <strong>1d8 psychic</strong> + disadvantage on next Str/Dex check or save before start of your next turn.</td></tr>
+            <tr><td class="spell-name">Guidance</td><td>Divination, C</td><td>Touch, +1d4 to one ability check.</td></tr>
+            <tr><td class="spell-name">Mending</td><td>Transmutation</td><td>Repair a single small break or tear.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Prepared Spells (4 at L1, fixed by Witch table)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Spell</th><th>School</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="spell-name">Cure Wounds</td><td>Abjuration</td><td>Touch, <strong>1d8 + 3</strong> HP.</td></tr>
+            <tr><td class="spell-name">Bane</td><td>Enchantment, <strong>Curse</strong></td><td>3 targets within 30 ft; Cha save DC 13; −1d4 to attacks/saves. Concentration, 1 min.</td></tr>
+            <tr><td class="spell-name">Witch's Grasp</td><td>Evocation, <strong>Curse</strong></td><td>30 ft, Str save DC 13; on fail Grappled by spectral ribbons + <strong>1d8 necrotic</strong> (if target attacked you in the last minute) at start of each turn. Concentration, 1 min.</td></tr>
+            <tr><td class="spell-name">Detect Magic</td><td>Divination, R</td><td>Ritual; sense magic within 30 ft.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Ritual Book (Ritual Caster — Cleric list, Wis-based)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Spell</th><th>School</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="spell-name">Ceremony</td><td>Abjuration, R</td><td>1 hour, 25 gp powdered silver. Atonement / Bless Water / Coming of Age / Dedication / Funeral Rite / Wedding rites. <strong>Funeral Rite</strong> is the Pharika-pulled use case (prevents undead-rise for 7 days).</td></tr>
+            <tr><td class="spell-name">Purify Food and Drink</td><td>Transmutation, R</td><td>5-ft radius; remove poison/rot from nonmagical food and drink. <em>Ironic for a Pharika-flavored character; useful in a Fallow Year famine.</em></td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Spells via Other Traits (no slot needed)</h3>
+        <ul>
+          <li><strong>Augury</strong> as a ritual (Oracle Augur trait — Wis-based; no save or attack). 1/long rest.</li>
+        </ul>
+      </div>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Sickle</td><td class="atk">+1</td><td class="dmg">1d4 −1 slashing</td><td>Simple melee, light.</td></tr>
+          <tr><td>Daggers ×2</td><td class="atk">+3</td><td class="dmg">1d4 + 1 piercing</td><td>Simple, finesse, light, thrown 20/60.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">Leather Armor</div>
+        <div class="armor-props">Light · AC 11 + Dex unlimited</div>
+      </div>
+      <h3 class="sub-h">Arcane Focus &amp; Personal Items</h3>
+      <ul>
+        <li><strong>Wand</strong> <em>(or a homemade focus after 1 hour of dedication — a snake-carved walking staff, a kitchen knife, a poison-mortar)</em>.</li>
+        <li>Alchemist's Supplies; Cook's Utensils; Herbalism Kit.</li>
+        <li>Scroll case (notes, prayers, theological observations); winter blanket; common clothes.</li>
+        <li><strong>Explorer's Pack</strong>: backpack, bedroll, mess kit, tinderbox, 10 torches, 10 days of rations, waterskin, 50 ft. hempen rope.</li>
+      </ul>
+      <p><strong>Money</strong>: 10 gp <em>(5 gp Witch + 5 gp Hermit combined)</em>.</p>
+    `,
+    bio_l5_extra: ``
+  },
+  {
+    stage: "L5",
+    level: 5,
+    pb: 3,
+    identity: { class_long: "Witch 5 — Coven of the Claw", age: "36", hp_breakdown: "37 (Witch L1: 8 + Con +1 = 9; L2-5: 4 × (avg 5 + Con +1) = 24; Crimson Gift +4 across L3-5)" },
+    summary: { hp: 37, ac: 15, init: "+1", speed: "30 ft.", pb: "+3", pp: 14 },
+    abilities: {
+      str:{score: 8, mod:"−1", save:"−1", prof:false},
+      dex:{score:12, mod:"+1", save:"+1", prof:false},
+      con:{score:12, mod:"+1", save:"+1", prof:false},
+      int:{score:10, mod:"+0", save:"+0", prof:false},
+      wis:{score:18, mod:"+4", save:"+7", prof:true},
+      cha:{score:10, mod:"+0", save:"+3", prof:true}
+    },
+    ab_note: "Same base array as L1. Level 4 ASI: +2 Wis (16 → 18). Raises spell save DC 13 → 15, spell attack +5 → +7, Wis save +5 → +7, Crimson Gift unarmored AC 14 → 15 (+1), natural-weapon damage +3 → +4.",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+3</dd>
+        <dt>Armor Class</dt><dd>15 <em>(Crimson Gift unarmored: 10 + Dex +1 + Wis +4)</em></dd>
+        <dt>Initiative</dt><dd>+1</dd>
+        <dt>Speed</dt><dd>30 ft.</dd>
+        <dt>Hit Points</dt><dd>37 <em>(L1: 9; L2–5: 24; Crimson Gift: +2 @ L3, +1 @ L4, +1 @ L5 = +4)</em></dd>
+        <dt>Hit Dice</dt><dd>5d8</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>14 <em>(10 + Wis +4; not proficient)</em></dd>
+        <dt>Special Senses</dt><dd>—</dd>
+        <dt>Creature Type</dt><dd>Humanoid (Human)</dd>
+        <dt>Witch Spell DC / Atk</dt><dd><strong>15</strong> / +7 <em>(8 + PB +3 + Wis +4)</em></dd>
+      </dl>
+    `,
+    skills: [
+      {name:"Animal Handling", ability:"wis", bonus:"+7", source:"Witch"},
+      {name:"Arcana",          ability:"int", bonus:"+3", source:"Variant Human"},
+      {name:"Medicine",        ability:"wis", bonus:"+7", source:"Hermit"},
+      {name:"Religion",        ability:"int", bonus:"+3", source:"Hermit"},
+      {name:"Survival",        ability:"wis", bonus:"+7", source:"Witch"}
+    ],
+    tool_text: "Tools: Alchemist's Supplies, Cook's Utensils (Witch); Herbalism Kit (Hermit). All five proficient skills now scale by PB +3 and the Wis +1 ASI bump.",
+    ritual_note: "At L5, the ritual ceiling is 3rd level. Useful additions Maelis might have copied if you've established library time: Detect Poison and Disease, Gentle Repose (Cleric 1st-level Necromancy ritual). Not added by default; sheet reflects the starting two.",
+    features_html: `
+      <h3 class="sub-h">Witch (Base)</h3>
+      <p class="aside">Worlds Beyond Number Witch playtest v3.1, ported to 2014 framework.</p>
+      <ul>
+        <li><strong>Spellcasting</strong> (L1): Wis-based; prepared spells fixed by the Witch table (<strong>9 at L5</strong>, not Wis + level). Cantrips known per table.</li>
+        <li><strong>Witchcraft Tokens</strong> (L1): Craft any 1st-level Witch spell into a token (1 hour, Artisan's Tools/Herbalism Kit, DC 10 + spell level Wis check, slot risked on failure). Max active tokens = <strong>PB 3</strong>.</li>
+        <li><strong>Witch's Familiar</strong> (L1): <em>the listener</em> — Venomous Snake. HP = max(Witch L5 = 5, statblock = 2) = <strong>5</strong>. Telepathy, sense-share, magical assistant; can take over concentration once per short rest; revivable via 10-gp ritual.</li>
+        <li><strong>Retributive Curses</strong> (L2): Reaction when a creature within 60 ft commits Harm / Threat / Betrayal against you, your familiar, or a token-holder. Place one:
+          <ul>
+            <li><strong>Bloodguilt</strong>: First damage dealt by target on its turn → 1d6 + PB 3 = <strong>1d6 + 3 psychic</strong>.</li>
+            <li><strong>Leaden Shoes</strong>: Speed 5 ft; no OAs.</li>
+            <li><strong>Uncanny Jinx</strong>: Target subtracts 1d4 from all D20 Tests.</li>
+            <li><strong>Vengeful Gleam</strong>: 5-ft dim light; can't benefit from Invisible; attackers have advantage vs. it.</li>
+          </ul>
+          Duration <strong>1 minute</strong>. <strong>2 uses, regain on short or long rest.</strong> If the fight was initiated by you/allies, target can save (Cha vs DC 15); on success the curse fails but the use isn't expended.
+        </li>
+        <li><strong>Witchcraft Talismans</strong> (L5): Spend <strong>24 hours of labor</strong> (not continuous) + DC 20 Wis (Artisan's Tools) + permanently sacrifice a spell slot of the spell's level. Creates a permanent talisman holding a Witch spell (no costly material components), usable 1/day. As an action while seeing the talisman, you can recover the sacrificed slot (the talisman becomes mundane). Always know distance/direction to your talismans on the same plane.
+          <p class="aside">Alternative: spend a level 3+ slot to craft an item from the Witch's Common/Uncommon Items table (Bauble Trap, Worry Stone, Broom of Flying, etc.).</p>
+        </li>
+      </ul>
+
+      <h3 class="sub-h">Coven of the Claw (Subclass, chosen at L3)</h3>
+      <h4 class="subsub-h">Claw Spells (always prepared, don't count against the limit)</h4>
+      <ul>
+        <li><strong>L3 chosen</strong>: <em>Animal Friendship</em>, <em>Animal Messenger</em>, <em>Poison Spray</em> (cantrip), <em>Speak With Animals</em>, <em>Spider Climb</em>.</li>
+        <li><strong>L5 chosen</strong>: <em>Haste</em>, <em>Water Breathing</em>.</li>
+      </ul>
+
+      <h4 class="subsub-h">Curse of the Claw (L3)</h4>
+      <ul>
+        <li>Bonus action, curse a creature within 60 ft for <strong>1 hour</strong>:
+          <ul>
+            <li>Advantage on first attack roll against it each turn.</li>
+            <li>You don't provoke OAs from it.</li>
+            <li>Advantage on Wis (Perception or Survival) checks to find it.</li>
+          </ul>
+        </li>
+        <li><strong>2 uses; regain 1 on short rest, all on long rest.</strong></li>
+      </ul>
+
+      <h4 class="subsub-h">Crimson Gift (L3)</h4>
+      <ul>
+        <li><strong>Unarmored Defense</strong>: While not wearing Medium or Heavy armor and not wielding a Shield, <strong>AC = 10 + Dex + Wis</strong> (= <strong>15</strong>).</li>
+        <li><strong>HP bonus</strong>: +2 at coven choice (L3), +1 per Witch level thereafter (L4 +1, L5 +1) = <strong>+4 HP</strong> total.</li>
+        <li><strong>Natural Weapons</strong>: Grow claws, fangs, spines, horns, or other natural weapon (changeable as bonus action). Melee spell attack instead of melee weapon attack; <strong>1d6 + Wis +4 = 1d6 + 4</strong> bludgeoning/piercing/slashing (chosen at attack time).</li>
+      </ul>
+    `,
+    patron_html: `
+      <h3 class="sub-h">Pharika Piety 3+ — Augur (via Oracle's Piety)</h3>
+      <ul>
+        <li><strong>Source of godly favor</strong> <em>(d6 #6)</em>: "You learned the secrets of Pharika from a talking serpent."</li>
+        <li><strong>Godly ideal</strong> <em>(d6 #3)</em>: <em>Fatalism.</em> "Everyone dies. I may as well use their brief lives for my own purposes." (Neutral Evil)</li>
+        <li><strong>Oracle's Curse</strong> <em>(d8 #5)</em>: "A horrible monster in Nyx watches me constantly, and I see it every time I venture outdoors."</li>
+        <li><strong>Augur (Piety 3+)</strong>: Cast <em>augury</em> as a ritual with this trait. <strong>1/long rest.</strong> Wisdom-based.</li>
+      </ul>
+      <p class="aside">Maelis's piety track is the Oracle's Piety progression (Augur → Seer → Sibyl → Divine Oracle), not Pharika's standard Devotee → higher-tier track. <em>Augury</em> is her current trait-spell.</p>
+    `,
+    spellcasting_html: `
+      <div class="spell-block">
+        <div class="spell-stats">
+          <div class="ss-cell"><div class="ss-label">Save DC</div><div class="ss-value">15</div></div>
+          <div class="ss-cell"><div class="ss-label">Spell Attack</div><div class="ss-value">+7</div></div>
+          <div class="ss-cell"><div class="ss-label">Prepared</div><div class="ss-value">9</div></div>
+          <div class="ss-cell"><div class="ss-label">Ability</div><div class="ss-value">Wis</div></div>
+        </div>
+
+        <h3 class="sub-h">Spell Slots</h3>
+        <table class="slot-table">
+          <thead><tr><th>1st</th><th>2nd</th><th>3rd</th></tr></thead>
+          <tbody><tr><td>4</td><td>3</td><td>2</td></tr></tbody>
+        </table>
+
+        <h3 class="sub-h">Cantrips Known (4 + Coven Poison Spray)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Source</th><th>Spell</th><th>School</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Witch</td><td class="spell-name">Cackle</td><td>Enchantment</td><td>60 ft, Wis save DC 15 or <strong>2d8 psychic</strong> + disadvantage on next Str/Dex check or save. Cantrip scaling.</td></tr>
+            <tr><td>Witch</td><td class="spell-name">Guidance</td><td>Divination, C</td><td>+1d4 to one ability check.</td></tr>
+            <tr><td>Witch</td><td class="spell-name">Mending</td><td>Transmutation</td><td>Repair single small break.</td></tr>
+            <tr><td>Witch</td><td class="spell-name">(open slot)</td><td>—</td><td><em>4th cantrip-known slot left for player choice. Strong picks: Chill Touch, Shillelagh, Resistance.</em></td></tr>
+            <tr><td>Coven</td><td class="spell-name">Poison Spray</td><td>Conjuration</td><td>10 ft, Con save DC 15 or <strong>2d12 poison</strong>. Always known via Coven; doesn't count.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Prepared Spells (9 at L5, fixed by Witch table)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Lvl</th><th>Spell</th><th>School</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="lvl">1</td><td class="spell-name">Cure Wounds</td><td>Abjuration</td><td>Touch, <strong>1d8 + 4</strong> HP.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Bane</td><td>Enchantment, <strong>Curse</strong></td><td>3 targets, Cha save DC 15. −1d4 attacks/saves. Concentration, 1 min.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Witch's Grasp</td><td>Evocation, <strong>Curse</strong></td><td>30 ft, Str save DC 15. Grappled + 1d8 necrotic at start of turns. Concentration, 1 min.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Detect Magic</td><td>Divination, R</td><td>Ritual; sense magic in 30 ft.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Inflict Wounds</td><td>Necromancy</td><td>Melee spell attack +7, <strong>3d10 necrotic</strong>. Pharika-flavored.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Hold Person</td><td>Enchantment, C</td><td>60 ft, Wis save DC 15; paralyzed. Concentration, 1 min.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Tongue-Tie</td><td>Enchantment, <strong>Curse</strong>, C</td><td>60 ft, Wis save DC 15. While cursed, target cannot speak about a chosen topic — vermin, flowers, or filth spills out instead. Concentration, 8 hours (or permanent if rude/ungrateful guest).</td></tr>
+            <tr><td class="lvl">3</td><td class="spell-name">Bestow Curse</td><td>Necromancy, <strong>Curse</strong>, C</td><td>Touch, Wis save DC 15. Choose: disadvantage on attacks against you / lose action on Wis save / disadvantage on one ability's saves / vulnerability to one damage type / cast it differently. Concentration, 1 min.</td></tr>
+            <tr><td class="lvl">3</td><td class="spell-name">Remove Curse</td><td>Abjuration</td><td>Touch, end one curse on the target.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Subclass-granted (always prepared, don't count against the 9)</h3>
+        <table class="spell-table">
+          <tbody>
+            <tr><td class="lvl">1</td><td class="spell-name">Animal Friendship</td><td>Enchantment</td><td>Wis save; charm a beast for 24 hours.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Speak with Animals</td><td>Divination, R</td><td>10 min; converse with beasts.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Animal Messenger</td><td>Enchantment, R</td><td>Send a Tiny beast as a courier.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Spider Climb</td><td>Transmutation, C</td><td>Touch; climb walls/ceilings; concentration 1 hour.</td></tr>
+            <tr><td class="lvl">3</td><td class="spell-name">Haste</td><td>Transmutation, C</td><td>30 ft; +2 AC, advantage on Dex saves, double speed, +1 weapon attack/turn. Concentration, 1 min.</td></tr>
+            <tr><td class="lvl">3</td><td class="spell-name">Water Breathing</td><td>Transmutation, R</td><td>10 creatures breathe water for 24 hours.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Ritual Book (Ritual Caster — Cleric list, Wis-based)</h3>
+        <ul>
+          <li><em>Ceremony</em></li>
+          <li><em>Purify Food and Drink</em></li>
+        </ul>
+
+        <h3 class="sub-h">Spells via Other Traits (no slot needed)</h3>
+        <ul>
+          <li><strong>Augury</strong> as a ritual (Oracle Augur — Wis, 1/long rest).</li>
+        </ul>
+      </div>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Natural Weapons (Crimson Gift)</td><td class="atk">+7</td><td class="dmg">1d6 + 4 (B/P/S)</td><td>Claws, fangs, horns, or spines — chosen at attack time, changeable as bonus action. Melee spell attack.</td></tr>
+          <tr><td>Sickle</td><td class="atk">+2</td><td class="dmg">1d4 −1 slashing</td><td>Simple melee, light.</td></tr>
+          <tr><td>Daggers ×2</td><td class="atk">+4</td><td class="dmg">1d4 + 1 piercing</td><td>Simple, finesse, light, thrown 20/60.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">None worn (Crimson Gift)</div>
+        <div class="armor-props">Unarmored Defense AC 15 = 10 + Dex +1 + Wis +4. Wearing leather would disqualify the feature and drop her to AC 12 — kept in the pack as a fallback only.</div>
+      </div>
+      <h3 class="sub-h">Arcane Focus &amp; Personal Items</h3>
+      <ul>
+        <li><strong>Wand</strong> <em>(or a snake-carved walking staff homemade focus)</em>.</li>
+        <li>Alchemist's Supplies; Cook's Utensils; Herbalism Kit.</li>
+        <li>Scroll case; winter blanket; common clothes.</li>
+        <li><em>Familiar: the listener (Venomous Snake) — coils about her shoulders or slips into the brush at her gesture.</em></li>
+        <li><strong>Explorer's Pack</strong>: backpack, bedroll, mess kit, tinderbox, 10 torches, 10 days of rations, waterskin, 50 ft. hempen rope.</li>
+      </ul>
+      <p><strong>Money</strong>: 10 gp <em>(starting pouches; campaign accumulation not tracked)</em>.</p>
+    `,
+    bio_l5_extra: `In the years between her vision-touched isolation and now, she drifted into the practices of the Claw on her own and was recognized for what she had become. Her body changed in subtle ways: yellowed eyes, fangs she didn't quite remember growing, a hide she could harden into something that turned a knife. Her familiar — a venomous snake she calls by no name, only <em>the listener</em> — coils about her shoulders and slips into the brush when she gestures. She has decided to put their lives to use, and to let the witch in her decide which ones.`
+  }
+];
+
+const ABILITY_ORDER = ['str','dex','con','int','wis','cha'];
+const ABILITY_SHORT = { str:'STR', dex:'DEX', con:'CON', int:'INT', wis:'WIS', cha:'CHA' };
+const PRIMARY = 'wis';
+
+function renderIdentity(s) {
+  const rows = [
+    ['Race',       'Variant Human'],
+    ['Class',      s.identity.class_long],
+    ['Background', 'Hermit'],
+    ['Patron',     'Pharika · Augur'],
+    ['Gift',       'Oracle'],
+    ['Alignment',  'Neutral Evil'],
+    ['Languages',  'Common, Sylvan, Draconic, Celestial'],
+    ['Age',        s.identity.age]
+  ];
+  return rows.map(([k,v]) => `<div class="id-row"><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+}
+
+function renderSummary(s) {
+  return [
+    ['Hit Points', s.summary.hp, s.identity.hp_breakdown],
+    ['Armor Class', s.summary.ac, s.level >= 5 ? 'Crimson Gift unarmored' : 'leather armor'],
+    ['Initiative', s.summary.init, ''],
+    ['Speed', s.summary.speed, ''],
+    ['Prof Bonus', s.summary.pb, ''],
+    ['Pass. Perc.', s.summary.pp, '']
+  ].map(([label, val, sub]) => `
+    <div class="sum-plate">
+      <div class="sp-label">${label}</div>
+      <div class="sp-value">${val}</div>
+      ${sub ? `<div class="sp-sub">${sub}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderAbilities(s) {
+  return ABILITY_ORDER.map(a => {
+    const ab = s.abilities[a];
+    const isPrimary = a === PRIMARY;
+    return `
+      <div class="ab-cell ${isPrimary ? 'primary' : ''}">
+        <div class="ab-name">${ABILITY_SHORT[a]}</div>
+        <div class="ab-mod">${ab.mod}</div>
+        <div class="ab-score">score ${ab.score}</div>
+        <div class="ab-save ${ab.prof ? 'prof' : ''}">save<span class="save-bonus">${ab.save}</span></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderSkills(s) {
+  const grouped = {};
+  ABILITY_ORDER.forEach(a => grouped[a] = []);
+  s.skills.forEach(sk => grouped[sk.ability].push(sk));
+  return ABILITY_ORDER.map(a => {
+    const list = grouped[a];
+    return `
+      <div class="skill-cat">
+        <div class="skill-cat-name">${ABILITY_SHORT[a]}</div>
+        ${list.length === 0
+          ? '<div class="skill-row dim"><span class="skill-name">—</span></div>'
+          : list.map(sk => `<div class="skill-row"><span class="skill-name">${sk.name}</span><span class="skill-bonus">${sk.bonus}</span></div>`).join('')
+        }
+      </div>
+    `;
+  }).join('');
+}
+
+function renderStage(i) {
+  const s = SNAPSHOTS[i];
+  document.getElementById('identity-target').innerHTML = renderIdentity(s);
+  document.getElementById('summary-target').innerHTML = renderSummary(s);
+  document.getElementById('abilities-target').innerHTML = renderAbilities(s);
+  document.getElementById('ab-note-target').textContent = s.ab_note;
+  document.getElementById('combat-target').innerHTML = s.combat_html;
+  document.getElementById('skills-target').innerHTML = renderSkills(s);
+  document.getElementById('skill-tool-target').innerHTML = s.tool_text;
+  document.getElementById('ritual-note-target').textContent = s.ritual_note;
+  document.getElementById('features-target').innerHTML = s.features_html;
+  document.getElementById('patron-target').innerHTML = s.patron_html;
+  document.getElementById('spellcasting-target').innerHTML = s.spellcasting_html;
+  document.getElementById('equipment-target').innerHTML = s.equipment_html;
+  document.getElementById('bio-l5-extra').innerHTML = s.bio_l5_extra;
+
+  document.querySelectorAll('#timeline .tl-node').forEach((n, idx) => n.classList.toggle('active', idx === i));
+}
+
+document.querySelectorAll('#timeline .tl-node').forEach((n, i) => {
+  n.addEventListener('click', () => renderStage(i));
+});
+renderStage(0);
+</script>
+</body>
+</html>

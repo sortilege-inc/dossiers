@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Nyklos the Nightshade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --marble:        #ece8df;
+    --marble-warm:   #e2dccf;
+    --marble-cool:   #d8d4c8;
+    --marble-deep:   #c4bfb2;
+    --vein:          #b6b0a2;
+    --ink:           #1a1a18;
+    --ink-soft:      #3a3a36;
+    --ink-faint:     #6e6a60;
+    --rule:          #968f80;
+    --rule-soft:     #b4ada0;
+
+    /* Patron-deity accent — Erebos (shadow violet) */
+    --accent:        #3a2a4a;
+    --accent-dark:   #1a1424;
+    --accent-sec:    #8a7a9a;
+    --accent-glaze:  rgba(58, 42, 74, 0.10);
+
+    /* Wax-seal accent */
+    --seal:      #4a2a5a;
+    --seal-dark: #251635;
+
+    --class-tint: rgba(58, 42, 74, 0.05);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--marble);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.045' numOctaves='2' seed='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.42 0 0 0 0 0.38 0 0 0 0.4 0'/></filter><rect width='100%25' height='100%25' filter='url(%23m)'/></svg>"),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 600px 600px, 200px 200px;
+    opacity: 0.55;
+    mix-blend-mode: multiply;
+    z-index: 0;
+  }
+  body {
+    background-image:
+      linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 25%, var(--marble) 75%, var(--marble-cool) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 0 5rem;
+  }
+
+  .stele {
+    max-width: 1140px;
+    margin: 0 auto;
+    background:
+      linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 8%, var(--marble) 92%, var(--marble-cool) 100%);
+    padding: 0;
+    box-shadow:
+      0 1px 2px rgba(26, 22, 18, 0.10),
+      0 10px 32px rgba(26, 22, 18, 0.16),
+      0 28px 64px rgba(26, 22, 18, 0.10);
+    position: relative;
+    border: 1px solid var(--rule);
+    z-index: 1;
+  }
+  .stele::before,
+  .stele::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-dark) 100%);
+    opacity: 0.5;
+  }
+  .stele::before { left: 0; }
+  .stele::after  { right: 0; }
+
+  .doc { padding: 0 5rem 4rem; }
+
+  .meander {
+    height: 22px;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='22' viewBox='0 0 44 22'><path d='M0 17 L0 5 L11 5 L11 12 L6 12 L6 8 L17 8 L17 17 L11 17 L11 13 L22 13 L22 5 L33 5 L33 12 L28 12 L28 8 L39 8 L39 17 L44 17' fill='none' stroke='%231a1424' stroke-width='1.4' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: auto 18px;
+    opacity: 0.85;
+    margin: 0;
+  }
+  .meander.thick { height: 30px; }
+  .meander.thick { background-size: auto 24px; }
+
+  .masthead-band {
+    position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+    padding: 3rem 5rem 2.75rem;
+  }
+  .masthead-band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  .masthead-band::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px; height: 28px;
+    background:
+      linear-gradient(135deg, transparent 49.5%, var(--marble) 50%) left bottom / 50% 100% no-repeat,
+      linear-gradient(225deg, transparent 49.5%, var(--marble) 50%) right bottom / 50% 100% no-repeat;
+    z-index: 2;
+  }
+  .masthead {
+    position: relative;
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    z-index: 1;
+  }
+  .portrait-frame {
+    position: relative;
+    width: 360px; height: 480px;
+    background: var(--marble-deep);
+    padding: 8px;
+    border: 1px solid var(--ink-soft);
+    box-shadow:
+      inset 0 0 0 2px var(--accent-sec),
+      inset 0 0 0 4px var(--marble-deep),
+      0 4px 14px rgba(0,0,0,0.30);
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    left: -1px; right: -1px; height: 12px;
+    background:
+      linear-gradient(180deg, var(--accent-sec) 0%, var(--accent) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .portrait-frame::before { top: -14px; }
+  .portrait-frame::after  { bottom: -14px; }
+  .portrait-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.03) saturate(0.97);
+  }
+  .portrait-frame.empty {
+    display: flex;
+    align-items: center; justify-content: center;
+    background: linear-gradient(180deg, var(--marble), var(--marble-deep));
+  }
+  .portrait-frame.empty .empty-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0 1rem;
+    line-height: 1.4;
+  }
+
+  .name-block { padding: 0.5rem 0 0; color: var(--marble); position: relative; z-index: 1; }
+  .name-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.52em;
+    color: rgba(255, 250, 235, 0.85);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  h1.dossier-name {
+    font-family: "Cinzel", serif;
+    font-weight: 800;
+    font-size: 4.4rem;
+    line-height: 0.95;
+    letter-spacing: 0.04em;
+    color: var(--marble);
+    margin: 0 0 0.45rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.35);
+    text-transform: uppercase;
+  }
+  .dossier-name .given { display: block; color: var(--marble); }
+  .dossier-name .epithet {
+    display: block;
+    font-weight: 500;
+    font-size: 0.55em;
+    color: var(--accent-sec);
+    letter-spacing: 0.18em;
+    margin-top: 0.4rem;
+    font-style: italic;
+    font-variant: normal;
+    text-transform: none;
+  }
+  .tagline {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: rgba(255, 250, 235, 0.95);
+    margin: 1.2rem 0 1.5rem;
+    max-width: 38em;
+    padding-left: 1rem;
+    border-left: 2px solid var(--accent-sec);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .identity-inscription {
+    margin: 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(255, 250, 235, 0.3);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 2.25rem;
+  }
+  .id-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+  .id-row dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: rgba(255, 250, 235, 0.55);
+    text-transform: uppercase;
+  }
+  .id-row dd {
+    margin: 0;
+    color: rgba(255, 250, 235, 0.96);
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  }
+
+  .timeline-section {
+    background: var(--accent-glaze);
+    padding: 1.6rem 5rem;
+    position: relative;
+  }
+  .tl-label {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin: 0 0 1.1rem;
+  }
+  .tl-track {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 7rem;
+    position: relative;
+    padding: 0;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .tl-track::before {
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 16%; right: 16%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-sec), var(--accent), var(--accent-sec));
+    z-index: 0;
+  }
+  .tl-node {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: var(--ink-soft);
+    font-family: "EB Garamond", serif;
+    transition: color 0.2s ease;
+    min-width: 100px;
+  }
+  .tl-dot {
+    width: 18px; height: 18px;
+    border: 2px solid var(--accent-dark);
+    background: var(--marble);
+    margin-bottom: 0.55rem;
+    box-shadow: 0 0 0 3px var(--marble);
+    transition: all 0.2s ease;
+    transform: rotate(45deg);
+  }
+  .tl-node:hover .tl-dot {
+    border-color: var(--accent);
+    transform: rotate(45deg) scale(1.12);
+  }
+  .tl-node.active .tl-dot {
+    background: var(--seal);
+    border-color: var(--seal-dark);
+    box-shadow: 0 0 0 3px var(--marble), 0 0 0 5px rgba(74,42,90,0.25);
+  }
+  .tl-node.active { color: var(--ink); }
+  .tl-top {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .tl-node.active .tl-top { color: var(--accent-dark); }
+  .tl-bot {
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+    font-style: italic;
+  }
+
+  section.block { margin: 2.5rem 0 0; padding: 0.5rem 0 1.5rem; position: relative; }
+  section.block + section.block { margin-top: 2rem; }
+
+  .section-h {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--accent-dark);
+    margin: 0 0 1.5rem;
+    padding: 0;
+    border: none;
+    text-align: center;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    position: relative;
+    display: block;
+  }
+  .section-h::before {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 14px;
+    margin: 0 auto 0.85rem;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%231a1424' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.85;
+  }
+  .section-h .greek-chap {
+    display: block;
+    font-family: "Cinzel", serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.5em;
+    color: var(--accent);
+    margin-top: 0.5rem;
+    font-style: normal;
+    text-transform: uppercase;
+  }
+  h3.sub-h {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--accent-dark);
+    margin: 1.5rem 0 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  h4.subsub-h {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.32em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 1.1rem 0 0.5rem;
+    font-weight: 500;
+  }
+  p { margin: 0 0 1rem; }
+
+  .summary-strip {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    margin: 0.5rem 0;
+    background: var(--accent-glaze);
+    padding: 1rem 0.5rem;
+    border-top: 1.5px solid var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+  }
+  .sum-plate { text-align: center; padding: 0 0.5rem; border-right: 1px solid var(--rule-soft); }
+  .sum-plate:last-child { border-right: none; }
+  .sum-plate .sp-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .sum-plate .sp-value {
+    font-family: "Cinzel", serif;
+    font-size: 1.7rem;
+    color: var(--accent-dark);
+    line-height: 1.1;
+    font-weight: 700;
+    margin-top: 0.15rem;
+  }
+  .sum-plate .sp-sub {
+    font-family: "EB Garamond", serif;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 0.1rem;
+  }
+
+  .abilities-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+    margin: 0.5rem 0 1.25rem;
+  }
+  .ab-cell {
+    text-align: center;
+    padding: 1rem 0.4rem 0.85rem;
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--accent);
+    position: relative;
+  }
+  .ab-cell.primary {
+    border-top-width: 4px;
+    border-top-color: var(--accent-dark);
+    background: linear-gradient(180deg, rgba(138, 122, 154, 0.30) 0%, var(--marble-warm) 60%);
+  }
+  .ab-cell .ab-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .ab-cell .ab-mod {
+    font-family: "Cinzel", serif;
+    font-size: 2.1rem;
+    line-height: 1;
+    color: var(--ink);
+    font-weight: 800;
+  }
+  .ab-cell .ab-score {
+    font-family: "EB Garamond", serif;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+  }
+  .ab-cell .ab-save {
+    margin-top: 0.5rem;
+    padding-top: 0.4rem;
+    border-top: 1px dotted var(--rule);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .ab-cell .ab-save .save-bonus {
+    font-family: "Cinzel", serif;
+    font-size: 0.95rem;
+    color: var(--accent-dark);
+    margin-left: 0.25rem;
+    font-weight: 600;
+  }
+  .ab-cell .ab-save.prof::after {
+    content: " ★";
+    color: var(--seal);
+    margin-left: 0.15rem;
+  }
+  .ab-note { font-size: 0.88rem; color: var(--ink-faint); font-style: italic; text-align: center; margin-top: 0.5rem; }
+
+  .combat-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem 2.5rem;
+    margin: 0.5rem 0;
+  }
+  .combat-block dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; }
+  .combat-block dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    align-self: baseline;
+  }
+  .combat-block dd { margin: 0; font-family: "EB Garamond", serif; font-size: 0.98rem; color: var(--ink); }
+  .combat-block dd em { color: var(--ink-faint); font-size: 0.88rem; }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.1rem; margin: 1rem 0 1.5rem; }
+  .skill-cat { border-top: 2px solid var(--accent); padding-top: 0.6rem; }
+  .skill-cat-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    text-align: center;
+  }
+  .skill-row { display: flex; align-items: baseline; justify-content: space-between; gap: 0.4rem; padding: 0.18rem 0; font-size: 0.92rem; line-height: 1.3; color: var(--ink); }
+  .skill-row.dim { color: var(--ink-faint); font-style: italic; }
+  .skill-row .skill-name { flex: 1; }
+  .skill-row .skill-bonus { font-family: "Cinzel", serif; font-weight: 600; color: var(--accent-dark); }
+  .skill-row.expertise .skill-bonus { color: var(--seal); }
+  .skill-source { font-size: 0.82rem; color: var(--ink-faint); text-align: center; font-style: italic; margin-top: 0.6rem; }
+
+  .feat-block { font-size: 0.98rem; font-family: "EB Garamond", serif; }
+  .feat-block ul { padding-left: 1.2rem; margin: 0.5rem 0 1rem; }
+  .feat-block li { margin-bottom: 0.45rem; }
+  .feat-block strong { color: var(--accent-dark); font-weight: 600; }
+  .feat-block em { color: var(--ink-soft); }
+  .feat-block .aside {
+    font-style: italic;
+    color: var(--ink-faint);
+    font-size: 0.92rem;
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-soft);
+    margin: 0.6rem 0 1rem;
+  }
+  .feat-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    margin: 1rem 0;
+  }
+
+  .patron-section {
+    margin: 2.5rem -5rem 2.5rem;
+    padding: 0;
+    position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+  }
+  .patron-section::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: -22px; height: 22px;
+    background:
+      linear-gradient(45deg, transparent 49.5%, var(--accent) 50%) left top / 50% 100% no-repeat,
+      linear-gradient(315deg, transparent 49.5%, var(--accent) 50%) right top / 50% 100% no-repeat;
+    z-index: 0;
+  }
+  .patron-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+    z-index: 0;
+  }
+  .patron-inner {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem 6.5rem 2.75rem;
+  }
+  .patron-inner::before,
+  .patron-inner::after {
+    content: "";
+    position: absolute;
+    top: 2rem; bottom: 2rem;
+    width: 28px;
+    background:
+      linear-gradient(180deg,
+        var(--accent-sec) 0%, var(--accent-sec) 6%,
+        rgba(255,250,235,0.25) 6%, rgba(255,250,235,0.25) 8%,
+        rgba(255,250,235,0.15) 8%, rgba(255,250,235,0.15) 92%,
+        rgba(255,250,235,0.25) 92%, rgba(255,250,235,0.25) 94%,
+        var(--accent-sec) 94%, var(--accent-sec) 100%);
+    border-left: 1px solid rgba(255,250,235,0.25);
+    border-right: 1px solid rgba(255,250,235,0.25);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.10);
+  }
+  .patron-inner::before { left: 2.5rem; }
+  .patron-inner::after  { right: 2.5rem; }
+  .patron-section .section-h {
+    color: var(--marble);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.30);
+    letter-spacing: 0.36em;
+    margin-bottom: 1.5rem;
+  }
+  .patron-section .section-h::before {
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%238a7a9a' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+  }
+  .patron-section .section-h .greek-chap { color: var(--accent-sec); }
+  .patron-section h3.sub-h, .patron-section h4.subsub-h {
+    color: rgba(255, 250, 235, 0.95);
+    border-bottom-color: rgba(255, 250, 235, 0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.22);
+  }
+  .patron-section .feat-block { color: rgba(255, 250, 235, 0.94); }
+  .patron-section .feat-block strong { color: var(--accent-sec); }
+  .patron-section .feat-block em { color: rgba(255, 250, 235, 0.74); }
+  .patron-section .feat-block .aside {
+    color: rgba(255, 250, 235, 0.78);
+    border-left-color: rgba(255, 250, 235, 0.4);
+  }
+
+  .spell-block {
+    background: var(--class-tint);
+    border: 1px solid var(--rule-soft);
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+  .spell-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .spell-stats .ss-cell { text-align: center; padding: 0.25rem; }
+  .spell-stats .ss-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .spell-stats .ss-value { font-family: "Cinzel", serif; font-size: 1.4rem; color: var(--accent-dark); font-weight: 700; }
+  .spell-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .spell-table th, .spell-table td { text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px dotted var(--rule-soft); }
+  .spell-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .spell-table td.lvl { width: 3em; color: var(--accent-dark); font-weight: 600; font-family: "Cinzel", serif; }
+  .spell-table td.spell-name { font-style: italic; color: var(--ink); }
+  .slot-table { width: auto; margin: 0.5rem 0 1rem; border-collapse: collapse; font-size: 0.94rem; }
+  .slot-table th, .slot-table td { text-align: center; padding: 0.3rem 1rem; border: 1px solid var(--rule-soft); }
+  .slot-table th {
+    background: var(--accent-glaze);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .slot-table td { font-family: "Cinzel", serif; font-weight: 700; color: var(--accent-dark); }
+
+  .weapon-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .weapon-table th, .weapon-table td { text-align: left; padding: 0.45rem 0.7rem; border-bottom: 1px dotted var(--rule-soft); }
+  .weapon-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .weapon-table td.atk, .weapon-table td.dmg {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    color: var(--accent-dark);
+    white-space: nowrap;
+  }
+  .armor-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.2rem;
+    margin: 0.6rem 0;
+  }
+  .armor-name { font-family: "Cinzel", serif; font-weight: 700; font-size: 1rem; color: var(--accent-dark); letter-spacing: 0.06em; }
+  .armor-props { font-size: 0.88rem; color: var(--ink-soft); font-style: italic; margin-top: 0.25rem; }
+
+  .personality-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.5rem 0 1rem; }
+  .pers-card {
+    border-left: 3px solid var(--accent);
+    padding: 0.6rem 1.1rem;
+    background: var(--accent-glaze);
+  }
+  .pers-card.flaw {
+    border-left-color: var(--seal);
+    background: rgba(74, 42, 90, 0.08);
+  }
+  .pers-label {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .pers-card.flaw .pers-label { color: var(--seal-dark); }
+  .pers-text { font-style: italic; color: var(--ink); font-size: 1rem; line-height: 1.5; margin: 0; }
+
+  .connections-list { margin: 0.5rem 0 1rem; padding-left: 0; list-style: none; }
+  .connections-list li {
+    margin-bottom: 0.7rem;
+    padding-left: 1.4rem;
+    position: relative;
+    line-height: 1.55;
+  }
+  .connections-list li::before {
+    content: "▲";
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    top: 0.32em;
+    font-size: 0.65rem;
+  }
+  .connections-list strong { color: var(--accent-dark); }
+
+  .expedition-callout {
+    background: linear-gradient(180deg, var(--accent-glaze) 0%, rgba(58, 42, 74, 0.03) 100%);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    padding: 1.5rem 1.75rem;
+    margin: 1rem 0 0;
+    font-size: 1.02rem;
+    line-height: 1.6;
+  }
+  .expedition-callout p:last-child { margin-bottom: 0; }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    margin-top: 3rem;
+    color: var(--ink-faint);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+  }
+  .footer .meander {
+    margin-bottom: 1rem;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 1000px) {
+    .doc { padding: 0 1.5rem 2.5rem; }
+    .timeline-section { padding: 1.5rem 1.5rem; }
+    .masthead-band { padding: 2rem 1.5rem 2.5rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1.5rem; }
+    .portrait-frame { width: 100%; max-width: 320px; height: auto; aspect-ratio: 3/4; margin: 0 auto; }
+    h1.dossier-name { font-size: 2.8rem; }
+    .identity-inscription { grid-template-columns: 1fr; }
+    .summary-strip, .abilities-grid { grid-template-columns: repeat(3, 1fr); }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .combat-block, .personality-grid { grid-template-columns: 1fr; }
+    .patron-section { margin: 2rem -1.5rem; }
+    .patron-inner { padding: 2rem 1.5rem; }
+    .patron-inner::before, .patron-inner::after { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="stele">
+
+<!-- ============== MASTHEAD ============== -->
+<div class="masthead-band">
+  <div class="masthead">
+
+    <div class="portrait-frame">
+      <img src="../Theros 1st pass/Nyklos.png" alt="Nyklos the Nightshade portrait">
+    </div>
+
+    <div class="name-block">
+      <div class="name-eyebrow">Dossier · Erebos's Nightshade</div>
+      <h1 class="dossier-name">
+        <span class="given">Nyklos</span>
+        <span class="epithet">the Nightshade</span>
+      </h1>
+      <p class="tagline">
+        Cold to the touch and inside, much the same — a courtier whose service to Erebos is, in his own telling, a mercy.
+      </p>
+      <dl class="identity-inscription" id="identity-target"><!-- populated --></dl>
+    </div>
+
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- ============== TIMELINE ============== -->
+<div class="timeline-section">
+  <div class="tl-label">Stage of Career</div>
+  <div class="tl-track" id="timeline">
+    <button class="tl-node active" data-stage="0" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 1</div>
+      <div class="tl-bot">Apprentice of Shadow</div>
+    </button>
+    <button class="tl-node" data-stage="1" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 5</div>
+      <div class="tl-bot">Shadow Sorcerer</div>
+    </button>
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<div class="doc">
+
+<!-- BIO -->
+<section class="block">
+  <h2 class="section-h">Bio<span class="greek-chap">α · Vita</span></h2>
+  <p>Nyklos is cold to the touch — literally, always — and inside, much the same. Ever since the first time he saw someone die, Erebos has whispered in his ear, and Nyklos has learned to listen. He can't bear to witness suffering, and his service to Erebos is, in his own telling, a mercy: peaceful ends for the unfortunate. Others might disagree about who counts as unfortunate, and about what he gets out of arranging the peace.</p>
+  <p>He works the courts of Akros now, the polis where he grew up — though his family was originally from Meletis, and he carries that double inheritance like a second identity. His magic is shadow magic, drawn from the muffled space between life and death where Erebos rules. His shadow-touched gifts came later, in adolescence, when whatever was already in him reached out and met the god halfway.</p>
+  <p id="bio-l5-extra"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- SUMMARY STRIP -->
+<section class="block">
+  <h2 class="section-h">At a Glance<span class="greek-chap">β · Synopsis</span></h2>
+  <div class="summary-strip" id="summary-target"></div>
+</section>
+
+<!-- ABILITY SCORES -->
+<section class="block">
+  <h2 class="section-h">Ability Scores<span class="greek-chap">γ · Dynámeis</span></h2>
+  <div class="abilities-grid" id="abilities-target"></div>
+  <p class="ab-note" id="ab-note-target"></p>
+</section>
+
+<!-- COMBAT & SENSES -->
+<section class="block">
+  <h2 class="section-h">Combat &amp; Senses<span class="greek-chap">δ · Mákhē</span></h2>
+  <div class="combat-block" id="combat-target"></div>
+</section>
+
+<!-- SKILLS -->
+<section class="block">
+  <h2 class="section-h">Skill Proficiencies<span class="greek-chap">ε · Tékhnai</span></h2>
+  <div class="skills-grid" id="skills-target"></div>
+  <p class="skill-source" id="skill-tool-target"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- CLASS FEATURES -->
+<section class="block">
+  <h2 class="section-h">Class Features<span class="greek-chap">ζ · Tákta</span></h2>
+  <div class="feat-block" id="features-target"></div>
+</section>
+
+<!-- RACIAL FEATURES -->
+<section class="block">
+  <h2 class="section-h">Racial Features — Variant Human<span class="greek-chap">η · Génos</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Ability Score Increase</strong>: +1 to two different ability scores. <em>Chosen: Con and Cha (already applied).</em></li>
+      <li><strong>Skill Proficiency</strong>: One skill of choice. <em>Chosen: Sleight of Hand.</em></li>
+      <li><strong>Feat</strong>: One feat of choice. <em>Chosen: Shadow-Touched (see below).</em></li>
+      <li><strong>Languages</strong>: Common + one of choice. <em>Chosen: Sphinx.</em></li>
+    </ul>
+  </div>
+
+  <h3 class="sub-h">Feat: Shadow-Touched</h3>
+  <div class="feat-card">
+    <ul>
+      <li><strong>+1 Charisma</strong> (already applied).</li>
+      <li>You learn the <strong>invisibility</strong> spell and one 1st-level spell of your choice from the <strong>Illusion or Necromancy</strong> school. <em>Chosen: Disguise Self (Illusion).</em></li>
+      <li>You can cast each of these spells <strong>once per long rest without expending a spell slot</strong>.</li>
+      <li>You can also cast them using spell slots of appropriate level.</li>
+      <li>The spells' spellcasting ability is <strong>Charisma</strong>.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SUPERNATURAL GIFT -->
+<section class="block">
+  <h2 class="section-h">Supernatural Gift — Heroic Destiny<span class="greek-chap">θ · Dóron</span></h2>
+  <div class="feat-block">
+    <p><em>(Destiny is not specified — left open for play.)</em></p>
+    <ul>
+      <li><strong>Defy Death</strong>: Advantage on death saving throws.</li>
+      <li><strong>Hard to Kill</strong>: When reduced to 0 HP but not killed outright, you can drop to <strong>1 HP instead</strong>. 1/long rest.</li>
+    </ul>
+  </div>
+</section>
+
+</div>
+
+<!-- PATRON GOD — temple panel -->
+<section class="patron-section">
+  <div class="patron-inner">
+    <h2 class="section-h">Patron God — Erebos, the Lord of the Underworld<span class="greek-chap">ι · Theós</span></h2>
+    <div class="feat-block" id="patron-target"></div>
+  </div>
+</section>
+
+<div class="doc" style="padding-top: 1rem;">
+
+<!-- BACKGROUND -->
+<section class="block">
+  <h2 class="section-h">Background — Courtier<span class="greek-chap">κ · Bíos</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Skill Proficiencies</strong>: Insight, Persuasion.</li>
+      <li><strong>Languages</strong>: Two of choice. <em>Chosen: Minotaur, Leonin</em> (the dominant Akrosian neighbors and rivals — useful for a court functionary).</li>
+      <li><strong>Equipment</strong>: Fine clothes, pouch with 5 gp.</li>
+      <li><strong>Feature — Court Functionary</strong>: Your knowledge of how bureaucracies function lets you gain access to the records and inner workings of any noble court or government you encounter. You know who the movers and shakers are, whom to go to for the favors you seek, and what the current intrigues of interest in the group are.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SPELLCASTING -->
+<section class="block">
+  <h2 class="section-h">Spellcasting<span class="greek-chap">λ · Goēteía</span></h2>
+  <div id="spellcasting-target"></div>
+</section>
+
+<!-- EQUIPMENT -->
+<section class="block">
+  <h2 class="section-h">Equipment<span class="greek-chap">μ · Hopla</span></h2>
+  <div id="equipment-target"></div>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- PERSONALITY -->
+<section class="block">
+  <h2 class="section-h">Personality<span class="greek-chap">ν · Êthos</span></h2>
+  <div class="personality-grid">
+    <div class="pers-card">
+      <div class="pers-label">Trait</div>
+      <p class="pers-text">"If you want it done right, you do it yourself."</p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Ideal</div>
+      <p class="pers-text">"Everyone ought to be free to pursue their own interests." <em>(Courtier. The Erebos-aligned Power ideal — "I relish having mastery over life and death" — is recorded in the Patron God block.)</em></p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Bond</div>
+      <p class="pers-text">"I created a great work for someone, then found them unworthy to receive it."</p>
+    </div>
+    <div class="pers-card flaw">
+      <div class="pers-label">Flaw</div>
+      <p class="pers-text">"He's never satisfied with what he has; always wants more."</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECTIONS -->
+<section class="block">
+  <h2 class="section-h">Connections<span class="greek-chap">ξ · Philíai</span></h2>
+  <ul class="connections-list">
+    <li><strong>Erytheia of the Umbral Tide</strong> — They apprenticed together. Each found their path afterward — Erytheia to her Celestial patron, Nyklos to Erebos. The shared training in dark/shadowy arcana left a residue neither has been able (or willing) to scrub out.</li>
+    <li><strong>Helena of Akros</strong> — Both are from Akros, though Nyklos's family was originally from Meletis. Both work the city's high circles, from very different angles.</li>
+    <li><strong>Selene Shadowfoot</strong> — Nyklos has used Selene for connections too disreputable for him to handle directly.</li>
+  </ul>
+</section>
+
+<!-- EXPEDITION -->
+<section class="block">
+  <h2 class="section-h">Why Nyklos is on the Expedition<span class="greek-chap">ο · Hodós</span></h2>
+  <div class="expedition-callout">
+    <p><strong>Souls for Erebos.</strong> Per the campaign doc plot hooks: Nyklos's ties to Erebos might be exploited by those desperate to save their loved ones from starvation, leading him into morally grey territory. He also tries (and fails) to maintain open diplomatic relations between the cities of Theros — the Fallow Year strains every alliance between Akros, Meletis, and Setessa, and a courtier with a hand in Erebos's work is exactly the kind of go-between who can find common ground others can't.</p>
+    <p>The famine will give Erebos more souls; Nyklos can serve his god by choosing which ones.</p>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div class="meander" aria-hidden="true"></div>
+  Player Character Dossier · Theros, The Fallow Season
+</footer>
+
+</div>
+
+<script>
+const SNAPSHOTS = [
+  {
+    stage: "L1",
+    level: 1,
+    pb: 2,
+    identity: { class_long: "Sorcerer 1 — Shadow Magic", age: "—", hp_breakdown: "7 (d6 max 6 + Con +1)" },
+    summary: { hp: 7, ac: 11, init: "+1", speed: "30 ft.", pb: "+2", pp: 12 },
+    abilities: {
+      str:{score:9,  mod:"−1", save:"−1", prof:false},
+      dex:{score:13, mod:"+1", save:"+1", prof:false},
+      con:{score:13, mod:"+1", save:"+3", prof:true},
+      int:{score:12, mod:"+1", save:"+1", prof:false},
+      wis:{score:15, mod:"+2", save:"+2", prof:false},
+      cha:{score:20, mod:"+5", save:"+7", prof:true}
+    },
+    ab_note: "Rolled base: 9, 13, 12, 12, 15, 18 → slotted as Str 9 / Dex 13 / Con 12 / Int 12 / Wis 15 / Cha 18. Variant Human +1 Con (→13), +1 Cha (→19). Shadow-Touched feat: +1 Cha (→20). Sorcerer save proficiencies: Con and Cha.",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+2</dd>
+        <dt>Armor Class</dt><dd>11 <em>(unarmored 10 + Dex +1; mage armor brings it to 14)</em></dd>
+        <dt>Initiative</dt><dd>+1</dd>
+        <dt>Speed</dt><dd>30 ft.</dd>
+        <dt>Hit Points</dt><dd>7 <em>(d6 max 6 + Con +1)</em></dd>
+        <dt>Hit Dice</dt><dd>1d6</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>12 <em>(10 + Wis +2; not proficient)</em></dd>
+        <dt>Special Senses</dt><dd>Darkvision 120 ft. <em>(Eyes of the Dark)</em></dd>
+        <dt>Creature Type</dt><dd>Humanoid (Human)</dd>
+        <dt>Sorcerer DC / Atk</dt><dd><strong>15</strong> / +7 <em>(8 + PB +2 + Cha +5)</em></dd>
+      </dl>
+    `,
+    skills: [
+      {name:"Arcana",          ability:"int", bonus:"+3", source:"Sorcerer"},
+      {name:"Deception",       ability:"cha", bonus:"+7", source:"Sorcerer"},
+      {name:"Insight",         ability:"wis", bonus:"+4", source:"Courtier"},
+      {name:"Persuasion",      ability:"cha", bonus:"+7", source:"Courtier"},
+      {name:"Sleight of Hand", ability:"dex", bonus:"+3", source:"Variant Human"}
+    ],
+    tool_text: "No tool proficiencies. Sorcerer skill picks (2 from Arcana/Deception/Insight/Intimidation/Persuasion/Religion): Arcana + Deception.",
+    features_html: `
+      <h3 class="sub-h">Sorcerer (Level 1)</h3>
+      <ul>
+        <li><strong>Spellcasting</strong>: <strong>Charisma</strong> is your spellcasting ability. You know a fixed set of spells (no preparation). You can use an arcane focus as a spellcasting focus.</li>
+      </ul>
+
+      <h3 class="sub-h">Shadow Magic (Sorcerous Origin, chosen at L1)</h3>
+      <ul>
+        <li><strong>Eyes of the Dark</strong> (L1): You have <strong>darkvision with a range of 120 feet</strong>. <em>(At L3, this feature also grants the</em> darkness <em>spell — known free, castable with 2 sorcery points to see through your own.)</em></li>
+        <li><strong>Strength of the Grave</strong> (L1): Your existence in a twilight state between life and death makes you difficult to defeat. When damage reduces you to 0 hit points, you can make a <strong>Charisma saving throw (DC 5 + the damage taken)</strong>. On a success, you instead drop to 1 hit point. You can't use this feature if you are reduced to 0 hit points by <strong>radiant damage</strong> or by a <strong>critical hit</strong>. <strong>1/long rest.</strong></li>
+      </ul>
+      <p class="aside">Font of Magic unlocks at L2; Metamagic at L3; the <em>darkness</em> spell via Eyes of the Dark also unlocks at L3.</p>
+    `,
+    patron_html: `
+      <h3 class="sub-h">Piety 3 — Devotee</h3>
+      <ul>
+        <li><strong>Source of godly favor</strong> <em>(d6 #5)</em>: "Ever since the first time you saw someone die, Erebos has whispered in your ear."</li>
+        <li><strong>Godly ideal</strong> <em>(d6 #6)</em>: <em>Power.</em> "I relish having mastery over life and death." (Evil)</li>
+        <li><strong>Devotee Trait (Piety 3+)</strong>: As a devotee of Erebos, you have proven yourself an executor of the Underworld's grim laws. You can call on Erebos's favor to cast <em>bane</em> with this trait, requiring no material components, a number of times equal to your Wisdom modifier (minimum 1) = <strong>2 times</strong> per long rest. <strong>Wisdom</strong> is the spellcasting ability for this spell.</li>
+      </ul>
+      <h4 class="subsub-h">Erebos-granted spell stats (Wis-based)</h4>
+      <ul>
+        <li><strong>Spell save DC</strong> = 8 + PB +2 + Wis +2 = <strong>12</strong></li>
+        <li><em>Bane</em>: 3 creatures within 30 ft., Cha save vs DC 12 or subtract 1d4 from attack rolls and saving throws. Concentration, 1 min.</li>
+      </ul>
+    `,
+    spellcasting_html: `
+      <div class="spell-block">
+        <div class="spell-stats">
+          <div class="ss-cell"><div class="ss-label">Save DC</div><div class="ss-value">15</div></div>
+          <div class="ss-cell"><div class="ss-label">Spell Attack</div><div class="ss-value">+7</div></div>
+          <div class="ss-cell"><div class="ss-label">Spells Known</div><div class="ss-value">2</div></div>
+          <div class="ss-cell"><div class="ss-label">Ability</div><div class="ss-value">Cha</div></div>
+        </div>
+
+        <h3 class="sub-h">Spell Slots (Sorcerer L1)</h3>
+        <table class="slot-table">
+          <thead><tr><th>1st</th></tr></thead>
+          <tbody><tr><td>2</td></tr></tbody>
+        </table>
+
+        <h3 class="sub-h">Cantrips Known (4 at L1)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Cantrip</th><th>School</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="spell-name">Chill Touch</td><td>Necromancy</td><td>Ranged spell attack (120 ft), 1d8 necrotic; target can't regain HP until your next turn. Erebos-flavored.</td></tr>
+            <tr><td class="spell-name">Mage Hand</td><td>Conjuration</td><td>Utility, 30 ft spectral hand.</td></tr>
+            <tr><td class="spell-name">Minor Illusion</td><td>Illusion</td><td>Sound or image, 5-ft cube.</td></tr>
+            <tr><td class="spell-name">Message</td><td>Transmutation</td><td>Whispered 120-ft target-only conversation.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Spells Known (2 at L1)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Lvl</th><th>Spell</th><th>School</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="lvl">1</td><td class="spell-name">Mage Armor</td><td>Abjuration</td><td>Touch (typically self); AC becomes 13 + Dex (= <strong>14</strong> for Nyklos), 8 hours, no concentration.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Shield</td><td>Abjuration</td><td>Reaction; +5 AC until start of next turn, no damage from <em>magic missile</em>.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Spells via Other Traits (no slot needed)</h3>
+        <ul>
+          <li><strong>Invisibility</strong> (Shadow-Touched — Cha, <strong>1/long rest</strong> free, or via 2nd-level slot once available).</li>
+          <li><strong>Disguise Self</strong> (Shadow-Touched — Cha, 1/long rest free, or via 1st-level slot).</li>
+          <li><strong>Bane</strong> (Erebos Devotee — Wis, 2/long rest, no slot).</li>
+        </ul>
+      </div>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Light crossbow</td><td class="atk">+3</td><td class="dmg">1d8 + 1 piercing</td><td>Simple ranged, range 80/320, loading, two-handed, ammunition. 20 bolts.</td></tr>
+          <tr><td>Dagger ×2</td><td class="atk">+3</td><td class="dmg">1d4 + 1 piercing</td><td>Simple, finesse, light, thrown 20/60.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">None worn</div>
+        <div class="armor-props">Mage Armor brings AC to 14 when cast.</div>
+      </div>
+      <h3 class="sub-h">Arcane Focus &amp; Personal Items</h3>
+      <ul>
+        <li><strong>Ruby cravat</strong> <em>(arcane focus — a court-functionary's accessory; ruby is a classic Erebos / blood / underworld signifier)</em></li>
+        <li>Fine clothes <em>(Courtier)</em></li>
+        <li>Letters of introduction and connections to noble houses in Akros and Meletis <em>(implied by Court Functionary)</em></li>
+        <li><strong>Explorer's Pack</strong>: backpack, bedroll, mess kit, tinderbox, 10 torches, 10 days of rations, waterskin, 50 ft. hempen rope</li>
+      </ul>
+      <p><strong>Money</strong>: 5 gp <em>(Courtier starting pouch)</em>.</p>
+    `,
+    bio_l5_extra: ``
+  },
+  {
+    stage: "L5",
+    level: 5,
+    pb: 3,
+    identity: { class_long: "Sorcerer 5 — Shadow Magic", age: "30", hp_breakdown: "32 (L1: 6 + Con +2 = 8; L2-5: 4 × (avg 4 + Con +2) = 24)" },
+    summary: { hp: 32, ac: 11, init: "+1", speed: "30 ft.", pb: "+3", pp: 13 },
+    abilities: {
+      str:{score:9,  mod:"−1", save:"−1", prof:false},
+      dex:{score:13, mod:"+1", save:"+1", prof:false},
+      con:{score:14, mod:"+2", save:"+5", prof:true},
+      int:{score:12, mod:"+1", save:"+1", prof:false},
+      wis:{score:16, mod:"+3", save:"+3", prof:false},
+      cha:{score:20, mod:"+5", save:"+8", prof:true}
+    },
+    ab_note: "Same base array as L1. Level 4 ASI: +1 Con (13 → 14, mod +1 → +2) and +1 Wis (15 → 16, mod +2 → +3). Con tick raises Con save to +5, lifts retroactive HP, and ticks Strength-of-the-Grave odds. Wis tick raises Wis save by +1, adds a use of Erebos's bane (now 3/long rest), and notches up Passive Perception/Insight.",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+3</dd>
+        <dt>Armor Class</dt><dd>11 <em>(unarmored 10 + Dex +1; mage armor brings it to 14)</em></dd>
+        <dt>Initiative</dt><dd>+1</dd>
+        <dt>Speed</dt><dd>30 ft.</dd>
+        <dt>Hit Points</dt><dd>32 <em>(L1: 8 (with retroactive Con); L2–5: 4 × 6 = 24)</em></dd>
+        <dt>Hit Dice</dt><dd>5d6</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>13 <em>(10 + Wis +3; not proficient)</em></dd>
+        <dt>Special Senses</dt><dd>Darkvision 120 ft. <em>(Eyes of the Dark)</em></dd>
+        <dt>Creature Type</dt><dd>Humanoid (Human)</dd>
+        <dt>Sorcerer DC / Atk</dt><dd><strong>16</strong> / +8 <em>(8 + PB +3 + Cha +5)</em></dd>
+      </dl>
+    `,
+    skills: [
+      {name:"Arcana",          ability:"int", bonus:"+4", source:"Sorcerer"},
+      {name:"Deception",       ability:"cha", bonus:"+8", source:"Sorcerer"},
+      {name:"Insight",         ability:"wis", bonus:"+6", source:"Courtier"},
+      {name:"Persuasion",      ability:"cha", bonus:"+8", source:"Courtier"},
+      {name:"Sleight of Hand", ability:"dex", bonus:"+4", source:"Variant Human"}
+    ],
+    tool_text: "No tool proficiencies. All five class/background/race skill picks scaled by PB +3 and the Cha 20 cap.",
+    features_html: `
+      <h3 class="sub-h">Sorcerer (Base)</h3>
+      <ul>
+        <li><strong>Spellcasting</strong> (L1): Cha-based; spells known list; arcane focus.</li>
+        <li><strong>Font of Magic</strong> (L2): Sorcery Points = Sorcerer level = <strong>5 SP</strong>. Regain on long rest. Bonus action conversions:
+          <ul>
+            <li><strong>Creating Spell Slots</strong>: 1st = 2 SP, 2nd = 3 SP, 3rd = 5 SP. Created slots vanish on long rest.</li>
+            <li><strong>Converting a Spell Slot to SP</strong>: Bonus action; expend a slot, gain SP equal to slot level.</li>
+          </ul>
+        </li>
+        <li><strong>Metamagic</strong> (L3): Two options chosen — see below.</li>
+      </ul>
+
+      <h4 class="subsub-h">Sorcery Points: 5 (= Sorcerer level)</h4>
+
+      <h4 class="subsub-h">Metamagic Options Known</h4>
+      <ul>
+        <li><strong>Extended Spell</strong>: Spend 1 SP to double the duration of a spell with a duration of 1 minute or longer, max 24 hours.</li>
+        <li><strong>Subtle Spell</strong>: Spend 1 SP to cast a spell without somatic or verbal components. <em>Cast in court, in disguise, in places where overt magic would be exposed.</em></li>
+      </ul>
+
+      <h3 class="sub-h">Shadow Magic (Sorcerous Origin)</h3>
+      <ul>
+        <li><strong>Eyes of the Dark</strong> (L1): <strong>Darkvision 120 ft.</strong> At L3, you also learn the <em>darkness</em> spell; it doesn't count against your Spells Known. You can cast it by <strong>spending 2 sorcery points</strong> or by expending a spell slot. <strong>If you cast it with sorcery points, you can see through the darkness created by the spell.</strong></li>
+        <li><strong>Strength of the Grave</strong> (L1): When damage reduces you to 0 HP, you can make a <strong>Charisma saving throw (DC 5 + damage taken)</strong>. On a success, you drop to 1 HP instead. Doesn't work on radiant damage or critical hits. <strong>1/long rest.</strong></li>
+      </ul>
+      <p class="aside">Hound of Ill Omen (L6) and other Shadow features arrive at later levels.</p>
+    `,
+    patron_html: `
+      <h3 class="sub-h">Piety 3 — Devotee</h3>
+      <ul>
+        <li><strong>Source of godly favor</strong> <em>(d6 #5)</em>: "Ever since the first time you saw someone die, Erebos has whispered in your ear."</li>
+        <li><strong>Godly ideal</strong> <em>(d6 #6)</em>: <em>Power.</em> "I relish having mastery over life and death." (Evil)</li>
+        <li><strong>Devotee Trait (Piety 3+)</strong>: Cast <em>bane</em> via this trait (no material components), uses = Wis mod (min 1) = <strong>3 times</strong> per long rest. <strong>Wis</strong>-based.</li>
+      </ul>
+      <h4 class="subsub-h">Erebos-granted spell stats (Wis-based)</h4>
+      <ul>
+        <li><strong>Spell save DC</strong> = 8 + PB +3 + Wis +3 = <strong>14</strong></li>
+        <li><em>Bane</em>: 3 creatures within 30 ft., Cha save vs DC 14 or subtract 1d4 from attack rolls and saving throws. Concentration, 1 min.</li>
+      </ul>
+    `,
+    spellcasting_html: `
+      <div class="spell-block">
+        <div class="spell-stats">
+          <div class="ss-cell"><div class="ss-label">Save DC</div><div class="ss-value">16</div></div>
+          <div class="ss-cell"><div class="ss-label">Spell Attack</div><div class="ss-value">+8</div></div>
+          <div class="ss-cell"><div class="ss-label">Spells Known</div><div class="ss-value">6</div></div>
+          <div class="ss-cell"><div class="ss-label">Ability</div><div class="ss-value">Cha</div></div>
+        </div>
+
+        <h3 class="sub-h">Spell Slots (Sorcerer L5)</h3>
+        <table class="slot-table">
+          <thead><tr><th>1st</th><th>2nd</th><th>3rd</th></tr></thead>
+          <tbody><tr><td>4</td><td>3</td><td>2</td></tr></tbody>
+        </table>
+
+        <h3 class="sub-h">Cantrips Known (5 at L5)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Cantrip</th><th>School</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="spell-name">Chill Touch</td><td>Necromancy</td><td>Ranged spell attack (120 ft); <strong>2d8</strong> necrotic at L5; target can't regain HP until your next turn; undead get disadvantage on attacks against you.</td></tr>
+            <tr><td class="spell-name">Mage Hand</td><td>Conjuration</td><td>30 ft spectral hand, basic manipulation.</td></tr>
+            <tr><td class="spell-name">Minor Illusion</td><td>Illusion</td><td>Sound or image, 5-ft cube.</td></tr>
+            <tr><td class="spell-name">Message</td><td>Transmutation</td><td>Whispered 120-ft target-only conversation.</td></tr>
+            <tr><td class="spell-name">Thaumaturgy</td><td>Transmutation</td><td>Minor wonders — voice booming, flame-flickering, tremors, sounds, doors flying open, eyes altered. <em>(Learned at L4.)</em></td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Spells Known (6 at L5)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Lvl</th><th>Spell</th><th>School</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="lvl">1</td><td class="spell-name">Mage Armor</td><td>Abjuration</td><td>Self/touch; AC 13 + Dex (= <strong>14</strong>), 8 hours, no concentration. Learned L1.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Shield</td><td>Abjuration</td><td>Reaction; +5 AC until start of next turn, no damage from <em>magic missile</em>. Learned L1.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Blindness/Deafness</td><td>Necromancy</td><td>30 ft, Con save DC 16; blinded OR deafened (choice), 1 min, save at end of each turn. Learned L3.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Shadow Blade</td><td>Illusion</td><td>Bonus action; sword of solid gloom in hand, <strong>2d8 psychic</strong> (3d8 at slot 3-4), finesse/light/thrown, advantage vs targets in dim light or darkness. Concentration, 1 min. Learned L4.</td></tr>
+            <tr><td class="lvl">3</td><td class="spell-name">Counterspell</td><td>Abjuration</td><td>Reaction; auto-counter spells of 3rd-or-lower; check vs DC 10+spell level for higher. Learned L5.</td></tr>
+            <tr><td class="lvl">3</td><td class="spell-name">Fear</td><td>Illusion</td><td>30-ft cone, Wis save DC 16; failed = drop held items + frightened; targets Dash away each turn; save at end of turn if no LoS to caster. Concentration, 1 min. Learned L5.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Subclass-granted spells (not counted against Spells Known)</h3>
+        <table class="spell-table">
+          <tbody>
+            <tr><td class="lvl">2</td><td class="spell-name">Darkness</td><td>Evocation</td><td>Known free via Eyes of the Dark at L3. Cast for <strong>2 SP</strong> (you can see through your own) OR via 2nd-level slot (you cannot see through). Concentration, 10 min.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Spells via Other Traits (no slot needed; 1/long rest each)</h3>
+        <ul>
+          <li><strong>Invisibility</strong> (Shadow-Touched — Cha, 1/long rest free, or 2nd-level slot).</li>
+          <li><strong>Disguise Self</strong> (Shadow-Touched — Cha, 1/long rest free, or 1st-level slot).</li>
+          <li><strong>Bane</strong> (Erebos Devotee — Wis, 3/long rest, no slot).</li>
+        </ul>
+      </div>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Light crossbow</td><td class="atk">+4</td><td class="dmg">1d8 + 1 piercing</td><td>Simple ranged, range 80/320, loading, two-handed, ammunition. 20 bolts.</td></tr>
+          <tr><td>Dagger ×2</td><td class="atk">+4</td><td class="dmg">1d4 + 1 piercing</td><td>Simple, finesse, light, thrown 20/60.</td></tr>
+          <tr><td>Shadow Blade <em>(summoned)</em></td><td class="atk">+8</td><td class="dmg">2d8 psychic</td><td>Spell-summoned simple melee, finesse/light/thrown 20/60. Advantage vs targets in dim light/darkness.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">None worn</div>
+        <div class="armor-props">Mage Armor brings AC to 14 when active.</div>
+      </div>
+      <h3 class="sub-h">Arcane Focus &amp; Personal Items</h3>
+      <ul>
+        <li><strong>Ruby cravat</strong> <em>(arcane focus)</em></li>
+        <li>Fine clothes</li>
+        <li>Letters of introduction and connections to noble houses in Akros and Meletis</li>
+        <li><strong>Explorer's Pack</strong>: backpack, bedroll, mess kit, tinderbox, 10 torches, 10 days of rations, waterskin, 50 ft. hempen rope</li>
+      </ul>
+      <p><strong>Money</strong>: 5 gp <em>(starting pouch; campaign accumulation not tracked)</em>.</p>
+    `,
+    bio_l5_extra: `In the years since his apprenticeship with the warlock Erytheia, his shadow magic has deepened: he now summons darkness as readily as breath, casts it like a cloak, sees through what he makes. He has cultivated discretion as much as power. When he kills, no one hears him do it.`
+  }
+];
+
+const ABILITY_ORDER = ['str','dex','con','int','wis','cha'];
+const ABILITY_SHORT = { str:'STR', dex:'DEX', con:'CON', int:'INT', wis:'WIS', cha:'CHA' };
+const PRIMARY = 'cha';
+
+function renderIdentity(s) {
+  const rows = [
+    ['Race',       'Variant Human'],
+    ['Class',      s.identity.class_long],
+    ['Background', 'Courtier'],
+    ['Patron',     'Erebos · Devotee'],
+    ['Gift',       'Heroic Destiny'],
+    ['Alignment',  'Neutral Evil'],
+    ['Languages',  'Common, Sphinx, Minotaur, Leonin'],
+    ['Age',        s.identity.age]
+  ];
+  return rows.map(([k,v]) => `<div class="id-row"><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+}
+
+function renderSummary(s) {
+  return [
+    ['Hit Points', s.summary.hp, s.identity.hp_breakdown],
+    ['Armor Class', s.summary.ac, 'unarmored'],
+    ['Initiative', s.summary.init, ''],
+    ['Speed', s.summary.speed, ''],
+    ['Prof Bonus', s.summary.pb, ''],
+    ['Pass. Perc.', s.summary.pp, '']
+  ].map(([label, val, sub]) => `
+    <div class="sum-plate">
+      <div class="sp-label">${label}</div>
+      <div class="sp-value">${val}</div>
+      ${sub ? `<div class="sp-sub">${sub}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderAbilities(s) {
+  return ABILITY_ORDER.map(a => {
+    const ab = s.abilities[a];
+    const isPrimary = a === PRIMARY;
+    return `
+      <div class="ab-cell ${isPrimary ? 'primary' : ''}">
+        <div class="ab-name">${ABILITY_SHORT[a]}</div>
+        <div class="ab-mod">${ab.mod}</div>
+        <div class="ab-score">score ${ab.score}</div>
+        <div class="ab-save ${ab.prof ? 'prof' : ''}">save<span class="save-bonus">${ab.save}</span></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderSkills(s) {
+  const grouped = {};
+  ABILITY_ORDER.forEach(a => grouped[a] = []);
+  s.skills.forEach(sk => grouped[sk.ability].push(sk));
+  return ABILITY_ORDER.map(a => {
+    const list = grouped[a];
+    return `
+      <div class="skill-cat">
+        <div class="skill-cat-name">${ABILITY_SHORT[a]}</div>
+        ${list.length === 0
+          ? '<div class="skill-row dim"><span class="skill-name">—</span></div>'
+          : list.map(sk => `<div class="skill-row"><span class="skill-name">${sk.name}</span><span class="skill-bonus">${sk.bonus}</span></div>`).join('')
+        }
+      </div>
+    `;
+  }).join('');
+}
+
+function renderStage(i) {
+  const s = SNAPSHOTS[i];
+  document.getElementById('identity-target').innerHTML = renderIdentity(s);
+  document.getElementById('summary-target').innerHTML = renderSummary(s);
+  document.getElementById('abilities-target').innerHTML = renderAbilities(s);
+  document.getElementById('ab-note-target').textContent = s.ab_note;
+  document.getElementById('combat-target').innerHTML = s.combat_html;
+  document.getElementById('skills-target').innerHTML = renderSkills(s);
+  document.getElementById('skill-tool-target').innerHTML = s.tool_text;
+  document.getElementById('features-target').innerHTML = s.features_html;
+  document.getElementById('patron-target').innerHTML = s.patron_html;
+  document.getElementById('spellcasting-target').innerHTML = s.spellcasting_html;
+  document.getElementById('equipment-target').innerHTML = s.equipment_html;
+  document.getElementById('bio-l5-extra').innerHTML = s.bio_l5_extra;
+
+  document.querySelectorAll('#timeline .tl-node').forEach((n, idx) => n.classList.toggle('active', idx === i));
+}
+
+document.querySelectorAll('#timeline .tl-node').forEach((n, i) => {
+  n.addEventListener('click', () => renderStage(i));
+});
+renderStage(0);
+</script>
+</body>
+</html>

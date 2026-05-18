@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Ilios Anvilwrought</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --marble:        #ece8df;
+    --marble-warm:   #e2dccf;
+    --marble-cool:   #d8d4c8;
+    --marble-deep:   #c4bfb2;
+    --vein:          #b6b0a2;
+    --ink:           #1a1a18;
+    --ink-soft:      #3a3a36;
+    --ink-faint:     #6e6a60;
+    --rule:          #968f80;
+    --rule-soft:     #b4ada0;
+
+    /* Patron-deity accent — Purphoros (molten orange) */
+    --accent:        #a8501a;
+    --accent-dark:   #6a2e0c;
+    --accent-sec:    #c8a060;
+    --accent-glaze:  rgba(168, 80, 26, 0.10);
+
+    --seal:      #6a2010;
+    --seal-dark: #3a1208;
+
+    --class-tint: rgba(168,80,26,0.05);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--marble);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.045' numOctaves='2' seed='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.42 0 0 0 0 0.38 0 0 0 0.4 0'/></filter><rect width='100%25' height='100%25' filter='url(%23m)'/></svg>"),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 600px 600px, 200px 200px;
+    opacity: 0.55;
+    mix-blend-mode: multiply;
+    z-index: 0;
+  }
+  body {
+    background-image:
+      linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 25%, var(--marble) 75%, var(--marble-cool) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 0 5rem;
+  }
+
+  .stele {
+    max-width: 1140px;
+    margin: 0 auto;
+    background:
+      linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 8%, var(--marble) 92%, var(--marble-cool) 100%);
+    padding: 0;
+    box-shadow:
+      0 1px 2px rgba(26, 22, 18, 0.10),
+      0 10px 32px rgba(26, 22, 18, 0.16),
+      0 28px 64px rgba(26, 22, 18, 0.10);
+    position: relative;
+    border: 1px solid var(--rule);
+    z-index: 1;
+  }
+  .stele::before,
+  .stele::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-dark) 100%);
+    opacity: 0.5;
+  }
+  .stele::before { left: 0; }
+  .stele::after  { right: 0; }
+
+  .doc { padding: 0 5rem 4rem; }
+
+  .meander {
+    height: 22px;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='22' viewBox='0 0 44 22'><path d='M0 17 L0 5 L11 5 L11 12 L6 12 L6 8 L17 8 L17 17 L11 17 L11 13 L22 13 L22 5 L33 5 L33 12 L28 12 L28 8 L39 8 L39 17 L44 17' fill='none' stroke='%236a2e0c' stroke-width='1.4' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: auto 18px;
+    opacity: 0.85;
+    margin: 0;
+  }
+  .meander.thick { height: 30px; }
+  .meander.thick { background-size: auto 24px; }
+
+  .masthead-band {
+    position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+    padding: 3rem 5rem 2.75rem;
+  }
+  .masthead-band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  .masthead-band::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px; height: 28px;
+    background:
+      linear-gradient(135deg, transparent 49.5%, var(--marble) 50%) left bottom / 50% 100% no-repeat,
+      linear-gradient(225deg, transparent 49.5%, var(--marble) 50%) right bottom / 50% 100% no-repeat;
+    z-index: 2;
+  }
+  .masthead {
+    position: relative;
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    z-index: 1;
+  }
+  .portrait-frame {
+    position: relative;
+    width: 360px; height: 480px;
+    background: var(--marble-deep);
+    padding: 8px;
+    border: 1px solid var(--ink-soft);
+    box-shadow:
+      inset 0 0 0 2px var(--accent-sec),
+      inset 0 0 0 4px var(--marble-deep),
+      0 4px 14px rgba(0,0,0,0.30);
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    left: -1px; right: -1px; height: 12px;
+    background:
+      linear-gradient(180deg, var(--accent-sec) 0%, var(--accent) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .portrait-frame::before { top: -14px; }
+  .portrait-frame::after  { bottom: -14px; }
+  .portrait-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.03) saturate(0.97);
+  }
+  .portrait-frame.empty {
+    display: flex;
+    align-items: center; justify-content: center;
+    background: linear-gradient(180deg, var(--marble), var(--marble-deep));
+  }
+  .portrait-frame.empty .empty-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0 1rem;
+    line-height: 1.4;
+  }
+
+  .name-block { padding: 0.5rem 0 0; color: var(--marble); position: relative; z-index: 1; }
+  .name-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.52em;
+    color: rgba(255, 250, 235, 0.85);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  h1.dossier-name {
+    font-family: "Cinzel", serif;
+    font-weight: 800;
+    font-size: 4.4rem;
+    line-height: 0.95;
+    letter-spacing: 0.04em;
+    color: var(--marble);
+    margin: 0 0 0.45rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.35);
+    text-transform: uppercase;
+  }
+  .dossier-name .given { display: block; color: var(--marble); }
+  .dossier-name .epithet {
+    display: block;
+    font-weight: 500;
+    font-size: 0.55em;
+    color: var(--accent-sec);
+    letter-spacing: 0.18em;
+    margin-top: 0.4rem;
+    font-style: italic;
+    font-variant: normal;
+    text-transform: none;
+  }
+  .tagline {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: rgba(255, 250, 235, 0.95);
+    margin: 1.2rem 0 1.5rem;
+    max-width: 38em;
+    padding-left: 1rem;
+    border-left: 2px solid var(--accent-sec);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .identity-inscription {
+    margin: 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(255, 250, 235, 0.3);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 2.25rem;
+  }
+  .id-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+  .id-row dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: rgba(255, 250, 235, 0.55);
+    text-transform: uppercase;
+  }
+  .id-row dd {
+    margin: 0;
+    color: rgba(255, 250, 235, 0.96);
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  }
+
+  .deity-mark {
+    display: inline-block;
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--accent-sec);
+    margin-left: 0.6rem;
+    vertical-align: middle;
+    line-height: 1;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  }
+
+  .timeline-section {
+    background: var(--accent-glaze);
+    padding: 1.6rem 5rem;
+    position: relative;
+  }
+  .tl-label {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin: 0 0 1.1rem;
+  }
+  .tl-track {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 7rem;
+    position: relative;
+    padding: 0;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .tl-track::before {
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 16%; right: 16%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-sec), var(--accent), var(--accent-sec));
+    z-index: 0;
+  }
+  .tl-node {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: var(--ink-soft);
+    font-family: "EB Garamond", serif;
+    transition: color 0.2s ease;
+    min-width: 100px;
+  }
+  .tl-dot {
+    width: 18px; height: 18px;
+    border: 2px solid var(--accent-dark);
+    background: var(--marble);
+    margin-bottom: 0.55rem;
+    box-shadow: 0 0 0 3px var(--marble);
+    transition: all 0.2s ease;
+    transform: rotate(45deg);
+  }
+  .tl-node:hover .tl-dot {
+    border-color: var(--accent);
+    transform: rotate(45deg) scale(1.12);
+  }
+  .tl-node.active .tl-dot {
+    background: var(--seal);
+    border-color: var(--seal-dark);
+    box-shadow: 0 0 0 3px var(--marble), 0 0 0 5px rgba(106,32,16,0.25);
+  }
+  .tl-node.active { color: var(--ink); }
+  .tl-top {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .tl-node.active .tl-top { color: var(--accent-dark); }
+  .tl-bot {
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+    font-style: italic;
+  }
+
+  section.block { margin: 2.5rem 0 0; padding: 0.5rem 0 1.5rem; position: relative; }
+  section.block + section.block { margin-top: 2rem; }
+
+  .section-h {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--accent-dark);
+    margin: 0 0 1.5rem;
+    padding: 0;
+    border: none;
+    text-align: center;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    position: relative;
+    display: block;
+  }
+  .section-h::before {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 14px;
+    margin: 0 auto 0.85rem;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%236a2e0c' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.85;
+  }
+  .section-h .greek-chap {
+    display: block;
+    font-family: "Cinzel", serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.5em;
+    color: var(--accent);
+    margin-top: 0.5rem;
+    font-style: normal;
+    text-transform: uppercase;
+  }
+  h3.sub-h {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--accent-dark);
+    margin: 1.5rem 0 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  h4.subsub-h {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.32em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 1.1rem 0 0.5rem;
+    font-weight: 500;
+  }
+  p { margin: 0 0 1rem; }
+
+  .summary-strip {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    margin: 0.5rem 0;
+    background: var(--accent-glaze);
+    padding: 1rem 0.5rem;
+    border-top: 1.5px solid var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+  }
+  .sum-plate { text-align: center; padding: 0 0.5rem; border-right: 1px solid var(--rule-soft); }
+  .sum-plate:last-child { border-right: none; }
+  .sum-plate .sp-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .sum-plate .sp-value {
+    font-family: "Cinzel", serif;
+    font-size: 1.7rem;
+    color: var(--accent-dark);
+    line-height: 1.1;
+    font-weight: 700;
+    margin-top: 0.15rem;
+  }
+  .sum-plate .sp-sub {
+    font-family: "EB Garamond", serif;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 0.1rem;
+  }
+
+  .abilities-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+    margin: 0.5rem 0 1.25rem;
+  }
+  .ab-cell {
+    text-align: center;
+    padding: 1rem 0.4rem 0.85rem;
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--accent);
+    position: relative;
+  }
+  .ab-cell.primary {
+    border-top-width: 4px;
+    border-top-color: var(--accent-dark);
+    background: linear-gradient(180deg, rgba(200, 160, 96, 0.30) 0%, var(--marble-warm) 60%);
+  }
+  .ab-cell .ab-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .ab-cell .ab-mod {
+    font-family: "Cinzel", serif;
+    font-size: 2.1rem;
+    line-height: 1;
+    color: var(--ink);
+    font-weight: 800;
+  }
+  .ab-cell .ab-score {
+    font-family: "EB Garamond", serif;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+  }
+  .ab-cell .ab-save {
+    margin-top: 0.5rem;
+    padding-top: 0.4rem;
+    border-top: 1px dotted var(--rule);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .ab-cell .ab-save .save-bonus {
+    font-family: "Cinzel", serif;
+    font-size: 0.95rem;
+    color: var(--accent-dark);
+    margin-left: 0.25rem;
+    font-weight: 600;
+  }
+  .ab-cell .ab-save.prof::after {
+    content: " ★";
+    color: var(--seal);
+    margin-left: 0.15rem;
+  }
+  .ab-note { font-size: 0.88rem; color: var(--ink-faint); font-style: italic; text-align: center; margin-top: 0.5rem; }
+
+  .combat-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem 2.5rem;
+    margin: 0.5rem 0;
+  }
+  .combat-block dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; }
+  .combat-block dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    align-self: baseline;
+  }
+  .combat-block dd { margin: 0; font-family: "EB Garamond", serif; font-size: 0.98rem; color: var(--ink); }
+  .combat-block dd em { color: var(--ink-faint); font-size: 0.88rem; }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.1rem; margin: 1rem 0 1.5rem; }
+  .skill-cat { border-top: 2px solid var(--accent); padding-top: 0.6rem; }
+  .skill-cat-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    text-align: center;
+  }
+  .skill-row { display: flex; align-items: baseline; justify-content: space-between; gap: 0.4rem; padding: 0.18rem 0; font-size: 0.92rem; line-height: 1.3; color: var(--ink); }
+  .skill-row.dim { color: var(--ink-faint); font-style: italic; }
+  .skill-row .skill-name { flex: 1; }
+  .skill-row .skill-bonus { font-family: "Cinzel", serif; font-weight: 600; color: var(--accent-dark); }
+  .skill-row.expertise .skill-bonus { color: var(--seal); }
+  .skill-source { font-size: 0.82rem; color: var(--ink-faint); text-align: center; font-style: italic; margin-top: 0.6rem; }
+
+  .feat-block { font-size: 0.98rem; font-family: "EB Garamond", serif; }
+  .feat-block ul { padding-left: 1.2rem; margin: 0.5rem 0 1rem; }
+  .feat-block li { margin-bottom: 0.45rem; }
+  .feat-block strong { color: var(--accent-dark); font-weight: 600; }
+  .feat-block em { color: var(--ink-soft); }
+  .feat-block .aside {
+    font-style: italic;
+    color: var(--ink-faint);
+    font-size: 0.92rem;
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-soft);
+    margin: 0.6rem 0 1rem;
+  }
+  .feat-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    margin: 1rem 0;
+  }
+
+  .familiar-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent-dark);
+    padding: 1.1rem 1.4rem;
+    margin: 1rem 0;
+  }
+  .familiar-card .stat-line {
+    font-family: "Cinzel", serif;
+    font-size: 0.92rem;
+    color: var(--accent-dark);
+    margin: 0.4rem 0;
+    letter-spacing: 0.04em;
+  }
+
+  .patron-section {
+    margin: 2.5rem -5rem 2.5rem;
+    padding: 0;
+    position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+  }
+  .patron-section::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: -22px; height: 22px;
+    background:
+      linear-gradient(45deg, transparent 49.5%, var(--accent) 50%) left top / 50% 100% no-repeat,
+      linear-gradient(315deg, transparent 49.5%, var(--accent) 50%) right top / 50% 100% no-repeat;
+    z-index: 0;
+  }
+  .patron-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+    z-index: 0;
+  }
+  .patron-inner {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem 6.5rem 2.75rem;
+  }
+  .patron-inner::before,
+  .patron-inner::after {
+    content: "";
+    position: absolute;
+    top: 2rem; bottom: 2rem;
+    width: 28px;
+    background:
+      linear-gradient(180deg,
+        var(--accent-sec) 0%, var(--accent-sec) 6%,
+        rgba(255,250,235,0.25) 6%, rgba(255,250,235,0.25) 8%,
+        rgba(255,250,235,0.15) 8%, rgba(255,250,235,0.15) 92%,
+        rgba(255,250,235,0.25) 92%, rgba(255,250,235,0.25) 94%,
+        var(--accent-sec) 94%, var(--accent-sec) 100%);
+    border-left: 1px solid rgba(255,250,235,0.25);
+    border-right: 1px solid rgba(255,250,235,0.25);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.10);
+  }
+  .patron-inner::before { left: 2.5rem; }
+  .patron-inner::after  { right: 2.5rem; }
+  .patron-section .section-h {
+    color: var(--marble);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.30);
+    letter-spacing: 0.36em;
+    margin-bottom: 1.5rem;
+  }
+  .patron-section .section-h::before {
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%23c8a060' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+  }
+  .patron-section .section-h .greek-chap { color: var(--accent-sec); }
+  .patron-section h3.sub-h, .patron-section h4.subsub-h {
+    color: rgba(255, 250, 235, 0.95);
+    border-bottom-color: rgba(255, 250, 235, 0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.22);
+  }
+  .patron-section .feat-block { color: rgba(255, 250, 235, 0.94); }
+  .patron-section .feat-block strong { color: var(--accent-sec); }
+  .patron-section .feat-block em { color: rgba(255, 250, 235, 0.74); }
+  .patron-section .feat-block .aside {
+    color: rgba(255, 250, 235, 0.78);
+    border-left-color: rgba(255, 250, 235, 0.4);
+  }
+
+  .spell-block {
+    background: var(--class-tint);
+    border: 1px solid var(--rule-soft);
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+  .spell-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .spell-stats .ss-cell { text-align: center; padding: 0.25rem; }
+  .spell-stats .ss-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .spell-stats .ss-value { font-family: "Cinzel", serif; font-size: 1.4rem; color: var(--accent-dark); font-weight: 700; }
+  .spell-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .spell-table th, .spell-table td { text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px dotted var(--rule-soft); }
+  .spell-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .spell-table td.lvl { width: 3em; color: var(--accent-dark); font-weight: 600; font-family: "Cinzel", serif; }
+  .spell-table td.spell-name { font-style: italic; color: var(--ink); }
+  .slot-table { width: auto; margin: 0.5rem 0 1rem; border-collapse: collapse; font-size: 0.94rem; }
+  .slot-table th, .slot-table td { text-align: center; padding: 0.3rem 1rem; border: 1px solid var(--rule-soft); }
+  .slot-table th {
+    background: var(--accent-glaze);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .slot-table td { font-family: "Cinzel", serif; font-weight: 700; color: var(--accent-dark); }
+
+  .weapon-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .weapon-table th, .weapon-table td { text-align: left; padding: 0.45rem 0.7rem; border-bottom: 1px dotted var(--rule-soft); }
+  .weapon-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .weapon-table td.atk, .weapon-table td.dmg {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    color: var(--accent-dark);
+    white-space: nowrap;
+  }
+  .armor-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.2rem;
+    margin: 0.6rem 0;
+  }
+  .armor-name { font-family: "Cinzel", serif; font-weight: 700; font-size: 1rem; color: var(--accent-dark); letter-spacing: 0.06em; }
+  .armor-props { font-size: 0.88rem; color: var(--ink-soft); font-style: italic; margin-top: 0.25rem; }
+
+  .personality-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.5rem 0 1rem; }
+  .pers-card {
+    border-left: 3px solid var(--accent);
+    padding: 0.6rem 1.1rem;
+    background: var(--accent-glaze);
+  }
+  .pers-card.flaw {
+    border-left-color: var(--seal);
+    background: rgba(106, 32, 16, 0.06);
+  }
+  .pers-label {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .pers-card.flaw .pers-label { color: var(--seal-dark); }
+  .pers-text { font-style: italic; color: var(--ink); font-size: 1rem; line-height: 1.5; margin: 0; }
+
+  .connections-list { margin: 0.5rem 0 1rem; padding-left: 0; list-style: none; }
+  .connections-list li {
+    margin-bottom: 0.7rem;
+    padding-left: 1.4rem;
+    position: relative;
+    line-height: 1.55;
+  }
+  .connections-list li::before {
+    content: "▲";
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    top: 0.32em;
+    font-size: 0.65rem;
+  }
+  .connections-list strong { color: var(--accent-dark); }
+
+  .expedition-callout {
+    background: linear-gradient(180deg, var(--accent-glaze) 0%, rgba(168,80,26,0.03) 100%);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    padding: 1.5rem 1.75rem;
+    margin: 1rem 0 0;
+    font-size: 1.02rem;
+    line-height: 1.6;
+  }
+  .expedition-callout p:last-child { margin-bottom: 0; }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    margin-top: 3rem;
+    color: var(--ink-faint);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+  }
+  .footer .meander {
+    margin-bottom: 1rem;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 1000px) {
+    .doc { padding: 0 1.5rem 2.5rem; }
+    .timeline-section { padding: 1.5rem 1.5rem; }
+    .masthead-band { padding: 2rem 1.5rem 2.5rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1.5rem; }
+    .portrait-frame { width: 100%; max-width: 320px; height: auto; aspect-ratio: 3/4; margin: 0 auto; }
+    h1.dossier-name { font-size: 2.8rem; }
+    .identity-inscription { grid-template-columns: 1fr; }
+    .summary-strip, .abilities-grid { grid-template-columns: repeat(3, 1fr); }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .combat-block, .personality-grid { grid-template-columns: 1fr; }
+    .patron-section { margin: 2rem -1.5rem; }
+    .patron-inner { padding: 2rem 1.5rem; }
+    .patron-inner::before, .patron-inner::after { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="stele">
+
+<!-- ============== MASTHEAD ============== -->
+<div class="masthead-band">
+  <div class="masthead">
+
+    <div class="portrait-frame">
+      <img src="../Theros 1st pass/Ilios.png" alt="Ilios Anvilwrought portrait">
+    </div>
+
+    <div class="name-block">
+      <div class="name-eyebrow">Dossier · Anvilwrought of Purphoros</div>
+      <h1 class="dossier-name">
+        <span class="given">Ilios</span>
+        <span class="epithet">Anvilwrought</span>
+      </h1>
+      <p class="tagline">
+        Forge-orphaned, forge-rebuilt — a man of iron sheen and visible joints who has not slept in the mortal sense since the night the forge burned. His art is the only language he and Purphoros still share.
+      </p>
+      <dl class="identity-inscription" id="identity-target"><!-- populated --></dl>
+    </div>
+
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- ============== TIMELINE ============== -->
+<div class="timeline-section">
+  <div class="tl-label">Stage of Career</div>
+  <div class="tl-track" id="timeline">
+    <button class="tl-node active" data-stage="0" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 1</div>
+      <div class="tl-bot">Forge Devotee</div>
+    </button>
+    <button class="tl-node" data-stage="1" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 5</div>
+      <div class="tl-bot">Battle Smith &amp; Emberclaw</div>
+    </button>
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<div class="doc">
+
+<!-- BIO -->
+<section class="block">
+  <h2 class="section-h">Bio<span class="greek-chap">α · Vita</span></h2>
+  <p>Ilios was orphaned by a fire at his parents' forge. The same fire — somehow — gave him to Purphoros, who took him under his protection and rebuilt him from iron and flame. His skin bears a metallic sheen, his joints are visible, and he has not slept (in the mortal sense) since the night the forge burned. He stands in for the lit hour and the inert hour both: a working artisan who must close his eyes for six unmoving hours and trusts the work to wait. His art is more than labor; it is the only language he and his god still share.</p>
+  <p>He dedicates his life to perfecting his craft and honoring his creator. As he travels, he seeks inspiration for new creations — exploring ruins and ancient temples for lost techniques and sacred designs that might elevate his art. He is a perfectionist who thinks anything worth doing is worth doing right, and he can be quick to assume he's being cheated when work he made is mishandled.</p>
+  <p id="bio-l5-extra"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- SUMMARY STRIP -->
+<section class="block">
+  <h2 class="section-h">At a Glance<span class="greek-chap">β · Synopsis</span></h2>
+  <div class="summary-strip" id="summary-target"></div>
+</section>
+
+<!-- ABILITY SCORES -->
+<section class="block">
+  <h2 class="section-h">Ability Scores<span class="greek-chap">γ · Dynámeis</span></h2>
+  <div class="abilities-grid" id="abilities-target"></div>
+  <p class="ab-note" id="ab-note-target"></p>
+</section>
+
+<!-- COMBAT & SENSES -->
+<section class="block">
+  <h2 class="section-h">Combat &amp; Senses<span class="greek-chap">δ · Mákhē</span></h2>
+  <div class="combat-block" id="combat-target"></div>
+</section>
+
+<!-- SKILLS -->
+<section class="block">
+  <h2 class="section-h">Skill Proficiencies<span class="greek-chap">ε · Tékhnai</span></h2>
+  <div class="skills-grid" id="skills-target"></div>
+  <p class="skill-source" id="skill-tool-target"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- CLASS FEATURES -->
+<section class="block">
+  <h2 class="section-h">Class Features<span class="greek-chap">ζ · Tákta</span></h2>
+  <div class="feat-block" id="features-target"></div>
+</section>
+
+<!-- RACIAL FEATURES -->
+<section class="block">
+  <h2 class="section-h">Racial Features — Variant Human<span class="greek-chap">η · Génos</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Ability Score Increase</strong>: +1 Con, +1 Int (already applied).</li>
+      <li><strong>Skill Proficiency</strong>: Perception.</li>
+      <li><strong>Feat</strong>: Skilled (see below).</li>
+      <li><strong>Languages</strong>: Common + one of choice. <em>Chosen: Sphinx</em> (arcane, scholarly — fits an artificer).</li>
+    </ul>
+  </div>
+
+  <h3 class="sub-h">Feat: Skilled</h3>
+  <div class="feat-card">
+    <ul>
+      <li>Proficiency in any combination of <strong>three skills or tools</strong> of your choice. <strong>Chosen: History, Religion, Nature</strong> — three Int-based knowledge skills, ideal for an Int 16+ artificer hunting ancient temple-techniques and lost sacred designs.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SUPERNATURAL GIFT -->
+<section class="block">
+  <h2 class="section-h">Supernatural Gift — Anvilwrought<span class="greek-chap">θ · Dóron</span></h2>
+  <div class="feat-block">
+    <p><em>You were forged in the fires of Purphoros's forge. Your appearance bears a metallic sheen and visible joints.</em></p>
+    <ul>
+      <li><strong>Constructed Resilience</strong>:
+        <ul>
+          <li><strong>Advantage on saves vs. being poisoned</strong>; <strong>resistance to poison damage</strong>.</li>
+          <li>You don't need to eat, drink, or breathe.</li>
+          <li><strong>Immunity to disease</strong>.</li>
+          <li>You don't need to sleep, and magic can't put you to sleep.</li>
+        </ul>
+      </li>
+      <li><strong>Sentry's Rest</strong>: A long rest requires at least <strong>6 hours in an inactive, motionless state</strong> rather than sleep. You appear inert but are not unconscious, and you can <strong>see and hear as normal</strong>.</li>
+    </ul>
+    <p class="aside">The combination of Constructed Resilience and Anvilwrought heritage makes Ilios essentially un-poisonable, undriveable-mad-by-sleep-deprivation, and impossible to ambush while resting. He sees and hears the full party's watch as it happens.</p>
+  </div>
+</section>
+
+</div>
+
+<!-- PATRON GOD — temple panel -->
+<section class="patron-section">
+  <div class="patron-inner">
+    <h2 class="section-h">Patron God — Purphoros, of the Forge<span class="greek-chap">ι · Theós</span></h2>
+    <div class="feat-block" id="patron-target"></div>
+  </div>
+</section>
+
+<div class="doc" style="padding-top: 1rem;">
+
+<!-- BACKGROUND -->
+<section class="block">
+  <h2 class="section-h">Background — Guild Artisan (Smithing)<span class="greek-chap">κ · Bíos</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Skill Proficiencies</strong>: Insight, Persuasion.</li>
+      <li><strong>Tool Proficiencies</strong>: Smith's tools.</li>
+      <li><strong>Languages</strong>: One of choice. <em>Chosen: Giant</em> (forges and giants share a long association; Theros giants speak it).</li>
+      <li><strong>Equipment</strong>: A set of smith's tools, a letter of introduction from your guild, a set of traveler's clothes, and 15 gp.</li>
+      <li><strong>Feature — Guild Membership</strong>: Meletis Smiths' Guild. Members provide lodging, food, and funeral services. Trade-related information, contacts, and influence in your craft. <strong>5 gp/month dues</strong> (or equivalent crafting). Backed in legal disputes.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SPELLCASTING -->
+<section class="block">
+  <h2 class="section-h">Spellcasting<span class="greek-chap">λ · Goēteía</span></h2>
+  <div id="spellcasting-target"></div>
+</section>
+
+<!-- INFUSIONS -->
+<section class="block">
+  <h2 class="section-h">Infusions<span class="greek-chap">μ · Téchnema</span></h2>
+  <div id="infusions-target"></div>
+</section>
+
+<!-- EQUIPMENT -->
+<section class="block">
+  <h2 class="section-h">Equipment<span class="greek-chap">ν · Hopla</span></h2>
+  <div id="equipment-target"></div>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- PERSONALITY -->
+<section class="block">
+  <h2 class="section-h">Personality<span class="greek-chap">ξ · Êthos</span></h2>
+  <div class="personality-grid">
+    <div class="pers-card">
+      <div class="pers-label">Trait</div>
+      <p class="pers-text">"Anything worth doing is worth doing right. I'm a perfectionist."</p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Ideal</div>
+      <p class="pers-text">"I work hard to be the best there is." <em>(Guild Artisan flavor. The Purphoros-aligned ideal — Aspiration — is recorded in the Patron God block.)</em></p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Bond</div>
+      <p class="pers-text">"I will get revenge on those who destroyed what was to be my masterwork."</p>
+    </div>
+    <div class="pers-card flaw">
+      <div class="pers-label">Flaw</div>
+      <p class="pers-text">"I'm quick to assume I'm being cheated."</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECTIONS -->
+<section class="block">
+  <h2 class="section-h">Connections<span class="greek-chap">ο · Philíai</span></h2>
+  <ul class="connections-list">
+    <li><strong>Xemnon Sunguides</strong> — Xemnon commissioned Ilios to craft his signature weapon. The work is ongoing.</li>
+    <li><strong>Nyklos the Nightshade</strong> — Nyklos once helped Ilios inscribe arcane runes on an intricate shield. <em>(A discreet collaboration between forge-light and shadow-light.)</em></li>
+    <li><strong>Helena of Akros</strong> — They have trained together, with Ilios stress-testing her armor.</li>
+    <li><strong>Thalassa Wavebinder</strong> <em>(future-hook romantic interest)</em> — Mutual recognition between an Anvilwrought who knows the inside of a forge and a Triton wizard who reads the stars. Nothing acted on yet; could develop either direction.</li>
+  </ul>
+</section>
+
+<!-- EXPEDITION -->
+<section class="block">
+  <h2 class="section-h">Why Ilios is on the Expedition<span class="greek-chap">π · Hodós</span></h2>
+  <div class="expedition-callout">
+    <p><strong>Crafting Solutions.</strong> Ilios, inspired by Purphoros and Keranos, seeks a technological solution that would cut out Karametra entirely. If the goddess of the harvest has fallen silent, then maybe the harvest doesn't need her — maybe it needs a hypocaust, or a clockwork irrigator, or a forge-fed seed protocol that some smith somewhere has not yet built.</p>
+    <p>Ilios's gods think mortal ingenuity is the point. The Fallow Year is the proof, and the proving ground.</p>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div class="meander" aria-hidden="true"></div>
+  Player Character Dossier · Theros, The Fallow Season
+</footer>
+
+</div>
+
+<script>
+const SNAPSHOTS = [
+  {
+    stage: "L1",
+    level: 1,
+    pb: 2,
+    identity: { class_long: "Artificer 1", age: "—", hp_breakdown: "10 (d8 max 8 + Con +2)" },
+    summary: { hp: 10, ac: 14, init: "+0", speed: "30 ft.", pb: "+2", pp: 14 },
+    abilities: {
+      str:{score:10, mod:"+0", save:"+0", prof:false},
+      dex:{score:11, mod:"+0", save:"+0", prof:false},
+      con:{score:15, mod:"+2", save:"+4", prof:true},
+      int:{score:16, mod:"+3", save:"+5", prof:true},
+      wis:{score:14, mod:"+2", save:"+2", prof:false},
+      cha:{score:13, mod:"+1", save:"+1", prof:false}
+    },
+    ab_note: "Rolled array 10, 11, 13, 14, 14, 15 → Str 10 / Dex 11 / Con 14 / Int 15 / Wis 14 / Cha 13. Variant Human +1 Con (→15), +1 Int (→16).",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+2</dd>
+        <dt>Armor Class</dt><dd>14 <em>(studded leather 12 + Dex +0 + shield +2)</em></dd>
+        <dt>Initiative</dt><dd>+0</dd>
+        <dt>Speed</dt><dd>30 ft.</dd>
+        <dt>Hit Points</dt><dd>10 <em>(d8 max 8 + Con +2)</em></dd>
+        <dt>Hit Dice</dt><dd>1d8</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>14 <em>(10 + Wis +2 + PB +2; proficient via VH skill)</em></dd>
+        <dt>Special Senses</dt><dd>—</dd>
+        <dt>Creature Type</dt><dd>Humanoid (Human, Anvilwrought)</dd>
+        <dt>Artificer Spell DC / Atk</dt><dd><strong>13</strong> / +5 <em>(8 + PB +2 + Int +3)</em></dd>
+      </dl>
+      <p class="aside">Anvilwrought does NOT need to sleep — Sentry's Rest replaces sleep with 6 hours of motionless inactivity. He can see and hear normally during this state.</p>
+    `,
+    skills: [
+      {name:"Arcana",        ability:"int", bonus:"+5", source:"Artificer"},
+      {name:"History",       ability:"int", bonus:"+5", source:"Skilled (VH)"},
+      {name:"Insight",       ability:"wis", bonus:"+4", source:"Guild Artisan"},
+      {name:"Investigation", ability:"int", bonus:"+5", source:"Artificer"},
+      {name:"Nature",        ability:"int", bonus:"+5", source:"Skilled (VH)"},
+      {name:"Perception",    ability:"wis", bonus:"+4", source:"Variant Human"},
+      {name:"Persuasion",    ability:"cha", bonus:"+3", source:"Guild Artisan"},
+      {name:"Religion",      ability:"int", bonus:"+5", source:"Skilled (VH)"}
+    ],
+    tool_text: "Tools: Smith's tools (Guild Artisan); Thieves' tools, Tinker's tools (Artificer). Smith's-tools redundancy with the Artificer L1 artisan's-tools pick can be redirected to another artisan's tool (e.g. woodcarver's or mason's) — not done by default.",
+    features_html: `
+      <h3 class="sub-h">Artificer (Level 1)</h3>
+      <ul>
+        <li><strong>Magical Tinkering</strong>: At the end of a short rest, imbue a Tiny nonmagical object with one of four magical properties (5-ft bright + 5-ft dim light / 6-second recorded message on a chosen trigger / continuous odor or sound perceptible 10 ft / static visual effect). <strong>Number of objects affected at once = Int mod = 3.</strong> If you imbue beyond the limit, one of the existing tinkered objects loses its property.</li>
+        <li><strong>Spellcasting</strong>: <strong>Intelligence</strong> is your spellcasting ability. Use <strong>thieves' tools or artisan's tools</strong> as a spellcasting focus.
+          <ul>
+            <li><strong>Prepared spells</strong> = Int mod + half Artificer level rounded down (min 1) = <strong>3 prepared</strong> at L1. Change on long rest (1 minute per spell level on each spell).</li>
+            <li><strong>Cantrips known</strong>: 2 at L1.</li>
+          </ul>
+        </li>
+      </ul>
+      <p class="aside">Infuse Item at L2; Right Tool for the Job at L3; Specialist (Battle Smith) at L3 grants Steel Defender + Battle Ready + Spells. None active yet at L1.</p>
+    `,
+    patron_html: `
+      <h3 class="sub-h">Piety 3 — Devotee</h3>
+      <ul>
+        <li><strong>Source of godly favor</strong> <em>(d6 #4)</em>: "After you were orphaned by a fire at your parents' forge, Purphoros took you under his protection."</li>
+        <li><strong>Godly ideal</strong> <em>(d6 #3)</em>: <em>Aspiration.</em> "With Purphoros's blessing, I will create something magnificent." (Any)</li>
+        <li><strong>Devotee Trait (Piety 3+)</strong>: As a devotee of Purphoros, you have drawn the notice of the forge god with your skill. Cast <em>shield of faith</em> with this trait, requiring no material components, a number of times equal to your Int mod (min 1) = <strong>3/long rest</strong>. In addition, you know the <em>mending</em> cantrip. <strong>Intelligence</strong> is the spellcasting ability for these spells.</li>
+      </ul>
+      <h4 class="subsub-h">Purphoros-granted spell stats (Int-based)</h4>
+      <ul>
+        <li><strong>Spell save DC</strong> = 8 + PB +2 + Int +3 = <strong>13</strong>; spell attack <strong>+5</strong>.</li>
+        <li><em>Shield of faith</em> is a buff — +2 AC to target, concentration 10 min, no save/attack.</li>
+      </ul>
+      <p class="aside">Artificer is also Int-based, so Devotee math equals the Artificer spell math: DC 13 / +5. Convenient consolidation.</p>
+    `,
+    spellcasting_html: `
+      <div class="spell-block">
+        <div class="spell-stats">
+          <div class="ss-cell"><div class="ss-label">Save DC</div><div class="ss-value">13</div></div>
+          <div class="ss-cell"><div class="ss-label">Spell Attack</div><div class="ss-value">+5</div></div>
+          <div class="ss-cell"><div class="ss-label">Prepared</div><div class="ss-value">3</div></div>
+          <div class="ss-cell"><div class="ss-label">Ability</div><div class="ss-value">Int</div></div>
+        </div>
+
+        <h3 class="sub-h">Spell Slots</h3>
+        <table class="slot-table">
+          <thead><tr><th>1st</th></tr></thead>
+          <tbody><tr><td>2</td></tr></tbody>
+        </table>
+
+        <h3 class="sub-h">Cantrips Known (2 + Mending via Purphoros)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Source</th><th>Spell</th><th>School</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Artificer</td><td class="spell-name">Fire Bolt</td><td>Evocation</td><td>120 ft, +5 attack; <strong>1d10 fire</strong>. Ignites flammable unattended objects.</td></tr>
+            <tr><td>Artificer</td><td class="spell-name">Guidance</td><td>Divination, C</td><td>Touch, +1d4 to one ability check. Concentration, 1 min.</td></tr>
+            <tr><td>Purphoros</td><td class="spell-name">Mending</td><td>Transmutation</td><td>1-min cast; repair single break/tear. Free.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Prepared Spells (3 at L1)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Spell</th><th>School</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="spell-name">Cure Wounds</td><td>Abjuration</td><td>Touch, <strong>1d8 + 3</strong> HP.</td></tr>
+            <tr><td class="spell-name">Faerie Fire</td><td>Evocation, C</td><td>60 ft, 20-ft cube; Dex save DC 13; outlined targets glow (no Invisible) and attackers gain advantage. Concentration, 1 min.</td></tr>
+            <tr><td class="spell-name">Identify</td><td>Divination, R</td><td>Ritual (10 min). Learn properties of one magic item or detect spells affecting a creature/object. 100 gp pearl focus.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Spells via Other Traits (no slot needed)</h3>
+        <ul>
+          <li><strong>Shield of Faith</strong> (Purphoros Devotee — Int, 3/long rest, no slot).</li>
+          <li><strong>Mending</strong> (Purphoros Devotee — cantrip, at will).</li>
+        </ul>
+      </div>
+    `,
+    infusions_html: `
+      <p><em>Infuse Item unlocks at Artificer L2 — Ilios has no infusions at L1.</em></p>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Light crossbow</td><td class="atk">+2</td><td class="dmg">1d8 piercing</td><td>Simple ranged, range 80/320, loading, two-handed. 20 bolts.</td></tr>
+          <tr><td>Handaxe</td><td class="atk">+2</td><td class="dmg">1d6 slashing</td><td>Simple, light, thrown 20/60.</td></tr>
+          <tr><td>Mace</td><td class="atk">+2</td><td class="dmg">1d6 bludgeoning</td><td>Simple melee.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">Studded Leather + Shield</div>
+        <div class="armor-props">Light · AC 12 + Dex unlimited · +2 shield</div>
+      </div>
+      <h3 class="sub-h">Spellcasting Focus &amp; Personal Items</h3>
+      <ul>
+        <li><strong>Smith's tools</strong> <em>(Artificer can use artisan's tools as a spellcasting focus)</em>.</li>
+        <li>Smith's tools, Thieves' tools, Tinker's tools.</li>
+        <li><strong>Letter of introduction</strong> from the Meletis Smiths' Guild; traveler's clothes.</li>
+        <li><strong>Dungeoneer's Pack</strong>: backpack, crowbar, hammer, 10 pitons, 10 torches, tinderbox, 10 days of rations, waterskin, 50 ft. hempen rope.</li>
+      </ul>
+      <p><strong>Money</strong>: 25 gp <em>(10 gp Artificer + 15 gp Guild Artisan combined)</em>.</p>
+    `,
+    bio_l5_extra: ``
+  },
+  {
+    stage: "L5",
+    level: 5,
+    pb: 3,
+    identity: { class_long: "Artificer 5 — Battle Smith", age: "36", hp_breakdown: "38 (L1: 8 max + Con +2 = 10; L2-5: 4 × (avg 5 + Con +2) = 28)" },
+    summary: { hp: 38, ac: 15, init: "+0", speed: "30 ft.", pb: "+3", pp: 15 },
+    abilities: {
+      str:{score:10, mod:"+0", save:"+0", prof:false},
+      dex:{score:11, mod:"+0", save:"+0", prof:false},
+      con:{score:15, mod:"+2", save:"+5", prof:true},
+      int:{score:18, mod:"+4", save:"+7", prof:true},
+      wis:{score:14, mod:"+2", save:"+2", prof:false},
+      cha:{score:13, mod:"+1", save:"+1", prof:false}
+    },
+    ab_note: "Same base array as L1. Level 4 ASI: +2 Int (16 → 18). Raises spell save DC 13 → 15, spell attack +5 → +7, Int save +5 → +7, all Int skills +1, Magical Tinkering 3 → 4, Purphoros uses 3 → 4 per long rest, Emberclaw HP/attack/damage/Repair each +1.",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+3</dd>
+        <dt>Armor Class</dt><dd>15 <em>(studded leather 12 + Dex +0 + shield +2 + Enhanced Defense infusion +1; baseline w/o infusion = 14)</em></dd>
+        <dt>Initiative</dt><dd>+0</dd>
+        <dt>Speed</dt><dd>30 ft.</dd>
+        <dt>Hit Points</dt><dd>38 <em>(L1: 10; L2–5: 28; total 38)</em></dd>
+        <dt>Hit Dice</dt><dd>5d8</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>15 <em>(10 + Wis +2 + PB +3; proficient via VH)</em></dd>
+        <dt>Special Senses</dt><dd>—</dd>
+        <dt>Creature Type</dt><dd>Humanoid (Human, Anvilwrought)</dd>
+        <dt>Artificer Spell DC / Atk</dt><dd><strong>15</strong> / +7 <em>(8 + PB +3 + Int +4)</em></dd>
+      </dl>
+      <p class="aside">Anvilwrought: no sleep needed; Sentry's Rest = 6 hours motionless during long rest, sees and hears normally throughout.</p>
+    `,
+    skills: [
+      {name:"Arcana",        ability:"int", bonus:"+7", source:"Artificer"},
+      {name:"History",       ability:"int", bonus:"+7", source:"Skilled (VH)"},
+      {name:"Insight",       ability:"wis", bonus:"+5", source:"Guild Artisan"},
+      {name:"Investigation", ability:"int", bonus:"+7", source:"Artificer"},
+      {name:"Nature",        ability:"int", bonus:"+7", source:"Skilled (VH)"},
+      {name:"Perception",    ability:"wis", bonus:"+5", source:"Variant Human"},
+      {name:"Persuasion",    ability:"cha", bonus:"+4", source:"Guild Artisan"},
+      {name:"Religion",      ability:"int", bonus:"+7", source:"Skilled (VH)"}
+    ],
+    tool_text: "Tools: Smith's tools (Guild Artisan); Thieves' tools, Tinker's tools (Artificer); Carpenter's tools (Battle Smith bonus pick after smith's-tools redundancy).",
+    features_html: `
+      <h3 class="sub-h">Artificer (Base)</h3>
+      <ul>
+        <li><strong>Magical Tinkering</strong> (L1): Imbue Tiny nonmagical objects with one of four magical properties. <strong>Max active = Int mod = 4.</strong></li>
+        <li><strong>Spellcasting</strong> (L1): Int-based. Prepared spells = <strong>Int +4 + half level 2 = 6 prepared</strong>.</li>
+        <li><strong>Infuse Item</strong> (L2): <strong>4 infusions known at L5; 2 active at any time</strong> (max increases at L6, L10, L14, L18). Apply during a long rest by touching nonmagical objects. Lasts until you die, infuse onto a different object, or replace. Attune to attunement-required items the moment infused.</li>
+        <li><strong>The Right Tool for the Job</strong> (L3): With thieves' tools or artisan's tools in hand, magically create one set of artisan's tools in an unoccupied space within 5 ft, lasting 1 hour or until you create them again.</li>
+      </ul>
+
+      <h3 class="sub-h">Battle Smith (Subclass, chosen at L3)</h3>
+      <ul>
+        <li><strong>Tool Proficiency</strong> (L3): Smith's tools (already proficient via Guild Artisan; per RAW, gain proficiency with another artisan's tool — default <strong>carpenter's tools</strong>).</li>
+        <li><strong>Battle Smith Spells</strong> (L3): The following spells are always prepared and don't count against your prepared limit:
+          <ul>
+            <li>L3 (Artificer L3): <em>Heroism</em>, <em>Shield</em>.</li>
+            <li>L5 (Artificer L5): <em>Branding Smite</em>, <em>Warding Bond</em>.</li>
+          </ul>
+        </li>
+        <li><strong>Battle Ready</strong> (L3):
+          <ul>
+            <li>Proficiency with <strong>martial weapons</strong>.</li>
+            <li>When attacking with a <strong>magic weapon</strong>, use <strong>Int</strong> instead of Str or Dex for the attack and damage rolls.</li>
+          </ul>
+        </li>
+        <li><strong>Steel Defender</strong> (L3) — <strong>Emberclaw</strong>: see statblock below.</li>
+        <li><strong>Extra Attack</strong> (L5): Attack twice instead of once when you take the Attack action.</li>
+      </ul>
+
+      <h3 class="sub-h">Steel Defender — Emberclaw</h3>
+      <div class="familiar-card">
+        <p><em>Medium construct, shaped as a four-legged hound of forged iron and bronze.</em></p>
+        <p class="stat-line">AC 15 (natural armor) · HP <strong>31</strong> <em>(2 defender's Con mod + 4 your Int mod + 25 [5 × Artificer level 5])</em> · Speed 40 ft</p>
+        <p class="stat-line">STR 14 (+2) · DEX 12 (+1) · CON 14 (+2) · INT 4 (−3) · WIS 10 (+0) · CHA 6 (−2)</p>
+        <ul>
+          <li><strong>Saving throws</strong>: Dex <strong>+4</strong>, Con <strong>+5</strong> (PB-scaled).</li>
+          <li><strong>Skills</strong>: Athletics <strong>+5</strong>, Perception <strong>+3</strong>.</li>
+          <li><strong>Damage immunities</strong>: Poison. <strong>Condition immunities</strong>: Charmed, Exhausted, Poisoned.</li>
+          <li><strong>Senses</strong>: Darkvision 60 ft., passive Perception 13.</li>
+          <li><strong>Languages</strong>: Understands the languages you speak (Common, Sphinx, Giant).</li>
+          <li><strong>Might of the Master</strong>: The defender's skill bonuses, saves, attack/damage, and Repair healing scale with <strong>your</strong> PB. Already factored at PB +3.</li>
+          <li><strong>Vigilant</strong>: The defender can't be surprised.</li>
+          <li><strong>Force-Empowered Rend</strong> (action): Melee weapon attack, <strong>+7</strong> to hit, reach 5 ft, <strong>1d8 + 4 force</strong>.</li>
+          <li><strong>Repair (3/day)</strong>: Restore <strong>2d8 + 4</strong> HP to itself or a construct or object within 5 ft.</li>
+          <li><strong>Deflect Attack</strong> (reaction): Impose disadvantage on the attack roll of one creature within 5 ft of the defender, if the attack is against a creature other than the defender.</li>
+        </ul>
+        <p class="aside">In combat: shares Ilios's initiative count, acts immediately after his turn. Moves and uses reactions on its own; takes Dodge action by default unless Ilios spends a bonus action to command another action. Revival: <em>Mending</em> restores 2d6 HP. If killed within the last hour, Ilios can revive Emberclaw with a 1+ level spell slot and an action (smith's tools, within 5 ft). At the end of a long rest, Ilios can build a new steel defender if needed; an existing one perishes when the new one is built.</p>
+      </div>
+    `,
+    patron_html: `
+      <h3 class="sub-h">Piety 3 — Devotee</h3>
+      <ul>
+        <li><strong>Source of godly favor</strong> <em>(d6 #4)</em>: "After you were orphaned by a fire at your parents' forge, Purphoros took you under his protection."</li>
+        <li><strong>Godly ideal</strong> <em>(d6 #3)</em>: <em>Aspiration.</em> "With Purphoros's blessing, I will create something magnificent." (Any)</li>
+        <li><strong>Devotee Trait</strong>: Cast <em>shield of faith</em> (no material), uses = Int mod (min 1) = <strong>4/long rest</strong>. Know the <em>mending</em> cantrip. <strong>Int</strong>-based.</li>
+      </ul>
+      <h4 class="subsub-h">Purphoros-granted spell stats (Int-based)</h4>
+      <ul>
+        <li><strong>Spell save DC</strong> = 8 + PB +3 + Int +4 = <strong>15</strong>; spell attack <strong>+7</strong>.</li>
+      </ul>
+      <p class="aside">Artificer class spell DC table uses the same formula at the same numbers, so DC 15 / +7 across both Artificer spells and Purphoros's Devotee spells. <em>Mending</em> via Devotee can repair Emberclaw for 2d6 HP — synergy with Battle Smith.</p>
+    `,
+    spellcasting_html: `
+      <div class="spell-block">
+        <div class="spell-stats">
+          <div class="ss-cell"><div class="ss-label">Save DC</div><div class="ss-value">15</div></div>
+          <div class="ss-cell"><div class="ss-label">Spell Attack</div><div class="ss-value">+7</div></div>
+          <div class="ss-cell"><div class="ss-label">Prepared</div><div class="ss-value">6</div></div>
+          <div class="ss-cell"><div class="ss-label">Ability</div><div class="ss-value">Int</div></div>
+        </div>
+
+        <h3 class="sub-h">Spell Slots</h3>
+        <table class="slot-table">
+          <thead><tr><th>1st</th><th>2nd</th></tr></thead>
+          <tbody><tr><td>4</td><td>3</td></tr></tbody>
+        </table>
+
+        <h3 class="sub-h">Cantrips Known (3 + Mending via Purphoros)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Source</th><th>Spell</th><th>School</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Artificer</td><td class="spell-name">Fire Bolt</td><td>Evocation</td><td>120 ft, +7 attack; <strong>2d10 fire</strong> (cantrip scaling at L5).</td></tr>
+            <tr><td>Artificer</td><td class="spell-name">Guidance</td><td>Divination, C</td><td>+1d4 to one ability check.</td></tr>
+            <tr><td>Artificer</td><td class="spell-name">Shocking Grasp</td><td>Evocation</td><td>Melee spell attack +7 (advantage if target wears metal); <strong>1d8 lightning</strong>; target can't take reactions until start of its next turn. <em>Learned at L4.</em></td></tr>
+            <tr><td>Purphoros</td><td class="spell-name">Mending</td><td>Transmutation</td><td>Repair small break. Repairs Emberclaw for 2d6 HP. Free.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Prepared Spells (6 at L5)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Lvl</th><th>Spell</th><th>School</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="lvl">1</td><td class="spell-name">Cure Wounds</td><td>Abjuration</td><td>Touch, <strong>1d8 + 4</strong> HP.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Faerie Fire</td><td>Evocation, C</td><td>20-ft cube, Dex save DC 15. Outlines targets; advantage on attacks. Concentration, 1 min.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Absorb Elements</td><td>Abjuration</td><td>Reaction; resist acid/cold/fire/lightning/thunder damage; next melee hit does +1d6 of that type.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Lesser Restoration</td><td>Abjuration</td><td>Touch, end one disease or condition (blinded, deafened, paralyzed, poisoned).</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Heat Metal</td><td>Transmutation, C</td><td>60 ft, metal object glows red-hot; <strong>2d8 fire</strong> + Con save DC 15 to keep holding it / disadvantage on attacks if held. BA each turn to repeat. Forge-flavored.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Aid</td><td>Abjuration</td><td>30 ft, three creatures, +5 max HP and current HP for 8 hours. Pre-fight buff.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Subclass-granted (always prepared, don't count against the 6)</h3>
+        <table class="spell-table">
+          <tbody>
+            <tr><td class="lvl">1</td><td class="spell-name">Heroism</td><td>Enchantment, C</td><td>Touch; Cha mod temp HP/turn; immunity to fear; 1 min.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Shield</td><td>Abjuration</td><td>Reaction; +5 AC until start of next turn; no magic missile.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Branding Smite</td><td>Evocation, C, BA</td><td>Next melee hit deals +2d6 radiant and target sheds 5-ft dim light (no Invisible). Concentration, 1 min.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Warding Bond</td><td>Abjuration</td><td>Touch; bonded creature within 60 ft has +1 AC and saves, resistance to all damage; you take the same damage. 1 hour, 100 gp platinum rings (one per partner).</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Spells via Other Traits (no slot needed)</h3>
+        <ul>
+          <li><strong>Shield of Faith</strong> (Purphoros Devotee — Int, 4/long rest, no slot).</li>
+          <li><strong>Mending</strong> (Purphoros Devotee — cantrip, at will; can repair Emberclaw for 2d6 HP).</li>
+        </ul>
+      </div>
+    `,
+    infusions_html: `
+      <p><strong>4 infusions known / 2 active</strong> at L5. Active slots are chosen on a long rest by touching nonmagical objects.</p>
+      <table class="spell-table">
+        <thead><tr><th>Infusion</th><th>Item</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Enhanced Defense</td><td>Shield</td><td><strong>+1 AC</strong>. Active loadout: studded 12 + Dex 0 + shield 2 + Enhanced +1 = <strong>AC 15</strong>.</td></tr>
+          <tr><td>Enhanced Weapon</td><td>Longsword (primary, post-Battle Ready)</td><td>+1 attack and damage. With Battle Ready Int-attack: attack <strong>+8</strong> (PB 3 + Int 4 + Enhanced 1); damage <strong>1d8 + 5</strong> slashing (or 1d10 + 5 two-handed).</td></tr>
+          <tr><td>Repeating Shot</td><td>Light crossbow</td><td>+1 attack and damage; produces its own ammunition (no loading property).</td></tr>
+          <tr><td>Replicate Magic Item: Bag of Holding</td><td>A sack</td><td>Bag of Holding for the party. Doesn't require attunement; uses one of the 2 active slots while infused.</td></tr>
+        </tbody>
+      </table>
+      <p class="aside">Default combat loadout: <strong>Enhanced Defense (shield) + Enhanced Weapon (longsword)</strong>. Swap to Bag of Holding for exploration/utility; Repeating Shot for ranged days.</p>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Longsword <em>(Enhanced Weapon active)</em></td><td class="atk">+8</td><td class="dmg">1d8 + 5 (or 1d10 + 5) slashing</td><td>Martial, versatile. Battle Ready Int-attack. <em>(Without infusion: +7 / 1d8 + 4.)</em></td></tr>
+          <tr><td>Light crossbow <em>(Repeating Shot variant)</em></td><td class="atk">+3 (+4)</td><td class="dmg">1d8 (1d8 + 1) piercing</td><td>Simple ranged, range 80/320. With Repeating Shot: self-loading, +1/+1.</td></tr>
+          <tr><td>Handaxe</td><td class="atk">+3</td><td class="dmg">1d6 slashing</td><td>Simple, light, thrown 20/60.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">Studded Leather + Shield + Enhanced Defense</div>
+        <div class="armor-props">Light · AC 12 + Dex unlimited · +2 shield · +1 Enhanced Defense infusion · total AC 15</div>
+      </div>
+      <h3 class="sub-h">Spellcasting Focus &amp; Personal Items</h3>
+      <ul>
+        <li><strong>Smith's tools</strong> (or any infused item — Battle Smith can use infused martial weapon as spellcasting focus).</li>
+        <li>Smith's tools, Thieves' tools, Tinker's tools, Carpenter's tools.</li>
+        <li>Letter of introduction from the Meletis Smiths' Guild; traveler's clothes.</li>
+        <li><strong>Emberclaw</strong> <em>(Steel Defender; bonded construct hound)</em>.</li>
+        <li><strong>Dungeoneer's Pack</strong>: backpack, crowbar, hammer, 10 pitons, 10 torches, tinderbox, 10 days of rations, waterskin, 50 ft. hempen rope.</li>
+      </ul>
+      <p><strong>Money</strong>: 25 gp <em>(starting pouches; campaign accumulation not tracked)</em>.</p>
+    `,
+    bio_l5_extra: `In the years since, he has gone from working a guild forge to walking the road. He built <strong>Emberclaw</strong>, a steel defender shaped like a four-legged hound, and the two have become inseparable. He has been a stress-tester for Helena's armor, an arcane-rune collaborator with Nyklos, a contracted weaponsmith to Xemnon. And he has begun to share constellation-readings with Thalassa Wavebinder — two people who measure the sky by different tools and have noticed each other measuring. Nothing has been said. They both know.`
+  }
+];
+
+const ABILITY_ORDER = ['str','dex','con','int','wis','cha'];
+const ABILITY_SHORT = { str:'STR', dex:'DEX', con:'CON', int:'INT', wis:'WIS', cha:'CHA' };
+const PRIMARY = 'int';
+
+function renderIdentity(s) {
+  const rows = [
+    ['Race',       'Variant Human (Anvilwrought)'],
+    ['Class',      s.identity.class_long],
+    ['Background', 'Guild Artisan (Smithing)'],
+    ['Patron',     'Purphoros · Devotee'],
+    ['Gift',       'Anvilwrought'],
+    ['Alignment',  'Neutral'],
+    ['Languages',  'Common, Sphinx, Giant'],
+    ['Age',        s.identity.age]
+  ];
+  return rows.map(([k,v]) => `<div class="id-row"><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+}
+
+function renderSummary(s) {
+  return [
+    ['Hit Points', s.summary.hp, s.identity.hp_breakdown],
+    ['Armor Class', s.summary.ac, s.level >= 5 ? 'studded + shield + infusion' : 'studded + shield'],
+    ['Initiative', s.summary.init, ''],
+    ['Speed', s.summary.speed, ''],
+    ['Prof Bonus', s.summary.pb, ''],
+    ['Pass. Perc.', s.summary.pp, '']
+  ].map(([label, val, sub]) => `
+    <div class="sum-plate">
+      <div class="sp-label">${label}</div>
+      <div class="sp-value">${val}</div>
+      ${sub ? `<div class="sp-sub">${sub}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderAbilities(s) {
+  return ABILITY_ORDER.map(a => {
+    const ab = s.abilities[a];
+    const isPrimary = a === PRIMARY;
+    return `
+      <div class="ab-cell ${isPrimary ? 'primary' : ''}">
+        <div class="ab-name">${ABILITY_SHORT[a]}</div>
+        <div class="ab-mod">${ab.mod}</div>
+        <div class="ab-score">score ${ab.score}</div>
+        <div class="ab-save ${ab.prof ? 'prof' : ''}">save<span class="save-bonus">${ab.save}</span></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderSkills(s) {
+  const grouped = {};
+  ABILITY_ORDER.forEach(a => grouped[a] = []);
+  s.skills.forEach(sk => grouped[sk.ability].push(sk));
+  return ABILITY_ORDER.map(a => {
+    const list = grouped[a];
+    return `
+      <div class="skill-cat">
+        <div class="skill-cat-name">${ABILITY_SHORT[a]}</div>
+        ${list.length === 0
+          ? '<div class="skill-row dim"><span class="skill-name">—</span></div>'
+          : list.map(sk => `<div class="skill-row"><span class="skill-name">${sk.name}</span><span class="skill-bonus">${sk.bonus}</span></div>`).join('')
+        }
+      </div>
+    `;
+  }).join('');
+}
+
+function renderStage(i) {
+  const s = SNAPSHOTS[i];
+  document.getElementById('identity-target').innerHTML = renderIdentity(s);
+  document.getElementById('summary-target').innerHTML = renderSummary(s);
+  document.getElementById('abilities-target').innerHTML = renderAbilities(s);
+  document.getElementById('ab-note-target').textContent = s.ab_note;
+  document.getElementById('combat-target').innerHTML = s.combat_html;
+  document.getElementById('skills-target').innerHTML = renderSkills(s);
+  document.getElementById('skill-tool-target').innerHTML = s.tool_text;
+  document.getElementById('features-target').innerHTML = s.features_html;
+  document.getElementById('patron-target').innerHTML = s.patron_html;
+  document.getElementById('spellcasting-target').innerHTML = s.spellcasting_html;
+  document.getElementById('infusions-target').innerHTML = s.infusions_html;
+  document.getElementById('equipment-target').innerHTML = s.equipment_html;
+  document.getElementById('bio-l5-extra').innerHTML = s.bio_l5_extra;
+
+  document.querySelectorAll('#timeline .tl-node').forEach((n, idx) => n.classList.toggle('active', idx === i));
+}
+
+document.querySelectorAll('#timeline .tl-node').forEach((n, i) => {
+  n.addEventListener('click', () => renderStage(i));
+});
+renderStage(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Thectra Deepcaller</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --marble:        #e8e6dc;
+    --marble-warm:   #ddd9c9;
+    --marble-cool:   #d1ccbd;
+    --marble-deep:   #bdb8a9;
+    --vein:          #aaa492;
+    --ink:           #161818;
+    --ink-soft:      #2f3436;
+    --ink-faint:     #686760;
+    --rule:          #8a8c83;
+    --rule-soft:     #aaaaa0;
+
+    /* Patron-deity accent — Keranos (storm grey-blue + lightning-white) */
+    --accent:        #3a5a7a;
+    --accent-dark:   #1e3550;
+    --accent-sec:    #c8d8e0;
+    --accent-glaze:  rgba(58, 90, 122, 0.08);
+
+    --seal:      #1e3550;
+    --seal-dark: #0e1f33;
+
+    --class-tint: rgba(58, 90, 122, 0.06);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--marble);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.045' numOctaves='2' seed='11' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.40 0 0 0 0 0.42 0 0 0 0 0.45 0 0 0 0.45 0'/></filter><rect width='100%25' height='100%25' filter='url(%23m)'/></svg>"),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 600px 600px, 200px 200px;
+    opacity: 0.58;
+    mix-blend-mode: multiply;
+    z-index: 0;
+  }
+  body {
+    background-image: linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 25%, var(--marble) 75%, var(--marble-cool) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 0 5rem;
+  }
+
+  .stele {
+    max-width: 1140px;
+    margin: 0 auto;
+    background: linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 8%, var(--marble) 92%, var(--marble-cool) 100%);
+    padding: 0;
+    box-shadow:
+      0 1px 2px rgba(26, 22, 18, 0.10),
+      0 10px 32px rgba(26, 22, 18, 0.18),
+      0 28px 64px rgba(26, 22, 18, 0.12);
+    position: relative;
+    border: 1px solid var(--rule);
+    z-index: 1;
+  }
+  .stele::before, .stele::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-dark) 100%);
+    opacity: 0.5;
+  }
+  .stele::before { left: 0; }
+  .stele::after  { right: 0; }
+
+  .doc { padding: 0 5rem 4rem; }
+
+  .meander {
+    height: 22px;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='22' viewBox='0 0 44 22'><path d='M0 17 L0 5 L11 5 L11 12 L6 12 L6 8 L17 8 L17 17 L11 17 L11 13 L22 13 L22 5 L33 5 L33 12 L28 12 L28 8 L39 8 L39 17 L44 17' fill='none' stroke='%231e3550' stroke-width='1.4' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: auto 18px;
+    opacity: 0.85;
+    margin: 0;
+  }
+
+  .masthead-band {
+    position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+    padding: 3rem 5rem 2.75rem;
+  }
+  .masthead-band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  .masthead-band::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px; height: 28px;
+    background:
+      linear-gradient(135deg, transparent 49.5%, var(--marble) 50%) left bottom / 50% 100% no-repeat,
+      linear-gradient(225deg, transparent 49.5%, var(--marble) 50%) right bottom / 50% 100% no-repeat;
+    z-index: 2;
+  }
+  .masthead {
+    position: relative;
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    z-index: 1;
+  }
+  .portrait-frame {
+    position: relative;
+    width: 360px; height: 480px;
+    background: var(--marble-deep);
+    padding: 8px;
+    border: 1px solid var(--ink-soft);
+    box-shadow:
+      inset 0 0 0 2px var(--accent-sec),
+      inset 0 0 0 4px var(--marble-deep),
+      0 4px 14px rgba(0,0,0,0.30);
+  }
+  .portrait-frame::before, .portrait-frame::after {
+    content: "";
+    position: absolute;
+    left: -1px; right: -1px; height: 12px;
+    background: linear-gradient(180deg, var(--accent-sec) 0%, var(--accent) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .portrait-frame::before { top: -14px; }
+  .portrait-frame::after  { bottom: -14px; }
+  .portrait-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.03) saturate(0.97);
+  }
+
+  .name-block { padding: 0.5rem 0 0; color: var(--marble); position: relative; z-index: 1; }
+  .name-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.52em;
+    color: rgba(255, 250, 235, 0.85);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  h1.dossier-name {
+    font-family: "Cinzel", serif;
+    font-weight: 800;
+    font-size: 4.4rem;
+    line-height: 0.95;
+    letter-spacing: 0.04em;
+    color: var(--marble);
+    margin: 0 0 0.45rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.35);
+    text-transform: uppercase;
+  }
+  .dossier-name .given { display: block; color: var(--marble); }
+  .dossier-name .epithet {
+    display: block;
+    font-weight: 500;
+    font-size: 0.55em;
+    color: var(--accent-sec);
+    letter-spacing: 0.18em;
+    margin-top: 0.4rem;
+    font-style: italic;
+    text-transform: none;
+  }
+  .tagline {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: rgba(255, 250, 235, 0.95);
+    margin: 1.2rem 0 1.5rem;
+    max-width: 38em;
+    padding-left: 1rem;
+    border-left: 2px solid var(--accent-sec);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .identity-inscription {
+    margin: 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(255, 250, 235, 0.3);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 2.25rem;
+  }
+  .id-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+  .id-row dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: rgba(255, 250, 235, 0.55);
+    text-transform: uppercase;
+  }
+  .id-row dd {
+    margin: 0;
+    color: rgba(255, 250, 235, 0.96);
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  }
+  .deity-mark {
+    display: inline-block;
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--accent-sec);
+    margin-left: 0.6rem;
+    vertical-align: middle;
+    line-height: 1;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  }
+
+  .timeline-section { background: var(--accent-glaze); padding: 1.6rem 5rem; position: relative; }
+  .tl-label {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin: 0 0 1.1rem;
+  }
+  .tl-track {
+    display: flex; align-items: flex-start; justify-content: center;
+    gap: 7rem; position: relative; padding: 0; max-width: 540px; margin: 0 auto;
+  }
+  .tl-track::before {
+    content: ""; position: absolute; top: 11px; left: 16%; right: 16%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-sec), var(--accent), var(--accent-sec));
+    z-index: 0;
+  }
+  .tl-node {
+    background: transparent; border: none; cursor: pointer; padding: 0;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    position: relative; z-index: 1; color: var(--ink-soft);
+    font-family: "EB Garamond", serif; transition: color 0.2s ease;
+    min-width: 100px;
+  }
+  .tl-dot {
+    width: 18px; height: 18px;
+    border: 2px solid var(--accent-dark);
+    background: var(--marble);
+    margin-bottom: 0.55rem;
+    box-shadow: 0 0 0 3px var(--marble);
+    transition: all 0.2s ease;
+    transform: rotate(45deg);
+  }
+  .tl-node:hover .tl-dot { border-color: var(--accent); transform: rotate(45deg) scale(1.12); }
+  .tl-node.active .tl-dot {
+    background: var(--seal); border-color: var(--seal-dark);
+    box-shadow: 0 0 0 3px var(--marble), 0 0 0 5px rgba(30,53,80,0.28);
+  }
+  .tl-node.active { color: var(--ink); }
+  .tl-top {
+    font-family: "Cinzel", serif; font-weight: 600;
+    font-size: 0.85rem; letter-spacing: 0.18em; text-transform: uppercase; line-height: 1.2;
+  }
+  .tl-node.active .tl-top { color: var(--accent-dark); }
+  .tl-bot { font-size: 0.85rem; color: var(--ink-faint); margin-top: 0.2rem; font-style: italic; }
+
+  section.block { margin: 2.5rem 0 0; padding: 0.5rem 0 1.5rem; position: relative; }
+  section.block + section.block { margin-top: 2rem; }
+
+  .section-h {
+    font-family: "Cinzel", serif; font-weight: 700; font-size: 1.35rem;
+    color: var(--accent-dark);
+    margin: 0 0 1.5rem; padding: 0; border: none;
+    text-align: center; letter-spacing: 0.32em; text-transform: uppercase;
+    position: relative; display: block;
+  }
+  .section-h::before {
+    content: ""; display: block;
+    width: 64px; height: 14px;
+    margin: 0 auto 0.85rem;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%231e3550' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: no-repeat; background-position: center; opacity: 0.85;
+  }
+  .section-h .greek-chap {
+    display: block;
+    font-family: "Cinzel", serif; font-weight: 500;
+    font-size: 0.75rem; letter-spacing: 0.5em;
+    color: var(--accent); margin-top: 0.5rem;
+    font-style: normal; text-transform: uppercase;
+  }
+  h3.sub-h {
+    font-family: "Cinzel", serif; font-weight: 600; font-size: 1.05rem;
+    color: var(--accent-dark); margin: 1.5rem 0 0.6rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    padding-bottom: 0.3rem; border-bottom: 1px solid var(--rule-soft);
+  }
+  h4.subsub-h {
+    font-family: "Cormorant SC", serif; font-size: 0.82rem; letter-spacing: 0.32em;
+    color: var(--ink); text-transform: uppercase; margin: 1.1rem 0 0.5rem; font-weight: 500;
+  }
+  p { margin: 0 0 1rem; }
+
+  .summary-strip {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 0;
+    margin: 0.5rem 0; background: var(--accent-glaze);
+    padding: 1rem 0.5rem;
+    border-top: 1.5px solid var(--accent); border-bottom: 1.5px solid var(--accent);
+  }
+  .sum-plate { text-align: center; padding: 0 0.5rem; border-right: 1px solid var(--rule-soft); }
+  .sum-plate:last-child { border-right: none; }
+  .sum-plate .sp-label {
+    font-family: "Cormorant SC", serif; font-size: 0.66rem;
+    letter-spacing: 0.22em; color: var(--ink-faint); text-transform: uppercase;
+  }
+  .sum-plate .sp-value {
+    font-family: "Cinzel", serif; font-size: 1.7rem;
+    color: var(--accent-dark); line-height: 1.1; font-weight: 700;
+    margin-top: 0.15rem;
+  }
+  .sum-plate .sp-sub {
+    font-family: "EB Garamond", serif; font-size: 0.72rem;
+    color: var(--ink-faint); font-style: italic; margin-top: 0.1rem;
+  }
+
+  .abilities-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem; margin: 0.5rem 0 1.25rem; }
+  .ab-cell {
+    text-align: center; padding: 1rem 0.4rem 0.85rem;
+    background: var(--marble-warm); border: 1px solid var(--rule);
+    border-top: 3px solid var(--accent); position: relative;
+  }
+  .ab-cell.primary {
+    border-top-width: 4px; border-top-color: var(--accent-dark);
+    background: linear-gradient(180deg, rgba(200, 216, 224, 0.45) 0%, var(--marble-warm) 60%);
+  }
+  .ab-cell .ab-name {
+    font-family: "Cinzel", serif; font-weight: 600; font-size: 0.72rem;
+    letter-spacing: 0.24em; color: var(--ink-faint);
+    text-transform: uppercase; margin-bottom: 0.35rem;
+  }
+  .ab-cell .ab-mod { font-family: "Cinzel", serif; font-size: 2.1rem; line-height: 1; color: var(--ink); font-weight: 800; }
+  .ab-cell .ab-score { font-family: "EB Garamond", serif; font-size: 0.85rem; color: var(--ink-faint); margin-top: 0.2rem; }
+  .ab-cell .ab-save {
+    margin-top: 0.5rem; padding-top: 0.4rem; border-top: 1px dotted var(--rule);
+    font-family: "Cormorant SC", serif; font-size: 0.7rem; letter-spacing: 0.14em;
+    color: var(--ink-soft); text-transform: uppercase;
+  }
+  .ab-cell .ab-save .save-bonus { font-family: "Cinzel", serif; font-size: 0.95rem; color: var(--accent-dark); margin-left: 0.25rem; font-weight: 600; }
+  .ab-cell .ab-save.prof::after { content: " ★"; color: var(--seal); margin-left: 0.15rem; }
+  .ab-note { font-size: 0.88rem; color: var(--ink-faint); font-style: italic; text-align: center; margin-top: 0.5rem; }
+
+  .combat-block { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem 2.5rem; margin: 0.5rem 0; }
+  .combat-block dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; }
+  .combat-block dt {
+    font-family: "Cormorant SC", serif; font-size: 0.74rem;
+    letter-spacing: 0.18em; color: var(--ink-faint);
+    text-transform: uppercase; align-self: baseline;
+  }
+  .combat-block dd { margin: 0; font-family: "EB Garamond", serif; font-size: 0.98rem; color: var(--ink); }
+  .combat-block dd em { color: var(--ink-faint); font-size: 0.88rem; }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.1rem; margin: 1rem 0 1.5rem; }
+  .skill-cat { border-top: 2px solid var(--accent); padding-top: 0.6rem; }
+  .skill-cat-name {
+    font-family: "Cinzel", serif; font-weight: 600;
+    font-size: 0.74rem; letter-spacing: 0.24em;
+    color: var(--accent-dark); text-transform: uppercase;
+    margin-bottom: 0.7rem; text-align: center;
+  }
+  .skill-row { display: flex; align-items: baseline; justify-content: space-between; gap: 0.4rem; padding: 0.18rem 0; font-size: 0.92rem; line-height: 1.3; color: var(--ink); }
+  .skill-row.dim { color: var(--ink-faint); font-style: italic; }
+  .skill-row .skill-name { flex: 1; }
+  .skill-row .skill-bonus { font-family: "Cinzel", serif; font-weight: 600; color: var(--accent-dark); }
+  .skill-row.expertise .skill-bonus { color: var(--seal); }
+  .skill-source { font-size: 0.82rem; color: var(--ink-faint); text-align: center; font-style: italic; margin-top: 0.6rem; }
+
+  .feat-block { font-size: 0.98rem; font-family: "EB Garamond", serif; }
+  .feat-block ul { padding-left: 1.2rem; margin: 0.5rem 0 1rem; }
+  .feat-block li { margin-bottom: 0.45rem; }
+  .feat-block strong { color: var(--accent-dark); font-weight: 600; }
+  .feat-block em { color: var(--ink-soft); }
+  .feat-block .aside {
+    font-style: italic; color: var(--ink-faint); font-size: 0.92rem;
+    padding-left: 0.85rem; border-left: 2px solid var(--rule-soft);
+    margin: 0.6rem 0 1rem;
+  }
+  .feat-card {
+    background: var(--marble-warm); border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent); padding: 1.1rem 1.4rem; margin: 1rem 0;
+  }
+
+  /* PATRON GOD — temple panel */
+  .patron-section {
+    margin: 2.5rem -5rem 2.5rem;
+    padding: 0; position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+  }
+  .patron-section::before {
+    content: ""; position: absolute;
+    left: 0; right: 0; top: -22px; height: 22px;
+    background:
+      linear-gradient(45deg, transparent 49.5%, var(--accent) 50%) left top / 50% 100% no-repeat,
+      linear-gradient(315deg, transparent 49.5%, var(--accent) 50%) right top / 50% 100% no-repeat;
+    z-index: 0;
+  }
+  .patron-section::after {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay; pointer-events: none; opacity: 0.55; z-index: 0;
+  }
+  .patron-inner { position: relative; z-index: 1; padding: 2.5rem 6.5rem 2.75rem; }
+  .patron-inner::before, .patron-inner::after {
+    content: ""; position: absolute; top: 2rem; bottom: 2rem; width: 28px;
+    background:
+      linear-gradient(180deg,
+        var(--accent-sec) 0%, var(--accent-sec) 6%,
+        rgba(255,250,235,0.25) 6%, rgba(255,250,235,0.25) 8%,
+        rgba(255,250,235,0.15) 8%, rgba(255,250,235,0.15) 92%,
+        rgba(255,250,235,0.25) 92%, rgba(255,250,235,0.25) 94%,
+        var(--accent-sec) 94%, var(--accent-sec) 100%);
+    border-left: 1px solid rgba(255,250,235,0.25);
+    border-right: 1px solid rgba(255,250,235,0.25);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.10);
+  }
+  .patron-inner::before { left: 2.5rem; }
+  .patron-inner::after  { right: 2.5rem; }
+  .patron-section .section-h {
+    color: var(--marble); text-shadow: 0 1px 3px rgba(0,0,0,0.30);
+    letter-spacing: 0.36em; margin-bottom: 1.5rem;
+  }
+  .patron-section .section-h::before {
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%23c8d8e0' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+  }
+  .patron-section .section-h .greek-chap { color: var(--accent-sec); }
+  .patron-section h3.sub-h, .patron-section h4.subsub-h {
+    color: rgba(255, 250, 235, 0.95);
+    border-bottom-color: rgba(255, 250, 235, 0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.22);
+  }
+  .patron-section .feat-block { color: rgba(255, 250, 235, 0.94); }
+  .patron-section .feat-block strong { color: var(--accent-sec); }
+  .patron-section .feat-block em { color: rgba(255, 250, 235, 0.74); }
+  .patron-section .feat-block .aside {
+    color: rgba(255, 250, 235, 0.78);
+    border-left-color: rgba(255, 250, 235, 0.4);
+  }
+
+  .spell-block { background: var(--class-tint); border: 1px solid var(--rule-soft); padding: 1.5rem; margin: 1rem 0; }
+  .spell-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem; margin-bottom: 1.25rem; padding-bottom: 1rem;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .spell-stats .ss-cell { text-align: center; padding: 0.25rem; }
+  .spell-stats .ss-label {
+    font-family: "Cormorant SC", serif; font-size: 0.66rem;
+    letter-spacing: 0.22em; color: var(--ink-faint); text-transform: uppercase;
+  }
+  .spell-stats .ss-value { font-family: "Cinzel", serif; font-size: 1.4rem; color: var(--accent-dark); font-weight: 700; }
+  .spell-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .spell-table th, .spell-table td { text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px dotted var(--rule-soft); }
+  .spell-table th {
+    font-family: "Cormorant SC", serif; font-size: 0.7rem;
+    letter-spacing: 0.18em; color: var(--ink-faint);
+    text-transform: uppercase; font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .spell-table td.lvl { width: 3em; color: var(--accent-dark); font-weight: 600; font-family: "Cinzel", serif; }
+  .spell-table td.spell-name { font-style: italic; color: var(--ink); }
+  .slot-table { width: auto; margin: 0.5rem 0 1rem; border-collapse: collapse; font-size: 0.94rem; }
+  .slot-table th, .slot-table td { text-align: center; padding: 0.3rem 1rem; border: 1px solid var(--rule-soft); }
+  .slot-table th {
+    background: var(--accent-glaze);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem; letter-spacing: 0.18em; color: var(--ink-faint);
+    text-transform: uppercase; font-weight: 500;
+  }
+  .slot-table td { font-family: "Cinzel", serif; font-weight: 700; color: var(--accent-dark); }
+
+  .weapon-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .weapon-table th, .weapon-table td { text-align: left; padding: 0.45rem 0.7rem; border-bottom: 1px dotted var(--rule-soft); }
+  .weapon-table th {
+    font-family: "Cormorant SC", serif; font-size: 0.7rem;
+    letter-spacing: 0.18em; color: var(--ink-faint);
+    text-transform: uppercase; font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .weapon-table td.atk, .weapon-table td.dmg { font-family: "Cinzel", serif; font-weight: 700; color: var(--accent-dark); white-space: nowrap; }
+  .armor-card {
+    background: var(--marble-warm); border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent); padding: 0.9rem 1.2rem; margin: 0.6rem 0;
+  }
+  .armor-name { font-family: "Cinzel", serif; font-weight: 700; font-size: 1rem; color: var(--accent-dark); letter-spacing: 0.06em; }
+  .armor-props { font-size: 0.88rem; color: var(--ink-soft); font-style: italic; margin-top: 0.25rem; }
+
+  .personality-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.5rem 0 1rem; }
+  .pers-card {
+    border-left: 3px solid var(--accent);
+    padding: 0.6rem 1.1rem;
+    background: var(--accent-glaze);
+  }
+  .pers-card.flaw {
+    border-left-color: var(--seal);
+    background: rgba(30, 53, 80, 0.08);
+  }
+  .pers-label {
+    font-family: "Cinzel", serif; font-weight: 600;
+    font-size: 0.74rem; letter-spacing: 0.32em;
+    color: var(--accent-dark); text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .pers-card.flaw .pers-label { color: var(--seal-dark); }
+  .pers-text { font-style: italic; color: var(--ink); font-size: 1rem; line-height: 1.5; margin: 0; }
+
+  .connections-list { margin: 0.5rem 0 1rem; padding-left: 0; list-style: none; }
+  .connections-list li {
+    margin-bottom: 0.7rem; padding-left: 1.4rem;
+    position: relative; line-height: 1.55;
+  }
+  .connections-list li::before { content: "▲"; color: var(--accent); position: absolute; left: 0; top: 0.32em; font-size: 0.65rem; }
+  .connections-list strong { color: var(--accent-dark); }
+
+  .expedition-callout {
+    background: linear-gradient(180deg, var(--accent-glaze) 0%, rgba(58,90,122,0.03) 100%);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    padding: 1.5rem 1.75rem;
+    margin: 1rem 0 0;
+    font-size: 1.02rem; line-height: 1.6;
+  }
+  .expedition-callout p:last-child { margin-bottom: 0; }
+
+  .footer {
+    text-align: center; padding: 2rem 0 1rem; margin-top: 3rem;
+    color: var(--ink-faint);
+    font-family: "Cormorant SC", serif; font-size: 0.74rem;
+    letter-spacing: 0.5em; text-transform: uppercase;
+  }
+  .footer .meander { margin-bottom: 1rem; opacity: 0.6; }
+
+  @media (max-width: 1000px) {
+    .doc { padding: 0 1.5rem 2.5rem; }
+    .timeline-section { padding: 1.5rem 1.5rem; }
+    .masthead-band { padding: 2rem 1.5rem 2.5rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1.5rem; }
+    .portrait-frame { width: 100%; max-width: 320px; height: auto; aspect-ratio: 3/4; margin: 0 auto; }
+    h1.dossier-name { font-size: 2.8rem; }
+    .identity-inscription { grid-template-columns: 1fr; }
+    .summary-strip, .abilities-grid { grid-template-columns: repeat(3, 1fr); }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .combat-block, .personality-grid { grid-template-columns: 1fr; }
+    .patron-section { margin: 2rem -1.5rem; }
+    .patron-inner { padding: 2rem 1.5rem; }
+    .patron-inner::before, .patron-inner::after { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="stele">
+
+<div class="masthead-band">
+  <div class="masthead">
+    <div class="portrait-frame">
+      <img src="../Theros 1st pass/thectra.png" alt="Thectra Deepcaller portrait">
+    </div>
+    <div class="name-block">
+      <div class="name-eyebrow">Dossier · Triton Oracle of Keranos</div>
+      <h1 class="dossier-name">
+        <span class="given">Thectra</span>
+        <span class="epithet">Deepcaller</span>
+      </h1>
+      <p class="tagline">
+        An exiled Triton oracle, branded heretic by Thassa's priests for the visions Keranos sends through her chest like lightning.
+      </p>
+      <dl class="identity-inscription" id="identity-target"></dl>
+    </div>
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<div class="timeline-section">
+  <div class="tl-label">Stage of Career</div>
+  <div class="tl-track" id="timeline">
+    <button class="tl-node active" data-stage="0" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 1</div>
+      <div class="tl-bot">New Exile</div>
+    </button>
+    <button class="tl-node" data-stage="1" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 5</div>
+      <div class="tl-bot">Augur of Storms</div>
+    </button>
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<div class="doc">
+
+<section class="block">
+  <h2 class="section-h">Bio<span class="greek-chap">α · Vita</span></h2>
+  <p>Thectra has no idea why Keranos gives her visions, and sometimes wishes he wouldn't — each one comes with an intense pain in her chest. Her visions upset the priests of Thassa in her home, who branded her a heretic and cast her out. She has been itinerant ever since.</p>
+  <p>She idolizes Leurybia, a former oracle of the Siren Sea who mysteriously disappeared. There is a mystical, mercurial intensity to Thectra's presence — even strangers can sense she is touched by something larger than herself.</p>
+  <p id="bio-l5-extra"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<section class="block">
+  <h2 class="section-h">At a Glance<span class="greek-chap">β · Synopsis</span></h2>
+  <div class="summary-strip" id="summary-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Ability Scores<span class="greek-chap">γ · Dynámeis</span></h2>
+  <div class="abilities-grid" id="abilities-target"></div>
+  <p class="ab-note" id="ab-note-target"></p>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Combat &amp; Senses<span class="greek-chap">δ · Mákhē</span></h2>
+  <div class="combat-block" id="combat-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Skill Proficiencies<span class="greek-chap">ε · Tékhnai</span></h2>
+  <div class="skills-grid" id="skills-target"></div>
+  <p class="skill-source" id="skill-tool-target"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<section class="block">
+  <h2 class="section-h">Class Features<span class="greek-chap">ζ · Tákta</span></h2>
+  <div class="feat-block" id="features-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Racial Features — Triton<span class="greek-chap">η · Génos</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Amphibious</strong>: You can breathe air and water.</li>
+      <li><strong>Control Air and Water</strong>: Cast <em>fog cloud</em> with this trait, no slot. <em>Gust of wind</em> unlocks at L3, <em>wall of water</em> at L5. Once you cast a spell with this trait, you can't cast that spell with it again until you finish a long rest. <strong>Charisma</strong>-based.</li>
+      <li><strong>Darkvision</strong> (60 ft.)</li>
+      <li><strong>Emissary of the Sea</strong>: Communicate simple ideas with beasts that breathe water.</li>
+      <li><strong>Guardians of the Depths</strong>: Resistance to cold damage.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Supernatural Gift — Oracle<span class="greek-chap">θ · Dóron</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Ears of the Oracle</strong>: You speak, read, and write <strong>Celestial</strong>, the language of the gods. A god may deliver a message through you, in your voice or theirs, translated into any language you speak.</li>
+      <li><strong>Oracle's Insight</strong>: When you make an ability check, you can roll a d10 and add the result. You can wait to decide until after seeing the d20 but before the DM declares success/failure. <strong>1/short or long rest.</strong></li>
+      <li><strong>Oracle's Piety</strong>: Your oracle traits replace Keranos's normal piety benefits, following the Augur → Seer → Sibyl → Divine Oracle progression. Wisdom is the spellcasting ability for these traits.</li>
+    </ul>
+  </div>
+</section>
+
+</div>
+
+<section class="patron-section">
+  <div class="patron-inner">
+    <h2 class="section-h">Patron God — Keranos, the Storm-Eye<span class="greek-chap">ι · Theós</span></h2>
+    <div class="feat-block" id="patron-target"></div>
+  </div>
+</section>
+
+<div class="doc" style="padding-top: 1rem;">
+
+<section class="block">
+  <h2 class="section-h">Background — Acolyte<span class="greek-chap">κ · Bíos</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Skill Proficiencies</strong>: Insight, Religion.</li>
+      <li><strong>Languages</strong>: Two of choice. <em>Chosen: Sphinx, Celestial</em> (Celestial also granted by Ears of the Oracle).</li>
+      <li><strong>Equipment</strong>: Holy symbol of Keranos (a carved triton spire or sea-glass amulet), prayer wheel, 5 sticks of incense, vestments, set of common clothes, 15 gp.</li>
+      <li><strong>Feature — Shelter of the Faithful</strong>: Thectra commands the respect of those who share her faith and may perform religious ceremonies of Keranos. She and her companions can expect free healing and care at a temple, shrine, or other established presence of her faith (must provide material components). Those who share her religion will support her (only her) at a modest lifestyle.</li>
+    </ul>
+    <p class="aside">Thectra was branded heretic by Thassa's priesthood — Shelter of the Faithful applies only at temples of Keranos or other deities sympathetic to an exiled Triton oracle. Worth a GM ruling at any given site.</p>
+  </div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Spellcasting<span class="greek-chap">λ · Goēteía</span></h2>
+  <div id="spellcasting-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Equipment<span class="greek-chap">μ · Hopla</span></h2>
+  <div id="equipment-target"></div>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<section class="block">
+  <h2 class="section-h">Personality<span class="greek-chap">ν · Êthos</span></h2>
+  <div class="personality-grid">
+    <div class="pers-card">
+      <div class="pers-label">Trait</div>
+      <p class="pers-text">"I have a mysterious, mystical presence — and an intense demeanor. I idolize Leurybia, a former oracle who mysteriously disappeared."</p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Ideal — Change</div>
+      <p class="pers-text">"We must bring about the changes the gods are working in the world." <em>(Keranos's domain — change, storm, sudden insight.)</em></p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Bond</div>
+      <p class="pers-text">"I will get revenge on the corrupt temple hierarchy who branded me a heretic for giving visions they didn't like."</p>
+    </div>
+    <div class="pers-card flaw">
+      <div class="pers-label">Flaw</div>
+      <p class="pers-text">"People who consult me for oracles rarely believe what I say. I struggle to balance mercy and punishment." <em>(Oracle's Curse.)</em></p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Connections<span class="greek-chap">ξ · Philíai</span></h2>
+  <ul class="connections-list">
+    <li><strong>Helena of Akros</strong> — Thectra saved Helena from a shipwreck; they've maintained a close bond ever since.</li>
+    <li><strong>Thalassa Wavebinder</strong> — they studied under the same priestess of Thassa, before Thectra's exile drove the two of them onto different paths.</li>
+    <li><strong>Orion Swiftarrow</strong> — Thectra and Orion love each other dearly, but both understand they have no future together. A Triton oracle and a Centaur ranger: different lifespans, different roads.</li>
+  </ul>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Why Thectra is on the Expedition<span class="greek-chap">ο · Hodós</span></h2>
+  <div class="expedition-callout">
+    <p>Thectra's tempestuous visions may guide the party toward understanding the true stakes of the grain crisis. Her desire to defy a corrupt hierarchy could make her an enemy to those benefiting from Karametra's absence.</p>
+    <p>The Fallow Year is exactly the kind of cosmic shift Keranos has been showing her in flashes — she has every reason to seek the heart of it, and to ride the storm rather than be drowned by it.</p>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div class="meander" aria-hidden="true"></div>
+  Player Character Dossier · Theros, The Fallow Season
+</footer>
+
+</div>
+
+<script>
+const SNAPSHOTS = [
+  {
+    stage: "L1",
+    level: 1,
+    pb: 2,
+    identity: { class_long: "Cleric 1 — Tempest Domain", age: "—" },
+    summary: { hp: 9, ac: 16, init: "+0", speed: "30 ft. · swim 30 ft.", pb: "+2", pp: 13 },
+    abilities: {
+      str:{score:11, mod:"+0", save:"+0", prof:false},
+      dex:{score:10, mod:"+0", save:"+0", prof:false},
+      con:{score:12, mod:"+1", save:"+1", prof:false},
+      int:{score:10, mod:"+0", save:"+0", prof:false},
+      wis:{score:17, mod:"+3", save:"+5", prof:true},
+      cha:{score:17, mod:"+3", save:"+5", prof:true}
+    },
+    ab_note: "Rolled array 10, 10, 10, 11, 16, 17 → Str 10 / Dex 10 / Con 11 / Int 10 / Wis 17 / Cha 16. Triton: +1 Str (→11), +1 Con (→12), +1 Cha (→17).",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+2</dd>
+        <dt>Armor Class</dt><dd>16 <em>(scale mail 14 + Dex 0 + shield 2)</em></dd>
+        <dt>Initiative</dt><dd>+0</dd>
+        <dt>Speed</dt><dd>30 ft. walking · <strong>30 ft. swim</strong> <em>(Triton)</em></dd>
+        <dt>Hit Points</dt><dd>9 <em>(d8 max 8 + Con +1)</em></dd>
+        <dt>Hit Dice</dt><dd>1d8</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>13 <em>(10 + Wis +3; not proficient)</em></dd>
+        <dt>Special Senses</dt><dd>Darkvision 60 ft. <em>(Triton)</em></dd>
+        <dt>Resistance</dt><dd>Cold <em>(Triton — Guardians of the Depths)</em></dd>
+        <dt>Cleric Spell DC / Atk</dt><dd><strong>13</strong> / +5 <em>(Wis-based)</em></dd>
+        <dt>Triton C.A.&amp;W. DC / Atk</dt><dd>13 / +5 <em>(Cha-based)</em></dd>
+      </dl>
+    `,
+    skills: [
+      {name:"History",   ability:"int", bonus:"+2", source:"Cleric class"},
+      {name:"Insight",   ability:"wis", bonus:"+5", source:"Acolyte"},
+      {name:"Medicine",  ability:"wis", bonus:"+5", source:"Cleric class"},
+      {name:"Religion",  ability:"int", bonus:"+2", source:"Acolyte"}
+    ],
+    tool_text: "No tool proficiencies. Cleric chose History + Medicine (both non-overlapping with Acolyte's Insight + Religion); a clean 4-skill spread.",
+    features_html: `
+      <h3 class="sub-h">Cleric (Level 1)</h3>
+      <ul>
+        <li><strong>Spellcasting</strong>: Wisdom is your spellcasting ability. You prepare cleric spells daily (count = Wis mod + Cleric level = 3 + 1 = <strong>4 prepared spells</strong>, plus domain spells which are always prepared). You can use a holy symbol as a spellcasting focus.</li>
+        <li><strong>Divine Domain: Tempest</strong>.</li>
+      </ul>
+
+      <h3 class="sub-h">Tempest Domain (Subclass)</h3>
+      <ul>
+        <li><strong>Bonus Proficiencies</strong>: Martial weapons + heavy armor.</li>
+        <li><strong>Wrath of the Storm</strong>: When a creature within 5 ft. of you that you can see hits you with an attack, you can use your reaction to cause the creature to make a Dexterity saving throw (DC = your Cleric spell save DC = <strong>13</strong>). On a failed save the creature takes <strong>2d8 lightning or thunder damage</strong> (your choice), half on a success. Uses per long rest = Wis mod = <strong>3</strong>.</li>
+        <li><strong>Domain Spells</strong> (always prepared, don't count against the 4):
+          <ul><li>1st level: <em>fog cloud</em>, <em>thunderwave</em></li></ul>
+        </li>
+      </ul>
+    `,
+    patron_html: `
+      <h3 class="sub-h">Keranos Piety 3 — Augur (via Oracle's Piety)</h3>
+      <ul>
+        <li><strong>Source of godly favor</strong>: "You have no idea why Keranos grants you visions, and the burden weighs heavily on your soul."</li>
+        <li><strong>Godly ideal</strong>: <em>Change.</em> "Everything's just waiting to be something else, including me."</li>
+        <li><strong>Oracle's Curse</strong> <em>(d8 #2)</em>: People who consult me for information rarely believe the answers I give them. <em>(The chest-pain detail in her bio is curse-#7 flavor; mechanically only one curse applies per RAW.)</em></li>
+        <li><strong>Augur (Piety 3+)</strong>: Cast <em>augury</em> as a ritual with this trait. <strong>1/long rest.</strong> Wisdom is the spellcasting ability.</li>
+      </ul>
+      <p class="aside">Oracle Gift overrides Keranos's standard Devotee trait — instead of Keranos's usual L3 benefit, Thectra is on the Oracle's Piety track (Augur → Seer → Sibyl → Divine Oracle). Her Augur ritual is <em>augury</em>, not whatever Keranos's standard Devotee would grant.</p>
+    `,
+    spellcasting_html: `
+      <div class="spell-block">
+        <div class="spell-stats">
+          <div class="ss-cell"><div class="ss-label">Save DC</div><div class="ss-value">13</div></div>
+          <div class="ss-cell"><div class="ss-label">Spell Attack</div><div class="ss-value">+5</div></div>
+          <div class="ss-cell"><div class="ss-label">Prepared</div><div class="ss-value">4</div></div>
+          <div class="ss-cell"><div class="ss-label">Ability</div><div class="ss-value">Wis</div></div>
+        </div>
+
+        <h3 class="sub-h">Spell Slots</h3>
+        <table class="slot-table">
+          <thead><tr><th>1st</th></tr></thead>
+          <tbody><tr><td>2</td></tr></tbody>
+        </table>
+
+        <h3 class="sub-h">Cantrips Known (3)</h3>
+        <table class="spell-table">
+          <tbody>
+            <tr><td class="lvl">0</td><td class="spell-name">Guidance</td><td>Divination, C</td><td>Touch; one creature adds 1d4 to one ability check within 1 min.</td></tr>
+            <tr><td class="lvl">0</td><td class="spell-name">Sacred Flame</td><td>Evocation</td><td>60 ft.; Dex save DC 13; 1d8 radiant on fail. Ignores cover.</td></tr>
+            <tr><td class="lvl">0</td><td class="spell-name">Thaumaturgy</td><td>Transmutation</td><td>30 ft.; minor magical effects — voice triples in volume, tremors, flames, etc.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Domain Spells (always prepared, don't count against the 4)</h3>
+        <table class="spell-table">
+          <tbody>
+            <tr><td class="lvl">1</td><td class="spell-name">Fog Cloud</td><td>Conjuration, C</td><td>120 ft.; 20-ft. radius sphere of fog, heavily obscures. Concentration up to 1 hour.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Thunderwave</td><td>Evocation</td><td>15-ft. cube originating from you; Con save DC 13; 2d8 thunder + push 10 ft. on fail, half on save.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Prepared Spells (4 = Wis mod +3 + Cleric level 1)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Lvl</th><th>Spell</th><th>School</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="lvl">1</td><td class="spell-name">Cure Wounds</td><td>Abjuration</td><td>Touch; <strong>1d8 + 3</strong> HP. Primary heal.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Bless</td><td>Enchantment, C</td><td>3 creatures within 30 ft.; +1d4 to attack rolls and saves. Concentration 1 min.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Healing Word</td><td>Evocation, BA</td><td>60 ft.; bonus action; <strong>1d4 + 3</strong> HP. Revives an ally from 0 HP without an action.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Shield of Faith</td><td>Abjuration, C</td><td>60 ft.; target +2 AC; concentration up to 10 min.</td></tr>
+          </tbody>
+        </table>
+        <p class="aside">Suggested L1 set; Thectra can swap on long rest. The draft didn't fix a prepared list, so these are thematic Cleric L1 picks. <em>Bless</em> is concentration, so it competes with <em>Shield of Faith</em> — choose one each combat.</p>
+
+        <h3 class="sub-h">Spells via Other Traits (no slot needed; 1/long rest each)</h3>
+        <ul>
+          <li><strong>Fog Cloud</strong> (Triton Control Air &amp; Water — Cha-based, no slot). <em>Same spell as the Tempest domain spell; this version doesn't consume a slot.</em></li>
+          <li><strong>Augury</strong> as a ritual (Oracle Augur trait — Wis-based; no save or attack).</li>
+        </ul>
+      </div>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Mace</td><td class="atk">+2</td><td class="dmg">1d6 bludgeoning</td><td>Simple melee. Cleric proficient.</td></tr>
+          <tr><td>Spear</td><td class="atk">+2</td><td class="dmg">1d6 / 1d8 piercing</td><td>Simple, versatile, thrown 20/60.</td></tr>
+          <tr><td>Dagger</td><td class="atk">+2</td><td class="dmg">1d4 piercing</td><td>Simple, finesse, light, thrown 20/60.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">Scale mail + shield</div>
+        <div class="armor-props">Medium (scale: AC 14, Dex max +2; Stealth disadvantage) · Shield +2 · Total AC 16</div>
+      </div>
+      <h3 class="sub-h">Holy Items &amp; Pack</h3>
+      <ul>
+        <li><strong>Holy symbol</strong>: a carved triton spire or sea-glass amulet of Keranos (also Cleric's spellcasting focus).</li>
+        <li>Prayer wheel, 5 sticks of incense, vestments, set of common clothes.</li>
+        <li><strong>Priest's Pack</strong>: backpack, blanket, 10 candles, tinderbox, alms box, 2 blocks of incense, censer, vestments, 2 days of rations, waterskin.</li>
+      </ul>
+      <p><strong>Money</strong>: 15 gp <em>(Acolyte starting pouch)</em>.</p>
+    `,
+    bio_l5_extra: ""
+  },
+  {
+    stage: "L5",
+    level: 5,
+    pb: 3,
+    identity: { class_long: "Cleric 5 — Tempest Domain", age: "32" },
+    summary: { hp: 33, ac: 16, init: "+0", speed: "30 ft. · swim 30 ft.", pb: "+3", pp: 14 },
+    abilities: {
+      str:{score:11, mod:"+0", save:"+0", prof:false},
+      dex:{score:10, mod:"+0", save:"+0", prof:false},
+      con:{score:12, mod:"+1", save:"+1", prof:false},
+      int:{score:10, mod:"+0", save:"+0", prof:false},
+      wis:{score:19, mod:"+4", save:"+7", prof:true},
+      cha:{score:17, mod:"+3", save:"+6", prof:true}
+    },
+    ab_note: "Same base array as L1. Level 4 ASI: +2 Wisdom (17 → 19). Raises Cleric spell DC 13 → 15, attack +5 → +7; Wrath of the Storm DC to 15 and uses 3 → 4/long rest; Wis save +5 → +7; prepared spell count 4 → 9.",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+3</dd>
+        <dt>Armor Class</dt><dd>16 <em>(scale mail 14 + Dex 0 + shield 2)</em></dd>
+        <dt>Initiative</dt><dd>+0</dd>
+        <dt>Speed</dt><dd>30 ft. walking · <strong>30 ft. swim</strong> <em>(Triton)</em></dd>
+        <dt>Hit Points</dt><dd>33 <em>(L1: 9; L2–5: 4 × (avg 5 + Con +1) = 24; total 33)</em></dd>
+        <dt>Hit Dice</dt><dd>5d8</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>14 <em>(10 + Wis +4; not proficient)</em></dd>
+        <dt>Special Senses</dt><dd>Darkvision 60 ft. <em>(Triton)</em></dd>
+        <dt>Resistance</dt><dd>Cold <em>(Triton)</em></dd>
+        <dt>Cleric Spell DC / Atk</dt><dd><strong>15</strong> / +7 <em>(Wis-based)</em></dd>
+        <dt>Triton C.A.&amp;W. DC / Atk</dt><dd>14 / +6 <em>(Cha-based)</em></dd>
+      </dl>
+    `,
+    skills: [
+      {name:"History",   ability:"int", bonus:"+3", source:"Cleric class"},
+      {name:"Insight",   ability:"wis", bonus:"+7", source:"Acolyte"},
+      {name:"Medicine",  ability:"wis", bonus:"+7", source:"Cleric class"},
+      {name:"Religion",  ability:"int", bonus:"+3", source:"Acolyte"}
+    ],
+    tool_text: "No tool proficiencies. All four skill picks are now scaled by PB +3 and Wis 19's +4 modifier.",
+    features_html: `
+      <h3 class="sub-h">Cleric (Base)</h3>
+      <ul>
+        <li><strong>Spellcasting</strong> (L1): Wis-based; ritual casting; holy symbol as focus. Prepared spells = Wis mod + Cleric level = <strong>9 prepared</strong> (plus always-prepared domain spells).</li>
+        <li><strong>Channel Divinity</strong> (L2): One effect per short or long rest. Tempest options are <strong>Turn Undead</strong> (base) and <strong>Destructive Wrath</strong> (Tempest).</li>
+        <li><strong>Destroy Undead</strong> (L5): When an undead fails its save against your Turn Undead, the creature is instantly destroyed if its CR is <strong>1/2 or lower</strong>.</li>
+      </ul>
+
+      <h4 class="subsub-h">Channel Divinity options</h4>
+      <ul>
+        <li><strong>Turn Undead</strong>: Action; each undead within 30 ft. that sees or hears you makes a Wis save (DC <strong>15</strong>). On a fail, turned for 1 minute (or until it takes damage): must Dash away from you, cannot move within 30 ft. of you, can't take reactions, only action is Dash or escape.</li>
+        <li><strong>Destructive Wrath</strong> (Tempest): When you roll lightning or thunder damage, use Channel Divinity to deal <strong>maximum damage</strong> instead of rolling. Devastating with <em>call lightning</em>, <em>shatter</em>, <em>thunderwave</em>, or Wrath of the Storm.</li>
+      </ul>
+
+      <h3 class="sub-h">Tempest Domain (Subclass)</h3>
+      <ul>
+        <li><strong>Bonus Proficiencies</strong> (L1): Martial weapons + heavy armor.</li>
+        <li><strong>Wrath of the Storm</strong> (L1): When a creature within 5 ft. of you that you can see hits you with an attack, you can use your reaction to force a Dex save (DC <strong>15</strong>). The creature takes <strong>2d8 lightning or thunder damage</strong> (your choice) on a fail, half on a success. Uses per long rest = Wis mod = <strong>4</strong>.</li>
+        <li><strong>Domain Spells</strong> (always prepared, don't count against prep limit):
+          <ul>
+            <li>1st: <em>fog cloud</em>, <em>thunderwave</em></li>
+            <li>3rd-level (= Cleric L3): <em>gust of wind</em>, <em>shatter</em></li>
+            <li>5th-level (= Cleric L5): <em>call lightning</em>, <em>sleet storm</em></li>
+          </ul>
+        </li>
+      </ul>
+    `,
+    patron_html: `
+      <h3 class="sub-h">Keranos Piety 3+ — Augur (via Oracle's Piety)</h3>
+      <ul>
+        <li><strong>Source of godly favor</strong>: "You have no idea why Keranos grants you visions, and the burden weighs heavily on your soul."</li>
+        <li><strong>Godly ideal</strong>: <em>Change.</em> "Everything's just waiting to be something else, including me."</li>
+        <li><strong>Oracle's Curse</strong> <em>(d8 #2)</em>: People who consult me for information rarely believe the answers I give them.</li>
+        <li><strong>Augur (Piety 3+)</strong>: Cast <em>augury</em> as a ritual with this trait. <strong>1/long rest.</strong> Wisdom-based.</li>
+      </ul>
+      <p class="aside">Note: Thectra's piety track is the Oracle's Piety progression (Augur → Seer → Sibyl → Divine Oracle), not Keranos's standard Devotee → higher-tier track. Augury is her current trait-spell.</p>
+    `,
+    spellcasting_html: `
+      <div class="spell-block">
+        <div class="spell-stats">
+          <div class="ss-cell"><div class="ss-label">Save DC</div><div class="ss-value">15</div></div>
+          <div class="ss-cell"><div class="ss-label">Spell Attack</div><div class="ss-value">+7</div></div>
+          <div class="ss-cell"><div class="ss-label">Prepared</div><div class="ss-value">9</div></div>
+          <div class="ss-cell"><div class="ss-label">Ability</div><div class="ss-value">Wis</div></div>
+        </div>
+
+        <h3 class="sub-h">Spell Slots</h3>
+        <table class="slot-table">
+          <thead><tr><th>1st</th><th>2nd</th><th>3rd</th></tr></thead>
+          <tbody><tr><td>4</td><td>3</td><td>2</td></tr></tbody>
+        </table>
+
+        <h3 class="sub-h">Cantrips Known (4)</h3>
+        <table class="spell-table">
+          <tbody>
+            <tr><td class="lvl">0</td><td class="spell-name">Guidance</td><td>Divination, C</td><td>Touch; +1d4 to one ability check within 1 min.</td></tr>
+            <tr><td class="lvl">0</td><td class="spell-name">Resistance</td><td>Abjuration, C</td><td>Touch; +1d4 to one save within 1 min.</td></tr>
+            <tr><td class="lvl">0</td><td class="spell-name">Sacred Flame</td><td>Evocation</td><td>60 ft.; Dex save DC 15; <strong>2d8 radiant</strong> on fail (cantrip scales at L5).</td></tr>
+            <tr><td class="lvl">0</td><td class="spell-name">Thaumaturgy</td><td>Transmutation</td><td>30 ft.; minor magical effects.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Domain Spells (always prepared, don't count against the 9)</h3>
+        <table class="spell-table">
+          <tbody>
+            <tr><td class="lvl">1</td><td class="spell-name">Fog Cloud</td><td>Conjuration, C</td><td>20-ft. radius heavy obscurement, up to 1 hr.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Thunderwave</td><td>Evocation</td><td>15-ft. cube; Con save DC 15; 2d8 thunder + push 10 ft.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Gust of Wind</td><td>Evocation, C</td><td>60-ft. line; Str save to enter; pushes creatures and disperses gas.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Shatter</td><td>Evocation</td><td>10-ft. radius; Con save DC 15; 3d8 thunder. <em>Destructive Wrath = max damage.</em></td></tr>
+            <tr><td class="lvl">3</td><td class="spell-name">Call Lightning</td><td>Conjuration, C</td><td>5-ft. radius cylinder; bolt each turn (action); Dex save DC 15; 3d10 lightning. <em>Destructive Wrath = max damage.</em></td></tr>
+            <tr><td class="lvl">3</td><td class="spell-name">Sleet Storm</td><td>Conjuration, C</td><td>20-ft. cylinder; heavy obscure + difficult terrain; Dex save or fall prone; concentration breaks on Con save.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Prepared Spells (9 = Wis mod +4 + Cleric level 5)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Lvl</th><th>Spell</th><th>School</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="lvl">1</td><td class="spell-name">Cure Wounds</td><td>Abjuration</td><td>Touch; <strong>1d8 + 4</strong> HP. Primary touch heal.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Healing Word</td><td>Evocation, BA</td><td>60 ft.; bonus action revive from 0 HP.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Bless</td><td>Enchantment, C</td><td>3 creatures within 30 ft.; +1d4 to attacks and saves.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Shield of Faith</td><td>Abjuration, C</td><td>60 ft.; +2 AC to one ally; concentration 10 min.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Guiding Bolt</td><td>Evocation</td><td>120 ft.; <strong>4d6 radiant</strong>; next attack against target has advantage.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Lesser Restoration</td><td>Abjuration</td><td>Touch; clear poison, paralysis, blindness, deafness, or disease.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Spiritual Weapon</td><td>Evocation, BA</td><td>60 ft.; bonus action <strong>1d8 + 4 force</strong> attack each turn; no concentration.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Prayer of Healing</td><td>Abjuration</td><td>30 ft.; up to six creatures; <strong>2d8 + 4</strong> HP each. 10-min cast — out of combat.</td></tr>
+            <tr><td class="lvl">3</td><td class="spell-name">Spirit Guardians</td><td>Conjuration, C</td><td>15-ft. emanation; Wis save DC 15; <strong>3d8</strong> radiant or necrotic; half speed for failures.</td></tr>
+          </tbody>
+        </table>
+        <p class="aside">Reasonable L5 set; swap on long rest. Thectra is concentration-rich — <em>Bless</em>, <em>Shield of Faith</em>, <em>Spirit Guardians</em>, and the domain's <em>Call Lightning</em> all compete for one slot, so prioritize by encounter.</p>
+
+        <h3 class="sub-h">Spells via Other Traits (no slot needed; 1/long rest each)</h3>
+        <ul>
+          <li><strong>Fog Cloud</strong> (Triton C.A.&amp;W. — Cha-based, no slot).</li>
+          <li><strong>Gust of Wind</strong> (Triton C.A.&amp;W. — Cha-based, no slot).</li>
+          <li><strong>Wall of Water</strong> (Triton C.A.&amp;W. — Cha-based, no slot).</li>
+          <li><strong>Augury</strong> as a ritual (Oracle Augur — Wis-based).</li>
+        </ul>
+        <p class="aside">Fog cloud, gust of wind, and wall of water are reachable via both Triton (free, Cha-based) and her Tempest domain / Cleric list (slot, Wis-based). Triton is usually the better first cast — Thectra saves her slots, and uses the slot version as a second cast or when she wants the higher Wis DC.</p>
+      </div>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Mace</td><td class="atk">+3</td><td class="dmg">1d6 bludgeoning</td><td>Simple melee.</td></tr>
+          <tr><td>Spear</td><td class="atk">+3</td><td class="dmg">1d6 / 1d8 piercing</td><td>Simple, versatile, thrown 20/60.</td></tr>
+          <tr><td>Dagger</td><td class="atk">+3</td><td class="dmg">1d4 piercing</td><td>Simple, finesse, light, thrown 20/60.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">Scale mail + shield</div>
+        <div class="armor-props">Medium · AC 14 + Dex max +2 + shield 2 = 16 · Stealth disadvantage</div>
+      </div>
+      <h3 class="sub-h">Holy Items &amp; Pack</h3>
+      <ul>
+        <li><strong>Holy symbol</strong>: carved triton spire / sea-glass amulet of Keranos (also Cleric's spellcasting focus).</li>
+        <li>Prayer wheel, 5 sticks of incense, vestments, set of common clothes.</li>
+        <li><strong>Priest's Pack</strong>: backpack, blanket, 10 candles, tinderbox, alms box, 2 blocks of incense, censer, vestments, 2 days of rations, waterskin.</li>
+      </ul>
+      <p><strong>Money</strong>: 15 gp <em>(starting pouch; campaign accumulation not tracked)</em>.</p>
+    `,
+    bio_l5_extra: "In the years between her exile and now, she has crossed paths with mortals who needed what only an oracle could offer: she pulled Helena of Akros from a shipwreck; she rekindled a doomed bond with the centaur Orion Swiftarrow that both of them know cannot last; she discovered that Thalassa Wavebinder once studied under the same priestess of Thassa, before either of them knew what came after the cloister."
+  }
+];
+
+const ABILITY_ORDER = ['str','dex','con','int','wis','cha'];
+const ABILITY_SHORT = { str:'STR', dex:'DEX', con:'CON', int:'INT', wis:'WIS', cha:'CHA' };
+const CLERIC_PRIMARY = 'wis';
+
+function renderIdentity(s) {
+  const rows = [
+    ['Race',       'Triton'],
+    ['Class',      s.identity.class_long],
+    ['Background', 'Acolyte'],
+    ['Patron',     'Keranos · Augur'],
+    ['Gift',       'Oracle'],
+    ['Alignment',  'Chaotic Neutral'],
+    ['Languages',  'Common, Primordial, Sylvan, Sphinx, Celestial'],
+    ['Age',        s.identity.age]
+  ];
+  return rows.map(([k,v]) => `<div class="id-row"><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+}
+
+function renderSummary(s) {
+  return [
+    ['Hit Points', s.summary.hp, ''],
+    ['Armor Class', s.summary.ac, 'scale + shield'],
+    ['Initiative', s.summary.init, ''],
+    ['Speed', s.summary.speed, ''],
+    ['Prof Bonus', s.summary.pb, ''],
+    ['Pass. Perc.', s.summary.pp, '']
+  ].map(([label, val, sub]) => `
+    <div class="sum-plate">
+      <div class="sp-label">${label}</div>
+      <div class="sp-value">${val}</div>
+      ${sub ? `<div class="sp-sub">${sub}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderAbilities(s) {
+  return ABILITY_ORDER.map(a => {
+    const ab = s.abilities[a];
+    const classes = ['ab-cell'];
+    if (a === CLERIC_PRIMARY) classes.push('primary');
+    return `
+      <div class="${classes.join(' ')}">
+        <div class="ab-name">${ABILITY_SHORT[a]}</div>
+        <div class="ab-mod">${ab.mod}</div>
+        <div class="ab-score">score ${ab.score}</div>
+        <div class="ab-save ${ab.prof ? 'prof' : ''}">save<span class="save-bonus">${ab.save}</span></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderSkills(s) {
+  const grouped = {};
+  ABILITY_ORDER.forEach(a => grouped[a] = []);
+  s.skills.forEach(sk => grouped[sk.ability].push(sk));
+  return ABILITY_ORDER.map(a => {
+    const list = grouped[a];
+    return `
+      <div class="skill-cat">
+        <div class="skill-cat-name">${ABILITY_SHORT[a]}</div>
+        ${list.length === 0
+          ? '<div class="skill-row dim"><span class="skill-name">—</span></div>'
+          : list.map(sk => `<div class="skill-row"><span class="skill-name">${sk.name}</span><span class="skill-bonus">${sk.bonus}</span></div>`).join('')
+        }
+      </div>
+    `;
+  }).join('');
+}
+
+function renderStage(i) {
+  const s = SNAPSHOTS[i];
+  document.getElementById('identity-target').innerHTML = renderIdentity(s);
+  document.getElementById('summary-target').innerHTML = renderSummary(s);
+  document.getElementById('abilities-target').innerHTML = renderAbilities(s);
+  document.getElementById('ab-note-target').textContent = s.ab_note;
+  document.getElementById('combat-target').innerHTML = s.combat_html;
+  document.getElementById('skills-target').innerHTML = renderSkills(s);
+  document.getElementById('skill-tool-target').innerHTML = s.tool_text;
+  document.getElementById('features-target').innerHTML = s.features_html;
+  document.getElementById('patron-target').innerHTML = s.patron_html;
+  document.getElementById('spellcasting-target').innerHTML = s.spellcasting_html;
+  document.getElementById('equipment-target').innerHTML = s.equipment_html;
+  document.getElementById('bio-l5-extra').innerHTML = s.bio_l5_extra;
+
+  document.querySelectorAll('#timeline .tl-node').forEach((n, idx) => n.classList.toggle('active', idx === i));
+}
+
+document.querySelectorAll('#timeline .tl-node').forEach((n, i) => {
+  n.addEventListener('click', () => renderStage(i));
+});
+renderStage(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Zephyrus of Sitrium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Marble substrate — cool, slightly bluer for Iconoclast */
+    --marble:        #e8e4dc;
+    --marble-warm:   #ddd8cc;
+    --marble-cool:   #d2cdc1;
+    --marble-deep:   #beb8ac;
+    --vein:          #aaa494;
+    --ink:           #1a1a18;
+    --ink-soft:      #38382f;
+    --ink-faint:     #6c685e;
+    --rule:          #8e887c;
+    --rule-soft:     #aaa498;
+
+    /* Iconoclast palette — neutral slate, marble-bone. */
+    --accent:        #5a5a55;
+    --accent-dark:   #33332e;
+    --accent-sec:    #a8a49a;
+    --accent-glaze:  rgba(74, 66, 88, 0.07);
+
+    /* Wax-seal accent — muted indigo */
+    --seal:      #4a4258;
+    --seal-dark: #271f33;
+
+    --class-tint: rgba(74,66,88,0.05);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--marble);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.045' numOctaves='2' seed='11' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.40 0 0 0 0 0.38 0 0 0 0.45 0'/></filter><rect width='100%25' height='100%25' filter='url(%23m)'/></svg>"),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 600px 600px, 200px 200px;
+    opacity: 0.6;
+    mix-blend-mode: multiply;
+    z-index: 0;
+  }
+  body {
+    background-image:
+      linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 25%, var(--marble) 75%, var(--marble-cool) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 0 5rem;
+  }
+
+  .stele {
+    max-width: 1140px;
+    margin: 0 auto;
+    background: linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 8%, var(--marble) 92%, var(--marble-cool) 100%);
+    padding: 0;
+    box-shadow:
+      0 1px 2px rgba(26, 22, 18, 0.10),
+      0 10px 32px rgba(26, 22, 18, 0.18),
+      0 28px 64px rgba(26, 22, 18, 0.12);
+    position: relative;
+    border: 1px solid var(--rule);
+    z-index: 1;
+  }
+  .stele::before, .stele::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-dark) 100%);
+    opacity: 0.5;
+  }
+  .stele::before { left: 0; }
+  .stele::after  { right: 0; }
+
+  .doc { padding: 0 5rem 4rem; }
+
+  .meander {
+    height: 22px;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='22' viewBox='0 0 44 22'><path d='M0 17 L0 5 L11 5 L11 12 L6 12 L6 8 L17 8 L17 17 L11 17 L11 13 L22 13 L22 5 L33 5 L33 12 L28 12 L28 8 L39 8 L39 17 L44 17' fill='none' stroke='%2333332e' stroke-width='1.4' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: auto 18px;
+    opacity: 0.85;
+    margin: 0;
+  }
+
+  .masthead-band {
+    position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+    padding: 3rem 5rem 2.75rem;
+  }
+  .masthead-band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  .masthead-band::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px; height: 28px;
+    background:
+      linear-gradient(135deg, transparent 49.5%, var(--marble) 50%) left bottom / 50% 100% no-repeat,
+      linear-gradient(225deg, transparent 49.5%, var(--marble) 50%) right bottom / 50% 100% no-repeat;
+    z-index: 2;
+  }
+  .masthead {
+    position: relative;
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    z-index: 1;
+  }
+  .portrait-frame {
+    position: relative;
+    width: 360px; height: 480px;
+    background: var(--marble-deep);
+    padding: 8px;
+    border: 1px solid var(--ink-soft);
+    box-shadow:
+      inset 0 0 0 2px var(--accent-sec),
+      inset 0 0 0 4px var(--marble-deep),
+      0 4px 14px rgba(0,0,0,0.30);
+  }
+  .portrait-frame::before, .portrait-frame::after {
+    content: "";
+    position: absolute;
+    left: -1px; right: -1px; height: 12px;
+    background: linear-gradient(180deg, var(--accent-sec) 0%, var(--accent) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .portrait-frame::before { top: -14px; }
+  .portrait-frame::after  { bottom: -14px; }
+  .portrait-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.03) saturate(0.97);
+  }
+  .portrait-frame.empty {
+    display: flex;
+    align-items: center; justify-content: center;
+    background: linear-gradient(180deg, var(--marble), var(--marble-deep));
+  }
+  .portrait-frame.empty .empty-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0 1rem;
+    line-height: 1.4;
+  }
+
+  .name-block { padding: 0.5rem 0 0; color: var(--marble); position: relative; z-index: 1; }
+  .name-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.52em;
+    color: rgba(255, 250, 235, 0.85);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  h1.dossier-name {
+    font-family: "Cinzel", serif;
+    font-weight: 800;
+    font-size: 4.4rem;
+    line-height: 0.95;
+    letter-spacing: 0.04em;
+    color: var(--marble);
+    margin: 0 0 0.45rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.35);
+    text-transform: uppercase;
+  }
+  .dossier-name .given { display: block; color: var(--marble); }
+  .dossier-name .epithet {
+    display: block;
+    font-weight: 500;
+    font-size: 0.55em;
+    color: var(--accent-sec);
+    letter-spacing: 0.18em;
+    margin-top: 0.4rem;
+    font-style: italic;
+    text-transform: none;
+  }
+  .tagline {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: rgba(255, 250, 235, 0.95);
+    margin: 1.2rem 0 1.5rem;
+    max-width: 38em;
+    padding-left: 1rem;
+    border-left: 2px solid var(--accent-sec);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .identity-inscription {
+    margin: 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(255, 250, 235, 0.3);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 2.25rem;
+  }
+  .id-row { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+  .id-row dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: rgba(255, 250, 235, 0.55);
+    text-transform: uppercase;
+  }
+  .id-row dd {
+    margin: 0;
+    color: rgba(255, 250, 235, 0.96);
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  }
+
+  .timeline-section {
+    background: var(--accent-glaze);
+    padding: 1.6rem 5rem;
+    position: relative;
+  }
+  .tl-label {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin: 0 0 1.1rem;
+  }
+  .tl-track {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 7rem;
+    position: relative;
+    padding: 0;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .tl-track::before {
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 16%; right: 16%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-sec), var(--accent), var(--accent-sec));
+    z-index: 0;
+  }
+  .tl-node {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: var(--ink-soft);
+    font-family: "EB Garamond", serif;
+    transition: color 0.2s ease;
+    min-width: 100px;
+  }
+  .tl-dot {
+    width: 18px; height: 18px;
+    border: 2px solid var(--accent-dark);
+    background: var(--marble);
+    margin-bottom: 0.55rem;
+    box-shadow: 0 0 0 3px var(--marble);
+    transition: all 0.2s ease;
+    transform: rotate(45deg);
+  }
+  .tl-node:hover .tl-dot { border-color: var(--accent); transform: rotate(45deg) scale(1.12); }
+  .tl-node.active .tl-dot {
+    background: var(--seal);
+    border-color: var(--seal-dark);
+    box-shadow: 0 0 0 3px var(--marble), 0 0 0 5px rgba(74,66,88,0.28);
+  }
+  .tl-node.active { color: var(--ink); }
+  .tl-top {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .tl-node.active .tl-top { color: var(--accent-dark); }
+  .tl-bot { font-size: 0.85rem; color: var(--ink-faint); margin-top: 0.2rem; font-style: italic; }
+
+  section.block { margin: 2.5rem 0 0; padding: 0.5rem 0 1.5rem; position: relative; }
+  section.block + section.block { margin-top: 2rem; }
+
+  .section-h {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--accent-dark);
+    margin: 0 0 1.5rem;
+    padding: 0;
+    border: none;
+    text-align: center;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    position: relative;
+    display: block;
+  }
+  .section-h::before {
+    content: "";
+    display: block;
+    width: 64px; height: 14px;
+    margin: 0 auto 0.85rem;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%2333332e' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.85;
+  }
+  .section-h .greek-chap {
+    display: block;
+    font-family: "Cinzel", serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.5em;
+    color: var(--accent);
+    margin-top: 0.5rem;
+    font-style: normal;
+    text-transform: uppercase;
+  }
+  h3.sub-h {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--accent-dark);
+    margin: 1.5rem 0 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  h4.subsub-h {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.32em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 1.1rem 0 0.5rem;
+    font-weight: 500;
+  }
+  p { margin: 0 0 1rem; }
+
+  .summary-strip {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    margin: 0.5rem 0;
+    background: var(--accent-glaze);
+    padding: 1rem 0.5rem;
+    border-top: 1.5px solid var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+  }
+  .sum-plate { text-align: center; padding: 0 0.5rem; border-right: 1px solid var(--rule-soft); }
+  .sum-plate:last-child { border-right: none; }
+  .sum-plate .sp-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .sum-plate .sp-value {
+    font-family: "Cinzel", serif;
+    font-size: 1.7rem;
+    color: var(--accent-dark);
+    line-height: 1.1;
+    font-weight: 700;
+    margin-top: 0.15rem;
+  }
+  .sum-plate .sp-sub {
+    font-family: "EB Garamond", serif;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 0.1rem;
+  }
+
+  .abilities-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem; margin: 0.5rem 0 1.25rem; }
+  .ab-cell {
+    text-align: center;
+    padding: 1rem 0.4rem 0.85rem;
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--accent);
+    position: relative;
+  }
+  .ab-cell.primary {
+    border-top-width: 4px;
+    border-top-color: var(--accent-dark);
+    background: linear-gradient(180deg, rgba(168, 164, 154, 0.35) 0%, var(--marble-warm) 60%);
+  }
+  .ab-cell.dump { border-top-color: var(--ink-faint); opacity: 0.85; }
+  .ab-cell .ab-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .ab-cell .ab-mod { font-family: "Cinzel", serif; font-size: 2.1rem; line-height: 1; color: var(--ink); font-weight: 800; }
+  .ab-cell .ab-score { font-family: "EB Garamond", serif; font-size: 0.85rem; color: var(--ink-faint); margin-top: 0.2rem; }
+  .ab-cell .ab-save {
+    margin-top: 0.5rem;
+    padding-top: 0.4rem;
+    border-top: 1px dotted var(--rule);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .ab-cell .ab-save .save-bonus { font-family: "Cinzel", serif; font-size: 0.95rem; color: var(--accent-dark); margin-left: 0.25rem; font-weight: 600; }
+  .ab-cell .ab-save.prof::after { content: " ★"; color: var(--seal); margin-left: 0.15rem; }
+  .ab-note { font-size: 0.88rem; color: var(--ink-faint); font-style: italic; text-align: center; margin-top: 0.5rem; }
+
+  .combat-block { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem 2.5rem; margin: 0.5rem 0; }
+  .combat-block dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; }
+  .combat-block dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    align-self: baseline;
+  }
+  .combat-block dd { margin: 0; font-family: "EB Garamond", serif; font-size: 0.98rem; color: var(--ink); }
+  .combat-block dd em { color: var(--ink-faint); font-size: 0.88rem; }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.1rem; margin: 1rem 0 1.5rem; }
+  .skill-cat { border-top: 2px solid var(--accent); padding-top: 0.6rem; }
+  .skill-cat-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    text-align: center;
+  }
+  .skill-row { display: flex; align-items: baseline; justify-content: space-between; gap: 0.4rem; padding: 0.18rem 0; font-size: 0.92rem; line-height: 1.3; color: var(--ink); }
+  .skill-row.dim { color: var(--ink-faint); font-style: italic; }
+  .skill-row .skill-name { flex: 1; }
+  .skill-row .skill-bonus { font-family: "Cinzel", serif; font-weight: 600; color: var(--accent-dark); }
+  .skill-row.expertise .skill-bonus { color: var(--seal); }
+  .skill-source { font-size: 0.82rem; color: var(--ink-faint); text-align: center; font-style: italic; margin-top: 0.6rem; }
+
+  .feat-block { font-size: 0.98rem; font-family: "EB Garamond", serif; }
+  .feat-block ul { padding-left: 1.2rem; margin: 0.5rem 0 1rem; }
+  .feat-block li { margin-bottom: 0.45rem; }
+  .feat-block strong { color: var(--accent-dark); font-weight: 600; }
+  .feat-block em { color: var(--ink-soft); }
+  .feat-block .aside {
+    font-style: italic;
+    color: var(--ink-faint);
+    font-size: 0.92rem;
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-soft);
+    margin: 0.6rem 0 1rem;
+  }
+  .feat-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    margin: 1rem 0;
+  }
+
+  .gift-section {
+    margin: 2.5rem -5rem 2.5rem;
+    padding: 0;
+    position: relative;
+    background: linear-gradient(180deg, var(--accent-dark) 0%, var(--seal-dark) 100%);
+    color: var(--marble);
+  }
+  .gift-section::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: -22px; height: 22px;
+    background:
+      linear-gradient(45deg, transparent 49.5%, var(--accent-dark) 50%) left top / 50% 100% no-repeat,
+      linear-gradient(315deg, transparent 49.5%, var(--accent-dark) 50%) right top / 50% 100% no-repeat;
+    z-index: 0;
+  }
+  .gift-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+    z-index: 0;
+  }
+  .gift-inner {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem 6.5rem 2.75rem;
+  }
+  .gift-inner::before, .gift-inner::after {
+    content: "";
+    position: absolute;
+    top: 2rem; bottom: 2rem;
+    width: 28px;
+    background:
+      linear-gradient(180deg,
+        var(--accent-sec) 0%, var(--accent-sec) 6%,
+        rgba(255,250,235,0.25) 6%, rgba(255,250,235,0.25) 8%,
+        rgba(255,250,235,0.15) 8%, rgba(255,250,235,0.15) 92%,
+        rgba(255,250,235,0.25) 92%, rgba(255,250,235,0.25) 94%,
+        var(--accent-sec) 94%, var(--accent-sec) 100%);
+    border-left: 1px solid rgba(255,250,235,0.25);
+    border-right: 1px solid rgba(255,250,235,0.25);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.10);
+  }
+  .gift-inner::before { left: 2.5rem; }
+  .gift-inner::after  { right: 2.5rem; }
+  .gift-section .section-h {
+    color: var(--marble);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.30);
+    letter-spacing: 0.36em;
+    margin-bottom: 1.5rem;
+  }
+  .gift-section .section-h::before {
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%23a8a49a' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+  }
+  .gift-section .section-h .greek-chap { color: var(--accent-sec); }
+  .gift-section h3.sub-h, .gift-section h4.subsub-h {
+    color: rgba(255, 250, 235, 0.95);
+    border-bottom-color: rgba(255, 250, 235, 0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.22);
+  }
+  .gift-section .feat-block { color: rgba(255, 250, 235, 0.94); }
+  .gift-section .feat-block strong { color: var(--accent-sec); }
+  .gift-section .feat-block em { color: rgba(255, 250, 235, 0.74); }
+  .gift-section .feat-block .aside { color: rgba(255, 250, 235, 0.78); border-left-color: rgba(255, 250, 235, 0.4); }
+
+  .spell-block { background: var(--class-tint); border: 1px solid var(--rule-soft); padding: 1.5rem; margin: 1rem 0; }
+  .spell-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .spell-stats .ss-cell { text-align: center; padding: 0.25rem; }
+  .spell-stats .ss-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .spell-stats .ss-value { font-family: "Cinzel", serif; font-size: 1.4rem; color: var(--accent-dark); font-weight: 700; }
+
+  .weapon-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .weapon-table th, .weapon-table td { text-align: left; padding: 0.45rem 0.7rem; border-bottom: 1px dotted var(--rule-soft); }
+  .weapon-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .weapon-table td.atk, .weapon-table td.dmg { font-family: "Cinzel", serif; font-weight: 700; color: var(--accent-dark); white-space: nowrap; }
+  .armor-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.2rem;
+    margin: 0.6rem 0;
+  }
+  .armor-name { font-family: "Cinzel", serif; font-weight: 700; font-size: 1rem; color: var(--accent-dark); letter-spacing: 0.06em; }
+  .armor-props { font-size: 0.88rem; color: var(--ink-soft); font-style: italic; margin-top: 0.25rem; }
+
+  .personality-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.5rem 0 1rem; }
+  .pers-card {
+    border-left: 3px solid var(--accent);
+    padding: 0.6rem 1.1rem;
+    background: var(--accent-glaze);
+  }
+  .pers-card.flaw {
+    border-left-color: var(--seal);
+    background: rgba(74, 66, 88, 0.10);
+  }
+  .pers-label {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .pers-card.flaw .pers-label { color: var(--seal-dark); }
+  .pers-text { font-style: italic; color: var(--ink); font-size: 1rem; line-height: 1.5; margin: 0; }
+
+  .connections-list { margin: 0.5rem 0 1rem; padding-left: 0; list-style: none; }
+  .connections-list li {
+    margin-bottom: 0.7rem;
+    padding-left: 1.4rem;
+    position: relative;
+    line-height: 1.55;
+  }
+  .connections-list li::before { content: "▲"; color: var(--accent); position: absolute; left: 0; top: 0.32em; font-size: 0.65rem; }
+  .connections-list strong { color: var(--accent-dark); }
+
+  .expedition-callout {
+    background: linear-gradient(180deg, var(--accent-glaze) 0%, rgba(74,66,88,0.03) 100%);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    padding: 1.5rem 1.75rem;
+    margin: 1rem 0 0;
+    font-size: 1.02rem;
+    line-height: 1.6;
+  }
+  .expedition-callout p:last-child { margin-bottom: 0; }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    margin-top: 3rem;
+    color: var(--ink-faint);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+  }
+  .footer .meander { margin-bottom: 1rem; opacity: 0.6; }
+
+  @media (max-width: 1000px) {
+    .doc { padding: 0 1.5rem 2.5rem; }
+    .timeline-section { padding: 1.5rem 1.5rem; }
+    .masthead-band { padding: 2rem 1.5rem 2.5rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1.5rem; }
+    .portrait-frame { width: 100%; max-width: 320px; height: auto; aspect-ratio: 3/4; margin: 0 auto; }
+    h1.dossier-name { font-size: 2.8rem; }
+    .identity-inscription { grid-template-columns: 1fr; }
+    .summary-strip, .abilities-grid { grid-template-columns: repeat(3, 1fr); }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .combat-block, .personality-grid { grid-template-columns: 1fr; }
+    .gift-section { margin: 2rem -1.5rem; }
+    .gift-inner { padding: 2rem 1.5rem; }
+    .gift-inner::before, .gift-inner::after { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="stele">
+
+<div class="masthead-band">
+  <div class="masthead">
+    <div class="portrait-frame">
+      <img src="../Theros 1st pass/Zephyrus.png" alt="Zephyrus of Sitrium portrait">
+    </div>
+    <div class="name-block">
+      <div class="name-eyebrow">Dossier · Iconoclast of the Open Hand</div>
+      <h1 class="dossier-name">
+        <span class="given">Zephyrus</span>
+        <span class="epithet">of Sitrium</span>
+      </h1>
+      <p class="tagline">
+        A famous runner who believes the gods want him dead, and intends to stay one step ahead of them — physically as much as spiritually.
+      </p>
+      <dl class="identity-inscription" id="identity-target"></dl>
+    </div>
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<div class="timeline-section">
+  <div class="tl-label">Stage of Career</div>
+  <div class="tl-track" id="timeline">
+    <button class="tl-node active" data-stage="0" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 1</div>
+      <div class="tl-bot">Wandering Monk</div>
+    </button>
+    <button class="tl-node" data-stage="1" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 5</div>
+      <div class="tl-bot">Way of the Open Hand</div>
+    </button>
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<div class="doc">
+
+<section class="block">
+  <h2 class="section-h">Bio<span class="greek-chap">α · Vita</span></h2>
+  <p>Zephyrus is a famous runner, known across Meletan lands as "Zephyrus of Sitrium" for a record-setting journey on foot from his home village to the polis of Meletis itself. He runs because he believes the gods want him dead, and intends to stay one step ahead of them — physically as much as spiritually.</p>
+  <p>He has studied with a sphinx (in company with Erytheia of the Umbral Tide) and with a druid (in company with Alesta Centaur-Speaker).</p>
+  <p id="bio-l5-extra"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<section class="block">
+  <h2 class="section-h">At a Glance<span class="greek-chap">β · Synopsis</span></h2>
+  <div class="summary-strip" id="summary-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Ability Scores<span class="greek-chap">γ · Dynámeis</span></h2>
+  <div class="abilities-grid" id="abilities-target"></div>
+  <p class="ab-note" id="ab-note-target"></p>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Combat &amp; Senses<span class="greek-chap">δ · Mákhē</span></h2>
+  <div class="combat-block" id="combat-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Skill Proficiencies<span class="greek-chap">ε · Tékhnai</span></h2>
+  <div class="skills-grid" id="skills-target"></div>
+  <p class="skill-source" id="skill-tool-target"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<section class="block">
+  <h2 class="section-h">Class Features<span class="greek-chap">ζ · Tákta</span></h2>
+  <div class="feat-block" id="features-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Racial Features — Variant Human<span class="greek-chap">η · Génos</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Ability Score Increase</strong>: +1 Dex, +1 Wis (already applied).</li>
+      <li><strong>Skill Proficiency</strong>: Performance.</li>
+      <li><strong>Feat</strong>: Mobile (see below).</li>
+      <li><strong>Languages</strong>: Common + one of choice. <em>Chosen: Sphinx + Sylvan</em> (study with sphinx tutor and druid).</li>
+    </ul>
+    <h3 class="sub-h">Feat: Mobile</h3>
+    <div class="feat-card">
+      <ul>
+        <li>Your speed increases by <strong>10 feet</strong>.</li>
+        <li>When you take the Dash action, difficult terrain doesn't cost you extra movement on that turn.</li>
+        <li>When you make a melee attack against a creature, you don't provoke opportunity attacks from that creature for the rest of the turn, whether you hit or not.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<section class="gift-section">
+  <div class="gift-inner">
+    <h2 class="section-h">Supernatural Gift — Iconoclast<span class="greek-chap">θ · Dóron</span></h2>
+    <div class="feat-block" id="gift-target"></div>
+  </div>
+</section>
+
+<div class="doc" style="padding-top: 1rem;">
+
+<section class="block">
+  <h2 class="section-h">Background — Athlete (Long-Distance Running)<span class="greek-chap">κ · Bíos</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Tool Proficiency</strong>: Vehicles (land).</li>
+      <li><strong>Equipment</strong>: Bronze discus (athletic gear / trophy), lucky charm, set of traveler's clothes, 10 gp.</li>
+      <li><strong>Feature — Echoes of Victory</strong>: You have attracted admiration among spectators, fellow athletes, and trainers in the region that hosted your past athletic victories. When visiting any settlement within 100 miles of where you grew up, there is a <strong>50% chance</strong> you can find someone there who admires you and is willing to provide information or temporary shelter. Between adventures, you might compete in athletic events sufficient to maintain a comfortable lifestyle.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Trait Magic<span class="greek-chap">λ · Goēteía</span></h2>
+  <div id="spellcasting-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Equipment<span class="greek-chap">μ · Hopla</span></h2>
+  <div id="equipment-target"></div>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<section class="block">
+  <h2 class="section-h">Personality<span class="greek-chap">ν · Êthos</span></h2>
+  <div class="personality-grid">
+    <div class="pers-card">
+      <div class="pers-label">Trait</div>
+      <p class="pers-text">"I feel most at peace during physical exertion, be it exercise or battle." <em>(Athlete #1)</em></p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Ideal — Growth</div>
+      <p class="pers-text">"Lessons hide in victory and defeat." <em>(Any)</em></p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Bond</div>
+      <p class="pers-text">"My mistake got someone hurt. I'll never make that mistake again."</p>
+    </div>
+    <div class="pers-card flaw">
+      <div class="pers-label">Flaw</div>
+      <p class="pers-text">"I indulge in a habit that threatens my reputation or my health."</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Connections<span class="greek-chap">ξ · Philíai</span></h2>
+  <ul class="connections-list" id="connections-target"></ul>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Why Zephyrus is on the Expedition<span class="greek-chap">ο · Hodós</span></h2>
+  <div class="expedition-callout">
+    <p>The Fallow Year's failing harvests don't affect Zephyrus directly — he sells his speed for his living, not a plow — but as a courier and runner he is uniquely positioned to be useful.</p>
+    <p>He also distrusts the gods enough to suspect Karametra's silence is no accident, and would rather be moving than waiting for divine intervention that he believes will never come.</p>
+    <p id="expedition-l5-extra"></p>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div class="meander" aria-hidden="true"></div>
+  Player Character Dossier · Theros, The Fallow Season
+</footer>
+
+</div>
+
+<script>
+const SNAPSHOTS = [
+  {
+    stage: "L1",
+    level: 1,
+    pb: 2,
+    identity: { class_long: "Monk 1", age: "—" },
+    summary: { hp: 8, ac: 17, init: "+4", speed: "40 ft.", pb: "+2", pp: 13 },
+    abilities: {
+      str:{score:14, mod:"+2", save:"+4", prof:true},
+      dex:{score:19, mod:"+4", save:"+6", prof:true},
+      con:{score:11, mod:"+0", save:"+0", prof:false},
+      int:{score:11, mod:"+0", save:"+0", prof:false},
+      wis:{score:16, mod:"+3", save:"+3", prof:false},
+      cha:{score:12, mod:"+1", save:"+1", prof:false}
+    },
+    ab_note: "Rolled array 11, 11, 12, 14, 15, 18 → Str 14 / Dex 18 / Con 11 / Int 11 / Wis 15 / Cha 12. Variant Human +1 Dex (→19), +1 Wis (→16).",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+2</dd>
+        <dt>Armor Class</dt><dd>17 <em>(Unarmored Defense: 10 + Dex +4 + Wis +3)</em></dd>
+        <dt>Initiative</dt><dd>+4</dd>
+        <dt>Speed</dt><dd>40 ft. <em>(base 30 + Mobile feat +10; Monk Unarmored Movement begins at L2)</em></dd>
+        <dt>Hit Points</dt><dd>8 <em>(d8 max 8 + Con +0)</em></dd>
+        <dt>Hit Dice</dt><dd>1d8</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>13 <em>(10 + Wis +3; not proficient)</em></dd>
+        <dt>Special Senses</dt><dd>—</dd>
+        <dt>Creature Type</dt><dd>Humanoid (Human)</dd>
+        <dt>Iconoclast DC / Atk</dt><dd>13 / +5 <em>(Wis-based)</em></dd>
+        <dt>Martial Arts die</dt><dd>1d4</dd>
+      </dl>
+    `,
+    skills: [
+      {name:"Acrobatics",  ability:"dex", bonus:"+6", source:"Athlete"},
+      {name:"Athletics",   ability:"str", bonus:"+4", source:"Athlete"},
+      {name:"Insight",     ability:"wis", bonus:"+5", source:"Monk"},
+      {name:"Performance", ability:"cha", bonus:"+3", source:"Variant Human"},
+      {name:"Stealth",     ability:"dex", bonus:"+6", source:"Monk"}
+    ],
+    tool_text: "Tool Proficiencies: Vehicles (land) (Athlete); Woodcarver's tools (Monk artisan-tool/instrument pick).",
+    features_html: `
+      <h3 class="sub-h">Monk (Level 1)</h3>
+      <ul>
+        <li><strong>Unarmored Defense</strong>: While wearing no armor and not wielding a shield, AC = 10 + Dex mod + Wis mod = <strong>17</strong>.</li>
+        <li><strong>Martial Arts</strong>: While unarmed or wielding only monk weapons (shortswords, simple melee weapons that aren't two-handed or heavy), and not wearing armor or wielding a shield:
+          <ul>
+            <li>Use Dex instead of Str for attack and damage of those attacks.</li>
+            <li>The damage die for unarmed strikes and monk weapons is <strong>1d4</strong> (L1 die).</li>
+            <li>When you take the Attack action with such a weapon or unarmed strike, you can make one unarmed strike as a <strong>bonus action</strong>.</li>
+          </ul>
+        </li>
+      </ul>
+      <p class="aside">Subclass (Way of the Open Hand) is chosen at Level 3 — not yet applied. Ki, Flurry of Blows, Patient Defense, and Step of the Wind unlock at L2.</p>
+    `,
+    gift_html: `
+      <h3 class="sub-h">Iconoclast — He Rejects the Gods</h3>
+      <ul>
+        <li><strong>Enlightened Protection</strong>: Cast <em>protection from evil and good</em> with this trait, targeting only yourself, no material components. <strong>1/long rest.</strong> Wisdom is the spellcasting ability.</li>
+        <li><strong>Reject the Gods</strong>: Zephyrus can't gain or lose piety to any god. He instead gains additional traits at later levels (Iconoclast Hero at L5, Paragon at L11, Archetype at L17). Wisdom is the spellcasting ability for spells cast through these traits.</li>
+      </ul>
+      <h4 class="subsub-h">Iconoclast spell stats (Wis-based)</h4>
+      <ul>
+        <li><strong>Spell save DC</strong> = 8 + PB +2 + Wis +3 = <strong>13</strong></li>
+        <li><strong>Spell attack</strong> = PB +2 + Wis +3 = <strong>+5</strong></li>
+      </ul>
+    `,
+    spellcasting_html: `
+      <div class="spell-block">
+        <div class="spell-stats">
+          <div class="ss-cell"><div class="ss-label">Iconoclast DC</div><div class="ss-value">13</div></div>
+          <div class="ss-cell"><div class="ss-label">Iconoclast Atk</div><div class="ss-value">+5</div></div>
+          <div class="ss-cell"><div class="ss-label">Ki Save DC</div><div class="ss-value">—</div></div>
+          <div class="ss-cell"><div class="ss-label">Slots</div><div class="ss-value">—</div></div>
+        </div>
+        <p>Zephyrus is a Monk and has <strong>no slot-based spellcasting</strong>. His only magic comes from the Iconoclast gift — and that ironically while he rejects the gods themselves.</p>
+        <h3 class="sub-h">Spells via Other Traits (no slot needed; 1/long rest each)</h3>
+        <ul>
+          <li><strong>Protection from Evil and Good</strong> (Iconoclast Enlightened Protection — Wis; self-only; concentration up to 10 minutes) — Disadvantage on attacks from aberrations, celestials, elementals, fey, fiends, and undead; immunity to charm/fright/possession from those types.</li>
+        </ul>
+      </div>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Quarterstaff</td><td class="atk">+6</td><td class="dmg">1d6 + 4 / 1d8 + 4</td><td>Simple, versatile, monk weapon (Dex via Martial Arts). One-handed 1d6 or two-handed 1d8.</td></tr>
+          <tr><td>Darts ×10</td><td class="atk">+6</td><td class="dmg">1d4 + 4 piercing</td><td>Simple ranged, finesse, thrown 20/60.</td></tr>
+          <tr><td>Unarmed strike</td><td class="atk">+6</td><td class="dmg">1d4 + 4 bludgeoning</td><td>Martial Arts; bonus-action unarmed strike when Attack action used.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">None — Unarmored Defense</div>
+        <div class="armor-props">Wearing armor or wielding a shield disables Unarmored Defense and Martial Arts.</div>
+      </div>
+      <h3 class="sub-h">Personal Items</h3>
+      <ul>
+        <li><strong>Bronze discus</strong> (athletic gear / trophy)</li>
+        <li><strong>Lucky charm</strong></li>
+        <li>Set of traveler's clothes</li>
+        <li><strong>Explorer's Pack</strong>: backpack, bedroll, mess kit, tinderbox, 10 torches, 10 days of rations, waterskin, 50 ft. hempen rope</li>
+      </ul>
+      <p><strong>Money</strong>: 10 gp <em>(Athlete starting pouch)</em>.</p>
+    `,
+    connections_html: `
+      <li><strong>Erytheia of the Umbral Tide</strong> — fellow student under a sphinx tutor.</li>
+      <li><strong>Alesta Centaur-Speaker</strong> — fellow student under a druid.</li>
+      <li><strong>Orion Swiftarrow</strong> — <em>(future)</em> partner on the hydra hunt that occurs during the campaign.</li>
+    `,
+    bio_l5_extra: "",
+    expedition_l5_extra: ""
+  },
+  {
+    stage: "L5",
+    level: 5,
+    pb: 3,
+    identity: { class_long: "Monk 5 — Way of the Open Hand", age: "24" },
+    summary: { hp: 28, ac: 18, init: "+5", speed: "50 ft.", pb: "+3", pp: 13 },
+    abilities: {
+      str:{score:14, mod:"+2", save:"+5", prof:true},
+      dex:{score:20, mod:"+5", save:"+8", prof:true},
+      con:{score:11, mod:"+0", save:"+0", prof:false},
+      int:{score:11, mod:"+0", save:"+0", prof:false},
+      wis:{score:17, mod:"+3", save:"+3", prof:false},
+      cha:{score:12, mod:"+1", save:"+1", prof:false}
+    },
+    ab_note: "Rolled array 11, 11, 12, 14, 15, 18. Variant Human L1: +1 Dex (→19), +1 Wis (→16). Level 4 ASI: +1 Dex (→20), +1 Wis (→17). Maxes Dex; raises Stunning Strike / Open Hand Technique / Iconoclast DC to 14; AC to 18.",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+3</dd>
+        <dt>Armor Class</dt><dd>18 <em>(Unarmored Defense: 10 + Dex +5 + Wis +3)</em></dd>
+        <dt>Initiative</dt><dd>+5</dd>
+        <dt>Speed</dt><dd>50 ft. <em>(base 30 + Mobile +10 + Unarmored Movement +10 at L5)</em></dd>
+        <dt>Hit Points</dt><dd>28 <em>(L1: 8 + Con +0; L2–5: 4 × (avg 5 + Con +0) = 20; total 28)</em></dd>
+        <dt>Hit Dice</dt><dd>5d8</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>13 <em>(10 + Wis +3; not proficient)</em></dd>
+        <dt>Special Senses</dt><dd>—</dd>
+        <dt>Creature Type</dt><dd>Humanoid (Human)</dd>
+        <dt>Ki Points</dt><dd>5 <em>(= Monk level; recovered on short or long rest)</em></dd>
+        <dt>Ki Save DC</dt><dd>14 <em>(= 8 + PB +3 + Wis +3)</em></dd>
+        <dt>Martial Arts die</dt><dd>1d6 <em>(L5; →1d8 at L11)</em></dd>
+        <dt>Iconoclast DC / Atk</dt><dd>14 / +6 <em>(Wis-based)</em></dd>
+      </dl>
+    `,
+    skills: [
+      {name:"Acrobatics",  ability:"dex", bonus:"+8", source:"Athlete"},
+      {name:"Athletics",   ability:"str", bonus:"+5", source:"Athlete"},
+      {name:"Insight",     ability:"wis", bonus:"+6", source:"Monk"},
+      {name:"Performance", ability:"cha", bonus:"+4", source:"Variant Human"},
+      {name:"Stealth",     ability:"dex", bonus:"+8", source:"Monk"}
+    ],
+    tool_text: "Tool Proficiencies: Vehicles (land) (Athlete); Woodcarver's tools (Monk artisan-tool/instrument pick).",
+    features_html: `
+      <h3 class="sub-h">Monk (Base)</h3>
+      <ul>
+        <li><strong>Unarmored Defense</strong> (L1): AC = 10 + Dex mod + Wis mod when not wearing armor and not wielding a shield.</li>
+        <li><strong>Martial Arts</strong> (L1): Use Dex for attack and damage with unarmed strikes and monk weapons; the die is <strong>1d6</strong> at L5; bonus-action unarmed strike on Attack action.</li>
+        <li><strong>Ki</strong> (L2): <strong>5 ki points</strong> (= Monk level). Ki save DC = 8 + PB + Wis mod = <strong>14</strong>. Recover all expended ki on a short or long rest (rest must include at least 30 minutes of meditation).
+          <ul>
+            <li><strong>Flurry of Blows</strong>: After taking the Attack action, spend 1 ki to make <strong>two unarmed strikes</strong> as a bonus action.</li>
+            <li><strong>Patient Defense</strong>: Spend 1 ki to take the Dodge action as a bonus action.</li>
+            <li><strong>Step of the Wind</strong>: Spend 1 ki to take the Disengage or Dash action as a bonus action; jump distance doubled for the turn.</li>
+          </ul>
+        </li>
+        <li><strong>Unarmored Movement</strong> (L2): Speed increases by <strong>+10 ft</strong> at L2 while not armored / not using a shield. (+15 at L6, +20 at L10, +25 at L14, +30 at L18.)</li>
+        <li><strong>Deflect Missiles</strong> (L3): As a reaction when hit by a ranged weapon attack, reduce the damage by <strong>1d10 + Monk level + Dex mod = 1d10 + 10</strong>. If reduced to 0, you can catch the missile (if it fits one hand and a hand is free); if so, you may spend 1 ki to make a ranged attack with it (20/60, proficient, counts as a monk weapon).</li>
+        <li><strong>Slow Fall</strong> (L4): As a reaction when you fall, reduce falling damage by <strong>5 × Monk level = 25</strong>.</li>
+        <li><strong>Extra Attack</strong> (L5): When you take the Attack action, you can attack <strong>twice</strong> instead of once.</li>
+        <li><strong>Stunning Strike</strong> (L5): When you hit a creature with a melee weapon attack, you can spend 1 ki to force a Constitution save (<strong>DC 14</strong>). On a failure, the creature is <strong>stunned until the end of your next turn</strong>.</li>
+      </ul>
+
+      <h3 class="sub-h">Way of the Open Hand (Subclass, chosen at L3)</h3>
+      <ul>
+        <li><strong>Open Hand Technique</strong> (L3): Whenever you hit a creature with one of the attacks granted by your <em>Flurry of Blows</em>, you can impose <strong>one</strong> of these effects on the target:
+          <ul>
+            <li>It must succeed on a <strong>Dex save (DC 14)</strong> or be <strong>knocked prone</strong>.</li>
+            <li>It must succeed on a <strong>Str save (DC 14)</strong> or be <strong>pushed up to 15 ft away</strong> from you.</li>
+            <li>It <strong>can't take reactions</strong> until the end of your next turn.</li>
+          </ul>
+        </li>
+      </ul>
+      <p class="aside">Wholeness of Body unlocks at L6; Tranquility at L11; Quivering Palm at L17. None active at L5.</p>
+    `,
+    gift_html: `
+      <h3 class="sub-h">Iconoclast — He Rejects the Gods</h3>
+      <ul>
+        <li><strong>Enlightened Protection</strong> (L1): Cast <em>protection from evil and good</em> on yourself, no material components. <strong>1/long rest.</strong> Wis-based.</li>
+        <li><strong>Reject the Gods</strong> (L1): Can't gain or lose piety to any god. Wisdom is the spellcasting ability for spells cast through these traits.</li>
+        <li><strong>Iconoclast Hero</strong> (L5): Cast <em>dispel magic</em> with this trait. <strong>1/long rest.</strong></li>
+      </ul>
+      <h4 class="subsub-h">Iconoclast spell stats (Wis-based)</h4>
+      <ul>
+        <li><strong>Spell save DC</strong> = 8 + PB +3 + Wis +3 = <strong>14</strong></li>
+        <li><strong>Spell attack</strong> = PB +3 + Wis +3 = <strong>+6</strong></li>
+      </ul>
+      <p class="aside">Paragon (L11) and Archetype (L17) are not yet active.</p>
+    `,
+    spellcasting_html: `
+      <div class="spell-block">
+        <div class="spell-stats">
+          <div class="ss-cell"><div class="ss-label">Iconoclast DC</div><div class="ss-value">14</div></div>
+          <div class="ss-cell"><div class="ss-label">Iconoclast Atk</div><div class="ss-value">+6</div></div>
+          <div class="ss-cell"><div class="ss-label">Ki Save DC</div><div class="ss-value">14</div></div>
+          <div class="ss-cell"><div class="ss-label">Slots</div><div class="ss-value">—</div></div>
+        </div>
+        <p>Zephyrus is a Monk and has <strong>no slot-based spellcasting</strong>. His magic comes entirely from the Iconoclast gift — each trait is its own resource pool.</p>
+        <h3 class="sub-h">Spells via Other Traits (no slot needed; 1/long rest each)</h3>
+        <ul>
+          <li><strong>Protection from Evil and Good</strong> (Iconoclast Enlightened Protection — Wis; self-only; concentration up to 10 minutes) — Disadvantage on attacks from aberrations, celestials, elementals, fey, fiends, and undead; immunity to charm/fright/possession from those types.</li>
+          <li><strong>Dispel Magic</strong> (Iconoclast Hero — Wis) — Choose a creature, object, or magical effect within 120 ft. Any spell of 3rd level or lower on the target ends. For each spell of 4th level or higher, make a spellcasting ability check (DC 10 + spell's level) using Wisdom.</li>
+        </ul>
+      </div>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Quarterstaff</td><td class="atk">+8</td><td class="dmg">1d6 + 5 / 1d8 + 5</td><td>Simple, versatile, monk weapon (Dex via Martial Arts).</td></tr>
+          <tr><td>Darts ×10</td><td class="atk">+8</td><td class="dmg">1d4 + 5 piercing</td><td>Simple ranged, finesse, thrown 20/60.</td></tr>
+          <tr><td>Unarmed strike</td><td class="atk">+8</td><td class="dmg">1d6 + 5 bludgeoning</td><td>Martial Arts; bonus-action strike on Attack action.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">None — Unarmored Defense</div>
+        <div class="armor-props">Wearing armor or wielding a shield disables Unarmored Defense, Martial Arts, Flurry of Blows, and Unarmored Movement.</div>
+      </div>
+      <h3 class="sub-h">Personal Items</h3>
+      <ul>
+        <li><strong>Bronze discus</strong></li>
+        <li><strong>Lucky charm</strong></li>
+        <li>Set of traveler's clothes</li>
+        <li><strong>Explorer's Pack</strong>: backpack, bedroll, mess kit, tinderbox, 10 torches, 10 days of rations, waterskin, 50 ft. hempen rope</li>
+      </ul>
+      <p><strong>Money</strong>: 10 gp <em>(starting pouch; campaign accumulation not tracked)</em>.</p>
+    `,
+    connections_html: `
+      <li><strong>Erytheia of the Umbral Tide</strong> — studied together under a sphinx tutor.</li>
+      <li><strong>Alesta Centaur-Speaker</strong> — studied together under a druid.</li>
+      <li><strong>Orion Swiftarrow</strong> — partners on the hydra hunt that secured Zephyrus's recent renown.</li>
+    `,
+    bio_l5_extra: "More recently he partnered with Orion Swiftarrow on a dangerous hunt of a hydra — a venture that survives in song among hunters and athletes in Setessa and Meletis both. Zephyrus is convinced the gods want him dead, and is intent on staying one step ahead of them.",
+    expedition_l5_extra: "His plot hook (\"Hydra Hunt Redux,\" per the campaign doc) suggests a dangerous predator linked to the famine may yet test him again."
+  }
+];
+
+const ABILITY_ORDER = ['str','dex','con','int','wis','cha'];
+const ABILITY_SHORT = { str:'STR', dex:'DEX', con:'CON', int:'INT', wis:'WIS', cha:'CHA' };
+const MONK_PRIMARY = 'dex';
+
+function renderIdentity(s) {
+  const rows = [
+    ['Race',       'Human (Variant)'],
+    ['Class',      s.identity.class_long],
+    ['Background', 'Athlete (Long-Distance Running)'],
+    ['Religion',   'None · Iconoclast'],
+    ['Gift',       'Iconoclast'],
+    ['Alignment',  'Neutral'],
+    ['Languages',  'Common, Sphinx, Sylvan'],
+    ['Age',        s.identity.age]
+  ];
+  return rows.map(([k,v]) => `<div class="id-row"><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+}
+
+function renderSummary(s) {
+  return [
+    ['Hit Points', s.summary.hp, ''],
+    ['Armor Class', s.summary.ac, 'unarmored'],
+    ['Initiative', s.summary.init, ''],
+    ['Speed', s.summary.speed, ''],
+    ['Prof Bonus', s.summary.pb, ''],
+    ['Pass. Perc.', s.summary.pp, '']
+  ].map(([label, val, sub]) => `
+    <div class="sum-plate">
+      <div class="sp-label">${label}</div>
+      <div class="sp-value">${val}</div>
+      ${sub ? `<div class="sp-sub">${sub}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderAbilities(s) {
+  return ABILITY_ORDER.map(a => {
+    const ab = s.abilities[a];
+    const classes = ['ab-cell'];
+    if (a === MONK_PRIMARY) classes.push('primary');
+    if (ab.dump) classes.push('dump');
+    return `
+      <div class="${classes.join(' ')}">
+        <div class="ab-name">${ABILITY_SHORT[a]}</div>
+        <div class="ab-mod">${ab.mod}</div>
+        <div class="ab-score">score ${ab.score}</div>
+        <div class="ab-save ${ab.prof ? 'prof' : ''}">save<span class="save-bonus">${ab.save}</span></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderSkills(s) {
+  const grouped = {};
+  ABILITY_ORDER.forEach(a => grouped[a] = []);
+  s.skills.forEach(sk => grouped[sk.ability].push(sk));
+  return ABILITY_ORDER.map(a => {
+    const list = grouped[a];
+    return `
+      <div class="skill-cat">
+        <div class="skill-cat-name">${ABILITY_SHORT[a]}</div>
+        ${list.length === 0
+          ? '<div class="skill-row dim"><span class="skill-name">—</span></div>'
+          : list.map(sk => `<div class="skill-row ${sk.expertise ? 'expertise' : ''}"><span class="skill-name">${sk.name}</span><span class="skill-bonus">${sk.bonus}</span></div>`).join('')
+        }
+      </div>
+    `;
+  }).join('');
+}
+
+function renderStage(i) {
+  const s = SNAPSHOTS[i];
+  document.getElementById('identity-target').innerHTML = renderIdentity(s);
+  document.getElementById('summary-target').innerHTML = renderSummary(s);
+  document.getElementById('abilities-target').innerHTML = renderAbilities(s);
+  document.getElementById('ab-note-target').textContent = s.ab_note;
+  document.getElementById('combat-target').innerHTML = s.combat_html;
+  document.getElementById('skills-target').innerHTML = renderSkills(s);
+  document.getElementById('skill-tool-target').innerHTML = s.tool_text;
+  document.getElementById('features-target').innerHTML = s.features_html;
+  document.getElementById('gift-target').innerHTML = s.gift_html;
+  document.getElementById('spellcasting-target').innerHTML = s.spellcasting_html;
+  document.getElementById('equipment-target').innerHTML = s.equipment_html;
+  document.getElementById('connections-target').innerHTML = s.connections_html;
+  document.getElementById('bio-l5-extra').innerHTML = s.bio_l5_extra;
+  document.getElementById('expedition-l5-extra').innerHTML = s.expedition_l5_extra;
+
+  document.querySelectorAll('#timeline .tl-node').forEach((n, idx) => n.classList.toggle('active', idx === i));
+}
+
+document.querySelectorAll('#timeline .tl-node').forEach((n, i) => {
+  n.addEventListener('click', () => renderStage(i));
+});
+renderStage(0);
+</script>
+</body>
+</html>

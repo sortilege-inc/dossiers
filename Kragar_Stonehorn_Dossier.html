@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Kragar Stonehorn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --marble:        #ece8df;
+    --marble-warm:   #e2dccf;
+    --marble-cool:   #d8d4c8;
+    --marble-deep:   #c4bfb2;
+    --vein:          #b6b0a2;
+    --ink:           #1a1a18;
+    --ink-soft:      #3a3a36;
+    --ink-faint:     #6e6a60;
+    --rule:          #968f80;
+    --rule-soft:     #b4ada0;
+
+    /* Patron-deity accent — Iroas (crimson / bronze trim) */
+    --accent:        #8b1a1a;
+    --accent-dark:   #5a0e0e;
+    --accent-sec:    #c8a060;
+    --accent-glaze:  rgba(139, 26, 26, 0.10);
+
+    /* Wax-seal accent — Iroas-tinted */
+    --seal:      #6a1010;
+    --seal-dark: #3a0808;
+
+    --class-tint: rgba(139, 26, 26, 0.05);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--marble);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.045' numOctaves='2' seed='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.42 0 0 0 0 0.38 0 0 0 0.4 0'/></filter><rect width='100%25' height='100%25' filter='url(%23m)'/></svg>"),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 600px 600px, 200px 200px;
+    opacity: 0.55;
+    mix-blend-mode: multiply;
+    z-index: 0;
+  }
+  body {
+    background-image:
+      linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 25%, var(--marble) 75%, var(--marble-cool) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 0 5rem;
+  }
+
+  .stele {
+    max-width: 1140px;
+    margin: 0 auto;
+    background:
+      linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 8%, var(--marble) 92%, var(--marble-cool) 100%);
+    padding: 0;
+    box-shadow:
+      0 1px 2px rgba(26, 22, 18, 0.10),
+      0 10px 32px rgba(26, 22, 18, 0.16),
+      0 28px 64px rgba(26, 22, 18, 0.10);
+    position: relative;
+    border: 1px solid var(--rule);
+    z-index: 1;
+  }
+  .stele::before,
+  .stele::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-dark) 100%);
+    opacity: 0.5;
+  }
+  .stele::before { left: 0; }
+  .stele::after  { right: 0; }
+
+  .doc { padding: 0 5rem 4rem; }
+
+  .meander {
+    height: 22px;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='22' viewBox='0 0 44 22'><path d='M0 17 L0 5 L11 5 L11 12 L6 12 L6 8 L17 8 L17 17 L11 17 L11 13 L22 13 L22 5 L33 5 L33 12 L28 12 L28 8 L39 8 L39 17 L44 17' fill='none' stroke='%235a0e0e' stroke-width='1.4' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: auto 18px;
+    opacity: 0.85;
+    margin: 0;
+  }
+  .meander.thick { height: 30px; }
+  .meander.thick { background-size: auto 24px; }
+
+  .masthead-band {
+    position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+    padding: 3rem 5rem 2.75rem;
+  }
+  .masthead-band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  .masthead-band::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px; height: 28px;
+    background:
+      linear-gradient(135deg, transparent 49.5%, var(--marble) 50%) left bottom / 50% 100% no-repeat,
+      linear-gradient(225deg, transparent 49.5%, var(--marble) 50%) right bottom / 50% 100% no-repeat;
+    z-index: 2;
+  }
+  .masthead {
+    position: relative;
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    z-index: 1;
+  }
+  .portrait-frame {
+    position: relative;
+    width: 360px; height: 480px;
+    background: var(--marble-deep);
+    padding: 8px;
+    border: 1px solid var(--ink-soft);
+    box-shadow:
+      inset 0 0 0 2px var(--accent-sec),
+      inset 0 0 0 4px var(--marble-deep),
+      0 4px 14px rgba(0,0,0,0.30);
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    left: -1px; right: -1px; height: 12px;
+    background:
+      linear-gradient(180deg, var(--accent-sec) 0%, var(--accent) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .portrait-frame::before { top: -14px; }
+  .portrait-frame::after  { bottom: -14px; }
+  .portrait-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.03) saturate(0.97);
+  }
+  .portrait-frame.empty {
+    display: flex;
+    align-items: center; justify-content: center;
+    background: linear-gradient(180deg, var(--marble), var(--marble-deep));
+  }
+  .portrait-frame.empty .empty-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0 1rem;
+    line-height: 1.4;
+  }
+
+  .name-block { padding: 0.5rem 0 0; color: var(--marble); position: relative; z-index: 1; }
+  .name-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.52em;
+    color: rgba(255, 250, 235, 0.85);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  h1.dossier-name {
+    font-family: "Cinzel", serif;
+    font-weight: 800;
+    font-size: 4.4rem;
+    line-height: 0.95;
+    letter-spacing: 0.04em;
+    color: var(--marble);
+    margin: 0 0 0.45rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.35);
+    text-transform: uppercase;
+  }
+  .dossier-name .given { display: block; color: var(--marble); }
+  .dossier-name .epithet {
+    display: block;
+    font-weight: 500;
+    font-size: 0.55em;
+    color: var(--accent-sec);
+    letter-spacing: 0.18em;
+    margin-top: 0.4rem;
+    font-style: italic;
+    font-variant: normal;
+    text-transform: none;
+  }
+  .tagline {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: rgba(255, 250, 235, 0.95);
+    margin: 1.2rem 0 1.5rem;
+    max-width: 38em;
+    padding-left: 1rem;
+    border-left: 2px solid var(--accent-sec);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .identity-inscription {
+    margin: 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(255, 250, 235, 0.3);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 2.25rem;
+  }
+  .id-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+  .id-row dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: rgba(255, 250, 235, 0.55);
+    text-transform: uppercase;
+  }
+  .id-row dd {
+    margin: 0;
+    color: rgba(255, 250, 235, 0.96);
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  }
+
+  .deity-mark {
+    display: inline-block;
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--accent-sec);
+    margin-left: 0.6rem;
+    vertical-align: middle;
+    line-height: 1;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  }
+
+  .timeline-section {
+    background: var(--accent-glaze);
+    padding: 1.6rem 5rem;
+    position: relative;
+  }
+  .tl-label {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin: 0 0 1.1rem;
+  }
+  .tl-track {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 7rem;
+    position: relative;
+    padding: 0;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .tl-track::before {
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 16%; right: 16%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-sec), var(--accent), var(--accent-sec));
+    z-index: 0;
+  }
+  .tl-node {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: var(--ink-soft);
+    font-family: "EB Garamond", serif;
+    transition: color 0.2s ease;
+    min-width: 100px;
+  }
+  .tl-dot {
+    width: 18px; height: 18px;
+    border: 2px solid var(--accent-dark);
+    background: var(--marble);
+    margin-bottom: 0.55rem;
+    box-shadow: 0 0 0 3px var(--marble);
+    transition: all 0.2s ease;
+    transform: rotate(45deg);
+  }
+  .tl-node:hover .tl-dot {
+    border-color: var(--accent);
+    transform: rotate(45deg) scale(1.12);
+  }
+  .tl-node.active .tl-dot {
+    background: var(--seal);
+    border-color: var(--seal-dark);
+    box-shadow: 0 0 0 3px var(--marble), 0 0 0 5px rgba(106,16,16,0.25);
+  }
+  .tl-node.active { color: var(--ink); }
+  .tl-top {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .tl-node.active .tl-top { color: var(--accent-dark); }
+  .tl-bot {
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+    font-style: italic;
+  }
+
+  section.block { margin: 2.5rem 0 0; padding: 0.5rem 0 1.5rem; position: relative; }
+  section.block + section.block { margin-top: 2rem; }
+
+  .section-h {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--accent-dark);
+    margin: 0 0 1.5rem;
+    padding: 0;
+    border: none;
+    text-align: center;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    position: relative;
+    display: block;
+  }
+  .section-h::before {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 14px;
+    margin: 0 auto 0.85rem;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%235a0e0e' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.85;
+  }
+  .section-h .greek-chap {
+    display: block;
+    font-family: "Cinzel", serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.5em;
+    color: var(--accent);
+    margin-top: 0.5rem;
+    font-style: normal;
+    text-transform: uppercase;
+  }
+  h3.sub-h {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--accent-dark);
+    margin: 1.5rem 0 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  h4.subsub-h {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.32em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 1.1rem 0 0.5rem;
+    font-weight: 500;
+  }
+  p { margin: 0 0 1rem; }
+
+  .summary-strip {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    margin: 0.5rem 0;
+    background: var(--accent-glaze);
+    padding: 1rem 0.5rem;
+    border-top: 1.5px solid var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+  }
+  .sum-plate { text-align: center; padding: 0 0.5rem; border-right: 1px solid var(--rule-soft); }
+  .sum-plate:last-child { border-right: none; }
+  .sum-plate .sp-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .sum-plate .sp-value {
+    font-family: "Cinzel", serif;
+    font-size: 1.7rem;
+    color: var(--accent-dark);
+    line-height: 1.1;
+    font-weight: 700;
+    margin-top: 0.15rem;
+  }
+  .sum-plate .sp-sub {
+    font-family: "EB Garamond", serif;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 0.1rem;
+  }
+
+  .abilities-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+    margin: 0.5rem 0 1.25rem;
+  }
+  .ab-cell {
+    text-align: center;
+    padding: 1rem 0.4rem 0.85rem;
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--accent);
+    position: relative;
+  }
+  .ab-cell.primary {
+    border-top-width: 4px;
+    border-top-color: var(--accent-dark);
+    background: linear-gradient(180deg, rgba(200, 160, 96, 0.30) 0%, var(--marble-warm) 60%);
+  }
+  .ab-cell .ab-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .ab-cell .ab-mod {
+    font-family: "Cinzel", serif;
+    font-size: 2.1rem;
+    line-height: 1;
+    color: var(--ink);
+    font-weight: 800;
+  }
+  .ab-cell .ab-score {
+    font-family: "EB Garamond", serif;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+  }
+  .ab-cell .ab-save {
+    margin-top: 0.5rem;
+    padding-top: 0.4rem;
+    border-top: 1px dotted var(--rule);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .ab-cell .ab-save .save-bonus {
+    font-family: "Cinzel", serif;
+    font-size: 0.95rem;
+    color: var(--accent-dark);
+    margin-left: 0.25rem;
+    font-weight: 600;
+  }
+  .ab-cell .ab-save.prof::after {
+    content: " ★";
+    color: var(--seal);
+    margin-left: 0.15rem;
+  }
+  .ab-note { font-size: 0.88rem; color: var(--ink-faint); font-style: italic; text-align: center; margin-top: 0.5rem; }
+
+  .combat-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem 2.5rem;
+    margin: 0.5rem 0;
+  }
+  .combat-block dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; }
+  .combat-block dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    align-self: baseline;
+  }
+  .combat-block dd { margin: 0; font-family: "EB Garamond", serif; font-size: 0.98rem; color: var(--ink); }
+  .combat-block dd em { color: var(--ink-faint); font-size: 0.88rem; }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.1rem; margin: 1rem 0 1.5rem; }
+  .skill-cat { border-top: 2px solid var(--accent); padding-top: 0.6rem; }
+  .skill-cat-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    text-align: center;
+  }
+  .skill-row { display: flex; align-items: baseline; justify-content: space-between; gap: 0.4rem; padding: 0.18rem 0; font-size: 0.92rem; line-height: 1.3; color: var(--ink); }
+  .skill-row.dim { color: var(--ink-faint); font-style: italic; }
+  .skill-row .skill-name { flex: 1; }
+  .skill-row .skill-bonus { font-family: "Cinzel", serif; font-weight: 600; color: var(--accent-dark); }
+  .skill-row.expertise .skill-bonus { color: var(--seal); }
+  .skill-source { font-size: 0.82rem; color: var(--ink-faint); text-align: center; font-style: italic; margin-top: 0.6rem; }
+
+  .feat-block { font-size: 0.98rem; font-family: "EB Garamond", serif; }
+  .feat-block ul { padding-left: 1.2rem; margin: 0.5rem 0 1rem; }
+  .feat-block li { margin-bottom: 0.45rem; }
+  .feat-block strong { color: var(--accent-dark); font-weight: 600; }
+  .feat-block em { color: var(--ink-soft); }
+  .feat-block .aside {
+    font-style: italic;
+    color: var(--ink-faint);
+    font-size: 0.92rem;
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-soft);
+    margin: 0.6rem 0 1rem;
+  }
+  .feat-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    margin: 1rem 0;
+  }
+
+  .patron-section {
+    margin: 2.5rem -5rem 2.5rem;
+    padding: 0;
+    position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+  }
+  .patron-section::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: -22px; height: 22px;
+    background:
+      linear-gradient(45deg, transparent 49.5%, var(--accent) 50%) left top / 50% 100% no-repeat,
+      linear-gradient(315deg, transparent 49.5%, var(--accent) 50%) right top / 50% 100% no-repeat;
+    z-index: 0;
+  }
+  .patron-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+    z-index: 0;
+  }
+  .patron-inner {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem 6.5rem 2.75rem;
+  }
+  .patron-inner::before,
+  .patron-inner::after {
+    content: "";
+    position: absolute;
+    top: 2rem; bottom: 2rem;
+    width: 28px;
+    background:
+      linear-gradient(180deg,
+        var(--accent-sec) 0%, var(--accent-sec) 6%,
+        rgba(255,250,235,0.25) 6%, rgba(255,250,235,0.25) 8%,
+        rgba(255,250,235,0.15) 8%, rgba(255,250,235,0.15) 92%,
+        rgba(255,250,235,0.25) 92%, rgba(255,250,235,0.25) 94%,
+        var(--accent-sec) 94%, var(--accent-sec) 100%);
+    border-left: 1px solid rgba(255,250,235,0.25);
+    border-right: 1px solid rgba(255,250,235,0.25);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.10);
+  }
+  .patron-inner::before { left: 2.5rem; }
+  .patron-inner::after  { right: 2.5rem; }
+  .patron-section .section-h {
+    color: var(--marble);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.30);
+    letter-spacing: 0.36em;
+    margin-bottom: 1.5rem;
+  }
+  .patron-section .section-h::before {
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%23c8a060' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+  }
+  .patron-section .section-h .greek-chap { color: var(--accent-sec); }
+  .patron-section h3.sub-h, .patron-section h4.subsub-h {
+    color: rgba(255, 250, 235, 0.95);
+    border-bottom-color: rgba(255, 250, 235, 0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.22);
+  }
+  .patron-section .feat-block { color: rgba(255, 250, 235, 0.94); }
+  .patron-section .feat-block strong { color: var(--accent-sec); }
+  .patron-section .feat-block em { color: rgba(255, 250, 235, 0.74); }
+  .patron-section .feat-block .aside {
+    color: rgba(255, 250, 235, 0.78);
+    border-left-color: rgba(255, 250, 235, 0.4);
+  }
+
+  .spell-block {
+    background: var(--class-tint);
+    border: 1px solid var(--rule-soft);
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+  .spell-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .spell-stats .ss-cell { text-align: center; padding: 0.25rem; }
+  .spell-stats .ss-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .spell-stats .ss-value { font-family: "Cinzel", serif; font-size: 1.4rem; color: var(--accent-dark); font-weight: 700; }
+  .spell-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .spell-table th, .spell-table td { text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px dotted var(--rule-soft); }
+  .spell-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .spell-table td.lvl { width: 3em; color: var(--accent-dark); font-weight: 600; font-family: "Cinzel", serif; }
+  .spell-table td.spell-name { font-style: italic; color: var(--ink); }
+  .slot-table { width: auto; margin: 0.5rem 0 1rem; border-collapse: collapse; font-size: 0.94rem; }
+  .slot-table th, .slot-table td { text-align: center; padding: 0.3rem 1rem; border: 1px solid var(--rule-soft); }
+  .slot-table th {
+    background: var(--accent-glaze);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .slot-table td { font-family: "Cinzel", serif; font-weight: 700; color: var(--accent-dark); }
+
+  .weapon-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .weapon-table th, .weapon-table td { text-align: left; padding: 0.45rem 0.7rem; border-bottom: 1px dotted var(--rule-soft); }
+  .weapon-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .weapon-table td.atk, .weapon-table td.dmg {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    color: var(--accent-dark);
+    white-space: nowrap;
+  }
+  .armor-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.2rem;
+    margin: 0.6rem 0;
+  }
+  .armor-name { font-family: "Cinzel", serif; font-weight: 700; font-size: 1rem; color: var(--accent-dark); letter-spacing: 0.06em; }
+  .armor-props { font-size: 0.88rem; color: var(--ink-soft); font-style: italic; margin-top: 0.25rem; }
+
+  .personality-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.5rem 0 1rem; }
+  .pers-card {
+    border-left: 3px solid var(--accent);
+    padding: 0.6rem 1.1rem;
+    background: var(--accent-glaze);
+  }
+  .pers-card.flaw {
+    border-left-color: var(--seal);
+    background: rgba(106, 16, 16, 0.06);
+  }
+  .pers-label {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .pers-card.flaw .pers-label { color: var(--seal-dark); }
+  .pers-text { font-style: italic; color: var(--ink); font-size: 1rem; line-height: 1.5; margin: 0; }
+
+  .connections-list { margin: 0.5rem 0 1rem; padding-left: 0; list-style: none; }
+  .connections-list li {
+    margin-bottom: 0.7rem;
+    padding-left: 1.4rem;
+    position: relative;
+    line-height: 1.55;
+  }
+  .connections-list li::before {
+    content: "▲";
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    top: 0.32em;
+    font-size: 0.65rem;
+  }
+  .connections-list strong { color: var(--accent-dark); }
+
+  .expedition-callout {
+    background: linear-gradient(180deg, var(--accent-glaze) 0%, rgba(139, 26, 26, 0.03) 100%);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    padding: 1.5rem 1.75rem;
+    margin: 1rem 0 0;
+    font-size: 1.02rem;
+    line-height: 1.6;
+  }
+  .expedition-callout p:last-child { margin-bottom: 0; }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    margin-top: 3rem;
+    color: var(--ink-faint);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+  }
+  .footer .meander {
+    margin-bottom: 1rem;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 1000px) {
+    .doc { padding: 0 1.5rem 2.5rem; }
+    .timeline-section { padding: 1.5rem 1.5rem; }
+    .masthead-band { padding: 2rem 1.5rem 2.5rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1.5rem; }
+    .portrait-frame { width: 100%; max-width: 320px; height: auto; aspect-ratio: 3/4; margin: 0 auto; }
+    h1.dossier-name { font-size: 2.8rem; }
+    .identity-inscription { grid-template-columns: 1fr; }
+    .summary-strip, .abilities-grid { grid-template-columns: repeat(3, 1fr); }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .combat-block, .personality-grid { grid-template-columns: 1fr; }
+    .patron-section { margin: 2rem -1.5rem; }
+    .patron-inner { padding: 2rem 1.5rem; }
+    .patron-inner::before, .patron-inner::after { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="stele">
+
+<!-- ============== MASTHEAD ============== -->
+<div class="masthead-band">
+  <div class="masthead">
+
+    <div class="portrait-frame">
+      <img src="../Theros 1st pass/Kragar.png" alt="Kragar Stonehorn portrait">
+    </div>
+
+    <div class="name-block">
+      <div class="name-eyebrow">Dossier · Berserker of Iroas</div>
+      <h1 class="dossier-name">
+        <span class="given">Kragar</span>
+        <span class="epithet">Stonehorn</span>
+      </h1>
+      <p class="tagline">
+        Named for a great minotaur oracle and bathed in hydra's blood as an infant — the wounds he takes close too quickly to become mortal.
+      </p>
+      <dl class="identity-inscription" id="identity-target"><!-- populated --></dl>
+    </div>
+
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- ============== TIMELINE ============== -->
+<div class="timeline-section">
+  <div class="tl-label">Stage of Career</div>
+  <div class="tl-track" id="timeline">
+    <button class="tl-node active" data-stage="0" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 1</div>
+      <div class="tl-bot">Arena Champion</div>
+    </button>
+    <button class="tl-node" data-stage="1" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 5</div>
+      <div class="tl-bot">Path of the Berserker</div>
+    </button>
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<div class="doc">
+
+<!-- BIO -->
+<section class="block">
+  <h2 class="section-h">Bio<span class="greek-chap">α · Vita</span></h2>
+  <p>Kragar was named for a great minotaur oracle, and bathed in hydra's blood as an infant — the wounds he takes close too quickly to become mortal. He hails from Skophos, the labyrinthine minotaur polis, but found his calling outside its walls: as a charioteer's fighter in the arena, where he won a championship in Iroas's name. Iroas favors him, the story goes, because Kragar's twin brother — still in Skophos — is a champion of Mogis. The god of victory and the god of slaughter share something between them through these two, and Kragar's relationship with both his god and his sibling has been complicated by it ever since.</p>
+  <p>He is confident, fiercely loyal to allies, and exudes a commanding power that crowds learn to read instantly. He sees himself as a protector of those who can't protect themselves — Iroas's Heroism, taken to the chariot rail — though his pride and his temper push the line on what "protection" looks like more often than he'd admit.</p>
+  <p id="bio-l5-extra"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- SUMMARY STRIP -->
+<section class="block">
+  <h2 class="section-h">At a Glance<span class="greek-chap">β · Synopsis</span></h2>
+  <div class="summary-strip" id="summary-target"></div>
+</section>
+
+<!-- ABILITY SCORES -->
+<section class="block">
+  <h2 class="section-h">Ability Scores<span class="greek-chap">γ · Dynámeis</span></h2>
+  <div class="abilities-grid" id="abilities-target"></div>
+  <p class="ab-note" id="ab-note-target"></p>
+</section>
+
+<!-- COMBAT & SENSES -->
+<section class="block">
+  <h2 class="section-h">Combat &amp; Senses<span class="greek-chap">δ · Mákhē</span></h2>
+  <div class="combat-block" id="combat-target"></div>
+</section>
+
+<!-- SKILLS -->
+<section class="block">
+  <h2 class="section-h">Skill Proficiencies<span class="greek-chap">ε · Tékhnai</span></h2>
+  <div class="skills-grid" id="skills-target"></div>
+  <p class="skill-source" id="skill-tool-target"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- CLASS FEATURES -->
+<section class="block">
+  <h2 class="section-h">Class Features<span class="greek-chap">ζ · Tákta</span></h2>
+  <div class="feat-block" id="features-target"></div>
+</section>
+
+<!-- RACIAL FEATURES -->
+<section class="block">
+  <h2 class="section-h">Racial Features — Minotaur<span class="greek-chap">η · Génos</span></h2>
+  <div class="feat-block" id="racial-target"></div>
+</section>
+
+<!-- SUPERNATURAL GIFT -->
+<section class="block">
+  <h2 class="section-h">Supernatural Gift — Unscarred<span class="greek-chap">θ · Dóron</span></h2>
+  <div class="feat-block">
+    <p class="aside">Origin #1 — "I was bathed in hydra's blood as an infant, and my wounds close too quickly to become mortal injuries."</p>
+    <ul>
+      <li id="unscarred-target"></li>
+    </ul>
+  </div>
+</section>
+
+</div>
+
+<!-- PATRON GOD — temple panel -->
+<section class="patron-section">
+  <div class="patron-inner">
+    <h2 class="section-h">Patron God — Iroas, the Twin of Victory<span class="greek-chap">ι · Theós</span></h2>
+    <div class="feat-block" id="patron-target"></div>
+  </div>
+</section>
+
+<div class="doc" style="padding-top: 1rem;">
+
+<!-- BACKGROUND -->
+<section class="block">
+  <h2 class="section-h">Background — Athlete (Charioteer)<span class="greek-chap">κ · Bíos</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Skill Proficiencies</strong>: Acrobatics, Athletics.</li>
+      <li><strong>Tool Proficiencies</strong>: Vehicles (land).</li>
+      <li><strong>Languages</strong>: One of choice — <em>Giant.</em></li>
+      <li><strong>Equipment</strong>: Bronze discus, Belt of Victory (past-trophy from his championship), traveler's clothes, 10 gp.</li>
+      <li><strong>Favored Event</strong>: Chariot race.</li>
+      <li><strong>Feature — Echoes of Victory</strong>: You have attracted admiration among spectators, fellow athletes, and trainers in the region that hosted your past athletic victories. When visiting any settlement within <strong>100 miles</strong> of where you grew up, there is a <strong>50% chance</strong> you find someone who admires you and will provide information or temporary shelter. Between adventures, you might compete in athletic events sufficient to maintain a <strong>comfortable lifestyle</strong>.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SPELLCASTING -->
+<section class="block">
+  <h2 class="section-h">Spellcasting<span class="greek-chap">λ · Goēteía</span></h2>
+  <div id="spellcasting-target"></div>
+</section>
+
+<!-- EQUIPMENT -->
+<section class="block">
+  <h2 class="section-h">Equipment<span class="greek-chap">μ · Hopla</span></h2>
+  <div id="equipment-target"></div>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- PERSONALITY -->
+<section class="block">
+  <h2 class="section-h">Personality<span class="greek-chap">ν · Êthos</span></h2>
+  <div class="personality-grid">
+    <div class="pers-card">
+      <div class="pers-label">Trait</div>
+      <p class="pers-text">"Confident, and fiercely loyal to allies. Exudes power and a commanding presence."</p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Ideal</div>
+      <p class="pers-text">"I must prove my might in battle — I need to be seen as victorious." <em>(The Iroas-aligned ideal — Heroism, "The powerful must protect the weak" — is recorded in the Patron God block.)</em></p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Bond</div>
+      <p class="pers-text">"Sworn to protect friend and tribe."</p>
+    </div>
+    <div class="pers-card flaw">
+      <div class="pers-label">Flaw</div>
+      <p class="pers-text">"Prone to anger and recklessness."</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECTIONS -->
+<section class="block">
+  <h2 class="section-h">Connections<span class="greek-chap">ξ · Philíai</span></h2>
+  <ul class="connections-list">
+    <li><strong>Xemnon Sunguides</strong> — Trained under the same battle master in Akros, developing martial skills side by side in friendly rivalry.</li>
+    <li><strong>Helena of Akros</strong> — Fought together in a minor skirmish defending a village outside of Akros. Kragar respects her unwavering courage.</li>
+    <li><strong>Alesta</strong> — Helped Kragar pass peacefully through the Lagonna-controlled forests, then showed him a softer side of the world. An unlikely friendship.</li>
+  </ul>
+</section>
+
+<!-- EXPEDITION -->
+<section class="block">
+  <h2 class="section-h">Why Kragar is on the Expedition<span class="greek-chap">ο · Hodós</span></h2>
+  <div class="expedition-callout">
+    <p><strong>Personal Rivalry.</strong> Kragar will be forced to fight his twin brother when the minotaurs of Skophos attack Akros. The campaign frame has Skophos minotaurs raiding Akros during the Fallow Year while Mogis revels in the bloodshed; Kragar's twin leads one of those bands. Iroas favored Kragar partly because his twin is Mogis's champion — the gods set the brothers against each other before the brothers were old enough to choose.</p>
+    <p>Now choice is overdue, and the Fallow Year is the field on which it gets made. A devotee of Iroas, an Akrosian by adoption, and the brother of the man on the other side of the wall: Kragar is the campaign's hinge for the Akros plotline.</p>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div class="meander" aria-hidden="true"></div>
+  Player Character Dossier · Theros, The Fallow Season
+</footer>
+
+</div>
+
+<script>
+const SNAPSHOTS = [
+  {
+    stage: "L1",
+    level: 1,
+    pb: 2,
+    identity: { class_long: "Barbarian 1", age: "—", hp_breakdown: "15 (d12 max 12 + Con +3)" },
+    summary: { hp: 15, ac: 15, init: "+2", speed: "30 ft.", pb: "+2", pp: 11 },
+    abilities: {
+      str:{score:19, mod:"+4", save:"+6", prof:true},
+      dex:{score:14, mod:"+2", save:"+2", prof:false},
+      con:{score:16, mod:"+3", save:"+5", prof:true},
+      int:{score: 7, mod:"−2", save:"−2", prof:false},
+      wis:{score:12, mod:"+1", save:"+1", prof:false},
+      cha:{score:10, mod:"+0", save:"+0", prof:false}
+    },
+    ab_note: "Rolled base 17, 14, 15, 7, 12, 10 → slotted Str 17 / Dex 14 / Con 15 / Int 7 / Wis 12 / Cha 10. Minotaur +2 Str (→19), +1 Con (→16).",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+2</dd>
+        <dt>Armor Class</dt><dd>15 <em>(Unarmored Defense: 10 + Dex +2 + Con +3)</em></dd>
+        <dt>Initiative</dt><dd>+2</dd>
+        <dt>Speed</dt><dd>30 ft. <em>(Minotaur base; becomes 40 ft. at Barbarian L5 via Fast Movement)</em></dd>
+        <dt>Hit Points</dt><dd>15 <em>(d12 max 12 + Con +3)</em></dd>
+        <dt>Hit Dice</dt><dd>1d12</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>11 <em>(10 + Wis +1; Perception not proficient)</em></dd>
+        <dt>Special Senses</dt><dd>—</dd>
+        <dt>Creature Type</dt><dd>Humanoid (Minotaur)</dd>
+        <dt>Iroas DC</dt><dd>10 <em>(8 + PB +2 + Cha +0; compelled duel via Devotee trait)</em></dd>
+      </dl>
+      <p class="aside">Unarmored Defense is active while not wearing armor. Kragar can use a shield with Unarmored Defense for +2 AC = 17 total, but the draft doesn't equip one. Easy to pick up if desired.</p>
+    `,
+    skills: [
+      {name:"Acrobatics",      ability:"dex", bonus:"+4", source:"Athlete"},
+      {name:"Animal Handling", ability:"wis", bonus:"+3", source:"Barbarian"},
+      {name:"Athletics",       ability:"str", bonus:"+6", source:"Athlete"},
+      {name:"Intimidation",    ability:"cha", bonus:"+2", source:"Minotaur (Imposing Presence)"},
+      {name:"Survival",        ability:"wis", bonus:"+3", source:"Barbarian"}
+    ],
+    tool_text: "Tools: Vehicles (land) — Athlete background. No instrument or artisan tool at L1.",
+    features_html: `
+      <h3 class="sub-h">Barbarian (Level 1)</h3>
+      <ul>
+        <li><strong>Rage</strong> (<em>2 uses; +2 damage</em>): Bonus action to enter rage. While raging (no heavy armor):
+          <ul>
+            <li>Advantage on Strength checks and Strength saving throws.</li>
+            <li>+2 bonus to melee weapon damage rolls using Strength.</li>
+            <li>Resistance to bludgeoning, piercing, and slashing damage.</li>
+            <li>Can't cast spells or concentrate on them.</li>
+          </ul>
+          Lasts 1 minute. Ends early on KO, or if your turn ends without attacking a hostile or taking damage. End rage as a bonus action. <strong>2 uses; regain on long rest.</strong>
+        </li>
+        <li><strong>Unarmored Defense</strong>: While not wearing armor, AC = <strong>10 + Dex mod + Con mod</strong>. A shield is compatible.</li>
+      </ul>
+    `,
+    racial_html: `
+      <ul>
+        <li><strong>Horns</strong>: Natural melee weapon. Unarmed strikes deal <strong>1d6 + Str (+4) = 1d6+4</strong> piercing damage.</li>
+        <li><strong>Goring Rush</strong>: Immediately after you Dash and move at least 20 ft., you can make one melee attack with your horns as a <strong>bonus action</strong>.</li>
+        <li><strong>Hammering Horns</strong>: After you hit with a melee attack on your Attack action, bonus action to shove the target (Str save DC 8 + PB +2 + Str +4 = <strong>14</strong>) up to 10 ft. Target within 5 ft., no more than one size larger.</li>
+        <li><strong>Imposing Presence</strong>: Proficiency in one of Intimidation or Persuasion. <em>Chosen: Intimidation.</em></li>
+      </ul>
+      <p class="aside">Goring Rush and Hammering Horns both consume the bonus action — as does Rage (and later Frenzy's bonus-action attack). Plan turns to manage bonus-action contention.</p>
+    `,
+    patron_html: `
+      <h3 class="sub-h">Piety 3 — Devotee</h3>
+      <ul>
+        <li><strong>Source of godly favor</strong>: "Your twin sibling is a champion of Mogis." <em>(The hydra-blood detail is Kragar's Unscarred Origin; the twin-rivalry is what brought Iroas's eye.)</em></li>
+        <li><strong>Godly ideal</strong>: <em>Heroism.</em> "The powerful must protect the weak." (Good)</li>
+        <li><strong>Devotee Trait (Piety 3+)</strong>: As a devotee of Iroas, you have earned his favor through victories won in his name. You can cast <em>compelled duel</em> with this trait. Uses = Cha mod (min 1) = <strong>1/long rest</strong>. <strong>Charisma</strong> is the spellcasting ability.</li>
+      </ul>
+      <h4 class="subsub-h">Iroas-granted spell stats (Cha-based)</h4>
+      <ul>
+        <li><strong>Spell save DC</strong> = 8 + PB +2 + Cha +0 = <strong>10</strong></li>
+        <li><strong>Spell attack</strong> = PB +2 + Cha +0 = <strong>+2</strong></li>
+        <li><em>Compelled duel</em>: Wis save vs DC; on a fail, target has <strong>disadvantage on attacks against creatures other than Kragar</strong> and must remain within 30 ft. for 1 min.</li>
+      </ul>
+      <p class="aside">At Cha 10, Kragar's Iroas DC is quite low — chosen targets save against DC 10. Not a primary engagement tool unless the target has low Wis. Still narratively meaningful as a paladin-like challenge offered in an Iroas-watching setting.</p>
+    `,
+    spellcasting_html: `
+      <p>Kragar has <strong>no slot-based spellcasting</strong>. His only magic is the Iroas <strong>Devotee trait</strong> (see Patron God) — <em>compelled duel</em>, Charisma-based, <strong>1/long rest</strong>, no slot consumed.</p>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Greataxe</td><td class="atk">+6</td><td class="dmg">1d12 + 4 slashing</td><td>Martial, heavy, two-handed. <em>+2 damage while raging.</em></td></tr>
+          <tr><td>Javelin ×4</td><td class="atk">+6</td><td class="dmg">1d6 + 4 piercing</td><td>Simple, thrown 30/120.</td></tr>
+          <tr><td>Spear (1-handed)</td><td class="atk">+6</td><td class="dmg">1d6 + 4 piercing</td><td>Simple, versatile (1d8 two-handed), thrown 20/60.</td></tr>
+          <tr><td>Horns (natural)</td><td class="atk">+6</td><td class="dmg">1d6 + 4 piercing</td><td>Minotaur natural weapon.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">Unarmored Defense</div>
+        <div class="armor-props">AC 15 (10 + Dex +2 + Con +3) · Barbarian feature · shield compatible</div>
+      </div>
+      <h3 class="sub-h">Personal Items &amp; Pack</h3>
+      <ul>
+        <li><strong>Bronze discus</strong> — thrower's trophy / working tool.</li>
+        <li><strong>Belt of Victory</strong> — championship belt; past-trophy flavor item.</li>
+        <li>Traveler's clothes.</li>
+        <li><strong>Explorer's Pack</strong>: backpack, bedroll, mess kit, tinderbox, 10 torches, 10 days of rations, waterskin, 50 ft. hempen rope.</li>
+      </ul>
+      <p><strong>Money</strong>: 20 gp <em>(10 gp Barbarian starting pouch + 10 gp Athlete starting pouch)</em>.</p>
+      <p class="aside">Barbarian starting equipment: (a) greataxe or (b) any martial melee; (c) two handaxes or (d) any simple weapon; Explorer's pack and 4 javelins. Draft picks greataxe + spear + javelins + Explorer's pack.</p>
+    `,
+    unscarred: `<strong>Unscarred Resilience</strong>: When you take damage, you can use your <strong>reaction</strong> to roll a <strong>d12</strong> and add your Constitution modifier (= <strong>d12 + 3</strong>). Reduce the damage by that total. <strong>1 per short or long rest.</strong>`,
+    bio_l5_extra: ``
+  },
+  {
+    stage: "L5",
+    level: 5,
+    pb: 3,
+    identity: { class_long: "Barbarian 5 — Path of the Berserker", age: "35", hp_breakdown: "55 (L1: 12 + Con +3 = 15; L2–5: 4 × (avg 7 + Con +3) = 40; total 55)" },
+    summary: { hp: 55, ac: 15, init: "+2", speed: "40 ft.", pb: "+3", pp: 11 },
+    abilities: {
+      str:{score:20, mod:"+5", save:"+8", prof:true},
+      dex:{score:14, mod:"+2", save:"+2", prof:false},
+      con:{score:16, mod:"+3", save:"+6", prof:true},
+      int:{score: 8, mod:"−1", save:"−1", prof:false},
+      wis:{score:12, mod:"+1", save:"+1", prof:false},
+      cha:{score:10, mod:"+0", save:"+0", prof:false}
+    },
+    ab_note: "Same base array. Minotaur +2 Str / +1 Con. Level 4 ASI: +1 Str (19 → 20, maxes Str at the cap), +1 Int (7 → 8, mod −2 → −1).",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+3</dd>
+        <dt>Armor Class</dt><dd>15 <em>(Unarmored Defense: 10 + Dex +2 + Con +3)</em></dd>
+        <dt>Initiative</dt><dd>+2</dd>
+        <dt>Speed</dt><dd>40 ft. <em>(Minotaur 30 + Barbarian Fast Movement +10)</em></dd>
+        <dt>Hit Points</dt><dd>55 <em>(L1: 15; L2–5: 4 × 10 = 40; total 55)</em></dd>
+        <dt>Hit Dice</dt><dd>5d12</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>11 <em>(10 + Wis +1; Perception not proficient)</em></dd>
+        <dt>Special Senses</dt><dd>—</dd>
+        <dt>Creature Type</dt><dd>Humanoid (Minotaur)</dd>
+        <dt>Iroas DC</dt><dd><strong>11</strong> <em>(8 + PB +3 + Cha +0)</em></dd>
+      </dl>
+      <p class="aside">While raging (1 min): advantage on Str checks/saves; resistance to B/P/S damage; +2 melee Str-damage; no casting or concentration.</p>
+    `,
+    skills: [
+      {name:"Acrobatics",      ability:"dex", bonus:"+5", source:"Athlete"},
+      {name:"Animal Handling", ability:"wis", bonus:"+4", source:"Barbarian"},
+      {name:"Athletics",       ability:"str", bonus:"+8", source:"Athlete"},
+      {name:"Intimidation",    ability:"cha", bonus:"+3", source:"Minotaur (Imposing Presence)"},
+      {name:"Survival",        ability:"wis", bonus:"+4", source:"Barbarian"}
+    ],
+    tool_text: "Tools: Vehicles (land) — Athlete background. All skills scale with PB +3 and the Str ASI bump.",
+    features_html: `
+      <h3 class="sub-h">Barbarian (Base)</h3>
+      <ul>
+        <li><strong>Rage</strong> (L1; <em>3 uses at L5; +2 damage</em>): Bonus action; 1 min; advantage on Str checks/saves; +2 melee Str-damage; resistance to B/P/S; no casting/concentration.</li>
+        <li><strong>Unarmored Defense</strong> (L1): AC = 10 + Dex + Con while unarmored. Shield compatible.</li>
+        <li><strong>Reckless Attack</strong> (L2): On your first attack of the turn, attack recklessly — <strong>advantage on melee Str attacks</strong> the rest of the turn, but <strong>attacks against you have advantage</strong> until your next turn.</li>
+        <li><strong>Danger Sense</strong> (L2): Advantage on Dex saves vs. effects you can see. Doesn't apply when blinded, deafened, or incapacitated.</li>
+        <li><strong>Extra Attack</strong> (L5): Attack twice when you take the Attack action.</li>
+        <li><strong>Fast Movement</strong> (L5): +10 ft. speed while not in heavy armor.</li>
+      </ul>
+
+      <h3 class="sub-h">Path of the Berserker (Subclass, chosen at L3)</h3>
+      <ul>
+        <li><strong>Frenzy</strong>: When you rage, you can choose to enter a <strong>frenzy</strong>. While frenzied, you can make a <strong>single melee weapon attack as a bonus action</strong> on each of your turns after this one. <strong>When your rage ends, you suffer one level of exhaustion.</strong></li>
+      </ul>
+      <p class="aside">Frenzy is the Berserker's defining (and contentious) feature. The bonus-action attack is strong on paper, but the exhaustion cost compounds across an adventuring day — exhaustion 1 is disadvantage on all ability checks (including Athletics, bad for a grappler), and you lose one level per long rest. Two Frenzies in a day = exhaustion 2 (speed halved) at the start of the next combat. Treat as a "spend everything for this fight" lever, not a default mode.</p>
+    `,
+    racial_html: `
+      <ul>
+        <li><strong>Horns</strong>: Natural melee weapon. Unarmed strikes deal <strong>1d6 + 5</strong> piercing damage.</li>
+        <li><strong>Goring Rush</strong>: After Dash + 20+ ft., bonus action horns attack.</li>
+        <li><strong>Hammering Horns</strong>: After melee hit on Attack action, bonus action shove (Str save DC 8 + PB +3 + Str +5 = <strong>16</strong>) up to 10 ft. Target within 5 ft., no more than one size larger.</li>
+        <li><strong>Imposing Presence</strong>: Intimidation proficiency.</li>
+      </ul>
+      <p class="aside">Bonus action contention is severe at L5: Rage, Frenzy bonus-action attack, Goring Rush (after Dash), and Hammering Horns (after melee hit) all compete. Typical opener: bonus-action Rage on turn 1, bonus-action Frenzy attack on subsequent turns. Goring Rush requires giving up your Action to Dash. Hammering Horns is best when you don't have Frenzy up or want to keep an enemy off you.</p>
+    `,
+    patron_html: `
+      <h3 class="sub-h">Piety 3 — Devotee</h3>
+      <ul>
+        <li><strong>Source of godly favor</strong>: "Your twin sibling is a champion of Mogis."</li>
+        <li><strong>Godly ideal</strong>: <em>Heroism.</em> "The powerful must protect the weak." (Good)</li>
+        <li><strong>Devotee Trait (Piety 3+)</strong>: Cast <em>compelled duel</em> via this trait, uses = Cha mod (min 1) = <strong>1/long rest</strong>. <strong>Cha</strong>-based.</li>
+      </ul>
+      <h4 class="subsub-h">Iroas-granted spell stats (Cha-based)</h4>
+      <ul>
+        <li><strong>Spell save DC</strong> = 8 + PB +3 + Cha +0 = <strong>11</strong></li>
+        <li><strong>Spell attack</strong> = PB +3 + Cha +0 = <strong>+3</strong></li>
+        <li><em>Compelled duel</em>: Wis save; target must remain within 30 ft. and has disadvantage on attacks against creatures other than Kragar; 1 min.</li>
+      </ul>
+      <p class="aside">DC 11 is still low — Wis-light targets will be compelled, Wis-saving targets generally won't. Best deployed against a Str/Con-heavy melee bruiser who can't pivot away once committed. Useful narratively for offering single combat in a public Iroas-watching setting like the Iroan Games.</p>
+    `,
+    spellcasting_html: `
+      <p>Kragar has <strong>no slot-based spellcasting</strong>. His only magic is the Iroas <strong>Devotee trait</strong> (see Patron God) — <em>compelled duel</em>, Charisma-based, <strong>1/long rest</strong>, no slot consumed. DC scales with PB; the L5 DC is <strong>11</strong>.</p>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Greataxe</td><td class="atk">+8</td><td class="dmg">1d12 + 5 slashing</td><td>Martial, heavy, two-handed. <em>+2 while raging = 1d12+7.</em> With Extra Attack: two swings/turn.</td></tr>
+          <tr><td>Javelin ×4</td><td class="atk">+8</td><td class="dmg">1d6 + 5 piercing</td><td>Simple, thrown 30/120.</td></tr>
+          <tr><td>Spear (1-handed)</td><td class="atk">+8</td><td class="dmg">1d6 + 5 piercing</td><td>Simple, versatile (1d8 two-handed), thrown 20/60.</td></tr>
+          <tr><td>Horns (natural)</td><td class="atk">+8</td><td class="dmg">1d6 + 5 piercing</td><td>Minotaur natural weapon. <em>+2 while raging = 1d6+7.</em></td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">Unarmored Defense</div>
+        <div class="armor-props">AC 15 (10 + Dex +2 + Con +3) · Barbarian feature · shield compatible</div>
+      </div>
+      <h3 class="sub-h">Personal Items &amp; Pack</h3>
+      <ul>
+        <li><strong>Bronze discus</strong>.</li>
+        <li><strong>Belt of Victory</strong> — championship belt.</li>
+        <li>Traveler's clothes.</li>
+        <li><strong>Explorer's Pack</strong>: backpack, bedroll, mess kit, tinderbox, 10 torches, 10 days of rations, waterskin, 50 ft. hempen rope.</li>
+      </ul>
+      <p><strong>Money</strong>: 20 gp <em>(starting pouches combined; campaign accumulation not tracked)</em>.</p>
+    `,
+    unscarred: `<strong>Unscarred Resilience</strong>: Reaction; when you take damage, roll <strong>d12 + Con mod = d12 + 3</strong> and reduce the damage by that total. <strong>1 per short or long rest.</strong>`,
+    bio_l5_extra: `In the years since the championship, Kragar trained alongside Xemnon Sunguides under the same Akrosian battle master, fought a skirmish with the human knight Helena defending an outlying village, and was guided through Lagonna lands by the centaur druid Alesta when his road ran through the forests. He has begun to use a Frenzy that costs more than the strength it gives — and to wonder if Mogis is the one watching when he does.`
+  }
+];
+
+const ABILITY_ORDER = ['str','dex','con','int','wis','cha'];
+const ABILITY_SHORT = { str:'STR', dex:'DEX', con:'CON', int:'INT', wis:'WIS', cha:'CHA' };
+const PRIMARY = 'str';
+
+function renderIdentity(s) {
+  const rows = [
+    ['Race',       'Minotaur'],
+    ['Class',      s.identity.class_long],
+    ['Background', 'Athlete (Charioteer)'],
+    ['Patron',     'Iroas · Devotee'],
+    ['Gift',       'Unscarred'],
+    ['Alignment',  'Chaotic Good'],
+    ['Languages',  'Common, Minotaur, Giant'],
+    ['Age',        s.identity.age]
+  ];
+  return rows.map(([k,v]) => `<div class="id-row"><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+}
+
+function renderSummary(s) {
+  return [
+    ['Hit Points', s.summary.hp, s.identity.hp_breakdown],
+    ['Armor Class', s.summary.ac, 'Unarmored Defense'],
+    ['Initiative', s.summary.init, ''],
+    ['Speed', s.summary.speed, ''],
+    ['Prof Bonus', s.summary.pb, ''],
+    ['Pass. Perc.', s.summary.pp, '']
+  ].map(([label, val, sub]) => `
+    <div class="sum-plate">
+      <div class="sp-label">${label}</div>
+      <div class="sp-value">${val}</div>
+      ${sub ? `<div class="sp-sub">${sub}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderAbilities(s) {
+  return ABILITY_ORDER.map(a => {
+    const ab = s.abilities[a];
+    const isPrimary = a === PRIMARY;
+    return `
+      <div class="ab-cell ${isPrimary ? 'primary' : ''}">
+        <div class="ab-name">${ABILITY_SHORT[a]}</div>
+        <div class="ab-mod">${ab.mod}</div>
+        <div class="ab-score">score ${ab.score}</div>
+        <div class="ab-save ${ab.prof ? 'prof' : ''}">save<span class="save-bonus">${ab.save}</span></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderSkills(s) {
+  const grouped = {};
+  ABILITY_ORDER.forEach(a => grouped[a] = []);
+  s.skills.forEach(sk => grouped[sk.ability].push(sk));
+  return ABILITY_ORDER.map(a => {
+    const list = grouped[a];
+    return `
+      <div class="skill-cat">
+        <div class="skill-cat-name">${ABILITY_SHORT[a]}</div>
+        ${list.length === 0
+          ? '<div class="skill-row dim"><span class="skill-name">—</span></div>'
+          : list.map(sk => `<div class="skill-row"><span class="skill-name">${sk.name}</span><span class="skill-bonus">${sk.bonus}</span></div>`).join('')
+        }
+      </div>
+    `;
+  }).join('');
+}
+
+function renderStage(i) {
+  const s = SNAPSHOTS[i];
+  document.getElementById('identity-target').innerHTML = renderIdentity(s);
+  document.getElementById('summary-target').innerHTML = renderSummary(s);
+  document.getElementById('abilities-target').innerHTML = renderAbilities(s);
+  document.getElementById('ab-note-target').textContent = s.ab_note;
+  document.getElementById('combat-target').innerHTML = s.combat_html;
+  document.getElementById('skills-target').innerHTML = renderSkills(s);
+  document.getElementById('skill-tool-target').innerHTML = s.tool_text;
+  document.getElementById('features-target').innerHTML = s.features_html;
+  document.getElementById('racial-target').innerHTML = s.racial_html;
+  document.getElementById('patron-target').innerHTML = s.patron_html;
+  document.getElementById('spellcasting-target').innerHTML = s.spellcasting_html;
+  document.getElementById('equipment-target').innerHTML = s.equipment_html;
+  document.getElementById('unscarred-target').innerHTML = s.unscarred;
+  document.getElementById('bio-l5-extra').innerHTML = s.bio_l5_extra;
+
+  document.querySelectorAll('#timeline .tl-node').forEach((n, idx) => n.classList.toggle('active', idx === i));
+}
+
+document.querySelectorAll('#timeline .tl-node').forEach((n, i) => {
+  n.addEventListener('click', () => renderStage(i));
+});
+renderStage(0);
+</script>
+</body>
+</html>

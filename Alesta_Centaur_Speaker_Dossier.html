@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Alesta Centaur-Speaker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --marble:        #ece8df;
+    --marble-warm:   #e2dccf;
+    --marble-cool:   #d8d4c8;
+    --marble-deep:   #c4bfb2;
+    --vein:          #b6b0a2;
+    --ink:           #1a1a18;
+    --ink-soft:      #3a3a36;
+    --ink-faint:     #6e6a60;
+    --rule:          #968f80;
+    --rule-soft:     #b4ada0;
+
+    /* Patron-deity accent — Nylea (forest-green / wood-brown trim) */
+    --accent:        #3a5a2a;
+    --accent-dark:   #1f3d18;
+    --accent-sec:    #a48650;
+    --accent-glaze:  rgba(58, 90, 42, 0.10);
+
+    /* Wax-seal accent — Nylea-tinted (deep moss) */
+    --seal:      #4a5e2a;
+    --seal-dark: #283418;
+
+    --class-tint: rgba(58, 90, 42, 0.05);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--marble);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.045' numOctaves='2' seed='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.42 0 0 0 0 0.38 0 0 0 0.4 0'/></filter><rect width='100%25' height='100%25' filter='url(%23m)'/></svg>"),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 600px 600px, 200px 200px;
+    opacity: 0.55;
+    mix-blend-mode: multiply;
+    z-index: 0;
+  }
+  body {
+    background-image:
+      linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 25%, var(--marble) 75%, var(--marble-cool) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 0 5rem;
+  }
+
+  .stele {
+    max-width: 1140px;
+    margin: 0 auto;
+    background:
+      linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 8%, var(--marble) 92%, var(--marble-cool) 100%);
+    padding: 0;
+    box-shadow:
+      0 1px 2px rgba(26, 22, 18, 0.10),
+      0 10px 32px rgba(26, 22, 18, 0.16),
+      0 28px 64px rgba(26, 22, 18, 0.10);
+    position: relative;
+    border: 1px solid var(--rule);
+    z-index: 1;
+  }
+  .stele::before,
+  .stele::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-dark) 100%);
+    opacity: 0.5;
+  }
+  .stele::before { left: 0; }
+  .stele::after  { right: 0; }
+
+  .doc { padding: 0 5rem 4rem; }
+
+  .meander {
+    height: 22px;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='22' viewBox='0 0 44 22'><path d='M0 17 L0 5 L11 5 L11 12 L6 12 L6 8 L17 8 L17 17 L11 17 L11 13 L22 13 L22 5 L33 5 L33 12 L28 12 L28 8 L39 8 L39 17 L44 17' fill='none' stroke='%231f3d18' stroke-width='1.4' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: auto 18px;
+    opacity: 0.85;
+    margin: 0;
+  }
+  .meander.thick { height: 30px; }
+  .meander.thick { background-size: auto 24px; }
+
+  .masthead-band {
+    position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+    padding: 3rem 5rem 2.75rem;
+  }
+  .masthead-band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  .masthead-band::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px; height: 28px;
+    background:
+      linear-gradient(135deg, transparent 49.5%, var(--marble) 50%) left bottom / 50% 100% no-repeat,
+      linear-gradient(225deg, transparent 49.5%, var(--marble) 50%) right bottom / 50% 100% no-repeat;
+    z-index: 2;
+  }
+  .masthead {
+    position: relative;
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    z-index: 1;
+  }
+  .portrait-frame {
+    position: relative;
+    width: 360px; height: 480px;
+    background: var(--marble-deep);
+    padding: 8px;
+    border: 1px solid var(--ink-soft);
+    box-shadow:
+      inset 0 0 0 2px var(--accent-sec),
+      inset 0 0 0 4px var(--marble-deep),
+      0 4px 14px rgba(0,0,0,0.30);
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    left: -1px; right: -1px; height: 12px;
+    background:
+      linear-gradient(180deg, var(--accent-sec) 0%, var(--accent) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .portrait-frame::before { top: -14px; }
+  .portrait-frame::after  { bottom: -14px; }
+  .portrait-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.03) saturate(0.97);
+  }
+  .portrait-frame.empty {
+    display: flex;
+    align-items: center; justify-content: center;
+    background: linear-gradient(180deg, var(--marble), var(--marble-deep));
+  }
+  .portrait-frame.empty .empty-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0 1rem;
+    line-height: 1.4;
+  }
+
+  .name-block { padding: 0.5rem 0 0; color: var(--marble); position: relative; z-index: 1; }
+  .name-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.52em;
+    color: rgba(255, 250, 235, 0.85);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  h1.dossier-name {
+    font-family: "Cinzel", serif;
+    font-weight: 800;
+    font-size: 4.4rem;
+    line-height: 0.95;
+    letter-spacing: 0.04em;
+    color: var(--marble);
+    margin: 0 0 0.45rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.35);
+    text-transform: uppercase;
+  }
+  .dossier-name .given { display: block; color: var(--marble); }
+  .dossier-name .epithet {
+    display: block;
+    font-weight: 500;
+    font-size: 0.45em;
+    color: var(--accent-sec);
+    letter-spacing: 0.18em;
+    margin-top: 0.4rem;
+    font-style: italic;
+    font-variant: normal;
+    text-transform: none;
+  }
+  .tagline {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: rgba(255, 250, 235, 0.95);
+    margin: 1.2rem 0 1.5rem;
+    max-width: 38em;
+    padding-left: 1rem;
+    border-left: 2px solid var(--accent-sec);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .identity-inscription {
+    margin: 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(255, 250, 235, 0.3);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 2.25rem;
+  }
+  .id-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+  .id-row dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: rgba(255, 250, 235, 0.55);
+    text-transform: uppercase;
+  }
+  .id-row dd {
+    margin: 0;
+    color: rgba(255, 250, 235, 0.96);
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  }
+
+  .deity-mark {
+    display: inline-block;
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--accent-sec);
+    margin-left: 0.6rem;
+    vertical-align: middle;
+    line-height: 1;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  }
+
+  .timeline-section {
+    background: var(--accent-glaze);
+    padding: 1.6rem 5rem;
+    position: relative;
+  }
+  .tl-label {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin: 0 0 1.1rem;
+  }
+  .tl-track {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 7rem;
+    position: relative;
+    padding: 0;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .tl-track::before {
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 16%; right: 16%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-sec), var(--accent), var(--accent-sec));
+    z-index: 0;
+  }
+  .tl-node {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: var(--ink-soft);
+    font-family: "EB Garamond", serif;
+    transition: color 0.2s ease;
+    min-width: 100px;
+  }
+  .tl-dot {
+    width: 18px; height: 18px;
+    border: 2px solid var(--accent-dark);
+    background: var(--marble);
+    margin-bottom: 0.55rem;
+    box-shadow: 0 0 0 3px var(--marble);
+    transition: all 0.2s ease;
+    transform: rotate(45deg);
+  }
+  .tl-node:hover .tl-dot {
+    border-color: var(--accent);
+    transform: rotate(45deg) scale(1.12);
+  }
+  .tl-node.active .tl-dot {
+    background: var(--seal);
+    border-color: var(--seal-dark);
+    box-shadow: 0 0 0 3px var(--marble), 0 0 0 5px rgba(74, 94, 42, 0.25);
+  }
+  .tl-node.active { color: var(--ink); }
+  .tl-top {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .tl-node.active .tl-top { color: var(--accent-dark); }
+  .tl-bot {
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+    font-style: italic;
+  }
+
+  section.block { margin: 2.5rem 0 0; padding: 0.5rem 0 1.5rem; position: relative; }
+  section.block + section.block { margin-top: 2rem; }
+
+  .section-h {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--accent-dark);
+    margin: 0 0 1.5rem;
+    padding: 0;
+    border: none;
+    text-align: center;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    position: relative;
+    display: block;
+  }
+  .section-h::before {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 14px;
+    margin: 0 auto 0.85rem;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%231f3d18' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.85;
+  }
+  .section-h .greek-chap {
+    display: block;
+    font-family: "Cinzel", serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.5em;
+    color: var(--accent);
+    margin-top: 0.5rem;
+    font-style: normal;
+    text-transform: uppercase;
+  }
+  h3.sub-h {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--accent-dark);
+    margin: 1.5rem 0 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  h4.subsub-h {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.32em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 1.1rem 0 0.5rem;
+    font-weight: 500;
+  }
+  p { margin: 0 0 1rem; }
+
+  .summary-strip {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    margin: 0.5rem 0;
+    background: var(--accent-glaze);
+    padding: 1rem 0.5rem;
+    border-top: 1.5px solid var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+  }
+  .sum-plate { text-align: center; padding: 0 0.5rem; border-right: 1px solid var(--rule-soft); }
+  .sum-plate:last-child { border-right: none; }
+  .sum-plate .sp-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .sum-plate .sp-value {
+    font-family: "Cinzel", serif;
+    font-size: 1.7rem;
+    color: var(--accent-dark);
+    line-height: 1.1;
+    font-weight: 700;
+    margin-top: 0.15rem;
+  }
+  .sum-plate .sp-sub {
+    font-family: "EB Garamond", serif;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 0.1rem;
+  }
+
+  .abilities-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+    margin: 0.5rem 0 1.25rem;
+  }
+  .ab-cell {
+    text-align: center;
+    padding: 1rem 0.4rem 0.85rem;
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--accent);
+    position: relative;
+  }
+  .ab-cell.primary {
+    border-top-width: 4px;
+    border-top-color: var(--accent-dark);
+    background: linear-gradient(180deg, rgba(164, 134, 80, 0.30) 0%, var(--marble-warm) 60%);
+  }
+  .ab-cell .ab-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .ab-cell .ab-mod {
+    font-family: "Cinzel", serif;
+    font-size: 2.1rem;
+    line-height: 1;
+    color: var(--ink);
+    font-weight: 800;
+  }
+  .ab-cell .ab-score {
+    font-family: "EB Garamond", serif;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+  }
+  .ab-cell .ab-save {
+    margin-top: 0.5rem;
+    padding-top: 0.4rem;
+    border-top: 1px dotted var(--rule);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .ab-cell .ab-save .save-bonus {
+    font-family: "Cinzel", serif;
+    font-size: 0.95rem;
+    color: var(--accent-dark);
+    margin-left: 0.25rem;
+    font-weight: 600;
+  }
+  .ab-cell .ab-save.prof::after {
+    content: " ★";
+    color: var(--seal);
+    margin-left: 0.15rem;
+  }
+  .ab-note { font-size: 0.88rem; color: var(--ink-faint); font-style: italic; text-align: center; margin-top: 0.5rem; }
+
+  .combat-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem 2.5rem;
+    margin: 0.5rem 0;
+  }
+  .combat-block dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; }
+  .combat-block dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    align-self: baseline;
+  }
+  .combat-block dd { margin: 0; font-family: "EB Garamond", serif; font-size: 0.98rem; color: var(--ink); }
+  .combat-block dd em { color: var(--ink-faint); font-size: 0.88rem; }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.1rem; margin: 1rem 0 1.5rem; }
+  .skill-cat { border-top: 2px solid var(--accent); padding-top: 0.6rem; }
+  .skill-cat-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    text-align: center;
+  }
+  .skill-row { display: flex; align-items: baseline; justify-content: space-between; gap: 0.4rem; padding: 0.18rem 0; font-size: 0.92rem; line-height: 1.3; color: var(--ink); }
+  .skill-row.dim { color: var(--ink-faint); font-style: italic; }
+  .skill-row .skill-name { flex: 1; }
+  .skill-row .skill-bonus { font-family: "Cinzel", serif; font-weight: 600; color: var(--accent-dark); }
+  .skill-row.expertise .skill-bonus { color: var(--seal); }
+  .skill-source { font-size: 0.82rem; color: var(--ink-faint); text-align: center; font-style: italic; margin-top: 0.6rem; }
+
+  .feat-block { font-size: 0.98rem; font-family: "EB Garamond", serif; }
+  .feat-block ul { padding-left: 1.2rem; margin: 0.5rem 0 1rem; }
+  .feat-block li { margin-bottom: 0.45rem; }
+  .feat-block strong { color: var(--accent-dark); font-weight: 600; }
+  .feat-block em { color: var(--ink-soft); }
+  .feat-block .aside {
+    font-style: italic;
+    color: var(--ink-faint);
+    font-size: 0.92rem;
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-soft);
+    margin: 0.6rem 0 1rem;
+  }
+  .feat-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    margin: 1rem 0;
+  }
+
+  .patron-section {
+    margin: 2.5rem -5rem 2.5rem;
+    padding: 0;
+    position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+  }
+  .patron-section::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: -22px; height: 22px;
+    background:
+      linear-gradient(45deg, transparent 49.5%, var(--accent) 50%) left top / 50% 100% no-repeat,
+      linear-gradient(315deg, transparent 49.5%, var(--accent) 50%) right top / 50% 100% no-repeat;
+    z-index: 0;
+  }
+  .patron-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+    z-index: 0;
+  }
+  .patron-inner {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem 6.5rem 2.75rem;
+  }
+  .patron-inner::before,
+  .patron-inner::after {
+    content: "";
+    position: absolute;
+    top: 2rem; bottom: 2rem;
+    width: 28px;
+    background:
+      linear-gradient(180deg,
+        var(--accent-sec) 0%, var(--accent-sec) 6%,
+        rgba(255,250,235,0.25) 6%, rgba(255,250,235,0.25) 8%,
+        rgba(255,250,235,0.15) 8%, rgba(255,250,235,0.15) 92%,
+        rgba(255,250,235,0.25) 92%, rgba(255,250,235,0.25) 94%,
+        var(--accent-sec) 94%, var(--accent-sec) 100%);
+    border-left: 1px solid rgba(255,250,235,0.25);
+    border-right: 1px solid rgba(255,250,235,0.25);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.10);
+  }
+  .patron-inner::before { left: 2.5rem; }
+  .patron-inner::after  { right: 2.5rem; }
+  .patron-section .section-h {
+    color: var(--marble);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.30);
+    letter-spacing: 0.36em;
+    margin-bottom: 1.5rem;
+  }
+  .patron-section .section-h::before {
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%23a48650' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+  }
+  .patron-section .section-h .greek-chap { color: var(--accent-sec); }
+  .patron-section h3.sub-h, .patron-section h4.subsub-h {
+    color: rgba(255, 250, 235, 0.95);
+    border-bottom-color: rgba(255, 250, 235, 0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.22);
+  }
+  .patron-section .feat-block { color: rgba(255, 250, 235, 0.94); }
+  .patron-section .feat-block strong { color: var(--accent-sec); }
+  .patron-section .feat-block em { color: rgba(255, 250, 235, 0.74); }
+  .patron-section .feat-block .aside {
+    color: rgba(255, 250, 235, 0.78);
+    border-left-color: rgba(255, 250, 235, 0.4);
+  }
+
+  .spell-block {
+    background: var(--class-tint);
+    border: 1px solid var(--rule-soft);
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+  .spell-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .spell-stats .ss-cell { text-align: center; padding: 0.25rem; }
+  .spell-stats .ss-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .spell-stats .ss-value { font-family: "Cinzel", serif; font-size: 1.4rem; color: var(--accent-dark); font-weight: 700; }
+  .spell-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .spell-table th, .spell-table td { text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px dotted var(--rule-soft); }
+  .spell-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .spell-table td.lvl { width: 3em; color: var(--accent-dark); font-weight: 600; font-family: "Cinzel", serif; }
+  .spell-table td.spell-name { font-style: italic; color: var(--ink); }
+  .slot-table { width: auto; margin: 0.5rem 0 1rem; border-collapse: collapse; font-size: 0.94rem; }
+  .slot-table th, .slot-table td { text-align: center; padding: 0.3rem 1rem; border: 1px solid var(--rule-soft); }
+  .slot-table th {
+    background: var(--accent-glaze);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .slot-table td { font-family: "Cinzel", serif; font-weight: 700; color: var(--accent-dark); }
+
+  .weapon-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .weapon-table th, .weapon-table td { text-align: left; padding: 0.45rem 0.7rem; border-bottom: 1px dotted var(--rule-soft); }
+  .weapon-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .weapon-table td.atk, .weapon-table td.dmg {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    color: var(--accent-dark);
+    white-space: nowrap;
+  }
+  .armor-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.2rem;
+    margin: 0.6rem 0;
+  }
+  .armor-name { font-family: "Cinzel", serif; font-weight: 700; font-size: 1rem; color: var(--accent-dark); letter-spacing: 0.06em; }
+  .armor-props { font-size: 0.88rem; color: var(--ink-soft); font-style: italic; margin-top: 0.25rem; }
+
+  .personality-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.5rem 0 1rem; }
+  .pers-card {
+    border-left: 3px solid var(--accent);
+    padding: 0.6rem 1.1rem;
+    background: var(--accent-glaze);
+  }
+  .pers-card.flaw {
+    border-left-color: var(--seal);
+    background: rgba(74, 94, 42, 0.07);
+  }
+  .pers-label {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .pers-card.flaw .pers-label { color: var(--seal-dark); }
+  .pers-text { font-style: italic; color: var(--ink); font-size: 1rem; line-height: 1.5; margin: 0; }
+
+  .connections-list { margin: 0.5rem 0 1rem; padding-left: 0; list-style: none; }
+  .connections-list li {
+    margin-bottom: 0.7rem;
+    padding-left: 1.4rem;
+    position: relative;
+    line-height: 1.55;
+  }
+  .connections-list li::before {
+    content: "▲";
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    top: 0.32em;
+    font-size: 0.65rem;
+  }
+  .connections-list strong { color: var(--accent-dark); }
+
+  .expedition-callout {
+    background: linear-gradient(180deg, var(--accent-glaze) 0%, rgba(58, 90, 42, 0.03) 100%);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    padding: 1.5rem 1.75rem;
+    margin: 1rem 0 0;
+    font-size: 1.02rem;
+    line-height: 1.6;
+  }
+  .expedition-callout p:last-child { margin-bottom: 0; }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    margin-top: 3rem;
+    color: var(--ink-faint);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+  }
+  .footer .meander {
+    margin-bottom: 1rem;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 1000px) {
+    .doc { padding: 0 1.5rem 2.5rem; }
+    .timeline-section { padding: 1.5rem 1.5rem; }
+    .masthead-band { padding: 2rem 1.5rem 2.5rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1.5rem; }
+    .portrait-frame { width: 100%; max-width: 320px; height: auto; aspect-ratio: 3/4; margin: 0 auto; }
+    h1.dossier-name { font-size: 2.8rem; }
+    .identity-inscription { grid-template-columns: 1fr; }
+    .summary-strip, .abilities-grid { grid-template-columns: repeat(3, 1fr); }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .combat-block, .personality-grid { grid-template-columns: 1fr; }
+    .patron-section { margin: 2rem -1.5rem; }
+    .patron-inner { padding: 2rem 1.5rem; }
+    .patron-inner::before, .patron-inner::after { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="stele">
+
+<!-- ============== MASTHEAD ============== -->
+<div class="masthead-band">
+  <div class="masthead">
+
+    <div class="portrait-frame">
+      <img src="../Theros 1st pass/Alesta.png" alt="Alesta Centaur-Speaker portrait">
+    </div>
+
+    <div class="name-block">
+      <div class="name-eyebrow">Dossier · Druid of Nylea</div>
+      <h1 class="dossier-name">
+        <span class="given">Alesta</span>
+        <span class="epithet">Centaur-Speaker</span>
+      </h1>
+      <p class="tagline">
+        A Nyxborn fragment of divinity wearing a human shape, born on the spring equinox at dawn and dedicated to Nylea on the same morning — her laughter causes birds to erupt in song.
+      </p>
+      <dl class="identity-inscription" id="identity-target"><!-- populated --></dl>
+    </div>
+
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- ============== TIMELINE ============== -->
+<div class="timeline-section">
+  <div class="tl-label">Stage of Career</div>
+  <div class="tl-track" id="timeline">
+    <button class="tl-node active" data-stage="0" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 1</div>
+      <div class="tl-bot">Pilgrim of the Stag</div>
+    </button>
+    <button class="tl-node" data-stage="1" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 5</div>
+      <div class="tl-bot">Circle of the Land</div>
+    </button>
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<div class="doc">
+
+<!-- BIO -->
+<section class="block">
+  <h2 class="section-h">Bio<span class="greek-chap">α · Vita</span></h2>
+  <p>Alesta's mother is an oread, and Alesta herself is Nyxborn — a fragment of divinity wearing a human shape, born on the spring equinox at dawn and dedicated to Nylea on the same morning. Her laughter causes birds to erupt in song. She has tremendous empathy for all who suffer, and a knack for healing things that are broken. She is currently undergoing a pilgrimage — a sacred hunt, not to kill but to <strong>speak with a golden stag</strong>.</p>
+  <p>She has lived in the Lagonna borderlands long enough to be called Centaur-Speaker. She is on the road as a young druid because the world is changing in ways the wood can feel before the cities can, and her own gods feel further away than they once did. Free thinking, she believes, is how we progress: inquiry and curiosity. She still seeks the enlightenment she sought in seclusion, and it still eludes her.</p>
+  <p id="bio-l5-extra"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- SUMMARY STRIP -->
+<section class="block">
+  <h2 class="section-h">At a Glance<span class="greek-chap">β · Synopsis</span></h2>
+  <div class="summary-strip" id="summary-target"></div>
+</section>
+
+<!-- ABILITY SCORES -->
+<section class="block">
+  <h2 class="section-h">Ability Scores<span class="greek-chap">γ · Dynámeis</span></h2>
+  <div class="abilities-grid" id="abilities-target"></div>
+  <p class="ab-note" id="ab-note-target"></p>
+</section>
+
+<!-- COMBAT & SENSES -->
+<section class="block">
+  <h2 class="section-h">Combat &amp; Senses<span class="greek-chap">δ · Mákhē</span></h2>
+  <div class="combat-block" id="combat-target"></div>
+</section>
+
+<!-- SKILLS -->
+<section class="block">
+  <h2 class="section-h">Skill Proficiencies<span class="greek-chap">ε · Tékhnai</span></h2>
+  <div class="skills-grid" id="skills-target"></div>
+  <p class="skill-source" id="skill-tool-target"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- CLASS FEATURES -->
+<section class="block">
+  <h2 class="section-h">Class Features<span class="greek-chap">ζ · Tákta</span></h2>
+  <div class="feat-block" id="features-target"></div>
+</section>
+
+<!-- RACIAL FEATURES -->
+<section class="block">
+  <h2 class="section-h">Racial Features — Variant Human<span class="greek-chap">η · Génos</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Ability Score Increase</strong>: +1 Con, +1 Wis (already applied).</li>
+      <li><strong>Skill Proficiency</strong>: Perception.</li>
+      <li><strong>Feat</strong>: Fey-Touched (see below).</li>
+      <li><strong>Languages</strong>: Common + one of choice. <em>Chosen: Leonin</em> (Akros borders leonin lands; useful for a Lagonna-region druid).</li>
+    </ul>
+  </div>
+
+  <h3 class="sub-h">Feat: Fey-Touched</h3>
+  <div class="feat-card">
+    <ul>
+      <li><strong>Ability Score Increase</strong>: +1 Wis (already applied).</li>
+      <li>Learn <strong><em>Misty Step</em></strong> and one 1st-level Divination or Enchantment spell — <em>chosen: <strong>Beast Bond</strong></em> (1st-level Divination on the Druid spell list — fits Alesta perfectly as the Centaur-Speaker).</li>
+      <li>Cast each spell <strong>once without expending a spell slot</strong>. Regain on a long rest. Can also cast either spell using a spell slot of the appropriate level.</li>
+      <li>Spellcasting ability: Wis (since both are also on the Druid spell list).</li>
+    </ul>
+    <p class="aside">Fey-Touched is a strong utility pick: Misty Step alone is a defensive teleport that helps Alesta's low AC/HP, and Beast Bond fits her "Centaur-Speaker" flavor while granting a beast advantage on attacks within 5 ft of her.</p>
+  </div>
+</section>
+
+<!-- SUPERNATURAL GIFT -->
+<section class="block">
+  <h2 class="section-h">Supernatural Gift — Nyxborn<span class="greek-chap">θ · Dóron</span></h2>
+  <div class="feat-block">
+    <p class="aside">Origin #1 — "One of my parents is a nyxborn, a nymph, or some other supernatural creature." Alesta's mother is an oread nymph.</p>
+    <ul>
+      <li><strong>Cloak of Stars</strong>: As an <strong>action</strong>, you wrap yourself in a starry cloak, appearing like a silhouette formed of the night sky. While the cloak is up, <strong>attack rolls have disadvantage against you</strong>. Lasts <strong>1 minute</strong>, until you doff it (no action required), or until you die. <strong>1/long rest.</strong></li>
+      <li><strong>Nyxborn Resistance</strong>: Resistance to <strong>necrotic AND radiant</strong> damage.</li>
+    </ul>
+    <p class="aside">Cloak of Stars is Alesta's emergency defense — a get-out-of-frontline button that turns her squishy AC 12 into a much more survivable target for an entire minute. Pair with Misty Step to disengage from melee, or with Pass Without Trace once she has it at L3. Nyxborn Resistance covers two damage types common in divine-themed Theros encounters.</p>
+  </div>
+</section>
+
+</div>
+
+<!-- PATRON GOD — temple panel -->
+<section class="patron-section">
+  <div class="patron-inner">
+    <h2 class="section-h">Patron God — Nylea, the Keen-Eyed<span class="greek-chap">ι · Theós</span></h2>
+    <div class="feat-block" id="patron-target"></div>
+  </div>
+</section>
+
+<div class="doc" style="padding-top: 1rem;">
+
+<!-- BACKGROUND -->
+<section class="block">
+  <h2 class="section-h">Background — Hermit<span class="greek-chap">κ · Bíos</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Skill Proficiencies</strong>: Medicine, Religion.</li>
+      <li><strong>Tool Proficiencies</strong>: Herbalism Kit.</li>
+      <li><strong>Languages</strong>: One of choice — <em>Sylvan</em> (for forest creatures, fey, and her nymph mother — necessary for a Nyxborn).</li>
+      <li><strong>Equipment</strong>: A scroll case stuffed with notes from her studies and prayers, a winter blanket, common clothes, an Herbalism Kit, 5 gp.</li>
+      <li><strong>Feature — Discovery</strong>: The quiet seclusion of your extended hermitage gave you access to a unique and powerful <strong>discovery</strong> (exact nature is up to the GM). Alesta's possibilities, given the pilgrimage frame: the golden stag's true name, a Lagonna-centaur lineage chart, or a Nylea-blessed seed that grows into a tree-shrine.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SPELLCASTING -->
+<section class="block">
+  <h2 class="section-h">Spellcasting<span class="greek-chap">λ · Goēteía</span></h2>
+  <div id="spellcasting-target"></div>
+</section>
+
+<!-- EQUIPMENT -->
+<section class="block">
+  <h2 class="section-h">Equipment<span class="greek-chap">μ · Hopla</span></h2>
+  <div id="equipment-target"></div>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- PERSONALITY -->
+<section class="block">
+  <h2 class="section-h">Personality<span class="greek-chap">ν · Êthos</span></h2>
+  <div class="personality-grid">
+    <div class="pers-card">
+      <div class="pers-label">Trait</div>
+      <p class="pers-text">"I have a tremendous empathy for all who suffer."</p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Ideal</div>
+      <p class="pers-text"><em>Free Thinking.</em> "Inquiry and curiosity are how we progress." <em>(The Nylea-aligned ideal — Stewardship, "We must care for the natural world as it cares for us" — is recorded in the Patron God block.)</em></p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Bond</div>
+      <p class="pers-text">"I'm still seeking the enlightenment I sought in seclusion, and it still eludes me."</p>
+    </div>
+    <div class="pers-card flaw">
+      <div class="pers-label">Flaw</div>
+      <p class="pers-text">"I am likely to risk too much to recover lost knowledge."</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECTIONS -->
+<section class="block">
+  <h2 class="section-h">Connections<span class="greek-chap">ξ · Philíai</span></h2>
+  <ul class="connections-list">
+    <li><strong>Thalassa Wavebinder</strong> — Alesta met Thalassa when she rescued her from an oread. <em>(Alesta's nymph kin can be capricious; Thalassa wandered into the wrong wood.)</em></li>
+    <li><strong>Orion Swiftarrow</strong> — Distant cousins, both sharing a connection to the Nyxborn. <em>(Alesta's mother is a nymph; Orion's father is a nymph; the two nymphs were sister and brother — something like first cousins.)</em></li>
+    <li><strong>Zephyrus</strong> — Both learned silence and meditation from a hermit druid deep in the forest.</li>
+    <li><strong>Kragar Stonehorn</strong> — She helped him pass peacefully through the Lagonna-controlled forests, then showed him a softer side of the world. An unlikely friendship.</li>
+  </ul>
+</section>
+
+<!-- EXPEDITION -->
+<section class="block">
+  <h2 class="section-h">Why Alesta is on the Expedition<span class="greek-chap">ο · Hodós</span></h2>
+  <div class="expedition-callout">
+    <p><strong>Cultural Mediation.</strong> Her role as a centaur ambassador could force her to broker peace between groups fighting over dwindling resources. The Fallow Year stresses the Lagonna borderlands harder than most places — centaur tribes need land, satyrs need land, the human poleis push outward.</p>
+    <p>A Centaur-Speaker who also speaks human, leonin, and Sylvan, who has Nylea's favor and a nymph mother, is exactly the person each side wants to talk to and each side suspects of being secretly aligned with another. Alesta walks the pilgrimage of the golden stag partly because it's a holy quest and partly because being on the move is the only way to stay out of any one camp's claim on her loyalty.</p>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div class="meander" aria-hidden="true"></div>
+  Player Character Dossier · Theros, The Fallow Season
+</footer>
+
+</div>
+
+<script>
+const SNAPSHOTS = [
+  {
+    stage: "L1",
+    level: 1,
+    pb: 2,
+    identity: { class_long: "Druid 1", age: "—", hp_breakdown: "8 (d8 max 8 + Con +0)" },
+    summary: { hp: 8, ac: 12, init: "−1", speed: "30 ft.", pb: "+2", pp: 16 },
+    abilities: {
+      str:{score: 9, mod:"−1", save:"−1", prof:false},
+      dex:{score: 9, mod:"−1", save:"−1", prof:false},
+      con:{score:11, mod:"+0", save:"+0", prof:false},
+      int:{score:13, mod:"+1", save:"+3", prof:true},
+      wis:{score:18, mod:"+4", save:"+6", prof:true},
+      cha:{score:14, mod:"+2", save:"+2", prof:false}
+    },
+    ab_note: "Rolled array 9, 9, 10, 13, 14, 16 → slotted Str 9 / Dex 9 / Con 10 / Int 13 / Wis 16 / Cha 14. Variant Human +1 Con (→11), +1 Wis (→17). Fey-Touched feat +1 Wis (→18).",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+2</dd>
+        <dt>Armor Class</dt><dd>12 <em>(leather 11 + Dex −1 + wooden shield +2)</em></dd>
+        <dt>Initiative</dt><dd>−1</dd>
+        <dt>Speed</dt><dd>30 ft.</dd>
+        <dt>Hit Points</dt><dd>8 <em>(d8 max 8 + Con +0)</em></dd>
+        <dt>Hit Dice</dt><dd>1d8</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>16 <em>(10 + Wis +4 + PB +2 — Perception proficient via VH skill)</em></dd>
+        <dt>Special Senses</dt><dd>—</dd>
+        <dt>Creature Type</dt><dd>Humanoid (Human)</dd>
+        <dt>Druid DC / Atk</dt><dd><strong>14</strong> / +6 <em>(8 + PB +2 + Wis +4)</em></dd>
+      </dl>
+      <p class="aside">Low Dex + low Con means Alesta is fragile in combat. Cloak of Stars (Nyxborn, 1/long rest) gives attackers disadvantage for 1 min; Nyxborn Resistance covers necrotic and radiant. Outside those windows, she relies on positioning, party screening, and the eventual Wild Shape at L2 to soak hits.</p>
+    `,
+    skills: [
+      {name:"Medicine",    ability:"wis", bonus:"+6", source:"Hermit"},
+      {name:"Nature",      ability:"int", bonus:"+3", source:"Druid"},
+      {name:"Perception",  ability:"wis", bonus:"+6", source:"Variant Human"},
+      {name:"Religion",    ability:"int", bonus:"+3", source:"Hermit"},
+      {name:"Survival",    ability:"wis", bonus:"+6", source:"Druid"}
+    ],
+    tool_text: "Tools: Herbalism Kit (Druid). Druid picks Nature + Survival from class list; Hermit grants Medicine + Religion; Variant Human grants Perception.",
+    features_html: `
+      <h3 class="sub-h">Druid (Level 1)</h3>
+      <ul>
+        <li><strong>Druidic</strong>: You know <strong>Druidic</strong>, the secret language of druids. You can speak the language and use it to leave hidden messages. You and others who know this language automatically spot such a message. Others spot the message's presence with a DC 15 Wis (Perception) check but can't decipher it without magic.</li>
+        <li><strong>Spellcasting</strong>: <strong>Wisdom</strong> is your spellcasting ability. Use a druidic focus (sprig of mistletoe or holly, a wand or scepter of yew, a staff drawn whole from a living tree, or a totem object — Alesta's: a yew staff entwined with living vines).
+          <ul>
+            <li><strong>Cantrips known</strong>: 2 at L1.</li>
+            <li><strong>Prepared spells</strong>: Wis mod +4 + Druid level 1 = <strong>5 prepared spells</strong>. Change list on long rest (1 min/spell level per spell).</li>
+            <li><strong>Ritual Casting</strong>: Cast any prepared Druid spell with the ritual tag as a ritual.</li>
+          </ul>
+        </li>
+        <li><strong>Druids and Metal Armor</strong>: Druids will not wear armor or use shields made of <strong>metal</strong>. Leather, padded, hide, and wooden/dragonhide shields are all fine.</li>
+      </ul>
+    `,
+    patron_html: `
+      <h3 class="sub-h">Piety 3 — Devotee</h3>
+      <ul>
+        <li><strong>Source of godly favor</strong>: "You were born at dawn on the spring equinox, a sign of Nylea's favor."</li>
+        <li><strong>Godly ideal</strong> (alternative; see Personality): <em>Stewardship.</em> "We must care for the natural world as it cares for us."</li>
+        <li><strong>Devotee Trait (Piety 3+)</strong>: As a devotee of Nylea, you have proven yourself a guardian of the wilds. You can cast <em>hunter's mark</em> with this trait. Uses = Wis mod (min 1) = <strong>4/long rest</strong>. <strong>Wisdom</strong> is the spellcasting ability.</li>
+      </ul>
+      <h4 class="subsub-h">Nylea-granted spell stats (Wis-based, same as Druid)</h4>
+      <ul>
+        <li><strong>Spell save DC</strong> = 8 + PB +2 + Wis +4 = <strong>14</strong></li>
+        <li><strong>Spell attack</strong> = PB +2 + Wis +4 = <strong>+6</strong></li>
+        <li><em>Hunter's mark</em>: bonus action; choose a target within 90 ft; <strong>+1d6</strong> damage on weapon attacks against that target; advantage on Wis (Perception/Survival) to find it; concentration 1 hour. If target drops to 0 HP, transfer to a new target with another bonus action.</li>
+      </ul>
+      <p class="aside">4 uses/long rest is generous — Alesta can keep <em>hunter's mark</em> up across most of an adventuring day, especially since the trait makes it free (no slot).</p>
+    `,
+    spellcasting_html: `
+      <div class="spell-block">
+        <div class="spell-stats">
+          <div class="ss-cell"><div class="ss-label">Save DC</div><div class="ss-value">14</div></div>
+          <div class="ss-cell"><div class="ss-label">Spell Attack</div><div class="ss-value">+6</div></div>
+          <div class="ss-cell"><div class="ss-label">Prepared</div><div class="ss-value">5</div></div>
+          <div class="ss-cell"><div class="ss-label">Ability</div><div class="ss-value">Wis</div></div>
+        </div>
+
+        <h3 class="sub-h">Spell Slots</h3>
+        <table class="slot-table">
+          <thead><tr><th>1st</th></tr></thead>
+          <tbody><tr><td>2</td></tr></tbody>
+        </table>
+
+        <h3 class="sub-h">Cantrips Known (2 at L1)</h3>
+        <table class="spell-table">
+          <tbody>
+            <tr><td class="lvl">0</td><td class="spell-name">Produce Flame</td><td>Conjuration</td><td>10-ft bright + 10-ft dim light flickering in hand for 10 min; hurl as ranged spell attack +6 within 30 ft for <strong>1d8 fire</strong>.</td></tr>
+            <tr><td class="lvl">0</td><td class="spell-name">Druidcraft</td><td>Transmutation</td><td>30 ft. Weather prediction for 24 hours; bloom a flower/pod/leaf bud; small sensory effect in 5-ft cube; light/snuff a candle, torch, or campfire.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Prepared Spells (5 at L1)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Lvl</th><th>Spell</th><th>School</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="lvl">1</td><td class="spell-name">Cure Wounds</td><td>Evocation</td><td>Touch, <strong>1d8 + 4</strong> HP.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Faerie Fire</td><td>Evocation, C</td><td>60 ft, 20-ft cube, Dex save DC 14; outlined targets glow (no Invisible benefits), attackers gain advantage. Concentration, 1 min.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Entangle</td><td>Conjuration, C</td><td>90 ft, 20-ft square, Str save DC 14 or restrained; difficult terrain in area. Concentration, 1 min.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Healing Word</td><td>Evocation, BA</td><td>60 ft, <strong>1d4 + 4</strong> HP. Bonus action emergency revive.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Goodberry</td><td>Transmutation</td><td>10 berries; each restores <strong>1 HP</strong> and acts as a day's food. Last 24 hours.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Spells via Fey-Touched (no slot needed, 1/long rest each)</h3>
+        <ul>
+          <li><strong><em>Misty Step</em></strong> (Conjuration, BA, 30 ft self-teleport). 1/long rest free.</li>
+          <li><strong><em>Beast Bond</em></strong> (Divination, C, touch). Telepathic link with a willing/charmed beast (Int 3 or lower); while linked, beast has advantage on attacks vs anyone within 5 ft of you. 1/long rest free.</li>
+        </ul>
+
+        <h3 class="sub-h">Spells via Other Traits (no slot needed)</h3>
+        <ul>
+          <li><strong><em>Hunter's Mark</em></strong> (Nylea Devotee — Wis, 4/long rest, no slot, concentration, BA).</li>
+        </ul>
+      </div>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Scimitar</td><td class="atk">+1</td><td class="dmg">1d6 − 1 slashing</td><td>Martial, finesse, light. <em>Druid simple-weapon-list exception.</em></td></tr>
+          <tr><td>Quarterstaff (1-handed)</td><td class="atk">+1</td><td class="dmg">1d6 − 1 bludgeoning</td><td>Simple, versatile (1d8 two-handed). <em>Druidic focus form — usable as casting focus and weapon.</em></td></tr>
+          <tr><td>Sling</td><td class="atk">+1</td><td class="dmg">1d4 − 1 bludgeoning</td><td>Simple ranged, range 30/120.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">Leather Armor</div>
+        <div class="armor-props">Light · AC 11 + Dex unlimited</div>
+      </div>
+      <div class="armor-card">
+        <div class="armor-name">Wooden Shield</div>
+        <div class="armor-props">+2 AC · druid-permissible (non-metal)</div>
+      </div>
+      <h3 class="sub-h">Druidic Focus, Tools &amp; Personal Items</h3>
+      <ul>
+        <li><strong>Yew staff entwined with living vines</strong> — druidic focus; also serves as her quarterstaff.</li>
+        <li><strong>Herbalism Kit</strong> (Druid).</li>
+        <li><strong>Scroll case with notes</strong> — her pilgrimage logs, golden-stag sightings, nymph genealogies.</li>
+        <li>Winter blanket.</li>
+        <li>Common clothes.</li>
+        <li><strong>Explorer's Pack</strong>: backpack, bedroll, mess kit, tinderbox, 10 torches, 10 days of rations, waterskin, 50 ft. hempen rope.</li>
+      </ul>
+      <p><strong>Money</strong>: 5 gp <em>(Hermit starting pouch)</em>.</p>
+    `,
+    bio_l5_extra: ``
+  },
+  {
+    stage: "L5",
+    level: 5,
+    pb: 3,
+    identity: { class_long: "Druid 5 — Circle of the Land (Grassland)", age: "29", hp_breakdown: "28 (L1: 8 + Con +0 = 8; L2–5: 4 × (avg 5 + Con +0) = 20; total 28)" },
+    summary: { hp: 28, ac: 12, init: "−1", speed: "30 ft.", pb: "+3", pp: 18 },
+    abilities: {
+      str:{score: 9, mod:"−1", save:"−1", prof:false},
+      dex:{score: 9, mod:"−1", save:"−1", prof:false},
+      con:{score:11, mod:"+0", save:"+0", prof:false},
+      int:{score:13, mod:"+1", save:"+4", prof:true},
+      wis:{score:20, mod:"+5", save:"+8", prof:true},
+      cha:{score:14, mod:"+2", save:"+2", prof:false}
+    },
+    ab_note: "Same base array. VH +1 Con / +1 Wis; Fey-Touched +1 Wis (→ 18 at L1). Level 4 ASI: +2 Wis (18 → 20). Maxes Wis. Raises spell save DC to 16, spell attack to +8, Nylea Devotee uses 4 → 5/long rest, passive Perception to 18.",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+3</dd>
+        <dt>Armor Class</dt><dd>12 <em>(leather 11 + Dex −1 + wooden shield +2)</em></dd>
+        <dt>Initiative</dt><dd>−1</dd>
+        <dt>Speed</dt><dd>30 ft.</dd>
+        <dt>Hit Points</dt><dd>28 <em>(L1: 8; L2–5: 4 × 5 = 20; total 28)</em></dd>
+        <dt>Hit Dice</dt><dd>5d8</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>18 <em>(10 + Wis +5 + PB +3)</em></dd>
+        <dt>Special Senses</dt><dd>—</dd>
+        <dt>Creature Type</dt><dd>Humanoid (Human)</dd>
+        <dt>Druid DC / Atk</dt><dd><strong>16</strong> / +8 <em>(8 + PB +3 + Wis +5)</em></dd>
+      </dl>
+      <p class="aside">Low HP/AC means Wild Shape, Cloak of Stars, Misty Step, Pass Without Trace, and Invisibility are Alesta's defensive layer. She is a back-line caster who can become a frontline brawler temporarily through Wild Shape (CR 1/2 cap at L5; no fly until L8). Best L5 combat forms: <em>giant frog</em>, <em>crocodile</em>, <em>giant badger</em>. For scouting: <em>giant rat</em>, <em>wolf</em>.</p>
+    `,
+    skills: [
+      {name:"Medicine",    ability:"wis", bonus:"+8", source:"Hermit"},
+      {name:"Nature",      ability:"int", bonus:"+4", source:"Druid"},
+      {name:"Perception",  ability:"wis", bonus:"+8", source:"Variant Human"},
+      {name:"Religion",    ability:"int", bonus:"+4", source:"Hermit"},
+      {name:"Survival",    ability:"wis", bonus:"+8", source:"Druid"}
+    ],
+    tool_text: "Tools: Herbalism Kit (Druid). All Wis-based skills scale with the Wis 20 ASI bump.",
+    features_html: `
+      <h3 class="sub-h">Druid (Base)</h3>
+      <ul>
+        <li><strong>Druidic</strong> (L1): Secret druid language. Leave hidden messages, DC 15 Wis (Perception) to spot, can't decipher without magic.</li>
+        <li><strong>Spellcasting</strong> (L1): Wis-based. <strong>Prepared spells = Wis mod +5 + Druid level 5 = 10 prepared spells.</strong> Circle spells always prepared, don't count. Switch on long rest.</li>
+        <li><strong>Druids and Metal Armor</strong>: Will not wear metal armor or use metal shields. Leather + wooden shield only.</li>
+        <li><strong>Wild Shape</strong> (L2): As an <strong>action</strong>, transform into a beast you've seen. <strong>2 uses per short rest</strong>. Duration: hours equal to half Druid level rounded down = <strong>2 hours</strong>. At L5: max CR 1/2; swim OK; <strong>no fly until L8</strong>.
+          <ul>
+            <li>Use HP, AC, attack bonuses, special senses, and movement of the beast.</li>
+            <li>Keep your own Int, Wis, Cha, prof bonus (or beast's, whichever is higher in matching skills), saving throw proficiencies (plus beast's), and class features compatible with the new form (Cloak of Stars stays available; Nylea Devotee stays available).</li>
+            <li><strong>Can't cast spells</strong> while in Wild Shape (until L18 Beast Spells; Beast Bond at-distance link is unaffected since it's already cast).</li>
+            <li>Equipment merges into the new form, falls to the ground, or is worn on the form (your choice).</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3 class="sub-h">Circle of the Land — Grassland (Subclass, chosen at L2)</h3>
+      <ul>
+        <li><strong>Bonus Cantrip</strong> (L2): Learn one additional Druid cantrip. <em>Chosen: <strong>Shillelagh</strong></em> (quarterstaff/club +Wis attacks, 1d8 damage, magical, 1 min). Doesn't count against cantrips known.</li>
+        <li><strong>Natural Recovery</strong> (L2): During a short rest, recover spell slots up to combined level = half Druid level rounded up = <strong>3 slot-levels at L5</strong> (no slots ≥ 6th). <strong>1 use per long rest.</strong> Example uses: one 3rd + nothing; one 2nd + one 1st; three 1st-level slots.</li>
+        <li><strong>Circle Spells (Grassland)</strong>: Always prepared, don't count against the 10.
+          <ul>
+            <li>L3 (Druid 3): <em>Invisibility</em>, <em>Pass Without Trace</em></li>
+            <li>L5 (Druid 5): <em>Daylight</em>, <em>Haste</em></li>
+          </ul>
+        </li>
+      </ul>
+    `,
+    patron_html: `
+      <h3 class="sub-h">Piety 3 — Devotee</h3>
+      <ul>
+        <li><strong>Source of godly favor</strong>: "You were born at dawn on the spring equinox, a sign of Nylea's favor."</li>
+        <li><strong>Godly ideal</strong> (alternative; see Personality): <em>Stewardship.</em> "We must care for the natural world as it cares for us."</li>
+        <li><strong>Devotee Trait (Piety 3+)</strong>: Cast <em>hunter's mark</em> via this trait. Uses = Wis mod = <strong>5/long rest</strong>. <strong>Wisdom</strong>-based.</li>
+      </ul>
+      <h4 class="subsub-h">Nylea-granted spell stats (Wis-based, same as Druid)</h4>
+      <ul>
+        <li><strong>Spell save DC</strong> = 8 + PB +3 + Wis +5 = <strong>16</strong></li>
+        <li><strong>Spell attack</strong> = PB +3 + Wis +5 = <strong>+8</strong></li>
+        <li><em>Hunter's mark</em>: BA, 90 ft. target, <strong>+1d6</strong> weapon damage vs target, advantage on Wis (Per/Sur) to find it, concentration 1 hour. Re-target if it drops.</li>
+      </ul>
+      <p class="aside">5 free <em>hunter's mark</em> casts/long rest at concentration-1-hour: Alesta can have a mark up most of an adventuring day. Stack with Shillelagh on her quarterstaff at +8 to hit, 1d8+5 +1d6 = ~12 avg damage per hit, no slot used. Strong sustained-damage build via cantrip + trait.</p>
+    `,
+    spellcasting_html: `
+      <div class="spell-block">
+        <div class="spell-stats">
+          <div class="ss-cell"><div class="ss-label">Save DC</div><div class="ss-value">16</div></div>
+          <div class="ss-cell"><div class="ss-label">Spell Attack</div><div class="ss-value">+8</div></div>
+          <div class="ss-cell"><div class="ss-label">Prepared</div><div class="ss-value">10</div></div>
+          <div class="ss-cell"><div class="ss-label">Ability</div><div class="ss-value">Wis</div></div>
+        </div>
+
+        <h3 class="sub-h">Spell Slots</h3>
+        <table class="slot-table">
+          <thead><tr><th>1st</th><th>2nd</th><th>3rd</th></tr></thead>
+          <tbody><tr><td>4</td><td>3</td><td>2</td></tr></tbody>
+        </table>
+
+        <h3 class="sub-h">Cantrips Known (3 Druid-counted + 1 Circle Bonus = 4 total)</h3>
+        <table class="spell-table">
+          <tbody>
+            <tr><td class="lvl">0</td><td class="spell-name">Produce Flame</td><td>Conjuration</td><td>10-ft light; hurl as ranged spell attack +8 for <strong>2d8 fire</strong> (L5 cantrip scaling). 30-ft range.</td></tr>
+            <tr><td class="lvl">0</td><td class="spell-name">Druidcraft</td><td>Transmutation</td><td>Weather prediction, bloom, sensory effect, light/snuff a flame.</td></tr>
+            <tr><td class="lvl">0</td><td class="spell-name">Thorn Whip</td><td>Transmutation</td><td>30-ft melee spell attack +8, <strong>2d6 piercing</strong> (L5 scaling), pull Large-or-smaller target 10 ft toward you.</td></tr>
+            <tr><td class="lvl">0</td><td class="spell-name">Shillelagh</td><td>Transmutation, BA</td><td><em>(Circle Bonus.)</em> Imbue a club or quarterstaff for 1 min: use Wis for melee attacks, damage die becomes 1d8, magical.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Prepared Spells (10 at L5)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Lvl</th><th>Spell</th><th>School</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="lvl">1</td><td class="spell-name">Cure Wounds</td><td>Evocation</td><td>Touch, <strong>1d8 + 5</strong> HP.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Healing Word</td><td>Evocation, BA</td><td>60 ft, <strong>1d4 + 5</strong> HP.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Faerie Fire</td><td>Evocation, C</td><td>60 ft, 20-ft cube, Dex save DC 16; outlined targets glow, attackers gain advantage. Concentration, 1 min.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Entangle</td><td>Conjuration, C</td><td>90 ft, 20-ft square, Str save DC 16 or restrained; difficult terrain. Concentration, 1 min.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Goodberry</td><td>Transmutation</td><td>10 berries; each 1 HP + day's food. 24 hr.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Moonbeam</td><td>Evocation, C</td><td>120 ft, 5-ft radius, 40-ft high cylinder; Con save DC 16 or <strong>2d10 radiant</strong>; move 60 ft as bonus action. Concentration, 1 min.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Heat Metal</td><td>Transmutation, C</td><td>60 ft; metal object glows red-hot; <strong>2d8 fire</strong> + Con save DC 16 to keep holding it / disadvantage on attacks if held. Bonus action each turn to repeat.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Lesser Restoration</td><td>Abjuration</td><td>Touch; end blindness/deafness/paralysis/poison or one disease.</td></tr>
+            <tr><td class="lvl">3</td><td class="spell-name">Conjure Animals</td><td>Conjuration, C</td><td>60 ft; summon fey beasts (1 CR 2, 2 CR 1, 4 CR 1/2, or 8 CR 1/4) for 1 hour. Concentration.</td></tr>
+            <tr><td class="lvl">3</td><td class="spell-name">Call Lightning</td><td>Conjuration, C</td><td>120 ft; 60-ft radius storm cloud 100 ft up. Action to call a bolt to a 5-ft radius point — Dex save DC 16 or <strong>3d10 lightning</strong>. Repeat each turn. Concentration, 10 min.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Subclass-granted spells (always prepared, don't count against the 10)</h3>
+        <table class="spell-table">
+          <tbody>
+            <tr><td class="lvl">2</td><td class="spell-name">Invisibility</td><td>Illusion, C</td><td>Touch; target becomes invisible until they attack/cast a spell. Concentration, 1 hour.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Pass Without Trace</td><td>Abjuration, C</td><td>+10 Stealth and untrackable for the group (within 30 ft. of caster). Concentration, 1 hour.</td></tr>
+            <tr><td class="lvl">3</td><td class="spell-name">Daylight</td><td>Evocation</td><td>60-ft sphere of bright light + 60 ft of dim. 1 hour.</td></tr>
+            <tr><td class="lvl">3</td><td class="spell-name">Haste</td><td>Transmutation, C</td><td>+2 AC, advantage on Dex saves, doubled speed, one extra action (limited list). Concentration, 1 min. Lethargy on drop.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Spells via Fey-Touched (no slot needed, 1/long rest each)</h3>
+        <ul>
+          <li><strong><em>Misty Step</em></strong> (BA, 30 ft self-teleport). Also castable with a 2nd-level slot.</li>
+          <li><strong><em>Beast Bond</em></strong> (C, touch). Telepathic link with a willing/charmed beast (Int 3 or lower); beast has advantage on attacks vs anyone within 5 ft of you. Also castable with a 1st-level slot.</li>
+        </ul>
+
+        <h3 class="sub-h">Spells via Other Traits (no slot needed)</h3>
+        <ul>
+          <li><strong><em>Hunter's Mark</em></strong> (Nylea Devotee — Wis, 5/long rest, no slot, concentration, BA).</li>
+        </ul>
+      </div>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Quarterstaff (normal)</td><td class="atk">+2</td><td class="dmg">1d6 − 1 bludgeoning</td><td>Simple, versatile (1d8 − 1 two-handed).</td></tr>
+          <tr><td>Quarterstaff <em>(Shillelagh)</em></td><td class="atk">+8</td><td class="dmg">1d8 + 5 bludgeoning</td><td><strong>Magical</strong> for 1 min; bonus action to imbue. Primary weapon — stacks with hunter's mark for +1d6 vs marked target.</td></tr>
+          <tr><td>Scimitar</td><td class="atk">+2</td><td class="dmg">1d6 − 1 slashing</td><td>Martial, finesse, light.</td></tr>
+          <tr><td>Sling</td><td class="atk">+2</td><td class="dmg">1d4 − 1 bludgeoning</td><td>Simple ranged, range 30/120.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">Leather Armor</div>
+        <div class="armor-props">Light · AC 11 + Dex unlimited</div>
+      </div>
+      <div class="armor-card">
+        <div class="armor-name">Wooden Shield</div>
+        <div class="armor-props">+2 AC · druid-permissible (non-metal)</div>
+      </div>
+      <h3 class="sub-h">Druidic Focus, Tools &amp; Personal Items</h3>
+      <ul>
+        <li><strong>Yew staff entwined with living vines</strong> — druidic focus; also serves as her quarterstaff.</li>
+        <li><strong>Herbalism Kit</strong>.</li>
+        <li><strong>Scroll case with pilgrimage notes</strong>.</li>
+        <li>Winter blanket.</li>
+        <li>Common clothes.</li>
+        <li><strong>Explorer's Pack</strong>: backpack, bedroll, mess kit, tinderbox, 10 torches, 10 days of rations, waterskin, 50 ft. hempen rope.</li>
+      </ul>
+      <p><strong>Money</strong>: 5 gp <em>(starting; campaign accumulation not tracked)</em>.</p>
+    `,
+    bio_l5_extra: `In the years since her pilgrimage began, she has joined the Circle of the Land at a Grassland-grove south of the Nessian Wood; learned the wood's silence and meditation alongside Zephyrus; pulled Thalassa Wavebinder out of a confrontation with one of her oread cousins; and guided Kragar Stonehorn through the Lagonna-controlled forests where his minotaur pride would otherwise have gotten him killed. She still seeks the enlightenment she sought in seclusion, and it still eludes her — but now she suspects the seeking <em>is</em> the answer.`
+  }
+];
+
+const ABILITY_ORDER = ['str','dex','con','int','wis','cha'];
+const ABILITY_SHORT = { str:'STR', dex:'DEX', con:'CON', int:'INT', wis:'WIS', cha:'CHA' };
+const PRIMARY = 'wis';
+
+function renderIdentity(s) {
+  const rows = [
+    ['Race',       'Variant Human'],
+    ['Class',      s.identity.class_long],
+    ['Background', 'Hermit'],
+    ['Patron',     'Nylea · Devotee'],
+    ['Gift',       'Nyxborn'],
+    ['Alignment',  'Chaotic Good'],
+    ['Languages',  'Common, Leonin, Druidic, Sylvan'],
+    ['Age',        s.identity.age]
+  ];
+  return rows.map(([k,v]) => `<div class="id-row"><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+}
+
+function renderSummary(s) {
+  return [
+    ['Hit Points', s.summary.hp, s.identity.hp_breakdown],
+    ['Armor Class', s.summary.ac, 'leather + wooden shield'],
+    ['Initiative', s.summary.init, ''],
+    ['Speed', s.summary.speed, ''],
+    ['Prof Bonus', s.summary.pb, ''],
+    ['Pass. Perc.', s.summary.pp, '']
+  ].map(([label, val, sub]) => `
+    <div class="sum-plate">
+      <div class="sp-label">${label}</div>
+      <div class="sp-value">${val}</div>
+      ${sub ? `<div class="sp-sub">${sub}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderAbilities(s) {
+  return ABILITY_ORDER.map(a => {
+    const ab = s.abilities[a];
+    const isPrimary = a === PRIMARY;
+    return `
+      <div class="ab-cell ${isPrimary ? 'primary' : ''}">
+        <div class="ab-name">${ABILITY_SHORT[a]}</div>
+        <div class="ab-mod">${ab.mod}</div>
+        <div class="ab-score">score ${ab.score}</div>
+        <div class="ab-save ${ab.prof ? 'prof' : ''}">save<span class="save-bonus">${ab.save}</span></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderSkills(s) {
+  const grouped = {};
+  ABILITY_ORDER.forEach(a => grouped[a] = []);
+  s.skills.forEach(sk => grouped[sk.ability].push(sk));
+  return ABILITY_ORDER.map(a => {
+    const list = grouped[a];
+    return `
+      <div class="skill-cat">
+        <div class="skill-cat-name">${ABILITY_SHORT[a]}</div>
+        ${list.length === 0
+          ? '<div class="skill-row dim"><span class="skill-name">—</span></div>'
+          : list.map(sk => `<div class="skill-row"><span class="skill-name">${sk.name}</span><span class="skill-bonus">${sk.bonus}</span></div>`).join('')
+        }
+      </div>
+    `;
+  }).join('');
+}
+
+function renderStage(i) {
+  const s = SNAPSHOTS[i];
+  document.getElementById('identity-target').innerHTML = renderIdentity(s);
+  document.getElementById('summary-target').innerHTML = renderSummary(s);
+  document.getElementById('abilities-target').innerHTML = renderAbilities(s);
+  document.getElementById('ab-note-target').textContent = s.ab_note;
+  document.getElementById('combat-target').innerHTML = s.combat_html;
+  document.getElementById('skills-target').innerHTML = renderSkills(s);
+  document.getElementById('skill-tool-target').innerHTML = s.tool_text;
+  document.getElementById('features-target').innerHTML = s.features_html;
+  document.getElementById('patron-target').innerHTML = s.patron_html;
+  document.getElementById('spellcasting-target').innerHTML = s.spellcasting_html;
+  document.getElementById('equipment-target').innerHTML = s.equipment_html;
+  document.getElementById('bio-l5-extra').innerHTML = s.bio_l5_extra;
+
+  document.querySelectorAll('#timeline .tl-node').forEach((n, idx) => n.classList.toggle('active', idx === i));
+}
+
+document.querySelectorAll('#timeline .tl-node').forEach((n, i) => {
+  n.addEventListener('click', () => renderStage(i));
+});
+renderStage(0);
+</script>
+</body>
+</html>

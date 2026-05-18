@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Helena of Akros</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Marble substrate — cooler, off-white, less papyrus */
+    --marble:        #ece8df;
+    --marble-warm:   #e2dccf;
+    --marble-cool:   #d8d4c8;
+    --marble-deep:   #c4bfb2;
+    --vein:          #b6b0a2;
+    --ink:           #1a1a18;
+    --ink-soft:      #3a3a36;
+    --ink-faint:     #6e6a60;
+    --rule:          #968f80;
+    --rule-soft:     #b4ada0;
+
+    /* Patron-deity accent — Heliod (warm gold / sun-disk) */
+    --accent:        #c89846;
+    --accent-dark:   #8a6420;
+    --accent-sec:    #e8d28c;
+    --accent-glaze:  rgba(200, 152, 70, 0.10);
+
+    /* Wax-seal accent */
+    --seal:      #a83a2a;
+    --seal-dark: #6a1f12;
+
+    --class-tint: rgba(200,152,70,0.05);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--marble);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  /* Marble vein texture overlay — softer and cooler than papyrus grain */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.045' numOctaves='2' seed='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.42 0 0 0 0 0.38 0 0 0 0.4 0'/></filter><rect width='100%25' height='100%25' filter='url(%23m)'/></svg>"),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 600px 600px, 200px 200px;
+    opacity: 0.55;
+    mix-blend-mode: multiply;
+    z-index: 0;
+  }
+  body {
+    background-image:
+      linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 25%, var(--marble) 75%, var(--marble-cool) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 0 5rem;
+  }
+
+  .stele {
+    max-width: 1140px;
+    margin: 0 auto;
+    background:
+      linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 8%, var(--marble) 92%, var(--marble-cool) 100%);
+    padding: 0;
+    box-shadow:
+      0 1px 2px rgba(26, 22, 18, 0.10),
+      0 10px 32px rgba(26, 22, 18, 0.16),
+      0 28px 64px rgba(26, 22, 18, 0.10);
+    position: relative;
+    border: 1px solid var(--rule);
+    z-index: 1;
+  }
+  /* Twin thin rules on left & right edge — like the grooves in a stele */
+  .stele::before,
+  .stele::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-dark) 100%);
+    opacity: 0.5;
+  }
+  .stele::before { left: 0; }
+  .stele::after  { right: 0; }
+
+  .doc { padding: 0 5rem 4rem; }
+
+  /* =================== MEANDER (Greek key pattern) =================== */
+  /* A repeating SVG that runs as a thin border between sections */
+  .meander {
+    height: 22px;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='22' viewBox='0 0 44 22'><path d='M0 17 L0 5 L11 5 L11 12 L6 12 L6 8 L17 8 L17 17 L11 17 L11 13 L22 13 L22 5 L33 5 L33 12 L28 12 L28 8 L39 8 L39 17 L44 17' fill='none' stroke='%238a6420' stroke-width='1.4' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: auto 18px;
+    opacity: 0.85;
+    margin: 0;
+  }
+  .meander.thick { height: 30px; }
+  .meander.thick { background-size: auto 24px; }
+
+  /* =================== MASTHEAD =================== */
+  .masthead-band {
+    position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+    padding: 3rem 5rem 2.75rem;
+  }
+  .masthead-band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  /* Pediment chevron at the bottom of the masthead — turns the band into a triangular temple-front shape */
+  .masthead-band::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px; height: 28px;
+    background:
+      linear-gradient(135deg, transparent 49.5%, var(--marble) 50%) left bottom / 50% 100% no-repeat,
+      linear-gradient(225deg, transparent 49.5%, var(--marble) 50%) right bottom / 50% 100% no-repeat;
+    z-index: 2;
+  }
+  .masthead {
+    position: relative;
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    z-index: 1;
+  }
+  /* Portrait — much larger; framed in a stylized stone plinth */
+  .portrait-frame {
+    position: relative;
+    width: 360px; height: 480px;
+    background: var(--marble-deep);
+    padding: 8px;
+    border: 1px solid var(--ink-soft);
+    box-shadow:
+      inset 0 0 0 2px var(--accent-sec),
+      inset 0 0 0 4px var(--marble-deep),
+      0 4px 14px rgba(0,0,0,0.30);
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    left: -1px; right: -1px; height: 12px;
+    background:
+      linear-gradient(180deg, var(--accent-sec) 0%, var(--accent) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .portrait-frame::before { top: -14px; }
+  .portrait-frame::after  { bottom: -14px; }
+  .portrait-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.03) saturate(0.97);
+  }
+  .portrait-frame.empty {
+    display: flex;
+    align-items: center; justify-content: center;
+    background: linear-gradient(180deg, var(--marble), var(--marble-deep));
+  }
+  .portrait-frame.empty .empty-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0 1rem;
+    line-height: 1.4;
+  }
+
+  .name-block { padding: 0.5rem 0 0; color: var(--marble); position: relative; z-index: 1; }
+  .name-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.52em;
+    color: rgba(255, 250, 235, 0.85);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  h1.dossier-name {
+    font-family: "Cinzel", serif;
+    font-weight: 800;
+    font-size: 4.4rem;
+    line-height: 0.95;
+    letter-spacing: 0.04em;
+    color: var(--marble);
+    margin: 0 0 0.45rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.35);
+    text-transform: uppercase;
+  }
+  .dossier-name .given { display: block; color: var(--marble); }
+  .dossier-name .epithet {
+    display: block;
+    font-weight: 500;
+    font-size: 0.55em;
+    color: var(--accent-sec);
+    letter-spacing: 0.18em;
+    margin-top: 0.4rem;
+    font-style: italic;
+    font-variant: normal;
+    text-transform: none;
+  }
+  .tagline {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: rgba(255, 250, 235, 0.95);
+    margin: 1.2rem 0 1.5rem;
+    max-width: 38em;
+    padding-left: 1rem;
+    border-left: 2px solid var(--accent-sec);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  /* Identity inscription — laid out as carved stone records, more spaced & monumental than v1 */
+  .identity-inscription {
+    margin: 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(255, 250, 235, 0.3);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 2.25rem;
+  }
+  .id-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+  .id-row dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: rgba(255, 250, 235, 0.55);
+    text-transform: uppercase;
+  }
+  .id-row dd {
+    margin: 0;
+    color: rgba(255, 250, 235, 0.96);
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  }
+
+  /* Deity glyph badge — sits in the name block as a small chip */
+  .deity-mark {
+    display: inline-block;
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--accent-sec);
+    margin-left: 0.6rem;
+    vertical-align: middle;
+    line-height: 1;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  }
+
+  /* =================== TIMELINE =================== */
+  .timeline-section {
+    background: var(--accent-glaze);
+    padding: 1.6rem 5rem;
+    position: relative;
+  }
+  .tl-label {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin: 0 0 1.1rem;
+  }
+  .tl-track {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 7rem;
+    position: relative;
+    padding: 0;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .tl-track::before {
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 16%; right: 16%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-sec), var(--accent), var(--accent-sec));
+    z-index: 0;
+  }
+  .tl-node {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: var(--ink-soft);
+    font-family: "EB Garamond", serif;
+    transition: color 0.2s ease;
+    min-width: 100px;
+  }
+  .tl-dot {
+    width: 18px; height: 18px;
+    border: 2px solid var(--accent-dark);
+    background: var(--marble);
+    margin-bottom: 0.55rem;
+    box-shadow: 0 0 0 3px var(--marble);
+    transition: all 0.2s ease;
+    /* Square dot — more inscriptional / less L5R-circle */
+    transform: rotate(45deg);
+  }
+  .tl-node:hover .tl-dot {
+    border-color: var(--accent);
+    transform: rotate(45deg) scale(1.12);
+  }
+  .tl-node.active .tl-dot {
+    background: var(--seal);
+    border-color: var(--seal-dark);
+    box-shadow: 0 0 0 3px var(--marble), 0 0 0 5px rgba(168,58,42,0.25);
+  }
+  .tl-node.active { color: var(--ink); }
+  .tl-top {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .tl-node.active .tl-top { color: var(--accent-dark); }
+  .tl-bot {
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+    font-style: italic;
+  }
+
+  /* =================== SECTIONS =================== */
+  section.block { margin: 2.5rem 0 0; padding: 0.5rem 0 1.5rem; position: relative; }
+  section.block + section.block { margin-top: 2rem; }
+
+  /* New section header — chiseled inscription style */
+  .section-h {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--accent-dark);
+    margin: 0 0 1.5rem;
+    padding: 0;
+    border: none;
+    text-align: center;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    position: relative;
+    display: block;
+  }
+  .section-h::before {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 14px;
+    margin: 0 auto 0.85rem;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%238a6420' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.85;
+  }
+  .section-h .greek-chap {
+    display: block;
+    font-family: "Cinzel", serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.5em;
+    color: var(--accent);
+    margin-top: 0.5rem;
+    font-style: normal;
+    text-transform: uppercase;
+  }
+  h3.sub-h {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--accent-dark);
+    margin: 1.5rem 0 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  h4.subsub-h {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.32em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 1.1rem 0 0.5rem;
+    font-weight: 500;
+  }
+  p { margin: 0 0 1rem; }
+
+  /* SUMMARY STRIP */
+  .summary-strip {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    margin: 0.5rem 0;
+    background: var(--accent-glaze);
+    padding: 1rem 0.5rem;
+    border-top: 1.5px solid var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+  }
+  .sum-plate { text-align: center; padding: 0 0.5rem; border-right: 1px solid var(--rule-soft); }
+  .sum-plate:last-child { border-right: none; }
+  .sum-plate .sp-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .sum-plate .sp-value {
+    font-family: "Cinzel", serif;
+    font-size: 1.7rem;
+    color: var(--accent-dark);
+    line-height: 1.1;
+    font-weight: 700;
+    margin-top: 0.15rem;
+  }
+  .sum-plate .sp-sub {
+    font-family: "EB Garamond", serif;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 0.1rem;
+  }
+
+  /* ABILITY SCORES */
+  .abilities-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+    margin: 0.5rem 0 1.25rem;
+  }
+  .ab-cell {
+    text-align: center;
+    padding: 1rem 0.4rem 0.85rem;
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--accent);
+    position: relative;
+  }
+  .ab-cell.primary {
+    border-top-width: 4px;
+    border-top-color: var(--accent-dark);
+    background: linear-gradient(180deg, rgba(232, 210, 140, 0.35) 0%, var(--marble-warm) 60%);
+  }
+  .ab-cell .ab-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .ab-cell .ab-mod {
+    font-family: "Cinzel", serif;
+    font-size: 2.1rem;
+    line-height: 1;
+    color: var(--ink);
+    font-weight: 800;
+  }
+  .ab-cell .ab-score {
+    font-family: "EB Garamond", serif;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+  }
+  .ab-cell .ab-save {
+    margin-top: 0.5rem;
+    padding-top: 0.4rem;
+    border-top: 1px dotted var(--rule);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .ab-cell .ab-save .save-bonus {
+    font-family: "Cinzel", serif;
+    font-size: 0.95rem;
+    color: var(--accent-dark);
+    margin-left: 0.25rem;
+    font-weight: 600;
+  }
+  .ab-cell .ab-save.prof::after {
+    content: " ★";
+    color: var(--seal);
+    margin-left: 0.15rem;
+  }
+  .ab-note { font-size: 0.88rem; color: var(--ink-faint); font-style: italic; text-align: center; margin-top: 0.5rem; }
+
+  /* COMBAT */
+  .combat-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem 2.5rem;
+    margin: 0.5rem 0;
+  }
+  .combat-block dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; }
+  .combat-block dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    align-self: baseline;
+  }
+  .combat-block dd { margin: 0; font-family: "EB Garamond", serif; font-size: 0.98rem; color: var(--ink); }
+  .combat-block dd em { color: var(--ink-faint); font-size: 0.88rem; }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.1rem; margin: 1rem 0 1.5rem; }
+  .skill-cat { border-top: 2px solid var(--accent); padding-top: 0.6rem; }
+  .skill-cat-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    text-align: center;
+  }
+  .skill-row { display: flex; align-items: baseline; justify-content: space-between; gap: 0.4rem; padding: 0.18rem 0; font-size: 0.92rem; line-height: 1.3; color: var(--ink); }
+  .skill-row.dim { color: var(--ink-faint); font-style: italic; }
+  .skill-row .skill-name { flex: 1; }
+  .skill-row .skill-bonus { font-family: "Cinzel", serif; font-weight: 600; color: var(--accent-dark); }
+  .skill-row.expertise .skill-bonus { color: var(--seal); }
+  .skill-source { font-size: 0.82rem; color: var(--ink-faint); text-align: center; font-style: italic; margin-top: 0.6rem; }
+
+  /* FEATURES */
+  .feat-block { font-size: 0.98rem; font-family: "EB Garamond", serif; }
+  .feat-block ul { padding-left: 1.2rem; margin: 0.5rem 0 1rem; }
+  .feat-block li { margin-bottom: 0.45rem; }
+  .feat-block strong { color: var(--accent-dark); font-weight: 600; }
+  .feat-block em { color: var(--ink-soft); }
+  .feat-block .aside {
+    font-style: italic;
+    color: var(--ink-faint);
+    font-size: 0.92rem;
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-soft);
+    margin: 0.6rem 0 1rem;
+  }
+  .feat-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    margin: 1rem 0;
+  }
+
+  /* PATRON GOD BLOCK — restyled as a flanked temple panel rather than a full-bleed band */
+  .patron-section {
+    margin: 2.5rem -5rem 2.5rem;
+    padding: 0;
+    position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+  }
+  .patron-section::before {
+    /* Top: a pediment triangle pointing up */
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: -22px; height: 22px;
+    background:
+      linear-gradient(45deg, transparent 49.5%, var(--accent) 50%) left top / 50% 100% no-repeat,
+      linear-gradient(315deg, transparent 49.5%, var(--accent) 50%) right top / 50% 100% no-repeat;
+    z-index: 0;
+  }
+  .patron-section::after {
+    /* Bottom: noise overlay */
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+    z-index: 0;
+  }
+  .patron-inner {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem 6.5rem 2.75rem;
+  }
+  /* Flanking Doric column motifs at left/right edges of the patron block */
+  .patron-inner::before,
+  .patron-inner::after {
+    content: "";
+    position: absolute;
+    top: 2rem; bottom: 2rem;
+    width: 28px;
+    background:
+      linear-gradient(180deg,
+        var(--accent-sec) 0%, var(--accent-sec) 6%,
+        rgba(255,250,235,0.25) 6%, rgba(255,250,235,0.25) 8%,
+        rgba(255,250,235,0.15) 8%, rgba(255,250,235,0.15) 92%,
+        rgba(255,250,235,0.25) 92%, rgba(255,250,235,0.25) 94%,
+        var(--accent-sec) 94%, var(--accent-sec) 100%);
+    border-left: 1px solid rgba(255,250,235,0.25);
+    border-right: 1px solid rgba(255,250,235,0.25);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.10);
+  }
+  .patron-inner::before { left: 2.5rem; }
+  .patron-inner::after  { right: 2.5rem; }
+  .patron-section .section-h {
+    color: var(--marble);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.30);
+    letter-spacing: 0.36em;
+    margin-bottom: 1.5rem;
+  }
+  .patron-section .section-h::before {
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%23e8d28c' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+  }
+  .patron-section .section-h .greek-chap { color: var(--accent-sec); }
+  .patron-section h3.sub-h, .patron-section h4.subsub-h {
+    color: rgba(255, 250, 235, 0.95);
+    border-bottom-color: rgba(255, 250, 235, 0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.22);
+  }
+  .patron-section .feat-block { color: rgba(255, 250, 235, 0.94); }
+  .patron-section .feat-block strong { color: var(--accent-sec); }
+  .patron-section .feat-block em { color: rgba(255, 250, 235, 0.74); }
+  .patron-section .feat-block .aside {
+    color: rgba(255, 250, 235, 0.78);
+    border-left-color: rgba(255, 250, 235, 0.4);
+  }
+
+  /* SPELLCASTING */
+  .spell-block {
+    background: var(--class-tint);
+    border: 1px solid var(--rule-soft);
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+  .spell-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .spell-stats .ss-cell { text-align: center; padding: 0.25rem; }
+  .spell-stats .ss-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .spell-stats .ss-value { font-family: "Cinzel", serif; font-size: 1.4rem; color: var(--accent-dark); font-weight: 700; }
+  .spell-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .spell-table th, .spell-table td { text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px dotted var(--rule-soft); }
+  .spell-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .spell-table td.lvl { width: 3em; color: var(--accent-dark); font-weight: 600; font-family: "Cinzel", serif; }
+  .spell-table td.spell-name { font-style: italic; color: var(--ink); }
+  .slot-table { width: auto; margin: 0.5rem 0 1rem; border-collapse: collapse; font-size: 0.94rem; }
+  .slot-table th, .slot-table td { text-align: center; padding: 0.3rem 1rem; border: 1px solid var(--rule-soft); }
+  .slot-table th {
+    background: var(--accent-glaze);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .slot-table td { font-family: "Cinzel", serif; font-weight: 700; color: var(--accent-dark); }
+
+  /* EQUIPMENT */
+  .weapon-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .weapon-table th, .weapon-table td { text-align: left; padding: 0.45rem 0.7rem; border-bottom: 1px dotted var(--rule-soft); }
+  .weapon-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .weapon-table td.atk, .weapon-table td.dmg {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    color: var(--accent-dark);
+    white-space: nowrap;
+  }
+  .armor-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.2rem;
+    margin: 0.6rem 0;
+  }
+  .armor-name { font-family: "Cinzel", serif; font-weight: 700; font-size: 1rem; color: var(--accent-dark); letter-spacing: 0.06em; }
+  .armor-props { font-size: 0.88rem; color: var(--ink-soft); font-style: italic; margin-top: 0.25rem; }
+
+  /* PERSONALITY */
+  .personality-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.5rem 0 1rem; }
+  .pers-card {
+    border-left: 3px solid var(--accent);
+    padding: 0.6rem 1.1rem;
+    background: var(--accent-glaze);
+  }
+  .pers-card.flaw {
+    border-left-color: var(--seal);
+    background: rgba(168, 58, 42, 0.06);
+  }
+  .pers-label {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .pers-card.flaw .pers-label { color: var(--seal-dark); }
+  .pers-text { font-style: italic; color: var(--ink); font-size: 1rem; line-height: 1.5; margin: 0; }
+
+  .connections-list { margin: 0.5rem 0 1rem; padding-left: 0; list-style: none; }
+  .connections-list li {
+    margin-bottom: 0.7rem;
+    padding-left: 1.4rem;
+    position: relative;
+    line-height: 1.55;
+  }
+  .connections-list li::before {
+    content: "▲";
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    top: 0.32em;
+    font-size: 0.65rem;
+  }
+  .connections-list strong { color: var(--accent-dark); }
+
+  .expedition-callout {
+    background: linear-gradient(180deg, var(--accent-glaze) 0%, rgba(200,152,70,0.03) 100%);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    padding: 1.5rem 1.75rem;
+    margin: 1rem 0 0;
+    font-size: 1.02rem;
+    line-height: 1.6;
+  }
+  .expedition-callout p:last-child { margin-bottom: 0; }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    margin-top: 3rem;
+    color: var(--ink-faint);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+  }
+  .footer .meander {
+    margin-bottom: 1rem;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 1000px) {
+    .doc { padding: 0 1.5rem 2.5rem; }
+    .timeline-section { padding: 1.5rem 1.5rem; }
+    .masthead-band { padding: 2rem 1.5rem 2.5rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1.5rem; }
+    .portrait-frame { width: 100%; max-width: 320px; height: auto; aspect-ratio: 3/4; margin: 0 auto; }
+    h1.dossier-name { font-size: 2.8rem; }
+    .identity-inscription { grid-template-columns: 1fr; }
+    .summary-strip, .abilities-grid { grid-template-columns: repeat(3, 1fr); }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .combat-block, .personality-grid { grid-template-columns: 1fr; }
+    .patron-section { margin: 2rem -1.5rem; }
+    .patron-inner { padding: 2rem 1.5rem; }
+    .patron-inner::before, .patron-inner::after { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="stele">
+
+<!-- ============== MASTHEAD ============== -->
+<div class="masthead-band">
+  <div class="masthead">
+
+    <div class="portrait-frame">
+      <img src="../Theros 1st pass/helena.png" alt="Helena of Akros portrait">
+    </div>
+
+    <div class="name-block">
+      <div class="name-eyebrow">Dossier · Champion of Heliod</div>
+      <h1 class="dossier-name">
+        <span class="given">Helena</span>
+        <span class="epithet">of Akros</span>
+      </h1>
+      <p class="tagline">
+        A young knight of Heliod, polished sword and polished armor, asking the questions a knight is not supposed to ask.
+      </p>
+      <dl class="identity-inscription" id="identity-target"><!-- populated --></dl>
+    </div>
+
+  </div>
+</div>
+
+<!-- thin meander rule under the masthead -->
+<div class="meander" aria-hidden="true"></div>
+
+<!-- ============== TIMELINE ============== -->
+<div class="timeline-section">
+  <div class="tl-label">Stage of Career</div>
+  <div class="tl-track" id="timeline">
+    <button class="tl-node active" data-stage="0" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 1</div>
+      <div class="tl-bot">Knight Errant</div>
+    </button>
+    <button class="tl-node" data-stage="1" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 5</div>
+      <div class="tl-bot">Oath of Glory</div>
+    </button>
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<div class="doc">
+
+<!-- BIO -->
+<section class="block">
+  <h2 class="section-h">Bio<span class="greek-chap">α · Vita</span></h2>
+  <p>Helena's mother was a champion of Heliod, and died in childbirth with her. Her father raised her to be strong — a hero of Akros, a hero of Heliod. When she came of age she joined the knightly order of Heliod, first as a squire and then, after years of training, as a full knight. Her father did not live to see her invested. She faces problems head-on: a simple, direct solution is the best path to success. Her integrity means everything to her, and she would lay her life down for those in her order without thinking twice about it.</p>
+  <p id="bio-l5-extra"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- SUMMARY STRIP -->
+<section class="block">
+  <h2 class="section-h">At a Glance<span class="greek-chap">β · Synopsis</span></h2>
+  <div class="summary-strip" id="summary-target"></div>
+</section>
+
+<!-- ABILITY SCORES -->
+<section class="block">
+  <h2 class="section-h">Ability Scores<span class="greek-chap">γ · Dynámeis</span></h2>
+  <div class="abilities-grid" id="abilities-target"></div>
+  <p class="ab-note" id="ab-note-target"></p>
+</section>
+
+<!-- COMBAT & SENSES -->
+<section class="block">
+  <h2 class="section-h">Combat &amp; Senses<span class="greek-chap">δ · Mákhē</span></h2>
+  <div class="combat-block" id="combat-target"></div>
+</section>
+
+<!-- SKILLS -->
+<section class="block">
+  <h2 class="section-h">Skill Proficiencies<span class="greek-chap">ε · Tékhnai</span></h2>
+  <div class="skills-grid" id="skills-target"></div>
+  <p class="skill-source" id="skill-tool-target"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- CLASS FEATURES -->
+<section class="block">
+  <h2 class="section-h">Class Features<span class="greek-chap">ζ · Tákta</span></h2>
+  <div class="feat-block" id="features-target"></div>
+</section>
+
+<!-- RACIAL FEATURES -->
+<section class="block">
+  <h2 class="section-h">Racial Features — Variant Human<span class="greek-chap">η · Génos</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Ability Score Increase</strong>: +1 Str, +1 Cha (already applied).</li>
+      <li><strong>Skill Proficiency</strong>: Animal Handling.</li>
+      <li><strong>Feat</strong>: Great Weapon Master (see below).</li>
+      <li><strong>Languages</strong>: Common + one of choice. <em>Chosen: Leonin</em> (Akros borders leonin territories; useful for a knight of the city).</li>
+    </ul>
+  </div>
+
+  <h3 class="sub-h">Feat: Great Weapon Master</h3>
+  <div class="feat-card">
+    <ul>
+      <li><strong>Bonus Action Attack on Crit/Kill</strong>: On your turn, when you score a critical hit with a melee weapon or reduce a creature to 0 HP with one, you can make one melee weapon attack as a bonus action.</li>
+      <li><strong>Power Attack Toggle</strong>: Before you make a melee attack with a heavy weapon you are proficient with, you can take a <strong>−5 to the attack roll</strong>; if the attack hits, add <strong>+10 to the damage roll</strong>.</li>
+    </ul>
+    <p class="aside" id="gwm-note-target"></p>
+  </div>
+</section>
+
+<!-- SUPERNATURAL GIFT -->
+<section class="block">
+  <h2 class="section-h">Supernatural Gift — Heroic Destiny<span class="greek-chap">θ · Dóron</span></h2>
+  <div class="feat-block">
+    <p><em>(Destiny is not specified in the draft — left open for play.)</em></p>
+    <ul>
+      <li><strong>Defy Death</strong>: Advantage on death saving throws.</li>
+      <li><strong>Hard to Kill</strong>: When reduced to 0 HP but not killed outright, you can drop to <strong>1 HP instead</strong>. 1/long rest.</li>
+    </ul>
+  </div>
+</section>
+
+</div>
+
+<!-- PATRON GOD — temple panel -->
+<section class="patron-section">
+  <div class="patron-inner">
+    <h2 class="section-h">Patron God — Heliod, the Sun-Crowned<span class="greek-chap">ι · Theós</span></h2>
+    <div class="feat-block" id="patron-target"></div>
+  </div>
+</section>
+
+<div class="doc" style="padding-top: 1rem;">
+
+<!-- BACKGROUND -->
+<section class="block">
+  <h2 class="section-h">Background — Knight of the Order<span class="greek-chap">κ · Bíos</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Order</strong>: Order of Heliod.</li>
+      <li><strong>Skill Proficiencies</strong>: Persuasion, History.</li>
+      <li><strong>Tool / Instrument</strong>: Lyre.</li>
+      <li><strong>Languages</strong>: Celestial (language of the gods, fits a Heliod knight).</li>
+      <li><strong>Equipment</strong>: Traveler's clothes, sun-disk pendant of beaten bronze (Order signet), 10 gp.</li>
+      <li><strong>Feature — Knightly Regard</strong>: Shelter and aid from the Order of Heliod and Heliod's temples wherever Helena travels — meals, shelter, healing when appropriate, and occasionally risky assistance, such as citizens rallying to her aid in a fight or smuggling her out of town if she is being hunted unjustly.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SPELLCASTING -->
+<section class="block">
+  <h2 class="section-h">Spellcasting<span class="greek-chap">λ · Goēteía</span></h2>
+  <div id="spellcasting-target"></div>
+</section>
+
+<!-- EQUIPMENT -->
+<section class="block">
+  <h2 class="section-h">Equipment<span class="greek-chap">μ · Hopla</span></h2>
+  <div id="equipment-target"></div>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<!-- PERSONALITY -->
+<section class="block">
+  <h2 class="section-h">Personality<span class="greek-chap">ν · Êthos</span></h2>
+  <div class="personality-grid">
+    <div class="pers-card">
+      <div class="pers-label">Trait</div>
+      <p class="pers-text">"I face problems head-on. A simple, direct solution is the best path to success."</p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Ideal</div>
+      <p class="pers-text">"My integrity means everything to me." <em>(Heliod-aligned: Devotion — "My devotion to my god is more important to me than what he stands for.")</em></p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Bond</div>
+      <p class="pers-text">"I would lay my life down for those in my order."</p>
+    </div>
+    <div class="pers-card flaw">
+      <div class="pers-label">Flaw</div>
+      <p class="pers-text">"I bear a heavy burden of duty and responsibility, often feeling weighed down by my obligations."</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECTIONS -->
+<section class="block">
+  <h2 class="section-h">Connections<span class="greek-chap">ξ · Philíai</span></h2>
+  <ul class="connections-list">
+    <li><strong>Xemnon Sunguides</strong> — Once rivals; after sparring together, grew to a begrudging mutual respect.</li>
+    <li><strong>Kragar Stonehorn</strong> — Fought together in a minor skirmish defending a village outside of Akros. Kragar respects her unwavering courage.</li>
+    <li><strong>Thectra Deepcaller</strong> — Helena owes her life to Thectra, who saved her during a shipwreck. They've been close allies ever since.</li>
+    <li><strong>Nyklos the Nightshade</strong> — Both grew up in Akros. Though they took different paths, their shared childhood remains a point of connection.</li>
+  </ul>
+</section>
+
+<!-- EXPEDITION -->
+<section class="block">
+  <h2 class="section-h">Why Helena is on the Expedition<span class="greek-chap">ο · Hodós</span></h2>
+  <div class="expedition-callout">
+    <p><strong>Divine Questions.</strong> Helena struggles to maintain social order, and is confused by Heliod's seeming apathy. The Fallow Year reaches Akros, and the social order Helena has been trained to uphold is fraying. People look to her order for answers; her order looks up to Heliod for them; and Heliod — for the first time in Helena's memory — is not answering.</p>
+    <p>The questions a knight isn't supposed to ask are starting to ask themselves. Helena is on the expedition because someone with a sword and a vow needs to find out what the gods are doing about this, and her bond to her order is the only frame she has for the work.</p>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div class="meander" aria-hidden="true"></div>
+  Player Character Dossier · Theros, The Fallow Season
+</footer>
+
+</div>
+
+<script>
+const SNAPSHOTS = [
+  {
+    stage: "L1",
+    level: 1,
+    pb: 2,
+    identity: { class_long: "Paladin 1", age: "—", hp_breakdown: "12 (d10 max 10 + Con +2)" },
+    summary: { hp: 12, ac: 16, init: "+1", speed: "30 ft.", pb: "+2", pp: 11 },
+    abilities: {
+      str:{score:18, mod:"+4", save:"+4", prof:false},
+      dex:{score:12, mod:"+1", save:"+1", prof:false},
+      con:{score:14, mod:"+2", save:"+2", prof:false},
+      int:{score: 6, mod:"−2", save:"−2", prof:false},
+      wis:{score:12, mod:"+1", save:"+3", prof:true},
+      cha:{score:18, mod:"+4", save:"+6", prof:true}
+    },
+    ab_note: "Rolled array 6, 12, 12, 14, 17, 17 → Str 17 / Dex 12 / Con 14 / Int 6 / Wis 12 / Cha 17. Variant Human +1 Str (→18), +1 Cha (→18).",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+2</dd>
+        <dt>Armor Class</dt><dd>16 <em>(chainmail; no Dex bonus; Stealth disadvantage)</em></dd>
+        <dt>Initiative</dt><dd>+1</dd>
+        <dt>Speed</dt><dd>30 ft. <em>(chainmail reduces to 20 ft. for wearers with Str &lt; 13 — Helena's Str 18 meets the requirement, no penalty)</em></dd>
+        <dt>Hit Points</dt><dd>12 <em>(d10 max 10 + Con +2)</em></dd>
+        <dt>Hit Dice</dt><dd>1d10</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>11 <em>(10 + Wis +1; not proficient)</em></dd>
+        <dt>Special Senses</dt><dd>—</dd>
+        <dt>Creature Type</dt><dd>Humanoid (Human)</dd>
+        <dt>Heliod DC</dt><dd>11 <em>(8 + PB +2 + Wis +1; bless via Devotee trait)</em></dd>
+      </dl>
+    `,
+    skills: [
+      {name:"Animal Handling", ability:"wis", bonus:"+3", source:"Variant Human"},
+      {name:"Athletics",       ability:"str", bonus:"+6", source:"Paladin"},
+      {name:"History",         ability:"int", bonus:"+0", source:"Knight of the Order"},
+      {name:"Persuasion",      ability:"cha", bonus:"+6", source:"Knight of the Order"},
+      {name:"Religion",        ability:"int", bonus:"+0", source:"Paladin"}
+    ],
+    tool_text: "Instrument: Lyre (Knight of the Order). No tool proficiencies. History and Religion are proficient but flat +0 due to Int −2; Helena's mechanically-strong proficiencies are Athletics, Persuasion, and Animal Handling.",
+    gwm_note: "With Str 18 and a greatsword: normal attack +6 to hit / 2d6 + 4 damage; power-attack toggle gives +1 to hit / 2d6 + 14 damage. Power-attack is excellent against AC 14 or lower; less reliable against AC 17+. Pair it with future advantage sources — Bless, Faerie Fire — for high-value rounds.",
+    features_html: `
+      <h3 class="sub-h">Paladin (Level 1)</h3>
+      <ul>
+        <li><strong>Divine Sense</strong>: As an action, until the end of your next turn, you know the location of any <strong>celestial, fiend, or undead</strong> within 60 ft. that isn't behind total cover. Also detects whether a place or object within 60 ft. has been <strong>consecrated or desecrated</strong> as with the <em>hallow</em> spell. Uses = Cha mod + 1 = <strong>5/long rest</strong>.</li>
+        <li><strong>Lay on Hands</strong>: A pool of healing power that replenishes on a long rest = Paladin level × 5 = <strong>5 HP</strong>.
+          <ul>
+            <li>As an action, touch a creature and restore any number of HP from the pool (up to the pool's remaining amount).</li>
+            <li>Alternatively, expend 5 HP from the pool to cure one disease or neutralize one poison.</li>
+            <li>No effect on undead or constructs.</li>
+          </ul>
+        </li>
+      </ul>
+    `,
+    patron_html: `
+      <h3 class="sub-h">Piety 3 — Devotee</h3>
+      <ul>
+        <li><strong>Source of godly favor</strong> <em>(d6 #2)</em>: "One of your parents is also a champion of Heliod." <em>(Helena's mother — who died in childbirth.)</em></li>
+        <li><strong>Godly ideal</strong> <em>(d6 #1)</em>: <em>Devotion.</em> "My devotion to my god is more important to me than what he stands for." (Any)</li>
+        <li><strong>Devotee Trait (Piety 3+)</strong>: As a devotee of Heliod, you can call on Heliod's favor and cast <em>bless</em> with this trait, requiring no material components. Heliod's blessing manifests as a <strong>nimbus around the affected creatures</strong>, causing them to shed dim light in a 5-ft. radius until the spell ends. Uses = Wis mod (min 1) = <strong>1/long rest</strong>. Wisdom is the spellcasting ability.</li>
+      </ul>
+      <h4 class="subsub-h">Heliod-granted spell stats (Wis-based)</h4>
+      <ul>
+        <li><strong>Spell save DC</strong> = 8 + PB +2 + Wis +1 = <strong>11</strong></li>
+        <li><em>Bless</em> is a buff — 3 willing creatures within 30 ft., +1d4 to attack rolls and saves, concentration 1 min.</li>
+      </ul>
+    `,
+    spellcasting_html: `
+      <p>Helena has <strong>no spell slots and no prepared spells at this stage</strong>.</p>
+      <p>Her only magic comes from <strong>Heliod's Devotee trait</strong> (see Patron God block above) — <em>bless</em>, Wis-based, 1/long rest, no slot consumed.</p>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Greatsword</td><td class="atk">+6</td><td class="dmg">2d6 + 4 slashing</td><td>Martial, heavy, two-handed. <strong>GWM toggle</strong>: −5/+10 → atk +1 / dmg 2d6 + 14.</td></tr>
+          <tr><td>Heavy crossbow</td><td class="atk">+3</td><td class="dmg">1d10 + 1 piercing</td><td>Martial ranged, range 100/400, heavy, loading, two-handed.</td></tr>
+          <tr><td>Dagger</td><td class="atk">+6</td><td class="dmg">1d4 + 4 piercing</td><td>Simple, finesse, light, thrown 20/60.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">Chainmail</div>
+        <div class="armor-props">Heavy · AC 16 · no Dex bonus · Stealth disadvantage · Str 13+ to wear without speed penalty</div>
+      </div>
+      <h3 class="sub-h">Spellcasting Focus &amp; Personal Items</h3>
+      <ul>
+        <li><strong>Holy symbol</strong>: sun-disk pendant of beaten bronze (also serves as Order signet).</li>
+        <li>Traveler's clothes</li>
+        <li>Sun-disk pendant (Order signet)</li>
+        <li><strong>Explorer's Pack</strong>: backpack, bedroll, mess kit, tinderbox, 10 torches, 10 days of rations, waterskin, 50 ft. hempen rope</li>
+      </ul>
+      <p><strong>Money</strong>: 10 gp <em>(Knight of the Order starting pouch)</em>.</p>
+    `,
+    bio_l5_extra: `She is young for what's been asked of her, and she feels it. The duties of an order's knight are heavy ones, and the Fallow Year is settling into Akros like a long winter. Helena keeps her armor polished and her sword sharp, and is beginning to suspect — though she'd never say it out loud — that Heliod has gone quiet on questions she needs answered.`
+  },
+  {
+    stage: "L5",
+    level: 5,
+    pb: 3,
+    identity: { class_long: "Paladin 5 — Oath of Glory", age: "22", hp_breakdown: "44 (L1: 10 + Con +2 = 12; L2-5: 4 × (avg 6 + Con +2) = 32)" },
+    summary: { hp: 44, ac: 16, init: "+1", speed: "30 ft.", pb: "+3", pp: 11 },
+    abilities: {
+      str:{score:18, mod:"+4", save:"+4", prof:false},
+      dex:{score:12, mod:"+1", save:"+1", prof:false},
+      con:{score:14, mod:"+2", save:"+2", prof:false},
+      int:{score: 6, mod:"−2", save:"−2", prof:false},
+      wis:{score:12, mod:"+1", save:"+4", prof:true},
+      cha:{score:20, mod:"+5", save:"+8", prof:true}
+    },
+    ab_note: "Same base array as L1. Level 4 ASI: +2 Cha (18 → 20). Raises spell save DC 13 → 14, spell attack +5 → +6, Cha save +6 → +8, Lay on Hands pool unchanged (level-based), Divine Sense uses 5 → 6/long rest, Aura of Protection preview at L6: +Cha mod to all saves within 10 ft = +5.",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+3</dd>
+        <dt>Armor Class</dt><dd>16 <em>(chainmail; no Dex bonus; Stealth disadvantage)</em></dd>
+        <dt>Initiative</dt><dd>+1</dd>
+        <dt>Speed</dt><dd>30 ft.</dd>
+        <dt>Hit Points</dt><dd>44 <em>(L1: 12; L2–5: 4 × 8 = 32; total 44)</em></dd>
+        <dt>Hit Dice</dt><dd>5d10</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>11 <em>(10 + Wis +1; not proficient)</em></dd>
+        <dt>Special Senses</dt><dd>—</dd>
+        <dt>Creature Type</dt><dd>Humanoid (Human)</dd>
+        <dt>Paladin Spell DC / Atk</dt><dd><strong>16</strong> / +8 <em>(8 + PB +3 + Cha +5)</em></dd>
+      </dl>
+    `,
+    skills: [
+      {name:"Animal Handling", ability:"wis", bonus:"+4", source:"Variant Human"},
+      {name:"Athletics",       ability:"str", bonus:"+7", source:"Paladin"},
+      {name:"History",         ability:"int", bonus:"+1", source:"Knight of the Order"},
+      {name:"Persuasion",      ability:"cha", bonus:"+8", source:"Knight of the Order"},
+      {name:"Religion",        ability:"int", bonus:"+1", source:"Paladin"}
+    ],
+    tool_text: "Instrument: Lyre (Knight of the Order). All five class/background skill picks are now scaled by PB +3 and the Cha 20 ASI bump.",
+    gwm_note: "At L5 with Str 18: greatsword normal +7 / 2d6 + 4 (Great Weapon Fighting rerolls 1s and 2s on the 2d6). Power-attacked: +2 / 2d6 + 14. Add Divine Smite +2d8 radiant (1st-level slot) up to +3d8 (2nd-level slot — Helena's highest at L5). With advantage (Bless, Guiding Bolt's next-attack rider), power-attack becomes very high-EV.",
+    features_html: `
+      <h3 class="sub-h">Paladin (Base)</h3>
+      <ul>
+        <li><strong>Divine Sense</strong> (L1): As an action, sense celestials, fiends, undead, and hallowed/desecrated places within 60 ft. Uses = Cha mod + 1 = <strong>6/long rest</strong>.</li>
+        <li><strong>Lay on Hands</strong> (L1): Healing pool = Paladin level × 5 = <strong>25 HP</strong>. Action to touch and heal; or 5 HP to cure one disease or neutralize one poison.</li>
+        <li><strong>Fighting Style: Great Weapon Fighting</strong> (L2): When you roll a 1 or 2 on a damage die for an attack with a melee weapon wielded with two hands, you can reroll the die and must use the new roll. The weapon must have the two-handed or versatile property.</li>
+        <li><strong>Spellcasting</strong> (L2): Cha-based. Prepares from the Paladin spell list. Prepared spells = Cha mod 5 + half level 2 = <strong>7 prepared</strong> (not counting oath spells, which are always prepared).</li>
+        <li><strong>Divine Smite</strong> (L2): When you hit with a melee weapon attack, you can expend a spell slot to deal radiant damage in addition to the weapon's damage. <strong>2d8</strong> for a 1st-level slot, +1d8 per slot level above 1st (max 5d8). +1d8 if the target is an undead or fiend.</li>
+        <li><strong>Divine Health</strong> (L3): Immunity to disease.</li>
+        <li><strong>Extra Attack</strong> (L5): Attack twice instead of once whenever you take the Attack action.</li>
+      </ul>
+
+      <h3 class="sub-h">Oath of Glory (Subclass)</h3>
+      <h4 class="subsub-h">Tenets of Glory</h4>
+      <ul>
+        <li><em>Actions over Words.</em> Strive to be known by glorious deeds, not words.</li>
+        <li><em>Challenges Are but Tests.</em> Face hardships with courage, and encourage your allies to face them with you.</li>
+        <li><em>Hone the Body.</em> Like raw stone, your body must be worked so its potential can be realized.</li>
+        <li><em>Discipline the Soul.</em> Marshal the discipline to overcome failings within yourself that threaten to dim the glory of you and your friends.</li>
+      </ul>
+
+      <h4 class="subsub-h">Oath Spells (always prepared, don't count against the 7)</h4>
+      <ul>
+        <li><strong>L3</strong>: <em>Guiding Bolt</em>, <em>Heroism</em></li>
+        <li><strong>L5</strong>: <em>Enhance Ability</em>, <em>Magic Weapon</em></li>
+      </ul>
+
+      <h4 class="subsub-h">Channel Divinity (1/short or long rest)</h4>
+      <ul>
+        <li><strong>Peerless Athlete</strong>: Bonus action. For the next 10 minutes, you have advantage on Str (Athletics) and Dex (Acrobatics) checks; you can carry, push, drag, and lift twice as much weight as normal; and your long and high jumps increase by 10 ft.</li>
+        <li><strong>Inspiring Smite</strong>: Immediately after you deal damage with Divine Smite, you can use Channel Divinity as a bonus action to distribute <strong>2d8 + 5 temp HP</strong> (2d8 + Paladin level) to creatures of your choice within 30 ft., including yourself.</li>
+      </ul>
+    `,
+    patron_html: `
+      <h3 class="sub-h">Piety 3 — Devotee</h3>
+      <ul>
+        <li><strong>Source of godly favor</strong> <em>(d6 #2)</em>: "One of your parents is also a champion of Heliod." <em>(Helena's mother — who died in childbirth.)</em></li>
+        <li><strong>Godly ideal</strong> <em>(d6 #1)</em>: <em>Devotion.</em> "My devotion to my god is more important to me than what he stands for."</li>
+        <li><strong>Devotee Trait</strong>: Cast <em>bless</em> via this trait (no material; nimbus dim-light flavor). Uses = Wis mod (min 1) = <strong>1/long rest</strong>. Wisdom-based.</li>
+      </ul>
+      <h4 class="subsub-h">Heliod-granted spell stats (Wis-based)</h4>
+      <ul>
+        <li><strong>Spell save DC</strong> = 8 + PB +3 + Wis +1 = <strong>12</strong></li>
+        <li><em>Bless</em>: 3 willing creatures within 30 ft., +1d4 to attack rolls and saves, concentration 1 min.</li>
+      </ul>
+      <p class="aside">Heliod's <em>bless</em> and the Paladin's prepared <em>bless</em> (if she chooses it) are different — the Devotee trait casts without consuming a slot, but Paladin can also prepare and slot-cast <em>bless</em> normally. Stacking is moot since <em>bless</em> is concentration; Helena should save her slot for Smite damage and use Heliod's free <em>bless</em> in the slot's place.</p>
+    `,
+    spellcasting_html: `
+      <div class="spell-block">
+        <div class="spell-stats">
+          <div class="ss-cell"><div class="ss-label">Save DC</div><div class="ss-value">16</div></div>
+          <div class="ss-cell"><div class="ss-label">Spell Attack</div><div class="ss-value">+8</div></div>
+          <div class="ss-cell"><div class="ss-label">Prepared</div><div class="ss-value">7</div></div>
+          <div class="ss-cell"><div class="ss-label">Ability</div><div class="ss-value">Cha</div></div>
+        </div>
+
+        <h3 class="sub-h">Spell Slots</h3>
+        <table class="slot-table">
+          <thead><tr><th>1st</th><th>2nd</th></tr></thead>
+          <tbody><tr><td>4</td><td>2</td></tr></tbody>
+        </table>
+
+        <h3 class="sub-h">Prepared Spells (7 at L5)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Lvl</th><th>Spell</th><th>School</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="lvl">1</td><td class="spell-name">Bless</td><td>Enchantment, C</td><td>3 creatures within 30 ft.; +1d4 to attack rolls and saves. Stacks meaningfully with GWM power-attack.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Cure Wounds</td><td>Abjuration</td><td>Touch, <strong>1d8 + 5</strong> HP.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Shield of Faith</td><td>Abjuration, C</td><td>60 ft.; target +2 AC; concentration 10 min.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Searing Smite</td><td>Evocation, C, BA</td><td>Bonus action; next melee hit deals +1d6 fire and lights target afire for 1d6/turn (Con save DC 16 ends).</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Find Steed</td><td>Conjuration</td><td>Summon a celestial/fey/fiend mount (warhorse, pony, camel, mastiff). Telepathy, INT ≥ 6, shared attacks.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Aid</td><td>Abjuration</td><td>30 ft., three creatures, +5 max and current HP for 8 hours. Pre-fight buff.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Lesser Restoration</td><td>Abjuration</td><td>Touch; end one disease or condition (blinded, deafened, paralyzed, poisoned).</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Oath-Granted Spells (always prepared, don't count against the 7)</h3>
+        <table class="spell-table">
+          <tbody>
+            <tr><td class="lvl">1</td><td class="spell-name">Guiding Bolt</td><td>Evocation</td><td>120 ft.; ranged spell attack; 4d6 radiant; next attack against target has advantage.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Heroism</td><td>Enchantment, C</td><td>Touch; Cha mod temp HP / turn; immunity to fear; 1 min.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Enhance Ability</td><td>Transmutation, C</td><td>Touch; choose one of six effects (advantage on Str/Dex/Con/Int/Wis/Cha checks; or other riders).</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Magic Weapon</td><td>Transmutation, C</td><td>Touch; weapon becomes +1 for 1 hour.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Spells via Other Traits (no slot needed)</h3>
+        <ul>
+          <li><strong>Bless</strong> (Heliod Devotee — Wis, 1/long rest, no slot; +1d4 to attacks and saves; concentration).</li>
+        </ul>
+      </div>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Greatsword</td><td class="atk">+7</td><td class="dmg">2d6 + 4 slashing</td><td>Martial, heavy, two-handed. <strong>Great Weapon Fighting</strong> rerolls 1s &amp; 2s. <strong>GWM toggle</strong>: +2 / 2d6 + 14. <strong>Divine Smite on hit</strong>: +2d8 radiant (1st slot) up to +3d8 (2nd slot).</td></tr>
+          <tr><td>Heavy crossbow</td><td class="atk">+4</td><td class="dmg">1d10 + 1 piercing</td><td>Martial ranged, range 100/400.</td></tr>
+          <tr><td>Dagger</td><td class="atk">+7</td><td class="dmg">1d4 + 4 piercing</td><td>Simple, finesse, light, thrown 20/60.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">Chainmail</div>
+        <div class="armor-props">Heavy · AC 16 · no Dex bonus · Stealth disadvantage</div>
+      </div>
+      <h3 class="sub-h">Spellcasting Focus &amp; Personal Items</h3>
+      <ul>
+        <li><strong>Holy symbol</strong>: sun-disk pendant of beaten bronze (also serves as Order signet).</li>
+        <li>Traveler's clothes</li>
+        <li>Sun-disk pendant (Order signet)</li>
+        <li><strong>Explorer's Pack</strong>: backpack, bedroll, mess kit, tinderbox, 10 torches, 10 days of rations, waterskin, 50 ft. hempen rope</li>
+      </ul>
+      <p><strong>Money</strong>: 10 gp <em>(starting pouch; campaign accumulation not tracked)</em>.</p>
+    `,
+    bio_l5_extra: `In the years since her investiture, she took the Oath of Glory — the path that says hardships are tests, that the body must be worked like raw stone, that what matters is what you <em>do</em> and not what you say about it. She has sparred Xemnon Sunguides into begrudging respect, fought beside Kragar Stonehorn against village raiders, been pulled from a shipwreck by Thectra Deepcaller. She has begun to suspect — though she would still not say it out loud — that Heliod has gone quiet on questions she needs answered.`
+  }
+];
+
+const ABILITY_ORDER = ['str','dex','con','int','wis','cha'];
+const ABILITY_SHORT = { str:'STR', dex:'DEX', con:'CON', int:'INT', wis:'WIS', cha:'CHA' };
+const PALADIN_PRIMARY = 'cha';
+
+function renderIdentity(s) {
+  const rows = [
+    ['Race',       'Variant Human'],
+    ['Class',      s.identity.class_long],
+    ['Background', 'Knight of the Order'],
+    ['Patron',     'Heliod · Devotee'],
+    ['Gift',       'Heroic Destiny'],
+    ['Alignment',  'Lawful Good'],
+    ['Languages',  'Common, Leonin, Celestial'],
+    ['Age',        s.identity.age]
+  ];
+  return rows.map(([k,v]) => `<div class="id-row"><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+}
+
+function renderSummary(s) {
+  return [
+    ['Hit Points', s.summary.hp, s.identity.hp_breakdown],
+    ['Armor Class', s.summary.ac, 'chainmail'],
+    ['Initiative', s.summary.init, ''],
+    ['Speed', s.summary.speed, ''],
+    ['Prof Bonus', s.summary.pb, ''],
+    ['Pass. Perc.', s.summary.pp, '']
+  ].map(([label, val, sub]) => `
+    <div class="sum-plate">
+      <div class="sp-label">${label}</div>
+      <div class="sp-value">${val}</div>
+      ${sub ? `<div class="sp-sub">${sub}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderAbilities(s) {
+  return ABILITY_ORDER.map(a => {
+    const ab = s.abilities[a];
+    const isPrimary = a === PALADIN_PRIMARY;
+    return `
+      <div class="ab-cell ${isPrimary ? 'primary' : ''}">
+        <div class="ab-name">${ABILITY_SHORT[a]}</div>
+        <div class="ab-mod">${ab.mod}</div>
+        <div class="ab-score">score ${ab.score}</div>
+        <div class="ab-save ${ab.prof ? 'prof' : ''}">save<span class="save-bonus">${ab.save}</span></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderSkills(s) {
+  const grouped = {};
+  ABILITY_ORDER.forEach(a => grouped[a] = []);
+  s.skills.forEach(sk => grouped[sk.ability].push(sk));
+  return ABILITY_ORDER.map(a => {
+    const list = grouped[a];
+    return `
+      <div class="skill-cat">
+        <div class="skill-cat-name">${ABILITY_SHORT[a]}</div>
+        ${list.length === 0
+          ? '<div class="skill-row dim"><span class="skill-name">—</span></div>'
+          : list.map(sk => `<div class="skill-row"><span class="skill-name">${sk.name}</span><span class="skill-bonus">${sk.bonus}</span></div>`).join('')
+        }
+      </div>
+    `;
+  }).join('');
+}
+
+function renderStage(i) {
+  const s = SNAPSHOTS[i];
+  document.getElementById('identity-target').innerHTML = renderIdentity(s);
+  document.getElementById('summary-target').innerHTML = renderSummary(s);
+  document.getElementById('abilities-target').innerHTML = renderAbilities(s);
+  document.getElementById('ab-note-target').textContent = s.ab_note;
+  document.getElementById('combat-target').innerHTML = s.combat_html;
+  document.getElementById('skills-target').innerHTML = renderSkills(s);
+  document.getElementById('skill-tool-target').innerHTML = s.tool_text;
+  document.getElementById('gwm-note-target').innerHTML = s.gwm_note;
+  document.getElementById('features-target').innerHTML = s.features_html;
+  document.getElementById('patron-target').innerHTML = s.patron_html;
+  document.getElementById('spellcasting-target').innerHTML = s.spellcasting_html;
+  document.getElementById('equipment-target').innerHTML = s.equipment_html;
+  document.getElementById('bio-l5-extra').innerHTML = s.bio_l5_extra;
+
+  document.querySelectorAll('#timeline .tl-node').forEach((n, idx) => n.classList.toggle('active', idx === i));
+}
+
+document.querySelectorAll('#timeline .tl-node').forEach((n, i) => {
+  n.addEventListener('click', () => renderStage(i));
+});
+renderStage(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Thalassa Wavebinder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Marble substrate — cool, off-white */
+    --marble:        #ece8df;
+    --marble-warm:   #e2dccf;
+    --marble-cool:   #d8d4c8;
+    --marble-deep:   #c4bfb2;
+    --vein:          #b6b0a2;
+    --ink:           #1a1a18;
+    --ink-soft:      #3a3a36;
+    --ink-faint:     #6e6a60;
+    --rule:          #968f80;
+    --rule-soft:     #b4ada0;
+
+    /* Patron-deity accent — Thassa (deep teal / kelp-shadow) */
+    --accent:        #1e6a7a;
+    --accent-dark:   #0e3a48;
+    --accent-sec:    #a4d4d4;
+    --accent-glaze:  rgba(30, 106, 122, 0.10);
+
+    /* Wax-seal accent */
+    --seal:      #1e5a6a;
+    --seal-dark: #0e2a38;
+
+    --class-tint: rgba(30,106,122,0.05);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--marble);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.045' numOctaves='2' seed='12' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.42 0 0 0 0 0.38 0 0 0 0.4 0'/></filter><rect width='100%25' height='100%25' filter='url(%23m)'/></svg>"),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 600px 600px, 200px 200px;
+    opacity: 0.55;
+    mix-blend-mode: multiply;
+    z-index: 0;
+  }
+  body {
+    background-image:
+      linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 25%, var(--marble) 75%, var(--marble-cool) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 0 5rem;
+  }
+
+  .stele {
+    max-width: 1140px;
+    margin: 0 auto;
+    background:
+      linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 8%, var(--marble) 92%, var(--marble-cool) 100%);
+    padding: 0;
+    box-shadow:
+      0 1px 2px rgba(26, 22, 18, 0.10),
+      0 10px 32px rgba(26, 22, 18, 0.16),
+      0 28px 64px rgba(26, 22, 18, 0.10);
+    position: relative;
+    border: 1px solid var(--rule);
+    z-index: 1;
+  }
+  .stele::before,
+  .stele::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-dark) 100%);
+    opacity: 0.5;
+  }
+  .stele::before { left: 0; }
+  .stele::after  { right: 0; }
+
+  .doc { padding: 0 5rem 4rem; }
+
+  .meander {
+    height: 22px;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='22' viewBox='0 0 44 22'><path d='M0 17 L0 5 L11 5 L11 12 L6 12 L6 8 L17 8 L17 17 L11 17 L11 13 L22 13 L22 5 L33 5 L33 12 L28 12 L28 8 L39 8 L39 17 L44 17' fill='none' stroke='%230e3a48' stroke-width='1.4' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: auto 18px;
+    opacity: 0.85;
+    margin: 0;
+  }
+  .meander.thick { height: 30px; }
+  .meander.thick { background-size: auto 24px; }
+
+  .masthead-band {
+    position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+    padding: 3rem 5rem 2.75rem;
+  }
+  .masthead-band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  .masthead-band::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px; height: 28px;
+    background:
+      linear-gradient(135deg, transparent 49.5%, var(--marble) 50%) left bottom / 50% 100% no-repeat,
+      linear-gradient(225deg, transparent 49.5%, var(--marble) 50%) right bottom / 50% 100% no-repeat;
+    z-index: 2;
+  }
+  .masthead {
+    position: relative;
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    z-index: 1;
+  }
+  .portrait-frame {
+    position: relative;
+    width: 360px; height: 480px;
+    background: var(--marble-deep);
+    padding: 8px;
+    border: 1px solid var(--ink-soft);
+    box-shadow:
+      inset 0 0 0 2px var(--accent-sec),
+      inset 0 0 0 4px var(--marble-deep),
+      0 4px 14px rgba(0,0,0,0.30);
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    left: -1px; right: -1px; height: 12px;
+    background:
+      linear-gradient(180deg, var(--accent-sec) 0%, var(--accent) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .portrait-frame::before { top: -14px; }
+  .portrait-frame::after  { bottom: -14px; }
+  .portrait-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.03) saturate(0.97);
+  }
+  .portrait-frame.empty {
+    display: flex;
+    align-items: center; justify-content: center;
+    background: linear-gradient(180deg, var(--marble), var(--marble-deep));
+  }
+  .portrait-frame.empty .empty-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0 1rem;
+    line-height: 1.4;
+  }
+
+  .name-block { padding: 0.5rem 0 0; color: var(--marble); position: relative; z-index: 1; }
+  .name-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.52em;
+    color: rgba(255, 250, 235, 0.85);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  h1.dossier-name {
+    font-family: "Cinzel", serif;
+    font-weight: 800;
+    font-size: 4.4rem;
+    line-height: 0.95;
+    letter-spacing: 0.04em;
+    color: var(--marble);
+    margin: 0 0 0.45rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.35);
+    text-transform: uppercase;
+  }
+  .dossier-name .given { display: block; color: var(--marble); }
+  .dossier-name .epithet {
+    display: block;
+    font-weight: 500;
+    font-size: 0.55em;
+    color: var(--accent-sec);
+    letter-spacing: 0.18em;
+    margin-top: 0.4rem;
+    font-style: italic;
+    font-variant: normal;
+    text-transform: none;
+  }
+  .tagline {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: rgba(255, 250, 235, 0.95);
+    margin: 1.2rem 0 1.5rem;
+    max-width: 38em;
+    padding-left: 1rem;
+    border-left: 2px solid var(--accent-sec);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .identity-inscription {
+    margin: 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(255, 250, 235, 0.3);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 2.25rem;
+  }
+  .id-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+  .id-row dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: rgba(255, 250, 235, 0.55);
+    text-transform: uppercase;
+  }
+  .id-row dd {
+    margin: 0;
+    color: rgba(255, 250, 235, 0.96);
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  }
+
+  .timeline-section {
+    background: var(--accent-glaze);
+    padding: 1.6rem 5rem;
+    position: relative;
+  }
+  .tl-label {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin: 0 0 1.1rem;
+  }
+  .tl-track {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 7rem;
+    position: relative;
+    padding: 0;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .tl-track::before {
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 16%; right: 16%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-sec), var(--accent), var(--accent-sec));
+    z-index: 0;
+  }
+  .tl-node {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: var(--ink-soft);
+    font-family: "EB Garamond", serif;
+    transition: color 0.2s ease;
+    min-width: 100px;
+  }
+  .tl-dot {
+    width: 18px; height: 18px;
+    border: 2px solid var(--accent-dark);
+    background: var(--marble);
+    margin-bottom: 0.55rem;
+    box-shadow: 0 0 0 3px var(--marble);
+    transition: all 0.2s ease;
+    transform: rotate(45deg);
+  }
+  .tl-node:hover .tl-dot {
+    border-color: var(--accent);
+    transform: rotate(45deg) scale(1.12);
+  }
+  .tl-node.active .tl-dot {
+    background: var(--seal);
+    border-color: var(--seal-dark);
+    box-shadow: 0 0 0 3px var(--marble), 0 0 0 5px rgba(30, 90, 106, 0.25);
+  }
+  .tl-node.active { color: var(--ink); }
+  .tl-top {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .tl-node.active .tl-top { color: var(--accent-dark); }
+  .tl-bot {
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+    font-style: italic;
+  }
+
+  section.block { margin: 2.5rem 0 0; padding: 0.5rem 0 1.5rem; position: relative; }
+  section.block + section.block { margin-top: 2rem; }
+
+  .section-h {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--accent-dark);
+    margin: 0 0 1.5rem;
+    padding: 0;
+    border: none;
+    text-align: center;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    position: relative;
+    display: block;
+  }
+  .section-h::before {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 14px;
+    margin: 0 auto 0.85rem;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%230e3a48' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.85;
+  }
+  .section-h .greek-chap {
+    display: block;
+    font-family: "Cinzel", serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.5em;
+    color: var(--accent);
+    margin-top: 0.5rem;
+    font-style: normal;
+    text-transform: uppercase;
+  }
+  h3.sub-h {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--accent-dark);
+    margin: 1.5rem 0 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  h4.subsub-h {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.32em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 1.1rem 0 0.5rem;
+    font-weight: 500;
+  }
+  p { margin: 0 0 1rem; }
+
+  .summary-strip {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    margin: 0.5rem 0;
+    background: var(--accent-glaze);
+    padding: 1rem 0.5rem;
+    border-top: 1.5px solid var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+  }
+  .sum-plate { text-align: center; padding: 0 0.5rem; border-right: 1px solid var(--rule-soft); }
+  .sum-plate:last-child { border-right: none; }
+  .sum-plate .sp-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .sum-plate .sp-value {
+    font-family: "Cinzel", serif;
+    font-size: 1.7rem;
+    color: var(--accent-dark);
+    line-height: 1.1;
+    font-weight: 700;
+    margin-top: 0.15rem;
+  }
+  .sum-plate .sp-sub {
+    font-family: "EB Garamond", serif;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 0.1rem;
+  }
+
+  .abilities-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+    margin: 0.5rem 0 1.25rem;
+  }
+  .ab-cell {
+    text-align: center;
+    padding: 1rem 0.4rem 0.85rem;
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--accent);
+    position: relative;
+  }
+  .ab-cell.primary {
+    border-top-width: 4px;
+    border-top-color: var(--accent-dark);
+    background: linear-gradient(180deg, rgba(164, 212, 212, 0.45) 0%, var(--marble-warm) 60%);
+  }
+  .ab-cell .ab-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .ab-cell .ab-mod {
+    font-family: "Cinzel", serif;
+    font-size: 2.1rem;
+    line-height: 1;
+    color: var(--ink);
+    font-weight: 800;
+  }
+  .ab-cell .ab-score {
+    font-family: "EB Garamond", serif;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+  }
+  .ab-cell .ab-save {
+    margin-top: 0.5rem;
+    padding-top: 0.4rem;
+    border-top: 1px dotted var(--rule);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .ab-cell .ab-save .save-bonus {
+    font-family: "Cinzel", serif;
+    font-size: 0.95rem;
+    color: var(--accent-dark);
+    margin-left: 0.25rem;
+    font-weight: 600;
+  }
+  .ab-cell .ab-save.prof::after {
+    content: " ★";
+    color: var(--seal);
+    margin-left: 0.15rem;
+  }
+  .ab-note { font-size: 0.88rem; color: var(--ink-faint); font-style: italic; text-align: center; margin-top: 0.5rem; }
+
+  .combat-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem 2.5rem;
+    margin: 0.5rem 0;
+  }
+  .combat-block dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; }
+  .combat-block dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    align-self: baseline;
+  }
+  .combat-block dd { margin: 0; font-family: "EB Garamond", serif; font-size: 0.98rem; color: var(--ink); }
+  .combat-block dd em { color: var(--ink-faint); font-size: 0.88rem; }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.1rem; margin: 1rem 0 1.5rem; }
+  .skill-cat { border-top: 2px solid var(--accent); padding-top: 0.6rem; }
+  .skill-cat-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    text-align: center;
+  }
+  .skill-row { display: flex; align-items: baseline; justify-content: space-between; gap: 0.4rem; padding: 0.18rem 0; font-size: 0.92rem; line-height: 1.3; color: var(--ink); }
+  .skill-row.dim { color: var(--ink-faint); font-style: italic; }
+  .skill-row .skill-name { flex: 1; }
+  .skill-row .skill-bonus { font-family: "Cinzel", serif; font-weight: 600; color: var(--accent-dark); }
+  .skill-row.expertise .skill-bonus { color: var(--seal); }
+  .skill-source { font-size: 0.82rem; color: var(--ink-faint); text-align: center; font-style: italic; margin-top: 0.6rem; }
+
+  .feat-block { font-size: 0.98rem; font-family: "EB Garamond", serif; }
+  .feat-block ul { padding-left: 1.2rem; margin: 0.5rem 0 1rem; }
+  .feat-block li { margin-bottom: 0.45rem; }
+  .feat-block strong { color: var(--accent-dark); font-weight: 600; }
+  .feat-block em { color: var(--ink-soft); }
+  .feat-block .aside {
+    font-style: italic;
+    color: var(--ink-faint);
+    font-size: 0.92rem;
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-soft);
+    margin: 0.6rem 0 1rem;
+  }
+  .feat-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    margin: 1rem 0;
+  }
+
+  .patron-section {
+    margin: 2.5rem -5rem 2.5rem;
+    padding: 0;
+    position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+  }
+  .patron-section::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: -22px; height: 22px;
+    background:
+      linear-gradient(45deg, transparent 49.5%, var(--accent) 50%) left top / 50% 100% no-repeat,
+      linear-gradient(315deg, transparent 49.5%, var(--accent) 50%) right top / 50% 100% no-repeat;
+    z-index: 0;
+  }
+  .patron-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+    z-index: 0;
+  }
+  .patron-inner {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem 6.5rem 2.75rem;
+  }
+  .patron-inner::before,
+  .patron-inner::after {
+    content: "";
+    position: absolute;
+    top: 2rem; bottom: 2rem;
+    width: 28px;
+    background:
+      linear-gradient(180deg,
+        var(--accent-sec) 0%, var(--accent-sec) 6%,
+        rgba(255,250,235,0.25) 6%, rgba(255,250,235,0.25) 8%,
+        rgba(255,250,235,0.15) 8%, rgba(255,250,235,0.15) 92%,
+        rgba(255,250,235,0.25) 92%, rgba(255,250,235,0.25) 94%,
+        var(--accent-sec) 94%, var(--accent-sec) 100%);
+    border-left: 1px solid rgba(255,250,235,0.25);
+    border-right: 1px solid rgba(255,250,235,0.25);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.10);
+  }
+  .patron-inner::before { left: 2.5rem; }
+  .patron-inner::after  { right: 2.5rem; }
+  .patron-section .section-h {
+    color: var(--marble);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.30);
+    letter-spacing: 0.36em;
+    margin-bottom: 1.5rem;
+  }
+  .patron-section .section-h::before {
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%23a4d4d4' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+  }
+  .patron-section .section-h .greek-chap { color: var(--accent-sec); }
+  .patron-section h3.sub-h, .patron-section h4.subsub-h {
+    color: rgba(255, 250, 235, 0.95);
+    border-bottom-color: rgba(255, 250, 235, 0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.22);
+  }
+  .patron-section .feat-block { color: rgba(255, 250, 235, 0.94); }
+  .patron-section .feat-block strong { color: var(--accent-sec); }
+  .patron-section .feat-block em { color: rgba(255, 250, 235, 0.74); }
+  .patron-section .feat-block .aside {
+    color: rgba(255, 250, 235, 0.78);
+    border-left-color: rgba(255, 250, 235, 0.4);
+  }
+
+  .spell-block {
+    background: var(--class-tint);
+    border: 1px solid var(--rule-soft);
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+  .spell-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .spell-stats .ss-cell { text-align: center; padding: 0.25rem; }
+  .spell-stats .ss-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .spell-stats .ss-value { font-family: "Cinzel", serif; font-size: 1.4rem; color: var(--accent-dark); font-weight: 700; }
+  .spell-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .spell-table th, .spell-table td { text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px dotted var(--rule-soft); }
+  .spell-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .spell-table td.lvl { width: 3em; color: var(--accent-dark); font-weight: 600; font-family: "Cinzel", serif; }
+  .spell-table td.spell-name { font-style: italic; color: var(--ink); }
+  .slot-table { width: auto; margin: 0.5rem 0 1rem; border-collapse: collapse; font-size: 0.94rem; }
+  .slot-table th, .slot-table td { text-align: center; padding: 0.3rem 1rem; border: 1px solid var(--rule-soft); }
+  .slot-table th {
+    background: var(--accent-glaze);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .slot-table td { font-family: "Cinzel", serif; font-weight: 700; color: var(--accent-dark); }
+
+  .weapon-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .weapon-table th, .weapon-table td { text-align: left; padding: 0.45rem 0.7rem; border-bottom: 1px dotted var(--rule-soft); }
+  .weapon-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .weapon-table td.atk, .weapon-table td.dmg {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    color: var(--accent-dark);
+    white-space: nowrap;
+  }
+  .armor-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.2rem;
+    margin: 0.6rem 0;
+  }
+  .armor-name { font-family: "Cinzel", serif; font-weight: 700; font-size: 1rem; color: var(--accent-dark); letter-spacing: 0.06em; }
+  .armor-props { font-size: 0.88rem; color: var(--ink-soft); font-style: italic; margin-top: 0.25rem; }
+
+  .personality-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.5rem 0 1rem; }
+  .pers-card {
+    border-left: 3px solid var(--accent);
+    padding: 0.6rem 1.1rem;
+    background: var(--accent-glaze);
+  }
+  .pers-card.flaw {
+    border-left-color: var(--seal);
+    background: rgba(30, 90, 106, 0.08);
+  }
+  .pers-label {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .pers-card.flaw .pers-label { color: var(--seal-dark); }
+  .pers-text { font-style: italic; color: var(--ink); font-size: 1rem; line-height: 1.5; margin: 0; }
+
+  .connections-list { margin: 0.5rem 0 1rem; padding-left: 0; list-style: none; }
+  .connections-list li {
+    margin-bottom: 0.7rem;
+    padding-left: 1.4rem;
+    position: relative;
+    line-height: 1.55;
+  }
+  .connections-list li::before {
+    content: "▲";
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    top: 0.32em;
+    font-size: 0.65rem;
+  }
+  .connections-list strong { color: var(--accent-dark); }
+
+  .expedition-callout {
+    background: linear-gradient(180deg, var(--accent-glaze) 0%, rgba(30,106,122,0.03) 100%);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    padding: 1.5rem 1.75rem;
+    margin: 1rem 0 0;
+    font-size: 1.02rem;
+    line-height: 1.6;
+  }
+  .expedition-callout p:last-child { margin-bottom: 0; }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    margin-top: 3rem;
+    color: var(--ink-faint);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+  }
+  .footer .meander {
+    margin-bottom: 1rem;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 1000px) {
+    .doc { padding: 0 1.5rem 2.5rem; }
+    .timeline-section { padding: 1.5rem 1.5rem; }
+    .masthead-band { padding: 2rem 1.5rem 2.5rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1.5rem; }
+    .portrait-frame { width: 100%; max-width: 320px; height: auto; aspect-ratio: 3/4; margin: 0 auto; }
+    h1.dossier-name { font-size: 2.8rem; }
+    .identity-inscription { grid-template-columns: 1fr; }
+    .summary-strip, .abilities-grid { grid-template-columns: repeat(3, 1fr); }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .combat-block, .personality-grid { grid-template-columns: 1fr; }
+    .patron-section { margin: 2rem -1.5rem; }
+    .patron-inner { padding: 2rem 1.5rem; }
+    .patron-inner::before, .patron-inner::after { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="stele">
+
+<div class="masthead-band">
+  <div class="masthead">
+
+    <div class="portrait-frame">
+      <img src="../Theros 1st pass/Thalassa.png" alt="Thalassa Wavebinder portrait">
+    </div>
+
+    <div class="name-block">
+      <div class="name-eyebrow">Dossier · Thassa's Evoker</div>
+      <h1 class="dossier-name">
+        <span class="given">Thalassa</span>
+        <span class="epithet">Wavebinder</span>
+      </h1>
+      <p class="tagline">
+        A Triton evoker of the deep, whose interest in the slow secrets of the ocean and the slow turning of the heavens are, to her, two faces of the same study.
+      </p>
+      <dl class="identity-inscription" id="identity-target"></dl>
+    </div>
+
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<div class="timeline-section">
+  <div class="tl-label">Stage of Career</div>
+  <div class="tl-track" id="timeline">
+    <button class="tl-node active" data-stage="0" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 1</div>
+      <div class="tl-bot">Wavebinder Apprentice</div>
+    </button>
+    <button class="tl-node" data-stage="1" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 5</div>
+      <div class="tl-bot">School of Evocation</div>
+    </button>
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<div class="doc">
+
+<section class="block">
+  <h2 class="section-h">Bio<span class="greek-chap">α · Vita</span></h2>
+  <p>Why wouldn't Thalassa phrase every statement as a question? It is one of the small habits that mark her as touched by something other than herself — an inscrutability she has carried since childhood. She is a researcher of evocation magic, devoted to Thassa, and her interest in the slow secrets of the deep ocean and the slow turning of the heavens are, to her, two faces of the same study.</p>
+  <p>She dreamed once of a great kraken; when she followed the dream to the sea, the kraken appeared to her and gave her Thassa's blessing. She has been a devotee of the goddess of the deep ever since.</p>
+  <p id="bio-l5-extra"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<section class="block">
+  <h2 class="section-h">At a Glance<span class="greek-chap">β · Synopsis</span></h2>
+  <div class="summary-strip" id="summary-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Ability Scores<span class="greek-chap">γ · Dynámeis</span></h2>
+  <div class="abilities-grid" id="abilities-target"></div>
+  <p class="ab-note" id="ab-note-target"></p>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Combat &amp; Senses<span class="greek-chap">δ · Mákhē</span></h2>
+  <div class="combat-block" id="combat-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Skill Proficiencies<span class="greek-chap">ε · Tékhnai</span></h2>
+  <div class="skills-grid" id="skills-target"></div>
+  <p class="skill-source" id="skill-tool-target"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<section class="block">
+  <h2 class="section-h">Class Features<span class="greek-chap">ζ · Tákta</span></h2>
+  <div class="feat-block" id="features-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Racial Features — Triton<span class="greek-chap">η · Génos</span></h2>
+  <div class="feat-block" id="racial-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Supernatural Gift — Inscrutable<span class="greek-chap">θ · Dóron</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Psychic Shield</strong>: You have resistance to <strong>psychic damage</strong>.</li>
+      <li><strong>Sphinx's Shroud</strong>: You are immune to any effect that allows other creatures to sense your emotions or read your thoughts. Wisdom (Insight) checks made to ascertain your intentions or sincerity have <strong>disadvantage</strong>.</li>
+    </ul>
+    <p class="aside">The draft erroneously listed "Ears of the Oracle" and "Oracle's Insight" under Inscrutable — those are Oracle gift features, not Inscrutable. Inscrutable grants only the two traits above as permanent features.</p>
+  </div>
+</section>
+
+</div>
+
+<section class="patron-section">
+  <div class="patron-inner">
+    <h2 class="section-h">Patron God — Thassa, of the Deep<span class="greek-chap">ι · Theós</span></h2>
+    <div class="feat-block" id="patron-target"></div>
+  </div>
+</section>
+
+<div class="doc" style="padding-top: 1rem;">
+
+<section class="block">
+  <h2 class="section-h">Background — Sage (Astronomer)<span class="greek-chap">κ · Bíos</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Skill Proficiencies</strong>: Arcana, History.</li>
+      <li><strong>Languages</strong>: Two of choice. <em>Chosen: Celestial</em> (language of the gods) and <em>Sphinx</em> (oracular tradition).</li>
+      <li><strong>Equipment</strong>: Bottle of black ink, quill, small knife, letter from a dead colleague posing a question Thalassa has not yet been able to answer, a set of common clothes, 10 gp.</li>
+      <li><strong>Feature — Researcher</strong>: When you attempt to learn or recall a piece of lore, if you do not know that information, you often know where and from whom you can obtain it. Usually, this information comes from a library, scriptorium, university, or a sage or other learned person or creature.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Spellcasting<span class="greek-chap">λ · Goēteía</span></h2>
+  <div id="spellcasting-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Equipment<span class="greek-chap">μ · Hopla</span></h2>
+  <div id="equipment-target"></div>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<section class="block">
+  <h2 class="section-h">Personality<span class="greek-chap">ν · Êthos</span></h2>
+  <div class="personality-grid">
+    <div class="pers-card">
+      <div class="pers-label">Trait</div>
+      <p class="pers-text">"Deeply attuned to my emotions."</p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Ideal — Power</div>
+      <p class="pers-text">"I want to harness powerful magic, even if it is disruptive." <em>(Sage ideal #5, paraphrased)</em></p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Bond</div>
+      <p class="pers-text">"My life's work is a series of works related to a narrow topic." <em>(Sage bond #5)</em></p>
+    </div>
+    <div class="pers-card flaw">
+      <div class="pers-label">Flaw</div>
+      <p class="pers-text">"I am overly cautious, hesitant of loss and fearful of risk."</p>
+    </div>
+  </div>
+  <p class="ab-note">Inscrutable Characteristic #5 — "Why wouldn't I phrase every statement as a question?" — is woven through her speech.</p>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Connections<span class="greek-chap">ξ · Philíai</span></h2>
+  <ul class="connections-list" id="connections-target"></ul>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Why Thalassa is on the Expedition<span class="greek-chap">ο · Hodós</span></h2>
+  <div class="expedition-callout">
+    <p>Thalassa's evocation expertise might allow her to uncover ancient weather or agricultural spells tied to Karametra's domain. As an astronomer, she might also interpret signs in the heavens pointing to the root cause of the divine absence.</p>
+    <p>The Fallow Year is, to a Thassa devotee, both a personal crisis and the kind of slow change Thassa watches over with patient interest. Thalassa would not have chosen this expedition — her caution would warn her against it. But once the questions are asked — <em>why</em> has Karametra fallen silent, <em>what</em> do the stars say — she cannot stop her own curiosity from following.</p>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div class="meander" aria-hidden="true"></div>
+  Player Character Dossier · Theros, The Fallow Season
+</footer>
+
+</div>
+
+<script>
+const SNAPSHOTS = [
+  {
+    stage: "L1",
+    level: 1,
+    pb: 2,
+    identity: { class_long: "Wizard 1", age: "—" },
+    summary: { hp: 8, ac: 11, init: "+1", speed: "30 ft.", pb: "+2", pp: 10 },
+    abilities: {
+      str:{score:11, mod:"+0", save:"+0", prof:false},
+      dex:{score:12, mod:"+1", save:"+1", prof:false},
+      con:{score:15, mod:"+2", save:"+2", prof:false},
+      int:{score:16, mod:"+3", save:"+5", prof:true},
+      wis:{score:10, mod:"+0", save:"+2", prof:true},
+      cha:{score:17, mod:"+3", save:"+3", prof:false}
+    },
+    ab_note: "Rolled array 10, 10, 12, 14, 16, 16 → Str 10 / Dex 12 / Con 14 / Int 16 / Wis 10 / Cha 16. Triton +1 Str (→11), +1 Con (→15), +1 Cha (→17).",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+2</dd>
+        <dt>Armor Class</dt><dd>11 unarmored <em>(10 + Dex +1)</em> / <strong>14 with mage armor</strong> <em>(13 + Dex +1)</em></dd>
+        <dt>Initiative</dt><dd>+1</dd>
+        <dt>Speed</dt><dd>30 ft. walking, 30 ft. swim <em>(Triton)</em></dd>
+        <dt>Hit Points</dt><dd>8 <em>(d6 max 6 + Con +2)</em></dd>
+        <dt>Hit Dice</dt><dd>1d6</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>10 <em>(10 + Wis +0; not proficient)</em></dd>
+        <dt>Special Senses</dt><dd>Darkvision 60 ft. <em>(Triton)</em></dd>
+        <dt>Creature Type</dt><dd>Humanoid (Triton)</dd>
+        <dt>Cold</dt><dd>Resistance <em>(Guardians of the Depths)</em></dd>
+        <dt>Wizard DC / Atk</dt><dd>13 / +5 <em>(Int-based)</em></dd>
+        <dt>Thassa Devotee</dt><dd>DC 13 / +5 <em>(Int-based)</em></dd>
+      </dl>
+    `,
+    skills: [
+      {name:"Arcana",        ability:"int", bonus:"+5", source:"Sage"},
+      {name:"History",       ability:"int", bonus:"+5", source:"Sage"},
+      {name:"Insight",       ability:"wis", bonus:"+2", source:"Wizard"},
+      {name:"Investigation", ability:"int", bonus:"+5", source:"Wizard"}
+    ],
+    tool_text: "Tool Proficiencies: none. Wizard picks 2 skills from Arcana, History, Insight, Investigation, Medicine, Religion — chosen Insight + Investigation, non-overlapping with Sage's Arcana + History.",
+    features_html: `
+      <h3 class="sub-h">Wizard (Level 1)</h3>
+      <ul>
+        <li><strong>Spellcasting</strong>: Intelligence is your spellcasting ability. You cast prepared spells from your <strong>spellbook</strong>. Prepared spells per day = Int mod + Wizard level = 3 + 1 = <strong>4 prepared</strong>. Cantrips do not need to be prepared.</li>
+        <li><strong>Arcane Recovery</strong>: Once per day, when you finish a short rest, you can recover expended spell slots with combined level ≤ half Wizard level (rounded up) = <strong>1 level at L1</strong>.</li>
+        <li><strong>Ritual Casting</strong>: You can cast a wizard spell as a ritual if it has the ritual tag and is in your spellbook — no prep needed.</li>
+        <li><strong>Spellcasting Focus</strong>: An arcane focus (wand, staff, crystal).</li>
+      </ul>
+      <p class="aside">Arcane Tradition (School of Evocation) is chosen at Wizard Level 2 — not yet active at Level 1.</p>
+    `,
+    racial_html: `
+      <ul>
+        <li><strong>Amphibious</strong>: Breathe air and water.</li>
+        <li><strong>Control Air and Water</strong>: Cast <em>fog cloud</em> with this trait, <strong>1/long rest</strong>. Charisma is the spellcasting ability. <em>(Gust of wind unlocks at L3, wall of water at L5.)</em></li>
+        <li><strong>Darkvision</strong> (60 ft.)</li>
+        <li><strong>Emissary of the Sea</strong>: Communicate simple ideas with beasts that breathe water.</li>
+        <li><strong>Guardians of the Depths</strong>: Resistance to <strong>cold damage</strong>.</li>
+      </ul>
+    `,
+    patron_html: `
+      <h3 class="sub-h">Piety 3 — Devotee</h3>
+      <ul>
+        <li><strong>Source of godly favor</strong> <em>(d6 #3)</em>: "You dreamed of a great kraken. When you followed your dreams to the sea, the kraken appeared to you and gave you Thassa's blessing."</li>
+        <li><strong>Godly ideal</strong> <em>(d6 #2)</em>: "Knowledge. I will learn the secrets of the hidden depths."</li>
+        <li><strong>Devotee Trait (Piety 3+)</strong>: You can cast <em>fog cloud</em> with this trait. Fog created in this way <strong>smells strongly of the sea</strong>. Uses per long rest = Int mod = <strong>3</strong>. <strong>Intelligence</strong> is the spellcasting ability.</li>
+      </ul>
+      <h4 class="subsub-h">Thassa-granted spell stats (Int-based)</h4>
+      <ul>
+        <li><strong>Spell save DC</strong> = 8 + PB +2 + Int +3 = <strong>13</strong></li>
+        <li><strong>Spell attack</strong> = PB +2 + Int +3 = <strong>+5</strong></li>
+      </ul>
+      <p class="aside">Fog cloud is accessible via Triton (1/long rest, Cha-based, DC 13) AND Thassa Devotee (3/long rest, Int-based, DC 13). Same spell, two free access routes — both use no slots. Plus she can prepare it as a wizard spell from the spellbook for a slot-cost version. Three paths to fog cloud.</p>
+    `,
+    spellcasting_html: `
+      <div class="spell-block">
+        <div class="spell-stats">
+          <div class="ss-cell"><div class="ss-label">Wizard DC</div><div class="ss-value">13</div></div>
+          <div class="ss-cell"><div class="ss-label">Spell Attack</div><div class="ss-value">+5</div></div>
+          <div class="ss-cell"><div class="ss-label">Prepared</div><div class="ss-value">4</div></div>
+          <div class="ss-cell"><div class="ss-label">Ability</div><div class="ss-value">Int</div></div>
+        </div>
+
+        <h3 class="sub-h">Spell Slots</h3>
+        <table class="slot-table">
+          <thead><tr><th>1st</th></tr></thead>
+          <tbody><tr><td>2</td></tr></tbody>
+        </table>
+
+        <h3 class="sub-h">Cantrips Known (3)</h3>
+        <table class="spell-table">
+          <tbody>
+            <tr><td class="lvl">0</td><td class="spell-name">Fire Bolt</td><td>Evocation</td><td>Primary damage cantrip; ranged spell attack +5, 1d10 fire.</td></tr>
+            <tr><td class="lvl">0</td><td class="spell-name">Mage Hand</td><td>Conjuration</td><td>Spectral hand, 30 ft.</td></tr>
+            <tr><td class="lvl">0</td><td class="spell-name">Prestidigitation</td><td>Transmutation</td><td>Minor utility magic.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Spellbook (6 spells at L1)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Lvl</th><th>Spell</th><th>School</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="lvl">1</td><td class="spell-name">Mage Armor</td><td>Abjuration</td><td>Essential defense — base AC 13 + Dex.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Magic Missile</td><td>Evocation</td><td>Reliable damage, no save.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Shield</td><td>Abjuration</td><td>Reaction +5 AC vs an attack.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Thunderwave</td><td>Evocation</td><td>15-ft cube AoE, 2d8 thunder.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Detect Magic</td><td>Divination (ritual)</td><td>Free via ritual casting.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Identify</td><td>Divination (ritual)</td><td>Free via ritual casting.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Prepared Today (4)</h3>
+        <ul>
+          <li><em>Mage Armor</em> (cast at start of adventuring day for AC 14)</li>
+          <li><em>Magic Missile</em></li>
+          <li><em>Shield</em></li>
+          <li><em>Thunderwave</em></li>
+        </ul>
+
+        <h3 class="sub-h">Spells via Other Traits (no slot needed)</h3>
+        <ul>
+          <li><strong>Fog Cloud</strong> (Triton Control Air &amp; Water — Cha-based, 1/long rest)</li>
+          <li><strong>Fog Cloud</strong> (Thassa Devotee — Int-based, 3/long rest)</li>
+        </ul>
+      </div>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Quarterstaff</td><td class="atk">+2</td><td class="dmg">1d6 / 1d8 bludgeoning</td><td>Simple melee, versatile. Wizard starting weapon option.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">None (Mage Armor when cast)</div>
+        <div class="armor-props">Default AC 11; mage armor boosts AC to 14 for 8 hours (1st-level slot).</div>
+      </div>
+      <h3 class="sub-h">Arcane Focus &amp; Personal Items</h3>
+      <ul>
+        <li><strong>Crystal</strong> (arcane focus — Wizard starting equipment)</li>
+        <li><strong>Spellbook</strong> — the familiar wizard's book, containing the 6 starting spells listed above.</li>
+        <li>Bottle of black ink, quill, small knife (penknife — a tool, not a combat weapon)</li>
+        <li><strong>Letter from a dead colleague</strong> posing a question Thalassa has not yet been able to answer <em>(astronomer-flavor: perhaps a riddle about a constellation's recent change, or a vanished star)</em></li>
+        <li>Set of common clothes</li>
+        <li><strong>Scholar's Pack</strong>: backpack, book of lore, bottle of ink, ink pen, 10 sheets of parchment, little bag of sand, small knife</li>
+      </ul>
+      <p><strong>Money</strong>: 10 gp <em>(Sage starting pouch)</em>.</p>
+    `,
+    connections_html: `
+      <li><strong>Thectra Deepcaller</strong> — Both studied at the same temple of Thassa, before Thectra was branded a heretic and cast out.</li>
+      <li><strong>Alesta Centaur-Speaker</strong> — Alesta once saved Thalassa <em>(circumstances unspecified — a sea-side rescue? a famine relief?)</em>.</li>
+      <li><strong>Orion Swiftarrow</strong> — Thalassa aided Orion on a mission to protect a coastal town from sea raiders.</li>
+      <li><strong>Ilios Anvilwrought</strong> — <em>(future)</em> the two will fall in love over the course of the campaign.</li>
+    `,
+    bio_l5_extra: ""
+  },
+  {
+    stage: "L5",
+    level: 5,
+    pb: 3,
+    identity: { class_long: "Wizard 5 — School of Evocation", age: "33" },
+    summary: { hp: 32, ac: 11, init: "+1", speed: "30 ft.", pb: "+3", pp: 10 },
+    abilities: {
+      str:{score:11, mod:"+0", save:"+0", prof:false},
+      dex:{score:12, mod:"+1", save:"+1", prof:false},
+      con:{score:15, mod:"+2", save:"+2", prof:false},
+      int:{score:18, mod:"+4", save:"+7", prof:true},
+      wis:{score:10, mod:"+0", save:"+3", prof:true},
+      cha:{score:17, mod:"+3", save:"+3", prof:false}
+    },
+    ab_note: "Same base array as L1. Level 4 ASI: +2 Int (16 → 18). Raises Wizard DC 13 → 15, attack +5 → +7; Thassa Devotee uses Int mod 3 → 4 per long rest; Arcana / History / Investigation +1; Int save +1.",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+3</dd>
+        <dt>Armor Class</dt><dd>11 unarmored <em>(10 + Dex +1)</em> / <strong>14 with mage armor</strong></dd>
+        <dt>Initiative</dt><dd>+1</dd>
+        <dt>Speed</dt><dd>30 ft. walking, 30 ft. swim <em>(Triton)</em></dd>
+        <dt>Hit Points</dt><dd>32 <em>(L1: 6 + Con +2 = 8; L2–5: 4 × (avg 4 + Con +2) = 24; total 32)</em></dd>
+        <dt>Hit Dice</dt><dd>5d6</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>10 <em>(10 + Wis +0; not proficient)</em></dd>
+        <dt>Special Senses</dt><dd>Darkvision 60 ft. <em>(Triton)</em></dd>
+        <dt>Creature Type</dt><dd>Humanoid (Triton)</dd>
+        <dt>Cold</dt><dd>Resistance <em>(Guardians of the Depths)</em></dd>
+        <dt>Wizard DC / Atk</dt><dd><strong>15</strong> / +7 <em>(8 + PB +3 + Int +4)</em></dd>
+        <dt>Triton Control DC / Atk</dt><dd>14 / +6 <em>(Cha-based)</em></dd>
+        <dt>Thassa Devotee DC / Atk</dt><dd>15 / +7 <em>(Int-based)</em></dd>
+      </dl>
+    `,
+    skills: [
+      {name:"Arcana",        ability:"int", bonus:"+7", source:"Sage"},
+      {name:"History",       ability:"int", bonus:"+7", source:"Sage"},
+      {name:"Insight",       ability:"wis", bonus:"+3", source:"Wizard"},
+      {name:"Investigation", ability:"int", bonus:"+7", source:"Wizard"}
+    ],
+    tool_text: "Tool Proficiencies: none. At L5 with Int 18 and PB +3, all Int-based skill picks reach +7.",
+    features_html: `
+      <h3 class="sub-h">Wizard (Base)</h3>
+      <ul>
+        <li><strong>Spellcasting</strong> (L1): Intelligence-based. Prepare daily from spellbook (Int mod + Wizard level = <strong>9 prepared</strong>). Ritual casting (from spellbook, no prep needed). Arcane focus.</li>
+        <li><strong>Arcane Recovery</strong> (L1): Once per day on a short rest, recover spell slots with combined level ≤ half Wizard level rounded up = <strong>3 levels</strong> at L5 (e.g., one 3rd-level slot, or one 1st + one 2nd, or three 1st-level slots).</li>
+      </ul>
+
+      <h3 class="sub-h">School of Evocation (Subclass, chosen at L2)</h3>
+      <ul>
+        <li><strong>Evocation Savant</strong> (L2): Halve gold and time to copy evocation spells into your spellbook.</li>
+        <li><strong>Sculpt Spells</strong> (L2): When you cast an evocation spell that affects others you can see, you can choose a number of them equal to <strong>1 + the spell's level</strong>. Each chosen creature automatically succeeds on its saving throw against the spell and takes no damage if it would normally take half on a successful save.</li>
+      </ul>
+      <p class="aside">Sculpt Spells lets her cast Thunderwave, Fireball, Lightning Bolt, etc., without harming allies caught in the area. Potent Cantrip comes at L6 — not yet at L5.</p>
+    `,
+    racial_html: `
+      <ul>
+        <li><strong>Amphibious</strong>: Breathe air and water.</li>
+        <li><strong>Control Air and Water</strong>: Cast <em>fog cloud</em>, <em>gust of wind</em> (L3+), and <em>wall of water</em> (L5+) — one of each, 1/long rest each. Charisma-based.</li>
+        <li><strong>Darkvision</strong> (60 ft.)</li>
+        <li><strong>Emissary of the Sea</strong>: Communicate simple ideas with beasts that breathe water.</li>
+        <li><strong>Guardians of the Depths</strong>: Resistance to <strong>cold damage</strong>.</li>
+      </ul>
+    `,
+    patron_html: `
+      <h3 class="sub-h">Piety 3+ — Devotee</h3>
+      <ul>
+        <li><strong>Source of godly favor</strong> <em>(d6 #3)</em>: "You dreamed of a great kraken. When you followed your dreams to the sea, the kraken appeared to you and gave you Thassa's blessing."</li>
+        <li><strong>Godly ideal</strong> <em>(d6 #2)</em>: "Knowledge. I will learn the secrets of the hidden depths."</li>
+        <li><strong>Devotee Trait (Piety 3+)</strong>: Cast <em>fog cloud</em> with this trait — fog smells strongly of the sea. Uses per long rest = Int mod = <strong>4</strong>. Intelligence-based.</li>
+      </ul>
+      <h4 class="subsub-h">Thassa-granted spell stats (Int-based)</h4>
+      <ul>
+        <li><strong>Spell save DC</strong> = 8 + PB +3 + Int +4 = <strong>15</strong></li>
+        <li><strong>Spell attack</strong> = PB +3 + Int +4 = <strong>+7</strong></li>
+      </ul>
+      <p class="aside">Fog cloud is accessible three ways — Triton (1/long rest, Cha DC 14), Thassa Devotee (4/long rest, Int DC 15), or prepared from spellbook (slot cost, Int DC 15). Triton + Devotee = 5 free castings per day, plus any prepared.</p>
+    `,
+    spellcasting_html: `
+      <div class="spell-block">
+        <div class="spell-stats">
+          <div class="ss-cell"><div class="ss-label">Save DC</div><div class="ss-value">15</div></div>
+          <div class="ss-cell"><div class="ss-label">Spell Attack</div><div class="ss-value">+7</div></div>
+          <div class="ss-cell"><div class="ss-label">Prepared</div><div class="ss-value">9</div></div>
+          <div class="ss-cell"><div class="ss-label">Ability</div><div class="ss-value">Int</div></div>
+        </div>
+
+        <h3 class="sub-h">Spell Slots</h3>
+        <table class="slot-table">
+          <thead><tr><th>1st</th><th>2nd</th><th>3rd</th></tr></thead>
+          <tbody><tr><td>4</td><td>3</td><td>2</td></tr></tbody>
+        </table>
+
+        <h3 class="sub-h">Cantrips Known (4 at L5)</h3>
+        <table class="spell-table">
+          <tbody>
+            <tr><td class="lvl">0</td><td class="spell-name">Fire Bolt</td><td>Evocation</td><td>Ranged spell attack +7, range 120 ft., <strong>2d10 fire</strong> (cantrip scales at L5).</td></tr>
+            <tr><td class="lvl">0</td><td class="spell-name">Mage Hand</td><td>Conjuration</td><td>Utility.</td></tr>
+            <tr><td class="lvl">0</td><td class="spell-name">Prestidigitation</td><td>Transmutation</td><td>Minor utility.</td></tr>
+            <tr><td class="lvl">0</td><td class="spell-name">Ray of Frost</td><td>Evocation</td><td>Attack +7, range 60 ft., <strong>2d8 cold</strong> + target's speed reduced by 10 ft until end of your next turn.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Spellbook (14 spells at L5)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Lvl</th><th>Spell</th><th>School</th><th>Added at</th></tr></thead>
+          <tbody>
+            <tr><td class="lvl">1</td><td class="spell-name">Mage Armor</td><td>Abjuration</td><td>L1</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Magic Missile</td><td>Evocation</td><td>L1</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Shield</td><td>Abjuration</td><td>L1</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Thunderwave</td><td>Evocation</td><td>L1</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Detect Magic (ritual)</td><td>Divination</td><td>L1</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Identify (ritual)</td><td>Divination</td><td>L1</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Misty Step</td><td>Conjuration</td><td>L2</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Scorching Ray</td><td>Evocation</td><td>L2</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Mirror Image</td><td>Illusion</td><td>L3</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Suggestion</td><td>Enchantment</td><td>L3</td></tr>
+            <tr><td class="lvl">3</td><td class="spell-name">Counterspell</td><td>Abjuration</td><td>L4</td></tr>
+            <tr><td class="lvl">3</td><td class="spell-name">Fireball</td><td>Evocation</td><td>L4</td></tr>
+            <tr><td class="lvl">3</td><td class="spell-name">Fly</td><td>Transmutation</td><td>L5</td></tr>
+            <tr><td class="lvl">3</td><td class="spell-name">Lightning Bolt</td><td>Evocation</td><td>L5</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="sub-h">Prepared Today (9 = Int +4 + Wizard 5)</h3>
+        <table class="spell-table">
+          <thead><tr><th>Lvl</th><th>Spell</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="lvl">1</td><td class="spell-name">Mage Armor</td><td>Daily AC buff (8-hour).</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Magic Missile</td><td>Reliable damage, no save.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Shield</td><td>Reaction +5 AC vs an attack.</td></tr>
+            <tr><td class="lvl">1</td><td class="spell-name">Thunderwave</td><td>15-ft cube; Sculpt Spells to exempt allies.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Misty Step</td><td>Bonus-action 30-ft teleport.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Mirror Image</td><td>Defensive duplicates, no concentration.</td></tr>
+            <tr><td class="lvl">2</td><td class="spell-name">Scorching Ray</td><td>3 attacks, single target.</td></tr>
+            <tr><td class="lvl">3</td><td class="spell-name">Counterspell</td><td>Reaction anti-spellcaster.</td></tr>
+            <tr><td class="lvl">3</td><td class="spell-name">Fireball</td><td>8d6 in 20-ft sphere; Sculpt to exempt allies.</td></tr>
+          </tbody>
+        </table>
+        <p class="aside">Detect Magic and Identify don't need to be prepared — castable as rituals from spellbook. Fly, Suggestion, and Lightning Bolt stay in the book for situational re-prep on long rest.</p>
+
+        <h3 class="sub-h">Spells via Other Traits (no slot needed)</h3>
+        <ul>
+          <li><strong>Fog Cloud</strong> (Triton — Cha DC 14, 1/long rest)</li>
+          <li><strong>Gust of Wind</strong> (Triton — Cha DC 14, 1/long rest)</li>
+          <li><strong>Wall of Water</strong> (Triton — Cha DC 14, 1/long rest)</li>
+          <li><strong>Fog Cloud</strong> (Thassa Devotee — Int DC 15, 4/long rest)</li>
+        </ul>
+      </div>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Quarterstaff</td><td class="atk">+3</td><td class="dmg">1d6 / 1d8 bludgeoning</td><td>Simple, versatile.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">None (Mage Armor when cast)</div>
+        <div class="armor-props">Default AC 11; mage armor boosts AC to 14 for 8 hours (1st-level slot).</div>
+      </div>
+      <h3 class="sub-h">Arcane Focus &amp; Personal Items</h3>
+      <ul>
+        <li><strong>Crystal</strong> (arcane focus)</li>
+        <li><strong>Spellbook</strong> — 14 spells (listed above). Wizard's most precious possession.</li>
+        <li>Bottle of black ink, quill, small knife</li>
+        <li><strong>Letter from a dead colleague</strong> posing a question Thalassa has not yet been able to answer</li>
+        <li>Set of common clothes</li>
+        <li><strong>Scholar's Pack</strong>: backpack, book of lore, bottle of ink, ink pen, 10 sheets of parchment, little bag of sand, small knife</li>
+      </ul>
+      <p><strong>Money</strong>: 10 gp <em>(starting pouch; campaign accumulation not tracked)</em>.</p>
+    `,
+    connections_html: `
+      <li><strong>Thectra Deepcaller</strong> — Both studied at the same temple of Thassa, before Thectra was branded a heretic and cast out.</li>
+      <li><strong>Alesta Centaur-Speaker</strong> — Alesta saved Thalassa from a danger Thalassa does not detail.</li>
+      <li><strong>Orion Swiftarrow</strong> — Thalassa aided Orion on a mission to protect a coastal town from sea raiders.</li>
+      <li><strong>Ilios Anvilwrought</strong> — <em>(developing during the campaign)</em> a relationship between the two is foreseen.</li>
+    `,
+    bio_l5_extra: "In the years since her studies at the Thassa temple, Thalassa has come to know mortals she would not have sought out — Thectra, whose oracular visions got her exiled from that same temple; Alesta, who once saved her from a danger Thalassa does not speak of plainly; Orion, with whom she aided in defending a coastal town from sea raiders. She does not say she has friends; she would phrase the question of friendship itself, turn it over, and not commit to an answer."
+  }
+];
+
+const ABILITY_ORDER = ['str','dex','con','int','wis','cha'];
+const ABILITY_SHORT = { str:'STR', dex:'DEX', con:'CON', int:'INT', wis:'WIS', cha:'CHA' };
+const WIZARD_PRIMARY = 'int';
+
+function renderIdentity(s) {
+  const rows = [
+    ['Race',       'Triton'],
+    ['Class',      s.identity.class_long],
+    ['Background', 'Sage (Astronomer)'],
+    ['Patron',     'Thassa · Devotee'],
+    ['Gift',       'Inscrutable'],
+    ['Alignment',  'Neutral Good'],
+    ['Languages',  'Common, Primordial, Celestial, Sphinx'],
+    ['Age',        s.identity.age]
+  ];
+  return rows.map(([k,v]) => `<div class="id-row"><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+}
+
+function renderSummary(s) {
+  return [
+    ['Hit Points', s.summary.hp, ''],
+    ['Armor Class', s.summary.ac, 'unarmored'],
+    ['Initiative', s.summary.init, ''],
+    ['Speed', s.summary.speed, 'walk + swim'],
+    ['Prof Bonus', s.summary.pb, ''],
+    ['Pass. Perc.', s.summary.pp, '']
+  ].map(([label, val, sub]) => `
+    <div class="sum-plate">
+      <div class="sp-label">${label}</div>
+      <div class="sp-value">${val}</div>
+      ${sub ? `<div class="sp-sub">${sub}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderAbilities(s) {
+  return ABILITY_ORDER.map(a => {
+    const ab = s.abilities[a];
+    const isPrimary = a === WIZARD_PRIMARY;
+    return `
+      <div class="ab-cell ${isPrimary ? 'primary' : ''}">
+        <div class="ab-name">${ABILITY_SHORT[a]}</div>
+        <div class="ab-mod">${ab.mod}</div>
+        <div class="ab-score">score ${ab.score}</div>
+        <div class="ab-save ${ab.prof ? 'prof' : ''}">save<span class="save-bonus">${ab.save}</span></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderSkills(s) {
+  const grouped = {};
+  ABILITY_ORDER.forEach(a => grouped[a] = []);
+  s.skills.forEach(sk => grouped[sk.ability].push(sk));
+  return ABILITY_ORDER.map(a => {
+    const list = grouped[a];
+    return `
+      <div class="skill-cat">
+        <div class="skill-cat-name">${ABILITY_SHORT[a]}</div>
+        ${list.length === 0
+          ? '<div class="skill-row dim"><span class="skill-name">—</span></div>'
+          : list.map(sk => `<div class="skill-row"><span class="skill-name">${sk.name}</span><span class="skill-bonus">${sk.bonus}</span></div>`).join('')
+        }
+      </div>
+    `;
+  }).join('');
+}
+
+function renderStage(i) {
+  const s = SNAPSHOTS[i];
+  document.getElementById('identity-target').innerHTML = renderIdentity(s);
+  document.getElementById('summary-target').innerHTML = renderSummary(s);
+  document.getElementById('abilities-target').innerHTML = renderAbilities(s);
+  document.getElementById('ab-note-target').textContent = s.ab_note;
+  document.getElementById('combat-target').innerHTML = s.combat_html;
+  document.getElementById('skills-target').innerHTML = renderSkills(s);
+  document.getElementById('skill-tool-target').innerHTML = s.tool_text;
+  document.getElementById('features-target').innerHTML = s.features_html;
+  document.getElementById('racial-target').innerHTML = s.racial_html;
+  document.getElementById('patron-target').innerHTML = s.patron_html;
+  document.getElementById('spellcasting-target').innerHTML = s.spellcasting_html;
+  document.getElementById('equipment-target').innerHTML = s.equipment_html;
+  document.getElementById('connections-target').innerHTML = s.connections_html;
+  document.getElementById('bio-l5-extra').innerHTML = s.bio_l5_extra;
+
+  document.querySelectorAll('#timeline .tl-node').forEach((n, idx) => n.classList.toggle('active', idx === i));
+}
+
+document.querySelectorAll('#timeline .tl-node').forEach((n, i) => {
+  n.addEventListener('click', () => renderStage(i));
+});
+renderStage(0);
+</script>
+</body>
+</html>

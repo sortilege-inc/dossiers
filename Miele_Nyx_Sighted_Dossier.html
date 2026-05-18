@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Miele Nyx-Sighted</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Marble substrate — cooler, off-white */
+    --marble:        #ece8df;
+    --marble-warm:   #e2dccf;
+    --marble-cool:   #d8d4c8;
+    --marble-deep:   #c4bfb2;
+    --vein:          #b6b0a2;
+    --ink:           #1a1a18;
+    --ink-soft:      #3a3a36;
+    --ink-faint:     #6e6a60;
+    --rule:          #968f80;
+    --rule-soft:     #b4ada0;
+
+    /* Patron-deity accent — Kruphix (deep indigo / Nyx night) */
+    --accent:        #1e2a4a;
+    --accent-dark:   #0e162a;
+    --accent-sec:    #8a9ac8;
+    --accent-glaze:  rgba(30, 42, 74, 0.10);
+
+    /* Wax-seal accent — deep night-violet */
+    --seal:      #1a2a5a;
+    --seal-dark: #0a1635;
+
+    --class-tint: rgba(30,42,74,0.05);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--marble);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.045' numOctaves='2' seed='14' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.42 0 0 0 0 0.38 0 0 0 0.4 0'/></filter><rect width='100%25' height='100%25' filter='url(%23m)'/></svg>"),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 600px 600px, 200px 200px;
+    opacity: 0.55;
+    mix-blend-mode: multiply;
+    z-index: 0;
+  }
+  body {
+    background-image:
+      linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 25%, var(--marble) 75%, var(--marble-cool) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 0 5rem;
+  }
+
+  .stele {
+    max-width: 1140px;
+    margin: 0 auto;
+    background:
+      linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 8%, var(--marble) 92%, var(--marble-cool) 100%);
+    padding: 0;
+    box-shadow:
+      0 1px 2px rgba(26, 22, 18, 0.10),
+      0 10px 32px rgba(26, 22, 18, 0.16),
+      0 28px 64px rgba(26, 22, 18, 0.10);
+    position: relative;
+    border: 1px solid var(--rule);
+    z-index: 1;
+  }
+  .stele::before,
+  .stele::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-dark) 100%);
+    opacity: 0.5;
+  }
+  .stele::before { left: 0; }
+  .stele::after  { right: 0; }
+
+  .doc { padding: 0 5rem 4rem; }
+
+  .meander {
+    height: 22px;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='22' viewBox='0 0 44 22'><path d='M0 17 L0 5 L11 5 L11 12 L6 12 L6 8 L17 8 L17 17 L11 17 L11 13 L22 13 L22 5 L33 5 L33 12 L28 12 L28 8 L39 8 L39 17 L44 17' fill='none' stroke='%230e162a' stroke-width='1.4' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: auto 18px;
+    opacity: 0.85;
+    margin: 0;
+  }
+
+  .masthead-band {
+    position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+    padding: 3rem 5rem 2.75rem;
+  }
+  .masthead-band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  .masthead-band::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px; height: 28px;
+    background:
+      linear-gradient(135deg, transparent 49.5%, var(--marble) 50%) left bottom / 50% 100% no-repeat,
+      linear-gradient(225deg, transparent 49.5%, var(--marble) 50%) right bottom / 50% 100% no-repeat;
+    z-index: 2;
+  }
+  .masthead {
+    position: relative;
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    z-index: 1;
+  }
+  .portrait-frame {
+    position: relative;
+    width: 360px; height: 480px;
+    background: var(--marble-deep);
+    padding: 8px;
+    border: 1px solid var(--ink-soft);
+    box-shadow:
+      inset 0 0 0 2px var(--accent-sec),
+      inset 0 0 0 4px var(--marble-deep),
+      0 4px 14px rgba(0,0,0,0.30);
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    left: -1px; right: -1px; height: 12px;
+    background:
+      linear-gradient(180deg, var(--accent-sec) 0%, var(--accent) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .portrait-frame::before { top: -14px; }
+  .portrait-frame::after  { bottom: -14px; }
+  .portrait-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.03) saturate(0.97);
+  }
+  .portrait-frame.empty {
+    display: flex;
+    align-items: center; justify-content: center;
+    background: linear-gradient(180deg, var(--marble), var(--marble-deep));
+  }
+  .portrait-frame.empty .empty-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0 1rem;
+    line-height: 1.4;
+  }
+
+  .name-block { padding: 0.5rem 0 0; color: var(--marble); position: relative; z-index: 1; }
+  .name-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.52em;
+    color: rgba(255, 250, 235, 0.85);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  h1.dossier-name {
+    font-family: "Cinzel", serif;
+    font-weight: 800;
+    font-size: 4.4rem;
+    line-height: 0.95;
+    letter-spacing: 0.04em;
+    color: var(--marble);
+    margin: 0 0 0.45rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.35);
+    text-transform: uppercase;
+  }
+  .dossier-name .given { display: block; color: var(--marble); }
+  .dossier-name .epithet {
+    display: block;
+    font-weight: 500;
+    font-size: 0.55em;
+    color: var(--accent-sec);
+    letter-spacing: 0.18em;
+    margin-top: 0.4rem;
+    font-style: italic;
+    font-variant: normal;
+    text-transform: none;
+  }
+  .tagline {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: rgba(255, 250, 235, 0.95);
+    margin: 1.2rem 0 1.5rem;
+    max-width: 38em;
+    padding-left: 1rem;
+    border-left: 2px solid var(--accent-sec);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .identity-inscription {
+    margin: 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(255, 250, 235, 0.3);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 2.25rem;
+  }
+  .id-row { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+  .id-row dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: rgba(255, 250, 235, 0.55);
+    text-transform: uppercase;
+  }
+  .id-row dd {
+    margin: 0;
+    color: rgba(255, 250, 235, 0.96);
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  }
+
+  .timeline-section {
+    background: var(--accent-glaze);
+    padding: 1.6rem 5rem;
+    position: relative;
+  }
+  .tl-label {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin: 0 0 1.1rem;
+  }
+  .tl-track {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 7rem;
+    position: relative;
+    padding: 0;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .tl-track::before {
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 16%; right: 16%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-sec), var(--accent), var(--accent-sec));
+    z-index: 0;
+  }
+  .tl-node {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: var(--ink-soft);
+    font-family: "EB Garamond", serif;
+    transition: color 0.2s ease;
+    min-width: 100px;
+  }
+  .tl-dot {
+    width: 18px; height: 18px;
+    border: 2px solid var(--accent-dark);
+    background: var(--marble);
+    margin-bottom: 0.55rem;
+    box-shadow: 0 0 0 3px var(--marble);
+    transition: all 0.2s ease;
+    transform: rotate(45deg);
+  }
+  .tl-node:hover .tl-dot {
+    border-color: var(--accent);
+    transform: rotate(45deg) scale(1.12);
+  }
+  .tl-node.active .tl-dot {
+    background: var(--seal);
+    border-color: var(--seal-dark);
+    box-shadow: 0 0 0 3px var(--marble), 0 0 0 5px rgba(26, 42, 90, 0.25);
+  }
+  .tl-node.active { color: var(--ink); }
+  .tl-top {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .tl-node.active .tl-top { color: var(--accent-dark); }
+  .tl-bot { font-size: 0.85rem; color: var(--ink-faint); margin-top: 0.2rem; font-style: italic; }
+
+  section.block { margin: 2.5rem 0 0; padding: 0.5rem 0 1.5rem; position: relative; }
+  section.block + section.block { margin-top: 2rem; }
+
+  .section-h {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--accent-dark);
+    margin: 0 0 1.5rem;
+    padding: 0;
+    border: none;
+    text-align: center;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    position: relative;
+    display: block;
+  }
+  .section-h::before {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 14px;
+    margin: 0 auto 0.85rem;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%230e162a' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.85;
+  }
+  .section-h .greek-chap {
+    display: block;
+    font-family: "Cinzel", serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.5em;
+    color: var(--accent);
+    margin-top: 0.5rem;
+    font-style: normal;
+    text-transform: uppercase;
+  }
+  h3.sub-h {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--accent-dark);
+    margin: 1.5rem 0 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  h4.subsub-h {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.32em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 1.1rem 0 0.5rem;
+    font-weight: 500;
+  }
+  p { margin: 0 0 1rem; }
+
+  .summary-strip {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    margin: 0.5rem 0;
+    background: var(--accent-glaze);
+    padding: 1rem 0.5rem;
+    border-top: 1.5px solid var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+  }
+  .sum-plate { text-align: center; padding: 0 0.5rem; border-right: 1px solid var(--rule-soft); }
+  .sum-plate:last-child { border-right: none; }
+  .sum-plate .sp-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .sum-plate .sp-value {
+    font-family: "Cinzel", serif;
+    font-size: 1.7rem;
+    color: var(--accent-dark);
+    line-height: 1.1;
+    font-weight: 700;
+    margin-top: 0.15rem;
+  }
+  .sum-plate .sp-sub {
+    font-family: "EB Garamond", serif;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 0.1rem;
+  }
+
+  .abilities-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+    margin: 0.5rem 0 1.25rem;
+  }
+  .ab-cell {
+    text-align: center;
+    padding: 1rem 0.4rem 0.85rem;
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--accent);
+    position: relative;
+  }
+  .ab-cell.primary {
+    border-top-width: 4px;
+    border-top-color: var(--accent-dark);
+    background: linear-gradient(180deg, rgba(138, 154, 200, 0.40) 0%, var(--marble-warm) 60%);
+  }
+  .ab-cell.dump { border-top-color: var(--ink-faint); opacity: 0.85; }
+  .ab-cell .ab-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .ab-cell .ab-mod {
+    font-family: "Cinzel", serif;
+    font-size: 2.1rem;
+    line-height: 1;
+    color: var(--ink);
+    font-weight: 800;
+  }
+  .ab-cell .ab-score {
+    font-family: "EB Garamond", serif;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+  }
+  .ab-cell .ab-save {
+    margin-top: 0.5rem;
+    padding-top: 0.4rem;
+    border-top: 1px dotted var(--rule);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .ab-cell .ab-save .save-bonus {
+    font-family: "Cinzel", serif;
+    font-size: 0.95rem;
+    color: var(--accent-dark);
+    margin-left: 0.25rem;
+    font-weight: 600;
+  }
+  .ab-cell .ab-save.prof::after { content: " ★"; color: var(--seal); margin-left: 0.15rem; }
+  .ab-note { font-size: 0.88rem; color: var(--ink-faint); font-style: italic; text-align: center; margin-top: 0.5rem; }
+
+  .combat-block { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem 2.5rem; margin: 0.5rem 0; }
+  .combat-block dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; }
+  .combat-block dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    align-self: baseline;
+  }
+  .combat-block dd { margin: 0; font-family: "EB Garamond", serif; font-size: 0.98rem; color: var(--ink); }
+  .combat-block dd em { color: var(--ink-faint); font-size: 0.88rem; }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.1rem; margin: 1rem 0 1.5rem; }
+  .skill-cat { border-top: 2px solid var(--accent); padding-top: 0.6rem; }
+  .skill-cat-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    text-align: center;
+  }
+  .skill-row { display: flex; align-items: baseline; justify-content: space-between; gap: 0.4rem; padding: 0.18rem 0; font-size: 0.92rem; line-height: 1.3; color: var(--ink); }
+  .skill-row.dim { color: var(--ink-faint); font-style: italic; }
+  .skill-row .skill-name { flex: 1; }
+  .skill-row .skill-bonus { font-family: "Cinzel", serif; font-weight: 600; color: var(--accent-dark); }
+  .skill-row.expertise .skill-bonus { color: var(--seal); }
+  .skill-source { font-size: 0.82rem; color: var(--ink-faint); text-align: center; font-style: italic; margin-top: 0.6rem; }
+
+  .feat-block { font-size: 0.98rem; font-family: "EB Garamond", serif; }
+  .feat-block ul { padding-left: 1.2rem; margin: 0.5rem 0 1rem; }
+  .feat-block li { margin-bottom: 0.45rem; }
+  .feat-block strong { color: var(--accent-dark); font-weight: 600; }
+  .feat-block em { color: var(--ink-soft); }
+  .feat-block .aside {
+    font-style: italic;
+    color: var(--ink-faint);
+    font-size: 0.92rem;
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-soft);
+    margin: 0.6rem 0 1rem;
+  }
+  .feat-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    margin: 1rem 0;
+  }
+
+  .patron-section {
+    margin: 2.5rem -5rem 2.5rem;
+    padding: 0;
+    position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+  }
+  .patron-section::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: -22px; height: 22px;
+    background:
+      linear-gradient(45deg, transparent 49.5%, var(--accent) 50%) left top / 50% 100% no-repeat,
+      linear-gradient(315deg, transparent 49.5%, var(--accent) 50%) right top / 50% 100% no-repeat;
+    z-index: 0;
+  }
+  .patron-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+    z-index: 0;
+  }
+  .patron-inner {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem 6.5rem 2.75rem;
+  }
+  .patron-inner::before,
+  .patron-inner::after {
+    content: "";
+    position: absolute;
+    top: 2rem; bottom: 2rem;
+    width: 28px;
+    background:
+      linear-gradient(180deg,
+        var(--accent-sec) 0%, var(--accent-sec) 6%,
+        rgba(255,250,235,0.25) 6%, rgba(255,250,235,0.25) 8%,
+        rgba(255,250,235,0.15) 8%, rgba(255,250,235,0.15) 92%,
+        rgba(255,250,235,0.25) 92%, rgba(255,250,235,0.25) 94%,
+        var(--accent-sec) 94%, var(--accent-sec) 100%);
+    border-left: 1px solid rgba(255,250,235,0.25);
+    border-right: 1px solid rgba(255,250,235,0.25);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.10);
+  }
+  .patron-inner::before { left: 2.5rem; }
+  .patron-inner::after  { right: 2.5rem; }
+  .patron-section .section-h {
+    color: var(--marble);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.30);
+    letter-spacing: 0.36em;
+    margin-bottom: 1.5rem;
+  }
+  .patron-section .section-h::before {
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%238a9ac8' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+  }
+  .patron-section .section-h .greek-chap { color: var(--accent-sec); }
+  .patron-section h3.sub-h, .patron-section h4.subsub-h {
+    color: rgba(255, 250, 235, 0.95);
+    border-bottom-color: rgba(255, 250, 235, 0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.22);
+  }
+  .patron-section .feat-block { color: rgba(255, 250, 235, 0.94); }
+  .patron-section .feat-block strong { color: var(--accent-sec); }
+  .patron-section .feat-block em { color: rgba(255, 250, 235, 0.74); }
+  .patron-section .feat-block .aside {
+    color: rgba(255, 250, 235, 0.78);
+    border-left-color: rgba(255, 250, 235, 0.4);
+  }
+
+  .spell-block {
+    background: var(--class-tint);
+    border: 1px solid var(--rule-soft);
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+  .spell-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .spell-stats .ss-cell { text-align: center; padding: 0.25rem; }
+  .spell-stats .ss-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .spell-stats .ss-value { font-family: "Cinzel", serif; font-size: 1.4rem; color: var(--accent-dark); font-weight: 700; }
+  .spell-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .spell-table th, .spell-table td { text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px dotted var(--rule-soft); }
+  .spell-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .spell-table td.lvl { width: 4em; color: var(--accent-dark); font-weight: 600; font-family: "Cinzel", serif; }
+  .spell-table td.spell-name { font-style: italic; color: var(--ink); }
+
+  /* Strain table for Talent — like a slot-table but more rows */
+  .strain-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; margin: 0.5rem 0 1rem; }
+  .strain-table th, .strain-table td { padding: 0.35rem 0.6rem; border: 1px solid var(--rule-soft); text-align: left; }
+  .strain-table th {
+    background: var(--accent-glaze);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .strain-table td.lvl { width: 3em; text-align: center; color: var(--accent-dark); font-family: "Cinzel", serif; font-weight: 700; }
+
+  /* Power card — distinct from spells; calls out a single Power */
+  .power-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.2rem;
+    margin: 0.6rem 0;
+  }
+  .power-card .power-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.3rem;
+  }
+  .power-card .power-name { font-family: "Cinzel", serif; font-weight: 700; font-size: 1rem; color: var(--accent-dark); letter-spacing: 0.04em; }
+  .power-card .power-discipline { font-family: "Cormorant SC", serif; font-size: 0.7rem; letter-spacing: 0.18em; color: var(--ink-faint); text-transform: uppercase; }
+  .power-card .power-meta { font-size: 0.86rem; color: var(--ink-faint); font-style: italic; margin-bottom: 0.3rem; }
+  .power-card p { margin: 0.2rem 0; }
+  .power-card .mscore { font-family: "Cinzel", serif; color: var(--seal); font-weight: 700; font-size: 0.86rem; }
+
+  .weapon-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .weapon-table th, .weapon-table td { text-align: left; padding: 0.45rem 0.7rem; border-bottom: 1px dotted var(--rule-soft); }
+  .weapon-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .weapon-table td.atk, .weapon-table td.dmg {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    color: var(--accent-dark);
+    white-space: nowrap;
+  }
+  .armor-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.2rem;
+    margin: 0.6rem 0;
+  }
+  .armor-name { font-family: "Cinzel", serif; font-weight: 700; font-size: 1rem; color: var(--accent-dark); letter-spacing: 0.06em; }
+  .armor-props { font-size: 0.88rem; color: var(--ink-soft); font-style: italic; margin-top: 0.25rem; }
+
+  .personality-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.5rem 0 1rem; }
+  .pers-card {
+    border-left: 3px solid var(--accent);
+    padding: 0.6rem 1.1rem;
+    background: var(--accent-glaze);
+  }
+  .pers-card.flaw {
+    border-left-color: var(--seal);
+    background: rgba(26, 42, 90, 0.08);
+  }
+  .pers-label {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .pers-card.flaw .pers-label { color: var(--seal-dark); }
+  .pers-text { font-style: italic; color: var(--ink); font-size: 1rem; line-height: 1.5; margin: 0; }
+
+  .connections-list { margin: 0.5rem 0 1rem; padding-left: 0; list-style: none; }
+  .connections-list li {
+    margin-bottom: 0.7rem;
+    padding-left: 1.4rem;
+    position: relative;
+    line-height: 1.55;
+  }
+  .connections-list li::before {
+    content: "▲";
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    top: 0.32em;
+    font-size: 0.65rem;
+  }
+  .connections-list strong { color: var(--accent-dark); }
+
+  .expedition-callout {
+    background: linear-gradient(180deg, var(--accent-glaze) 0%, rgba(30,42,74,0.03) 100%);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    padding: 1.5rem 1.75rem;
+    margin: 1rem 0 0;
+    font-size: 1.02rem;
+    line-height: 1.6;
+  }
+  .expedition-callout p:last-child { margin-bottom: 0; }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    margin-top: 3rem;
+    color: var(--ink-faint);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+  }
+  .footer .meander { margin-bottom: 1rem; opacity: 0.6; }
+
+  @media (max-width: 1000px) {
+    .doc { padding: 0 1.5rem 2.5rem; }
+    .timeline-section { padding: 1.5rem 1.5rem; }
+    .masthead-band { padding: 2rem 1.5rem 2.5rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1.5rem; }
+    .portrait-frame { width: 100%; max-width: 320px; height: auto; aspect-ratio: 3/4; margin: 0 auto; }
+    h1.dossier-name { font-size: 2.8rem; }
+    .identity-inscription { grid-template-columns: 1fr; }
+    .summary-strip, .abilities-grid { grid-template-columns: repeat(3, 1fr); }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .combat-block, .personality-grid { grid-template-columns: 1fr; }
+    .patron-section { margin: 2rem -1.5rem; }
+    .patron-inner { padding: 2rem 1.5rem; }
+    .patron-inner::before, .patron-inner::after { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="stele">
+
+<div class="masthead-band">
+  <div class="masthead">
+    <div class="portrait-frame empty">
+      <div class="empty-name">MIELE<br>NYX-SIGHTED</div>
+    </div>
+    <div class="name-block">
+      <div class="name-eyebrow">Dossier · Kruphix's Nyx-Sighted</div>
+      <h1 class="dossier-name">
+        <span class="given">Miele</span>
+        <span class="epithet">Nyx-Sighted</span>
+      </h1>
+      <p class="tagline">
+        A Satyr who sees Nyx where others see only night — a psionic Talent destined, she suspects, to uncover the secret of the gods' power.
+      </p>
+      <dl class="identity-inscription" id="identity-target"></dl>
+    </div>
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<div class="timeline-section">
+  <div class="tl-label">Stage of Career</div>
+  <div class="tl-track" id="timeline">
+    <button class="tl-node active" data-stage="0" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 1</div>
+      <div class="tl-bot">Nyx-Awakened</div>
+    </button>
+    <button class="tl-node" data-stage="1" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 5</div>
+      <div class="tl-bot">Resopath</div>
+    </button>
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<div class="doc">
+
+<section class="block">
+  <h2 class="section-h">Bio<span class="greek-chap">α · Vita</span></h2>
+  <p>Miele is a Satyr with the sight — that is, she sees Nyx where others see only night. Her psionic awakening came at the Academy of Creation, and what she saw on her first manifestation has not left her: an outline of a god whose name was not in any of the catalogs the Academy keeps.</p>
+  <p>She cheats at games of chance. She jokes at inappropriate times. She is — and this is a thing the satyrs of her revel will tell you with rueful affection — <em>insufferable</em> at parties because she is always trying to tell you the secret you don't yet realize you need to know. Kruphix has noticed. Kruphix has not yet decided what to do about it.</p>
+  <p>She believes she is destined to uncover the secret of the gods' power. She has not told anyone this. She is not entirely sure whether this is a true belief or one that has been planted in her by something that doesn't want her to look elsewhere.</p>
+  <p id="bio-l5-extra"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<section class="block">
+  <h2 class="section-h">At a Glance<span class="greek-chap">β · Synopsis</span></h2>
+  <div class="summary-strip" id="summary-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Ability Scores<span class="greek-chap">γ · Dynámeis</span></h2>
+  <div class="abilities-grid" id="abilities-target"></div>
+  <p class="ab-note" id="ab-note-target"></p>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Combat &amp; Senses<span class="greek-chap">δ · Mákhē</span></h2>
+  <div class="combat-block" id="combat-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Skill Proficiencies<span class="greek-chap">ε · Tékhnai</span></h2>
+  <div class="skills-grid" id="skills-target"></div>
+  <p class="skill-source" id="skill-tool-target"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<section class="block">
+  <h2 class="section-h">Class Features — Talent (MCDM)<span class="greek-chap">ζ · Tákta</span></h2>
+  <div class="feat-block" id="features-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Racial Features — Satyr (Fey)<span class="greek-chap">η · Génos</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Ability Score Increase</strong>: +2 Cha, +1 Dex (already applied).</li>
+      <li><strong>Creature Type</strong>: <strong>Fey</strong> <em>(not Humanoid — affected by spells/effects targeting fey, immune to many targeting humanoids).</em></li>
+      <li><strong>Size</strong>: Medium. <strong>Speed</strong>: 35 ft.</li>
+      <li><strong>Ram</strong>: Unarmed strike, 1d4 + Str bludgeoning.</li>
+      <li><strong>Magic Resistance</strong>: <strong>Advantage on saves against spells and other magical effects.</strong> <em>(Does NOT apply to MCDM psionic powers per RAW — Talent powers are explicitly non-magical. DOES apply to most enemy spells.)</em></li>
+      <li><strong>Mirthful Leaps</strong>: On long or high jumps (including standing), add <strong>+1d8 feet</strong> to the distance. Costs movement normally.</li>
+      <li><strong>Reveler</strong>: Proficient in Performance, Persuasion, and one musical instrument.</li>
+      <li><strong>Languages</strong>: Common, Sylvan.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Supernatural Gift — Heroic Destiny<span class="greek-chap">θ · Dóron</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Defy Death</strong>: Advantage on death saving throws.</li>
+      <li><strong>Hard to Kill</strong>: When reduced to 0 HP but not killed outright, you can drop to <strong>1 HP instead</strong>. <strong>1/long rest.</strong></li>
+      <li><strong>Destiny</strong> <em>(d6 #6)</em>: "I'm destined to uncover the secret of the gods' power."</li>
+    </ul>
+    <p class="aside">Miele has not told anyone about her destiny. She is not entirely sure whether the conviction came from herself or from somewhere outside herself — fitting for a Kruphix Talent who suspects the gods themselves of being secrets that want keeping.</p>
+  </div>
+</section>
+
+</div>
+
+<section class="patron-section">
+  <div class="patron-inner">
+    <h2 class="section-h">Patron God — Kruphix, the Silent<span class="greek-chap">ι · Theós</span></h2>
+    <div class="feat-block" id="patron-target"></div>
+  </div>
+</section>
+
+<div class="doc" style="padding-top: 1rem;">
+
+<section class="block">
+  <h2 class="section-h">Background — Sage<span class="greek-chap">κ · Bíos</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Skill Proficiencies</strong>: Arcana, History.</li>
+      <li><strong>Languages</strong>: Two of choice. <em>Chosen: Celestial</em> (Oracle-style flavor; Kruphix-adjacent) and <em>Primordial</em> (old-tongue, fitting for a Talent who sees Nyx).</li>
+      <li><strong>Equipment</strong>: Bottle of black ink, quill, small knife, letter from a dead colleague posing a question Miele has not been able to answer, a set of common clothes, 10 gp.</li>
+      <li><strong>Feature — Researcher</strong>: When you attempt to learn or recall a piece of lore, if you do not know that information, you often know where and from whom you can obtain it.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Psionic Powers<span class="greek-chap">λ · Goēteía</span></h2>
+  <div id="spellcasting-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Equipment<span class="greek-chap">μ · Hopla</span></h2>
+  <div id="equipment-target"></div>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<section class="block">
+  <h2 class="section-h">Personality<span class="greek-chap">ν · Êthos</span></h2>
+  <div class="personality-grid">
+    <div class="pers-card">
+      <div class="pers-label">Trait</div>
+      <p class="pers-text">"I cheat at games of chance. I joke at inappropriate times."</p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Ideal — Mediation</div>
+      <p class="pers-text">"I will keep what should be kept, reveal what should be revealed, and decide for myself which is which." <em>(Kruphix-aligned.)</em></p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Bond</div>
+      <p class="pers-text"><em>Open.</em> The letter from a dead colleague. The question she has not answered. The first thing she saw when she manifested.</p>
+    </div>
+    <div class="pers-card flaw">
+      <div class="pers-label">Flaw</div>
+      <p class="pers-text">"Whenever I receive a flash of insight from Kruphix, I get an intense pain in my head or chest." <em>(Curse-flavor.)</em></p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Connections<span class="greek-chap">ξ · Philíai</span></h2>
+  <ul class="connections-list" id="connections-target"></ul>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Why Miele is on the Expedition<span class="greek-chap">ο · Hodós</span></h2>
+  <div class="expedition-callout">
+    <p>Kruphix is the god of horizons, secrets, and silence — and the Fallow Year is what happens when one of the gods (Karametra) goes silent. A Kruphix Devotee with a destiny to uncover the secret of the gods' power is therefore <em>exactly</em> the person Kruphix would want at the seam of the world right now.</p>
+    <p>Miele is on the expedition because the silence Karametra has left behind is the loudest thing she has ever heard, and she wants to know what it means. She suspects she will not like the answer. She is going anyway.</p>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div class="meander" aria-hidden="true"></div>
+  Player Character Dossier · Theros, The Fallow Season
+</footer>
+
+</div>
+
+<script>
+const SNAPSHOTS = [
+  {
+    stage: "L1",
+    level: 1,
+    pb: 2,
+    identity: { class_long: "Talent 1", age: "—" },
+    summary: { hp: 9, ac: 14, init: "+3", speed: "35 ft.", pb: "+2", pp: 14 },
+    abilities: {
+      str:{score: 9, mod:"−1", save:"−1", prof:false, dump:true},
+      dex:{score:16, mod:"+3", save:"+3", prof:false},
+      con:{score:17, mod:"+3", save:"+5", prof:true},
+      int:{score:18, mod:"+4", save:"+6", prof:true},
+      wis:{score:14, mod:"+2", save:"+2", prof:false},
+      cha:{score:14, mod:"+2", save:"+2", prof:false}
+    },
+    ab_note: "Base rolled array (option b): 9/15/17/18/14/12 → Satyr +1 Dex (→16), +2 Cha (→14). Final L1: 9/16/17/18/14/14. Int is the Talent's psionic ability; Con drives Strain to Maintain.",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+2</dd>
+        <dt>Armor Class</dt><dd>14 <em>(leather 11 + Dex +3; no shield — Talent doesn't grant shield proficiency)</em></dd>
+        <dt>Initiative</dt><dd>+3</dd>
+        <dt>Speed</dt><dd>35 ft. <em>(Satyr racial)</em></dd>
+        <dt>Hit Points</dt><dd>9 <em>(d6 max 6 + Con +3; per Talent class L1 rules)</em></dd>
+        <dt>Hit Dice</dt><dd>1d6</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>14 <em>(10 + Wis +2 + PB +2; Perception proficient)</em></dd>
+        <dt>Special Senses</dt><dd>—</dd>
+        <dt>Creature Type</dt><dd>Fey <em>(Satyr)</em></dd>
+        <dt>Magic Resistance</dt><dd>Adv. on saves vs spells &amp; magical effects</dd>
+        <dt>Power DC / Atk</dt><dd>14 / +6 <em>(Int-based)</em></dd>
+        <dt>Manifestation die</dt><dd>d4 · Strain max 5</dd>
+      </dl>
+    `,
+    skills: [
+      {name:"Arcana",      ability:"int", bonus:"+6", source:"Sage"},
+      {name:"History",     ability:"int", bonus:"+6", source:"Sage"},
+      {name:"Insight",     ability:"wis", bonus:"+4", source:"Talent"},
+      {name:"Perception",  ability:"wis", bonus:"+4", source:"Talent"},
+      {name:"Performance", ability:"cha", bonus:"+4", source:"Satyr (Reveler)"},
+      {name:"Persuasion",  ability:"cha", bonus:"+4", source:"Satyr (Reveler)"}
+    ],
+    tool_text: "Tool/Instrument Proficiencies: One musical instrument of choice (Satyr Reveler — chosen: panpipes).",
+    features_html: `
+      <h3 class="sub-h">Psionic Powers (L1)</h3>
+      <p>Miele manifests psionic powers through sheer force of will. <strong>Intelligence</strong> is her manifestation ability.</p>
+      <ul>
+        <li><strong>Power save DC</strong> = 8 + PB +2 + Int +4 = <strong>14</strong></li>
+        <li><strong>Power attack</strong> = PB +2 + Int +4 = <strong>+6</strong></li>
+        <li><strong>Manifestation Die</strong>: d4</li>
+        <li><strong>Strain Maximum</strong>: 5</li>
+      </ul>
+
+      <h3 class="sub-h">Strain to Maintain (L1)</h3>
+      <p>When you fail a Con save to maintain concentration on a power you gained from this class, you can gain <strong>strain equal to the sum of the orders of those powers</strong> to keep them active.</p>
+
+      <h3 class="sub-h">Manifestation Tests (rules summary)</h3>
+      <p>Manifesting 1st-order powers is <strong>automatic</strong> — no manifestation test, no strain. For 2nd-order and higher: at the end of manifestation time, roll your manifestation die against the power's manifestation score (= power order + 1 per other power you're concentrating on).</p>
+      <ul>
+        <li><strong>Higher than score</strong>: manifest cleanly.</li>
+        <li><strong>Equal</strong>: manifest + gain 1 strain.</li>
+        <li><strong>Lower</strong>: manifest + gain strain equal to power's order.</li>
+      </ul>
+      <p class="aside">If gaining strain would exceed your strain maximum: choose either (a) manifest the power and immediately die, or (b) not manifest the power, gain no strain, and <strong>drop to 0 HP</strong>.</p>
+
+      <h3 class="sub-h">Strain Effects (cumulative)</h3>
+      <table class="strain-table">
+        <thead><tr><th>Strain</th><th>Body</th><th>Mind</th><th>Soul</th></tr></thead>
+        <tbody>
+          <tr><td class="lvl">1</td><td>Disadv on Str/Dex checks</td><td>Can't Dash/Disengage/Dodge</td><td>Disadv on Wis/Cha checks</td></tr>
+          <tr><td class="lvl">3</td><td>Speed halved</td><td>Lose all skill proficiencies</td><td>Disadv on death saves</td></tr>
+          <tr><td class="lvl">5</td><td>Disadv on Str/Dex saves</td><td>−5 AC</td><td>Disadv on Wis/Cha saves</td></tr>
+        </tbody>
+      </table>
+      <p class="aside">Reducing strain: spend Hit Dice on a short rest to remove strain instead of regaining HP — 1 HD = 1 strain (your choice of track). Long rest reduces strain to 0.</p>
+
+      <h3 class="sub-h">Concentration on Multiple Powers</h3>
+      <p>Unlike spellcasters, Miele can concentrate on a number of powers equal to her <strong>proficiency bonus = 2 at L1</strong>. She can't concentrate on a power and a spell at the same time. One Con save per damage event covers all concentrations; fail = all drop (unless she Strains to Maintain).</p>
+
+      <p class="aside">Psionic Specialization (Resopath) is chosen at Level 2. Psionic Exertion at Level 3. 3rd-order powers at Level 5. None active at Level 1.</p>
+    `,
+    patron_html: `
+      <h3 class="sub-h">Piety 3 — Devotee</h3>
+      <ul>
+        <li><strong>Source of godly favor</strong> <em>(d6 #1)</em>: "Followers of Kruphix claim I was born under a bizarre omen, but will not explain what it means."</li>
+        <li><strong>Godly ideal</strong>: <em>Mediation.</em> "I will keep what should be kept, reveal what should be revealed, and decide for myself which is which."</li>
+        <li><strong>Devotee Trait (Piety 3+)</strong>: As a devotee of Kruphix, Miele can cast <em>detect magic</em> with this trait, uses = Int mod (min 1) = <strong>4 per long rest</strong>. In addition, she knows the <em>mage hand</em> cantrip. <strong>Intelligence</strong> is the spellcasting ability for these spells.</li>
+      </ul>
+      <h4 class="subsub-h">Kruphix-granted spell stats (Int-based, same as Talent powers)</h4>
+      <ul>
+        <li><strong>Spell save DC</strong> = 8 + PB +2 + Int +4 = <strong>14</strong></li>
+        <li><strong>Spell attack</strong> = PB +2 + Int +4 = <strong>+6</strong></li>
+      </ul>
+      <p class="aside">Mage hand interacts beautifully with Resopathy and Telekinesis flavor — Miele's psionic toolkit has plenty of move-objects-at-distance, and now she has a magical mage hand to layer on top. Detect magic is a long-duration utility she can cast 4×/long rest.</p>
+    `,
+    spellcasting_html: `
+      <div class="spell-block">
+        <div class="spell-stats">
+          <div class="ss-cell"><div class="ss-label">Power DC</div><div class="ss-value">14</div></div>
+          <div class="ss-cell"><div class="ss-label">Power Atk</div><div class="ss-value">+6</div></div>
+          <div class="ss-cell"><div class="ss-label">Mani. Die</div><div class="ss-value">d4</div></div>
+          <div class="ss-cell"><div class="ss-label">Strain Max</div><div class="ss-value">5</div></div>
+        </div>
+
+        <p>Miele is a Talent (MCDM). She has <strong>no spell slots</strong> and casts no conventional spells. Her primary toolkit is <strong>psionic powers</strong>, which are explicitly non-magical. The Kruphix Devotee trait grants her two true spells (<em>mage hand</em> and <em>detect magic</em>) layered on top.</p>
+
+        <h3 class="sub-h">1st-Order Powers Known (4 — no manifestation test, no strain)</h3>
+
+        <div class="power-card">
+          <div class="power-head">
+            <span class="power-name">Concussive Slam</span>
+            <span class="power-discipline">Telekinesis</span>
+          </div>
+          <div class="power-meta">1 action · 30 ft · instantaneous</div>
+          <p>Target Str save DC 14. Fail: <strong>1d4 force</strong> + knocked prone. <em>(Cantrip-like scaling: 2d4 at L5, 3d4 at L11, 4d4 at L17.)</em></p>
+        </div>
+
+        <div class="power-card">
+          <div class="power-head">
+            <span class="power-name">Glimpse</span>
+            <span class="power-discipline">Chronopathy</span>
+          </div>
+          <div class="power-meta">1 bonus action · 5 ft · concentration up to 1 round</div>
+          <p>Target one willing creature; the next attack roll against them before the end of your next turn has <strong>disadvantage</strong>.</p>
+        </div>
+
+        <div class="power-card">
+          <div class="power-head">
+            <span class="power-name">Invisible Force</span>
+            <span class="power-discipline">Telekinesis</span>
+          </div>
+          <div class="power-meta">1 action · 30 ft · instantaneous</div>
+          <p>Pick one option:</p>
+          <ul>
+            <li><strong>Manipulate Object</strong>: open/close door, pull lever, etc.</li>
+            <li><strong>Move Object</strong>: move a ≤5-lb object 30 ft (upward, too — falls when movement ends).</li>
+            <li><strong>Object Attack</strong>: hurl a ≤5-lb object at a creature; ranged power attack <strong>+6</strong>, <strong>1d8</strong> bludgeoning/piercing/slashing on hit. <em>(Scaling: 2d8 at L5.)</em></li>
+          </ul>
+        </div>
+
+        <div class="power-card">
+          <div class="power-head">
+            <span class="power-name">Sharpened Senses</span>
+            <span class="power-discipline">Metamorphosis</span>
+          </div>
+          <div class="power-meta">1 bonus action · self · instantaneous</div>
+          <p>Make a Wis (Perception) check <strong>with advantage</strong> to detect hidden creatures/doors/objects/traps.</p>
+        </div>
+
+        <h3 class="sub-h">2nd-Order Powers Known (2 — manifestation test required)</h3>
+
+        <div class="power-card">
+          <div class="power-head">
+            <span class="power-name">Jaunt</span>
+            <span class="power-discipline">Resopathy · <span class="mscore">Score 2</span></span>
+          </div>
+          <div class="power-meta">1 action · touch · instantaneous</div>
+          <p>Teleport yourself or one willing creature you touch to an unoccupied space you can see within <strong>30 ft</strong>. <em>Increased order: +1 = +15 ft distance, OR +1 = bonus action manifestation.</em></p>
+          <p class="aside">Roll d4 vs DC 2 (or 3 if concentrating on 1 other power).</p>
+        </div>
+
+        <div class="power-card">
+          <div class="power-head">
+            <span class="power-name">Weight</span>
+            <span class="power-discipline">Resopathy · <span class="mscore">Score 2</span></span>
+          </div>
+          <div class="power-meta">1 action · 30 ft · concentration up to 1 minute</div>
+          <p>Target Con save DC 14. Fail — pick one:</p>
+          <ul>
+            <li><strong>Gravitas</strong>: −20 ft speed (min 0).</li>
+            <li><strong>Levitas</strong>: Target rises 5 ft vertically at start of each turn (falls when effect ends; flying creatures auto-save; can grab onto fixed object with Str save).</li>
+          </ul>
+          <p class="aside">Increased order: +1 per additional target OR +1 per +5 ft to speed change/levitation rate. Both 2nd-order picks are Resopathy — laying groundwork for the Resopath specialization that unlocks at L2.</p>
+        </div>
+
+        <h3 class="sub-h">Spells via Kruphix Devotee (no slot, Int-based)</h3>
+        <ul>
+          <li><strong>Mage Hand</strong> <em>(Conjuration cantrip, at will)</em> — Spectral hand within 30 ft; manipulate object, open/close, retrieve item ≤10 lbs.</li>
+          <li><strong>Detect Magic</strong> <em>(Divination 1st-level, concentration 10 min)</em> — Sense magic within 30 ft; learn school after 1 action. <strong>4 uses per long rest</strong>; no slot needed.</li>
+        </ul>
+      </div>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Light crossbow (20 bolts)</td><td class="atk">+5</td><td class="dmg">1d8 + 3 piercing</td><td>Simple ranged, range 80/320, loading, two-handed.</td></tr>
+          <tr><td>Dagger ×2</td><td class="atk">+5</td><td class="dmg">1d4 + 3 piercing</td><td>Simple, finesse, light, thrown 20/60.</td></tr>
+          <tr><td>Ram <em>(Satyr natural)</em></td><td class="atk">+1</td><td class="dmg">1d4 − 1 bludgeoning</td><td>Unarmed.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">Leather armor</div>
+        <div class="armor-props">Light · AC 11 + Dex (unlimited)</div>
+      </div>
+      <h3 class="sub-h">Tools &amp; Personal Items</h3>
+      <ul>
+        <li><strong>Panpipes</strong> (Satyr Reveler instrument)</li>
+        <li>Bottle of black ink, quill, small knife</li>
+        <li><strong>Letter from a dead colleague</strong> — posing a question Miele has not yet been able to answer <em>(GM hook: what question? "Why does Kruphix not speak?" "What lies beyond the eight gods?" "What did you see when you manifested for the first time?")</em></li>
+        <li>Set of common clothes</li>
+        <li><strong>Scholar's Pack</strong>: backpack, book of lore, bottle of ink, ink pen, 10 sheets of parchment, little bag of sand, small knife</li>
+      </ul>
+      <p><strong>Money</strong>: 10 gp <em>(Sage starting purse)</em>.</p>
+    `,
+    connections_html: `
+      <li><strong>Selene Shadowfoot</strong> — Fellow Satyr. Childhood revel-mates before either of them ever heard of an Academy or a Phenax shadow. Where Selene learned to vanish from the world, Miele learned to see <em>into</em> it. Selene is the only person Miele has ever told the truth about her destiny — and Miele isn't entirely sure she remembers telling her.</li>
+    `,
+    bio_l5_extra: ""
+  },
+  {
+    stage: "L5",
+    level: 5,
+    pb: 3,
+    identity: { class_long: "Talent 5 — Resopath", age: "~26" },
+    summary: { hp: 37, ac: 14, init: "+3", speed: "35 ft.", pb: "+3", pp: 15 },
+    abilities: {
+      str:{score: 9, mod:"−1", save:"−1", prof:false, dump:true},
+      dex:{score:16, mod:"+3", save:"+3", prof:false},
+      con:{score:17, mod:"+3", save:"+6", prof:true},
+      int:{score:20, mod:"+5", save:"+8", prof:true},
+      wis:{score:14, mod:"+2", save:"+2", prof:false},
+      cha:{score:14, mod:"+2", save:"+2", prof:false}
+    },
+    ab_note: "Level 4 ASI: +2 Intelligence (18 → 20). Maxes Int. Raises Power DC 14 → 16, Power attack +6 → +8, Manipulate Terrain uses 4 → 5/long rest, Resopathy Adept reroll uses 4 → 5/long rest, Kruphix detect magic uses 4 → 5/long rest, Arcana / History +1, Int save +1.",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+3</dd>
+        <dt>Armor Class</dt><dd>14 <em>(leather 11 + Dex +3)</em></dd>
+        <dt>Initiative</dt><dd>+3</dd>
+        <dt>Speed</dt><dd>35 ft. <em>(Satyr racial)</em></dd>
+        <dt>Hit Points</dt><dd>37 <em>(L1: 6 + Con +3 = 9; L2–5: 4 × (avg 4 + Con +3) = 28; total 37)</em></dd>
+        <dt>Hit Dice</dt><dd>5d6</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>15 <em>(10 + Wis +2 + PB +3; Perception proficient)</em></dd>
+        <dt>Special Senses</dt><dd>—</dd>
+        <dt>Creature Type</dt><dd>Fey <em>(Satyr)</em></dd>
+        <dt>Magic Resistance</dt><dd>Adv. on saves vs spells &amp; magical effects</dd>
+        <dt>Power DC / Atk</dt><dd><strong>16</strong> / +8 <em>(8 + PB +3 + Int +5)</em></dd>
+        <dt>Manifestation die</dt><dd>d6 · Strain max 9 · Concentrate on up to 3 powers</dd>
+      </dl>
+    `,
+    skills: [
+      {name:"Arcana",      ability:"int", bonus:"+8", source:"Sage"},
+      {name:"History",     ability:"int", bonus:"+8", source:"Sage"},
+      {name:"Insight",     ability:"wis", bonus:"+5", source:"Talent"},
+      {name:"Perception",  ability:"wis", bonus:"+5", source:"Talent"},
+      {name:"Performance", ability:"cha", bonus:"+5", source:"Satyr (Reveler)"},
+      {name:"Persuasion",  ability:"cha", bonus:"+5", source:"Satyr (Reveler)"}
+    ],
+    tool_text: "Tool/Instrument Proficiencies: Panpipes (Satyr Reveler).",
+    features_html: `
+      <h3 class="sub-h">Psionic Powers (L1)</h3>
+      <p>Int-based psionic manifestation.</p>
+      <ul>
+        <li><strong>Power save DC</strong> = 8 + PB +3 + Int +5 = <strong>16</strong></li>
+        <li><strong>Power attack</strong> = PB +3 + Int +5 = <strong>+8</strong></li>
+        <li><strong>Manifestation Die</strong>: <strong>d6</strong> (L5)</li>
+        <li><strong>Strain Maximum</strong>: <strong>9</strong> (L5)</li>
+      </ul>
+
+      <h3 class="sub-h">Strain to Maintain (L1)</h3>
+      <p>When you fail a Con save to maintain concentration on one or more class-granted powers, gain strain = sum of orders to keep them active.</p>
+
+      <h3 class="sub-h">Manifestation Tests (rules summary)</h3>
+      <p>1st-order: automatic, no test, no strain. 2nd-order+: roll manifestation die vs power's manifestation score (= order + 1 per other power you're concentrating on). Higher = clean. Equal = +1 strain. Lower = strain equal to order. Strain over max: manifest and die, or don't manifest and drop to 0 HP.</p>
+
+      <h3 class="sub-h">Strain Effects (cumulative across tracks)</h3>
+      <table class="strain-table">
+        <thead><tr><th>Strain</th><th>Body</th><th>Mind</th><th>Soul</th></tr></thead>
+        <tbody>
+          <tr><td class="lvl">1</td><td>Disadv on Str/Dex checks</td><td>Can't Dash/Disengage/Dodge</td><td>Disadv on Wis/Cha checks</td></tr>
+          <tr><td class="lvl">3</td><td>Speed halved</td><td>Lose all skill prof</td><td>Disadv on death saves</td></tr>
+          <tr><td class="lvl">5</td><td>Disadv on Str/Dex saves</td><td>−5 AC</td><td>Disadv on Wis/Cha saves</td></tr>
+          <tr><td class="lvl">7</td><td>HP max halved</td><td>Lose all save prof</td><td>Magical healing halved</td></tr>
+        </tbody>
+      </table>
+      <p class="aside">Reducing strain: spend HD on short rest (1 HD = 1 strain of your choice, instead of HP regain). Long rest = strain 0.</p>
+
+      <h3 class="sub-h">Concentration on Multiple Powers</h3>
+      <p>Concentrate on <strong>up to PB-many powers</strong> simultaneously = <strong>3 at L5</strong>. One Con save per damage event covers all concentrations; fail = all drop (unless you Strain to Maintain).</p>
+
+      <h3 class="sub-h">Psionic Specialization (L2) — Resopath</h3>
+      <h4 class="subsub-h">Manipulate Terrain (L2)</h4>
+      <p><strong>Bonus action</strong>; choose a point on the ground within 60 ft. A <strong>20-ft-square area</strong> centered on that point becomes <strong>difficult terrain</strong> for creatures of your choice. Lasts 1 minute or until you use this feature again. <strong>Once active</strong>: bonus action each round to move the area up to 20 ft, or move one willing creature within the area to any unoccupied space within the area. <strong>Uses</strong>: Int mod = <strong>5 per long rest</strong>.</p>
+
+      <h4 class="subsub-h">Resopathy Adept (L2)</h4>
+      <ul>
+        <li>Roll manifestation die <strong>twice</strong> when learning a new Resopathy power (use either roll).</li>
+        <li><strong>Reroll</strong> a manifestation test for a Resopathy power (use either roll). Once per single manifestation test. <strong>Uses</strong>: Int mod = <strong>5 per long rest</strong>.</li>
+      </ul>
+
+      <h3 class="sub-h">Psionic Exertion (L3) — Destructive Power</h3>
+      <p>When you roll damage for a power, gain strain equal to <strong>half the power's order (min 1)</strong> to make <strong>half the damage dice you rolled</strong> deal the die's <strong>maximum value</strong> instead of the rolled value.</p>
+      <p class="aside">Example: cast Concussive Slam's scaled L5 damage (2d4) — gain 1 strain to max half (1 die) of those 2d4. Additional Psionic Exertion options unlock at L7, L11, L15. None active at L5.</p>
+
+      <h3 class="sub-h">3rd-Order Powers (L5)</h3>
+      <p>Miele can now manifest 3rd-order powers. They use the same manifestation-test mechanics, with manifestation score 3 (+1 per other concentrated power).</p>
+
+      <p class="aside">Powers known at L5: 5 of 1st-order (auto-manifest), 6 of 2nd order or higher (including up to 3rd-order). See Psionic Powers below.</p>
+    `,
+    patron_html: `
+      <h3 class="sub-h">Piety 3+ — Devotee</h3>
+      <ul>
+        <li><strong>Source of godly favor</strong> <em>(d6 #1)</em>: "Followers of Kruphix claim I was born under a bizarre omen, but will not explain what it means."</li>
+        <li><strong>Godly ideal</strong>: <em>Mediation.</em> "I will keep what should be kept, reveal what should be revealed, and decide for myself which is which."</li>
+        <li><strong>Devotee Trait (Piety 3+)</strong>: Cast <em>detect magic</em> (Int-based), uses = Int mod = <strong>5 per long rest</strong>. Plus learn <em>mage hand</em> cantrip. Int-based.</li>
+      </ul>
+      <h4 class="subsub-h">Kruphix-granted spell stats (Int-based, same as Talent powers)</h4>
+      <ul>
+        <li><strong>Spell save DC</strong> = 8 + PB +3 + Int +5 = <strong>16</strong></li>
+        <li><strong>Spell attack</strong> = PB +3 + Int +5 = <strong>+8</strong></li>
+      </ul>
+    `,
+    spellcasting_html: `
+      <div class="spell-block">
+        <div class="spell-stats">
+          <div class="ss-cell"><div class="ss-label">Power DC</div><div class="ss-value">16</div></div>
+          <div class="ss-cell"><div class="ss-label">Power Atk</div><div class="ss-value">+8</div></div>
+          <div class="ss-cell"><div class="ss-label">Mani. Die</div><div class="ss-value">d6</div></div>
+          <div class="ss-cell"><div class="ss-label">Strain Max</div><div class="ss-value">9</div></div>
+        </div>
+
+        <p>Miele is a Talent (MCDM). She has <strong>no spell slots</strong>. Her primary toolkit is <strong>psionic powers</strong> (explicitly non-magical). The Kruphix Devotee trait grants two true spells (<em>mage hand</em> and <em>detect magic</em>) layered on top.</p>
+
+        <h3 class="sub-h">1st-Order Powers Known (5 — auto-manifest, no strain)</h3>
+
+        <div class="power-card">
+          <div class="power-head">
+            <span class="power-name">Concussive Slam</span>
+            <span class="power-discipline">Telekinesis</span>
+          </div>
+          <div class="power-meta">1 action · 30 ft · instantaneous</div>
+          <p>Target Str save DC 16. Fail: <strong>2d4 force</strong> + knocked prone. <em>(L5 cantrip scaling.)</em></p>
+        </div>
+
+        <div class="power-card">
+          <div class="power-head">
+            <span class="power-name">Glimpse</span>
+            <span class="power-discipline">Chronopathy</span>
+          </div>
+          <div class="power-meta">1 bonus action · 5 ft · concentration up to 1 round</div>
+          <p>Next attack vs target willing creature has <strong>disadvantage</strong>.</p>
+        </div>
+
+        <div class="power-card">
+          <div class="power-head">
+            <span class="power-name">Invisible Force</span>
+            <span class="power-discipline">Telekinesis</span>
+          </div>
+          <div class="power-meta">1 action · 30 ft · instantaneous</div>
+          <p>Manipulate object / move 5-lb object 30 ft / <strong>Object Attack</strong>: ranged power attack +8, <strong>2d8</strong> bludgeoning/piercing/slashing on hit. <em>(L5 cantrip scaling.)</em></p>
+        </div>
+
+        <div class="power-card">
+          <div class="power-head">
+            <span class="power-name">Sharpened Senses</span>
+            <span class="power-discipline">Metamorphosis</span>
+          </div>
+          <div class="power-meta">1 bonus action · self · instantaneous</div>
+          <p>Wis (Perception) check with <strong>advantage</strong>.</p>
+        </div>
+
+        <div class="power-card">
+          <div class="power-head">
+            <span class="power-name">Apparition</span>
+            <span class="power-discipline">Resopathy</span>
+          </div>
+          <div class="power-meta">1 action · 60 ft · concentration up to 1 minute</div>
+          <p>Create a sound or 5-ft-cube image perceived only by you and one chosen target. Image can't move; image dispels if perceiver touches it. Sound can be any voice/sound. <em>(L5 thematic addition — Resopathy illusion, fits Kruphix-Secret-Keeper flavor.)</em></p>
+        </div>
+
+        <h3 class="sub-h">Powers Known of 2nd Order or Higher (6 — manifestation tests required)</h3>
+        <h4 class="subsub-h">2nd-Order (5)</h4>
+
+        <div class="power-card">
+          <div class="power-head">
+            <span class="power-name">Jaunt</span>
+            <span class="power-discipline">Resopathy · <span class="mscore">Score 2</span></span>
+          </div>
+          <div class="power-meta">1 action · touch · instantaneous</div>
+          <p>Teleport self or one willing creature within touch to unoccupied space within <strong>30 ft</strong>. Increased order: +1 per +15 ft distance OR +1 = bonus action. <em>(Roll d6 vs 2 — auto-pass ~83% baseline.)</em></p>
+        </div>
+
+        <div class="power-card">
+          <div class="power-head">
+            <span class="power-name">Weight</span>
+            <span class="power-discipline">Resopathy · <span class="mscore">Score 2</span></span>
+          </div>
+          <div class="power-meta">1 action · 30 ft · concentration up to 1 minute</div>
+          <p>Con save DC 16. Fail — pick: <strong>Gravitas</strong> (−20 ft speed, min 0) OR <strong>Levitas</strong> (rises 5 ft/turn vertically, falls on end). Increased order: +1 per additional target or per +5 ft to speed/rise.</p>
+        </div>
+
+        <div class="power-card">
+          <div class="power-head">
+            <span class="power-name">Adapt</span>
+            <span class="power-discipline">Metamorphosis · <span class="mscore">Score 2</span></span>
+          </div>
+          <div class="power-meta">1 action · 15 ft · 24 hours</div>
+          <p>Up to 4 willing creatures don't need food/water, immune to mundane environmental exhaustion. Increased order: +1 per additional target.</p>
+        </div>
+
+        <div class="power-card">
+          <div class="power-head">
+            <span class="power-name">Awe</span>
+            <span class="power-discipline">Telepathy · <span class="mscore">Score 2</span></span>
+          </div>
+          <div class="power-meta">1 action · 30 ft · concentration up to 1 minute</div>
+          <p>Project psionic energy to one creature in range; choose visage:</p>
+          <ul>
+            <li><strong>Inspiring</strong>: target gains <strong>+5 temp HP</strong> at start of each turn.</li>
+            <li><strong>Terrifying</strong>: Wis save DC 16 vs frightened of you (constructs/undead immune; saves end at end of turn).</li>
+          </ul>
+          <p class="aside">Increased order: +1 per additional target.</p>
+        </div>
+
+        <div class="power-card">
+          <div class="power-head">
+            <span class="power-name">Mindscape</span>
+            <span class="power-discipline">Resopathy · <span class="mscore">Score 2</span></span>
+          </div>
+          <div class="power-meta">1 action · 30 ft · 1 round</div>
+          <p>Wis save DC 16. Success: target takes <strong>1d6 psychic</strong> (cantrip-scale damage on success — odd but RAW). Failure: target Dashes on their next turn in a random direction (d8 compass roll), can't avoid hazards but stops at obstacles.</p>
+        </div>
+
+        <h4 class="subsub-h">3rd-Order (1)</h4>
+
+        <div class="power-card">
+          <div class="power-head">
+            <span class="power-name">Elsewhere</span>
+            <span class="power-discipline">Resopathy · <span class="mscore">Score 3</span></span>
+          </div>
+          <div class="power-meta">1 action · 30 ft · instantaneous</div>
+          <p>Target <strong>three</strong> creatures within range; each makes an Int save DC 16. Fail: teleport up to 30 ft to an unoccupied space you can see, speed becomes 0 until start of your next turn. Increased order: +1 per additional target.</p>
+          <p class="aside">Roll d6 vs 3 — pass ~50% baseline. Use Resopathy Adept reroll if the first roll comes up low.</p>
+        </div>
+
+        <h3 class="sub-h">Spells via Kruphix Devotee (no slot, Int-based)</h3>
+        <ul>
+          <li><strong>Mage Hand</strong> <em>(Conjuration cantrip, at will)</em> — Spectral hand within 30 ft.</li>
+          <li><strong>Detect Magic</strong> <em>(Divination 1st-level, concentration 10 min)</em> — Sense magic within 30 ft. <strong>5 uses per long rest</strong>.</li>
+        </ul>
+      </div>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Light crossbow (20 bolts)</td><td class="atk">+6</td><td class="dmg">1d8 + 3 piercing</td><td>Simple ranged, range 80/320.</td></tr>
+          <tr><td>Dagger ×2</td><td class="atk">+6</td><td class="dmg">1d4 + 3 piercing</td><td>Simple, finesse, light, thrown 20/60.</td></tr>
+          <tr><td>Ram <em>(Satyr natural)</em></td><td class="atk">+2</td><td class="dmg">1d4 − 1 bludgeoning</td><td>Unarmed.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">Leather armor</div>
+        <div class="armor-props">Light · AC 11 + Dex (unlimited)</div>
+      </div>
+      <h3 class="sub-h">Tools &amp; Personal Items</h3>
+      <ul>
+        <li><strong>Panpipes</strong></li>
+        <li>Bottle of black ink, quill, small knife</li>
+        <li><strong>Letter from a dead colleague</strong> — unanswered question</li>
+        <li>Set of common clothes</li>
+        <li><strong>Scholar's Pack</strong>: backpack, book of lore, ink pen, 10 sheets parchment, bag of sand, small knife</li>
+      </ul>
+      <p><strong>Money</strong>: 10 gp <em>(starting; campaign accumulation not tracked)</em>.</p>
+    `,
+    connections_html: `
+      <li><strong>Selene Shadowfoot</strong> — Fellow Satyr. Childhood revel-mates before the Academy. Where Selene learned to vanish from the world, Miele learned to see into it. Selene is the only person Miele has ever told the truth about her destiny — and Miele isn't entirely sure she remembers telling her. <em>(Open for play; Selene's existing Lifelong-Companion pairing with Lyra remains intact — this is a separate friendship.)</em></li>
+    `,
+    bio_l5_extra: "Since her awakening she has trained with the Resopaths, the makers and shapers, and she is now competent enough to bend small portions of the world around her — to teleport short distances, to call the ground up to harry her enemies, to drop someone's apparent weight in space. She has told Selene the truth about her destiny, though she isn't entirely sure Selene remembers. The Fallow Year has made the question urgent: when a god goes silent, the silence becomes a door, and Miele is interested in doors."
+  }
+];
+
+const ABILITY_ORDER = ['str','dex','con','int','wis','cha'];
+const ABILITY_SHORT = { str:'STR', dex:'DEX', con:'CON', int:'INT', wis:'WIS', cha:'CHA' };
+const TALENT_PRIMARY = 'int';
+
+function renderIdentity(s) {
+  const rows = [
+    ['Race',       'Satyr (Fey)'],
+    ['Class',      s.identity.class_long],
+    ['Background', 'Sage'],
+    ['Patron',     'Kruphix · Devotee'],
+    ['Gift',       'Heroic Destiny'],
+    ['Alignment',  'Chaotic Neutral'],
+    ['Languages',  'Common, Sylvan, Celestial, Primordial'],
+    ['Age',        s.identity.age]
+  ];
+  return rows.map(([k,v]) => `<div class="id-row"><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+}
+
+function renderSummary(s) {
+  return [
+    ['Hit Points', s.summary.hp, ''],
+    ['Armor Class', s.summary.ac, 'leather'],
+    ['Initiative', s.summary.init, ''],
+    ['Speed', s.summary.speed, ''],
+    ['Prof Bonus', s.summary.pb, ''],
+    ['Pass. Perc.', s.summary.pp, 'proficient']
+  ].map(([label, val, sub]) => `
+    <div class="sum-plate">
+      <div class="sp-label">${label}</div>
+      <div class="sp-value">${val}</div>
+      ${sub ? `<div class="sp-sub">${sub}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderAbilities(s) {
+  return ABILITY_ORDER.map(a => {
+    const ab = s.abilities[a];
+    const classes = ['ab-cell'];
+    if (a === TALENT_PRIMARY) classes.push('primary');
+    if (ab.dump) classes.push('dump');
+    return `
+      <div class="${classes.join(' ')}">
+        <div class="ab-name">${ABILITY_SHORT[a]}</div>
+        <div class="ab-mod">${ab.mod}</div>
+        <div class="ab-score">score ${ab.score}</div>
+        <div class="ab-save ${ab.prof ? 'prof' : ''}">save<span class="save-bonus">${ab.save}</span></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderSkills(s) {
+  const grouped = {};
+  ABILITY_ORDER.forEach(a => grouped[a] = []);
+  s.skills.forEach(sk => grouped[sk.ability].push(sk));
+  return ABILITY_ORDER.map(a => {
+    const list = grouped[a];
+    return `
+      <div class="skill-cat">
+        <div class="skill-cat-name">${ABILITY_SHORT[a]}</div>
+        ${list.length === 0
+          ? '<div class="skill-row dim"><span class="skill-name">—</span></div>'
+          : list.map(sk => `<div class="skill-row ${sk.expertise ? 'expertise' : ''}"><span class="skill-name">${sk.name}</span><span class="skill-bonus">${sk.bonus}</span></div>`).join('')
+        }
+      </div>
+    `;
+  }).join('');
+}
+
+function renderStage(i) {
+  const s = SNAPSHOTS[i];
+  document.getElementById('identity-target').innerHTML = renderIdentity(s);
+  document.getElementById('summary-target').innerHTML = renderSummary(s);
+  document.getElementById('abilities-target').innerHTML = renderAbilities(s);
+  document.getElementById('ab-note-target').textContent = s.ab_note;
+  document.getElementById('combat-target').innerHTML = s.combat_html;
+  document.getElementById('skills-target').innerHTML = renderSkills(s);
+  document.getElementById('skill-tool-target').innerHTML = s.tool_text;
+  document.getElementById('features-target').innerHTML = s.features_html;
+  document.getElementById('patron-target').innerHTML = s.patron_html;
+  document.getElementById('spellcasting-target').innerHTML = s.spellcasting_html;
+  document.getElementById('equipment-target').innerHTML = s.equipment_html;
+  document.getElementById('connections-target').innerHTML = s.connections_html;
+  document.getElementById('bio-l5-extra').innerHTML = s.bio_l5_extra;
+
+  document.querySelectorAll('#timeline .tl-node').forEach((n, idx) => n.classList.toggle('active', idx === i));
+}
+
+document.querySelectorAll('#timeline .tl-node').forEach((n, i) => {
+  n.addEventListener('click', () => renderStage(i));
+});
+renderStage(0);
+</script>
+</body>
+</html>

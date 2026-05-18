@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Skotia Drephina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Marble substrate — cool, slightly bluer for Iconoclast */
+    --marble:        #e8e4dc;
+    --marble-warm:   #ddd8cc;
+    --marble-cool:   #d2cdc1;
+    --marble-deep:   #beb8ac;
+    --vein:          #aaa494;
+    --ink:           #1a1a18;
+    --ink-soft:      #38382f;
+    --ink-faint:     #6c685e;
+    --rule:          #8e887c;
+    --rule-soft:     #aaa498;
+
+    /* Patron-deity accent — None (Iconoclast). Neutral slate, marble-bone. */
+    --accent:        #5a5a55;
+    --accent-dark:   #33332e;
+    --accent-sec:    #a8a49a;
+    --accent-glaze:  rgba(74, 66, 88, 0.07);
+
+    /* Wax-seal accent — muted indigo (Lampad night) */
+    --seal:      #4a4258;
+    --seal-dark: #271f33;
+
+    --class-tint: rgba(74,66,88,0.05);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--marble);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.045' numOctaves='2' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.40 0 0 0 0 0.38 0 0 0 0.45 0'/></filter><rect width='100%25' height='100%25' filter='url(%23m)'/></svg>"),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 600px 600px, 200px 200px;
+    opacity: 0.6;
+    mix-blend-mode: multiply;
+    z-index: 0;
+  }
+  body {
+    background-image:
+      linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 25%, var(--marble) 75%, var(--marble-cool) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 0 5rem;
+  }
+
+  .stele {
+    max-width: 1140px;
+    margin: 0 auto;
+    background: linear-gradient(180deg, var(--marble-warm) 0%, var(--marble) 8%, var(--marble) 92%, var(--marble-cool) 100%);
+    padding: 0;
+    box-shadow:
+      0 1px 2px rgba(26, 22, 18, 0.10),
+      0 10px 32px rgba(26, 22, 18, 0.18),
+      0 28px 64px rgba(26, 22, 18, 0.12);
+    position: relative;
+    border: 1px solid var(--rule);
+    z-index: 1;
+  }
+  .stele::before, .stele::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-dark) 100%);
+    opacity: 0.5;
+  }
+  .stele::before { left: 0; }
+  .stele::after  { right: 0; }
+
+  .doc { padding: 0 5rem 4rem; }
+
+  .meander {
+    height: 22px;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='22' viewBox='0 0 44 22'><path d='M0 17 L0 5 L11 5 L11 12 L6 12 L6 8 L17 8 L17 17 L11 17 L11 13 L22 13 L22 5 L33 5 L33 12 L28 12 L28 8 L39 8 L39 17 L44 17' fill='none' stroke='%2333332e' stroke-width='1.4' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: auto 18px;
+    opacity: 0.85;
+    margin: 0;
+  }
+
+  .masthead-band {
+    position: relative;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--marble);
+    padding: 3rem 5rem 2.75rem;
+  }
+  .masthead-band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  .masthead-band::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px; height: 28px;
+    background:
+      linear-gradient(135deg, transparent 49.5%, var(--marble) 50%) left bottom / 50% 100% no-repeat,
+      linear-gradient(225deg, transparent 49.5%, var(--marble) 50%) right bottom / 50% 100% no-repeat;
+    z-index: 2;
+  }
+  .masthead {
+    position: relative;
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    z-index: 1;
+  }
+  .portrait-frame {
+    position: relative;
+    width: 360px; height: 480px;
+    background: var(--marble-deep);
+    padding: 8px;
+    border: 1px solid var(--ink-soft);
+    box-shadow:
+      inset 0 0 0 2px var(--accent-sec),
+      inset 0 0 0 4px var(--marble-deep),
+      0 4px 14px rgba(0,0,0,0.30);
+  }
+  .portrait-frame::before, .portrait-frame::after {
+    content: "";
+    position: absolute;
+    left: -1px; right: -1px; height: 12px;
+    background: linear-gradient(180deg, var(--accent-sec) 0%, var(--accent) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .portrait-frame::before { top: -14px; }
+  .portrait-frame::after  { bottom: -14px; }
+  .portrait-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.03) saturate(0.97);
+  }
+
+  .name-block { padding: 0.5rem 0 0; color: var(--marble); position: relative; z-index: 1; }
+  .name-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.52em;
+    color: rgba(255, 250, 235, 0.85);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  h1.dossier-name {
+    font-family: "Cinzel", serif;
+    font-weight: 800;
+    font-size: 4.4rem;
+    line-height: 0.95;
+    letter-spacing: 0.04em;
+    color: var(--marble);
+    margin: 0 0 0.45rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.35);
+    text-transform: uppercase;
+  }
+  .dossier-name .given { display: block; color: var(--marble); }
+  .dossier-name .epithet {
+    display: block;
+    font-weight: 500;
+    font-size: 0.55em;
+    color: var(--accent-sec);
+    letter-spacing: 0.18em;
+    margin-top: 0.4rem;
+    font-style: italic;
+    text-transform: none;
+  }
+  .tagline {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: rgba(255, 250, 235, 0.95);
+    margin: 1.2rem 0 1.5rem;
+    max-width: 38em;
+    padding-left: 1rem;
+    border-left: 2px solid var(--accent-sec);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  .identity-inscription {
+    margin: 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(255, 250, 235, 0.3);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 2.25rem;
+  }
+  .id-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+  .id-row dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: rgba(255, 250, 235, 0.55);
+    text-transform: uppercase;
+  }
+  .id-row dd {
+    margin: 0;
+    color: rgba(255, 250, 235, 0.96);
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  }
+  .deity-mark {
+    display: inline-block;
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--accent-sec);
+    margin-left: 0.6rem;
+    vertical-align: middle;
+    line-height: 1;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  }
+
+  .timeline-section {
+    background: var(--accent-glaze);
+    padding: 1.6rem 5rem;
+    position: relative;
+  }
+  .tl-label {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin: 0 0 1.1rem;
+  }
+  .tl-track {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 7rem;
+    position: relative;
+    padding: 0;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .tl-track::before {
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 16%; right: 16%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-sec), var(--accent), var(--accent-sec));
+    z-index: 0;
+  }
+  .tl-node {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: var(--ink-soft);
+    font-family: "EB Garamond", serif;
+    transition: color 0.2s ease;
+    min-width: 100px;
+  }
+  .tl-dot {
+    width: 18px; height: 18px;
+    border: 2px solid var(--accent-dark);
+    background: var(--marble);
+    margin-bottom: 0.55rem;
+    box-shadow: 0 0 0 3px var(--marble);
+    transition: all 0.2s ease;
+    transform: rotate(45deg);
+  }
+  .tl-node:hover .tl-dot { border-color: var(--accent); transform: rotate(45deg) scale(1.12); }
+  .tl-node.active .tl-dot {
+    background: var(--seal);
+    border-color: var(--seal-dark);
+    box-shadow: 0 0 0 3px var(--marble), 0 0 0 5px rgba(74,66,88,0.28);
+  }
+  .tl-node.active { color: var(--ink); }
+  .tl-top {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .tl-node.active .tl-top { color: var(--accent-dark); }
+  .tl-bot { font-size: 0.85rem; color: var(--ink-faint); margin-top: 0.2rem; font-style: italic; }
+
+  section.block { margin: 2.5rem 0 0; padding: 0.5rem 0 1.5rem; position: relative; }
+  section.block + section.block { margin-top: 2rem; }
+
+  .section-h {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--accent-dark);
+    margin: 0 0 1.5rem;
+    padding: 0;
+    border: none;
+    text-align: center;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    position: relative;
+    display: block;
+  }
+  .section-h::before {
+    content: "";
+    display: block;
+    width: 64px; height: 14px;
+    margin: 0 auto 0.85rem;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%2333332e' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.85;
+  }
+  .section-h .greek-chap {
+    display: block;
+    font-family: "Cinzel", serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.5em;
+    color: var(--accent);
+    margin-top: 0.5rem;
+    font-style: normal;
+    text-transform: uppercase;
+  }
+  h3.sub-h {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--accent-dark);
+    margin: 1.5rem 0 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  h4.subsub-h {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.32em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 1.1rem 0 0.5rem;
+    font-weight: 500;
+  }
+  p { margin: 0 0 1rem; }
+
+  .summary-strip {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    margin: 0.5rem 0;
+    background: var(--accent-glaze);
+    padding: 1rem 0.5rem;
+    border-top: 1.5px solid var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+  }
+  .sum-plate { text-align: center; padding: 0 0.5rem; border-right: 1px solid var(--rule-soft); }
+  .sum-plate:last-child { border-right: none; }
+  .sum-plate .sp-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .sum-plate .sp-value {
+    font-family: "Cinzel", serif;
+    font-size: 1.7rem;
+    color: var(--accent-dark);
+    line-height: 1.1;
+    font-weight: 700;
+    margin-top: 0.15rem;
+  }
+  .sum-plate .sp-sub {
+    font-family: "EB Garamond", serif;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 0.1rem;
+  }
+
+  .abilities-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem; margin: 0.5rem 0 1.25rem; }
+  .ab-cell {
+    text-align: center;
+    padding: 1rem 0.4rem 0.85rem;
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--accent);
+    position: relative;
+  }
+  .ab-cell.primary {
+    border-top-width: 4px;
+    border-top-color: var(--accent-dark);
+    background: linear-gradient(180deg, rgba(168, 164, 154, 0.35) 0%, var(--marble-warm) 60%);
+  }
+  .ab-cell.dump { border-top-color: var(--ink-faint); opacity: 0.85; }
+  .ab-cell .ab-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .ab-cell .ab-mod { font-family: "Cinzel", serif; font-size: 2.1rem; line-height: 1; color: var(--ink); font-weight: 800; }
+  .ab-cell .ab-score { font-family: "EB Garamond", serif; font-size: 0.85rem; color: var(--ink-faint); margin-top: 0.2rem; }
+  .ab-cell .ab-save {
+    margin-top: 0.5rem;
+    padding-top: 0.4rem;
+    border-top: 1px dotted var(--rule);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .ab-cell .ab-save .save-bonus { font-family: "Cinzel", serif; font-size: 0.95rem; color: var(--accent-dark); margin-left: 0.25rem; font-weight: 600; }
+  .ab-cell .ab-save.prof::after { content: " ★"; color: var(--seal); margin-left: 0.15rem; }
+  .ab-note { font-size: 0.88rem; color: var(--ink-faint); font-style: italic; text-align: center; margin-top: 0.5rem; }
+
+  .combat-block { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem 2.5rem; margin: 0.5rem 0; }
+  .combat-block dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; }
+  .combat-block dt {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    align-self: baseline;
+  }
+  .combat-block dd { margin: 0; font-family: "EB Garamond", serif; font-size: 0.98rem; color: var(--ink); }
+  .combat-block dd em { color: var(--ink-faint); font-size: 0.88rem; }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.1rem; margin: 1rem 0 1.5rem; }
+  .skill-cat { border-top: 2px solid var(--accent); padding-top: 0.6rem; }
+  .skill-cat-name {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    text-align: center;
+  }
+  .skill-row { display: flex; align-items: baseline; justify-content: space-between; gap: 0.4rem; padding: 0.18rem 0; font-size: 0.92rem; line-height: 1.3; color: var(--ink); }
+  .skill-row.dim { color: var(--ink-faint); font-style: italic; }
+  .skill-row .skill-name { flex: 1; }
+  .skill-row .skill-bonus { font-family: "Cinzel", serif; font-weight: 600; color: var(--accent-dark); }
+  .skill-row.expertise .skill-bonus { color: var(--seal); }
+  .skill-source { font-size: 0.82rem; color: var(--ink-faint); text-align: center; font-style: italic; margin-top: 0.6rem; }
+
+  .feat-block { font-size: 0.98rem; font-family: "EB Garamond", serif; }
+  .feat-block ul { padding-left: 1.2rem; margin: 0.5rem 0 1rem; }
+  .feat-block li { margin-bottom: 0.45rem; }
+  .feat-block strong { color: var(--accent-dark); font-weight: 600; }
+  .feat-block em { color: var(--ink-soft); }
+  .feat-block .aside {
+    font-style: italic;
+    color: var(--ink-faint);
+    font-size: 0.92rem;
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-soft);
+    margin: 0.6rem 0 1rem;
+  }
+  .feat-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    margin: 1rem 0;
+  }
+
+  /* SUPERNATURAL GIFT — temple-panel treatment (in lieu of Patron God) */
+  .gift-section {
+    margin: 2.5rem -5rem 2.5rem;
+    padding: 0;
+    position: relative;
+    background: linear-gradient(180deg, var(--accent-dark) 0%, var(--seal-dark) 100%);
+    color: var(--marble);
+  }
+  .gift-section::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: -22px; height: 22px;
+    background:
+      linear-gradient(45deg, transparent 49.5%, var(--accent-dark) 50%) left top / 50% 100% no-repeat,
+      linear-gradient(315deg, transparent 49.5%, var(--accent-dark) 50%) right top / 50% 100% no-repeat;
+    z-index: 0;
+  }
+  .gift-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+    z-index: 0;
+  }
+  .gift-inner {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem 6.5rem 2.75rem;
+  }
+  .gift-inner::before, .gift-inner::after {
+    content: "";
+    position: absolute;
+    top: 2rem; bottom: 2rem;
+    width: 28px;
+    background:
+      linear-gradient(180deg,
+        var(--accent-sec) 0%, var(--accent-sec) 6%,
+        rgba(255,250,235,0.25) 6%, rgba(255,250,235,0.25) 8%,
+        rgba(255,250,235,0.15) 8%, rgba(255,250,235,0.15) 92%,
+        rgba(255,250,235,0.25) 92%, rgba(255,250,235,0.25) 94%,
+        var(--accent-sec) 94%, var(--accent-sec) 100%);
+    border-left: 1px solid rgba(255,250,235,0.25);
+    border-right: 1px solid rgba(255,250,235,0.25);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.10);
+  }
+  .gift-inner::before { left: 2.5rem; }
+  .gift-inner::after  { right: 2.5rem; }
+  .gift-section .section-h {
+    color: var(--marble);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.30);
+    letter-spacing: 0.36em;
+    margin-bottom: 1.5rem;
+  }
+  .gift-section .section-h::before {
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='14' viewBox='0 0 64 14'><path d='M0 11 L0 3 L7 3 L7 8 L4 8 L4 5 L11 5 L11 11 L7 11 L7 9 L14 9 L14 3 L21 3 L21 8 L18 8 L18 5 L25 5 L25 11 L21 11 L21 9 L28 9 L28 3 L36 3 L36 8 L33 8 L33 5 L40 5 L40 11 L36 11 L36 9 L43 9 L43 3 L50 3 L50 8 L47 8 L47 5 L54 5 L54 11 L50 11 L50 9 L57 9 L57 3 L64 3' fill='none' stroke='%23a8a49a' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/></svg>");
+  }
+  .gift-section .section-h .greek-chap { color: var(--accent-sec); }
+  .gift-section h3.sub-h, .gift-section h4.subsub-h {
+    color: rgba(255, 250, 235, 0.95);
+    border-bottom-color: rgba(255, 250, 235, 0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.22);
+  }
+  .gift-section .feat-block { color: rgba(255, 250, 235, 0.94); }
+  .gift-section .feat-block strong { color: var(--accent-sec); }
+  .gift-section .feat-block em { color: rgba(255, 250, 235, 0.74); }
+  .gift-section .feat-block .aside { color: rgba(255, 250, 235, 0.78); border-left-color: rgba(255, 250, 235, 0.4); }
+
+  .spell-block { background: var(--class-tint); border: 1px solid var(--rule-soft); padding: 1.5rem; margin: 1rem 0; }
+  .spell-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .spell-stats .ss-cell { text-align: center; padding: 0.25rem; }
+  .spell-stats .ss-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .spell-stats .ss-value { font-family: "Cinzel", serif; font-size: 1.4rem; color: var(--accent-dark); font-weight: 700; }
+
+  .weapon-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; font-size: 0.94rem; }
+  .weapon-table th, .weapon-table td { text-align: left; padding: 0.45rem 0.7rem; border-bottom: 1px dotted var(--rule-soft); }
+  .weapon-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .weapon-table td.atk, .weapon-table td.dmg { font-family: "Cinzel", serif; font-weight: 700; color: var(--accent-dark); white-space: nowrap; }
+  .armor-card {
+    background: var(--marble-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.2rem;
+    margin: 0.6rem 0;
+  }
+  .armor-name { font-family: "Cinzel", serif; font-weight: 700; font-size: 1rem; color: var(--accent-dark); letter-spacing: 0.06em; }
+  .armor-props { font-size: 0.88rem; color: var(--ink-soft); font-style: italic; margin-top: 0.25rem; }
+
+  .personality-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.5rem 0 1rem; }
+  .pers-card {
+    border-left: 3px solid var(--accent);
+    padding: 0.6rem 1.1rem;
+    background: var(--accent-glaze);
+  }
+  .pers-card.flaw {
+    border-left-color: var(--seal);
+    background: rgba(74, 66, 88, 0.10);
+  }
+  .pers-label {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .pers-card.flaw .pers-label { color: var(--seal-dark); }
+  .pers-text { font-style: italic; color: var(--ink); font-size: 1rem; line-height: 1.5; margin: 0; }
+
+  .connections-list { margin: 0.5rem 0 1rem; padding-left: 0; list-style: none; }
+  .connections-list li {
+    margin-bottom: 0.7rem;
+    padding-left: 1.4rem;
+    position: relative;
+    line-height: 1.55;
+  }
+  .connections-list li::before { content: "▲"; color: var(--accent); position: absolute; left: 0; top: 0.32em; font-size: 0.65rem; }
+  .connections-list strong { color: var(--accent-dark); }
+
+  .expedition-callout {
+    background: linear-gradient(180deg, var(--accent-glaze) 0%, rgba(74,66,88,0.03) 100%);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    padding: 1.5rem 1.75rem;
+    margin: 1rem 0 0;
+    font-size: 1.02rem;
+    line-height: 1.6;
+  }
+  .expedition-callout p:last-child { margin-bottom: 0; }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    margin-top: 3rem;
+    color: var(--ink-faint);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+  }
+  .footer .meander { margin-bottom: 1rem; opacity: 0.6; }
+
+  @media (max-width: 1000px) {
+    .doc { padding: 0 1.5rem 2.5rem; }
+    .timeline-section { padding: 1.5rem 1.5rem; }
+    .masthead-band { padding: 2rem 1.5rem 2.5rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1.5rem; }
+    .portrait-frame { width: 100%; max-width: 320px; height: auto; aspect-ratio: 3/4; margin: 0 auto; }
+    h1.dossier-name { font-size: 2.8rem; }
+    .identity-inscription { grid-template-columns: 1fr; }
+    .summary-strip, .abilities-grid { grid-template-columns: repeat(3, 1fr); }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .combat-block, .personality-grid { grid-template-columns: 1fr; }
+    .gift-section { margin: 2rem -1.5rem; }
+    .gift-inner { padding: 2rem 1.5rem; }
+    .gift-inner::before, .gift-inner::after { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="stele">
+
+<div class="masthead-band">
+  <div class="masthead">
+    <div class="portrait-frame">
+      <img src="../Theros 1st pass/skotia.png" alt="Skotia Drephina portrait">
+    </div>
+    <div class="name-block">
+      <div class="name-eyebrow">Dossier · Iconoclast Wanderer</div>
+      <h1 class="dossier-name">
+        <span class="given">Skotia</span>
+        <span class="epithet">Drephina</span>
+      </h1>
+      <p class="tagline">
+        A Lampad nymph who walks the shadowed paths between worlds, and who answers to no god — though several have noticed her.
+      </p>
+      <dl class="identity-inscription" id="identity-target"></dl>
+    </div>
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<div class="timeline-section">
+  <div class="tl-label">Stage of Career</div>
+  <div class="tl-track" id="timeline">
+    <button class="tl-node active" data-stage="0" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 1</div>
+      <div class="tl-bot">Lampad Scout</div>
+    </button>
+    <button class="tl-node" data-stage="1" type="button">
+      <div class="tl-dot"></div>
+      <div class="tl-top">Level 5</div>
+      <div class="tl-bot">Scout · Skirmisher</div>
+    </button>
+  </div>
+</div>
+
+<div class="meander" aria-hidden="true"></div>
+
+<div class="doc">
+
+<section class="block">
+  <h2 class="section-h">Bio<span class="greek-chap">α · Vita</span></h2>
+  <p>Skotia walks the shadowed paths between worlds — a Lampad, the rarest sort of nymph, born to wander caves and graveyards and the dim approaches to the Underworld. She believes that multiple gods seek to use her to their ends, and she works hard to avoid all of their entanglements. The shadows are her refuge, and no one — divine or mortal — can control where she walks or what she sees.</p>
+  <p>Her ethereal-white eyes glow faintly even in daylight; her hair is a flowing mist that shifts in texture; her skin holds a dusky purple sparkle. Most who see her assume she is a ghost. She doesn't disabuse them.</p>
+  <p id="bio-l5-extra"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<section class="block">
+  <h2 class="section-h">At a Glance<span class="greek-chap">β · Synopsis</span></h2>
+  <div class="summary-strip" id="summary-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Ability Scores<span class="greek-chap">γ · Dynámeis</span></h2>
+  <div class="abilities-grid" id="abilities-target"></div>
+  <p class="ab-note" id="ab-note-target"></p>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Combat &amp; Senses<span class="greek-chap">δ · Mákhē</span></h2>
+  <div class="combat-block" id="combat-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Skill Proficiencies<span class="greek-chap">ε · Tékhnai</span></h2>
+  <div class="skills-grid" id="skills-target"></div>
+  <p class="skill-source" id="skill-tool-target"></p>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<section class="block">
+  <h2 class="section-h">Class Features<span class="greek-chap">ζ · Tákta</span></h2>
+  <div class="feat-block" id="features-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Racial Features — Nymph (Lampad)<span class="greek-chap">η · Génos</span></h2>
+  <div class="feat-block">
+    <h3 class="sub-h">Base Nymph</h3>
+    <ul>
+      <li><strong>Creature Type</strong>: Fey <em>(not Humanoid)</em>.</li>
+      <li><strong>Immortal Nature</strong>: No need for food, drink, or sleep. A 4-hour dream-trance counts as a long rest.</li>
+      <li><strong>Natural Habitat</strong>: Caves, graveyards, crypts, swamps, and the Underworld. Skotia gains Ranger Natural Explorer benefits while in this favored terrain — <strong>doubled PB</strong> on Int/Wis checks using proficient skills, difficult terrain doesn't slow group travel, can't get lost except by magic, remains alert while engaged in other activities, can move stealthily at normal pace if solo, doubles foraging, and tracks creatures with full information.</li>
+      <li><strong>Natural Affinity</strong>: Resistance to <strong>necrotic damage</strong> <em>(Lampad-specific)</em>.</li>
+    </ul>
+
+    <h3 class="sub-h">Lampad Subrace</h3>
+    <ul>
+      <li><strong>Darkvision</strong> (60 ft.)</li>
+      <li><strong>Magic of the Hollows</strong> (Cha-based) — see Cantrips &amp; Trait Magic below for current options.</li>
+    </ul>
+  </div>
+</section>
+
+</div>
+
+<section class="gift-section">
+  <div class="gift-inner">
+    <h2 class="section-h">Supernatural Gift — Iconoclast<span class="greek-chap">θ · Dóron</span></h2>
+    <div class="feat-block" id="gift-target"></div>
+  </div>
+</section>
+
+<div class="doc" style="padding-top: 1rem;">
+
+<section class="block">
+  <h2 class="section-h">Background — Outlander<span class="greek-chap">κ · Bíos</span></h2>
+  <div class="feat-block">
+    <ul>
+      <li><strong>Skill Proficiencies</strong>: Athletics, Survival.</li>
+      <li><strong>Instrument</strong>: Drum.</li>
+      <li><strong>Languages</strong>: One of choice. <em>Chosen: Minotaur</em> (the underworld-traffickers and tomb-raiders Skotia tends to brush against speak it).</li>
+      <li><strong>Equipment</strong>: Staff (walking stick), hunting trap, trophy from an animal killed in her wanderings, set of traveler's clothes, 10 gp.</li>
+      <li><strong>Feature — Wanderer</strong>: Excellent memory for maps and geography; always recalls the general layout of terrain, settlements, and other features. Can find food and fresh water for herself and up to five other people each day, provided the land offers berries, small game, water, and so forth.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Cantrips &amp; Trait Magic<span class="greek-chap">λ · Goēteía</span></h2>
+  <div id="spellcasting-target"></div>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Equipment<span class="greek-chap">μ · Hopla</span></h2>
+  <div id="equipment-target"></div>
+</section>
+
+<div class="meander" aria-hidden="true"></div>
+
+<section class="block">
+  <h2 class="section-h">Personality<span class="greek-chap">ν · Êthos</span></h2>
+  <div class="personality-grid">
+    <div class="pers-card">
+      <div class="pers-label">Trait</div>
+      <p class="pers-text">"I place no stock in wealthy or well-mannered folk." <em>(Outlander #4)</em></p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Ideal — Freedom</div>
+      <p class="pers-text">"Shadows are my refuge, and no one can control where I walk or what I see." <em>(Iconoclast-flavored)</em></p>
+    </div>
+    <div class="pers-card">
+      <div class="pers-label">Bond</div>
+      <p class="pers-text">"Everything can be given up, save one's identity."</p>
+    </div>
+    <div class="pers-card flaw">
+      <div class="pers-label">Flaw</div>
+      <p class="pers-text">"I keep secrets even from allies, fearing vulnerability."</p>
+    </div>
+  </div>
+  <p class="ab-note">Iconoclast Characteristic #2 motivates her quietly: <em>multiple gods seek to use her to their ends, so she avoids divine entanglements as a matter of principle.</em></p>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Connections<span class="greek-chap">ξ · Philíai</span></h2>
+  <ul class="connections-list">
+    <li><strong>Orion Swiftarrow</strong> — assisted him in tracking a wayward soul, likely a Returned who tried to slip free of the Underworld — Lampad domain.</li>
+    <li><strong>Helena of Akros</strong> — mutual respect from scouting battlefields together; the knight and the ghost share a wary professional regard.</li>
+    <li><strong>Nyklos the Nightshade</strong> — enigmatic bond between two creatures of shadow, recognizing each other across very different paths — sorcerous on his side, chthonic on hers.</li>
+  </ul>
+</section>
+
+<section class="block">
+  <h2 class="section-h">Why Skotia is on the Expedition<span class="greek-chap">ο · Hodós</span></h2>
+  <div class="expedition-callout">
+    <p>Skotia normally avoids divine entanglements — but the Fallow Year <em>is</em> divine entanglement on a continental scale, and her customary "stay in the shadows" strategy will eventually fail as the famine wears on.</p>
+    <p>There is also personal reason. Lampads are caretakers of the path from life to the Underworld, and a famine on Karametra's scale means the Tartyx River will swell with souls she might rather see live. Her position lets her gather intelligence others can't reach, and she will be asked to do so. Whether she calls that duty or pragmatism is her own affair.</p>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div class="meander" aria-hidden="true"></div>
+  Player Character Dossier · Theros, The Fallow Season
+</footer>
+
+</div>
+
+<script>
+const SNAPSHOTS = [
+  {
+    stage: "L1",
+    level: 1,
+    pb: 2,
+    identity: { class_long: "Rogue 1", age: "—" },
+    summary: { hp: 9, ac: 13, init: "+2", speed: "30 ft.", pb: "+2", pp: 14 },
+    abilities: {
+      str:{score: 5, mod:"−3", save:"−3", prof:false, dump:true},
+      dex:{score:15, mod:"+2", save:"+4", prof:true},
+      con:{score:13, mod:"+1", save:"+1", prof:false},
+      int:{score:11, mod:"+0", save:"+2", prof:true},
+      wis:{score:14, mod:"+2", save:"+2", prof:false},
+      cha:{score:14, mod:"+2", save:"+2", prof:false}
+    },
+    ab_note: "Rolled array 5, 11, 12, 13, 13, 15 → Str 5 / Dex 15 / Con 12 / Int 11 / Wis 13 / Cha 13. Nymph +1 Cha (→14), +1 Wis (→14). Lampad +1 Con (→13). Str 5 sharply limits carrying capacity — Skotia travels light by necessity.",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+2</dd>
+        <dt>Armor Class</dt><dd>13 <em>(leather 11 + Dex +2)</em></dd>
+        <dt>Initiative</dt><dd>+2</dd>
+        <dt>Speed</dt><dd>30 ft.</dd>
+        <dt>Hit Points</dt><dd>9 <em>(d8 max 8 + Con +1)</em></dd>
+        <dt>Hit Dice</dt><dd>1d8</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>14 <em>(10 + Wis +2 + PB +2; Perception proficient via Rogue)</em></dd>
+        <dt>Special Senses</dt><dd>Darkvision 60 ft. <em>(Lampad)</em></dd>
+        <dt>Creature Type</dt><dd>Fey <em>(Nymph)</em></dd>
+        <dt>Necrotic</dt><dd>Resistance <em>(Lampad)</em></dd>
+        <dt>Lampad Cantrip DC</dt><dd>12 <em>(Cha-based)</em></dd>
+        <dt>Iconoclast DC</dt><dd>12 <em>(Wis-based)</em></dd>
+      </dl>
+    `,
+    skills: [
+      {name:"Acrobatics",  ability:"dex", bonus:"+6", expertise:true, source:"Rogue Expertise"},
+      {name:"Athletics",   ability:"str", bonus:"−1", source:"Outlander"},
+      {name:"Deception",   ability:"cha", bonus:"+4", source:"Rogue"},
+      {name:"Perception",  ability:"wis", bonus:"+4", source:"Rogue"},
+      {name:"Stealth",     ability:"dex", bonus:"+6", expertise:true, source:"Rogue Expertise"},
+      {name:"Survival",    ability:"wis", bonus:"+4", source:"Outlander"}
+    ],
+    tool_text: "Tool Proficiencies: Thieves' Tools (Rogue). Instrument: Drum (Outlander). Expertise on Acrobatics and Stealth (doubled PB).",
+    features_html: `
+      <h3 class="sub-h">Rogue (Level 1)</h3>
+      <ul>
+        <li><strong>Expertise</strong>: Choose two skill proficiencies (or one skill and Thieves' Tools). PB is doubled for checks using those proficiencies. <em>Chosen: Acrobatics and Stealth.</em></li>
+        <li><strong>Sneak Attack</strong> (1d6): Once per turn, +1d6 damage on a hit with a finesse or ranged weapon if (a) you have advantage on the attack roll, or (b) an enemy of the target is within 5 ft. of the target, not incapacitated, and you don't have disadvantage. Cannot be used with disadvantage.</li>
+        <li><strong>Thieves' Cant</strong>: A secret mix of dialect, jargon, and code that allows you to hide messages in seemingly normal conversation.</li>
+      </ul>
+    `,
+    gift_html: `
+      <h3 class="sub-h">Iconoclast — She Will Not Be Used</h3>
+      <ul>
+        <li><strong>Enlightened Protection</strong>: Cast <em>protection from evil and good</em> with this trait, targeting only yourself, no material components. <strong>1/long rest.</strong> Wisdom is the spellcasting ability.</li>
+        <li><strong>Reject the Gods</strong>: Skotia can't gain or lose piety to any god. She instead gains additional traits at later levels. Wisdom is the spellcasting ability for spells cast through these traits.</li>
+      </ul>
+      <h4 class="subsub-h">Iconoclast spell stats (Wis-based)</h4>
+      <ul>
+        <li><strong>Spell save DC</strong> = 8 + PB +2 + Wis +2 = <strong>12</strong></li>
+        <li><strong>Spell attack</strong> = PB +2 + Wis +2 = <strong>+4</strong></li>
+      </ul>
+    `,
+    spellcasting_html: `
+      <div class="spell-block">
+        <div class="spell-stats">
+          <div class="ss-cell"><div class="ss-label">Lampad DC</div><div class="ss-value">12</div></div>
+          <div class="ss-cell"><div class="ss-label">Lampad Atk</div><div class="ss-value">+4</div></div>
+          <div class="ss-cell"><div class="ss-label">Iconoclast DC</div><div class="ss-value">12</div></div>
+          <div class="ss-cell"><div class="ss-label">Slots</div><div class="ss-value">—</div></div>
+        </div>
+
+        <p>Skotia is not a spellcasting class. All her magic comes from racial traits (Magic of the Hollows) and her supernatural gift (Iconoclast). She has <strong>no spell slots</strong>; every option below is its own resource.</p>
+
+        <h3 class="sub-h">Cantrip (Lampad)</h3>
+        <ul>
+          <li><strong>Chill Touch</strong> — Necromancy. Ranged spell attack <strong>+4</strong>, range 120 ft. On hit: <strong>1d8 necrotic</strong>; target can't regain HP until the start of your next turn. Vs. undead: target also has disadvantage on attack rolls against you until the end of your next turn.</li>
+        </ul>
+
+        <h3 class="sub-h">Spells via Other Traits (no slot needed; 1/long rest each)</h3>
+        <ul>
+          <li><strong>Protection from Evil and Good</strong> (Iconoclast — Wis; self-only; concentration up to 10 minutes) — Disadvantage on attacks from aberrations, celestials, elementals, fey, fiends, and undead; immunity to charm/fright/possession from those types.</li>
+        </ul>
+      </div>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Rapier</td><td class="atk">+4</td><td class="dmg">1d8 + 2 piercing</td><td>Martial, finesse. Adds Sneak Attack when conditions met.</td></tr>
+          <tr><td>Shortbow (20 arrows)</td><td class="atk">+4</td><td class="dmg">1d6 + 2 piercing</td><td>Simple ranged, range 80/320, two-handed, ammunition. Adds Sneak Attack.</td></tr>
+          <tr><td>Dagger ×2</td><td class="atk">+4</td><td class="dmg">1d4 + 2 piercing</td><td>Simple, finesse, light, thrown 20/60.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">Leather</div>
+        <div class="armor-props">Light · AC 11 + Dex (unlimited)</div>
+      </div>
+      <h3 class="sub-h">Tools &amp; Personal Items</h3>
+      <ul>
+        <li><strong>Thieves' Tools</strong> (Rogue)</li>
+        <li><strong>Drum</strong> (Outlander instrument)</li>
+        <li>Staff (walking stick; bludgeoning 1d6 if used as quarterstaff, but Skotia rarely melees with it given her Str 5)</li>
+        <li>Hunting trap</li>
+        <li>Trophy from an animal she killed — perhaps a tarnished pendant taken from a graveyard's resident wolf</li>
+        <li>Set of traveler's clothes</li>
+        <li><strong>Burglar's Pack</strong>: backpack, 1000 ball bearings, 10 ft. string, bell, 5 candles, crowbar, hammer, 10 pitons, hooded lantern, 2 flasks of oil, 5 days of rations, tinderbox, waterskin, 50 ft. hempen rope</li>
+      </ul>
+      <p><strong>Money</strong>: 10 gp <em>(Outlander starting pouch)</em>.</p>
+    `,
+    bio_l5_extra: ""
+  },
+  {
+    stage: "L5",
+    level: 5,
+    pb: 3,
+    identity: { class_long: "Rogue 5 — Scout", age: "30" },
+    summary: { hp: 33, ac: 14, init: "+3", speed: "30 ft.", pb: "+3", pp: 15 },
+    abilities: {
+      str:{score: 5, mod:"−3", save:"−3", prof:false, dump:true},
+      dex:{score:16, mod:"+3", save:"+6", prof:true},
+      con:{score:13, mod:"+1", save:"+1", prof:false},
+      int:{score:11, mod:"+0", save:"+3", prof:true},
+      wis:{score:14, mod:"+2", save:"+2", prof:false},
+      cha:{score:15, mod:"+2", save:"+2", prof:false}
+    },
+    ab_note: "Level 4 ASI: +1 Dex (15 → 16), +1 Cha (14 → 15). The Dex bump raises attack, damage, AC, Init, and Dex save. Cha bump is on the cusp — modifier doesn't tick up until 16, but the save is +1 better. Alternative pick worth flagging: Mobile feat (free movement after melee + 10 ft. speed + ignore difficult terrain on Dash) — an excellent thematic match for a Scout with Skirmisher.",
+    combat_html: `
+      <dl>
+        <dt>Proficiency Bonus</dt><dd>+3</dd>
+        <dt>Armor Class</dt><dd>14 <em>(leather 11 + Dex +3)</em></dd>
+        <dt>Initiative</dt><dd>+3</dd>
+        <dt>Speed</dt><dd>30 ft.</dd>
+        <dt>Hit Points</dt><dd>33 <em>(L1: 8 + Con +1 = 9; L2–5: 4 × (avg 5 + Con +1) = 24; total 33)</em></dd>
+        <dt>Hit Dice</dt><dd>5d8</dd>
+      </dl>
+      <dl>
+        <dt>Passive Perception</dt><dd>15 <em>(10 + Wis +2 + PB +3)</em></dd>
+        <dt>Special Senses</dt><dd>Darkvision 60 ft. <em>(Lampad)</em></dd>
+        <dt>Creature Type</dt><dd>Fey <em>(Nymph)</em></dd>
+        <dt>Necrotic</dt><dd>Resistance <em>(Lampad)</em></dd>
+        <dt>Lampad DC / Atk</dt><dd>13 / +5 <em>(Cha-based)</em></dd>
+        <dt>Iconoclast DC / Atk</dt><dd>13 / +5 <em>(Wis-based)</em></dd>
+      </dl>
+    `,
+    skills: [
+      {name:"Acrobatics",  ability:"dex", bonus:"+9", expertise:true, source:"Rogue Expertise"},
+      {name:"Athletics",   ability:"str", bonus:"+0", source:"Outlander"},
+      {name:"Deception",   ability:"cha", bonus:"+5", source:"Rogue"},
+      {name:"Nature",      ability:"int", bonus:"+6", expertise:true, source:"Scout Survivalist (doubled PB)"},
+      {name:"Perception",  ability:"wis", bonus:"+5", source:"Rogue"},
+      {name:"Stealth",     ability:"dex", bonus:"+9", expertise:true, source:"Rogue Expertise"},
+      {name:"Survival",    ability:"wis", bonus:"+8", expertise:true, source:"Outlander + Scout (doubled PB)"}
+    ],
+    tool_text: "Tool Proficiencies: Thieves' Tools (Rogue). Instrument: Drum (Outlander). Expertise on Acrobatics and Stealth; Scout's Survivalist grants Nature proficiency and doubles PB on Nature and Survival (effectively Expertise tier).",
+    features_html: `
+      <h3 class="sub-h">Rogue (Base)</h3>
+      <ul>
+        <li><strong>Expertise</strong> (L1): Acrobatics and Stealth — PB is doubled.</li>
+        <li><strong>Sneak Attack</strong> (1d6 at L1, scaling to <strong>3d6 at L5</strong>): Once per turn, +3d6 damage on a hit with a finesse or ranged weapon if (a) you have advantage on the attack roll, OR (b) an enemy of the target is within 5 ft. of the target, not incapacitated, and you don't have disadvantage. Cannot be used with disadvantage.</li>
+        <li><strong>Thieves' Cant</strong> (L1).</li>
+        <li><strong>Cunning Action</strong> (L2): Bonus action to <strong>Dash, Disengage, or Hide</strong>.</li>
+        <li><strong>Uncanny Dodge</strong> (L5): When an attacker you can see hits you with an attack, you can use your reaction to <strong>halve the damage</strong>.</li>
+      </ul>
+
+      <h3 class="sub-h">Scout (Subclass)</h3>
+      <ul>
+        <li><strong>Skirmisher</strong>: You are difficult to pin down. As a reaction when an enemy ends its turn within 5 ft. of you, move up to half your speed (<strong>15 ft.</strong>). This movement doesn't provoke opportunity attacks.</li>
+        <li><strong>Survivalist</strong>: Gain proficiency in <strong>Nature and Survival</strong> (if not already). PB is <strong>doubled</strong> on any check using either proficiency. <em>(Survival was already proficient from Outlander; the doubling still applies.)</em></li>
+      </ul>
+    `,
+    gift_html: `
+      <h3 class="sub-h">Iconoclast — She Will Not Be Used</h3>
+      <ul>
+        <li><strong>Enlightened Protection</strong> (L1): Cast <em>protection from evil and good</em> on yourself, no material components. <strong>1/long rest.</strong> Wisdom-based.</li>
+        <li><strong>Reject the Gods</strong> (L1): Skotia can't gain or lose piety to any god. Wisdom is the spellcasting ability for spells cast through these traits.</li>
+        <li><strong>Iconoclast Hero</strong> (L5): Skotia can now cast <em>dispel magic</em> with this trait. <strong>1/long rest.</strong></li>
+      </ul>
+      <h4 class="subsub-h">Iconoclast spell stats (Wis-based)</h4>
+      <ul>
+        <li><strong>Spell save DC</strong> = 8 + PB +3 + Wis +2 = <strong>13</strong></li>
+        <li><strong>Spell attack</strong> = PB +3 + Wis +2 = <strong>+5</strong></li>
+      </ul>
+    `,
+    spellcasting_html: `
+      <div class="spell-block">
+        <div class="spell-stats">
+          <div class="ss-cell"><div class="ss-label">Lampad DC</div><div class="ss-value">13</div></div>
+          <div class="ss-cell"><div class="ss-label">Lampad Atk</div><div class="ss-value">+5</div></div>
+          <div class="ss-cell"><div class="ss-label">Iconoclast DC</div><div class="ss-value">13</div></div>
+          <div class="ss-cell"><div class="ss-label">Slots</div><div class="ss-value">—</div></div>
+        </div>
+
+        <p>Skotia is not a spellcasting class. All her magic comes from racial traits (Magic of the Hollows) and her supernatural gift (Iconoclast). She has <strong>no spell slots</strong>; each option below is its own resource pool.</p>
+
+        <h3 class="sub-h">Cantrip (Lampad)</h3>
+        <ul>
+          <li><strong>Chill Touch</strong> — Necromancy. Ranged spell attack <strong>+5</strong>, range 120 ft. On hit: <strong>2d8 necrotic</strong> (cantrip scales at L5). Target can't regain HP until the start of your next turn. Vs. undead: target also has disadvantage on attack rolls against you until the end of your next turn.</li>
+        </ul>
+
+        <h3 class="sub-h">Spells via Other Traits (no slot needed; 1/long rest each unless noted)</h3>
+        <ul>
+          <li><strong>Hex</strong> (Lampad; Cha; concentration up to 1 hour) — Bonus action; curse a target you can see within 90 ft. Deal +1d6 necrotic whenever you hit the target with an attack. Choose an ability when cast — target has disadvantage on ability checks of that type. If the target drops to 0 HP, you can curse a new creature on a later bonus action. Removed by <em>Remove Curse</em>.</li>
+          <li><strong>Gentle Repose</strong> (Lampad; Cha; ritual) — Touch a corpse or remains. For 10 days, the target is protected from decay and can't become undead, and the time limit on raise-dead extends.</li>
+          <li><strong>Protection from Evil and Good</strong> (Iconoclast Enlightened Protection; Wis; self-only; concentration up to 10 minutes) — Disadvantage on attacks from aberrations, celestials, elementals, fey, fiends, and undead; immunity to charm/fright/possession from those types.</li>
+          <li><strong>Dispel Magic</strong> (Iconoclast Hero; Wis) — Choose a creature, object, or magical effect within 120 ft. Any spell of 3rd level or lower on the target ends. For each spell of 4th level or higher, make a spellcasting ability check (DC 10 + spell's level) using Wisdom.</li>
+        </ul>
+        <p class="aside">All four trait-spells above are separate resource pools — none share uses. Skotia has a wide non-slot magical toolkit despite being a non-caster class.</p>
+      </div>
+    `,
+    equipment_html: `
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead><tr><th>Weapon</th><th>Atk</th><th>Damage</th><th>Properties</th></tr></thead>
+        <tbody>
+          <tr><td>Rapier</td><td class="atk">+6</td><td class="dmg">1d8 + 3 piercing</td><td>Martial, finesse. Adds Sneak Attack (+3d6) when conditions met.</td></tr>
+          <tr><td>Shortbow (20 arrows)</td><td class="atk">+6</td><td class="dmg">1d6 + 3 piercing</td><td>Simple ranged, range 80/320. Adds Sneak Attack.</td></tr>
+          <tr><td>Dagger ×2</td><td class="atk">+6</td><td class="dmg">1d4 + 3 piercing</td><td>Simple, finesse, light, thrown 20/60.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-card">
+        <div class="armor-name">Leather</div>
+        <div class="armor-props">Light · AC 11 + Dex (unlimited)</div>
+      </div>
+      <h3 class="sub-h">Tools &amp; Personal Items</h3>
+      <ul>
+        <li><strong>Thieves' Tools</strong></li>
+        <li><strong>Drum</strong></li>
+        <li>Staff (walking staff)</li>
+        <li>Hunting trap</li>
+        <li>Trophy from an animal killed in her wanderings</li>
+        <li>Set of traveler's clothes</li>
+        <li><strong>Burglar's Pack</strong>: backpack, 1000 ball bearings, 10 ft. string, bell, 5 candles, crowbar, hammer, 10 pitons, hooded lantern, 2 flasks of oil, 5 days of rations, tinderbox, waterskin, 50 ft. hempen rope</li>
+      </ul>
+      <p><strong>Money</strong>: 10 gp <em>(starting pouch; campaign accumulation not tracked)</em>.</p>
+    `,
+    bio_l5_extra: "In the years since her wandering began, she has crossed paths with mortals worth remembering: Orion the centaur ranger, whom she helped track a wayward soul; Helena of Akros, with whom she scouted battlefields; Nyklos the Nightshade, with whom she shares an enigmatic bond — two creatures of shadow, recognizing each other across very different paths."
+  }
+];
+
+const ABILITY_ORDER = ['str','dex','con','int','wis','cha'];
+const ABILITY_SHORT = { str:'STR', dex:'DEX', con:'CON', int:'INT', wis:'WIS', cha:'CHA' };
+const ROGUE_PRIMARY = 'dex';
+
+function renderIdentity(s) {
+  const rows = [
+    ['Race',       'Nymph — Lampad'],
+    ['Class',      s.identity.class_long],
+    ['Background', 'Outlander'],
+    ['Religion',   'None · Iconoclast'],
+    ['Gift',       'Iconoclast'],
+    ['Alignment',  'Chaotic Neutral'],
+    ['Languages',  'Common, Sylvan, Minotaur'],
+    ['Age',        s.identity.age]
+  ];
+  return rows.map(([k,v]) => `<div class="id-row"><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+}
+
+function renderSummary(s) {
+  return [
+    ['Hit Points', s.summary.hp, ''],
+    ['Armor Class', s.summary.ac, 'leather'],
+    ['Initiative', s.summary.init, ''],
+    ['Speed', s.summary.speed, ''],
+    ['Prof Bonus', s.summary.pb, ''],
+    ['Pass. Perc.', s.summary.pp, 'proficient']
+  ].map(([label, val, sub]) => `
+    <div class="sum-plate">
+      <div class="sp-label">${label}</div>
+      <div class="sp-value">${val}</div>
+      ${sub ? `<div class="sp-sub">${sub}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderAbilities(s) {
+  return ABILITY_ORDER.map(a => {
+    const ab = s.abilities[a];
+    const classes = ['ab-cell'];
+    if (a === ROGUE_PRIMARY) classes.push('primary');
+    if (ab.dump) classes.push('dump');
+    return `
+      <div class="${classes.join(' ')}">
+        <div class="ab-name">${ABILITY_SHORT[a]}</div>
+        <div class="ab-mod">${ab.mod}</div>
+        <div class="ab-score">score ${ab.score}</div>
+        <div class="ab-save ${ab.prof ? 'prof' : ''}">save<span class="save-bonus">${ab.save}</span></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderSkills(s) {
+  const grouped = {};
+  ABILITY_ORDER.forEach(a => grouped[a] = []);
+  s.skills.forEach(sk => grouped[sk.ability].push(sk));
+  return ABILITY_ORDER.map(a => {
+    const list = grouped[a];
+    return `
+      <div class="skill-cat">
+        <div class="skill-cat-name">${ABILITY_SHORT[a]}</div>
+        ${list.length === 0
+          ? '<div class="skill-row dim"><span class="skill-name">—</span></div>'
+          : list.map(sk => `<div class="skill-row ${sk.expertise ? 'expertise' : ''}"><span class="skill-name">${sk.name}</span><span class="skill-bonus">${sk.bonus}</span></div>`).join('')
+        }
+      </div>
+    `;
+  }).join('');
+}
+
+function renderStage(i) {
+  const s = SNAPSHOTS[i];
+  document.getElementById('identity-target').innerHTML = renderIdentity(s);
+  document.getElementById('summary-target').innerHTML = renderSummary(s);
+  document.getElementById('abilities-target').innerHTML = renderAbilities(s);
+  document.getElementById('ab-note-target').textContent = s.ab_note;
+  document.getElementById('combat-target').innerHTML = s.combat_html;
+  document.getElementById('skills-target').innerHTML = renderSkills(s);
+  document.getElementById('skill-tool-target').innerHTML = s.tool_text;
+  document.getElementById('features-target').innerHTML = s.features_html;
+  document.getElementById('gift-target').innerHTML = s.gift_html;
+  document.getElementById('spellcasting-target').innerHTML = s.spellcasting_html;
+  document.getElementById('equipment-target').innerHTML = s.equipment_html;
+  document.getElementById('bio-l5-extra').innerHTML = s.bio_l5_extra;
+
+  document.querySelectorAll('#timeline .tl-node').forEach((n, idx) => n.classList.toggle('active', idx === i));
+}
+
+document.querySelectorAll('#timeline .tl-node').forEach((n, i) => {
+  n.addEventListener('click', () => renderStage(i));
+});
+renderStage(0);
+</script>
+</body>
+</html>
