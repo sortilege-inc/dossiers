@@ -1,0 +1,3254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Isawa Yukiko</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:     #f0e8d4;
+    --paper-warm:#ebe2cb;
+    --paper-cool:#e6dcbf;
+    --paper-deep:#d8ccaa;
+    --ink:       #1a1612;
+    --ink-soft:  #443e35;
+    --ink-faint: #7a7060;
+    --rule:      #b4a684;
+    --rule-soft: #c8bb9a;
+    --accent:        #c45a2a;
+    --accent-dark:   #9a4721;
+    --accent-sec:    #e89a4a;
+    --school-accent:      #c45a2a;
+    --school-accent-dark: #9a4721;
+    --school-accent-sec:  #e89a4a;
+    --hanko:         #8a2828;
+    --hanko-dark:    #5a1818;
+    --crab:    #3a4a5a;
+    --crane:   #6b8caf;
+    --dragon:  #3d6a4a;
+    --lion:    #a88a4a;
+    --phoenix: #c45a2a;
+    --scorpion:#8b1a1a;
+    --unicorn: #5a3a6a;
+    --imperial:#7a5a8a;
+    --ring-earth: #7a5a3a;
+    --ring-water: #3d6a7a;
+    --ring-fire:  #a83a2a;
+    --ring-air:   #6a7a8a;
+    --ring-void:  #3a2a4a;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 15% 8%, rgba(58, 74, 90, 0.06) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 92%, rgba(122, 106, 74, 0.08) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 0%, rgba(122,106,74,0.04) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 0 5rem;   /* zero horizontal padding so bands reach viewport edge */
+  }
+  body::before {
+    /* paper-grain noise overlay */
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.05 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+    z-index: 0;
+  }
+  .scroll {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 12%, var(--paper) 88%, var(--paper-cool) 100%);
+    padding: 0;
+    box-shadow:
+      0 1px 2px rgba(26, 22, 18, 0.08),
+      0 8px 28px rgba(26, 22, 18, 0.14),
+      0 24px 60px rgba(26, 22, 18, 0.08);
+    position: relative;
+    border: 1px solid var(--rule);
+    z-index: 1;
+  }
+  /* Crab indigo accent bar at top */
+  .scroll::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg,
+      var(--accent-dark) 0%,
+      var(--accent) 18%,
+      var(--accent-sec) 50%,
+      var(--accent) 82%,
+      var(--accent-dark) 100%);
+    z-index: 2;
+  }
+  /* Side rule decoration */
+  .scroll::after {
+    content: "";
+    position: absolute;
+    top: 6px; bottom: 0;
+    left: 0; width: 3px;
+    background: linear-gradient(180deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-sec) 100%);
+    opacity: 0.4;
+  }
+
+  .doc {
+    padding: 3.5rem 4rem 4rem;
+  }
+
+  /* ======================== MASTHEAD ======================== */
+  /* Full-viewport-width band: breaks out of .scroll's centered column.
+     The technique: position relative + left/right 50% + negative margins of 50vw
+     pushes the box to span 100vw of the viewport. The inner content uses
+     padding to align back with the .scroll's column. */
+  .masthead-wrap {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--paper);
+    padding-top: 2.25rem;
+    padding-bottom: 2rem;
+    /* Inner content aligned to .scroll's column width */
+    --content-max-width: 1000px;
+    --content-side-padding: 4rem;
+  }
+  /* Inner positioning constraint so masthead content lines up with the rest of the document */
+  .masthead-inner {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 var(--content-side-padding);
+  }
+  .masthead {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 200px 1fr auto;
+    gap: 1.75rem;
+    align-items: center;
+  }
+  /* Subtle paper-grain noise overlay on the band so it doesn't read flat */
+  .masthead-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+    z-index: 0;
+  }
+  .masthead-inner > * {
+    position: relative;
+    z-index: 1;
+  }
+  /* Bottom thin accent line beneath the band, in the clan secondary color */
+  .masthead-wrap::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 0; height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--accent-sec) 20%,
+      var(--accent-sec) 80%,
+      transparent 100%);
+    z-index: 2;
+    opacity: 0.7;
+  }
+
+  .portrait-frame {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    background: var(--paper-deep);
+    padding: 6px;
+    border: 1px solid var(--ink-soft);
+    box-shadow:
+      inset 0 0 0 1px var(--rule-soft),
+      0 2px 6px rgba(26,22,18,0.18);
+    z-index: 2;
+  }
+  .portrait-frame::before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border: 1px solid var(--rule);
+    pointer-events: none;
+  }
+  .portrait-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.02) saturate(0.95);
+  }
+  .portrait-frame .brush-corner {
+    position: absolute;
+    width: 28px; height: 28px;
+    color: var(--accent-sec);
+    pointer-events: none;
+    opacity: 0.85;
+  }
+  .brush-corner.tl { top: -14px; left: -14px; }
+  .brush-corner.br { bottom: -14px; right: -14px; transform: rotate(180deg); }
+
+  .name-block {
+    flex: 1;
+    padding: 0.5rem 0;
+    color: var(--paper);
+    position: relative;
+    z-index: 2;
+  }
+  .name-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.42em;
+    color: rgba(255, 250, 235, 0.75);
+    text-transform: uppercase;
+    margin-bottom: 0.85rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.18);
+  }
+  h1.dossier-name {
+    font-family: "Shippori Mincho", "EB Garamond", serif;
+    font-weight: 600;
+    font-size: 3.1rem;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    color: var(--paper);
+    margin: 0 0 0.35rem;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+  }
+  .dossier-name .family {
+    color: var(--paper);
+    margin-right: 0.4rem;
+  }
+  .dossier-name .given {
+    font-weight: 400;
+    font-style: italic;
+    color: var(--accent-sec);
+  }
+  /* Mononym (e.g. "Aarav") — render as primary name in cream, not italic-secondary. */
+  .dossier-name .given.mononym {
+    font-weight: 700;
+    font-style: normal;
+    color: var(--paper);
+  }
+  .kanji-mark {
+    display: inline-block;
+    font-family: "Shippori Mincho", serif;
+    font-weight: 500;
+    font-size: 1.05rem;
+    color: var(--paper);
+    background: rgba(0, 0, 0, 0.32);
+    border: 1px solid rgba(255, 250, 235, 0.5);
+    padding: 0.1rem 0.45rem;
+    margin-left: 0.6rem;
+    transform: translateY(-0.4em);
+    letter-spacing: 0.1em;
+  }
+  .tagline {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.02rem;
+    line-height: 1.4;
+    color: rgba(255, 250, 235, 0.95);
+    margin: 0.7rem 0 1.1rem;
+    max-width: 38em;
+    border-left: 2px solid var(--accent-sec);
+    padding: 0.1rem 0 0.1rem 0.85rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.22);
+  }
+  .identity-rows {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.35rem 1rem;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.76rem;
+    letter-spacing: 0.18em;
+    color: rgba(255, 250, 235, 0.75);
+    text-transform: uppercase;
+    margin-top: 0.75rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid rgba(255, 250, 235, 0.25);
+  }
+  .identity-rows dt {
+    color: rgba(255, 250, 235, 0.62);
+  }
+  .identity-rows dd {
+    margin: 0;
+    color: rgba(255, 250, 235, 0.96);
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  }
+  /* School name — keeps a lighter readable color so out-of-clan schools pop a bit
+     against the clan-banner. In-clan schools will look softer/blended. */
+  .identity-rows dd.school-name-out-of-clan {
+    color: rgba(255, 250, 235, 1);
+    font-weight: 500;
+    font-style: italic;
+  }
+  .identity-rows dd.school-name-in-clan {
+    color: rgba(255, 250, 235, 0.96);
+  }
+
+  /* HANKO STAMP */
+  .hanko {
+    width: 92px; height: 92px;
+    position: relative;
+    flex-shrink: 0;
+    align-self: center;
+  }
+  .hanko svg {
+    width: 100%; height: 100%;
+    transform: rotate(-4deg);
+  }
+
+  /* ======================== TIMELINE ======================== */
+  .timeline-section {
+    background: rgba(58, 74, 90, 0.04);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 1.75rem 4rem;
+    margin: 0 -4rem;
+    position: relative;
+  }
+  .timeline-section::before,
+  .timeline-section::after {
+    content: "❖";
+    position: absolute;
+    color: var(--accent);
+    font-size: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .timeline-section::before { left: 1.5rem; }
+  .timeline-section::after  { right: 1.5rem; }
+
+  .tl-label {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.42em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin: 0 0 1.25rem;
+  }
+  .tl-track {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.4rem;
+    position: relative;
+    padding: 0 0.5rem;
+  }
+  .tl-track::before {
+    /* connecting line */
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 8%; right: 8%;
+    height: 1.5px;
+    background: linear-gradient(90deg, var(--accent-sec), var(--accent), var(--accent-sec));
+    z-index: 0;
+  }
+  .tl-node {
+    flex: 1 1 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: var(--ink-soft);
+    font-family: "EB Garamond", serif;
+    transition: color 0.2s ease;
+  }
+  .tl-dot {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--accent-sec);
+    margin-bottom: 0.5rem;
+    box-shadow: 0 0 0 3px var(--paper);
+    transition: all 0.2s ease;
+  }
+  .tl-node:hover .tl-dot {
+    border-color: var(--accent);
+    transform: scale(1.1);
+  }
+  .tl-node.active .tl-dot {
+    background: var(--hanko);
+    border-color: var(--hanko-dark);
+    box-shadow: 0 0 0 3px var(--paper), 0 0 0 5px rgba(138,40,40,0.2);
+  }
+  .tl-node.active {
+    color: var(--ink);
+  }
+  .tl-top {
+    font-family: "Cormorant SC", serif;
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    max-width: 100%;
+  }
+  .tl-node.active .tl-top {
+    color: var(--accent-dark);
+  }
+  .tl-bot {
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    margin-top: 0.15rem;
+    font-style: italic;
+  }
+
+  /* ======================== SECTIONS ======================== */
+  section.block {
+    margin: 3rem 0;
+    position: relative;
+  }
+  h2.section-h {
+    font-family: "Shippori Mincho", serif;
+    font-weight: 500;
+    font-size: 1.4rem;
+    color: var(--accent-dark);
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: baseline;
+    gap: 0.85rem;
+  }
+  h2.section-h .kanji {
+    color: var(--hanko);
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: 0.08em;
+  }
+  h2.section-h .en-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-left: auto;
+    font-weight: 400;
+  }
+  h3.sub-h {
+    font-family: "Shippori Mincho", serif;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--accent-dark);
+    margin: 1.5rem 0 0.6rem;
+  }
+  h4.subsub-h {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 1rem 0 0.5rem;
+    font-weight: 500;
+  }
+  p { margin: 0 0 1rem; }
+
+  /* ======================== GIRI / NINJŌ ======================== */
+  .duty-desire {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .gn-card {
+    border-left: 3px solid var(--accent);
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    background: rgba(58, 74, 90, 0.04);
+    padding-right: 1rem;
+    padding-top: 0.9rem;
+    padding-bottom: 0.9rem;
+  }
+  .gn-card.ninjo {
+    border-left-color: var(--hanko);
+    background: rgba(138, 40, 40, 0.05);
+  }
+  .gn-label {
+    font-family: "Shippori Mincho", serif;
+    font-size: 1.1rem;
+    color: var(--accent-dark);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.55rem;
+  }
+  .gn-card.ninjo .gn-label { color: var(--hanko-dark); }
+  .gn-label .gn-en {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  .gn-text {
+    font-style: italic;
+    color: var(--ink);
+    font-size: 1.02rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .bushido-line {
+    margin-top: 1.25rem;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    padding-top: 0.75rem;
+    border-top: 1px dotted var(--rule);
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+  }
+  .bushido-line strong {
+    color: var(--accent-dark);
+    font-weight: 600;
+    margin-left: 0.4em;
+    letter-spacing: 0.1em;
+    font-family: "EB Garamond", serif;
+    text-transform: none;
+    font-size: 0.95rem;
+    font-style: italic;
+  }
+  .bushido-stance-note {
+    margin-top: 0.75rem;
+    text-align: center;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  /* ======================== RINGS GRID ======================== */
+  .rings-block {
+    margin: 1.25rem 0;
+  }
+  .rings-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+  }
+  .ring-cell {
+    text-align: center;
+    padding: 1.1rem 0.5rem 0.9rem;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--ring-color, var(--ink));
+    position: relative;
+  }
+  .ring-cell.ring-earth { --ring-color: var(--ring-earth); }
+  .ring-cell.ring-water { --ring-color: var(--ring-water); }
+  .ring-cell.ring-fire  { --ring-color: var(--ring-fire); }
+  .ring-cell.ring-air   { --ring-color: var(--ring-air); }
+  .ring-cell.ring-void  { --ring-color: var(--ring-void); }
+
+  .ring-cell .ring-glyph {
+    width: 36px; height: 36px;
+    margin: 0 auto 0.4rem;
+    display: block;
+  }
+  .ring-cell .ring-kanji {
+    font-family: "Shippori Mincho", serif;
+    font-size: 1rem;
+    color: var(--ring-color, var(--ink-faint));
+    margin-bottom: 0.1rem;
+    font-weight: 500;
+  }
+  .ring-cell .ring-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .ring-cell .ring-value {
+    font-family: "Shippori Mincho", serif;
+    font-size: 2.1rem;
+    line-height: 1;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .stats-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.4rem;
+    margin: 0.85rem 0 0;
+    background: rgba(122,106,74,0.06);
+    padding: 0.75rem 0.5rem;
+    border-top: 1px dotted var(--rule);
+    border-bottom: 1px dotted var(--rule);
+  }
+  .stat-plate {
+    text-align: center;
+    padding: 0 0.25rem;
+    border-right: 1px solid var(--rule-soft);
+  }
+  .stat-plate:last-child { border-right: none; }
+  .stat-plate .sp-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .stat-plate .sp-value {
+    font-family: "Shippori Mincho", serif;
+    font-size: 1.55rem;
+    color: var(--accent-dark);
+    line-height: 1.1;
+    font-weight: 500;
+  }
+  .stat-strip-note {
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    text-align: center;
+  }
+
+  /* ======================== SOCIAL ======================== */
+  .social-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1.25rem 0;
+  }
+  .soc-plate {
+    text-align: center;
+    padding: 1.1rem 0.5rem 1.25rem;
+    border: 1px solid var(--rule);
+    background: rgba(255,255,255,0.35);
+    position: relative;
+  }
+  .soc-plate .soc-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .soc-plate .soc-value-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 88px;
+    height: 88px;
+    line-height: 1;
+    /* Push contents down a hair so digit's visible cap-height centers in circle.
+       Shippori Mincho's box reserves substantial ascender space above digits, so
+       flex-centering leaves digits visually high. */
+    padding-top: 10px;
+  }
+  .soc-plate .soc-value {
+    font-family: "Shippori Mincho", serif;
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--accent-dark);
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+    display: block;
+  }
+  .soc-plate .soc-kanji {
+    position: relative;
+    z-index: 1;
+    font-family: "Shippori Mincho", serif;
+    font-size: 0.85rem;
+    color: var(--hanko);
+    margin-top: 0.25rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ======================== SKILLS ======================== */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.25rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .skill-cat {
+    border-top: 2px solid var(--accent);
+    padding-top: 0.6rem;
+  }
+  .skill-cat-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    font-weight: 500;
+  }
+  .skill-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.18rem 0;
+    font-size: 0.95rem;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .skill-row.zero {
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+  .skill-name {
+    flex: 1;
+  }
+  .skill-pips {
+    display: inline-flex;
+    gap: 2px;
+    font-family: "Shippori Mincho", serif;
+    font-size: 0.85rem;
+    color: var(--accent-dark);
+    letter-spacing: -0.05em;
+  }
+  .skill-pips .pip {
+    width: 9px; height: 9px;
+    border: 1px solid var(--accent);
+    display: inline-block;
+    border-radius: 50%;
+  }
+  .skill-pips .pip.full {
+    background: var(--accent);
+  }
+
+  /* ======================== TECHNIQUES ======================== */
+  .tech-group {
+    margin: 1.25rem 0 1.5rem;
+  }
+  /* The school + mastery swipe wrapper.
+     Holds a feathered paint stroke behind the School Ability and
+     (if present) Mastery Ability cards. Spans full scroll width like
+     the masthead swipe. */
+  /* School + Mastery ability band — full viewport width, school-clan-colored.
+     Uses the same left:50%/margin-left:-50vw trick as the masthead band. */
+  .tech-school-section {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    margin-top: 1.75rem;
+    margin-bottom: 1.75rem;
+    background: linear-gradient(180deg, var(--school-accent) 0%, var(--school-accent-dark) 100%);
+    padding-top: 2.25rem;
+    padding-bottom: 2rem;
+    --content-max-width: 1000px;
+    --content-side-padding: 4rem;
+  }
+  /* Inner box that re-aligns content to the .scroll column */
+  .tech-school-inner {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 var(--content-side-padding);
+    position: relative;
+    z-index: 1;
+  }
+  /* Paper-grain noise overlay */
+  .tech-school-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+    z-index: 0;
+  }
+  /* Thin secondary-color accent line at top and bottom of band */
+  .tech-school-section::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 0; height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--school-accent-sec) 20%,
+      var(--school-accent-sec) 80%,
+      transparent 100%);
+    z-index: 2;
+    opacity: 0.7;
+  }
+  .tech-school-inner > .tech-group {
+    margin: 0;
+  }
+  .tech-school-inner > .tech-group + .tech-group {
+    margin-top: 1.25rem;
+  }
+  /* Tech cards inside the school band — light parchment cards against the dark band */
+  .tech-school-section .tech-card {
+    background: rgba(254, 252, 246, 0.96);
+    box-shadow: 0 2px 8px rgba(26, 22, 18, 0.18);
+    border-left-color: var(--school-accent-dark, var(--ink));
+  }
+  /* Group heading inside the band uses pale text against the dark color */
+  .tech-school-section .tech-group-h {
+    color: rgba(255, 250, 235, 0.95);
+    border-bottom-color: rgba(255, 250, 235, 0.35);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.22);
+  }
+
+  /* Mahō band — charcoal full-viewport-width band for forbidden / transgressive
+     techniques. Same architecture as the school band, but in matte charcoal
+     with a blood-red accent at the bottom edge. Signals "this is wrong" without
+     editorializing in prose. */
+  .tech-maho-section {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    margin-top: 1.75rem;
+    margin-bottom: 1.75rem;
+    background: linear-gradient(180deg, #2a2a2a 0%, #0a0a0a 100%);
+    padding-top: 2.25rem;
+    padding-bottom: 2rem;
+    --content-max-width: 1000px;
+    --content-side-padding: 4rem;
+  }
+  .tech-maho-inner {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 var(--content-side-padding);
+    position: relative;
+    z-index: 1;
+  }
+  .tech-maho-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.6;
+    z-index: 0;
+  }
+  .tech-maho-section::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 0; height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      #8b1a1a 20%,
+      #8b1a1a 80%,
+      transparent 100%);
+    z-index: 2;
+    opacity: 0.75;
+  }
+  .tech-maho-inner > .tech-group {
+    margin: 0;
+  }
+  .tech-maho-inner > .tech-group + .tech-group {
+    margin-top: 1.25rem;
+  }
+  .tech-maho-section .tech-card {
+    background: rgba(254, 252, 246, 0.96);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    border-left-color: #5a1818;
+  }
+  .tech-maho-section .tech-group-h {
+    color: rgba(255, 230, 220, 0.95);
+    border-bottom-color: rgba(255, 230, 220, 0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  }
+
+  /* Shadowlands Taint band — charcoal full-viewport-width band for the
+     character's Shadowlands Taint adversity. Same architecture as the mahō
+     band; signals that this character carries the Taint. */
+  .taint-section {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    margin-top: 1.75rem;
+    margin-bottom: 1.75rem;
+    background: linear-gradient(180deg, #2a2a2a 0%, #0a0a0a 100%);
+    padding-top: 2.25rem;
+    padding-bottom: 2rem;
+    --content-max-width: 1000px;
+    --content-side-padding: 4rem;
+  }
+  .taint-inner {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 var(--content-side-padding);
+    position: relative;
+    z-index: 1;
+  }
+  .taint-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.6;
+    z-index: 0;
+  }
+  .taint-section::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 0; height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      #8b1a1a 20%,
+      #8b1a1a 80%,
+      transparent 100%);
+    z-index: 2;
+    opacity: 0.75;
+  }
+  .taint-section .pec-group-head {
+    color: rgba(255, 230, 220, 0.95);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  }
+  .taint-section .pec-card {
+    background: rgba(254, 252, 246, 0.96);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    border-left-color: #5a1818;
+  }
+  .tech-group-h {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin: 0 0 0.7rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px dotted var(--rule);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .tech-group-h .tech-type-icon {
+    width: 1.2em;
+    height: 1.2em;
+    flex-shrink: 0;
+  }
+  .tech-card {
+    border-left: 3px solid var(--tech-ring-color, var(--ink));
+    background: var(--tech-bg, rgba(255,255,255,0.3));
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.85rem;
+  }
+  .tech-card.tech-ring-earth { --tech-ring-color: var(--ring-earth); --tech-bg: rgba(122, 90, 58, 0.045); }
+  .tech-card.tech-ring-water { --tech-ring-color: var(--ring-water); --tech-bg: rgba(61, 106, 122, 0.045); }
+  .tech-card.tech-ring-fire  { --tech-ring-color: var(--ring-fire);  --tech-bg: rgba(168, 58, 42, 0.045); }
+  .tech-card.tech-ring-air   { --tech-ring-color: var(--ring-air);   --tech-bg: rgba(106, 122, 138, 0.05); }
+  .tech-card.tech-ring-void  { --tech-ring-color: var(--ring-void);  --tech-bg: rgba(58, 42, 74, 0.05); }
+  .tech-head {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin-bottom: 0.4rem;
+  }
+  .tech-name {
+    font-family: "Shippori Mincho", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+    flex: 1 1 auto;
+  }
+  .tech-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .tech-meta .meta-ring {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--tech-ring-color);
+  }
+  .tech-meta .meta-tn {
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0.04em;
+    font-family: "EB Garamond", serif;
+    font-size: 0.85rem;
+  }
+  .tech-meta .meta-src {
+    color: var(--ink-faint);
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0.04em;
+    font-family: "EB Garamond", serif;
+    font-size: 0.84rem;
+  }
+  .rules-text {
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .rules-text p { margin: 0 0 0.55rem; }
+  .rules-text p:last-child { margin-bottom: 0; }
+  .rules-text strong { color: var(--ink); font-weight: 600; }
+  .rules-text em { color: var(--ink-soft); }
+  .rules-text .rules-list {
+    list-style: none;
+    margin: 0.3rem 0 0.55rem;
+    padding-left: 0.8rem;
+  }
+  .rules-text .rules-list li {
+    position: relative;
+    padding-left: 1.1rem;
+    margin-bottom: 0.4rem;
+  }
+  .rules-text .rules-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0.55em;
+    width: 5px; height: 5px;
+    background: var(--accent);
+    transform: rotate(45deg);
+  }
+  .rules-text h5.rules-h {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 0.6rem 0 0.3rem;
+    font-weight: 500;
+  }
+
+  /* ======================== PECULIARITIES ======================== */
+  .pec-group {
+    margin-bottom: 1.5rem;
+  }
+  .pec-group-head {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin: 0 0 0.7rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px dotted var(--rule);
+    font-weight: 500;
+  }
+  .pec-group-head .pec-glyph {
+    color: var(--hanko);
+    margin-right: 0.4rem;
+  }
+  .pec-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+  .pec-card {
+    border-left: 3px solid var(--pec-ring, var(--ink));
+    background: var(--pec-bg, rgba(255,255,255,0.3));
+    padding: 1rem 1.2rem;
+  }
+  .pec-card.pec-ring-earth { --pec-ring: var(--ring-earth); --pec-bg: rgba(122, 90, 58, 0.045); }
+  .pec-card.pec-ring-water { --pec-ring: var(--ring-water); --pec-bg: rgba(61, 106, 122, 0.045); }
+  .pec-card.pec-ring-fire  { --pec-ring: var(--ring-fire);  --pec-bg: rgba(168, 58, 42, 0.045); }
+  .pec-card.pec-ring-air   { --pec-ring: var(--ring-air);   --pec-bg: rgba(106, 122, 138, 0.05); }
+  .pec-card.pec-ring-void  { --pec-ring: var(--ring-void);  --pec-bg: rgba(58, 42, 74, 0.05); }
+
+  /* Bond cards — warrior-band or fellowship bonds */
+  .bond-card {
+    border-left: 3px solid var(--accent-dark);
+    background: rgba(255, 250, 235, 0.45);
+    padding: 1rem 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .bond-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin-bottom: 0.45rem;
+  }
+  .bond-name {
+    font-family: "Shippori Mincho", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--accent-dark);
+  }
+  .bond-src {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+  }
+  .bond-subhead {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.55rem;
+  }
+  .bond-tbd {
+    margin-top: 0.7rem;
+    padding-top: 0.55rem;
+    border-top: 1px dotted var(--rule);
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+  .no-bonds {
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .pec-head {
+    margin-bottom: 0.45rem;
+  }
+  .pec-name {
+    font-family: "Shippori Mincho", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+  .pec-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.9rem;
+    align-items: center;
+  }
+  .pec-meta .pec-ring-tag {
+    color: var(--pec-ring);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .pec-meta .pec-types {
+    color: var(--ink-soft);
+    font-style: italic;
+    text-transform: none;
+    font-family: "EB Garamond", serif;
+    letter-spacing: 0.04em;
+    font-size: 0.84rem;
+  }
+  .pec-meta .pec-src {
+    color: var(--ink-faint);
+    font-style: italic;
+    text-transform: none;
+    font-family: "EB Garamond", serif;
+    letter-spacing: 0.04em;
+    font-size: 0.84rem;
+    margin-left: auto;
+  }
+
+  /* ======================== GEAR ======================== */
+  .weapon-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-size: 0.92rem;
+  }
+  .weapon-table th {
+    text-align: left;
+    padding: 0.55rem 0.7rem;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  .weapon-table td {
+    padding: 0.65rem 0.7rem;
+    border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top;
+  }
+  .weapon-table tr:last-child td { border-bottom: none; }
+  .w-name { font-weight: 500; color: var(--ink); }
+  .w-cat { font-size: 0.78rem; color: var(--ink-faint); font-style: italic; margin-top: 0.1rem; }
+  .w-num {
+    text-align: center;
+    font-family: "Shippori Mincho", serif;
+    font-size: 1.05rem;
+    color: var(--accent-dark);
+    font-weight: 500;
+  }
+  .w-range {
+    text-align: center;
+    font-family: "EB Garamond", serif;
+  }
+  .w-props, .w-grip {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  .armor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .armor-card {
+    border: 1px solid var(--rule);
+    background: rgba(255,255,255,0.3);
+    padding: 0.8rem 1rem;
+  }
+  .armor-card header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.3rem;
+    gap: 1rem;
+  }
+  .armor-name {
+    font-family: "Shippori Mincho", serif;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .armor-stats {
+    display: flex;
+    gap: 0.85rem;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .armor-stats strong {
+    color: var(--accent-dark);
+    margin-right: 0.2rem;
+  }
+  .armor-props {
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  .items-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    columns: 2;
+    column-gap: 2rem;
+  }
+  .items-list li {
+    padding: 0.4rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-size: 0.92rem;
+    break-inside: avoid;
+  }
+
+  /* ======================== NARRATIVE ======================== */
+  .narrative-section {
+    background: rgba(58, 74, 90, 0.025);
+    padding: 2rem 2.5rem;
+    margin: 2rem -2.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .narr-block {
+    margin-bottom: 1.5rem;
+  }
+  .narr-block:last-child { margin-bottom: 0; }
+  .narr-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--hanko);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+  .narr-block p {
+    font-size: 1.02rem;
+    line-height: 1.7;
+    color: var(--ink);
+    margin: 0;
+  }
+  .narr-block.death-vision p {
+    font-style: italic;
+    color: var(--accent-dark);
+    font-family: "EB Garamond", serif;
+    font-size: 1.08rem;
+    border-left: 2px solid var(--hanko);
+    padding-left: 1rem;
+  }
+
+  /* ======================== ADVANCEMENT LOG ======================== */
+  .adv-log {
+    background: rgba(122,106,74,0.05);
+    border: 1px solid var(--rule);
+    padding: 1.25rem 1.5rem;
+  }
+  .adv-log ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    columns: 2;
+    column-gap: 1.5rem;
+  }
+  .adv-log li {
+    font-family: "EB Garamond", serif;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    padding: 0.3rem 0;
+    break-inside: avoid;
+  }
+  .adv-log li::before {
+    content: "▸ ";
+    color: var(--accent);
+  }
+  .adv-log .no-adv {
+    font-style: italic;
+    color: var(--ink-faint);
+    column-span: all;
+  }
+  .title-block {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px dotted var(--rule);
+  }
+  .title-name {
+    font-family: "Shippori Mincho", serif;
+    font-weight: 600;
+    color: var(--accent-dark);
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+  .title-name .title-kanji {
+    color: var(--hanko);
+    margin-right: 0.45rem;
+    font-weight: 500;
+  }
+  .title-desc {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  /* ======================== ICONS ======================== */
+  .icon {
+    display: inline-block;
+    width: 1em; height: 1em;
+    vertical-align: -0.15em;
+    margin: 0 0.04em;
+  }
+  .ring-glyph .icon {
+    width: 100%; height: 100%;
+  }
+
+  /* Currently-active snapshot toggle */
+  [data-snap-content] { display: none; }
+  [data-snap-content].active { display: block; }
+
+  /* Footer */
+  .footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .footer .stamp {
+    color: var(--hanko);
+    margin: 0 0.5em;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .doc { padding: 2.5rem 1.25rem; }
+    .masthead-wrap, .tech-school-section, .tech-maho-section, .taint-section {
+      --content-side-padding: 1.25rem;
+    }
+    .masthead { grid-template-columns: 140px 1fr; gap: 1.25rem; }
+    .masthead .hanko { display: none; }
+    .portrait-frame { width: 140px; height: 140px; }
+    h1.dossier-name { font-size: 2.2rem; }
+    .timeline-section { padding: 1.5rem 1.25rem; margin: 0 -1.25rem; }
+    .tl-track { overflow-x: auto; padding-bottom: 0.5rem; }
+    .tl-node { flex: 0 0 90px; }
+    .rings-grid, .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-strip { grid-template-columns: repeat(3, 1fr); gap: 0.5rem 0.4rem; }
+    .duty-desire { grid-template-columns: 1fr; }
+    .social-grid { grid-template-columns: 1fr; }
+    .armor-grid { grid-template-columns: 1fr; }
+    .narrative-section { padding: 1.5rem 1.25rem; margin: 1.5rem -1.25rem; }
+    .adv-log ul, .items-list { columns: 1; }
+    .tl-top { font-size: 0.6rem; }
+    .tl-bot { font-size: 0.7rem; }
+  }
+
+  /* ================== CHANGELOG SECTION (toggled, per-snapshot) ================== */
+  .changelog-section {
+    margin: 0 4rem 1.5rem;
+    padding: 1.25rem 1.5rem 1.5rem;
+    background: rgba(255,255,255,0.32);
+    border: 1px solid var(--rule-soft);
+    border-left: 3px solid var(--accent);
+  }
+  .changelog-section.hidden {
+    display: none;
+  }
+  .changelog-section .cl-header {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+  }
+  .changelog-section .cl-header .cl-kanji {
+    font-family: "Shippori Mincho", serif;
+    font-size: 1rem;
+    color: var(--accent-dark);
+    letter-spacing: 0.05em;
+  }
+  .changelog-section .cl-header .cl-en {
+    color: var(--ink-faint);
+    font-style: italic;
+    letter-spacing: 0.2em;
+  }
+  .changelog-section .cl-delta {
+    margin-left: auto;
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .changelog-section .cl-slot {
+    margin-top: 1rem;
+  }
+  .changelog-section .cl-slot:first-of-type {
+    margin-top: 0.5rem;
+  }
+  .changelog-section .cl-slot-head {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    padding: 0.3rem 0 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .changelog-section .cl-slot-totals {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .changelog-section table.cl-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.4rem;
+    font-size: 0.92rem;
+  }
+  .changelog-section table.cl-table td {
+    padding: 0.32rem 0.55rem;
+    vertical-align: top;
+    border-bottom: 1px solid rgba(180,166,132,0.18);
+  }
+  .changelog-section table.cl-table tr:nth-child(even) td {
+    background: rgba(255,255,255,0.35);
+  }
+  .changelog-section table.cl-table tr:nth-child(odd) td {
+    background: rgba(0,0,0,0.012);
+  }
+  .changelog-section table.cl-table tr:last-child td {
+    border-bottom: none;
+  }
+  .changelog-section .cl-name { width: auto; }
+  .changelog-section .cl-curr {
+    width: 1.6em;
+    text-align: center;
+    color: var(--accent-dark);
+    font-size: 0.85rem;
+  }
+  .changelog-section .cl-xp {
+    width: 4em;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-soft);
+  }
+  .changelog-section .cl-itemicon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.35em;
+    vertical-align: -0.13em;
+    opacity: 0.85;
+  }
+  .changelog-section .cl-note {
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 0.85rem;
+  }
+
+  /* ================== CURRICULUM TABS + TABLE ================== */
+  .curriculum-block {
+    margin-top: 0.5rem;
+  }
+  .curr-tabs {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-bottom: 1px solid var(--rule);
+    gap: 0;
+    margin-bottom: 1rem;
+    scrollbar-width: thin;
+  }
+  .curr-tab {
+    flex: 0 0 auto;
+    padding: 0.55rem 1.1rem 0.6rem;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    background: rgba(255,255,255,0.15);
+    border: 1px solid var(--rule-soft);
+    border-bottom: none;
+    cursor: pointer;
+    margin-right: 2px;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  .curr-tab:hover {
+    color: var(--ink);
+    background: rgba(255,255,255,0.3);
+  }
+  .curr-tab.active {
+    background: var(--school-accent);
+    color: #fefcf6;
+    border-color: var(--school-accent-dark);
+    font-weight: 600;
+  }
+  .curr-table-wrap {
+    overflow-x: auto;
+  }
+  table.curr-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.93rem;
+  }
+  table.curr-table th,
+  table.curr-table td {
+    padding: 0.55rem 0.85rem;
+    vertical-align: top;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  table.curr-table thead th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    border-bottom: 2px solid var(--rule);
+    background: rgba(255,255,255,0.2);
+  }
+  table.curr-table tbody tr:nth-child(even) {
+    background: rgba(255,255,255,0.3);
+  }
+  table.curr-table tbody tr:nth-child(odd) {
+    background: rgba(0,0,0,0.015);
+  }
+  table.curr-table tr.curr-current {
+    background: rgba(196,130,58,0.18) !important;  /* school-accent at low opacity */
+    border-left: 3px solid var(--school-accent);
+  }
+  table.curr-table tr.curr-current td:first-child {
+    font-weight: 700;
+    color: var(--school-accent-dark);
+  }
+  table.curr-table .curr-rank {
+    width: 5em;
+    font-family: "Shippori Mincho", serif;
+    font-size: 1.05rem;
+    text-align: center;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  table.curr-table .curr-entries {
+    font-size: 0.93rem;
+    line-height: 1.7;
+  }
+  table.curr-table .curr-entry {
+    display: inline-block;
+    margin-right: 0.4em;
+    padding: 0.05em 0.5em;
+    background: rgba(255,255,255,0.45);
+    border: 1px solid var(--rule-soft);
+    border-radius: 2px;
+    font-size: 0.88rem;
+    color: var(--ink);
+    white-space: nowrap;
+    margin-bottom: 0.25em;
+  }
+  table.curr-table .curr-entry.kind-skill_group {
+    font-weight: 600;
+    color: var(--ink-soft);
+    background: rgba(196,130,58,0.10);
+    border-color: rgba(196,130,58,0.32);
+  }
+  table.curr-table .curr-entry.kind-technique_group {
+    font-style: italic;
+    background: rgba(58,42,74,0.06);
+    border-color: rgba(58,42,74,0.22);
+  }
+  table.curr-table .curr-entry.kind-technique {
+    background: rgba(255,255,255,0.6);
+  }
+  table.curr-table .curr-entry.kind-mastery {
+    background: linear-gradient(135deg, rgba(196,130,58,0.15) 0%, rgba(196,130,58,0.06) 100%);
+    border-color: rgba(196,130,58,0.4);
+    color: var(--school-accent-dark);
+    font-weight: 600;
+    padding: 0.15em 0.65em;
+  }
+  table.curr-table .curr-mastery-label {
+    display: inline-block;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-right: 0.45em;
+    color: var(--ink-faint);
+    font-weight: 400;
+    letter-spacing: 0.12em;
+  }
+  table.curr-table .curr-entry .curr-tech-icon {
+    width: 0.95em; height: 0.95em;
+    vertical-align: -0.13em;
+    margin-right: 0.25em;
+  }
+  table.curr-table .curr-note-text {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    padding: 0.15rem 0.3rem;
+  }
+  .curr-note {
+    margin-top: 0.85rem;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+  .curr-missing {
+    padding: 1.25rem 0;
+    text-align: center;
+    font-style: italic;
+    color: var(--ink-faint);
+  }
+
+  /* Mobile tweaks for new sections */
+  @media (max-width: 900px) {
+    .changelog-section { margin: 0 1.25rem 1.25rem; padding: 1rem 1rem 1.15rem; }
+    table.curr-table th, table.curr-table td { padding: 0.4rem 0.45rem; }
+    table.curr-table .curr-rank { width: 3em; font-size: 0.92rem; }
+    .curr-tab { padding: 0.45rem 0.7rem 0.5rem; font-size: 0.74rem; letter-spacing: 0.14em; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Opportunity: radiating spokes with tiny terminal nodules -->
+    <symbol id="icon-op" viewBox="0 0 20 20">
+      <title>Opportunity</title>
+      <g stroke="#8b1a1a" stroke-width="1.8" stroke-linecap="round" fill="#8b1a1a">
+        <line x1="10" y1="10" x2="10" y2="3"/>
+        <circle cx="10" cy="3" r="1.1"/>
+        <line x1="10" y1="10" x2="10" y2="17"/>
+        <circle cx="10" cy="17" r="1.1"/>
+        <line x1="10" y1="10" x2="3" y2="10"/>
+        <circle cx="3" cy="10" r="1.1"/>
+        <line x1="10" y1="10" x2="17" y2="10"/>
+        <circle cx="17" cy="10" r="1.1"/>
+        <line x1="10" y1="10" x2="5.1" y2="5.1"/>
+        <circle cx="5.1" cy="5.1" r="1.1"/>
+        <line x1="10" y1="10" x2="14.9" y2="5.1"/>
+        <circle cx="14.9" cy="5.1" r="1.1"/>
+        <line x1="10" y1="10" x2="5.1" y2="14.9"/>
+        <circle cx="5.1" cy="14.9" r="1.1"/>
+        <line x1="10" y1="10" x2="14.9" y2="14.9"/>
+        <circle cx="14.9" cy="14.9" r="1.1"/>
+      </g>
+    </symbol>
+    <!-- Success: almost-complete circle CCW with terminal nodule -->
+    <symbol id="icon-su" viewBox="0 0 20 20">
+      <title>Success</title>
+      <path d="M 13.5 5 A 6 6 0 1 0 14.6 7.7"
+            fill="none" stroke="#8b1a1a" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="13.5" cy="5" r="1.6" fill="#8b1a1a"/>
+    </symbol>
+    <!-- Explosive success: three equal arcs each ending in a nodule, together near-circle -->
+    <symbol id="icon-ex" viewBox="0 0 20 20">
+      <title>Explosive Success</title>
+      <path d="M 4.50 6.50 A 6.5 6.5 0 0 1 14.27 3.13" fill="none" stroke="#8b1a1a" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="14.27" cy="3.13" r="1.4" fill="#8b1a1a"/>
+      <path d="M 16.50 6.50 A 6.5 6.5 0 0 1 14.27 16.87" fill="none" stroke="#8b1a1a" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="14.27" cy="16.87" r="1.4" fill="#8b1a1a"/>
+      <path d="M 10 16.50 A 6.5 6.5 0 0 1 3.50 6.50" fill="none" stroke="#8b1a1a" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="3.50" cy="6.50" r="1.4" fill="#8b1a1a"/>
+    </symbol>
+    <!-- Strife: falling sakura petal -->
+    <symbol id="icon-st" viewBox="0 0 20 20">
+      <title>Strife</title>
+      <path d="M 5 4 C 8 4, 16 7, 16 12 C 16 16, 12 17, 10 16 C 10.5 15, 10 14.5, 9 15 C 7 15.5, 4 13, 4 10 C 4 7, 4.5 5, 5 4 Z"
+            fill="#8b1a1a"/>
+    </symbol>
+    <!-- Skill die: white pentagon with thin dark outline -->
+    <symbol id="icon-skill" viewBox="0 0 20 20">
+      <title>Skill Die</title>
+      <polygon points="10,2.5 17.5,8 14.7,17 5.3,17 2.5,8" fill="#fefcf6" stroke="#1a1a1a" stroke-width="1.4" stroke-linejoin="round"/>
+    </symbol>
+    <!-- Ring die: black filled square -->
+    <symbol id="icon-ring" viewBox="0 0 20 20">
+      <title>Ring Die</title>
+      <rect x="3" y="3" width="14" height="14" fill="#1a1a1a"/>
+    </symbol>
+    <!-- Earth: hexagon with strata -->
+    <symbol id="icon-earth" viewBox="0 0 20 20">
+      <title>Earth</title>
+      <polygon points="10,2 17,6 17,14 10,18 3,14 3,6" fill="none" stroke="#7a5a3a" stroke-width="1.8"/>
+      <line x1="3" y1="10" x2="17" y2="10" stroke="#7a5a3a" stroke-width="1.4"/>
+    </symbol>
+    <!-- Water: three wave lines -->
+    <symbol id="icon-water" viewBox="0 0 20 20">
+      <title>Water</title>
+      <path d="M 3 6 Q 6 3, 10 6 Q 14 9, 17 6" fill="none" stroke="#3d6a7a" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M 3 10 Q 6 7, 10 10 Q 14 13, 17 10" fill="none" stroke="#3d6a7a" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M 3 14 Q 6 11, 10 14 Q 14 17, 17 14" fill="none" stroke="#3d6a7a" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+    <!-- Fire: flame teardrop -->
+    <symbol id="icon-fire" viewBox="0 0 20 20">
+      <title>Fire</title>
+      <path d="M 10 2 C 13 6, 16 9, 16 13 C 16 17, 12 18, 10 18 C 8 18, 4 17, 4 13 C 4 10, 7 8, 10 2 Z" 
+            fill="none" stroke="#a83a2a" stroke-width="1.8" stroke-linejoin="round"/>
+    </symbol>
+    <!-- Air: three swirling curves -->
+    <symbol id="icon-air" viewBox="0 0 20 20">
+      <title>Air</title>
+      <path d="M 3 6 Q 8 5, 13 6 Q 17 6, 17 8" fill="none" stroke="#6a7a8a" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M 3 10 Q 9 9, 14 10 Q 17 10, 17 12" fill="none" stroke="#6a7a8a" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M 3 14 Q 7 13, 11 14" fill="none" stroke="#6a7a8a" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+    <!-- Void: broken enso ring -->
+    <symbol id="icon-void" viewBox="0 0 20 20">
+      <title>Void</title>
+      <path d="M 16 10 A 6 6 0 1 1 10 4" fill="none" stroke="#3a2a4a" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- ========== TECHNIQUE TYPE ICONS ========== -->
+
+    <!-- Kihō: radiating ki burst (green stroke / spark) -->
+    <symbol id="icon-kiho" viewBox="0 0 20 20">
+      <title>Kihō</title>
+      <circle cx="10" cy="10" r="2.2" fill="#4a7a4a"/>
+      <line x1="10" y1="2"  x2="10" y2="5"   stroke="#4a7a4a" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="10" y1="15" x2="10" y2="18"  stroke="#4a7a4a" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="2"  y1="10" x2="5"  y2="10"  stroke="#4a7a4a" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="15" y1="10" x2="18" y2="10"  stroke="#4a7a4a" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="4.2" y1="4.2" x2="6.3" y2="6.3" stroke="#4a7a4a" stroke-width="1.4" stroke-linecap="round"/>
+      <line x1="13.7" y1="13.7" x2="15.8" y2="15.8" stroke="#4a7a4a" stroke-width="1.4" stroke-linecap="round"/>
+      <line x1="4.2" y1="15.8" x2="6.3" y2="13.7" stroke="#4a7a4a" stroke-width="1.4" stroke-linecap="round"/>
+      <line x1="13.7" y1="6.3" x2="15.8" y2="4.2" stroke="#4a7a4a" stroke-width="1.4" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- Mahō: bloody claw silhouette -->
+    <symbol id="icon-maho" viewBox="0 0 20 20">
+      <title>Mahō</title>
+      <path d="M 4 17 Q 3 12, 5 9 L 6 8 Q 6 5, 7 4 L 8 5 Q 8 7, 9 8 L 10 8 Q 10 4, 11 3 L 12 4 Q 12 7, 13 8 L 14 8 Q 15 5, 16 5 L 16 8 Q 16 10, 15 11 Q 17 13, 16 16 L 14 17 Z"
+            fill="#7a1a1a" stroke="#4a0a0a" stroke-width="0.6" stroke-linejoin="round"/>
+    </symbol>
+
+    <!-- Ninjutsu: black four-pointed shuriken -->
+    <symbol id="icon-ninjutsu" viewBox="0 0 20 20">
+      <title>Ninjutsu</title>
+      <path d="M 10 2 L 11.5 8.5 L 18 10 L 11.5 11.5 L 10 18 L 8.5 11.5 L 2 10 L 8.5 8.5 Z"
+            fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.5"/>
+      <circle cx="10" cy="10" r="1.5" fill="#fefcf6"/>
+    </symbol>
+
+    <!-- Ritual: blue chalice / ceremonial cup -->
+    <symbol id="icon-ritual" viewBox="0 0 20 20">
+      <title>Ritual</title>
+      <path d="M 5 4 L 15 4 L 13.5 10 Q 13 12, 10 12.5 Q 7 12, 6.5 10 Z"
+            fill="none" stroke="#3a5a8a" stroke-width="1.6" stroke-linejoin="round"/>
+      <line x1="10" y1="12.5" x2="10" y2="16" stroke="#3a5a8a" stroke-width="1.6"/>
+      <line x1="6.5" y1="16.5" x2="13.5" y2="16.5" stroke="#3a5a8a" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- Shūji: green brushstroke / hooked calligraphy mark -->
+    <symbol id="icon-shuji" viewBox="0 0 20 20">
+      <title>Shūji</title>
+      <path d="M 4 4 Q 5 10, 11 11 Q 14 11.5, 13 14 Q 12 16, 9 16"
+            fill="none" stroke="#3a7a5a" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="4" cy="4" r="1.4" fill="#3a7a5a"/>
+    </symbol>
+
+    <!-- Invocation: rolled scroll with wrap -->
+    <symbol id="icon-invocation" viewBox="0 0 20 20">
+      <title>Invocation</title>
+      <rect x="5" y="4" width="10" height="12" rx="1.5"
+            fill="none" stroke="#c4823a" stroke-width="1.6"/>
+      <line x1="3" y1="9" x2="17" y2="9" stroke="#c4823a" stroke-width="1.6"/>
+      <line x1="3" y1="11" x2="17" y2="11" stroke="#c4823a" stroke-width="1.6"/>
+      <line x1="7.5" y1="6.5" x2="12.5" y2="6.5" stroke="#c4823a" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="7.5" y1="13.5" x2="12.5" y2="13.5" stroke="#c4823a" stroke-width="1.2" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- Kata: red sword / diagonal blade slash -->
+    <symbol id="icon-kata" viewBox="0 0 20 20">
+      <title>Kata</title>
+      <path d="M 16 3 L 17 4 L 8 13 L 5 16 L 4 15 L 7 12 Z"
+            fill="#a83a2a" stroke="#5a1810" stroke-width="0.5" stroke-linejoin="round"/>
+      <line x1="6" y1="14" x2="3" y2="17" stroke="#5a1810" stroke-width="1.4" stroke-linecap="round"/>
+      <line x1="5" y1="13" x2="2" y2="16" stroke="#5a1810" stroke-width="1.4" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- Prereq: small grey diamond -->
+    <symbol id="icon-prereq" viewBox="0 0 20 20">
+      <title>Prerequisite</title>
+      <path d="M 10 4 L 16 10 L 10 16 L 4 10 Z"
+            fill="none" stroke="#6a6a6a" stroke-width="1.4"/>
+      <path d="M 10 7 L 13 10 L 10 13 L 7 10 Z" fill="#6a6a6a"/>
+    </symbol>
+
+    <!-- Inversion: black pennant / inverted flag -->
+    <symbol id="icon-inversion" viewBox="0 0 20 20">
+      <title>Inversion</title>
+      <line x1="5" y1="3" x2="5" y2="17" stroke="#1a1a1a" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M 5 3 L 16 5 L 12 8 L 16 11 L 5 13 Z"
+            fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.5" stroke-linejoin="round"/>
+    </symbol>
+
+    <!-- Mantra: lotus-like sigil (orange petals on subtle blue core) -->
+    <symbol id="icon-mantra" viewBox="0 0 20 20">
+      <title>Mantra</title>
+      <circle cx="10" cy="10" r="2" fill="#3a5a7a"/>
+      <ellipse cx="10" cy="5" rx="2" ry="3.5" fill="#c4823a" opacity="0.85"/>
+      <ellipse cx="10" cy="15" rx="2" ry="3.5" fill="#c4823a" opacity="0.85"/>
+      <ellipse cx="5" cy="10" rx="3.5" ry="2" fill="#c4823a" opacity="0.85"/>
+      <ellipse cx="15" cy="10" rx="3.5" ry="2" fill="#c4823a" opacity="0.85"/>
+      <circle cx="10" cy="10" r="1.5" fill="#fefcf6"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="scroll">
+  <div class="doc">
+
+    <!-- ============== MASTHEAD ============== -->
+    <div class="masthead-wrap">
+      <div class="masthead-inner">
+        <header class="masthead">
+          <div class="portrait-frame">
+            <svg class="brush-corner tl" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 2 14 Q 2 2, 14 2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="2" cy="2" r="2" fill="currentColor"/>
+            </svg>
+            <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAGVAZYDASIAAhEBAxEB/8QAHAAAAAcBAQAAAAAAAAAAAAAAAAECAwQFBgcI/8QARBAAAgEDAgQEAggFAwMDAgcAAQIDAAQRBSEGEjFBEyJRYXGBBxQjMkKRocEVUrHR4WJy8CQzQxZTggjxFzRzkqKy0v/EABsBAAIDAQEBAAAAAAAAAAAAAAECAAMEBQYH/8QAMBEAAgIBBAEDAQcFAQEBAAAAAAECAxEEEiExQQUTUSIjMmFxgZGxFKHB0fBCMyT/2gAMAwEAAhEDEQA/APHIGBQzQzQJ2rQKEaKhQzShBQoUdQgKMdKKjoogDQxQo80QBYoAUBv8KOokQUvSgfSioHY0wA+U0MbZoDJo8nFQgQFGQaFHmoiAUYGTQ60Cc0R2FEgRNAUVDelyEMnNEaAo8ZogE0DSiCN6TShADQoUYFREBREUYHejxRwQTQIo6FDARIFKoYoYqYIJNCjNCgwhdaPFBaOpgggihSsURFTBBNClYose1DAchUVGRRUCAFGKIUdAIKB2oZoZzUIEaFChmgyBihSc0KmQ5FneizihQO5p8iBE0KFCgQMUKFCoQUKGKIUYNMgAxQo80X9agAxRigKMCmRACg3WgKI9aL6AHnagKFCgQMUB1oqMZNMQB60ArGnoYmkbCLzGtjw7wa8/Lc6rI9vbYz4eOWR/7D9fhVkKnPoVySMT4eOppfh4AzXTWu9D0OYpbcPykr0l8HOf/k3Wji4600sPF0ttuhPKcVb7VUeJSE3S8I5vb2V1O4SC1nlY9AkZYn8qtYOEtelIH8Pliz3kwtdFs+MrC5zHFcLA5/Ay4/XpVZqd59bvyRPmBOvI+zGrVRXjKeRd8vgyjcE674Zc2ykZwORwSahy8LazFktp9wQB+Fc/0rUXGtx2sniW95NsAvgqfJt6DtTEevM+ZJrGeVCfveIcVTKNaY6cjEzWrwtyurI3owxTRXfaugXPFayRCFdLikQDGJ/N+1Vt1qem3cRiudCtIs/+W3yjr+xqpqGeGNmXwZELRtV3JoyTgtptwtzgZMZHLIPl3+WaqZoJY2IdSvxFBwaWSJjFA0ogik0mB8goUKFAgR6UVKIPyoqAQqMUKMDtQCA0VGRRUSBd6GKM0R6VCCXpFLakGkYQZoUVClAHQoqOoQFFRmioZCChRUKhMjlChQqwAKFHQqYADFHigKOikQLFHijoCmwALGTilBc70AcAmjB7UUkDIMb0fXeiUZoz6UUAI0VKFFUYUFijxR0ME9KiRMiQCTVtw/ot9rN14NrFzBd3dtkQepNOcN6BdazdmKNhFBGOaadh5Y1/c+g71sbvVbLRbH+EaIv3P+5M25Lep9T+gq6EElun0I2+kT9P0jQ+GoVlur2E3WM87DLD/ao6f83qBqnFHKxXTw8uf/LIuPyFZK7mkkcyO7O7HLMxyTTdubySUC38UsOnKM4oT1DktsVhEjWk8suJItX1FDcTO5Un70hwDTdpoc93I/IEdU/7hiYMUHuOtbPRHSbRY49fHIQSGJOCR2zis7rskNvM66dKTDnyMVw2PQmqJLkt8ZC1rQLSGySS1kiWVF8sivtL33HY1A062v8AULP6tZwO0vNh+UVFN5NLJ4cjsxbbfvXT+F9Pm0bgfUtTQT+O0TCONF5syHCg7dAOvyo73BcEwpHK5YPqhdbtCZQcLHnqfU+39afhvpPEVnAdAMBW+6PkKgyGSadmlLM5OWJ3JpRDlRyqSO1BNkaLM3lspP8A0Vszf7CSf1qOiW9y7FlW1bsAdj/ao6CaIcrRgU6hVxvj3FRyyDBLGnxQQG4wZmwccp+6fWoiyGW2BnHjA7EP1HwPWlKWiPNC7IfY7U3eXUjW4flVjzeYY7UIzlHojSZX3toEw8JYoxxg9QfT3qCykHBGKt4JldcEcynqKbvrYHMse47j96sU1LsXDRV8p6UVPMuBmmiN6DWAp5AM0lhvR5xQpRkFigBR0OlAIXeiozQqECojQ7b0RoZDgI0kilEUR6UrCIoUdFS4FBQoUKBAUKFCoQFCjoUcBFUKM0VWADHShRUYqEDox03ohuaVRQAUO9CgKYApaNsUSjJo2FEAQOKHeiowNqiIH2oqURiixRwDIBT9lBNdXUVtbxmSaVgqKO5NM1sOC0h0fSbvie5QO6kwWaH8Tnqf2/OnhHL5FbwWWrPHw5pEWi2cgN0y+JcSDsT3P7D03rIWyu0hAYkE5PuaVJcXGoXcks8pLuS8rnuf+bU+g5EyvyxVdtislx0WQg4oDlVHKQG36Gt7wNbG+t40bkAl2QooUKwzsfyrnbsAfeui/Q7cyLDfRNCHHMvKc7jrkDPypM4GSyS9fhsoofq4nmLjZiEHL/XNYvVY/MfDnDj3GK6pxRBpdtpjyXNskUsnRpGJc+yjoPjXG9cvlM5EJRFz65NLnLDJcEaVGVwx7HtXoH6MQbzgiazaUSyBW5WLYIyNgT+9efbKWO4kVXbfuMda7d9EciRaZfLbBj9n+JgcH2/Wi+QR4ONTj6lfT2zcsjJIUZl3BIPUU79YiQnIDn26Cj4wjitOILpLdvEjLlsb+Uncjf0qrSbxGCqNzU3fBHwS5ZfEcNjl9s5q70XT7PUo5AHWDwwMszDJ+VU8emagzFRaTZA5ieXYD1z6Vd8LtNp+oCG5s5JI5Pvr4fmXH4hkZoYbJklNogiAkhaOZV6lQCPnUPWOH5f4eNTRI7dSSDHzYDgdSvofapuratZW96TaSOrj8XKV/Olarqa67oQs5HSOeLJjddlfPY9s0VwyPBgXZre4LxkFc/I1Y2syTJzLt6j0qskjaGUxyrg5xn0pULNby8wB5fxCg8rkgq/i8KXYYVtxUQirqdFuLfYg91NUzbEg9RVsXuQjWBOKKlURqNETE0VKNFSDhUDR4odqhBPtRUZBpJoEQDRGjoUBhB60RpVEaUAnFClYoYoYJgKhQxR1CYCFClUKOCBE0YohR0QBihRClUUQC9aXSVpVOhWEaMUKMUUBhqN6PtRDrSu1MAJUZs4Un4CjCnOKcDEIANhRqc7nemUUDIhuhNIpx8DG+aRRaIBFZ2CqMsxwPjWm42lW2az0OAnw7CACQDoZWGWPyzioHCUUTa5DPOMwWqtcyA9wg5sfMgD50xM8lzLNcTHMs7mSRj7n+9B524+SLshxhgeY7VPtpHjiZXP3ugPao1vgzg4BxT+SzliazJFz4DCkttvmt9wtqNnAIvDcI8WCVAP/AA1gcM+yg49qteHtIur+7WOASD1INO1kCZvOILy34huE8e2BCDkTEh2HtWZ1Hg7PKLW2u2eU8qCNOcZ9z2rT6HpOk2txH9dupbkhhlI2yo+JrUa9qc9jZsmmwR21uB/32xsP9IpVxwM8M4tPw7eaZerFeRvGwOSpxnFdn+jC40tbG4hsdNNtJ4fK8rb85x0zXL7nUPG1B58s/M27vuze9dL0vUYLPSoWcRW6ImWKkAA43z6mjP6eQQWTlnHscFtxFOkttLGWbIYnZvcVVRS25KhlQpnchd6n8Vakmp384hLfVRITGJN2AP8AT4VSrEUbKNt6GhjD4I/xOiWerMlnElgtuY41wIyM59z70q04ke2lMlxpMTq2ASjYI/OsVpIlM4K+UDqfSthb2h1DSpcSqkyt9mzeXJ+NHLyBEPXdLt9Zd7zTYJbVz5mjkIKk+xHSsdOlxayvEwaNxsynatRbateafK9veW4dlOGJ8rf5qJr9xFqYVniWPlXyuBv8DUw/IePBmiBICSeYe/akjMeFfdD90+ntTkkTxSFDjI9O4pDEcgLDymg+ADto5ik8I/cbp7Go2ox+HckgbN5hS08wMZPT7p9qlXyePYRSgeYbN8RRg+QS5KoURo6I9auYiE4oUraiIpGh0JNDtRmiNKEI0k0o0k1GAKhQNAUo4RpJpZpJoEYKFChQIChRdaFQAdChQokBQoYoUQBijoqMUSBijFChTCh0Y2ohRimQGKFGpwtHjHagRttTCgzkUfwohQBoogRzmgKcBAxtSR1otYAi208eBoF7PzAPculso74B52P6KPnUG9fwkEQ6nrVj9WkSWESJyxxxLnP82Mn571TXMnj3LP2J2+FJa2o/2GgssctTuKlKCzYA2piBOp7VYWxEQ8UkAjfJ6LjvVMS1os00xYrJHeVFlbd1P/jX39/akDUJ2R7DTnaG2I+1k6NIPc+ntVVLey3jeFHzKhPTO7e5qw09MMkES87Mw+ZqJ5D+RaWEtyWhUczsGHhRAZ37Ejua03Gmp3zaJbadPJzzAhpyoAyew27CrHhTRI7ctcBBLOg8zeh9BVFxVltRlCHmdlAYjovqKCfIcPBj7sMoMxPTAUe9NWM8wZ1WRuUjJGdjT+skBkgX8G7fGmdOTmkZQMkjFM3lCpYYm7jJxOo2P3hSY4i2GUEp39qsY4+aEL3FKsrd4J/GjQPF0kj9v7VEBjNrzxkMNx6V0Kyt4p9Et7m0QcrLyyxjse9Zi80+CBlktZVlgcBhg5KE/hNa76OoppIbpQpMaspA98H+1THkKMZxBdWAkME0h8ZB5Su+PY/82qnhdbnKRqWx+HO9an6SeCb6yebXImiaGaXLRB8spb09RmsHazyW1wG3BBwfWhuZGsDl3E5dgQQ67EGoD83Q5GO1W1/efWJw/KCyjBYbc1QrtQ8XiouSO4/ei1lAXDGrRlfMR8rjdD+1WllC3gvC/wByZSU9mFUJJBDr1FXunTma3Ucw5geZfj/mjSsvAJ8LJSyoVcqeopBFTNS5TclkxhhkVEINXJ5RW+GJFClDaiNLgbI2etF3o260VVscA60Djp3oqBqECNFRneipWFAojR0VAIkmgKVih2qYBkLFCjoVCBUKFCoQOhQ7UVMAFKFF3oxUQGHRg0VGKYAYpYbA6UigKZPAGOBs0Z9qbFLzTJihgUeKMYoU6AwwoNStFtfrerW1sfuySqGPoudz+WajA+lWGhyC3ee5OA0cDhD/AKmHL/RiflReFyDlk7WrwPp7ygYNxM7KPQE5/pis3GwVtxkmpt/LzwwL2UE1XgFm271RqJ75L8C2uO1E9e3LvSLydgBb5yActjuadyIYyx3Kjb40xbweM/m6DdjVD44LOyz0izLwF1YBj1J7D0qzt/CspI5edmZTkAbcx7D86o3uHSUJE2B0wKeWVpZgWcBYhn50yeCHVtK1Qi0jt7O5VJpCAysuSxPWp+viGOO5nkhRvDAVPL1PQfrWV+i2NtR1GW4kBZbZOZR79q6Hq2kPNZoOQtyx85HqxNWOCcMoilycSvoJDc4kUhic796e0KHOoImOrEVup9DS41NYJo2ZLZcN7Odz+1ZywsZINe8BR5hKQvvilb8AxhkexsJZLuWAowK8x6emTU2W3SGQG25vEUZ5e5q/htWtbuQyjmcPkEd1PX+tOvpMcUcFxEjG4ywPM3l5R3FRchawU1nacqre23IS25RhlW9RW14R1XTbaxci18BgSzxAfi9KrdC0ySe7Zo+QqN3TPU0WppBdwNFG5guF2WQevoaDIkZ25uZpLu6SZyC8pd0J2znPSsxr1mtw7ywoFkXqB3peuvcRXcnjFknjOGGf1B9KaN08hWdN2wOYetJjnJG8rBQgmMHm6dD7UlZzFJkbq3UetWOoeDI3jRAcrjzL6Gqa5UxnHbtTNtCoJ1VZTyfd6j4VIsJDHKY84B6VFhPO3KflTjkiVX6EGpF4eQtZHrlMSuoPQ8y/OmCamXQ5THJnPMMVEZcEir08SaKn0mJxk0R2pVEaZkGyN6Klt0pBqtjII0VHRfKgEFJNKoUCJiKGKVihihgOQqKlHpSajIFQoUKUKBQoUKgQ6KgaFEUApYpFKxRQA6MUQpVOAFDFCjogAKWOlIpxRTIDDFHQAydqUBtVkRGDG2O9S5U8LS8580z7D2X/ACajLu6j3qTcMJHjiH3VVVHz3P8AWlteIjQ7IlznCr6KBSbJOeb2Xc1OuLdWGF25mOPhTNtGUuWjXckAVRsxLLH3ZXAi4y8nIOg3NK8UJH4ce57tSZH5ec98mgRywcnfuaqby8lnSwNo2Gz1NOsSECDqx3psLjBNPW457ke1TADdcB3kdnaGJG+1ZgCOmRnvXQdD1u4mvZE8QMkUvIu/T1/WuQWM4gkXlfIGPMK1Om6kkMU7xygOVLgdDlunz3q6tvJH0dAsdQt55HiAUtI5JI9T3qLYacPDa9aFeYNyluXfNY/hzUla/HPLyuh337Af0rpOkXcN3wqJeaNEcAlicAH/AO9VsdGZv3MHEFqWAKTxlAD0LKc/0JpXFeui0srNoYB4g5kfnXYfCmuOhHb29qRcw+OkomhZXDAY2OceuaoeKLyPUNBS4i35ZRn2O+1GK7BKRquGtTtDpI1C4uIImyQ5JCjI6gfmKhcWXulRySSWl3EZHhEzRj+orm1/LN9VWNWYR8xLAHYmoMt3LLDECx54VMYOeqHt+pqYy+QbsFrqc0OrRlkfE6DYnqR6GszLNc2spjJZGXpT0UrRShgSMH9Kn3ywXlt58CRRlWoSjgCeSnjnbnJO4bqKWyrPGV79j6GowBR+U1IQFXDjo3X40EBkLkeKYBhgg1IuoyuG9etOXmCoGN/WlOfEhAPRh+tNHHKA2xb4kskPdcGorhs8wB261NsAHiCHuCKFuFjuuSQZQ+VvgRVrXMX8irporz6Uk09PE0UrRt1U4+NMtTvgVCT1pJpRoqQYTRUo0VAIVAUMUdQgVCgaKgQBpJoyaTSsKBQoUKUYFChQqEDoYo8UdNgAQFGKAo6YAYBxmhihmjFMgBEUKM70KgAqcQ0gClqKKAx2IZNLZSATiih2p1jlcdq0RXAjG4lJY4GcUaOPGZuoBz+VWNpGLfTJ7mRd9guR+I5C/uflVVbY8Qg99hWe/tIsrWck4y5USdlXapWmW4SGW6l68pPz7VNbhjVo9NW5a25kADMinLAepFV+oStDHFbdCy87ftWeVm7pl0a3HtFXKM3AQeuTS3G4FNxjmuiakMN2Y9AKXpA7G0HMx9FFMGQhCB1J/SnUbljk/wBtRhuaKZGW2mNzhE7kgVOlnA1JirDPOAPgNhVfpDql5HzbBd/yFMxSF75ZC2Bz8xPwo5IWkFy0V1zBsNLNyE+2d62FvezLw1Np7OeSORXUZ7E/3rnk03Pex8h8ocsPiavtR1YQoFicFz5ZFx2orkHRYySqyrBzgNJuo9cUyJ3hMto5ISTHMp9R0NUV5eH61BPA5PIAc+lKnvC9y6M5Yk86n40UsMD5RY32Iw65+9H5QfjVQuQ3uKfjujJdQCU7jKE+x6UJIwl14bnlVm5SfQ9jS9MbGURZVxv2PSo5uCMRZO26+1WLwsOeGQcrDYj0qnuYHSQ56g00nwLjA8wEm/Q9/Y07E3/ikGG/rTERJ3796lRKtwBHjEo6f6v80q4C+RqQgHkf5Gl2nKodGGSDzLTcobnCyjONqv8AhnRbLVdVt4X1aGCFlJlYg8y+wB70spKI0IOXRThgspZAUHiZA9AaVJu6MO/lPxFWnG+gNw3ri2YulureVBJDMBjnX4eoNVCt98HthhTqe6AJQcZYYNQXJWXqcYaoDjfJq3iCSMwfodj8D/mq25iaGVon6j9a0p7o5KOngYIpJ2pefakmlYwQGaIilY2pJpQhUKFCoQI0RozSTQZBJojRmipGMCgKKjoEBmhQoVAjmKFHQqzAoVHQoCiAMUKFHURGDFChSwuRRSAEKVRClquaeKFYuM4FXOh2MUttc6le5+q2wAVf/ckP3V/c+wqqtoJJ54oIULyysFRR1JPQVpLlE8EaLFKhS3Y4YHaSTYM3vvsPYCrc7Y5Fxkr9ZuFNjbRMcGUtOwH/AO1R+h/OmeE7WO64isYpBzJz8zA98b1F1H7SYqDkRKEHyqw4KVhxPaKvXmI/SuffJ7WzXp4r3Ir8TrRvbeWaWygjbxlTLu42YnqF9SK41rCy/wASmnmYEu7coBz5QcCunyxvHLdOzFG8UsrDt06VgeNoPB1ZWChWkB51HQN6j2PWseklF5Xk6XqFTilLwVOnQmS4zjYYzRXp5Qw6ZbFWdnAsNtnPnILH9qq9SRlIUg7n8632R2pI5MXnJBYkn2pUQyQPU0bJhyPQVZcL2A1LV4bVywTBZivXAqptJZY8YuTwiCzMMspI3okl5UcFQSdgfSpusQLbP4SbgOwz8NqrtyMD1o9ojTTwO5I5HHalzsWYknrVxwrpS6s8lmThvDLKfRsbfrVPdRtHctGQQVOCKClltBcGkpfIICTsaQTyTfDalxAh2U7HH9KTcr9oHHRv61Z4K8EmMlpYyOuRj41caxBmBJ16SKDn3AqjtCX2U+ceZfiN611qsepcPT+EPtLc84X/AE9f7ilk8NSLILKcRqW2Oo8Nx6tbrzXFp9ldKOpUdG/f86oLlUnh8SPzY6461ecDavFo+viO7I+pXX2U4boM9G+X9Cac+kDhq44c1P69Yrz6dOcpjcLnflP7UsZ7ZbJfoWSrc6/cj47/ANmVjRkHOBzJ/Njp8fSnULROs8bFXQhl9qUHDfbWpYfzL3U+nwpKyg55lG/UYp2ijIm/uprqczT8pY/yqB/SuncEWGk2GgwTrYJPqt0pId2yI19cdh/U1ze0tmup1jQczHoB1PtXROEI5bNvDnDKZOgPbHas2oeI8HQ0MFKTclwVf0k2/iaJbXW/PaXJRs9lb/IFYlCGmAzs+2fjXRvpVMVvwzIxGHuZ0VfluT+lcvgYmIb7jpVmneYFWtio2cFiuY5AG7HlNC+UXNuH/wDNHsR6inHInsTKPvd/iOtN3SZSO4jbyuN/Y9xWuue3jwYZRyVZojT91GElPKwZc7Ed6Z60zAhJ6UVK9qSaXAQjSTSqI1CBURo6KgyCWpNKaipGMhNGKFCgQFChQqEHj0oYo1GaGKtFCoUeKFEgBQo8UMbUcACFODpmkgb0qigAxTy8vJTQG9LXanjwKydpcxs5nulbEyIREfRjtn5Ak1d8DaFPr+pukU/gx20ZkklIzj0FZyMFowR1JrZ8O6gdG4LmFuwS71S6FvzDqse3MfyJ/OpDEp/V0gSzGP09szf1N4b14pQDytk+9MWl3LYamt7b48SKXmXPStRxdCINYv25eURyKi9vwjFZBVLc3+/FU31KEVF/iW0WOUty46OzRyRahoaXg5G8aISAgbZ/+9c44slluOUTco5G2IXem+FOK5NGY2V0GlsXboPvRHuR7e1aa90eC7iFwsqy2VyvNFMu/Ka4ag6Lcy68HpHNaujEPveV/wB4MMLkquc7dAPamlbxpVMoLKgJxVpZaFcScRrpUpRG5tmJ8rDqCPjVhxBw7d2eoGztrViZMeYDygfGupZdF8ZOJHTzWW1+BU2ujXB0W71e4QJDy4iz1c5GSB6VN+juHl1eeZthHCf1I/sa1mu2Ltw41rEDIyxJGoA2A5lyf0rPadG1jpl1qCBQs0giQDvjP71ijd7kH+LwbHp/asX4LLKLXsHwz3Znb8zVUkZYSMOikD86sNZlMkiLy8vhry4qPbbwyD+ZgK1rhGF/VI0P0dyFdeVRsWjOPlULjC1Npr1wuMfaEj4HcUXB1yLTiGxkYgKZORj7NtWj+k+yJuoLxV2kTkb4r0/Q/pVbe238zRGO+j8UzLanaNFb2l8q/ZzKMn3xUTkMkTAdRuK2GlQx6vwU1mABPA/J06Ebqfn0rKrHJG7Iww6bFT1zT02ZzGXgruq6lHyQ4WMM6vjoQ1abhyU2mqtGrDwp1wB2IPSqiS2SWzaeMjKMNvj2qNb3MytHyk80R8vwzmrnH/y/JSpY5+CZrtuY7koNgPu10DgDW7XiDQW4Y1kq0sackRc/9xO3zH9qo7jTn4gsY7m2ULM6hhnoT0I/MVI4e4NnZ4ptUnMAXdY4T9of/kOnyrBbbW4bZvDR0aKrY2bq1mL/AGwZ3iTh+/4f1h4EBlQ7xsB/3F/vVbc+dVlRGK9zy/dPpmu5Sw28tiLa5Xxo1wAZDzN8c9c+9VVrw9p8Ec0cSl/EJILndc9s9x8arh6gsYkuSy3036sxfH8HNuErpLPUPrEi8ychXIAJGe9dE0eOW4ngMgyXHNnHaoFvwjbQa00lpIFtbaNWmLbguR90fpR8acUf+n7VhbAfxG4TljyP+0vQt8fSpZ9rPMF2adNjT0NWvhMyv0w6wl7rMWmW7horEEOR0Mh6/lgCsbCcbeopuTxGmLyMWZjliepJ706gAdl9eldCtKCSOJdY7ZuT8lvoQWZpLdjjm6fGkTRzW5eBwRynDL6jsaZ0W4+r3SycgfB8ynuP71o9Rij1KMTRuObl8rY6j3qxJt8FLxgzqxcjcsy+Rh19vUVFljMchTOR2PqKt4stG1hcjlkU5iY9j6fA1AuUIALDBU8pFWxEfJDYYNFjNKPXBpPSoyCCKKlMaIigQTRGlH0osUGERRGlGiNIxhNChQoEBQoUKgR8DelYoKKM1cIFiiNKJosUSBYpVAChRQoB1o+9AUoCmAKTGTmlHA6UhaU3SigMtNBgFzOY+uFb9QQP1xTS3DmBISSUVy6j0Jx/apnCEkIupoJmCNJH9kxOMMCCPzoR2JbWzbMMoDzNy9l60lkXtTXkaL5BrF6Zre1gMryPkyzMxJPMdgPkAPzqPo6RPKjS7glnx8M05rluYb6UDGWYkcvQe1VsRkiBfcBdqom23yXVpIhTjcmt99EWpJcyTcOXb/ZzgvBns3cD5b/I1gJDzc1O6VfTabqdvfW5AkgkWRffB6VRZXvjgvoudVikdq1HhkJd2994/NcWpUYXoyg5PzxVlrltyuJV3BGKrdL4s0nUoVulvIYWceeKSQKUPpvV48kd3pMcyMrhduZTkHBxmscoNcHY3QeJx89mRTXIEuns7oeBIpwC3Q1KubGC4t418NGRd1A6Z9aLXdGtNTi5ZVw4+667Fay9rf6rwneiK4T65Yk9D0x7Hsaq2qfNfDXj/RHP2+LOYvz8fmg9V4VMg8SGbJHUOKYs+DpJNPZjc+HOz5UEZXA/WtpFxXwXqFuGllks5cbo6n+oqLf8YcPxJ4VkJrkjYCKPA/M0fcvawk8irTaVPc5LH5mVHCUsMBf62jXKnIVQeU/P1rY3cQ1TS1hu4cNybnGcN6ioFhfzX8uW0+a2UjIZtwaurZX5eUjI7VXZZZ/67La6KV9zp/8AeSk0/RjZ3ck1rLyROqhk/mIHeq2bhUzX/wBckuRHzbvGBnJ+NbZYB6U4LPO4QH40isufKHenp6ZkLDhCxWZ5JXlYZHKqnAxjvUjT+AJRem4tImdSdlfG1Tdfk1uykQ6fHbsoGWVxufnUG1+knW9JbluNFBK+jMAf0q5O2ccqWX8ZKZLT1yxOOF84N5w3wZeCMLPGlvGu+c1UcZ6hpfD5+rxZuLxtkiTd2Pw7Vkta+lLizV0FvYQixV/L9kCWPzNbr6D+Bbn+If8AqLXbZ2nA5kac5Yse4H7mq41uvNl/7F39RCeK6F+r6QOEeBeL9ZaPUtblTT7U+dLX8WP9Xv7VZ6rpB0y48MyCbJAGBjc11S7mEcLYPQVx76V+Jjw5bRagkKTy/W1ARzgEbk/pSV/avhF+2NazN8Fhq1np2haPJqF9MsdrbLztn8bfuSegrzZr2pT61qlzqNyx55nLAfyjso+Aqy4+4y1bivUPEvZPDtkOYbWMnw09/c+5qjtUMkTFRnlO9dPT1OuOZdnC1+pjdPbWuF/cOdMsMdwKVcQtEyE9xtTjoVjjY43Wp08P1jTecDdfMP3rVGOUzA3ggtEycs6fcbr7GrHS9Q8KcCTYHZvj601pxLQGKQZU9M1Hu4GhYkAlD19qaMmuUK45NXd2MV3AHICyAZVxVBqq5jWXox8sg/1DY/sac0jUp7JFSfMlo5wD3Q0nWGT6vmMYDSk9euwq1tSESaKjkJHMKSQc7ingdhQkHMN6Zx4Jkj4oBCTTgTJwOlGDg0uCDTJy/Gk74p5hkZPWmW61MEEGkmlmkmkYyE0DR0VKEKhRihQISKPFADJo8VeKJApQFADtS+u1MkAQelHilEb/AAoKuaOACaMUeKOiAIelKohShRQBcY8wx8c1qOHnSOzn1GZeYQKIx/qJ6Csuh7VYWNx4ETRyBmjZg4XOASO/60tj24YYLPBOu4nkzLMcyuckelQp4BNPBaAhPEcA/CpPjGQiTBNNwRyGeW/kGOXyRj3I/YZrIvqZfnCKO8tjDPJGNwCQCO4qCQc1cO6yXuRuBVZcr/1Bx3OagGCBeadRy82/SuxfRbqS3nDs9kzfaW8pwvorbj9c1yLTwfra1peBtW/hfFfhs2IbnET+gJ6H86r2qUkmaKZ7Vk7ToOlwX03/AFEjKgOCB1NbS++jnhvVdM5YfEilxs3PnesVpdw0MobOM9a3vD+q4AHNkV566UqrnGR6iqCnWpROU679C13DeGS15HhPoMfpTui/RjfwEt9UjOOhdgP6Cu8R3cbrnmG/tSZbiIL2J9hTz1M8Y3CrS1Zyo8nE7zSLqwfwZ7ZoyPbY0dlp8zsGI5E9WrqerzRtET4Yz71iL+QCYjriq534jx2NGn6uei80ngmzvbRJzfygkZOFGKi67wxcaeC9uTcQjqQMMPiKvuBLx5NMKls8pIAxVtLc7kMRg+ooVaiaWWxpVZ4RzOHQrjVD4a27f7mGAKkf/hm9wnJcyRCNuoAJNdCjwNwB8qeE5xT+85PL4E9hY+TO8L/R9w5oji4W3Es46NIM4+Gelad5UQckYCgdgKjSTO3eotxOEU+pquU97LY1qKG9YvAkDnPSvO//ANQV7z/w22JyXeSUjPwA/euya3dlyUB2FcJ+lyzutU1kXMBVorZfq4UdeYeZv1bHyro+nQy2YPVJ7asLyc1JzVloRzJIvbl3qvljkikMciMjDqCKe09itymO5wa7GM8Hmcst7mMIqSZ8vNjHyqRBcKtiIyNhHufzqPeb2g/3U3csEtQo6kYFPF7HlBfI7ox8WKRM5MeGx3x0yPgf61dWdpb3cgtZ38ORtkfGzf8APSslYzPHeI0Zwc4+Oe1ay7gliaEsCElUPG3/ADvSRIVd1aTWl89hIhIDYK9fmKj6mDG62ZIbwmO4OQcgY/SrjiC78XUbe6jILpGocj+YVSTnmneQ9TIf13q6GMfiJLORtFx1oSbDalgEnNB1Hfc1dgrGugpJGTmlnc+1NyHGwpWFCGPXFNml0RFIxhs0ginCKTiq2MIoYpeBRYoYCJxQpWKFTBB4UoCgKUoz8qvSEABigtGaMDFPgUI9cDejXrigBk4pSjzVEQIKcmixSiewouoogCC5NKxRgYoGjgBN0bTptTv47SEhS+7OeiqOpq11m0VYXgiUEwvjb0FN8LTxWsd/MXAmWNeQeozv+1Nrdvb2j3PMfEdsg+9S9RVa+WGvLkyHatMXSGMFmY4AA3JqVrcywKLNHDGMYJHQufvH+g+VPWDJABeNvPKDy+i+p+JrPajMz3pb8qwtbVgvTySLOL70jHZc/pUBFWSVncnZc/OrW3BOlyv+JsgUm+sxa2TSBT5uXGf1pnW2uCJorrTZ2I+FJuVaO7JGQQcg0dmfO2e29XS2Ec8guHBZCowO2aq65HjysHUuEtSOqcO2t6T9py+HN7OP77H51rNJvmQgE4IrkvDGp/wm95Dn6pJhZVH/APb4it/FLylXRgyndWHQiufrdOtRFyXZ3vTtTsSgzpOm33OgHNmrES5FYTSdQ5cAmtPZXgYDevNuW17Zdnf2qSyh3VJQls7MdgKy89t4sfiowydzV/xFby3elTC2yZApIUdT8K5Xb6/q+nDwLlDcwKMc6jzqPf1rbTXvj2Ybp7JL4Oy8CWyxWWObJzmrLUESOTlyMt2rl3DnF7Q2zSwToU6nJwBRWGpcU8X6hKNKAhtw3LJdyDAA9FFaVpdlfLK56tSn9KbOmW8hKFe4OKeDe9R7S1Nhp8MDzNM6KAzt1Y+tE0oAPasjWODRGWeeg7mflziqTULvrvStTvVUEA5NZ67uubJZsD+lJymWLEiJxFqUenadPqExysa+UfzN2HzNcdt75z9YubmQYdzJISduYnJq34719tWuhaWzf9HC3lP/ALjfzfD0rPfUYS6NLKXVTnw8+XPqa9HoqXRX9XbPNeo6hX2Yj0iHqME2sSK0duqINkdtmP8AiqiC1EWqCGRgVjbDFfatLd36woyQYMhGAxOy1n44mCt5XUHdpGBy3sK15ObJIdvZYppysGfBToT3Pc1AuZixJPTooqwJt7e2HMFLn7sYOT8W9Kqp+Z5C3X4dqjeRcCV23HUbiuiRX1tqGnWsDDzRoGb2AXrXPVRskEH3rUaFC72eC4RWjIdj+GMHJNPWhHwSLezZrBruYf8A5h8Rg+g71QSg+Nt3lrT3N+Lq2V1Tw44xiNPQDYVm5wwkUEYwc5q2MeMAkxb4yeWmm2pROBkUgOCSSK0MqQliFGO5piXPNS5G3pJxjJ61TJjobo6GKFJkIlhk0ilkGiIoByJxRYpVFRJkKhRkUKGA5HqXny4G3rSDSgatQjAtGelDHejQeYUyALUcq+5pLMT13pxzk4/Om+pp38AEinAppJWpEK5HMaMY5YGxCpgZO57CifB2H507L5Rt3poKT2p2vCAJVyrZU4NSrh/E0xMdQRmmoo/ONs1aXekX1lpUeoPAyRs2CGHY9Dj0qi+OIZZZXy8DUbgW0Z7ACqnUYityGH3WGxqYtypAUphcYYD+tMlTI3Ijo6E7ButZJzT5LowfQ5aPixG+QG3FStYvRdFIwB4akAe9MQWLx83NIArLjl96i3eVUfGirW4NIZ1uLW5Ee0tpZLrkXKgNufSreI3NhcPbcjSwkg49PhUvQYoZozNzZYfh9DVlckFzWZyyXe2kiLbkTxhwjgf6hitHoetixMFnejmtHyBJ3iP9qrLa3llUEDCnoTSbuFVljif8LEH4EVKWlPnoO6UeV2dDikMTDDBlO6sDkEeoq603UuTZicVy/R9bfSZjZXQaWzz5CPvR/D29q2FvPHNCs8EqyxN0dTtXK9Q0cVLn9zv6HWuceO/KNvHr1vDu88aAd2YCs9rWq8GzyvKzSPcucn6tggn3ztVbbW+mtM8l7ZpcBxjzDOKFrpWjG6AMcS25OSpyPlWGuquvnLZrc52PGEidpmmcCXMa3t7eTxEbtbLgFz7kVqLD6QeF9PtksbbSbizhj2URcrD41UXPCHDF9EslsrWrdyk+FPyNTrH/ANK6Hb/Vre0gnmH3pAviMT7sf2pJ3p8YbfwXRoS5ykT7njfRbiNXhuHyxxyNGQRTc2reKmUPlPTB61Gi1KBXklgtIgXGN0Gwqru51Xmkcqg6nfAFNKKgs+SqL3SaXQ/d3JbOTXO+MuI2vZH0rTGJjzieZfxD+Ue3qaZ4p4nkv3fT9NYiEnleQdX9h6D+tVUdutvalSeXI8zDrXT0OjcftbP0RzNdrtydVXXl/wCEQdPiSW/5MgpH19zV3/CbO4PKbZSe5G1VmjW2VkdNgzbfCut8OcEadqPBa3d7NMtzMOYKGOAM4Gw7Vrt1EYLLOXCptnIr9tMtZBa6ZbJLPzDmlO4DdgPU/pW//wDQqaRZwTa6PrlzeKGmZnzyc34fjvUW54NvNJ1CN2hjNpzYWeJdl+IO4Nbnii902XhdsXKtJAoIIOW265rPZqnxGAY1Z5Z57u9HjW7lSOGUxiRlU57Z9af1jQTZ2cMkMfJKFzIAc5q3068Sa8dGfMbsSo9N6sddvQsLWFrac9w3lDZyd/QUXfYpxidCGlrlTKWDniwvLcFpPMzfeOMVZSXQNqbWNQgZlUkH7yjtU/U9Ik0VVOpGPx5F5hbo4Zl/3Y6fCo2l6Xd6hKZIlDSHZV/DGPUmulCxpN9I4s6lwk8y+ER5bgKPC7KMn49hVfI3Q5JNWWvaNf6RPyXShkbdZU3VvnVUdzitlWNuUZrE1LDQfPtigcFc4xQx7UTZxirCsbZaSRgUo0RqljoSd+1EKVjNFjFDAQjST1peNqSwoEE0VKxRVCCTQoyKFAJIIoqVRhc1ekIEPelJ0z+VEeuO1GoPX8qYAN80Z9qPp8aUOlOogyJWn1BUYI69qbUb1caRomo6oWFnbPLy45myABn1Jq6EUllgw3witKgjfJPtT1jZ3N5cJbWsLSSOcBVFb7SPo9jKhtVvMH/24P8A/RH7Vo9I0bSNCUi1OHJyXmcFj7Z22pZ3Qj0WR083yzOcPcFjTZI7vVOW4mBBSFN1B9/WtPqItLi3e3naFwy4aPI6fCoPFWsTWlsrWxQ8zcpOc4rCXV5JLcvOw8z9cGuZqdZiW1rJ0tNonOO5cIi8RcPx2FwXsrnKE+VG3I9s+lUqRcspE0TKfYbVeO7yHmkYsaTjFYf6jDbSNL0SaXJBeKU2YJ5uZTlQeuKgXK+LDsd85FXnaoVzaeYvCQM7lT+1PTellS8iajStpOHgr7G4msphLyEA7EdjV9Bf29yylXAJ7NsRTFha5jf6xGxHYLvn8qfs9LSaYAQeGuep608mnyjKoyjwzS2xHgpjG4FRNVRTIrHqGGfnU2CEQhYlGFUYFRNWikcN4akkYNVp45Cll4G7u1jmhww3AyDUGxur/SLgm2kwp+8jbq3xFWDSqEU9ciocpWUFTt6U7e7iSyh19PMeGaTRuIre+cW8qm3ueyk7N8D+1X0NlLdkRwSBWbuTgCuZyROhBxuDswq20ziu/sCokUTAdycGsVui2vdV+x0Kdamtt37m/TgGZw0s+uqhPREyaFvwxLp8wb6+sq9MYIrOL9I7qmBYPn/9Uf2qHfce6tcqVt4IoPQnLn+1V+zqJ8NYLndpocxef3N1quoWekWRluZVRR09WPoBXMOJeIr7WZDBFzQ2xOyA7t8ag3T6jqVx495NJM57uenw9Kkw2ywjJIJ7mtNGhhW90+WY79bO1bY8IGm24iwSMsaPXJiltyj8W1OeMkKljn5d6TpkB1XWoFkAZEPMIxv+da7GlExpM1n0e8NPqTwxyAiBFDzt6D0+dds4bES3XhOqiJ+VAp6BR0qPwZw6umaHHG6ctxcEPKPQdl+Q/epGopHbXJKDHJgDHr3rz983OZ0IRUYieLAly7WlogWFNhyj759awfFVlbHQnWcCKbDIWQDJHp+tbBpJZ58KcMxxtWW488FLtNIb7wQSPJnfmPQfDFLl1RyX6Whai5Q8efyOR3vDCG1+sWo52XJaLmPNj2z1qDo1xBY3i3NvMEuYjlVkQsc/A11GOxga0aPww7quxNYdY4JJmlEEatnstXUeoyaaks4OjqfRK004PCfaKuSxutb1h72+CQxuclYhyg/Adq2On2sNlaBIUVEHQDv71Uw4eZYk6lgK0EkTpHgsDgemKaWslOxOx/oSHpkKq5eyulyxq4ht762e2uY1kjYdDWPu+BZPrWbe8jEJOfODzD8q1cbjmODin43GOUH5126rnHLxj8Dz19MZKKfOfP8Agw2o8EXkURktLmO5Yf8AjKlWPw7GspcQSwStHMjIynBDDBBrtikNjfIrO8bcPjUoDc2qj60g6D/yD0+NaqdR7pj1GlVSyjlu5OAKDD1606yNE5V1IIOCCOlIbrmrNpj6G847URNKI3ojStBQN8ZFINOA7UfJmlwEZxQxTrLyjNINHGCDbChSzQoYISEXmOKN9th1o8coyKTg53rQIEq5OKcxgZNCP19aHU0yQGxIFKFGNhSuo2p0gC7dd8kZA/WupcFQtp1isMo5Xl87/wCk9hWP4I0o31948i5ht/Mc/ibsP3re28fK5XcnOaweoXtJQj+bOx6Vp091kl+C/wAlZxHrd3BePbqD4cZ6A4J271BkvjMRI+XXGQDucVq+INMN1wq0yorTwfakBdyvf9N/lWFtR4kBSM5YNhR6g1woa2U25Z6eDv2+mxriotdrJM1ErLYkRHHNjr23qhuMKxQjDVopIZIk5J42QHbDDFU1/CI5efZgdveupfRuamcei/YnBEIHHWgzU8VjbBG1MuuGxWSdW00wt3Ce1A9KAzS85O4qrI+3Jb8LgSSTREdUyPkas0t1SbBGwqq4XlA1Mo2MPGQPjWjaLn5nHUHetUU3Vwc3VLbaHHEHTnC796i3UexIXpUmCRkfl7Zo7w757HOdqrrrk+ypTSZjNWlntNSaNULxBsEY6U4pSX7pw3cHqKs9UT/rFnO8cwGNuhAwRTM1kkyhw5V+zCrHYovBo9retyI4PKvm3HrSDCsrFsLt7UicywOIp1yG2DjoakQmOKPzMfhirIuPeSpxl93AI4rdTjwxn/bUgKmPKij5VGMuT9nET7mlJBcTbkkD8hTK34QNiXbHCGYnlKgeoFE0BbfmOfeliKSPC7sfapFrY3d3MsUQ3Y/dXc0jaXMmPHMniKKu5hUfe8zHpk11P6C+FOUS8R3cI5QfDtgw+83dvgP6/CsppPBuq3/Eqaa8ElvGgDyyydlPf4ntXoHS7aOzsILK1j5IIUCoo7AVzNXqcpbfJqjXte19osmL2xMkm6qMk1lbmV5pC7dTvWw1SNp9FURqQZCAc+lUo0luVWbqT0rDC2KeWO4blgg6XHHEZL25YJBChd2boABkmuUalqb6vrN1qTZAmkLIPReij8gK1/0zawLPTYuG7OTllucPdFTuIgdl/wDkR+QrBaco5FzsMdKWyW5ZZ2PSaNmZ/JpLCaOMmaTHIF5j8hWCtUaXxGRdmYn4CtDqV39V0a5BPmKBE+e396pdPbkthj7tVVx2pyXk69st01F+BFvG0V0hH4WDVa3l0Wt+Zti2wx2qDzc8+e5o7g8wAzsKd8tN+CtLEZRXkbUu+5Y07EZS4VGNNxDzALvUyPw4Xyckn2p53zk+WJVo64rCQ7LlE5gW2o7S7Mo5GOXFGXEkZBXGarpkmgl5odvejpdRZVPMXhg1mkqtrxKOUQuL+GxqAa9sgBcgedOgk/zXOriCWGRo3RlZTgqRgiuyWlx4sWJAA49D1qBr2gWerRFj9lcAeWQDr7H1Fem0uuhevh+TxWt9NnQ8rlM5JQKk1baxo93p05juIip7MPut8DUEAAYxit6WUcp5TGFXFKXrvS2ZR0GTTed80mFFh7BKM96bNPeXG+9NOMMQajIhvGaFKPtQpQjwJ70D/WlgUAN+bsNhWjBXkVjy4HSjAFDOKSWzT5SAG2DTlrG8kyogLMTgAdzTQ67Vr+ANKaS5XUZo/sYj5Ce7f4oOainJ+B663ZJRXk2nD+mLpumx2+Bz4y59W7/2orXUEt9bJ8NZYweQo3Q1NknULgHtWZuXKXcrrsebNcH1H66ufJ6v0jELsLwjtOk2djNoUcpQcrltmzsM/d+FcHvIP4bxHeWuCI4rhgmR1Abb9K7pwlMtzpdkeUcrLzY61xv6T43i4vvQMBWkMib9iB+9eb0kmrZQPUeoL7FTXh/ydBu4Irm38OSJHQjoRWH4j4ZuHAez5ZFXPlzhv81t9GkF5odtc827wK3zxVfcjnyoJx3361dp9RbTLbF8Ge/R0aiG6S5+V2cvu9K1G1j8We1kWPuwGQPjUSZCuGO4PeutEBk5HAIxisPxdoTW0v1uzXNux8yD8B/tXWr1UbFiXDOFfoZVfVHLRnoevTO1OMgEXNjfNKhjeMkSRshI7jFPGMNHkHGMk0sl5Fg10R7SU293FMPwsCfh3rdxEGMldwwyKwDCttwlL9bsUU7vH5TWrSz7iYtfXlKaCxiTPvS5MMWX1G1SdRtykoYDA7imUVZJm5egwKt9yMYs5/ttsq0Tx7S5tGXMifax+uR1H5VF5gsY23PQVpYtPf6yl1FhXU7571UcRaYbHVlCqfqtwOeJ/T1X5H9qwpubOhXNQWCmkEs7hdgPYU/HpzEZKn4sauLW2jUfdAA70/IUVThM/Gr4KMOyuybmVtraRjGVBPqaUUYyFRgD1FPIjMxIGBV/w/whqOqyK7L4NufxNtmnsvhXHMmV10WWvEUVGj6XcancC3tUzv5pD0WuqaHw5Z8OaV9bMKyTnZSw80jfsKt9C0XTtEsljijUsoyz46ml3Qe7uxLKcIo5Y19PeuLfddq5YjxBHbqqp0cNzeZieH7JyZJpvNJK3PK/8x9B7CthYW6Qx8zKC7DfPYVVaQ0cbKGQhR0OO9WtzPyKAuCx6Cs1knKRhHLmT7qLjkX+tQ9Qu7ewsZ7+7YJDAhkc+w7D3PSlqxkYA55V6n1Ncy+lnXXvLxNAtGPgQHxboqdmYdF+XX449KWKTfJdTVK2SjE53q13NrevXep3J888hcr/ACjoFHsBgfKk3EM8YWSPOxGwp+ztslpCvKpNXUcAhtXzuexNSdnJ6iuhKG1GR1uWV7SKKUAMWyfkKEC8lqkZ9M07rkfNdYztGOnzpuDMrBQKtX3UU/8AtioInaQnsO9JlJDYI39KnqoVMCpFrbWqWcl/dOF35Uz6D09zVbsS5ZdCvc8Ia0uxYr4jjr+lK5LWeISFsMxwMHGKYvdchtITIRhOiICM/OsxFeahf3OYMhc/dXoBRhVZZmT4Q9uoqpxBcv4NNGxVeTZgpxmjwG2JH51HZJ5FSEKEz1Yvkk1ZWnD8yKJLmYIP5epNCWFy2SOZcJFbIGhk8oIIq0snMkIfGD3FI176lZWbMWxMMcqu2C3wFQ9Jl5wJpThFHN+VWxsaW+PgyWUrc4S6ZO1CC1uIjFdRo6N2IrEa1oFlkyWF4kik4wNyp9KseJ9V8d1igkOMefH9KrtLHlds969Jpr5b1HP5nkdXpobHLHPgxtyjRTNG33gcGkY9etWXEKBNWmwMDIP6VWmty7OM+AE4pJ8w96OiNRsAnFCjAoUAkknGaM4wBRHrj03ou+9aykPB+VFjfAowcnA6VdcMaFNrF0VGVgTeR/2+NLJxjFyk8JDwjKclGKy2HwtoUmq3Xmytum8jevsK6b9XSGxS3gUIiABVHYUVnYQ2FtHBbxhIxsPf3p+U4jONzWOV1eoj9L4OpXRZpZYkuWQXbw0y3pVM555iWwCzVpbSZFjPNGkjMwXcZwKp9WigbUA9uAqn7yjpmvP6nWqcvbx0eq0Xp0q172e/B0Hgi++rW3gMcrbKFDZ9s1ynjBjdOL/cyRsVkOfU1tNIn5NLu1VSfEiYfPGKwGtXHLPIvMDFKOVh6HGxrn0Q+1ckdHWTXsqD/wC+DoP0Y3P1rhqOMtloSU+Wf81Lv4/AuGXGx3FY36JNSFtez2zvhWK7H16VvuJVXwo5VI2OPkal9e2bG0Nm+CKp3XbFOMq+EWwCO9RHYrggZ3ooLxvGaKXGH3FU2Vvwa67oriRGvrOG5ULIA2OmR0qr/hEQWSM55HPp0q/gUtdqeXmUHpnrR3aRtOERSpG5Gc00LZQ+lFF+khd9pjkwmo6RcR3JS2hd0P3fapnC4utO1RUmUojkAg1r3MQRi6hFAySBvUPV1SdYrhE5QFCn9jWyvVTWODj6jQRSayW2oaXPMRycnvk1G07QLn6xhSH5mwcZqz0i9a5tlDNmRfK3x9a0WiSGwvMyDmVwM+1PK+beTjSpjHjyUlpo9w94LTkKt3yOlWep8Ire6d/D1cPcBvFgLDHnA3X5jb44rZyuBCZUQMQPSq+QSGPxwx8VTzAj1ob5rplcVHPRx7+HXstwYILWaR1blYKhOCPX0rX6TwErCOa9u8bAtGq539M1q9WihV11e3UL9az4yDs46n59abtLxeu5H9Krt1spPbjB1dP6fBx35yN2nCWh28qyizWV1OQZCSAfh0q7LRxIQuAAPlTBuRy42G1RGYzv4ecp1Pv7VRZlc9stzGCfGESDN4jK3Zvuj196chUs3M3rtUJmPiEgkVNgd0tvFbt0rbTOPt7Xwca6UpT3dl1ByxxnJCqoyxqNNcF5vEX7xqkmvppn8PmIXPT1qTJeQ6fps17eMFWNds9z2FZZJLkaCcuBXFuvnR9LZLd1N5Ivl3+4D+L4+lcoW4UF+ZeeSQ5did6h6jqlxqGvT3lyx5pTgAn7o7AUuHofes00eq9PoVMMLvyT45gXCNgIwxgCps6A2OM7g1Ux7uAfWrG8k8Owds9F/Wqcc8HSb45MdqZMl3IF7tgU9ZQMsJZuucCkBOe4z3zmrC4wnJCvbr8a1SlhKKMMYZbkxMEZlkSPfzHFU3H2oCO+hsIDyx2yDIH8x/xitlpVmkVjJqE5ARASPgBvXINcvJr+/kmA3dy2c+pqzRxVtrfhfyUeoWOmpJdv+B1Z2uJFjkYBObJwNzW04f065ngP1S3WNcdW7Cq3grhp7iJbqUcqE7uw3PsK38XJbIkcQCIg6CrtRYvuxE0enklun2yJZWSWUisycz43dhTHEmsLp9vzhlBx39e1McRcQWdvKkXiFpCNlX1qg8A6/NHbMheJG55pCf0rJCpykpT6N9t6hBwr+8U2kw3+ucQLeXCSvAHyznPLt2rQa/OljZtbx/8AckGBj8IrT6nHb6Lw4t1KEiRRywxAY5j2Fczvbya7neWU7sfyrZDN8k8YSOXY1pq2m8ykRJWwD6mr3RLApErynDMAQp9KolXxLtEY+UsB8q2dzFypG0X3V2PwrVLUOicdvkw1aVaqE3Lwc316TxdSmJ2xIw/WoSAE5PQVbcY2bWurM2PJMOdfj3/WqTBrvwnuSkeRurcJuL8DpCnfrTbDalLnFBgMZNO3kRIaz7UKUOpoUCD69M+tBl2o8UYyTWvwUhRKWkCjck4rfaWz2GmR2cB5ObzSsOpJrG6VGPrsbEeUHNau3kIYo53O4rnepyapUV5Z2PRoxdzk/CLfTtRkizbysWiJzg9VPtVzbzCVQFYEHuKyEbfbnfPpVppF14Nwof7rbH2rz8lKD+nyeoqlC2P1eDQiE4xCme5HesWdQltdcnjvQEeOQgr027EVu4j9sjjYruKzf0laFJc2K69CmHjwkqjqV7N8j+lULY7dr8r+5tm7YUKcX0/7F3w3NFdR8qMGRzjb0NY/iLS2driFVxcIxAOepBqLwPqkum6tCrNmCRwsgPb0Na/iO2MermftIA3samHTYTK1VeWjAcMSXNlrka3MTwltjzDGcV2GYi8svI3MoAPwrK65HFPoUkyKPEtyJFONxg7/AKUzw9rssFnKFwxJEfKx2G9C6buW5LBNJWtI3CUsrs0DtygjHUYqCSn1xSfwil3NyDJzdAwzUNWBl5idyc1mi2zfbtTWC3VjC2R1x+VMQuXnZ279KHMW8x3NKKsFAGxxmjGHGWLZbztQLkgxNnpS5UD2Lp/o2qLK74KPgZoSyg23IjHNMuDPPEhrh7UDa6niQ/Zts3966OVE1msqnzKMg+orlUkFwb0Pa28s23M6opbGO+3at/whqP1uxitmB8YLjlxuf+Cr08xwzha2lqW+P6ms0a95k+ryHfHl9x6VIjIIeP8AKqaKNkkUocOjbf2qySXmlEifMVFLHDOa0RpoXmtLiwD8jt54WP4XFZiDVgJWhuY2huY25JE9CP2rV36lLhXjbB6g0jUNC0nV9Kn1dpTbXsDKjhRu5OwX9djUa93jHJt0t3sPLfHkrUv15AMnJ+771ItpyJ45AcbVN1DhV7DSYbqXe4C80ig7Ivb51Cgizy9gKWtxSwxNZKU5bksLwWFvEXWR3PQZB96l245pkimB5DttUWCTkPhH7rVYxIZIyFXzLuKSb+CmPXI5c6faxyeOq8iqCWydvjXMOJ9cOt3vgwsRYwk8g/nP8x/b2rSfSzrzW2kRaTati4vMiTHVYx1/M7fDNc709WVCG60tssROt6Vpdz92X6f7IushUlEo9MYp+ym541yMelLvLYTowPptVXYTspaJuq9KrS3Q/I7X/wA7M/JeocOKk6jKDbrH75NQrd/EUHuOtCfmZ5OpwMCqccmmTyiPZpF9YVnI/wA1ONoZXJjHO4O4zVWdiBVpojMLh25iSwA3pp5XItaT+kgfSHqbafw5Fpsbcslx5Njvyj7x/asXwdoz6vqgDZFvF5pT6+g+dJ4q1L+K8TzK06cqOYYgTjABx+pyfnXROGLO10vRI+UYZxzyMepNdCK/pqUvL/ycpf8A7NQ5f+Y8fsWQMdtAI1AREGMegqh1bWIIpRHKSqMNlH3m/wAUvU9RiYNIX5IowWOfT1rI6VBd69qEl4UYRlsZxsq9hVUIqeW+EjXqLHU4wjzJjq2Uur6s08aBQ2wHZRW102Gy0uARsypDEMyOfxNRaXYrbxiONQKh8WNFFYCAuCzsGwOtU2W+61BdD00eynY+WZXjTXZ9V1Vi8/PbReWBQMAD1+JqmifmyKO8j5rxgFJHYVcaLpsT27SMhkY7Ff5a672U1LB5xK3U6iTfyUjLvmugaXKht7eVsFSqlvh3rFXkHhzle3atTwyfH0jwzuYzy/Kser+qCkdLQxddkovyM8VabFrVkFg5VkjJaJsbEeh9jXM7q2lt5nimQo6nDKexrp1pc+DctDIfKGIBqt4y0MXcR1C2XMgH2gHcetek0l0bYpHkfUNNKE3I58tBhgYNOSRMjFWBzSOVq0tNHMG1FCnAoHUE+1CikTI+F9TR7dB0pWCxGAd+g9a0ui8G6heeHPdFbaEkHlYZYj4dq1zkoorhFyeESOEtIURrfXYCrj7JCOvuac1y3YSl4snJ8oHatDrcK2tgI4eUMcAfCqiGGeVQMHPqa4d03dLDO/RBUQ+kp7WY85R9jVvZfa5OdxUa+0mdMyJh2znAGKRp9wY5OVgRnqPQ1jtrcJrcdHTz3wxFm5sC0lrGfxY61bPKslqtpKFyRuCNmGKptMlCxxL6jNP3Ti4uCikgJtn3rDqYwxu8nY0cpv6H0jnvEenfwfXGhTaF/tIT7enyP7VsoboavoENxkGWPZviOtMcSacNUsmtX8sqeaGY9m/sehqi4LuJbLUJtMu8o5OGUnv2/MVXP7Wvd5Q9TdF2zH0y/n4NHGvNZSQsNpFK7+4rDaPOzXaRH7okUn5GttrObWWynBPIHCv8DWGRfq2v3MYGyykjHpnNHTrKkTWyxKP54Lu41J01EoxJi5cfA1ZWZMsnP2HSs1NzFi7YIPWr/Q5EmhkUkgrjJ9qlkEopoqoslKbUi+snR0ODkinZJN9h02qJbAIOYbc3QU+qsx6Zqt8RNiX1DTjnlC+vWlG1xGOVskdjUmKJQGYKOb1oqzzm10aKqVJcm2+i17W0USOgEsj7yHt2A+H96trjR7XSuIRf6bJFJHIfEGFyiFvw57YNYfhy7ENz9WdsLKfKfRv810LhrUIESS0vFBhl2YkdD608beVJ+Dmail1OaxlMXrixNNFcxgL4qYYY6MP8VChwkmfWrDU7OW1iMUmZLfOYpRvy/Gq4kLAWPXHWuhVGN0OezgamrZNSj0IuznHMw26VJ0RPE5bu4cLaQvzIp/8AK47/AAHaq51a8dUGfDG7sP6fGj1C7lGI40wqDCKNhVNsG5+3H9WbNJUor3J/oi91jVfrEbqXDGTYD41UxoFqu0yQXYa55ubB5BgeUHvj1qxjk5Rg71RPanhFWqk5WbfgkRIDIDjek6/q6aPp7S83nxhVzu7elRDfRxTMZc4X8IbHzPoKwfEOqPqd+80pPIDiJB0UUkuFku0Gj/qLPq+6u/8ARDv7qa9u2u7p/Embuew9B7UxDIeblxjB/OloAeopYQZBx0qlv5PURilxHoUzHkJA39Ko9RjMdz9YQYzuR71fEbk1XXqq7uhHuKNbwwXwzEd0a5Vo2BA3xg+ntU0crE7VTaephk6+U/pVyPu1LIpPgSmTa5G57ZZAN+UjbNNX8jaVpFzdjGUTyn3OwpDyXHjusROAMmsVr0l/cBy87yQu/Ny5OB6be1WUUOySTfBRrNYtPBuMW28mW1LmFwJCd+oNdJ07UJZbCESPkFAfjtXOtWZRbqnV+bYjfG1Xej3l5d2MNhGArsBHz9wPX8q62pqdkF+BwPTtV7Fsl3lL9y8t7SfijVHs4XaLTbdh9ZmH42/lFdAtbay0uyWKCFY41GFUf1NVug20NjYxWkCCOKMbDux7k+pqt4i1GU3BhVmyThAO3qa5Njdr2R+6v+yejhD+ni7bOZvv/S/D+SxvNTSEsV5c9+wWsnqN2by4eUyFh03pq5nlkARjhV6L7+p9abVA4yBg+1XV0qCyYr9TKyW1dDXhDmLbb1fcHlBeGBx5W3B96pMHmCdzsKs+HueHUVR1YEnHSmsy4NErwpIhavDzSycg2Rzj4Zqfwi7ILhCRysox8ad1O1aOYy9Uc7NUGDmhkPLsQe3eo/rhtI3ss3MK75lnkJ6k1O0m/wDMIJD12BNNXcXjcztsW32qveN42GRj0NX03OGGnyY76FPOVwR+MOHvD5tQs1+yJzJGPw+49qx8xKnGMV1GzvQ+nMZ8MMFWz3Fc21pUF/Kse6Z8p9q9DptWrotPs8tr9F7ElJdMiKRjNCk+1CtG5/BzzqfC/CUVi63V8VluBuo/Cn9zWjnWRcBSMelSnVU3LZPtTWR1C71VK+c31wdCOnrgu+SBPbJOQXG46UhLPkONseoFTiGzuVpMkqovTNJtw9y7LVLK2voq7+OKCJ5n5uRBknr+lZeCJ77UMwoRk5J9B71oNU1H70AUEsCCMA7fOrnhzTobWxW4mjVGb7qY3Pua5fqFzX5HZ9L02/rv/Ael2ot41llywRdqXy5iMkQyzbqG2/OrUxYyT0NQywaUk9ulcOdrm8s9PXQq44RSLqUTSGKTyyglSPcVUcVac2YtZs0bx4CPFC/iT+4pnXea3v7lk6iXmHzrT2cyvDg45goLD4irk9mJoyTXu5rkU2o3S3vDhPOC6BGB9c71j451k1qWaU451zv2q/uYjBe32m5wjfaxfA74/OsnqCGK76kZGDWuiC5Xz/kxay2WIzfh8/oTb+9V4PsScE4B9cVpeEI+fSQznzOxyfWsW5XwlC9c1t+A5TLYG2x+M7/lR1EFGvgr0djsu5+C/QbgelS41wufWnJIkROUAcx3zSSMLXMnYmjvQrwECF5vep0eg6lJp5vlgDRgcxUHzgeuP1qjeRmYkHYmuscJ6p9Z0GyliRZwq8s6KPOTnfr3BGPhUioZSseE/wCTHbq7a8+0uv4OXsCGBBwQcgitRpmtRvbK1wyxyIQjk9GzsD+dTON9BQ3/ANa0u3l5HXmmj8MjB9V/tWJ1W0+sWckBdk5xjmHUf8NJOvZLbLovdkdXVvh38HXdB1YGHwJHDINgrb7VF1rQJZGaazuHhtpP+5Eozj3X0rm3BPEXiyvplxOrXlqeUsOkqjuP3rpOka5IVWIYYDqGPar65ul+3J4a6OPOtWfaQWU+0MM8VlZgK6hQu1ZTXtYed0sNPbmuro+GD/Ivc/lW44p4bOp6c9zprGObHN4WcKx/Y1z7Q7SOzne4lVmvCSsnOd09gO1bYNKPHZnuucfq/b8zUWEEVnZRWkX3Il5QfX3pbFi6xoOZ3OFFR47u3fyrJlgOnepunwuric7P2GOgrHJc48meiuU3kh8Z2aWugiCJWa5Yc8jgfgB3z8TWC5Accy7+h710PjLWjaaa8AwstwvIO5A7mufo/NIoznHeqbnJy5PTen1xrq2ry8hLE3PkjHtSpwFcIO3X41LhUBDK3QdKhSThycKBk9azqTbOgoJEi0jjIaSXJROw7n0qq1Mh5/EwFJ2Kg9BQ4juprLRWlh2Z2CA+nvWftdS8aHf74+8D/Wr6KZSXuGTU3wjL233jJag4b2q7037eMKRlgcfGs9aTrIADs3b3q90KXErR5AblyKstXAmn5ZO4sNlpWkXksHh+O6BFx1yds1zeNsRlmJO2BWw+kKT/AKZIBncqzE/M1iXJOw6CrtLWlD8zJrLPtPyKTUkAuJI0TLSbAY6ZrZ8K6Kthao029y/3j/L7Vkra6gi4kinuN4UcAn07ZrpdhGJrhFUgrkHIPUVfrJyjBR8My+l112Wysfa4X4fiWcsAe6EUDERW4Cs4P3mxvTF7ZKWM9vGjSYwcjfFNJqsKSXBTHheIcD0qlu+IZDckwJyL03PWs8a/o65N91635b4Gdb065t5fEZFCyEkcvrUG1hl8UDcZNWr8QpNB4N1AHQ/iHUVFtriKZ5DGrtGm/NjG1NFzSw0ZZKuU8xZZy6XGGEtvHgjqD61OtLJRIlw/KHXoKhQXDhQY2I9MGrS2uVkUA4DdxVDb8m2KXaQxq3hPbtDy7v1x2qnSAIvKRzY6Z/ar2bYk4BFQZVhd8KVHqM0yeFgWa3PJEblelQWhmYr4eVwTg1KhgVgY3wT1U/tUm/kkseH7iYEeKE+z7YJpXLnCJ7axlmJ1W8jMTW1uWARsHPxrP6jaNKfEjGT3HrUoZLbnJPU07jYAHeu1U3TzE81fFajKn5M5jl3ahVrrNiRHHdwAlZDyuo7N/mhXbrs3RUkebtplXNxfg6pBqVvPIFW7AJPRiV/rVrNJBbwq11LBHnoWO5/KuXfW2fcOBU4anJL4QuUWTw9lbODXk3C2LTU2fQFdTKLjKtfsb7WJrPS7MXV1LhDgARjmJzVKOI9IO8ZkVu3iLj+lVE14l5b+FJz8p23YNj86o9RjFuSQ/iAdcLjFWVOVixZJ5M97jVJSqgsfkbPT5LO4uzc+FDJOx5s+vuBVqGaac82T0+VcsXVL2xuY5bW4PIu4Vt1PrtW/4P4ptdT+wdRDd4+4Ts3w9aouonD6u0bNJrabHsfD/k0d54vMpyfMoOKigNu3SrOK/QKDOF8owWAopmtbqNZbYKxPpWfamb9zj2YHiW3kN1cP5eU4P6Uxb6mto0HNzF2B5m9RjpV1xDGssszmSME4AXm3NZXUhGSixHPhjGfU1soalHDOZrFKMt0S34giQm2v1lHkIVmXup71jdTZXPNksQ3WraS4kaxaJ3OAuME9KpnQzRgxsDvvmtNMdvZi1Nm9cLsjAkuAdsVteAHCEY35y3yIxWLkwZjg7VfcL3Rtp1JOyNn5HrT6lbqynQy2WnSOYlsk5zTN1Oqoy53pJnUwmRfMAM4HU1TNeL4hLHKNvn0rhqLbPUOSUeywjbCAnoOlTuHdZuNF1FiZWFpMfMw/8TeuPQ9/TrVXz80IGdqYll5Budq1VbZpxl5MN9DhiUTtGk6xbzIsc5XlbcOvf396HGHB0Or6c0ml3SQXkiEiZQGU/Edz+tcUteKP4LdxW8jGS1YcxVTkx+4/tXWeD+I0ltUuLO5WWJxnY5BqTzp+LFmL8mD77bqeJLtHB+I9C4i4R1YXF3E6Oj5S4QEox+Pb4Guj8C8SQ6vZiQYS4j2ljz0PqPY1126t9K16wcXMMZ5hh0YZDVxTi7gC/wBD1Q6vwkJGWIkm3XqB3HuPatdqr1daWcPwzDX7mlm5RWV5X+jsXDetKyJa3JxnZW/Y1V8fcJ3N1P8AxjSNpgMTRjo/v8axPCPEH8TtOeRDBcRHlmibYo3wrqXC+uCQLBO4ORgGs2nulW/bs7NN9Mbo+5Xyn2jnuh2rWrySXasJh0yf1FXMA1C4B+qKu3RpW5Qf0rS8V6Oly3j26IrnqQNm9qjWltJLalseAkexyN/hT2uUJfSuQ1yjsWel4OR6xeXN3qEj3JPOrFOX+XB6U3aoWYnsKtuOrU2/Es/2XhpKqyL/AKsjr+YNVllKEOWAKDrWK3Kyd/TTjOMZJEy/kjit/AJIdl2x2qtXYVGk1OO9uHYDkBPk36imZ5pFzyt8jVca2uCyV67XQniRw2n8pOfONqxqymG4Yp0BIrTHlukeObIYnY5rOanbtb3LKeh3rqaSKinFnE9Qsc2pouNKu4TGOchWzsCaurC6RbmOVGBw2DWIhJFXGhMz30SBj5jilvpXLLNJqJSaRecfTeJLF2B2Hvgf5rFahdLBHsQXPQVofpFuPBa1jGQ/Kx+G4rDyK7sWclmPUk1fpofQmzHr7mrHFdkdwzvtkmuq6JHPpnCqyXJ+3jhxk+pOw+Wf0rCcJaeb7XLaIpzL4gZh6KNzXSeKIpG0lo0GfMCwHoKr1tibjWN6VS4xnd56RllmVYJMv5jgVEwCnNke4pEiFuYdD2pgGQuE5ST0AHWnUkSdch4qXOFBOelajQtMFnZPJdYMkg+7joPSj4c0K4iP1m7iwT91T296vXtg4IyBtWWduVhGynTtPMimhVIU5YwTio8+oNHcCFUXnIznPSp1xCygqoBb17CqYaf4Vx4jyM8hOc1VFxbzI0Wb4pKBOe5mePDSY9cCo5YZ6inrCzk1HUEs4mAY7k9lHvWvseGrGzjM07BzGMs8mwHyqSkoixUpGf0xZmTzRsV7NistxhqEk9+1srnw4dsZ25u9afV+MrWK5mtdMtvEEflEznALew9Kw68014ZZDzEks5Pf1q/Twae+SMurtUoquLIab9aWreb5U00qmRio5QScClL98fGurFZizz85tTSXyW+lsjI6OAcHODQqEhIXKkg0KpjbOKwmb5Uwk8tG20vQtP2kS3UIOrPuT8KnTaBpF3LzNa4I/lYrn8qlJyx20UaDAVBn40VteWyXSRyyqCxxjNciVk5S4Z6CFFMY8pEdOFtJt1EvIT3w0xxTsek6ZcBlFrGudjy0q/1G0ikMXJJI3wAFRo7uHn54S0ZPUHcGkmrE+f5LoSo24gl+xndf4IlfmOmyoe4jfb5A1iLu3vtKvOS4jktp4zkZ2PxBrr4vmLDmRXHscGo+q6fpWrRGK7DIceXnGOU+xrTRrZQeLFlHO1Xpldq3VPEv7Gd4U4oW/wAWepOBOdlc7B/j71pUE9nJzwEhT94Hoa5vrXDN7p87GNZHt8+SUDI/MVq+G9eDWkdrqMyiVRyh2/EO2ferb6oY9yrlFGl1FsW6r+15H9XsvEaS6iJZRuyk7r/isxdSeG+AN63pRWbmTGCMHuCDWR4otY7W8eRhyRFOZPfFLRJN4L9VFqO4yupXcpmaGMDcbmm9JcmQxMdycr8akadYy30zTt5IS33vX4U1dGOHW2aJOVFcBQPbaunhJbUeebnvVj6yOT27cxlVeh81P27mJww7jFWNuysCoQb9c1BdRFMyE+UHANUqe7hm2VOzE0y2t9UlNtgnBAx1oXMkgjilVuZMYOP6GqkNybDoak20zL5ccyt1Wq3Wk8pFqvlJbZMsbLUpIY/DbLx9vUV0z6HtI0PiCO6fWYBOJJBDGGcr4e2cgjuTgVyZUJyFBIrY6NrM/DdhYXMkLeBMCs6Ls2CchvlVVtTfNa5H95+3ssnhE36Vfol1PQdQkvNGaTULBlLhTgzRD0I/F8R+VYThnXr7hq5Pg9M/awvsG+I7H3rv/DmuW+qWq3EF6bqNgAeZi2PbfcVK1zgrhni20P1u2RLvGBPGeWRfge4+NPVrK7V7di/cxW0TrxNP9UZ/g/iuz1q08Wyn5JAAJYXPmQ/871tdIuUku1M3lYDfPeuF6r9GPGXCOqvf6Gyanbp05Dyuy+hXv8q1PBnFL3q+DMJba7i/7ltOCHQ/PfFYrNJ7Et9TzH+DVVqvejssWJfydV1/hDTNTb67bIlve8uBNHtzj0b1FZJtI1rSLjeNZ0ByCmzfl/ar3RdclBCs2FPUZ2rSRvHdxYfDqen9xVkvbujujw0CDu08sS5iyq0fUmubVEuonjzsCwxmnr1GtnYgZUjzDswq2tQ0EZWVleMdGZdxTGrNBexjlOGAxnFSxb68ZJGe2eUuDl30hWz3GpQXqnmgaHwgP5GBJx+tYPXZvqenzKuzuOVPn/w12DW9L8aCSGTIBH3l/Qj3FcX+kC21DT7+C2u0XwyS0cqjyyD/AJ2qmFTnJM6VerjClwffgzlnOySgDt2qVe6mvgqMnxPwkfvUGVDHKrL8RUZ4/wAR6Gtsa4yllmeyyUIYRY2mpRuwWQcp/m7UrXEWS2EuRzDv6iq5Ik5epDdvSkXDSBfDJPL6dqdVJTTiZna/banyR1bBq34fbOowEHdWzVVyjlzTtnO9tcpMh3Q5p7Y7k0TTWbJJk76SbpZtdQBeXkiAI96zEjb8/SrDii7F9q1zcLjlyAPgBimdHs2vtQggCkqWBf8A2jrVlUVCpZ8Iyaibtvlt8s3/AAFpn8O0oXsigXVyObf8Cdh+9S9Wa4uMwW7ZkIySe/tUpJSUCDAAGKV4yxdOVSe+OtceU3Kbk+z0sao11qtPCRS2PDN/eHxpVFtF3Z+/wFaXStF0nS8T8gmn/wDccZPyHQUlNUmaLwmCmPtkb0+0rTAMVAwMADpSSlOXZZCuuPXLHXuIycBG5ahSu3MQuFSlyqwTKjJ9KQLZ3bLA/wDyO1RDyimQ7mQsOWEBm9ulCy0mSdueViqZAZu/wFWUdqEGwBNSVcRQGMxE5OQQehpXLHRPbT7J1jHZ2UJgtIFQEbt+I/E1mfpH1Sa3sYLVJMK4LEZ+8egPyq6spwXYON+vxrM8fafJqE0ckO8ixny5A8o371ZUouSbKdSnGtqPZibZE5crvnrS5W8K3kJ2JXApmJZIJk3DI3ftU3ii4s5DFBYLiKNRzPjBdu5rpJZkkcJySg38FDjzYqcYOR13yMA5qAM81XSr4lnEw64FaZyccGKiEbG8roZXZaFL5MDBoVVg2Nm8SfkhZ3OcCqK4eSWRnO5JqxUrc80SyKAoLH3otN0y7v5xBaQmQj7zHZV9ya5dec/idm6UYR3SfBXkTzFcO/P0GDuavdC4Y4ovnAjsJhGfxyqEH/8ALFbzg/SLDRGRm8Oe+b8Z6j/aOwrSapqH1WLxGPNKRhVzWn21j6jjW+qNS+yj+5j7H6OtbYqZLiwix2aQk/oKk3P0f36oee/01j2w5U1f6cl9eDxbu6lEfoDgfCptvZWoZpbt4ZWJ8qggBRS+xBlT9V1L7a/Y5hccPa9p8svg2rXEafe8EiRGHyz+tZjWeHoL4G7soRbzr9+IDCk/Dsa9CR3drAvhwGFR6KDVZrlpps1rJqF7YxoqjzXDN4WfiT1+dFVbHmD5LV6orY7dRHK/Ds4bBfD+HqkBMbIOV0PVSO1P6vpycQcOsq8ouUGY29G9D7GrbUdM4Vu79p7O8lgLHzeHKkikfCm5bWPQsxvdGSCXeFyuAx7j4/17U3suD3R7NNfqFd32cn+Hx/zOb6VK62r2knkliJUg7YqqmKSamzKQyKcAjvitNxfbIuoDU7YcqzITIAPxjYn57GshbZ3Pcmt8MSW5HNubhJVvx/yLSa4cR4Q4PqKLTleecxuS3N6/1qO261a8Pxq+chhnYsB2oqL24iuSr3cWKU3hFrPpsM9ikiOsaRHGSPvH0qMbRkYoAOZetXVzDFHbgSPHCgGFRm3Py60ekaQ8l4J7qdfq0e7Rg7sewPp8KSOmuk9qRqnrtMluE8P6QT/114pS3ToD/wCQ+3tVh4c2rXbMUzGBhVPQLVi0UmouOX7O2TZVA6irmxgiij5EUKoFTUXwpj7UOflmWEJ3S9yfHwjnt1b6rw7ffW7GWWGMnyuvT/awrdcD/SLFNKlrqSi2uDsHz5HPsex9jUj6ulwWjlQNG4IKsNiK5rx5pdlpd5y6bNIXYczQncKPj+1VKiGpWZrD+S52So4jyvg9CW+sLI/KzjB6ZNTLnR9I1OJGvYbdpQcpJyhXB9iNxXnbgnivVLELbXRe4gXZct51HtnqPautcP8AENvdRK0MyuvdD1U/DqP6Visrt0svq5Rsg4aqCceGaWbhaa3Jayv3TH4JlDqfmMH9an6Ja6vbgpcGAqfutGxI/I9KkaHrcUiiKQhl/lbr8jV/ELIx80LKmd8dqsiq5/VHsplO6tbJdES4l+xWN8c2N/eq8sUf2qXdDxJ2OxH4SKjSYAIYZpJZUsl1bSjgMqsi4xmsxxlw/aavpz2l0mYyeZHA80beo/5vWliPbNHKiuCrqCDUlDP1RAms4Z514y4du9Hi5Zo8x5+znUeVv7H2rGCYl8MMYr1LqVhC0bwXEKz2sgwysMjHvXLPpE+jYRWzajw7E7hTmS2Byceq+vwq6iyK4Y1kpS78HNVOd6AHOCD8qVFDJETFKjRupwVYYIowvKavkwKOVkizRlG279qQMGpcwBXNQZGIcZ2z3p09yKXH25ZXRHnt+UOQwIPmxWo4Ughg0Fr5ADMwbp7dqzlzIiQOz9eXC/Go2laneWWYopfsWPmjO4P9qM4SshhFULoae5Sxnj9i/ubu6kbmkY+wB2qRHr8sdskCjBU782+aoNRnmjkMsH2aEZK5zQsfEntnnK55SBt3NJ7EWuQvVzjJ47L1ddZWzlQeu4q7t+I1EYw0W4qh0fhPiDW50isdGupHbo3JyqPiTsK6Xw39BOoyQh9e1JLT0itxzt8ydh+tVW0VLtj1ep2LxkxiatcteK4clSfxDI+VaRJrplyI+X15gRW0tPoq0PQOWWW41C7cnyIWUA/kKtU0a0M6zSwswX7sbuWUfEd6pen3fdLo+rxj2mznKXExHm3/ANtG0k7DYNk9MCuqRIkRzEkaD0WMKP0FKcGUFXUMMY3Aqt6KeeGi+PrteOYP9zl1l4qXRWVGTmQ/e7mqbimUm5ROijrXWL3RrCVGZ4hHgZ5l2x71ynjGwube78RxzQyDySgbOP2PtQ9iVb5L6vUKtR9K4ZC1HS7aewHgqkcyjIA6P/msXdRlH3rbWsvi2iq53H9RVZrlhDIjTJgN+JfX3FPp7XB7ZCazTqxbomR5CX2HWr2zH/RoPTao72ZitvE9/wBKl26FYSPbNbLJ7kYKKvbbA0QZQV60KRaygO6OcYORQpOUXJRlyabTbaNI2k3LY61tZbE6fYL4MxA5QcKMUKFVaVJ7myv1iTSriuuRXDVwYriSYrzyAbMT0qfazPfauJLg8wHRe3woUKl3ZzKkmiy1nVpYI+URgqNgobArOXnEVwkaiKFVLHAJOcUKFV189kte3o12nwrpPD0uv3bvqMyKGWJ25EyfYVl9X0fUuPEMmt69cLbSY8C1toxHHCeoPU83zoUKuXEXJdj0cvkxfFvAUXDsC3Nvqss3KQOWSEb7fGq+71R00NrWWJZYZFAClj5GHQjOfyoUK01TbaDfBe2yZonDja/o4t5b8w+IR5hEGwOuOtU15wfpen309q0t3N4HVudV5j8OXahQrq1UVpJJHJt1V0styKpLaxhmLC1MmNwJHJA+XertpZY9KtlR+X6y2fKMCMDso/ehQq2KUYS28FLbnKO7ksdM0aBOHH115GkuHuPq8QbpEe7+59PSpLqEMFmnljA39W+NChWSbcdPNo20JSuimXsIEcCqowOlSU7L270KFcbSpSnydu3hcEfU7k2VhcXCLzMibAnHfFc4v+e7uZrmd+Z5OuBQoV1NJFOtyfef9GLUvE0vwIggC+cMwI6EdRV3oV9K8rJ92SEAiRTgmhQqamKlW2x9LJxmkvJ0PhLV7i6V0mVS8WPMNubPt61vNNvpwBvkDsaFCvM2PZY9p2/vQ5L9XLwhuhxTDebtQoVrm8pGJLDGhlTsacR8kKRsaFCjB8EYi5wo6ZBqo4jM8GjXktnMIZkhZlYrzAEDPShQqhvFnBfFKUOThl+/8esbjUpwUubdAzNnPPvjHb96zE8/hsvkzn3oUK799MIyiorBwdPqrnGacumO6jH9XjBU5Ei5wR0qqfcUKFZonVy2V1/IxcIelN2wAkB60KFaY9HMu/8AodF4C4Xttan8a6myGyqoUyBgj3rtHDH0X8K2kaNJZJcMDzZZcAn4ZoUKw1yct7fgu9Q+lwiumjpWlWdtaQCG3hjiRRsFXApy+J8A8hKHHUHcUKFZqPqfJLPpXBlLy4nkPnlZtu9QyxoUK24wjHPsSzkKTgVX3uqXER5Y1QY9qFCqLRqyv1HU7i5s3icIvqVHWqN4Uu7d7Kcc8UnY/hPYihQpYNj9co5xfq1tO8KuSFYjPTNRGZv5j+dChUwd5NtJsmQwLcQYY429KbeBY7PnByWOKFCq9zzgt2rGSnlGJW+NChQraujlS7P/2Q==" alt="Portrait of Isawa Yukiko">
+            <svg class="brush-corner br" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 2 14 Q 2 2, 14 2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="2" cy="2" r="2" fill="currentColor"/>
+            </svg>
+          </div>
+
+          <div class="name-block">
+            <div class="name-eyebrow">Dossier · Player Character · Legend of the Five Rings</div>
+            <h1 class="dossier-name">
+              <span class="family">Isawa</span><span class="given">Yukiko</span><span class="kanji-mark">鳳</span>
+            </h1>
+            <blockquote class="tagline">Yukiko doesn't concern herself with death.</blockquote>
+            <dl class="identity-rows">
+              <dt>Clan</dt>     <dd>Phoenix</dd>
+              <dt>Family</dt>   <dd>Isawa</dd>
+              <dt>School</dt>   <dd class="school-name-in-clan">Ishiken Initiate School</dd>
+              <dt>Role</dt>     <dd>Sage</dd>
+            </dl>
+          </div>
+
+          <div class="hanko" aria-label="Personal seal">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="92" height="92" fill="none" stroke="#8a2828" stroke-width="3"/>
+              <rect x="8" y="8" width="84" height="84" fill="none" stroke="#8a2828" stroke-width="1.4"/>
+              <text x="50" y="42" font-family="Shippori Mincho, serif" font-size="32" font-weight="700"
+                    fill="#8a2828" text-anchor="middle">鳳</text>
+              <text x="50" y="78" font-family="Shippori Mincho, serif" font-size="32" font-weight="700"
+                    fill="#8a2828" text-anchor="middle">雪</text>
+              <line x1="14" y1="50" x2="86" y2="50" stroke="#8a2828" stroke-width="0.8" opacity="0.6"/>
+            </svg>
+          </div>
+        </header>
+      </div>
+    </div>
+
+    <!-- ============== TIMELINE ============== -->
+    <div class="timeline-section">
+      <div class="tl-label">Progression — select an XP tier</div>
+      <div class="tl-track" id="timeline">
+        <button class="tl-node active" data-snap="0" type="button">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <span class="tl-top">Awakened Soul</span>
+      <span class="tl-bot">44 XP · Rank 1</span>
+    </button>
+<button class="tl-node" data-snap="1" type="button">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <span class="tl-top">Awakened Soul</span>
+      <span class="tl-bot">74 XP · Rank 2</span>
+    </button>
+<button class="tl-node" data-snap="2" type="button">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <span class="tl-top">Awakened Soul</span>
+      <span class="tl-bot">98 XP · Rank 3</span>
+    </button>
+      </div>
+    </div>
+
+    <!-- ============== ADVANCEMENT CHANGELOG (TOGGLED) ============== -->
+    <div class="changelog-section" id="changelog-target"></div>
+
+    <!-- ============== GIRI / NINJŌ (FIXED) ============== -->
+    <section class="block">
+      <h2 class="section-h"><span class="kanji">義 · 仁情</span> Duty &amp; Desire <span class="en-label">Giri · Ninjō</span></h2>
+      <div class="duty-desire">
+        <div class="gn-card giri">
+          <div class="gn-label">Giri <span class="gn-en">Duty</span></div>
+          <p class="gn-text">To fulfill her role as the reincarnated Little Teacher, with all the baggage and expectations that comes with that.</p>
+        </div>
+        <div class="gn-card ninjo">
+          <div class="gn-label">Ninjō <span class="gn-en">Desire</span></div>
+          <p class="gn-text">To be allowed to just be a child—to play, to make mistakes, to eat sweets without it being a "lesson," to not carry the weight of destiny for just one day.</p>
+        </div>
+      </div>
+      <div class="bushido-line">
+        <span>Paramount tenet <strong>Compassion</strong></span>
+        <span>Less significant <strong>Righteousness</strong></span>
+      </div>
+      <p class="bushido-stance-note">There is honor in every station under the heavens.</p>
+    </section>
+
+    <!-- ============== RINGS & STATS (TOGGLED — rendered by JS) ============== -->
+    <section class="block">
+      <h2 class="section-h"><span class="kanji">五輪</span> The Five Rings &amp; Vitality <span class="en-label">Go-Rin</span></h2>
+      <div class="rings-block" id="rings-target"></div>
+    </section>
+
+    <!-- ============== SOCIAL (TOGGLED) ============== -->
+    <section class="block">
+      <h2 class="section-h"><span class="kanji">名誉</span> Standing <span class="en-label">Meiyo · Eikō · Mibun</span></h2>
+      <div class="social-grid" id="social-target"></div>
+    </section>
+
+    <!-- ============== SKILLS (TOGGLED) ============== -->
+    <section class="block">
+      <h2 class="section-h"><span class="kanji">技能</span> Skills <span class="en-label">Ginō</span></h2>
+      <div class="skills-grid" id="skills-target"></div>
+    </section>
+
+    <!-- ============== TECHNIQUES (TOGGLED) ============== -->
+    <section class="block">
+      <h2 class="section-h"><span class="kanji">技</span> Techniques <span class="en-label">Waza</span></h2>
+      <div id="techniques-target"></div>
+    </section>
+
+    <!-- ============== PECULIARITIES (FIXED) ============== -->
+    <section class="block">
+      <h2 class="section-h"><span class="kanji">性格</span> Character &amp; Disposition <span class="en-label">Seikaku</span></h2>
+      <div class="pec-group" data-pectype="distinction">
+<h4 class="pec-group-head"><span class="pec-glyph">◆</span> Distinctions</h4>
+<div class="pec-cards">
+
+    <article class="pec-card pec-ring-fire">
+      <header class="pec-head">
+        <div class="pec-name">Portentous Birth</div>
+        <div class="pec-meta">
+          <span class="pec-ring-tag">
+            <svg class="icon icon-fire" role="img" aria-label="Fire"><title>Fire</title><use href="#icon-fire"/></svg>
+            fire
+          </span>
+          <span class="pec-types">Interpersonal, Spiritual</span>
+          <span class="pec-src">Celestial Realms · p.89</span>
+        </div>
+      </header>
+      <div class="rules-text"><p><em>The childbirth assistant carried the silent bundle to the priest outside of the birthing chamber. The child’s grandmother followed with a stony look on her face.</em></p>
+<p><em>Why isn’t the child crying? </em><em>the priest thought.</em></p>
+<p><em>“Show him,” the grandmother said.</em></p>
+<p><em>The assistant carefully unwrapped the bundle. The unnerving infant stared about, clear-eyed, as the grandmother pointed out the seven moles in a perfect circle on their ear.</em></p>
+<p><em>“The child will reverse the family’s bad fortune!” the priest exclaimed. The grandmother let out a breath and smiled for the first time in years.</em></p>
+<p>The following apply to a character with the Portentous Birth distinction:</p>
+<ul class="rules-list">
+<li>- You are known among your clan or family group to have been born under blessed circumstances or have had some sort of mark or other indication of greatness bestowed upon you by the Heavens. When you interact with someone who knows of your portentous birth and believes in its power, they treat you favorably and may be inclined to give you special privileges as long as you do not give them a reason to treat you otherwise.</li>
+<li>- When performing a check for which your fortuitous birth is an asset (such as a Composition <svg class="icon icon-fire" role="img" aria-label="Fire"><title>Fire</title><use href="#icon-fire"/></svg> check to craft a clever request to someone who believes in the legacy of your birth or a Theology <svg class="icon icon-fire" role="img" aria-label="Fire"><title>Fire</title><use href="#icon-fire"/></svg> check to theorize about an omen), you may reroll up to two dice.</li>
+</ul></div>
+    </article>
+
+    <article class="pec-card pec-ring-water">
+      <header class="pec-head">
+        <div class="pec-name">Support of Brotherhood of Shinsei</div>
+        <div class="pec-meta">
+          <span class="pec-ring-tag">
+            <svg class="icon icon-water" role="img" aria-label="Water"><title>Water</title><use href="#icon-water"/></svg>
+            water
+          </span>
+          <span class="pec-types">Interpersonal</span>
+          <span class="pec-src">Core · p.110</span>
+        </div>
+      </header>
+      <div class="rules-text"><p><em>Akodo Emi avoided the rōnin’s stroke narrowly, sweeping at his feet to gain distance. He was good, yet she could beat him. But not quickly, and time was her true enemy tonight.</em></p>
+<p><em>Suddenly, a hail of slingstones clattered across the ground near the rōnin’s feet. Down the street rushed several figures wearing the Mon of the Sparrow.</em></p>
+<p>The following apply to a character with the Support of [One Group] distinction:</p>
+<ul class="rules-list">
+<li>- You have proven yourself to a particular group, which is willing to help you when doing so will not damage its reputation. Its members will offer you their hospitality, including meals, a place to rest, and medical attention if they have a healer. They will also grant you access to their other facilities, such as libraries, smithies, or stables. Confer with the GM to select a campaign-appropriate group when choosing this advantage.</li>
+<li>- When performing a check to interact with the members of the chosen group that relies on your rapport (such as a Command <svg class="icon icon-water" role="img" aria-label="Water"><title>Water</title><use href="#icon-water"/></svg> check to issue them orders or a Performance <svg class="icon icon-water" role="img" aria-label="Water"><title>Water</title><use href="#icon-water"/></svg> check to cause an audience of them to desire something), you may reroll up to two dice.</li>
+</ul></div>
+    </article>
+</div></div>
+<div class="pec-group" data-pectype="adversity">
+<h4 class="pec-group-head"><span class="pec-glyph">◇</span> Adversities</h4>
+<div class="pec-cards">
+
+    <article class="pec-card pec-ring-fire">
+      <header class="pec-head">
+        <div class="pec-name">Adopted Peasant</div>
+        <div class="pec-meta">
+          <span class="pec-ring-tag">
+            <svg class="icon icon-fire" role="img" aria-label="Fire"><title>Fire</title><use href="#icon-fire"/></svg>
+            fire
+          </span>
+          <span class="pec-types">Interpersonal</span>
+          <span class="pec-src">Emerald Empire · p.245</span>
+        </div>
+      </header>
+      <div class="rules-text"><p><em>Even though she sat with the rest of her adopted family, she had never felt so invisible.</em></p>
+<p><em>“This is why we sweep the shrine of dirt. Any foreign intrusion violates its sanctity,” her brother said.</em></p>
+<p><em>Takako bowed her head ever so slightly. “Yes, but priests also sprinkle salt in the corners. So a foreign intrusion can sometimes strengthen its purity.”</em></p>
+<p><em>Her brother tensed up. The rest of her family refused to look at her. This transgression will not be forgotten.</em></p>
+<p>The following apply to a character with the Adopted Peasant adversity:</p>
+<ul class="rules-list">
+<li>- Although adopted by a samurai family, you were born a peasant. Other samurai who know this fact are likely to look down upon you and may use this fact against you socially.</li>
+<li>- When you make a check to deal authoritatively or collegially with a samurai who knows of your peasant birth (such as a Command <svg class="icon icon-fire" role="img" aria-label="Fire"><title>Fire</title><use href="#icon-fire"/></svg> check to give an order to a subordinate or a Courtesy <svg class="icon icon-fire" role="img" aria-label="Fire"><title>Fire</title><use href="#icon-fire"/></svg> check to impugn another’s honor), you must choose and reroll two dice showing <svg class="icon icon-su" role="img" aria-label="Success"><title>Success</title><use href="#icon-su"/></svg> or <svg class="icon icon-ex" role="img" aria-label="Explosive Success"><title>Explosive Success</title><use href="#icon-ex"/></svg> results. After resolving the check, if you failed, you regain 1 Void point.</li>
+</ul></div>
+    </article>
+</div></div>
+<div class="pec-group" data-pectype="passion">
+<h4 class="pec-group-head"><span class="pec-glyph">✦</span> Passions</h4>
+<div class="pec-cards">
+
+    <article class="pec-card pec-ring-water">
+      <header class="pec-head">
+        <div class="pec-name">Generosity</div>
+        <div class="pec-meta">
+          <span class="pec-ring-tag">
+            <svg class="icon icon-water" role="img" aria-label="Water"><title>Water</title><use href="#icon-water"/></svg>
+            water
+          </span>
+          <span class="pec-types">Interpersonal</span>
+          <span class="pec-src">Core · p.113</span>
+        </div>
+      </header>
+      <div class="rules-text"><p><em>During the sixth month of the year after the biannual collection of taxes, the city of Ryokō Owari Toshi celebrates the Days of Generosity. As the festival begins, the head priest of the local temple draws a name in a lottery. The person whose name is drawn becomes “King of Generosity” and “rules” over the festival.</em></p>
+<p><em>The festival is marked by gift giving and drunkenness. The festival king decides who the best gift giver is on each of the celebration’s three days. That person receives a portion of the “king’s purse,” a collection of coins given to the festival king to pay him for blessing the giver with a prosperous year ahead.</em></p>
+<p>The following apply to a character with the Generosity passion:</p>
+<ul class="rules-list">
+<li>- You can always identify a proper gift for a particular person that does not risk giving offense or slighting them publicly.</li>
+<li>- After performing a check to acquire or give a gift (such as a Design <svg class="icon icon-water" role="img" aria-label="Water"><title>Water</title><use href="#icon-water"/></svg> check to select an item that complements someone’s wardrobe or a Commerce <svg class="icon icon-water" role="img" aria-label="Water"><title>Water</title><use href="#icon-water"/></svg> check to find and select a gift at a market), you remove 3 strife.</li>
+</ul></div>
+    </article>
+</div></div>
+<div class="pec-group" data-pectype="anxiety">
+<h4 class="pec-group-head"><span class="pec-glyph">✧</span> Anxieties</h4>
+<div class="pec-cards">
+
+    <article class="pec-card pec-ring-void">
+      <header class="pec-head">
+        <div class="pec-name">Loneliness</div>
+        <div class="pec-meta">
+          <span class="pec-ring-tag">
+            <svg class="icon icon-void" role="img" aria-label="Void"><title>Void</title><use href="#icon-void"/></svg>
+            void
+          </span>
+          <span class="pec-types">Interpersonal, Mental</span>
+          <span class="pec-src">Emerald Empire · p.248</span>
+        </div>
+      </header>
+      <div class="rules-text"><p>_A stalk of barley,
+Plucked by a starving farmer,
+Quickly forgotten._</p>
+<p><strong>Effects:</strong> The following apply to a character with the Loneliness anxiety:</p>
+<ul class="rules-list">
+<li>- You derive energy and pleasure from social interactions, and being alone makes you uncomfortable or morose. You look for excuses to avoid being alone and find it difficult to turn down any social engagement.</li>
+<li>- After performing a check that requires you to be alone (such as a Composition <svg class="icon icon-void" role="img" aria-label="Void"><title>Void</title><use href="#icon-void"/></svg> check to write a letter declining an invitation to the theater or a Meditation <svg class="icon icon-void" role="img" aria-label="Void"><title>Void</title><use href="#icon-void"/></svg> check to spend a prolonged time in dedicated introspection), you receive 3 strife. If this is the first time this has occurred this scene, gain 1 Void point.</li>
+</ul></div>
+    </article>
+</div></div>
+    </section>
+
+    
+
+    <!-- ============== GEAR (FIXED) ============== -->
+    <section class="block">
+      <h2 class="section-h"><span class="kanji">装備</span> Arms &amp; Equipage <span class="en-label">Sōbi</span></h2>
+
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th>Weapon</th>
+            <th>Dmg</th>
+            <th>Deadliness</th>
+            <th>Range</th>
+            <th>Properties</th>
+            <th>Grip</th>
+          </tr>
+        </thead>
+        <tbody><tr>
+      <td class="w-name">Wakizashi<div class="w-cat">Swords</div></td>
+      <td class="w-num">3</td>
+      <td class="w-num">5</td>
+      <td class="w-range">0-1</td>
+      <td class="w-props">Ceremonial, Razor-Edged</td>
+      <td class="w-grip">2-hand: Deadliness +2</td>
+    </tr>
+<tr>
+      <td class="w-name">Bō<div class="w-cat">Polearms</div></td>
+      <td class="w-num">6</td>
+      <td class="w-num">2</td>
+      <td class="w-range">1-2</td>
+      <td class="w-props">Mundane</td>
+      <td class="w-grip">—</td>
+    </tr></tbody>
+      </table>
+
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-grid"><article class="armor-card">
+      <header><span class="armor-name">Sanctified Robes</span>
+        <span class="armor-stats">
+          <span title="Physical resistance"><strong>Phys</strong> 1</span>
+          <span title="Supernatural resistance"><strong>Sup</strong> 3</span>
+        </span>
+      </header>
+      <div class="armor-props">Ceremonial</div>
+    </article></div>
+
+      <h3 class="sub-h">Items &amp; Effects</h3>
+      <ul class="items-list"><li><strong>Scroll satchel</strong></li>
+<li><strong>Traveling pack</strong> — Mundane</li>
+<li><strong>Hana [Doll]</strong></li>
+<li><strong>Finger of Jade</strong> — Sacred</li></ul>
+    </section>
+
+    <!-- ============== BONDS (FIXED) ============== -->
+    <section class="block">
+      <h2 class="section-h"><span class="kanji">絆</span> Bonds &amp; Heritage <span class="en-label">Kizuna</span></h2>
+      <p class="no-bonds"><em>No formal warrior-band or fellowship bonds recorded at this time.</em></p>
+      <h3 class="sub-h">Heritage</h3>
+      <p>Yukiko was written on the bundle that was found with the baby; the provenance of the name is unknown.</p>
+      <p style="font-size:0.9rem;color:var(--ink-faint);font-style:italic;">
+        Heritage modifiers: Honor +0 · Glory +5 · Status +0
+      </p>
+    </section>
+
+    <!-- ============== NARRATIVE (FIXED) ============== -->
+    <section class="block narrative-section">
+      <h2 class="section-h"><span class="kanji">人物像</span> The Person Within <span class="en-label">Jinbutsu-zō</span></h2>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">What sets them apart</div>
+        <p>While everyone around her recognizes Yukiko as a prodigy, she herself is grounded and practical, treating her intuitive grasp of the elements and the void matter-of-factly and unworthy of comment.</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">What they had to learn</div>
+        <p>When Isawa Ujina adopted her, it was mostly to provide safety and structure, and the power of the Isawa family and the Phoenix clan. But custody of Yukiko was immediately handed over to Gensho, an abbot from the Brotherhood of Shinsei. He treated Yukiko as a peer, helping her learn but also holding her accountable.</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">A defining success</div>
+        <p>At age six Yukiko performed the "Sight Beyond Existence" inversion for the first time. She did it without difficulty, and explained the method to the astonished shugenja that observed her in terms that appeared to be quoting the Little Teacher; something she was unfamiliar with. It was this action that saw her adopted into the Isawa and formally intitiated in the ishiken school.</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">A defining difficulty</div>
+        <p>She was a foundling, and was raised by a woman named Tomoe in a small river village. Tomoe found Yukiko's mannerisms and pronouncements strange but charming. This humble upbringing gave Yukiko a grounded perspective that clashes with Phoenix clan expectations. She doesn't understand why people make such a fuss over her abilities, speaks too casually with superiors, and has peasant habits (like eating with her hands or preferring to sit on the floor) that horrify the clan's more traditionalist members. Some Phoenix nobles see her common upbringing as a stain on her destiny, though Yukiko only remembers Tomoe's kindness and doesn't understand why anyone cares.</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">What calms them</div>
+        <p>What truly brings Yukiko joy is the simple act of giving—whether it's sharing her taiyaki with younger students, using her void sight to help someone find a lost item, or teaching others what comes so naturally to her. She doesn't see her gifts as something to hoard or leverage for status; she genuinely wants to help people and feels happiest when she can make someone else's burden lighter. This manifests in both grand gestures (once she spent weeks helping a lesser shugenja understand a technique they struggled with) and tiny ones (she anonymously leaves small paper cranes she's folded in places where sad people sit). Her generosity is so instinctive that she's often confused when people react with suspicion or try to repay her—in her mind, having more than you need means you should share.</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">What worries them</div>
+        <p>Despite being constantly surrounded by teachers, minders, and observers, Yukiko is profoundly lonely. Other children are frightened by her abilities or resentful of the attention she receives. Adults treat her either as a sacred relic to be preserved or a phenomenon to be studied—never as a person. She has her doll Hana, but Hana doesn't talk back. She has memories from her past life, but those belong to someone else. Sometimes, late at night, she cries silently because she can't remember the last time someone just... talked to her. Just talked, the way Tomoe used to, about nothing important. This loneliness makes her desperately attached to the few people who show her genuine warmth, and terrified of losing them.</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">At first sight</div>
+        <p>Yukiko's eyes are grey, and at moments will flash entirely white.</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">Under stress</div>
+        <p>When she is under extreme stress, she will seem to dissociate. At times she will speak, but with words seemingly not her own. She often does not recall what was said during these moments.</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">Notable relations</div>
+        <p>Isawa Ujina - Her formal adoptive father; views her as his duty and legacy, though they have little personal warmth between them. He provided a finger of jade to assist with spiritual protection.
+Abbot Gensho - Her true mentor and guardian from the Brotherhood of Shinsei; treats her as a person first, prodigy second.
+Tomoe - The peasant woman who raised her from infancy to age six; Yukiko still loves her and doesn't understand why she can't visit.</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">Standing with their clan</div>
+        <p>Yukiko sees Righteousness as being what each situation demands; the idea of firm rules for morality are non-sensical to her.</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">In their parents' eyes</div>
+        <p>Tomoe saw past the eerie pronouncements to the little girl who needed bedtime stories and who cried when birds fell from their nests. When the Isawa family came to claim Yukiko after her demonstration of void techniques, Tomoe wept but didn't fight it—she'd always known the child was destined for something beyond a river village. She still prays to the Fortunes that someone, somewhere, is making sure her little Yuki-chan is eating properly.</p>
+      </div>
+
+      <div class="narr-block death-vision">
+        <div class="narr-eyebrow">How they will die</div>
+        <p>Yukiko doesn't concern herself with death. She just hopes that, in the next life, she was go a little longer before discovery.</p>
+      </div>
+    </section>
+
+    <!-- ============== SCHOOL & TITLE CURRICULUM (TOGGLED) ============== -->
+    <section class="block">
+      <h2 class="section-h"><span class="kanji">進歩</span> Curriculum <span class="en-label">Karikyuramu</span></h2>
+      <div class="curriculum-block" id="curriculum-target"></div>
+    </section>
+
+    <footer class="footer">
+      <span class="stamp">❖</span> Player Character Dossier · Legend of the Five Rings 5e <span class="stamp">❖</span>
+    </footer>
+  </div>
+</div>
+
+<script>
+const SNAPSHOTS = [{"xp": 44, "title": "Awakened Soul", "full_label": "Ishiken Initiate · Awakened Soul, Rank 1", "rank": 1, "rings": {"earth": 2, "air": 1, "water": 2, "fire": 2, "void": 3}, "derived": {"endurance": 8, "composure": 8, "focus": 3, "vigilance": 2, "void_max": 3, "fatigue_max": 8, "strife_max": 8}, "social": {"honor": 30, "glory": 44, "status": 30}, "skills": {"artisan": {"aesthetics": 1, "composition": 0, "design": 1, "smithing": 0}, "martial": {"fitness": 1, "melee": 0, "ranged": 0, "unarmed": 0, "meditation": 5, "tactics": 0}, "scholar": {"culture": 0, "government": 0, "medicine": 0, "sentiment": 2, "theology": 3}, "social": {"command": 1, "courtesy": 1, "games": 1, "performance": 0}, "trade": {"commerce": 0, "labor": 1, "seafaring": 0, "skulduggery": 0, "survival": 0}}, "techniques": [{"name": "All in Jest", "type": "shuji", "ring": "water", "skill": "commerce,courtesy,performance", "difficulty": "", "rank": 1, "source_page": 220, "source_book": "core_rulebook", "xp_cost": 3, "description": "_Veteran courtiers sometimes play off missteps as jokes. This underhanded but effective tactic puts the other person in a difficult position: press the issue and seem stubborn, or let it slide and give the courtier a pass._\n\n**Activation:** When you make a Commerce (water), Courtesy (water), or Performance (water) check, you may spend (op) in the following way:\n\n(water)(op)+: If you forfeited honor as part of the check in order to say something rude or appeal to your target’s base desires (greed, lust, laziness, etc.), regain 1 honor per (op) spent this way (see Forfeiting Social Attributes, on page 37)."}, {"name": "Divination", "type": "ritual", "ring": "void", "skill": "theology", "difficulty": "2", "rank": 1, "source_page": 212, "source_book": "core_rulebook", "xp_cost": 3, "description": "The ritualist peers into a character’s future, ascertaining their fate from the patterns of the stars, the char marks upon animal bones, the placement of cast shells, or other omens they can read.\n\n**Activation:** As a downtime activity, you may make a TN 2 Theology (void) check targeting one character to see glimpses of their future.\n\n**Effects:** If you succeed, choose one of the following omens that you see in the target’s near future:\n\n- - Omen of the Azure Dragon: The next time the target performs a check using a skill from the Artisan skill group this game session, the target adds a kept (ring) set to an (op)(st) result.\n\n- - Omen of the Black Tortoise: The next time the target performs a check using a skill from the Scholar skill group this game session, the target adds a kept (ring) set to an (op)(st) result.\n\n- - Omen of the White Tiger: The next time the target performs a check using a skill from the Martial skill group this game session, the target adds a kept (ring) set to an (op)(st) result.\n\n- - Omen of the Vermilion Bird: The next time the target performs a check using a skill from the Social skill group this game session, the target adds a kept (ring) set to an (op)(st) result.\n\n- - Omen of the Weaver and the Cowherd: The next time the target performs a check using a skill from the Trade skill group this game session, the target adds a kept (ring) set to an (op)(st) result.\n\nIf you fail, the GM chooses one of the above omens instead. The target cannot receive another divination until the next game session.\n\nNew Opportunities(op): If you fail, an additional omen appears to you after the first. Choose one of the above omens in addition to the one the GM chose."}, {"name": "Sight beyond Existence", "type": "inversion", "ring": "void", "skill": "theology", "difficulty": "2", "rank": 1, "source_page": 115, "source_book": "celestial_realms", "xp_cost": 6, "description": "_The Void is nonexistence; therefore, within it, all possibilities exist. One who attunes their senses to nonexistence can perceive the other possible realities that ripple outward from each moment of action. The signs often do not come as complete visions, but as brief flashes: hazy vignettes of a world that never was. The rustling of leaves from a tree that has not yet grown, the first laugh shared with a new friend, the scent of blood and burning flesh. However, these rippling potential truths can become intoxicating, drawing an undisciplined mind deeper and deeper into twisted realms of refracted possibility until there is no escape. This is what those who study the Void call the “Lying Darkness”: the trap that awaits all who let their worldly desires guide their ventures into the Void._\n\n**Activation:** Once per session, immediately after you or another character at range 0–3 performs an action or makes a choice of great consequence in a narrative scene, you may make a TN 2 Theology (void) check targeting that character to peer beyond the lie of time and find another outcome.\n\n**Effects:** If you succeed, you scry for another outcome and return to the moment before the action was performed. All effects and outcomes stemming from the action are undone, but only you and the target are aware of the reality that no longer is. If you are the target, you may choose the same or a different action or decision. If another character is the target, you may say up to five words to the target before they act or make a decision.\n\nNew Opportunities(op): If you target another character and you succeed, you may perform an action immediately before the target performs their new action.\n\nMagnitude**Magnitude 1+:** You see one possible consequence of the original action or decision that would occur before the end of the scene.\n\n**Magnitude 2+:** You see one additional possible consequence of the original action or decision that would occur in the next year.\n\n**Magnitude 3+:** You see one additional possible consequence of the original action or decision that would occur in the next decades, or even further in the future."}, {"name": "Way of the Void", "type": "school_ability", "ring": "void", "skill": "", "difficulty": "", "rank": 1, "source_page": 82, "source_book": "celestial_realms", "xp_cost": 0, "description": "When you make a check using your Void Ring, after rolling dice, you may receive a number of fatigue up to your school rank. If you do, you may **pull** or **push**: \n\nIf you **pull**, choose a number of dice with non-blank results equal to the fatigue you received, and alter each to a blank result.\n\nIf you **push**, choose a number of dice with blank results equal to the fatigue you received, and alter each to a non-blank result of your choice."}, {"name": "Wisdom of Countless Lifetimes", "type": "title_ability", "ring": "void", "skill": "", "difficulty": "", "rank": 1, "source_page": 0, "source_book": "", "xp_cost": 0, "description": "When making a skill check, you may spend 1 Void point to treat your skill rank as 1 higher, to a maximum of 6. If you fail the check, gain 1 Void point."}], "advancements": [], "titles": [{"name": "Awakened Soul", "description": "Most Rokugani believe in reincarnation, the passage of the soul into a new form after the death of the body. Shinseism in particular emphasizes the importance of reincarnation and the role it plays within the cosmology, but even among those who favor other religious traditions, few argue that existence ends at death. While the specifics of how and why reincarnation occurs vary by doctrine, most religious accounts agree that memory is erased upon death, in the afterlife, or during the process of the return to life.\n\nYet some things can persist even across lifetimes. Some people are capable of connecting with the lives of past people, entities, and existences as an extension of their own being - beings that by all account seem to be their past lives. The Togashi Tattooed Order is one organization dedicated to those who again and again reincarnate and seek a particular destiny, but other spiritualists claim to have memories of their past lives as well, and the phenomenon can occur within individuals unrelated to any religious group.\n\nMemories of one's past lives generally begin murky, but may become clearer in physical proximity to individuals, artifacts, or places important to those beings. These visions and senses can be terrifying and disorienting at first, but when they occur, it is often of vital importance to both past and present self. Indeed, some work cannot be completed in a single lifetime.\n\n**Assigned By:** The GM. Even more than usual, this title is only available if it is narratively appropriate to the campaign.\n\n**Status Award:** +0\n\n**Title Ability:** Wisdom of Countless Lifetimes\n\nCurriculumSocial Skills\n\nSkill Group\n\nScholar Skills\n\nSkill Group\n\nCulture\n\nSkill\n\nMeditation\n\nSkill\n\nSurvival\n\nSkill\n\nTheology\n\nSkill\n\n(kiho) Eternal Mind’s Gate (prereq)\n\nTechnique\n\n(ritual) Trance of Lives Past (prereq)\n\nTechnique"}]}, {"xp": 74, "title": "Awakened Soul", "full_label": "Ishiken Initiate · Awakened Soul, Rank 2", "rank": 2, "rings": {"earth": 2, "air": 2, "water": 2, "fire": 2, "void": 4}, "derived": {"endurance": 8, "composure": 8, "focus": 4, "vigilance": 2, "void_max": 4, "fatigue_max": 8, "strife_max": 8}, "social": {"honor": 30, "glory": 44, "status": 30}, "skills": {"artisan": {"aesthetics": 1, "composition": 0, "design": 1, "smithing": 0}, "martial": {"fitness": 1, "melee": 0, "ranged": 0, "unarmed": 0, "meditation": 5, "tactics": 0}, "scholar": {"culture": 0, "government": 0, "medicine": 0, "sentiment": 2, "theology": 3}, "social": {"command": 1, "courtesy": 1, "games": 1, "performance": 0}, "trade": {"commerce": 0, "labor": 1, "seafaring": 0, "skulduggery": 0, "survival": 0}}, "techniques": [{"name": "All in Jest", "type": "shuji", "ring": "water", "skill": "commerce,courtesy,performance", "difficulty": "", "rank": 1, "source_page": 220, "source_book": "core_rulebook", "xp_cost": 3, "description": "_Veteran courtiers sometimes play off missteps as jokes. This underhanded but effective tactic puts the other person in a difficult position: press the issue and seem stubborn, or let it slide and give the courtier a pass._\n\n**Activation:** When you make a Commerce (water), Courtesy (water), or Performance (water) check, you may spend (op) in the following way:\n\n(water)(op)+: If you forfeited honor as part of the check in order to say something rude or appeal to your target’s base desires (greed, lust, laziness, etc.), regain 1 honor per (op) spent this way (see Forfeiting Social Attributes, on page 37)."}, {"name": "Divination", "type": "ritual", "ring": "void", "skill": "theology", "difficulty": "2", "rank": 1, "source_page": 212, "source_book": "core_rulebook", "xp_cost": 3, "description": "The ritualist peers into a character’s future, ascertaining their fate from the patterns of the stars, the char marks upon animal bones, the placement of cast shells, or other omens they can read.\n\n**Activation:** As a downtime activity, you may make a TN 2 Theology (void) check targeting one character to see glimpses of their future.\n\n**Effects:** If you succeed, choose one of the following omens that you see in the target’s near future:\n\n- - Omen of the Azure Dragon: The next time the target performs a check using a skill from the Artisan skill group this game session, the target adds a kept (ring) set to an (op)(st) result.\n\n- - Omen of the Black Tortoise: The next time the target performs a check using a skill from the Scholar skill group this game session, the target adds a kept (ring) set to an (op)(st) result.\n\n- - Omen of the White Tiger: The next time the target performs a check using a skill from the Martial skill group this game session, the target adds a kept (ring) set to an (op)(st) result.\n\n- - Omen of the Vermilion Bird: The next time the target performs a check using a skill from the Social skill group this game session, the target adds a kept (ring) set to an (op)(st) result.\n\n- - Omen of the Weaver and the Cowherd: The next time the target performs a check using a skill from the Trade skill group this game session, the target adds a kept (ring) set to an (op)(st) result.\n\nIf you fail, the GM chooses one of the above omens instead. The target cannot receive another divination until the next game session.\n\nNew Opportunities(op): If you fail, an additional omen appears to you after the first. Choose one of the above omens in addition to the one the GM chose."}, {"name": "Nature’s Touch", "type": "invocation", "ring": "air", "skill": "theology", "difficulty": "1", "rank": 1, "source_page": 194, "source_book": "core_rulebook", "xp_cost": 3, "description": "Shinjo's Whispers (Ancestral), Run Alongside the Ki-Rin (Fortunist), Voice of the Glen King (Foreign)\n\n_To perform this rite, the shugenja seeks Chikushō-dō, the Realm of Animals, in the world around them and in their own heart. This allows the shugenja to communicate with (though not dominate) animals of the mortal realm._\n\n**Activation:** As a Support action, you may make a TN 1 Theology (air) check targeting yourself.\n\n**Effects:** If you succeed, you augment yourself with the ability to speak to animals of the natural world (but not Otherworldly or Tainted beings). Animals can understand you (within their ability to do so, naturally—human political relationships will have no meaning to horses, no matter how many times you explain them). They are not compelled to obey you, however. This effect persists until the end of the scene.\n\nNew Opportunities(air)(op): Until the end of the scene, you can understand animals’ speech.\n\n(air)(op): If you succeed, the animal also acts favorably toward you automatically due to your politeness, fulfilling one request that does not put it in danger without having to be convinced with bribes of food or subsequent checks.\n\n(air)(op)(op): If you succeed, you can communicate with an Otherworldly being this way, provided it has anything to say to you."}, {"name": "One Within the Void", "type": "inversion", "ring": "void", "skill": "sentiment", "difficulty": "2", "rank": 1, "source_page": 114, "source_book": "celestial_realms", "xp_cost": 6, "description": "_Within the emptiness of the Void, the divisions between “self” and “other” become as mutable as any other barriers that seem absolute within reality. Those trained to wield the Void can share their expertise, tendencies, and even emotional states with other beings, allowing them to act with uncanny coordination._\n\n**Activation:** As a Support action, you may make a TN 2 Sentiment (void) check targeting yourself and one other character at range 0–3.\n\n**Effects:** If you succeed, you augment all targets with the ability to communicate with each other without words, making their intentions clear even if they do not speak the same language. When any target makes a check, one other target may receive 2 fatigue to provide assistance on the check regardless of distance. This effect lasts until the end of the scene.\n\nNew Opportunities(op)+: Choose one additional target per (op) spent this way.\n\nMagnitude**Magnitude 1+:** When a target is dealt strife, one other target of your choice may receive that strife instead.\n\n**Magnitude 3+:** Choose a ring or skill. When any target makes a check using that ring or skill, they may use any other target’s rank in that ring or skill instead of their own."}, {"name": "Sight beyond Existence", "type": "inversion", "ring": "void", "skill": "theology", "difficulty": "2", "rank": 1, "source_page": 115, "source_book": "celestial_realms", "xp_cost": 6, "description": "_The Void is nonexistence; therefore, within it, all possibilities exist. One who attunes their senses to nonexistence can perceive the other possible realities that ripple outward from each moment of action. The signs often do not come as complete visions, but as brief flashes: hazy vignettes of a world that never was. The rustling of leaves from a tree that has not yet grown, the first laugh shared with a new friend, the scent of blood and burning flesh. However, these rippling potential truths can become intoxicating, drawing an undisciplined mind deeper and deeper into twisted realms of refracted possibility until there is no escape. This is what those who study the Void call the “Lying Darkness”: the trap that awaits all who let their worldly desires guide their ventures into the Void._\n\n**Activation:** Once per session, immediately after you or another character at range 0–3 performs an action or makes a choice of great consequence in a narrative scene, you may make a TN 2 Theology (void) check targeting that character to peer beyond the lie of time and find another outcome.\n\n**Effects:** If you succeed, you scry for another outcome and return to the moment before the action was performed. All effects and outcomes stemming from the action are undone, but only you and the target are aware of the reality that no longer is. If you are the target, you may choose the same or a different action or decision. If another character is the target, you may say up to five words to the target before they act or make a decision.\n\nNew Opportunities(op): If you target another character and you succeed, you may perform an action immediately before the target performs their new action.\n\nMagnitude**Magnitude 1+:** You see one possible consequence of the original action or decision that would occur before the end of the scene.\n\n**Magnitude 2+:** You see one additional possible consequence of the original action or decision that would occur in the next year.\n\n**Magnitude 3+:** You see one additional possible consequence of the original action or decision that would occur in the next decades, or even further in the future."}, {"name": "Way of the Void", "type": "school_ability", "ring": "void", "skill": "", "difficulty": "", "rank": 1, "source_page": 82, "source_book": "celestial_realms", "xp_cost": 0, "description": "When you make a check using your Void Ring, after rolling dice, you may receive a number of fatigue up to your school rank. If you do, you may **pull** or **push**: \n\nIf you **pull**, choose a number of dice with non-blank results equal to the fatigue you received, and alter each to a blank result.\n\nIf you **push**, choose a number of dice with blank results equal to the fatigue you received, and alter each to a non-blank result of your choice."}, {"name": "Wisdom of Countless Lifetimes", "type": "title_ability", "ring": "void", "skill": "", "difficulty": "", "rank": 1, "source_page": 0, "source_book": "", "xp_cost": 0, "description": "When making a skill check, you may spend 1 Void point to treat your skill rank as 1 higher, to a maximum of 6. If you fail the check, gain 1 Void point."}, {"name": "Tea Ceremony", "type": "ritual", "ring": "void", "skill": "performance", "difficulty": "2", "rank": 2, "source_page": 213, "source_book": "core_rulebook", "xp_cost": 3, "description": "_When Lady Doji served tea for the very first Emperor, the tea ceremony was born. Ceremony styles vary among the clans, from the gilded tea rooms of the Phoenix to the imperfect tea bowls of the Dragon, the early morning gatherings of the Crane to the snow- and moon-viewing ceremonies of the Scorpion. However, at its core the tea ceremony is fundamentally an appreciation of tea and, if done well, a spiritual moment for its participants. The tea represents all five elements: the fire used to heat the water, the earth from which the tea is grown, and the air that carries the aroma of the tea. Finally, void holds all four elements together, and brings in the mysterious fifth element, the moment of harmony and tranquility as one sips the tea._\n\n**Activation:** Once per game session, as a downtime activity using a tea set, you may make a TN 2 Performance (void) check targeting yourself and a number of other characters up to your ranks in Culture, who are also participants. Up to one other participant may assist, providing the usual benefits (see Assistance on page 26).\n\n**Effects:** Each target removes 3 strife, plus additional strife equal to your bonus successes.\n\nNew Opportunities(op): Reduce the TN of each target’s next check by 1.\n\n(op)+: Each target removes 1 fatigue, plus 1 fatigue per (op)(op) spent this way.\n\n(op)(op): If you succeed, each target gains 1 Void point."}], "advancements": [], "titles": [{"name": "Awakened Soul", "description": "Most Rokugani believe in reincarnation, the passage of the soul into a new form after the death of the body. Shinseism in particular emphasizes the importance of reincarnation and the role it plays within the cosmology, but even among those who favor other religious traditions, few argue that existence ends at death. While the specifics of how and why reincarnation occurs vary by doctrine, most religious accounts agree that memory is erased upon death, in the afterlife, or during the process of the return to life.\n\nYet some things can persist even across lifetimes. Some people are capable of connecting with the lives of past people, entities, and existences as an extension of their own being - beings that by all account seem to be their past lives. The Togashi Tattooed Order is one organization dedicated to those who again and again reincarnate and seek a particular destiny, but other spiritualists claim to have memories of their past lives as well, and the phenomenon can occur within individuals unrelated to any religious group.\n\nMemories of one's past lives generally begin murky, but may become clearer in physical proximity to individuals, artifacts, or places important to those beings. These visions and senses can be terrifying and disorienting at first, but when they occur, it is often of vital importance to both past and present self. Indeed, some work cannot be completed in a single lifetime.\n\n**Assigned By:** The GM. Even more than usual, this title is only available if it is narratively appropriate to the campaign.\n\n**Status Award:** +0\n\n**Title Ability:** Wisdom of Countless Lifetimes\n\nCurriculumSocial Skills\n\nSkill Group\n\nScholar Skills\n\nSkill Group\n\nCulture\n\nSkill\n\nMeditation\n\nSkill\n\nSurvival\n\nSkill\n\nTheology\n\nSkill\n\n(kiho) Eternal Mind’s Gate (prereq)\n\nTechnique\n\n(ritual) Trance of Lives Past (prereq)\n\nTechnique"}]}, {"xp": 98, "title": "Awakened Soul", "full_label": "Ishiken Initiate · Awakened Soul, Rank 3", "rank": 3, "rings": {"earth": 2, "air": 2, "water": 2, "fire": 2, "void": 4}, "derived": {"endurance": 8, "composure": 8, "focus": 4, "vigilance": 2, "void_max": 4, "fatigue_max": 8, "strife_max": 8}, "social": {"honor": 30, "glory": 44, "status": 30}, "skills": {"artisan": {"aesthetics": 1, "composition": 1, "design": 1, "smithing": 0}, "martial": {"fitness": 1, "melee": 0, "ranged": 0, "unarmed": 0, "meditation": 5, "tactics": 0}, "scholar": {"culture": 0, "government": 0, "medicine": 0, "sentiment": 2, "theology": 3}, "social": {"command": 3, "courtesy": 1, "games": 1, "performance": 0}, "trade": {"commerce": 0, "labor": 1, "seafaring": 0, "skulduggery": 0, "survival": 0}}, "techniques": [{"name": "All in Jest", "type": "shuji", "ring": "water", "skill": "commerce,courtesy,performance", "difficulty": "", "rank": 1, "source_page": 220, "source_book": "core_rulebook", "xp_cost": 3, "description": "_Veteran courtiers sometimes play off missteps as jokes. This underhanded but effective tactic puts the other person in a difficult position: press the issue and seem stubborn, or let it slide and give the courtier a pass._\n\n**Activation:** When you make a Commerce (water), Courtesy (water), or Performance (water) check, you may spend (op) in the following way:\n\n(water)(op)+: If you forfeited honor as part of the check in order to say something rude or appeal to your target’s base desires (greed, lust, laziness, etc.), regain 1 honor per (op) spent this way (see Forfeiting Social Attributes, on page 37)."}, {"name": "Divination", "type": "ritual", "ring": "void", "skill": "theology", "difficulty": "2", "rank": 1, "source_page": 212, "source_book": "core_rulebook", "xp_cost": 3, "description": "The ritualist peers into a character’s future, ascertaining their fate from the patterns of the stars, the char marks upon animal bones, the placement of cast shells, or other omens they can read.\n\n**Activation:** As a downtime activity, you may make a TN 2 Theology (void) check targeting one character to see glimpses of their future.\n\n**Effects:** If you succeed, choose one of the following omens that you see in the target’s near future:\n\n- - Omen of the Azure Dragon: The next time the target performs a check using a skill from the Artisan skill group this game session, the target adds a kept (ring) set to an (op)(st) result.\n\n- - Omen of the Black Tortoise: The next time the target performs a check using a skill from the Scholar skill group this game session, the target adds a kept (ring) set to an (op)(st) result.\n\n- - Omen of the White Tiger: The next time the target performs a check using a skill from the Martial skill group this game session, the target adds a kept (ring) set to an (op)(st) result.\n\n- - Omen of the Vermilion Bird: The next time the target performs a check using a skill from the Social skill group this game session, the target adds a kept (ring) set to an (op)(st) result.\n\n- - Omen of the Weaver and the Cowherd: The next time the target performs a check using a skill from the Trade skill group this game session, the target adds a kept (ring) set to an (op)(st) result.\n\nIf you fail, the GM chooses one of the above omens instead. The target cannot receive another divination until the next game session.\n\nNew Opportunities(op): If you fail, an additional omen appears to you after the first. Choose one of the above omens in addition to the one the GM chose."}, {"name": "Nature’s Touch", "type": "invocation", "ring": "air", "skill": "theology", "difficulty": "1", "rank": 1, "source_page": 194, "source_book": "core_rulebook", "xp_cost": 3, "description": "Shinjo's Whispers (Ancestral), Run Alongside the Ki-Rin (Fortunist), Voice of the Glen King (Foreign)\n\n_To perform this rite, the shugenja seeks Chikushō-dō, the Realm of Animals, in the world around them and in their own heart. This allows the shugenja to communicate with (though not dominate) animals of the mortal realm._\n\n**Activation:** As a Support action, you may make a TN 1 Theology (air) check targeting yourself.\n\n**Effects:** If you succeed, you augment yourself with the ability to speak to animals of the natural world (but not Otherworldly or Tainted beings). Animals can understand you (within their ability to do so, naturally—human political relationships will have no meaning to horses, no matter how many times you explain them). They are not compelled to obey you, however. This effect persists until the end of the scene.\n\nNew Opportunities(air)(op): Until the end of the scene, you can understand animals’ speech.\n\n(air)(op): If you succeed, the animal also acts favorably toward you automatically due to your politeness, fulfilling one request that does not put it in danger without having to be convinced with bribes of food or subsequent checks.\n\n(air)(op)(op): If you succeed, you can communicate with an Otherworldly being this way, provided it has anything to say to you."}, {"name": "One Within the Void", "type": "inversion", "ring": "void", "skill": "sentiment", "difficulty": "2", "rank": 1, "source_page": 114, "source_book": "celestial_realms", "xp_cost": 6, "description": "_Within the emptiness of the Void, the divisions between “self” and “other” become as mutable as any other barriers that seem absolute within reality. Those trained to wield the Void can share their expertise, tendencies, and even emotional states with other beings, allowing them to act with uncanny coordination._\n\n**Activation:** As a Support action, you may make a TN 2 Sentiment (void) check targeting yourself and one other character at range 0–3.\n\n**Effects:** If you succeed, you augment all targets with the ability to communicate with each other without words, making their intentions clear even if they do not speak the same language. When any target makes a check, one other target may receive 2 fatigue to provide assistance on the check regardless of distance. This effect lasts until the end of the scene.\n\nNew Opportunities(op)+: Choose one additional target per (op) spent this way.\n\nMagnitude**Magnitude 1+:** When a target is dealt strife, one other target of your choice may receive that strife instead.\n\n**Magnitude 3+:** Choose a ring or skill. When any target makes a check using that ring or skill, they may use any other target’s rank in that ring or skill instead of their own."}, {"name": "Sight beyond Existence", "type": "inversion", "ring": "void", "skill": "theology", "difficulty": "2", "rank": 1, "source_page": 115, "source_book": "celestial_realms", "xp_cost": 6, "description": "_The Void is nonexistence; therefore, within it, all possibilities exist. One who attunes their senses to nonexistence can perceive the other possible realities that ripple outward from each moment of action. The signs often do not come as complete visions, but as brief flashes: hazy vignettes of a world that never was. The rustling of leaves from a tree that has not yet grown, the first laugh shared with a new friend, the scent of blood and burning flesh. However, these rippling potential truths can become intoxicating, drawing an undisciplined mind deeper and deeper into twisted realms of refracted possibility until there is no escape. This is what those who study the Void call the “Lying Darkness”: the trap that awaits all who let their worldly desires guide their ventures into the Void._\n\n**Activation:** Once per session, immediately after you or another character at range 0–3 performs an action or makes a choice of great consequence in a narrative scene, you may make a TN 2 Theology (void) check targeting that character to peer beyond the lie of time and find another outcome.\n\n**Effects:** If you succeed, you scry for another outcome and return to the moment before the action was performed. All effects and outcomes stemming from the action are undone, but only you and the target are aware of the reality that no longer is. If you are the target, you may choose the same or a different action or decision. If another character is the target, you may say up to five words to the target before they act or make a decision.\n\nNew Opportunities(op): If you target another character and you succeed, you may perform an action immediately before the target performs their new action.\n\nMagnitude**Magnitude 1+:** You see one possible consequence of the original action or decision that would occur before the end of the scene.\n\n**Magnitude 2+:** You see one additional possible consequence of the original action or decision that would occur in the next year.\n\n**Magnitude 3+:** You see one additional possible consequence of the original action or decision that would occur in the next decades, or even further in the future."}, {"name": "Way of the Void", "type": "school_ability", "ring": "void", "skill": "", "difficulty": "", "rank": 1, "source_page": 82, "source_book": "celestial_realms", "xp_cost": 0, "description": "When you make a check using your Void Ring, after rolling dice, you may receive a number of fatigue up to your school rank. If you do, you may **pull** or **push**: \n\nIf you **pull**, choose a number of dice with non-blank results equal to the fatigue you received, and alter each to a blank result.\n\nIf you **push**, choose a number of dice with blank results equal to the fatigue you received, and alter each to a non-blank result of your choice."}, {"name": "Wisdom of Countless Lifetimes", "type": "title_ability", "ring": "void", "skill": "", "difficulty": "", "rank": 1, "source_page": 0, "source_book": "", "xp_cost": 0, "description": "When making a skill check, you may spend 1 Void point to treat your skill rank as 1 higher, to a maximum of 6. If you fail the check, gain 1 Void point."}, {"name": "Fires of Purity", "type": "invocation", "ring": "fire", "skill": "theology", "difficulty": "2", "rank": 2, "source_page": 108, "source_book": "celestial_realms", "xp_cost": 3, "description": "Balm of Licking Flames (Alchemy), Cast in Emma-Ō’s Lantern (Fortunist), Coat of the Flame Djinn (Foreign)\n\n_Their eyes glowing, the shugenja finishes the gestures and chants and unleashes fire around them. These flames swirl from the shugenja’s hands and cling to their body, and withering heat blasts anyone else nearby._\n\n**Activation:** As a Support action, you may make a TN 2 Theology (fire) check targeting one character at range 0–3.\n\n**Effects:** If you succeed, you augment the target with sacred fire. A number of range bands around the target equal to your Fire Ring count as Dangerous terrain for any character other than the target (see Terrain, on page 267 of the core rulebook). This effect persists for one round, plus additional rounds equal to your bonus successes.\n\nNew Opportunities(fire)(op): If you succeed, the target also gains resistance equal to your Fire Ring against physical and supernatural fire.\n\n(fire)(op): While this effect persists, your target’s weapons count as having the Sacred item quality.\n\n(fire)(op)(op): This effect persists until the end of the scene instead."}, {"name": "Tea Ceremony", "type": "ritual", "ring": "void", "skill": "performance", "difficulty": "2", "rank": 2, "source_page": 213, "source_book": "core_rulebook", "xp_cost": 3, "description": "_When Lady Doji served tea for the very first Emperor, the tea ceremony was born. Ceremony styles vary among the clans, from the gilded tea rooms of the Phoenix to the imperfect tea bowls of the Dragon, the early morning gatherings of the Crane to the snow- and moon-viewing ceremonies of the Scorpion. However, at its core the tea ceremony is fundamentally an appreciation of tea and, if done well, a spiritual moment for its participants. The tea represents all five elements: the fire used to heat the water, the earth from which the tea is grown, and the air that carries the aroma of the tea. Finally, void holds all four elements together, and brings in the mysterious fifth element, the moment of harmony and tranquility as one sips the tea._\n\n**Activation:** Once per game session, as a downtime activity using a tea set, you may make a TN 2 Performance (void) check targeting yourself and a number of other characters up to your ranks in Culture, who are also participants. Up to one other participant may assist, providing the usual benefits (see Assistance on page 26).\n\n**Effects:** Each target removes 3 strife, plus additional strife equal to your bonus successes.\n\nNew Opportunities(op): Reduce the TN of each target’s next check by 1.\n\n(op)+: Each target removes 1 fatigue, plus 1 fatigue per (op)(op) spent this way.\n\n(op)(op): If you succeed, each target gains 1 Void point."}, {"name": "The Lotus Blooms", "type": "inversion", "ring": "void", "skill": "theology", "difficulty": "3", "rank": 2, "source_page": 117, "source_book": "celestial_realms", "xp_cost": 6, "description": "_In the Void exist all possibilities, which become realities through choices—of humans, of animals, and even of celestial beings. Normally, the countless possibilities are invisible, and hints of them can only be glimpsed in moments of true clarity. However, a Void wielder can enlighten a character regarding the possible consequences of their future actions. This insight can be valuable, but as a thousand phantom worlds unfold before them, only a character with great clarity of purpose can possibly maintain their path._\n\n**Activation:** As a Scheme and Support action, you may make a TN 3 Theology (void) check targeting one character at range 0–1.\n\n**Effects:** If you succeed, you augment and curse your target. When your target makes a check, instead of keeping a number of dice up to the ring they used, they keep a number of dice up to their Void Ring (and must keep as many dice as possible within this limit). Your target does not receive strife for kept (st) results, but for each kept (st) result, your target receives 1 fatigue. If they become Incapacitated this way, your target also gains the Exhausted condition. This effect persists until the end of your target’s next turn.\n\nMagnitude**Magnitude 1–2:** This effect persists for a number of additional rounds equal to the magnitude.\n\n**Magnitude 3+:** This effect persists until the end of the scene."}, {"name": "All Arts Are One", "type": "shuji", "ring": "void", "skill": "martial,games,performance", "difficulty": "4", "rank": 3, "source_page": 222, "source_book": "core_rulebook", "xp_cost": 3, "description": "_Just as the four elements are bound together by Void, certain underlying principles, including aesthetics, logic, and discipline, unite all forms of art. By meditating on these similarities, a courtier is able to more easily grasp the fundamentals of any subject._\n\n**Activation:** As a Support action, you may make a TN 4 Martial skill (void), Games (void), or Performance (void) check to rapidly absorb information on a new activity covered by that skill.\n\n**Effects:** If you succeed, you immediately intuit how to wield a new weapon, play a new game, use a new instrument, or perform a new song, dance, or other task. You do not apply any TN increase that might be associated with dealing with something new to you.\n\nNew Opportunities(void)(op): Choose a ring. Reduce the TN of your next check using that ring for the chosen skill by 1. This effect persists until the end of your next turn (or until the end of the scene during a narrative scene)."}], "advancements": [], "titles": [{"name": "Awakened Soul", "description": "Most Rokugani believe in reincarnation, the passage of the soul into a new form after the death of the body. Shinseism in particular emphasizes the importance of reincarnation and the role it plays within the cosmology, but even among those who favor other religious traditions, few argue that existence ends at death. While the specifics of how and why reincarnation occurs vary by doctrine, most religious accounts agree that memory is erased upon death, in the afterlife, or during the process of the return to life.\n\nYet some things can persist even across lifetimes. Some people are capable of connecting with the lives of past people, entities, and existences as an extension of their own being - beings that by all account seem to be their past lives. The Togashi Tattooed Order is one organization dedicated to those who again and again reincarnate and seek a particular destiny, but other spiritualists claim to have memories of their past lives as well, and the phenomenon can occur within individuals unrelated to any religious group.\n\nMemories of one's past lives generally begin murky, but may become clearer in physical proximity to individuals, artifacts, or places important to those beings. These visions and senses can be terrifying and disorienting at first, but when they occur, it is often of vital importance to both past and present self. Indeed, some work cannot be completed in a single lifetime.\n\n**Assigned By:** The GM. Even more than usual, this title is only available if it is narratively appropriate to the campaign.\n\n**Status Award:** +0\n\n**Title Ability:** Wisdom of Countless Lifetimes\n\nCurriculumSocial Skills\n\nSkill Group\n\nScholar Skills\n\nSkill Group\n\nCulture\n\nSkill\n\nMeditation\n\nSkill\n\nSurvival\n\nSkill\n\nTheology\n\nSkill\n\n(kiho) Eternal Mind’s Gate (prereq)\n\nTechnique\n\n(ritual) Trance of Lives Past (prereq)\n\nTechnique"}]}];
+
+const RING_ORDER = ['earth','water','fire','air','void'];
+const RING_KANJI = {earth:'土', water:'水', fire:'火', air:'風', void:'空'};
+const RING_NAME  = {earth:'Earth', water:'Water', fire:'Fire', air:'Air', void:'Void'};
+
+const SKILL_CATS = [
+  {key:'artisan',  label:'Artisan', skills:['aesthetics','composition','design','smithing']},
+  {key:'martial',  label:'Martial', skills:['fitness','meditation','tactics','melee','ranged','unarmed']},
+  {key:'scholar',  label:'Scholar', skills:['culture','government','medicine','sentiment','theology']},
+  {key:'social',   label:'Social',  skills:['command','courtesy','games','performance']},
+  {key:'trade',    label:'Trade',   skills:['commerce','labor','seafaring','skulduggery','survival']}
+];
+const SKILL_NAME_MAP = {
+  melee: 'Martial Arts [Melee]',
+  ranged: 'Martial Arts [Ranged]',
+  unarmed: 'Martial Arts [Unarmed]'
+};
+
+const TECH_TYPE_LABELS = {
+  school_ability:'School Ability', mastery_ability:'Mastery Ability', title_ability:'Title Ability',
+  kata:'Kata', shuji:'Shūji', ritual:'Ritual', kiho:'Kihō', invocation:'Invocation',
+  mantra:'Mantra', ninjutsu:'Ninjutsu', inversion:'Inversion', maho:'Mahō'
+};
+const TECH_TYPE_ORDER = ['school_ability','mastery_ability','title_ability','kata','shuji','ritual','kiho','invocation','mantra','ninjutsu','inversion','maho'];
+
+const BOOK_NAMES = {
+  core_rulebook:'Core', path_of_waves:'Path of Waves', court_of_stones:'Court of Stones',
+  fields_of_victory:'Fields of Victory', writ_of_the_wild:'Writ of the Wild',
+  shadowlands:'Shadowlands', celestial_realms:'Celestial Realms', emerald_empire:'Emerald Empire',
+  children_of_the_five_winds: 'Children of the Five Winds',
+  gates_of_chaos: 'Gates of Chaos', roar_of_the_seas: 'Roar of the Seas',
+  across_the_burning_sands: 'Across the Burning Sands',
+  martial_arts_path: 'Path of the Martial Arts'
+};
+
+const ICON_LABELS = {
+  op:'Opportunity', su:'Success', ex:'Explosive Success', st:'Strife',
+  skill:'Skill Die', ring:'Ring Die',
+  earth:'Earth', water:'Water', fire:'Fire', air:'Air', void:'Void',
+  kiho:'Kihō', maho:'Mahō', ninjutsu:'Ninjutsu', ritual:'Ritual',
+  shuji:'Shūji', invocation:'Invocation', kata:'Kata',
+  prereq:'Prerequisite', inversion:'Inversion', mantra:'Mantra'
+};
+
+function iconSvg(tok, extraClass) {
+  const label = ICON_LABELS[tok] || tok;
+  const cls = 'icon icon-' + tok + (extraClass ? ' ' + extraClass : '');
+  return `<svg class="${cls}" role="img" aria-label="${label}"><title>${label}</title><use href="#icon-${tok}"/></svg>`;
+}
+
+const TOKEN_RE = /\((op|su|ex|st|ring|skill|earth|water|fire|air|void|kiho|maho|ninjutsu|ritual|shuji|invocation|kata|prereq|inversion|mantra)\)/g;
+function replaceTokens(s) {
+  if (!s) return '';
+  return s.replace(TOKEN_RE, (_, tok) => iconSvg(tok));
+}
+
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function mdInline(s) {
+  s = escapeHtml(s);
+  s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  s = s.replace(/_([^_\n]+)_/g, '<em>$1</em>');
+  return s;
+}
+
+function renderRulesText(text) {
+  if (!text) return '';
+  const paragraphs = text.split('\n\n').map(p => p.trim()).filter(Boolean);
+  let html = '';
+  let inList = false;
+  for (let p of paragraphs) {
+    const lines = p.split('\n');
+    const allBullets = lines.every(l => l.trim().startsWith('- ') || l.trim().startsWith('-'));
+    if (allBullets && lines.length >= 1) {
+      if (!inList) { html += '<ul class="rules-list">'; inList = true; }
+      for (let line of lines) {
+        line = line.trim();
+        if (line.startsWith('- ')) line = line.slice(2);
+        else if (line.startsWith('-')) line = line.slice(1).trim();
+        html += '<li>' + replaceTokens(mdInline(line)) + '</li>';
+      }
+    } else if (p.startsWith('## ')) {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += '<h5 class="rules-h">' + replaceTokens(mdInline(p.slice(3).trim())) + '</h5>';
+    } else {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += '<p>' + replaceTokens(mdInline(p)) + '</p>';
+    }
+  }
+  if (inList) html += '</ul>';
+  return html;
+}
+
+function srcRef(book, page) {
+  if (!book && !page) return '';
+  const b = BOOK_NAMES[book] || book || '';
+  if (b && page) return `${b} · p.${page}`;
+  if (b) return b;
+  if (page) return `p.${page}`;
+  return '';
+}
+
+function renderRings(snap) {
+  let html = '<div class="rings-grid">';
+  for (const r of RING_ORDER) {
+    const v = snap.rings[r];
+    const label = ICON_LABELS[r];
+    html += `<div class="ring-cell ring-${r}">
+      <svg class="ring-glyph" role="img" aria-label="${label}"><title>${label}</title><use href="#icon-${r}"/></svg>
+      <div class="ring-kanji">${RING_KANJI[r]}</div>
+      <div class="ring-name">${RING_NAME[r]}</div>
+      <div class="ring-value">${v}</div>
+    </div>`;
+  }
+  html += '</div>';
+  html += `<div class="stats-strip">
+    <div class="stat-plate"><div class="sp-label">Endurance</div><div class="sp-value">${snap.derived.endurance}</div></div>
+    <div class="stat-plate"><div class="sp-label">Composure</div><div class="sp-value">${snap.derived.composure}</div></div>
+    <div class="stat-plate"><div class="sp-label">Focus</div><div class="sp-value">${snap.derived.focus}</div></div>
+    <div class="stat-plate"><div class="sp-label">Vigilance</div><div class="sp-value">${snap.derived.vigilance}</div></div>
+    <div class="stat-plate"><div class="sp-label">Void Max</div><div class="sp-value">${snap.derived.void_max}</div></div>
+  </div>
+  <div class="stat-strip-note">Fatigue cap ${snap.derived.fatigue_max} · Strife cap ${snap.derived.strife_max}</div>`;
+  return html;
+}
+
+function renderSocial(snap) {
+  return `
+    <div class="soc-plate">
+      <div class="soc-label">Honor · 名誉</div>
+      <div class="soc-value-wrap"><span class="soc-value">${snap.social.honor}</span></div>
+    </div>
+    <div class="soc-plate">
+      <div class="soc-label">Glory · 栄光</div>
+      <div class="soc-value-wrap"><span class="soc-value">${snap.social.glory}</span></div>
+    </div>
+    <div class="soc-plate">
+      <div class="soc-label">Status · 身分</div>
+      <div class="soc-value-wrap"><span class="soc-value">${snap.social.status}</span></div>
+    </div>`;
+}
+
+function prettyName(skill) {
+  if (SKILL_NAME_MAP[skill]) return SKILL_NAME_MAP[skill];
+  return skill.charAt(0).toUpperCase() + skill.slice(1);
+}
+
+function renderSkills(snap) {
+  let html = '';
+  for (const cat of SKILL_CATS) {
+    const skills = snap.skills[cat.key] || {};
+    html += `<div class="skill-cat"><div class="skill-cat-name">${cat.label}</div>`;
+    for (const sk of cat.skills) {
+      const rank = skills[sk] || 0;
+      const cls = rank === 0 ? 'skill-row zero' : 'skill-row';
+      let pips = '<span class="skill-pips">';
+      for (let i=0; i<5; i++) {
+        pips += `<span class="pip${i < rank ? ' full' : ''}"></span>`;
+      }
+      pips += '</span>';
+      html += `<div class="${cls}"><span class="skill-name">${prettyName(sk)}</span>${pips}</div>`;
+    }
+    html += '</div>';
+  }
+  return html;
+}
+
+function renderTechGroup(key, list) {
+  const TYPES_WITH_ICONS = new Set(['kata','shuji','ritual','kiho','invocation','mantra','ninjutsu','inversion','maho','prereq']);
+  const icon = TYPES_WITH_ICONS.has(key) ? iconSvg(key, 'tech-type-icon') : '';
+  let html = `<div class="tech-group"><div class="tech-group-h">${icon}${TECH_TYPE_LABELS[key]}</div>`;
+  // sort by rank then name
+  list.sort((a,b) => (a.rank||0) - (b.rank||0) || a.name.localeCompare(b.name));
+  for (const t of list) {
+    const ring = t.ring || 'void';
+    let metaParts = [];
+    metaParts.push(`<span class="meta-ring">${iconSvg(ring)}${RING_NAME[ring]}</span>`);
+    if (t.skill) metaParts.push(`<span>${prettyName(t.skill)}</span>`);
+    if (t.difficulty) metaParts.push(`<span class="meta-tn">TN ${t.difficulty}</span>`);
+    if (t.rank) metaParts.push(`<span>Rank ${t.rank}</span>`);
+    const src = srcRef(t.source_book, t.source_page);
+    if (src) metaParts.push(`<span class="meta-src">${src}</span>`);
+    html += `<article class="tech-card tech-ring-${ring}">
+      <header class="tech-head">
+        <span class="tech-name">${escapeHtml(t.name)}</span>
+        <span class="tech-meta">${metaParts.join('')}</span>
+      </header>
+      <div class="rules-text">${renderRulesText(t.description)}</div>
+    </article>`;
+  }
+  html += '</div>';
+  return html;
+}
+
+function renderTechniques(snap, snapIdx) {
+  const grouped = {};
+  for (const t of snap.techniques) {
+    const key = t.type || 'kata';
+    if (!grouped[key]) grouped[key] = [];
+    grouped[key].push(t);
+  }
+
+  // School + Mastery abilities get wrapped in the school-colored full-viewport band.
+  // Mahō techniques get pulled out into their own charcoal full-viewport band — a
+  // visual signal that this is forbidden, transgressive content categorically
+  // different from a normal school discipline.
+  // (Title abilities stay on cream paper outside any band.)
+  const SCHOOL_BAND_KEYS = ['school_ability', 'mastery_ability'];
+  const MAHO_BAND_KEYS = ['maho'];
+  const REGULAR_KEYS = TECH_TYPE_ORDER.filter(k =>
+      !SCHOOL_BAND_KEYS.includes(k) && !MAHO_BAND_KEYS.includes(k));
+
+  let html = '';
+
+  // School + Mastery — colored band
+  const hasSchoolOrMastery = SCHOOL_BAND_KEYS.some(k => (grouped[k] && grouped[k].length > 0));
+  if (hasSchoolOrMastery) {
+    let inner = '';
+    for (const key of SCHOOL_BAND_KEYS) {
+      const list = grouped[key];
+      if (!list || list.length === 0) continue;
+      inner += renderTechGroup(key, list);
+    }
+    html += `<div class="tech-school-section">
+      <div class="tech-school-inner">
+        ${inner}
+      </div>
+    </div>`;
+  }
+
+  // Render regular technique groups (title, kata, shuji, etc).
+  for (const key of REGULAR_KEYS) {
+    const list = grouped[key];
+    if (!list || list.length === 0) continue;
+    html += renderTechGroup(key, list);
+  }
+
+  // Mahō — charcoal band, rendered after all other techniques.
+  const hasMaho = MAHO_BAND_KEYS.some(k => (grouped[k] && grouped[k].length > 0));
+  if (hasMaho) {
+    let inner = '';
+    for (const key of MAHO_BAND_KEYS) {
+      const list = grouped[key];
+      if (!list || list.length === 0) continue;
+      inner += renderTechGroup(key, list);
+    }
+    html += `<div class="tech-maho-section">
+      <div class="tech-maho-inner">
+        ${inner}
+      </div>
+    </div>`;
+  }
+
+  return html;
+}
+
+function renderAdvancement(snap) {
+  let html = '';
+  if (snap.advancements.length === 0) {
+    html += `<ul><li class="no-adv">No XP advancements purchased at this tier. Starting build only.</li></ul>`;
+  } else {
+    html += '<ul>';
+    for (const a of snap.advancements) {
+      html += `<li>${escapeHtml(a)}</li>`;
+    }
+    html += '</ul>';
+  }
+  // Active title
+  if (snap.titles.length > 0) {
+    for (const t of snap.titles) {
+      html += `<div class="title-block">
+        <div class="title-name"><span class="title-kanji">称号</span>${escapeHtml(t.name)}</div>
+        <div class="rules-text title-desc">${renderRulesText(t.description)}</div>
+      </div>`;
+    }
+  }
+  return html;
+}
+
+
+// ====================  EXTRACTED  ====================
+// Pass 2 data: school curriculum, title curricula, per-snapshot advancement
+// logs. Injected by patch_pass2.py from <char>_extracted.json.
+const EXTRACTED = {
+  "school_curriculum": {
+    "1": [
+      {
+        "kind": "skill_group",
+        "name": "Scholar Skills"
+      },
+      {
+        "kind": "skill",
+        "name": "Fitness"
+      },
+      {
+        "kind": "skill",
+        "name": "Meditation"
+      },
+      {
+        "kind": "skill",
+        "name": "Skulduggery"
+      },
+      {
+        "kind": "technique_group",
+        "name": "Rank 1 Air Invocations"
+      },
+      {
+        "kind": "technique",
+        "name": "Rank 1 Inversions",
+        "tech_type": "inversion"
+      },
+      {
+        "kind": "technique",
+        "name": "Tea Ceremony",
+        "tech_type": "ritual"
+      }
+    ],
+    "2": [
+      {
+        "kind": "skill_group",
+        "name": "Martial Skills"
+      },
+      {
+        "kind": "skill",
+        "name": "Command"
+      },
+      {
+        "kind": "skill",
+        "name": "Composition"
+      },
+      {
+        "kind": "skill",
+        "name": "Theology"
+      },
+      {
+        "kind": "technique_group",
+        "name": "Rank 1-2 Fire Invocations"
+      },
+      {
+        "kind": "technique",
+        "name": "Rank 1-2 Inversions",
+        "tech_type": "inversion"
+      },
+      {
+        "kind": "technique",
+        "name": "All Arts Are One",
+        "tech_type": "shuji"
+      }
+    ],
+    "3": [
+      {
+        "kind": "skill_group",
+        "name": "Social Skills"
+      },
+      {
+        "kind": "skill",
+        "name": "Government"
+      },
+      {
+        "kind": "skill",
+        "name": "Meditation"
+      },
+      {
+        "kind": "skill",
+        "name": "Theology"
+      },
+      {
+        "kind": "technique_group",
+        "name": "Rank 1-3 Water Invocations"
+      },
+      {
+        "kind": "technique",
+        "name": "Rank 1-3 Inversions",
+        "tech_type": "inversion"
+      },
+      {
+        "kind": "technique",
+        "name": "A Samurai's Fate",
+        "tech_type": "shuji"
+      }
+    ],
+    "4": [
+      {
+        "kind": "skill_group",
+        "name": "Trade Skills"
+      },
+      {
+        "kind": "skill",
+        "name": "Courtesy"
+      },
+      {
+        "kind": "skill",
+        "name": "Meditation"
+      },
+      {
+        "kind": "skill",
+        "name": "Theology"
+      },
+      {
+        "kind": "technique_group",
+        "name": "Rank 1-4 Earth Invocations"
+      },
+      {
+        "kind": "technique",
+        "name": "Rank 1-4 Inversions",
+        "tech_type": "inversion"
+      },
+      {
+        "kind": "technique",
+        "name": "The Immovable Hand of Peace",
+        "tech_type": "shuji"
+      }
+    ],
+    "5": [
+      {
+        "kind": "skill_group",
+        "name": "Scholar Skills"
+      },
+      {
+        "kind": "skill",
+        "name": "Fitness"
+      },
+      {
+        "kind": "skill",
+        "name": "Meditation"
+      },
+      {
+        "kind": "skill",
+        "name": "Survival"
+      },
+      {
+        "kind": "technique_group",
+        "name": "Rank 1-5 Invocations"
+      },
+      {
+        "kind": "technique_group",
+        "name": "Rank 1-5 Inversions"
+      },
+      {
+        "kind": "technique",
+        "name": "Rouse the Soul",
+        "tech_type": "shuji"
+      }
+    ],
+    "6": [
+      {
+        "kind": "note",
+        "name": "Essence of Emptiness (Mastery Ability): Once per scene, after a character rolls dice, you may receive 3 fatigue to alter any number of their rolled dice to blank results."
+      }
+    ]
+  },
+  "title_curricula": {
+    "Awakened Soul": [
+      {
+        "kind": "skill_group",
+        "name": "Social Skills"
+      },
+      {
+        "kind": "skill_group",
+        "name": "Scholar Skills"
+      },
+      {
+        "kind": "skill",
+        "name": "Culture"
+      },
+      {
+        "kind": "skill",
+        "name": "Meditation"
+      },
+      {
+        "kind": "skill",
+        "name": "Survival"
+      },
+      {
+        "kind": "skill",
+        "name": "Theology"
+      },
+      {
+        "kind": "technique",
+        "name": "(kiho) Eternal Mind’s Gate (prereq)"
+      },
+      {
+        "kind": "technique",
+        "name": "(ritual) Trance of Lives Past (prereq)"
+      }
+    ]
+  },
+  "advancement_logs": [
+    {
+      "hidden": false,
+      "slots": {
+        "Title: Awakened Soul": {
+          "kind": "title_slot",
+          "rank": null,
+          "total_xp_used": 44,
+          "total_xp_cost": 44,
+          "delta_xp_used": 44,
+          "delta_xp_in_curriculum": 44,
+          "items": [
+            {
+              "name": "Eternal Mind’s Gate",
+              "xp_used": 3,
+              "in_curriculum": true,
+              "source": "technique",
+              "kind": "technique",
+              "tech_type": "kiho"
+            },
+            {
+              "name": "Trance of Lives Past",
+              "xp_used": 3,
+              "in_curriculum": true,
+              "source": "technique",
+              "kind": "technique",
+              "tech_type": "ritual"
+            },
+            {
+              "name": "Meditation +1 (2 -> 3)",
+              "xp_used": 6,
+              "in_curriculum": true,
+              "source": "advancement",
+              "kind": "skill",
+              "target": "meditation"
+            },
+            {
+              "name": "Theology +1 (2 -> 3)",
+              "xp_used": 6,
+              "in_curriculum": true,
+              "source": "advancement",
+              "kind": "skill",
+              "target": "theology"
+            },
+            {
+              "name": "Sentiment +1 (1 -> 2)",
+              "xp_used": 4,
+              "in_curriculum": true,
+              "source": "advancement",
+              "kind": "skill",
+              "target": "sentiment"
+            },
+            {
+              "name": "Meditation +1 (3 -> 4)",
+              "xp_used": 8,
+              "in_curriculum": true,
+              "source": "advancement",
+              "kind": "skill",
+              "target": "meditation"
+            },
+            {
+              "name": "Meditation +1 (4 -> 5)",
+              "xp_used": 10,
+              "in_curriculum": true,
+              "source": "advancement",
+              "kind": "skill",
+              "target": "meditation"
+            },
+            {
+              "name": "Command +1 (0 -> 1)",
+              "xp_used": 2,
+              "in_curriculum": true,
+              "source": "advancement",
+              "kind": "skill",
+              "target": "command"
+            },
+            {
+              "name": "Courtesy +1 (0 -> 1)",
+              "xp_used": 2,
+              "in_curriculum": true,
+              "source": "advancement",
+              "kind": "skill",
+              "target": "courtesy"
+            }
+          ]
+        }
+      },
+      "source": "foundry"
+    },
+    {
+      "hidden": false,
+      "slots": {
+        "School Rank 1": {
+          "kind": "school_slot",
+          "rank": 1,
+          "total_xp_used": null,
+          "total_xp_cost": null,
+          "delta_xp_used": 30,
+          "delta_xp_in_curriculum": 21,
+          "items": [
+            {
+              "name": "Air +1 (1 -> 2)",
+              "xp_used": 6,
+              "in_curriculum": false,
+              "source": "advancement",
+              "kind": "ring",
+              "target": "air"
+            },
+            {
+              "name": "Void +1 (3 -> 4)",
+              "xp_used": 12,
+              "in_curriculum": false,
+              "source": "advancement",
+              "kind": "ring",
+              "target": "void"
+            },
+            {
+              "name": "One Within the Void",
+              "xp_used": 6,
+              "in_curriculum": true,
+              "source": "technique",
+              "kind": "technique",
+              "tech_type": "inversion"
+            },
+            {
+              "name": "Nature’s Touch",
+              "xp_used": 3,
+              "in_curriculum": true,
+              "source": "technique",
+              "kind": "technique",
+              "tech_type": "invocation"
+            },
+            {
+              "name": "Tea Ceremony",
+              "xp_used": 3,
+              "in_curriculum": true,
+              "source": "technique",
+              "kind": "technique",
+              "tech_type": "ritual"
+            }
+          ]
+        }
+      },
+      "source": "foundry"
+    },
+    {
+      "hidden": false,
+      "slots": {
+        "School Rank 2": {
+          "kind": "school_slot",
+          "rank": 2,
+          "total_xp_used": null,
+          "total_xp_cost": null,
+          "delta_xp_used": 24,
+          "delta_xp_in_curriculum": 24,
+          "items": [
+            {
+              "name": "Command +1 (1 -> 2)",
+              "xp_used": 4,
+              "in_curriculum": true,
+              "source": "advancement",
+              "kind": "skill",
+              "target": "command"
+            },
+            {
+              "name": "Composition +1 (0 -> 1)",
+              "xp_used": 2,
+              "in_curriculum": true,
+              "source": "advancement",
+              "kind": "skill",
+              "target": "composition"
+            },
+            {
+              "name": "Command +1 (2 -> 3)",
+              "xp_used": 6,
+              "in_curriculum": true,
+              "source": "advancement",
+              "kind": "skill",
+              "target": "command"
+            },
+            {
+              "name": "All Arts Are One",
+              "xp_used": 3,
+              "in_curriculum": true,
+              "source": "technique",
+              "kind": "technique",
+              "tech_type": "shuji"
+            },
+            {
+              "name": "Fires of Purity",
+              "xp_used": 3,
+              "in_curriculum": true,
+              "source": "technique",
+              "kind": "technique",
+              "tech_type": "invocation"
+            },
+            {
+              "name": "The Lotus Blooms",
+              "xp_used": 6,
+              "in_curriculum": true,
+              "source": "technique",
+              "kind": "technique",
+              "tech_type": "inversion"
+            }
+          ]
+        }
+      },
+      "source": "foundry"
+    }
+  ],
+  "school_name": "Ishiken Initiate School",
+  "stats": {
+    "n_snapshots": 3,
+    "n_foundry": 3,
+    "missing_foundry_for_xp": []
+  }
+};
+
+// Pretty-format L5R skill key → display name. Handles the martial-arts
+// composite skills (e.g. "ranged" → "Martial Arts [Ranged]").
+function prettySkill(key) {
+  if (!key) return '';
+  const lower = key.toLowerCase();
+  if (lower === 'melee' || lower === 'ranged' || lower === 'unarmed') {
+    return 'Martial Arts [' + lower.charAt(0).toUpperCase() + lower.slice(1) + ']';
+  }
+  return key.charAt(0).toUpperCase() + key.slice(1);
+}
+
+const TECH_TYPE_ICONS = new Set(['kata','shuji','ritual','kiho','invocation','mantra','ninjutsu','inversion','maho']);
+
+function changelogItemIcon(it) {
+  // Pick an inline icon for the changelog-item leading column based on kind.
+  if (it.kind === 'skill')     return iconSvg('skill', 'cl-itemicon');
+  if (it.kind === 'ring')      return iconSvg(it.target || 'void', 'cl-itemicon');
+  if (it.kind === 'technique') {
+    if (TECH_TYPE_ICONS.has(it.tech_type)) return iconSvg(it.tech_type, 'cl-itemicon');
+    return '';
+  }
+  if (it.kind === 'bond')      return '';
+  return '';
+}
+
+function renderChangelog(snapIdx) {
+  const log = (EXTRACTED.advancement_logs || [])[snapIdx];
+  if (!log || log.hidden) {
+    return { html: '', hidden: true };
+  }
+  const slotKeys = Object.keys(log.slots);
+  if (slotKeys.length === 0) {
+    return { html: '', hidden: true };
+  }
+
+  let html = '';
+  html += '<div class="cl-header">';
+  html += '<span class="cl-kanji">進歩</span>';
+  html += '<span>Advancement</span>';
+  html += '<span class="cl-en">Shinpo · since previous tier</span>';
+  html += '</div>';
+
+  // Sort slots: school ranks numerically, titles after, bonds last.
+  function slotOrder(k) {
+    if (k.startsWith('School Rank ')) return parseInt(k.slice(12), 10) || 99;
+    if (k.startsWith('Title: ')) return 200;
+    if (k.startsWith('Bond: ')) return 300;
+    return 400;
+  }
+  slotKeys.sort((a, b) => slotOrder(a) - slotOrder(b) || a.localeCompare(b));
+
+  for (const sk of slotKeys) {
+    const slot = log.slots[sk];
+    const items = slot.items || [];
+    if (items.length === 0 && slot.kind !== 'title_slot') continue;
+
+    html += '<div class="cl-slot">';
+    // Slot header
+    html += '<div class="cl-slot-head">';
+    html += '<span>' + escapeHtml(sk) + '</span>';
+    // Totals: show foundry's `total_xp_used` if present; otherwise sum delta.
+    if (slot.delta_xp_used != null && slot.delta_xp_used > 0) {
+      let totalsText = slot.delta_xp_used + ' XP';
+      if (slot.delta_xp_in_curriculum != null) {
+        totalsText = slot.delta_xp_in_curriculum + ' in-curriculum · ' + slot.delta_xp_used + ' total';
+      }
+      html += '<span class="cl-slot-totals">' + escapeHtml(totalsText) + '</span>';
+    } else if (slot.total_xp_used != null && slot.total_xp_cost != null) {
+      // Title slot showing its overall budget when newly purchased
+      html += '<span class="cl-slot-totals">Slot: ' + slot.total_xp_used + ' / ' + slot.total_xp_cost + ' XP</span>';
+    }
+    html += '</div>';
+
+    // Table of items
+    if (items.length > 0) {
+      html += '<table class="cl-table"><tbody>';
+      for (const it of items) {
+        const icon = changelogItemIcon(it);
+        const xp = (it.xp_used != null) ? (it.xp_used + ' XP') : '—';
+        const curr = it.in_curriculum === true ? '🎓' : (it.in_curriculum === false ? '' : '');
+        html += '<tr>';
+        html += '<td class="cl-name">' + icon + escapeHtml(it.name) + '</td>';
+        html += '<td class="cl-curr" title="' + (it.in_curriculum ? 'In curriculum' : 'Out of curriculum') + '">' + curr + '</td>';
+        html += '<td class="cl-xp">' + escapeHtml(xp) + '</td>';
+        html += '</tr>';
+      }
+      html += '</tbody></table>';
+    }
+    html += '</div>';
+  }
+
+  // If we computed via diff (no Foundry JSON for this snap pair), note that
+  // XP costs aren't authoritative.
+  if (log.source === 'diff') {
+    html += '<div class="cl-note">Rank deltas only — Foundry export not available for this tier.</div>';
+  } else if (log.source === 'foundry_gap') {
+    html += '<div class="cl-note">Spans multiple tiers — the intermediate snapshot lacks a Foundry export, so items added across that gap are grouped here.</div>';
+  }
+
+  return { html: html, hidden: false };
+}
+
+// ===== Curriculum tabs + table =====
+
+// Format a curriculum entry as a pill (skill / skill-group / technique-group / technique).
+function curriculumEntryHtml(entry) {
+  // Notes (e.g. mastery-ability rules text in rank 6) render as a block of italic prose,
+  // not a compact pill.
+  if (entry.kind === 'note') {
+    return '<div class="curr-note-text">' + replaceTokens(escapeHtml(entry.name)) + '</div>';
+  }
+  // Mastery-ability reference (Rank 6 in many schools) — render as a distinct
+  // gold pill with a leading label.
+  if (entry.kind === 'mastery_ability_ref') {
+    return '<span class="curr-entry kind-mastery"><span class="curr-mastery-label">Mastery Ability</span>'
+         + escapeHtml(entry.name) + '</span>';
+  }
+  const cls = 'curr-entry kind-' + (entry.kind || 'other');
+  let inner = '';
+  // Technique entries can have a tech_type → prefix with that icon.
+  if (entry.kind === 'technique' && entry.tech_type && TECH_TYPE_ICONS.has(entry.tech_type)) {
+    inner += iconSvg(entry.tech_type, 'curr-tech-icon');
+  }
+  // The entry name may itself contain inline tokens like "(ritual) Rank 1-3 Rituals (prereq)"
+  // — pass through replaceTokens to render them as inline icons.
+  inner += replaceTokens(escapeHtml(entry.name));
+  return '<span class="' + cls + '">' + inner + '</span>';
+}
+
+function renderSchoolCurriculumTable(currentRank) {
+  const cur = EXTRACTED.school_curriculum || {};
+  const ranks = Object.keys(cur).map(Number).sort((a, b) => a - b);
+  if (ranks.length === 0) {
+    return '<div class="curr-missing">Curriculum reference for this school is not loaded.</div>';
+  }
+  let html = '<div class="curr-table-wrap"><table class="curr-table">';
+  html += '<thead><tr><th>Rank</th><th>Requirements</th></tr></thead><tbody>';
+  for (const r of ranks) {
+    const isCurr = (r === currentRank);
+    html += '<tr' + (isCurr ? ' class="curr-current"' : '') + '>';
+    html += '<td class="curr-rank">' + r + '</td>';
+    html += '<td class="curr-entries">';
+    for (const e of cur[r]) html += curriculumEntryHtml(e);
+    html += '</td></tr>';
+  }
+  html += '</tbody></table></div>';
+  return html;
+}
+
+function renderTitleCurriculumTable(titleName) {
+  const allCurs = EXTRACTED.title_curricula || {};
+  const entries = allCurs[titleName];
+  if (!entries) {
+    return '<div class="curr-missing">Curriculum reference for ' + escapeHtml(titleName) + ' is not loaded.</div>';
+  }
+  // Titles in L5R are usually a single-tier curriculum; rendered as one row.
+  let html = '<div class="curr-table-wrap"><table class="curr-table">';
+  html += '<thead><tr><th>Tier</th><th>Requirements</th></tr></thead><tbody>';
+  html += '<tr class="curr-current"><td class="curr-rank">Title</td><td class="curr-entries">';
+  for (const e of entries) html += curriculumEntryHtml(e);
+  html += '</td></tr></tbody></table></div>';
+  return html;
+}
+
+// Tabs state. Per dossier, a single mutable "active tab" string:
+//   '__school__'  or  'Title: <name>'
+let CURR_ACTIVE_TAB = '__school__';
+
+function renderCurriculum(snap) {
+  const held = snap.titles || [];
+  const tabs = [{ key: '__school__', label: 'School' }];
+  for (const t of held) {
+    tabs.push({ key: 'Title: ' + t.name, label: t.name });
+  }
+  // Validate active tab — if the currently-active tab is no longer present
+  // (timeline moved to a snapshot where that title isn't held), fall back to School.
+  if (!tabs.some(t => t.key === CURR_ACTIVE_TAB)) {
+    CURR_ACTIVE_TAB = '__school__';
+  }
+
+  let html = '';
+  // Tab strip
+  html += '<div class="curr-tabs">';
+  for (const t of tabs) {
+    const cls = 'curr-tab' + (t.key === CURR_ACTIVE_TAB ? ' active' : '');
+    html += '<button class="' + cls + '" type="button" data-tab="' + escapeHtml(t.key) + '">'
+         + escapeHtml(t.label) + '</button>';
+  }
+  html += '</div>';
+  // Body for active tab
+  if (CURR_ACTIVE_TAB === '__school__') {
+    html += renderSchoolCurriculumTable(snap.rank);
+  } else if (CURR_ACTIVE_TAB.startsWith('Title: ')) {
+    html += renderTitleCurriculumTable(CURR_ACTIVE_TAB.slice('Title: '.length));
+  }
+  return html;
+}
+
+// Wire up tab clicks (event delegation: re-bind after each render)
+function bindCurriculumTabClicks(snapIdx) {
+  document.querySelectorAll('#curriculum-target .curr-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      CURR_ACTIVE_TAB = btn.getAttribute('data-tab');
+      const snap = SNAPSHOTS[snapIdx];
+      document.getElementById('curriculum-target').innerHTML = renderCurriculum(snap);
+      bindCurriculumTabClicks(snapIdx);
+    });
+  });
+}
+
+function activateSnapshot(idx) {
+  const snap = SNAPSHOTS[idx];
+  document.getElementById('rings-target').innerHTML = renderRings(snap);
+  document.getElementById('social-target').innerHTML = renderSocial(snap);
+  document.getElementById('skills-target').innerHTML = renderSkills(snap);
+  document.getElementById('techniques-target').innerHTML = renderTechniques(snap, idx);
+
+  // Changelog section (between timeline and giri/ninjō)
+  const cl = renderChangelog(idx);
+  const clEl = document.getElementById('changelog-target');
+  clEl.innerHTML = cl.html;
+  clEl.classList.toggle('hidden', cl.hidden);
+
+  // Curriculum section (replaces the old bottom Advancement & Title block)
+  document.getElementById('curriculum-target').innerHTML = renderCurriculum(snap);
+  bindCurriculumTabClicks(idx);
+
+  document.querySelectorAll('#timeline .tl-node').forEach((n, i) => {
+    n.classList.toggle('active', i === idx);
+  });
+}
+
+document.querySelectorAll('#timeline .tl-node').forEach((n, i) => {
+  n.addEventListener('click', () => activateSnapshot(i));
+});
+
+// Initialize with the first snapshot
+activateSnapshot(0);
+</script>
+</body>
+</html>

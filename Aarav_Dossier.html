@@ -1,0 +1,3233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Aarav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:     #f0e8d4;
+    --paper-warm:#ebe2cb;
+    --paper-cool:#e6dcbf;
+    --paper-deep:#d8ccaa;
+    --ink:       #1a1612;
+    --ink-soft:  #443e35;
+    --ink-faint: #7a7060;
+    --rule:      #b4a684;
+    --rule-soft: #c8bb9a;
+    --accent:        #c4823a;
+    --accent-dark:   #9d682e;
+    --accent-sec:    #8b3a3a;
+    --school-accent:      #c4823a;
+    --school-accent-dark: #9d682e;
+    --school-accent-sec:  #8b3a3a;
+    --hanko:         #8a2828;
+    --hanko-dark:    #5a1818;
+    --crab:    #3a4a5a;
+    --crane:   #6b8caf;
+    --dragon:  #3d6a4a;
+    --lion:    #a88a4a;
+    --phoenix: #c45a2a;
+    --scorpion:#8b1a1a;
+    --unicorn: #5a3a6a;
+    --imperial:#7a5a8a;
+    --ring-earth: #7a5a3a;
+    --ring-water: #3d6a7a;
+    --ring-fire:  #a83a2a;
+    --ring-air:   #6a7a8a;
+    --ring-void:  #3a2a4a;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 15% 8%, rgba(58, 74, 90, 0.06) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 92%, rgba(122, 106, 74, 0.08) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 0%, rgba(122,106,74,0.04) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 0 5rem;   /* zero horizontal padding so bands reach viewport edge */
+  }
+  body::before {
+    /* paper-grain noise overlay */
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.05 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+    z-index: 0;
+  }
+  .scroll {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 12%, var(--paper) 88%, var(--paper-cool) 100%);
+    padding: 0;
+    box-shadow:
+      0 1px 2px rgba(26, 22, 18, 0.08),
+      0 8px 28px rgba(26, 22, 18, 0.14),
+      0 24px 60px rgba(26, 22, 18, 0.08);
+    position: relative;
+    border: 1px solid var(--rule);
+    z-index: 1;
+  }
+  /* Crab indigo accent bar at top */
+  .scroll::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg,
+      var(--accent-dark) 0%,
+      var(--accent) 18%,
+      var(--accent-sec) 50%,
+      var(--accent) 82%,
+      var(--accent-dark) 100%);
+    z-index: 2;
+  }
+  /* Side rule decoration */
+  .scroll::after {
+    content: "";
+    position: absolute;
+    top: 6px; bottom: 0;
+    left: 0; width: 3px;
+    background: linear-gradient(180deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-sec) 100%);
+    opacity: 0.4;
+  }
+
+  .doc {
+    padding: 3.5rem 4rem 4rem;
+  }
+
+  /* ======================== MASTHEAD ======================== */
+  /* Full-viewport-width band: breaks out of .scroll's centered column.
+     The technique: position relative + left/right 50% + negative margins of 50vw
+     pushes the box to span 100vw of the viewport. The inner content uses
+     padding to align back with the .scroll's column. */
+  .masthead-wrap {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--paper);
+    padding-top: 2.25rem;
+    padding-bottom: 2rem;
+    /* Inner content aligned to .scroll's column width */
+    --content-max-width: 1000px;
+    --content-side-padding: 4rem;
+  }
+  /* Inner positioning constraint so masthead content lines up with the rest of the document */
+  .masthead-inner {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 var(--content-side-padding);
+  }
+  .masthead {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 200px 1fr auto;
+    gap: 1.75rem;
+    align-items: center;
+  }
+  /* Subtle paper-grain noise overlay on the band so it doesn't read flat */
+  .masthead-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+    z-index: 0;
+  }
+  .masthead-inner > * {
+    position: relative;
+    z-index: 1;
+  }
+  /* Bottom thin accent line beneath the band, in the clan secondary color */
+  .masthead-wrap::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 0; height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--accent-sec) 20%,
+      var(--accent-sec) 80%,
+      transparent 100%);
+    z-index: 2;
+    opacity: 0.7;
+  }
+
+  .portrait-frame {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    background: var(--paper-deep);
+    padding: 6px;
+    border: 1px solid var(--ink-soft);
+    box-shadow:
+      inset 0 0 0 1px var(--rule-soft),
+      0 2px 6px rgba(26,22,18,0.18);
+    z-index: 2;
+  }
+  .portrait-frame::before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border: 1px solid var(--rule);
+    pointer-events: none;
+  }
+  .portrait-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.02) saturate(0.95);
+  }
+  .portrait-frame .brush-corner {
+    position: absolute;
+    width: 28px; height: 28px;
+    color: var(--accent-sec);
+    pointer-events: none;
+    opacity: 0.85;
+  }
+  .brush-corner.tl { top: -14px; left: -14px; }
+  .brush-corner.br { bottom: -14px; right: -14px; transform: rotate(180deg); }
+
+  .name-block {
+    flex: 1;
+    padding: 0.5rem 0;
+    color: var(--paper);
+    position: relative;
+    z-index: 2;
+  }
+  .name-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.42em;
+    color: rgba(255, 250, 235, 0.75);
+    text-transform: uppercase;
+    margin-bottom: 0.85rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.18);
+  }
+  h1.dossier-name {
+    font-family: "Shippori Mincho", "EB Garamond", serif;
+    font-weight: 600;
+    font-size: 3.1rem;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    color: var(--paper);
+    margin: 0 0 0.35rem;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+  }
+  .dossier-name .family {
+    color: var(--paper);
+    margin-right: 0.4rem;
+  }
+  .dossier-name .given {
+    font-weight: 400;
+    font-style: italic;
+    color: var(--accent-sec);
+  }
+  /* Mononym (e.g. "Aarav") — render as primary name in cream, not italic-secondary. */
+  .dossier-name .given.mononym {
+    font-weight: 700;
+    font-style: normal;
+    color: var(--paper);
+  }
+  .kanji-mark {
+    display: inline-block;
+    font-family: "Shippori Mincho", serif;
+    font-weight: 500;
+    font-size: 1.05rem;
+    color: var(--paper);
+    background: rgba(0, 0, 0, 0.32);
+    border: 1px solid rgba(255, 250, 235, 0.5);
+    padding: 0.1rem 0.45rem;
+    margin-left: 0.6rem;
+    transform: translateY(-0.4em);
+    letter-spacing: 0.1em;
+  }
+  .tagline {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.02rem;
+    line-height: 1.4;
+    color: rgba(255, 250, 235, 0.95);
+    margin: 0.7rem 0 1.1rem;
+    max-width: 38em;
+    border-left: 2px solid var(--accent-sec);
+    padding: 0.1rem 0 0.1rem 0.85rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.22);
+  }
+  .identity-rows {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.35rem 1rem;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.76rem;
+    letter-spacing: 0.18em;
+    color: rgba(255, 250, 235, 0.75);
+    text-transform: uppercase;
+    margin-top: 0.75rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid rgba(255, 250, 235, 0.25);
+  }
+  .identity-rows dt {
+    color: rgba(255, 250, 235, 0.62);
+  }
+  .identity-rows dd {
+    margin: 0;
+    color: rgba(255, 250, 235, 0.96);
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  }
+  /* School name — keeps a lighter readable color so out-of-clan schools pop a bit
+     against the clan-banner. In-clan schools will look softer/blended. */
+  .identity-rows dd.school-name-out-of-clan {
+    color: rgba(255, 250, 235, 1);
+    font-weight: 500;
+    font-style: italic;
+  }
+  .identity-rows dd.school-name-in-clan {
+    color: rgba(255, 250, 235, 0.96);
+  }
+
+  /* HANKO STAMP */
+  .hanko {
+    width: 92px; height: 92px;
+    position: relative;
+    flex-shrink: 0;
+    align-self: center;
+  }
+  .hanko svg {
+    width: 100%; height: 100%;
+    transform: rotate(-4deg);
+  }
+
+  /* ======================== TIMELINE ======================== */
+  .timeline-section {
+    background: rgba(58, 74, 90, 0.04);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 1.75rem 4rem;
+    margin: 0 -4rem;
+    position: relative;
+  }
+  .timeline-section::before,
+  .timeline-section::after {
+    content: "❖";
+    position: absolute;
+    color: var(--accent);
+    font-size: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .timeline-section::before { left: 1.5rem; }
+  .timeline-section::after  { right: 1.5rem; }
+
+  .tl-label {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.42em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin: 0 0 1.25rem;
+  }
+  .tl-track {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.4rem;
+    position: relative;
+    padding: 0 0.5rem;
+  }
+  .tl-track::before {
+    /* connecting line */
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 8%; right: 8%;
+    height: 1.5px;
+    background: linear-gradient(90deg, var(--accent-sec), var(--accent), var(--accent-sec));
+    z-index: 0;
+  }
+  .tl-node {
+    flex: 1 1 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: var(--ink-soft);
+    font-family: "EB Garamond", serif;
+    transition: color 0.2s ease;
+  }
+  .tl-dot {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--accent-sec);
+    margin-bottom: 0.5rem;
+    box-shadow: 0 0 0 3px var(--paper);
+    transition: all 0.2s ease;
+  }
+  .tl-node:hover .tl-dot {
+    border-color: var(--accent);
+    transform: scale(1.1);
+  }
+  .tl-node.active .tl-dot {
+    background: var(--hanko);
+    border-color: var(--hanko-dark);
+    box-shadow: 0 0 0 3px var(--paper), 0 0 0 5px rgba(138,40,40,0.2);
+  }
+  .tl-node.active {
+    color: var(--ink);
+  }
+  .tl-top {
+    font-family: "Cormorant SC", serif;
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    max-width: 100%;
+  }
+  .tl-node.active .tl-top {
+    color: var(--accent-dark);
+  }
+  .tl-bot {
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    margin-top: 0.15rem;
+    font-style: italic;
+  }
+
+  /* ======================== SECTIONS ======================== */
+  section.block {
+    margin: 3rem 0;
+    position: relative;
+  }
+  h2.section-h {
+    font-family: "Shippori Mincho", serif;
+    font-weight: 500;
+    font-size: 1.4rem;
+    color: var(--accent-dark);
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: baseline;
+    gap: 0.85rem;
+  }
+  h2.section-h .kanji {
+    color: var(--hanko);
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: 0.08em;
+  }
+  h2.section-h .en-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-left: auto;
+    font-weight: 400;
+  }
+  h3.sub-h {
+    font-family: "Shippori Mincho", serif;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--accent-dark);
+    margin: 1.5rem 0 0.6rem;
+  }
+  h4.subsub-h {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 1rem 0 0.5rem;
+    font-weight: 500;
+  }
+  p { margin: 0 0 1rem; }
+
+  /* ======================== GIRI / NINJŌ ======================== */
+  .duty-desire {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .gn-card {
+    border-left: 3px solid var(--accent);
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    background: rgba(58, 74, 90, 0.04);
+    padding-right: 1rem;
+    padding-top: 0.9rem;
+    padding-bottom: 0.9rem;
+  }
+  .gn-card.ninjo {
+    border-left-color: var(--hanko);
+    background: rgba(138, 40, 40, 0.05);
+  }
+  .gn-label {
+    font-family: "Shippori Mincho", serif;
+    font-size: 1.1rem;
+    color: var(--accent-dark);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.55rem;
+  }
+  .gn-card.ninjo .gn-label { color: var(--hanko-dark); }
+  .gn-label .gn-en {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  .gn-text {
+    font-style: italic;
+    color: var(--ink);
+    font-size: 1.02rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .bushido-line {
+    margin-top: 1.25rem;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    padding-top: 0.75rem;
+    border-top: 1px dotted var(--rule);
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+  }
+  .bushido-line strong {
+    color: var(--accent-dark);
+    font-weight: 600;
+    margin-left: 0.4em;
+    letter-spacing: 0.1em;
+    font-family: "EB Garamond", serif;
+    text-transform: none;
+    font-size: 0.95rem;
+    font-style: italic;
+  }
+  .bushido-stance-note {
+    margin-top: 0.75rem;
+    text-align: center;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  /* ======================== RINGS GRID ======================== */
+  .rings-block {
+    margin: 1.25rem 0;
+  }
+  .rings-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+  }
+  .ring-cell {
+    text-align: center;
+    padding: 1.1rem 0.5rem 0.9rem;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--ring-color, var(--ink));
+    position: relative;
+  }
+  .ring-cell.ring-earth { --ring-color: var(--ring-earth); }
+  .ring-cell.ring-water { --ring-color: var(--ring-water); }
+  .ring-cell.ring-fire  { --ring-color: var(--ring-fire); }
+  .ring-cell.ring-air   { --ring-color: var(--ring-air); }
+  .ring-cell.ring-void  { --ring-color: var(--ring-void); }
+
+  .ring-cell .ring-glyph {
+    width: 36px; height: 36px;
+    margin: 0 auto 0.4rem;
+    display: block;
+  }
+  .ring-cell .ring-kanji {
+    font-family: "Shippori Mincho", serif;
+    font-size: 1rem;
+    color: var(--ring-color, var(--ink-faint));
+    margin-bottom: 0.1rem;
+    font-weight: 500;
+  }
+  .ring-cell .ring-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .ring-cell .ring-value {
+    font-family: "Shippori Mincho", serif;
+    font-size: 2.1rem;
+    line-height: 1;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .stats-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.4rem;
+    margin: 0.85rem 0 0;
+    background: rgba(122,106,74,0.06);
+    padding: 0.75rem 0.5rem;
+    border-top: 1px dotted var(--rule);
+    border-bottom: 1px dotted var(--rule);
+  }
+  .stat-plate {
+    text-align: center;
+    padding: 0 0.25rem;
+    border-right: 1px solid var(--rule-soft);
+  }
+  .stat-plate:last-child { border-right: none; }
+  .stat-plate .sp-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .stat-plate .sp-value {
+    font-family: "Shippori Mincho", serif;
+    font-size: 1.55rem;
+    color: var(--accent-dark);
+    line-height: 1.1;
+    font-weight: 500;
+  }
+  .stat-strip-note {
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    text-align: center;
+  }
+
+  /* ======================== SOCIAL ======================== */
+  .social-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1.25rem 0;
+  }
+  .soc-plate {
+    text-align: center;
+    padding: 1.1rem 0.5rem 1.25rem;
+    border: 1px solid var(--rule);
+    background: rgba(255,255,255,0.35);
+    position: relative;
+  }
+  .soc-plate .soc-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .soc-plate .soc-value-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 88px;
+    height: 88px;
+    line-height: 1;
+    /* Push contents down a hair so digit's visible cap-height centers in circle.
+       Shippori Mincho's box reserves substantial ascender space above digits, so
+       flex-centering leaves digits visually high. */
+    padding-top: 10px;
+  }
+  .soc-plate .soc-value {
+    font-family: "Shippori Mincho", serif;
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--accent-dark);
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+    display: block;
+  }
+  .soc-plate .soc-kanji {
+    position: relative;
+    z-index: 1;
+    font-family: "Shippori Mincho", serif;
+    font-size: 0.85rem;
+    color: var(--hanko);
+    margin-top: 0.25rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ======================== SKILLS ======================== */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.25rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .skill-cat {
+    border-top: 2px solid var(--accent);
+    padding-top: 0.6rem;
+  }
+  .skill-cat-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    font-weight: 500;
+  }
+  .skill-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.18rem 0;
+    font-size: 0.95rem;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .skill-row.zero {
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+  .skill-name {
+    flex: 1;
+  }
+  .skill-pips {
+    display: inline-flex;
+    gap: 2px;
+    font-family: "Shippori Mincho", serif;
+    font-size: 0.85rem;
+    color: var(--accent-dark);
+    letter-spacing: -0.05em;
+  }
+  .skill-pips .pip {
+    width: 9px; height: 9px;
+    border: 1px solid var(--accent);
+    display: inline-block;
+    border-radius: 50%;
+  }
+  .skill-pips .pip.full {
+    background: var(--accent);
+  }
+
+  /* ======================== TECHNIQUES ======================== */
+  .tech-group {
+    margin: 1.25rem 0 1.5rem;
+  }
+  /* The school + mastery swipe wrapper.
+     Holds a feathered paint stroke behind the School Ability and
+     (if present) Mastery Ability cards. Spans full scroll width like
+     the masthead swipe. */
+  /* School + Mastery ability band — full viewport width, school-clan-colored.
+     Uses the same left:50%/margin-left:-50vw trick as the masthead band. */
+  .tech-school-section {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    margin-top: 1.75rem;
+    margin-bottom: 1.75rem;
+    background: linear-gradient(180deg, var(--school-accent) 0%, var(--school-accent-dark) 100%);
+    padding-top: 2.25rem;
+    padding-bottom: 2rem;
+    --content-max-width: 1000px;
+    --content-side-padding: 4rem;
+  }
+  /* Inner box that re-aligns content to the .scroll column */
+  .tech-school-inner {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 var(--content-side-padding);
+    position: relative;
+    z-index: 1;
+  }
+  /* Paper-grain noise overlay */
+  .tech-school-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.55;
+    z-index: 0;
+  }
+  /* Thin secondary-color accent line at top and bottom of band */
+  .tech-school-section::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 0; height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--school-accent-sec) 20%,
+      var(--school-accent-sec) 80%,
+      transparent 100%);
+    z-index: 2;
+    opacity: 0.7;
+  }
+  .tech-school-inner > .tech-group {
+    margin: 0;
+  }
+  .tech-school-inner > .tech-group + .tech-group {
+    margin-top: 1.25rem;
+  }
+  /* Tech cards inside the school band — light parchment cards against the dark band */
+  .tech-school-section .tech-card {
+    background: rgba(254, 252, 246, 0.96);
+    box-shadow: 0 2px 8px rgba(26, 22, 18, 0.18);
+    border-left-color: var(--school-accent-dark, var(--ink));
+  }
+  /* Group heading inside the band uses pale text against the dark color */
+  .tech-school-section .tech-group-h {
+    color: rgba(255, 250, 235, 0.95);
+    border-bottom-color: rgba(255, 250, 235, 0.35);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.22);
+  }
+
+  /* Mahō band — charcoal full-viewport-width band for forbidden / transgressive
+     techniques. Same architecture as the school band, but in matte charcoal
+     with a blood-red accent at the bottom edge. Signals "this is wrong" without
+     editorializing in prose. */
+  .tech-maho-section {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    margin-top: 1.75rem;
+    margin-bottom: 1.75rem;
+    background: linear-gradient(180deg, #2a2a2a 0%, #0a0a0a 100%);
+    padding-top: 2.25rem;
+    padding-bottom: 2rem;
+    --content-max-width: 1000px;
+    --content-side-padding: 4rem;
+  }
+  .tech-maho-inner {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 var(--content-side-padding);
+    position: relative;
+    z-index: 1;
+  }
+  .tech-maho-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.6;
+    z-index: 0;
+  }
+  .tech-maho-section::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 0; height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      #8b1a1a 20%,
+      #8b1a1a 80%,
+      transparent 100%);
+    z-index: 2;
+    opacity: 0.75;
+  }
+  .tech-maho-inner > .tech-group {
+    margin: 0;
+  }
+  .tech-maho-inner > .tech-group + .tech-group {
+    margin-top: 1.25rem;
+  }
+  .tech-maho-section .tech-card {
+    background: rgba(254, 252, 246, 0.96);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    border-left-color: #5a1818;
+  }
+  .tech-maho-section .tech-group-h {
+    color: rgba(255, 230, 220, 0.95);
+    border-bottom-color: rgba(255, 230, 220, 0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  }
+
+  /* Shadowlands Taint band — charcoal full-viewport-width band for the
+     character's Shadowlands Taint adversity. Same architecture as the mahō
+     band; signals that this character carries the Taint. */
+  .taint-section {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    margin-top: 1.75rem;
+    margin-bottom: 1.75rem;
+    background: linear-gradient(180deg, #2a2a2a 0%, #0a0a0a 100%);
+    padding-top: 2.25rem;
+    padding-bottom: 2rem;
+    --content-max-width: 1000px;
+    --content-side-padding: 4rem;
+  }
+  .taint-inner {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 var(--content-side-padding);
+    position: relative;
+    z-index: 1;
+  }
+  .taint-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 1, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.6;
+    z-index: 0;
+  }
+  .taint-section::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 0; height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      #8b1a1a 20%,
+      #8b1a1a 80%,
+      transparent 100%);
+    z-index: 2;
+    opacity: 0.75;
+  }
+  .taint-section .pec-group-head {
+    color: rgba(255, 230, 220, 0.95);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  }
+  .taint-section .pec-card {
+    background: rgba(254, 252, 246, 0.96);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    border-left-color: #5a1818;
+  }
+  .tech-group-h {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin: 0 0 0.7rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px dotted var(--rule);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .tech-group-h .tech-type-icon {
+    width: 1.2em;
+    height: 1.2em;
+    flex-shrink: 0;
+  }
+  .tech-card {
+    border-left: 3px solid var(--tech-ring-color, var(--ink));
+    background: var(--tech-bg, rgba(255,255,255,0.3));
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.85rem;
+  }
+  .tech-card.tech-ring-earth { --tech-ring-color: var(--ring-earth); --tech-bg: rgba(122, 90, 58, 0.045); }
+  .tech-card.tech-ring-water { --tech-ring-color: var(--ring-water); --tech-bg: rgba(61, 106, 122, 0.045); }
+  .tech-card.tech-ring-fire  { --tech-ring-color: var(--ring-fire);  --tech-bg: rgba(168, 58, 42, 0.045); }
+  .tech-card.tech-ring-air   { --tech-ring-color: var(--ring-air);   --tech-bg: rgba(106, 122, 138, 0.05); }
+  .tech-card.tech-ring-void  { --tech-ring-color: var(--ring-void);  --tech-bg: rgba(58, 42, 74, 0.05); }
+  .tech-head {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin-bottom: 0.4rem;
+  }
+  .tech-name {
+    font-family: "Shippori Mincho", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+    flex: 1 1 auto;
+  }
+  .tech-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .tech-meta .meta-ring {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--tech-ring-color);
+  }
+  .tech-meta .meta-tn {
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0.04em;
+    font-family: "EB Garamond", serif;
+    font-size: 0.85rem;
+  }
+  .tech-meta .meta-src {
+    color: var(--ink-faint);
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0.04em;
+    font-family: "EB Garamond", serif;
+    font-size: 0.84rem;
+  }
+  .rules-text {
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .rules-text p { margin: 0 0 0.55rem; }
+  .rules-text p:last-child { margin-bottom: 0; }
+  .rules-text strong { color: var(--ink); font-weight: 600; }
+  .rules-text em { color: var(--ink-soft); }
+  .rules-text .rules-list {
+    list-style: none;
+    margin: 0.3rem 0 0.55rem;
+    padding-left: 0.8rem;
+  }
+  .rules-text .rules-list li {
+    position: relative;
+    padding-left: 1.1rem;
+    margin-bottom: 0.4rem;
+  }
+  .rules-text .rules-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0.55em;
+    width: 5px; height: 5px;
+    background: var(--accent);
+    transform: rotate(45deg);
+  }
+  .rules-text h5.rules-h {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 0.6rem 0 0.3rem;
+    font-weight: 500;
+  }
+
+  /* ======================== PECULIARITIES ======================== */
+  .pec-group {
+    margin-bottom: 1.5rem;
+  }
+  .pec-group-head {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin: 0 0 0.7rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px dotted var(--rule);
+    font-weight: 500;
+  }
+  .pec-group-head .pec-glyph {
+    color: var(--hanko);
+    margin-right: 0.4rem;
+  }
+  .pec-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+  .pec-card {
+    border-left: 3px solid var(--pec-ring, var(--ink));
+    background: var(--pec-bg, rgba(255,255,255,0.3));
+    padding: 1rem 1.2rem;
+  }
+  .pec-card.pec-ring-earth { --pec-ring: var(--ring-earth); --pec-bg: rgba(122, 90, 58, 0.045); }
+  .pec-card.pec-ring-water { --pec-ring: var(--ring-water); --pec-bg: rgba(61, 106, 122, 0.045); }
+  .pec-card.pec-ring-fire  { --pec-ring: var(--ring-fire);  --pec-bg: rgba(168, 58, 42, 0.045); }
+  .pec-card.pec-ring-air   { --pec-ring: var(--ring-air);   --pec-bg: rgba(106, 122, 138, 0.05); }
+  .pec-card.pec-ring-void  { --pec-ring: var(--ring-void);  --pec-bg: rgba(58, 42, 74, 0.05); }
+
+  /* Bond cards — warrior-band or fellowship bonds */
+  .bond-card {
+    border-left: 3px solid var(--accent-dark);
+    background: rgba(255, 250, 235, 0.45);
+    padding: 1rem 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .bond-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin-bottom: 0.45rem;
+  }
+  .bond-name {
+    font-family: "Shippori Mincho", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--accent-dark);
+  }
+  .bond-src {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+  }
+  .bond-subhead {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.55rem;
+  }
+  .bond-tbd {
+    margin-top: 0.7rem;
+    padding-top: 0.55rem;
+    border-top: 1px dotted var(--rule);
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+  .no-bonds {
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .pec-head {
+    margin-bottom: 0.45rem;
+  }
+  .pec-name {
+    font-family: "Shippori Mincho", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+  .pec-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.9rem;
+    align-items: center;
+  }
+  .pec-meta .pec-ring-tag {
+    color: var(--pec-ring);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .pec-meta .pec-types {
+    color: var(--ink-soft);
+    font-style: italic;
+    text-transform: none;
+    font-family: "EB Garamond", serif;
+    letter-spacing: 0.04em;
+    font-size: 0.84rem;
+  }
+  .pec-meta .pec-src {
+    color: var(--ink-faint);
+    font-style: italic;
+    text-transform: none;
+    font-family: "EB Garamond", serif;
+    letter-spacing: 0.04em;
+    font-size: 0.84rem;
+    margin-left: auto;
+  }
+
+  /* ======================== GEAR ======================== */
+  .weapon-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-size: 0.92rem;
+  }
+  .weapon-table th {
+    text-align: left;
+    padding: 0.55rem 0.7rem;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  .weapon-table td {
+    padding: 0.65rem 0.7rem;
+    border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top;
+  }
+  .weapon-table tr:last-child td { border-bottom: none; }
+  .w-name { font-weight: 500; color: var(--ink); }
+  .w-cat { font-size: 0.78rem; color: var(--ink-faint); font-style: italic; margin-top: 0.1rem; }
+  .w-num {
+    text-align: center;
+    font-family: "Shippori Mincho", serif;
+    font-size: 1.05rem;
+    color: var(--accent-dark);
+    font-weight: 500;
+  }
+  .w-range {
+    text-align: center;
+    font-family: "EB Garamond", serif;
+  }
+  .w-props, .w-grip {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  .armor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .armor-card {
+    border: 1px solid var(--rule);
+    background: rgba(255,255,255,0.3);
+    padding: 0.8rem 1rem;
+  }
+  .armor-card header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.3rem;
+    gap: 1rem;
+  }
+  .armor-name {
+    font-family: "Shippori Mincho", serif;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .armor-stats {
+    display: flex;
+    gap: 0.85rem;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .armor-stats strong {
+    color: var(--accent-dark);
+    margin-right: 0.2rem;
+  }
+  .armor-props {
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  .items-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    columns: 2;
+    column-gap: 2rem;
+  }
+  .items-list li {
+    padding: 0.4rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-size: 0.92rem;
+    break-inside: avoid;
+  }
+
+  /* ======================== NARRATIVE ======================== */
+  .narrative-section {
+    background: rgba(58, 74, 90, 0.025);
+    padding: 2rem 2.5rem;
+    margin: 2rem -2.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .narr-block {
+    margin-bottom: 1.5rem;
+  }
+  .narr-block:last-child { margin-bottom: 0; }
+  .narr-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--hanko);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+  .narr-block p {
+    font-size: 1.02rem;
+    line-height: 1.7;
+    color: var(--ink);
+    margin: 0;
+  }
+  .narr-block.death-vision p {
+    font-style: italic;
+    color: var(--accent-dark);
+    font-family: "EB Garamond", serif;
+    font-size: 1.08rem;
+    border-left: 2px solid var(--hanko);
+    padding-left: 1rem;
+  }
+
+  /* ======================== ADVANCEMENT LOG ======================== */
+  .adv-log {
+    background: rgba(122,106,74,0.05);
+    border: 1px solid var(--rule);
+    padding: 1.25rem 1.5rem;
+  }
+  .adv-log ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    columns: 2;
+    column-gap: 1.5rem;
+  }
+  .adv-log li {
+    font-family: "EB Garamond", serif;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    padding: 0.3rem 0;
+    break-inside: avoid;
+  }
+  .adv-log li::before {
+    content: "▸ ";
+    color: var(--accent);
+  }
+  .adv-log .no-adv {
+    font-style: italic;
+    color: var(--ink-faint);
+    column-span: all;
+  }
+  .title-block {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px dotted var(--rule);
+  }
+  .title-name {
+    font-family: "Shippori Mincho", serif;
+    font-weight: 600;
+    color: var(--accent-dark);
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+  .title-name .title-kanji {
+    color: var(--hanko);
+    margin-right: 0.45rem;
+    font-weight: 500;
+  }
+  .title-desc {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  /* ======================== ICONS ======================== */
+  .icon {
+    display: inline-block;
+    width: 1em; height: 1em;
+    vertical-align: -0.15em;
+    margin: 0 0.04em;
+  }
+  .ring-glyph .icon {
+    width: 100%; height: 100%;
+  }
+
+  /* Currently-active snapshot toggle */
+  [data-snap-content] { display: none; }
+  [data-snap-content].active { display: block; }
+
+  /* Footer */
+  .footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .footer .stamp {
+    color: var(--hanko);
+    margin: 0 0.5em;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .doc { padding: 2.5rem 1.25rem; }
+    .masthead-wrap, .tech-school-section, .tech-maho-section, .taint-section {
+      --content-side-padding: 1.25rem;
+    }
+    .masthead { grid-template-columns: 140px 1fr; gap: 1.25rem; }
+    .masthead .hanko { display: none; }
+    .portrait-frame { width: 140px; height: 140px; }
+    h1.dossier-name { font-size: 2.2rem; }
+    .timeline-section { padding: 1.5rem 1.25rem; margin: 0 -1.25rem; }
+    .tl-track { overflow-x: auto; padding-bottom: 0.5rem; }
+    .tl-node { flex: 0 0 90px; }
+    .rings-grid, .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-strip { grid-template-columns: repeat(3, 1fr); gap: 0.5rem 0.4rem; }
+    .duty-desire { grid-template-columns: 1fr; }
+    .social-grid { grid-template-columns: 1fr; }
+    .armor-grid { grid-template-columns: 1fr; }
+    .narrative-section { padding: 1.5rem 1.25rem; margin: 1.5rem -1.25rem; }
+    .adv-log ul, .items-list { columns: 1; }
+    .tl-top { font-size: 0.6rem; }
+    .tl-bot { font-size: 0.7rem; }
+  }
+
+  /* ================== CHANGELOG SECTION (toggled, per-snapshot) ================== */
+  .changelog-section {
+    margin: 0 4rem 1.5rem;
+    padding: 1.25rem 1.5rem 1.5rem;
+    background: rgba(255,255,255,0.32);
+    border: 1px solid var(--rule-soft);
+    border-left: 3px solid var(--accent);
+  }
+  .changelog-section.hidden {
+    display: none;
+  }
+  .changelog-section .cl-header {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+  }
+  .changelog-section .cl-header .cl-kanji {
+    font-family: "Shippori Mincho", serif;
+    font-size: 1rem;
+    color: var(--accent-dark);
+    letter-spacing: 0.05em;
+  }
+  .changelog-section .cl-header .cl-en {
+    color: var(--ink-faint);
+    font-style: italic;
+    letter-spacing: 0.2em;
+  }
+  .changelog-section .cl-delta {
+    margin-left: auto;
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .changelog-section .cl-slot {
+    margin-top: 1rem;
+  }
+  .changelog-section .cl-slot:first-of-type {
+    margin-top: 0.5rem;
+  }
+  .changelog-section .cl-slot-head {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    padding: 0.3rem 0 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .changelog-section .cl-slot-totals {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .changelog-section table.cl-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.4rem;
+    font-size: 0.92rem;
+  }
+  .changelog-section table.cl-table td {
+    padding: 0.32rem 0.55rem;
+    vertical-align: top;
+    border-bottom: 1px solid rgba(180,166,132,0.18);
+  }
+  .changelog-section table.cl-table tr:nth-child(even) td {
+    background: rgba(255,255,255,0.35);
+  }
+  .changelog-section table.cl-table tr:nth-child(odd) td {
+    background: rgba(0,0,0,0.012);
+  }
+  .changelog-section table.cl-table tr:last-child td {
+    border-bottom: none;
+  }
+  .changelog-section .cl-name { width: auto; }
+  .changelog-section .cl-curr {
+    width: 1.6em;
+    text-align: center;
+    color: var(--accent-dark);
+    font-size: 0.85rem;
+  }
+  .changelog-section .cl-xp {
+    width: 4em;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-soft);
+  }
+  .changelog-section .cl-itemicon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.35em;
+    vertical-align: -0.13em;
+    opacity: 0.85;
+  }
+  .changelog-section .cl-note {
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 0.85rem;
+  }
+
+  /* ================== CURRICULUM TABS + TABLE ================== */
+  .curriculum-block {
+    margin-top: 0.5rem;
+  }
+  .curr-tabs {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-bottom: 1px solid var(--rule);
+    gap: 0;
+    margin-bottom: 1rem;
+    scrollbar-width: thin;
+  }
+  .curr-tab {
+    flex: 0 0 auto;
+    padding: 0.55rem 1.1rem 0.6rem;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    background: rgba(255,255,255,0.15);
+    border: 1px solid var(--rule-soft);
+    border-bottom: none;
+    cursor: pointer;
+    margin-right: 2px;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  .curr-tab:hover {
+    color: var(--ink);
+    background: rgba(255,255,255,0.3);
+  }
+  .curr-tab.active {
+    background: var(--school-accent);
+    color: #fefcf6;
+    border-color: var(--school-accent-dark);
+    font-weight: 600;
+  }
+  .curr-table-wrap {
+    overflow-x: auto;
+  }
+  table.curr-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.93rem;
+  }
+  table.curr-table th,
+  table.curr-table td {
+    padding: 0.55rem 0.85rem;
+    vertical-align: top;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  table.curr-table thead th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    border-bottom: 2px solid var(--rule);
+    background: rgba(255,255,255,0.2);
+  }
+  table.curr-table tbody tr:nth-child(even) {
+    background: rgba(255,255,255,0.3);
+  }
+  table.curr-table tbody tr:nth-child(odd) {
+    background: rgba(0,0,0,0.015);
+  }
+  table.curr-table tr.curr-current {
+    background: rgba(196,130,58,0.18) !important;  /* school-accent at low opacity */
+    border-left: 3px solid var(--school-accent);
+  }
+  table.curr-table tr.curr-current td:first-child {
+    font-weight: 700;
+    color: var(--school-accent-dark);
+  }
+  table.curr-table .curr-rank {
+    width: 5em;
+    font-family: "Shippori Mincho", serif;
+    font-size: 1.05rem;
+    text-align: center;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  table.curr-table .curr-entries {
+    font-size: 0.93rem;
+    line-height: 1.7;
+  }
+  table.curr-table .curr-entry {
+    display: inline-block;
+    margin-right: 0.4em;
+    padding: 0.05em 0.5em;
+    background: rgba(255,255,255,0.45);
+    border: 1px solid var(--rule-soft);
+    border-radius: 2px;
+    font-size: 0.88rem;
+    color: var(--ink);
+    white-space: nowrap;
+    margin-bottom: 0.25em;
+  }
+  table.curr-table .curr-entry.kind-skill_group {
+    font-weight: 600;
+    color: var(--ink-soft);
+    background: rgba(196,130,58,0.10);
+    border-color: rgba(196,130,58,0.32);
+  }
+  table.curr-table .curr-entry.kind-technique_group {
+    font-style: italic;
+    background: rgba(58,42,74,0.06);
+    border-color: rgba(58,42,74,0.22);
+  }
+  table.curr-table .curr-entry.kind-technique {
+    background: rgba(255,255,255,0.6);
+  }
+  table.curr-table .curr-entry.kind-mastery {
+    background: linear-gradient(135deg, rgba(196,130,58,0.15) 0%, rgba(196,130,58,0.06) 100%);
+    border-color: rgba(196,130,58,0.4);
+    color: var(--school-accent-dark);
+    font-weight: 600;
+    padding: 0.15em 0.65em;
+  }
+  table.curr-table .curr-mastery-label {
+    display: inline-block;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-right: 0.45em;
+    color: var(--ink-faint);
+    font-weight: 400;
+    letter-spacing: 0.12em;
+  }
+  table.curr-table .curr-entry .curr-tech-icon {
+    width: 0.95em; height: 0.95em;
+    vertical-align: -0.13em;
+    margin-right: 0.25em;
+  }
+  table.curr-table .curr-note-text {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    padding: 0.15rem 0.3rem;
+  }
+  .curr-note {
+    margin-top: 0.85rem;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+  .curr-missing {
+    padding: 1.25rem 0;
+    text-align: center;
+    font-style: italic;
+    color: var(--ink-faint);
+  }
+
+  /* Mobile tweaks for new sections */
+  @media (max-width: 900px) {
+    .changelog-section { margin: 0 1.25rem 1.25rem; padding: 1rem 1rem 1.15rem; }
+    table.curr-table th, table.curr-table td { padding: 0.4rem 0.45rem; }
+    table.curr-table .curr-rank { width: 3em; font-size: 0.92rem; }
+    .curr-tab { padding: 0.45rem 0.7rem 0.5rem; font-size: 0.74rem; letter-spacing: 0.14em; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Opportunity: radiating spokes with tiny terminal nodules -->
+    <symbol id="icon-op" viewBox="0 0 20 20">
+      <title>Opportunity</title>
+      <g stroke="#8b1a1a" stroke-width="1.8" stroke-linecap="round" fill="#8b1a1a">
+        <line x1="10" y1="10" x2="10" y2="3"/>
+        <circle cx="10" cy="3" r="1.1"/>
+        <line x1="10" y1="10" x2="10" y2="17"/>
+        <circle cx="10" cy="17" r="1.1"/>
+        <line x1="10" y1="10" x2="3" y2="10"/>
+        <circle cx="3" cy="10" r="1.1"/>
+        <line x1="10" y1="10" x2="17" y2="10"/>
+        <circle cx="17" cy="10" r="1.1"/>
+        <line x1="10" y1="10" x2="5.1" y2="5.1"/>
+        <circle cx="5.1" cy="5.1" r="1.1"/>
+        <line x1="10" y1="10" x2="14.9" y2="5.1"/>
+        <circle cx="14.9" cy="5.1" r="1.1"/>
+        <line x1="10" y1="10" x2="5.1" y2="14.9"/>
+        <circle cx="5.1" cy="14.9" r="1.1"/>
+        <line x1="10" y1="10" x2="14.9" y2="14.9"/>
+        <circle cx="14.9" cy="14.9" r="1.1"/>
+      </g>
+    </symbol>
+    <!-- Success: almost-complete circle CCW with terminal nodule -->
+    <symbol id="icon-su" viewBox="0 0 20 20">
+      <title>Success</title>
+      <path d="M 13.5 5 A 6 6 0 1 0 14.6 7.7"
+            fill="none" stroke="#8b1a1a" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="13.5" cy="5" r="1.6" fill="#8b1a1a"/>
+    </symbol>
+    <!-- Explosive success: three equal arcs each ending in a nodule, together near-circle -->
+    <symbol id="icon-ex" viewBox="0 0 20 20">
+      <title>Explosive Success</title>
+      <path d="M 4.50 6.50 A 6.5 6.5 0 0 1 14.27 3.13" fill="none" stroke="#8b1a1a" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="14.27" cy="3.13" r="1.4" fill="#8b1a1a"/>
+      <path d="M 16.50 6.50 A 6.5 6.5 0 0 1 14.27 16.87" fill="none" stroke="#8b1a1a" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="14.27" cy="16.87" r="1.4" fill="#8b1a1a"/>
+      <path d="M 10 16.50 A 6.5 6.5 0 0 1 3.50 6.50" fill="none" stroke="#8b1a1a" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="3.50" cy="6.50" r="1.4" fill="#8b1a1a"/>
+    </symbol>
+    <!-- Strife: falling sakura petal -->
+    <symbol id="icon-st" viewBox="0 0 20 20">
+      <title>Strife</title>
+      <path d="M 5 4 C 8 4, 16 7, 16 12 C 16 16, 12 17, 10 16 C 10.5 15, 10 14.5, 9 15 C 7 15.5, 4 13, 4 10 C 4 7, 4.5 5, 5 4 Z"
+            fill="#8b1a1a"/>
+    </symbol>
+    <!-- Skill die: white pentagon with thin dark outline -->
+    <symbol id="icon-skill" viewBox="0 0 20 20">
+      <title>Skill Die</title>
+      <polygon points="10,2.5 17.5,8 14.7,17 5.3,17 2.5,8" fill="#fefcf6" stroke="#1a1a1a" stroke-width="1.4" stroke-linejoin="round"/>
+    </symbol>
+    <!-- Ring die: black filled square -->
+    <symbol id="icon-ring" viewBox="0 0 20 20">
+      <title>Ring Die</title>
+      <rect x="3" y="3" width="14" height="14" fill="#1a1a1a"/>
+    </symbol>
+    <!-- Earth: hexagon with strata -->
+    <symbol id="icon-earth" viewBox="0 0 20 20">
+      <title>Earth</title>
+      <polygon points="10,2 17,6 17,14 10,18 3,14 3,6" fill="none" stroke="#7a5a3a" stroke-width="1.8"/>
+      <line x1="3" y1="10" x2="17" y2="10" stroke="#7a5a3a" stroke-width="1.4"/>
+    </symbol>
+    <!-- Water: three wave lines -->
+    <symbol id="icon-water" viewBox="0 0 20 20">
+      <title>Water</title>
+      <path d="M 3 6 Q 6 3, 10 6 Q 14 9, 17 6" fill="none" stroke="#3d6a7a" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M 3 10 Q 6 7, 10 10 Q 14 13, 17 10" fill="none" stroke="#3d6a7a" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M 3 14 Q 6 11, 10 14 Q 14 17, 17 14" fill="none" stroke="#3d6a7a" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+    <!-- Fire: flame teardrop -->
+    <symbol id="icon-fire" viewBox="0 0 20 20">
+      <title>Fire</title>
+      <path d="M 10 2 C 13 6, 16 9, 16 13 C 16 17, 12 18, 10 18 C 8 18, 4 17, 4 13 C 4 10, 7 8, 10 2 Z" 
+            fill="none" stroke="#a83a2a" stroke-width="1.8" stroke-linejoin="round"/>
+    </symbol>
+    <!-- Air: three swirling curves -->
+    <symbol id="icon-air" viewBox="0 0 20 20">
+      <title>Air</title>
+      <path d="M 3 6 Q 8 5, 13 6 Q 17 6, 17 8" fill="none" stroke="#6a7a8a" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M 3 10 Q 9 9, 14 10 Q 17 10, 17 12" fill="none" stroke="#6a7a8a" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M 3 14 Q 7 13, 11 14" fill="none" stroke="#6a7a8a" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+    <!-- Void: broken enso ring -->
+    <symbol id="icon-void" viewBox="0 0 20 20">
+      <title>Void</title>
+      <path d="M 16 10 A 6 6 0 1 1 10 4" fill="none" stroke="#3a2a4a" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- ========== TECHNIQUE TYPE ICONS ========== -->
+
+    <!-- Kihō: radiating ki burst (green stroke / spark) -->
+    <symbol id="icon-kiho" viewBox="0 0 20 20">
+      <title>Kihō</title>
+      <circle cx="10" cy="10" r="2.2" fill="#4a7a4a"/>
+      <line x1="10" y1="2"  x2="10" y2="5"   stroke="#4a7a4a" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="10" y1="15" x2="10" y2="18"  stroke="#4a7a4a" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="2"  y1="10" x2="5"  y2="10"  stroke="#4a7a4a" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="15" y1="10" x2="18" y2="10"  stroke="#4a7a4a" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="4.2" y1="4.2" x2="6.3" y2="6.3" stroke="#4a7a4a" stroke-width="1.4" stroke-linecap="round"/>
+      <line x1="13.7" y1="13.7" x2="15.8" y2="15.8" stroke="#4a7a4a" stroke-width="1.4" stroke-linecap="round"/>
+      <line x1="4.2" y1="15.8" x2="6.3" y2="13.7" stroke="#4a7a4a" stroke-width="1.4" stroke-linecap="round"/>
+      <line x1="13.7" y1="6.3" x2="15.8" y2="4.2" stroke="#4a7a4a" stroke-width="1.4" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- Mahō: bloody claw silhouette -->
+    <symbol id="icon-maho" viewBox="0 0 20 20">
+      <title>Mahō</title>
+      <path d="M 4 17 Q 3 12, 5 9 L 6 8 Q 6 5, 7 4 L 8 5 Q 8 7, 9 8 L 10 8 Q 10 4, 11 3 L 12 4 Q 12 7, 13 8 L 14 8 Q 15 5, 16 5 L 16 8 Q 16 10, 15 11 Q 17 13, 16 16 L 14 17 Z"
+            fill="#7a1a1a" stroke="#4a0a0a" stroke-width="0.6" stroke-linejoin="round"/>
+    </symbol>
+
+    <!-- Ninjutsu: black four-pointed shuriken -->
+    <symbol id="icon-ninjutsu" viewBox="0 0 20 20">
+      <title>Ninjutsu</title>
+      <path d="M 10 2 L 11.5 8.5 L 18 10 L 11.5 11.5 L 10 18 L 8.5 11.5 L 2 10 L 8.5 8.5 Z"
+            fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.5"/>
+      <circle cx="10" cy="10" r="1.5" fill="#fefcf6"/>
+    </symbol>
+
+    <!-- Ritual: blue chalice / ceremonial cup -->
+    <symbol id="icon-ritual" viewBox="0 0 20 20">
+      <title>Ritual</title>
+      <path d="M 5 4 L 15 4 L 13.5 10 Q 13 12, 10 12.5 Q 7 12, 6.5 10 Z"
+            fill="none" stroke="#3a5a8a" stroke-width="1.6" stroke-linejoin="round"/>
+      <line x1="10" y1="12.5" x2="10" y2="16" stroke="#3a5a8a" stroke-width="1.6"/>
+      <line x1="6.5" y1="16.5" x2="13.5" y2="16.5" stroke="#3a5a8a" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- Shūji: green brushstroke / hooked calligraphy mark -->
+    <symbol id="icon-shuji" viewBox="0 0 20 20">
+      <title>Shūji</title>
+      <path d="M 4 4 Q 5 10, 11 11 Q 14 11.5, 13 14 Q 12 16, 9 16"
+            fill="none" stroke="#3a7a5a" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="4" cy="4" r="1.4" fill="#3a7a5a"/>
+    </symbol>
+
+    <!-- Invocation: rolled scroll with wrap -->
+    <symbol id="icon-invocation" viewBox="0 0 20 20">
+      <title>Invocation</title>
+      <rect x="5" y="4" width="10" height="12" rx="1.5"
+            fill="none" stroke="#c4823a" stroke-width="1.6"/>
+      <line x1="3" y1="9" x2="17" y2="9" stroke="#c4823a" stroke-width="1.6"/>
+      <line x1="3" y1="11" x2="17" y2="11" stroke="#c4823a" stroke-width="1.6"/>
+      <line x1="7.5" y1="6.5" x2="12.5" y2="6.5" stroke="#c4823a" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="7.5" y1="13.5" x2="12.5" y2="13.5" stroke="#c4823a" stroke-width="1.2" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- Kata: red sword / diagonal blade slash -->
+    <symbol id="icon-kata" viewBox="0 0 20 20">
+      <title>Kata</title>
+      <path d="M 16 3 L 17 4 L 8 13 L 5 16 L 4 15 L 7 12 Z"
+            fill="#a83a2a" stroke="#5a1810" stroke-width="0.5" stroke-linejoin="round"/>
+      <line x1="6" y1="14" x2="3" y2="17" stroke="#5a1810" stroke-width="1.4" stroke-linecap="round"/>
+      <line x1="5" y1="13" x2="2" y2="16" stroke="#5a1810" stroke-width="1.4" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- Prereq: small grey diamond -->
+    <symbol id="icon-prereq" viewBox="0 0 20 20">
+      <title>Prerequisite</title>
+      <path d="M 10 4 L 16 10 L 10 16 L 4 10 Z"
+            fill="none" stroke="#6a6a6a" stroke-width="1.4"/>
+      <path d="M 10 7 L 13 10 L 10 13 L 7 10 Z" fill="#6a6a6a"/>
+    </symbol>
+
+    <!-- Inversion: black pennant / inverted flag -->
+    <symbol id="icon-inversion" viewBox="0 0 20 20">
+      <title>Inversion</title>
+      <line x1="5" y1="3" x2="5" y2="17" stroke="#1a1a1a" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M 5 3 L 16 5 L 12 8 L 16 11 L 5 13 Z"
+            fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.5" stroke-linejoin="round"/>
+    </symbol>
+
+    <!-- Mantra: lotus-like sigil (orange petals on subtle blue core) -->
+    <symbol id="icon-mantra" viewBox="0 0 20 20">
+      <title>Mantra</title>
+      <circle cx="10" cy="10" r="2" fill="#3a5a7a"/>
+      <ellipse cx="10" cy="5" rx="2" ry="3.5" fill="#c4823a" opacity="0.85"/>
+      <ellipse cx="10" cy="15" rx="2" ry="3.5" fill="#c4823a" opacity="0.85"/>
+      <ellipse cx="5" cy="10" rx="3.5" ry="2" fill="#c4823a" opacity="0.85"/>
+      <ellipse cx="15" cy="10" rx="3.5" ry="2" fill="#c4823a" opacity="0.85"/>
+      <circle cx="10" cy="10" r="1.5" fill="#fefcf6"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="scroll">
+  <div class="doc">
+
+    <!-- ============== MASTHEAD ============== -->
+    <div class="masthead-wrap">
+      <div class="masthead-inner">
+        <header class="masthead">
+          <div class="portrait-frame">
+            <svg class="brush-corner tl" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 2 14 Q 2 2, 14 2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="2" cy="2" r="2" fill="currentColor"/>
+            </svg>
+            <img src="data:image/png;base64,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" alt="Portrait of Fallen Noble Aarav">
+            <svg class="brush-corner br" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 2 14 Q 2 2, 14 2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="2" cy="2" r="2" fill="currentColor"/>
+            </svg>
+          </div>
+
+          <div class="name-block">
+            <div class="name-eyebrow">Dossier · Player Character · Legend of the Five Rings</div>
+            <h1 class="dossier-name">
+              <span class="given mononym">Aarav</span>
+            </h1>
+            <blockquote class="tagline">He should die in an act of glorious heroism, defending his people.</blockquote>
+            <dl class="identity-rows">
+              <dt>Clan</dt>     <dd>The Sheelavaan of Bhavyatapura</dd>
+              <dt>Family</dt>   <dd>Fallen Noble (Gaijin)</dd>
+              <dt>School</dt>   <dd class="school-name-in-clan">Ivory Kingdoms Sage Tradition</dd>
+              <dt>Role</dt>     <dd>Bushi</dd>
+            </dl>
+          </div>
+
+          <div class="hanko" aria-label="Personal seal">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="92" height="92" fill="none" stroke="#8a2828" stroke-width="3"/>
+              <rect x="8" y="8" width="84" height="84" fill="none" stroke="#8a2828" stroke-width="1.4"/>
+              <text x="50" y="42" font-family="Noto Sans Devanagari, Shippori Mincho, serif" font-size="32" font-weight="700"
+                    fill="#8a2828" text-anchor="middle">आ</text>
+              <text x="50" y="78" font-family="Noto Sans Devanagari, Shippori Mincho, serif" font-size="32" font-weight="700"
+                    fill="#8a2828" text-anchor="middle">भ</text>
+              <line x1="14" y1="50" x2="86" y2="50" stroke="#8a2828" stroke-width="0.8" opacity="0.6"/>
+            </svg>
+          </div>
+        </header>
+      </div>
+    </div>
+
+    <!-- ============== TIMELINE ============== -->
+    <div class="timeline-section">
+      <div class="tl-label">Progression — select an XP tier</div>
+      <div class="tl-track" id="timeline">
+        <button class="tl-node active" data-snap="0" type="button">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <span class="tl-top">Ivory Kingdoms Sage Tradition</span>
+      <span class="tl-bot">0 XP · Rank 1</span>
+    </button>
+<button class="tl-node" data-snap="1" type="button">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <span class="tl-top">Astradhari</span>
+      <span class="tl-bot">36 XP · Rank 1</span>
+    </button>
+<button class="tl-node" data-snap="2" type="button">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <span class="tl-top">Astradhari</span>
+      <span class="tl-bot">57 XP · Rank 2</span>
+    </button>
+      </div>
+    </div>
+
+    <!-- ============== ADVANCEMENT CHANGELOG (TOGGLED) ============== -->
+    <div class="changelog-section" id="changelog-target"></div>
+
+    <!-- ============== GIRI / NINJŌ (FIXED) ============== -->
+    <section class="block">
+      <h2 class="section-h"><span class="kanji">義 · 仁情</span> Duty &amp; Desire <span class="en-label">Giri · Ninjō</span></h2>
+      <div class="duty-desire">
+        <div class="gn-card giri">
+          <div class="gn-label">Giri <span class="gn-en">Duty</span></div>
+          <p class="gn-text">Aarav's family was betrayed, his brothers executed; he fled east.</p>
+        </div>
+        <div class="gn-card ninjo">
+          <div class="gn-label">Ninjō <span class="gn-en">Desire</span></div>
+          <p class="gn-text">Regain his home; he seeks to reconquer his homeland.</p>
+        </div>
+      </div>
+      <div class="bushido-line">
+        <span>Paramount tenet <strong></strong></span>
+        <span>Less significant <strong></strong></span>
+      </div>
+      <p class="bushido-stance-note">Aarav is unfamiliar with Bushido.</p>
+    </section>
+
+    <!-- ============== RINGS & STATS (TOGGLED — rendered by JS) ============== -->
+    <section class="block">
+      <h2 class="section-h"><span class="kanji">五輪</span> The Five Rings &amp; Vitality <span class="en-label">Go-Rin</span></h2>
+      <div class="rings-block" id="rings-target"></div>
+    </section>
+
+    <!-- ============== SOCIAL (TOGGLED) ============== -->
+    <section class="block">
+      <h2 class="section-h"><span class="kanji">名誉</span> Standing <span class="en-label">Meiyo · Eikō · Mibun</span></h2>
+      <div class="social-grid" id="social-target"></div>
+    </section>
+
+    <!-- ============== SKILLS (TOGGLED) ============== -->
+    <section class="block">
+      <h2 class="section-h"><span class="kanji">技能</span> Skills <span class="en-label">Ginō</span></h2>
+      <div class="skills-grid" id="skills-target"></div>
+    </section>
+
+    <!-- ============== TECHNIQUES (TOGGLED) ============== -->
+    <section class="block">
+      <h2 class="section-h"><span class="kanji">技</span> Techniques <span class="en-label">Waza</span></h2>
+      <div id="techniques-target"></div>
+    </section>
+
+    <!-- ============== PECULIARITIES (FIXED) ============== -->
+    <section class="block">
+      <h2 class="section-h"><span class="kanji">性格</span> Character &amp; Disposition <span class="en-label">Seikaku</span></h2>
+      <div class="pec-group" data-pectype="distinction">
+<h4 class="pec-group-head"><span class="pec-glyph">◆</span> Distinctions</h4>
+<div class="pec-cards">
+
+    <article class="pec-card pec-ring-void">
+      <header class="pec-head">
+        <div class="pec-name">Blessed Lineage</div>
+        <div class="pec-meta">
+          <span class="pec-ring-tag">
+            <svg class="icon icon-void" role="img" aria-label="Void"><title>Void</title><use href="#icon-void"/></svg>
+            void
+          </span>
+          <span class="pec-types">Interpersonal, Spiritual</span>
+          <span class="pec-src">Core · p.103</span>
+        </div>
+      </header>
+      <div class="rules-text"><p><em>“Perhaps you’d like to match your words with your steel,” the woman growled, her hands resting upon the hilts of her swords. “You will learn a hard lesson: nobody insults Mirumoto Ohatsu with impunity.”</em></p>
+<p><em>The man she faced smiled in return.</em></p>
+<p><em>“I certainly did not intend to offend you in any way, Ohatsu-san. Please allow me to introduce myself. I am Miya Matsuo. Perhaps you have heard of my cousin, the Imperial Herald?”</em></p>
+<p>The following apply to a character with the Blessed Lineage distinction:</p>
+<ul class="rules-list">
+<li>- Characters with status of 50 or higher understand that they might suffer a loss of prestige if they harm you, and thus do not choose to kill you as their first option, even if you are a political obstacle they would otherwise eliminate without hesitation.</li>
+<li>- When performing a check for which your esteemed lineage is a benefit (such as a Command <svg class="icon icon-void" role="img" aria-label="Void"><title>Void</title><use href="#icon-void"/></svg> check to challenge someone’s perception of a situation or a Government <svg class="icon icon-void" role="img" aria-label="Void"><title>Void</title><use href="#icon-void"/></svg> check to know the likelihood of a political eventuality), you may reroll up to two dice.</li>
+</ul></div>
+    </article>
+
+    <article class="pec-card pec-ring-air">
+      <header class="pec-head">
+        <div class="pec-name">Benten’s Blessing</div>
+        <div class="pec-meta">
+          <span class="pec-ring-tag">
+            <svg class="icon icon-air" role="img" aria-label="Air"><title>Air</title><use href="#icon-air"/></svg>
+            air
+          </span>
+          <span class="pec-types">Interpersonal, Spiritual</span>
+          <span class="pec-src">Core · p.102</span>
+        </div>
+      </header>
+      <div class="rules-text"><p><em>Daidoji Shingen sauntered down the gangplank from the dock to his waiting vessel, a broad smile spreading across his face. His crew gathered around their returning captain.</em></p>
+<p><em>“We have safe harbor here, and a fine market in which to sell our cargo. Start offloading.” The crew cheered, and set to work. Shingen’s first mate, Hiramichi Anjiro, remained behind, scratching his head idly.</em></p>
+<p><em>“I don’t know how you managed that, Captain.” Shingen winked. “Let’s just say that the lady of the palace was kindly disposed toward a wayward sea captain.”</em></p>
+<p>The following apply to a character with the Benten’s Blessing distinction:</p>
+<ul class="rules-list">
+<li>- After interacting with a character for one or more scenes, you know with certainty whether they are open to your romantic aspirations or if they are categorically uninterested.</li>
+<li>- When performing a check for which the favor of the Fortune Benten is a benefit (such as an Aesthetics <svg class="icon icon-air" role="img" aria-label="Air"><title>Air</title><use href="#icon-air"/></svg> check to say something insightful about a piece of art or a Courtesy <svg class="icon icon-air" role="img" aria-label="Air"><title>Air</title><use href="#icon-air"/></svg> check to convince someone of your positive qualities), you may reroll up to two dice.</li>
+</ul></div>
+    </article>
+</div></div>
+<div class="pec-group" data-pectype="adversity">
+<h4 class="pec-group-head"><span class="pec-glyph">◇</span> Adversities</h4>
+<div class="pec-cards">
+
+    <article class="pec-card pec-ring-fire">
+      <header class="pec-head">
+        <div class="pec-name">Gaijin Name, Culture, or Appearance</div>
+        <div class="pec-meta">
+          <span class="pec-ring-tag">
+            <svg class="icon icon-fire" role="img" aria-label="Fire"><title>Fire</title><use href="#icon-fire"/></svg>
+            fire
+          </span>
+          <span class="pec-types">Interpersonal (Culture) or Physical (Appearance), Interpersonal (Name), Mental</span>
+          <span class="pec-src">Core · p.121</span>
+        </div>
+      </header>
+      <div class="rules-text"><p><em>The Crane courtier bowed deeply, a thin, insincere smile upon his face. “I bring a thousand wishes for a glorious future from the Crane to the great Shinjo Aru…Arutan…”</em></p>
+<p><em>“Altansarnai,” the Unicorn Champion corrected him. The courtier bowed further. “I apologize, Shinjosama. A…lovely name, but one that falls oddly upon my tongue.”</em></p>
+<p><em>“It is from the Ujik tongue. It means ‘golden rose.’” Altansarnai gestured for the courtier to join her where she was seated. We are still foreign to them, she thought, and they will never let us forget it.</em></p>
+<p>The following apply to a character with the Gaijin Name, Culture, or Appearance adversity:</p>
+<ul class="rules-list">
+<li>- People of higher and equal status tend to assume that you are uneducated at best and a barbarian at worst, while people of lower status respond to you with fear.</li>
+<li>- When you make a check to inspire others who do not share your culture or background (such as a Command <svg class="icon icon-fire" role="img" aria-label="Fire"><title>Fire</title><use href="#icon-fire"/></svg> check to rally troops or a Commerce <svg class="icon icon-fire" role="img" aria-label="Fire"><title>Fire</title><use href="#icon-fire"/></svg> check to create a product that people desire), you must choose and reroll two dice containing <svg class="icon icon-su" role="img" aria-label="Success"><title>Success</title><use href="#icon-su"/></svg> or <svg class="icon icon-ex" role="img" aria-label="Explosive Success"><title>Explosive Success</title><use href="#icon-ex"/></svg> . After resolving the check, if you failed, you gain 1 Void point.</li>
+</ul></div>
+    </article>
+</div></div>
+<div class="pec-group" data-pectype="passion">
+<h4 class="pec-group-head"><span class="pec-glyph">✦</span> Passions</h4>
+<div class="pec-cards">
+
+    <article class="pec-card pec-ring-fire">
+      <header class="pec-head">
+        <div class="pec-name">Glorious Deeds</div>
+        <div class="pec-meta">
+          <span class="pec-ring-tag">
+            <svg class="icon icon-fire" role="img" aria-label="Fire"><title>Fire</title><use href="#icon-fire"/></svg>
+            fire
+          </span>
+          <span class="pec-types">Martial, Social</span>
+          <span class="pec-src">Fields of Victory · p.83</span>
+        </div>
+      </header>
+      <div class="rules-text"><p><em>“Even should a samurai evade death on the battlefield and survive to see their great-grandchildren come of age, one day they will pass. Such is the way of mortals. But the stories that people tell of that samurai—those may live forever.” The Ikoma historian gave his sibling a shrewd look.</em></p>
+<p><em>“But you did not come to listen to the lectures I have for students, I suspect. You want to be the subject of my next lecture. Tell me of your accomplishments, and I will make sure they are recorded in the family histories.”</em></p>
+<p><em>With that prompting, the eager bushi launched into a story about their efforts in the recent conflict, and they were not silent until late into the night.</em></p>
+<p>The following apply to a character with the Glorious Deeds passion:</p>
+<ul class="rules-list">
+<li>- You find risking your life to be a simple matter, as long as there is a witness to remember your bravery. No threat or challenge deters you if you might be remembered for it, making even the most daunting tasks easy ones for which to prepare.</li>
+<li>- After performing a check to improve your reputation or gain fame as a great samurai (such as a Performance <svg class="icon icon-fire" role="img" aria-label="Fire"><title>Fire</title><use href="#icon-fire"/></svg> check to impress a court with your new melody, or a Tactics <svg class="icon icon-fire" role="img" aria-label="Fire"><title>Fire</title><use href="#icon-fire"/></svg> check to execute a daring raid on the enemy), you remove 3 strife.</li>
+</ul></div>
+    </article>
+</div></div>
+<div class="pec-group" data-pectype="anxiety">
+<h4 class="pec-group-head"><span class="pec-glyph">✧</span> Anxieties</h4>
+<div class="pec-cards">
+
+    <article class="pec-card pec-ring-fire">
+      <header class="pec-head">
+        <div class="pec-name">Fear of Mediocrity</div>
+        <div class="pec-meta">
+          <span class="pec-ring-tag">
+            <svg class="icon icon-fire" role="img" aria-label="Fire"><title>Fire</title><use href="#icon-fire"/></svg>
+            fire
+          </span>
+          <span class="pec-types">Interpersonal, Mental</span>
+          <span class="pec-src">Writ of the Wild · p.106</span>
+        </div>
+      </header>
+      <div class="rules-text"><p><em>“I have climbed the highest peaks in my quest: the Wrath of the Kami, Tenkenniyoru Yama, the Iron Mountain, the Northern Wall Mountains… Nothing!</em></p>
+<p><em>Each tincture from a flower. Each tea from an herb. Each poultice from bark. Nothing. The answer must be out there.”</em></p>
+<p><em>- letters from Agasha AriNaga regarding an elixir of immortality</em></p>
+<p><em>“Falling up a mountain like AriNaga, to be immortalized as a fool.”</em></p>
+<p><em>- old Agasha saying</em></p>
+<p><strong>Effects:</strong> The following apply to a character with the Fear of Mediocrity anxiety:</p>
+<ul class="rules-list">
+<li>-  Your fear of amounting to nothing causes you to seize up when faced with the need to innovate on the fly.</li>
+<li>-  After performing a check to adapt to an unexpected situation (such as a Survival <svg class="icon icon-fire" role="img" aria-label="Fire"><title>Fire</title><use href="#icon-fire"/></svg> check to find shelter when your tent is destroyed or a Culture <svg class="icon icon-fire" role="img" aria-label="Fire"><title>Fire</title><use href="#icon-fire"/></svg> check to unexpectedly interact in an appropriate manner with someone of a higher status), you receive 3 strife. If this is the first time this has occurred this scene, gain 1 Void point.</li>
+</ul></div>
+    </article>
+</div></div>
+    </section>
+
+    
+
+    <!-- ============== GEAR (FIXED) ============== -->
+    <section class="block">
+      <h2 class="section-h"><span class="kanji">装備</span> Arms &amp; Equipage <span class="en-label">Sōbi</span></h2>
+
+      <h3 class="sub-h">Weapons</h3>
+      <table class="weapon-table">
+        <thead>
+          <tr>
+            <th>Weapon</th>
+            <th>Dmg</th>
+            <th>Deadliness</th>
+            <th>Range</th>
+            <th>Properties</th>
+            <th>Grip</th>
+          </tr>
+        </thead>
+        <tbody><tr>
+      <td class="w-name">Talwar<div class="w-cat">Swords</div></td>
+      <td class="w-num">4</td>
+      <td class="w-num">6</td>
+      <td class="w-range">1</td>
+      <td class="w-props">Cumbersome, Durable, Razor-Edged</td>
+      <td class="w-grip">—</td>
+    </tr>
+<tr>
+      <td class="w-name">Daikyū<div class="w-cat">Bows</div></td>
+      <td class="w-num">6</td>
+      <td class="w-num">4</td>
+      <td class="w-range">3-5</td>
+      <td class="w-props">Wargear</td>
+      <td class="w-grip">—</td>
+    </tr>
+<tr>
+      <td class="w-name">Gunbai<div class="w-cat">Hand Weapons</div></td>
+      <td class="w-num">2</td>
+      <td class="w-num">2</td>
+      <td class="w-range">1</td>
+      <td class="w-props">Ceremonial, Wargear</td>
+      <td class="w-grip">—</td>
+    </tr></tbody>
+      </table>
+
+      <h3 class="sub-h">Armor</h3>
+      <div class="armor-grid"><article class="armor-card">
+      <header><span class="armor-name">Sanctified Robes</span>
+        <span class="armor-stats">
+          <span title="Physical resistance"><strong>Phys</strong> 1</span>
+          <span title="Supernatural resistance"><strong>Sup</strong> 3</span>
+        </span>
+      </header>
+      <div class="armor-props">Ceremonial</div>
+    </article>
+<article class="armor-card">
+      <header><span class="armor-name">Traveling Clothes</span>
+        <span class="armor-stats">
+          <span title="Physical resistance"><strong>Phys</strong> 2</span>
+          <span title="Supernatural resistance"><strong>Sup</strong> 0</span>
+        </span>
+      </header>
+      <div class="armor-props">Durable, Mundane, Subtle</div>
+    </article></div>
+
+      <h3 class="sub-h">Items &amp; Effects</h3>
+      <ul class="items-list"><li><strong>Traveling pack</strong> — Mundane</li>
+<li><strong>Map (Ivory Kingdoms)</strong></li>
+<li><strong>Signet Ring (Royal Family)</strong></li>
+<li><strong>Uma-Jirushi</strong> — Resplendent, Wargear</li></ul>
+    </section>
+
+    <!-- ============== BONDS (FIXED) ============== -->
+    <section class="block">
+      <h2 class="section-h"><span class="kanji">絆</span> Bonds &amp; Heritage <span class="en-label">Kizuna</span></h2>
+      <article class="bond-card">
+          <header class="bond-head">
+            <span class="bond-name">Wanderers Fellowship</span>
+            <span class="bond-src">Path of Waves · p.191</span>
+          </header>
+          
+          <div class="rules-text"><p>With no lord, rōnin have nobody to rely upon and none to protect save themself, making their way through the world like waves rolling across the shore. But even the most independent-minded humans desire a degree of companionship, and there is a certain stability to be found in numbers. As a result, many rōnin form warrior bands, groups that work, fight, suffer, and laugh together. These bonds can become as tight as the tremendously strong bonds of family in Rokugan, or even stronger. In desperate circumstances, this bond can get a rōnin on their feet and back into the fight, helping them to fight on through the pain or face overwhelming odds to save their comrades in arms.</p>
+<ul class="rules-list">
+<li>- Other members of your fellowship watch out for your safety (if not always your dignity, especially when it comes to telling embarrassing stories). They help you with modest favors (offering you a cut in on a job they have taken on, giving you an introduction to someone hiring rōnin, buying your sake when your purse is empty and theirs is less empty), and generally expect you to reciprocate such favors.</li>
+<li>- Those with whom your fellowship has worked before are generally inclined to regard you in the same way they do your fellows—if they are rowdy or well-behaved, they will assume the same of you. Your actions also reflect upon members of your fellowship, and if you step out of line such that it endangers the group’s reputation, they intervene to set you on the right path—or to remove you from the group, if you will not repent.</li>
+<li>- If your bond rank is 3 or higher, your fellowship’s bonds of loyalty are extremely deep, and other members will accept dangerous jobs with you without question, join your side in battles that do not pay, and perhaps even buy your sake without reminding you about it three times in the next week.</li>
+</ul>
+<p><strong>Bond Ability:</strong> Sworn to Duty and to Death</p></div>
+          <div class="bond-tbd"><em>Specific fellow-members and their individual bonds: to be determined in play.</em></div>
+        </article>
+      <h3 class="sub-h">Heritage</h3>
+      <p>Raised in a royal suzerain's household, with servants and private tutors.</p>
+      <p style="font-size:0.9rem;color:var(--ink-faint);font-style:italic;">
+        Heritage modifiers: Honor +0 · Glory +0 · Status +0
+      </p>
+    </section>
+
+    <!-- ============== NARRATIVE (FIXED) ============== -->
+    <section class="block narrative-section">
+      <h2 class="section-h"><span class="kanji">人物像</span> The Person Within <span class="en-label">Jinbutsu-zō</span></h2>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">What sets them apart</div>
+        <p>Gregarious and charming.</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">What they had to learn</div>
+        <p>The love of his life, Riya, is in another city. He is afraid that to visit her prematurely will bring danger to her, but their love has opened his eyes to the world in a way that he had previously been blind to.</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">A defining success</div>
+        <p>Survived the palace coup, and led his tutor's children to safety.</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">A defining difficulty</div>
+        <p>He is unused to having to negotiate, to working with people who don't have to obey him.</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">What calms them</div>
+        <p>Challenging himself, pushing himself.</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">What worries them</div>
+        <p>Doubts about his fate to rule; perhaps the downfall of his family was karma?</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">At first sight</div>
+        <p>His signet ring bears a tiger and his family's sigil.</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">Under stress</div>
+        <p>He exercises strenuously, or practices archery.</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">Notable relations</div>
+        <p>His family's former vassals are scattered in exile or hiding in submission. Some noble houses have sworn fealty to the usurper, while others wait for a sign that restoration is possible.
+
+As a foreign prince in Rokugan, he occupies an awkward position - too noble to ignore, but without the local connections that grant true influence. His royal blood means little here.
+
+</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">Standing with their clan</div>
+        <p>Aarav is famously handsome and kind, and a warrior of great prowess.</p>
+      </div>
+
+      <div class="narr-block">
+        <div class="narr-eyebrow">In their parents' eyes</div>
+        <p>Aarav has gathered a small group of mercenaries. They travel together, and he is trying to convince them to build their strength to help him return to power.</p>
+      </div>
+
+      <div class="narr-block death-vision">
+        <div class="narr-eyebrow">How they will die</div>
+        <p>He should die in an act of glorious heroism, defending his people.</p>
+      </div>
+    </section>
+
+    <!-- ============== SCHOOL & TITLE CURRICULUM (TOGGLED) ============== -->
+    <section class="block">
+      <h2 class="section-h"><span class="kanji">進歩</span> Curriculum <span class="en-label">Karikyuramu</span></h2>
+      <div class="curriculum-block" id="curriculum-target"></div>
+    </section>
+
+    <footer class="footer">
+      <span class="stamp">❖</span> Player Character Dossier · Legend of the Five Rings 5e <span class="stamp">❖</span>
+    </footer>
+  </div>
+</div>
+
+<script>
+const SNAPSHOTS = [{"xp": 0, "title": "Ivory Kingdoms Sage Tradition", "full_label": "Ivory Kingdoms Sage Tradition, Rank 1", "rank": 1, "rings": {"earth": 2, "air": 2, "water": 2, "fire": 2, "void": 2}, "derived": {"endurance": 8, "composure": 8, "focus": 4, "vigilance": 2, "void_max": 2, "fatigue_max": 8, "strife_max": 8}, "social": {"honor": 50, "glory": 33, "status": 0}, "skills": {"artisan": {"aesthetics": 0, "composition": 0, "design": 0, "smithing": 0}, "martial": {"fitness": 0, "melee": 1, "ranged": 1, "unarmed": 1, "meditation": 1, "tactics": 0}, "scholar": {"culture": 1, "government": 0, "medicine": 0, "sentiment": 0, "theology": 1}, "social": {"command": 2, "courtesy": 1, "games": 0, "performance": 0}, "trade": {"commerce": 0, "labor": 0, "seafaring": 1, "skulduggery": 0, "survival": 0}}, "techniques": [{"name": "Cleansing Spirit", "type": "kiho", "ring": "earth", "skill": "theology", "difficulty": "1", "rank": 1, "source_page": 182, "source_book": "core_rulebook", "xp_cost": 3, "description": "_The monk centers their ki, then reaches out and touches another character, counterbalancing their turbulent energies with the stillness of the monk’s own soul. This restores the character’s spirit, driving out poison, disease, and even the grip of evil spirits, provided they have not yet taken root in the character’s soul._\n\n**Activation:** As a Support action, may make a TN 1 Theology (earth) check to bolster your spiritual resilience. When you perform this action, you may choose one other character at range 0–1 as the target for the burst effect.\n\n**Enhancement Effect:** If you succeed, this kihō activates. While this kihō is active, reduce the TN of all your checks to resist poison, disease, mahō, the Defiled terrain quality, and the effects of Otherworldly and Tainted beings by your Earth Ring.\n\n**Burst Effect:** If you have two or more bonus successes, remove one of the following conditions from your target: Afflicted, Bleeding, Dazed, Disoriented, Dying, Fatigued, or Intoxicated."}, {"name": "Earth Needs No Eyes", "type": "kiho", "ring": "earth", "skill": "meditation", "difficulty": "1", "rank": 1, "source_page": 182, "source_book": "core_rulebook", "xp_cost": 3, "description": "_The monk who waits and listens sees much, even without eyes. Sending out waves of their own energy and letting the ki of the life around them flow back into their body through the ground, the monk feels the reverberations of everything moving nearby, from the thunderous breaths of a warrior in battle to the footsteps of the tiniest ants._\n\n**Activation:** As a Support action, you may activate this kihō. When you do so, you may make a TN 1 Meditation (earth) check to gain an awareness of your surroundings.\n\n**Enhancement Effect:** If you succeed, this kihō activates. While this kihō is active, you can use vibrations through the earth to “see” a number of range bands in all directions equal to your Earth Ring. While this kihō is active, increase your vigilance by your Earth Ring.\n\n**Burst Effect:** If you succeed with three or more bonus successes, you instantly become aware of all living creatures and objects touching the ground within a number of range bands equal to your Earth Ring plus your bonus successes."}, {"name": "Gift of Inner Power", "type": "school_ability", "ring": "void", "skill": "", "difficulty": "", "rank": 1, "source_page": 58, "source_book": "path_of_waves", "xp_cost": 0, "description": "You can infuse other characters with your inner energy. After you perform a check to activate one of your kihō, you can receive fatigue up to your school rank and choose another character at range 0–1. If you do, that character gains the enhancement effect of your kihō in your stead ­you may still resolve the burst effect, if able). This effect persists a number of rounds equal to the amount of fatigue you received this way plus your ranks in Meditation. Only one character can benefit from your kihō at a time."}, {"name": "Threshold Barrier", "type": "ritual", "ring": "void", "skill": "theology", "difficulty": "2", "rank": 1, "source_page": 213, "source_book": "core_rulebook", "xp_cost": 3, "description": "_The ritualist wards an entryway against beings of a certain sort, causing them to fail to observe the entryway or making them mentally repulsed by their efforts to enter it._\n\n**Activation:** As a downtime activity, you may make a TN 2 Theology check using (air), (earth), (fire), (water), or (void) targeting a threshold, gate, or other entryway at range 0–1.\n\n**Effects:** If you succeed, the threshold is barred against a particular type of entity, based on the ring you chose, for one hour, plus additional hours equal to your bonus successes. When an entity of this type attempts to enter, it must resist with a TN 3 Meditation (void) check or be repelled by the spiritual barrier. Whether it succeeds or fails, you immediately become aware of its attempted entry. The particular type of being is based on the ring you chose, as follows:\n\n- (air): Ethereal Otherworldly beings such as spirits and ghosts.\n\n- (earth): Living Tainted beings.\n\n- (fire): Undead beings with corporeal form.\n\n- (water): Wild animals.\n\n- (void): Humans.\n\nNew Opportunities(op): Instead of protecting a threshold, you may protect the entirety of a sealed area that extends a number of range bands around you no greater than your bonus successes.\n\n(op): If any beings of the type you are attempting to seal the threshold against have passed through the threshold within the last twenty-four hours, you become aware of their passage."}], "advancements": [], "titles": []}, {"xp": 36, "title": "Astradhari", "full_label": "Sage Tradition · Astradhari, Rank 1", "rank": 1, "rings": {"earth": 2, "air": 2, "water": 2, "fire": 2, "void": 2}, "derived": {"endurance": 8, "composure": 8, "focus": 4, "vigilance": 2, "void_max": 2, "fatigue_max": 8, "strife_max": 8}, "social": {"honor": 50, "glory": 33, "status": 0}, "skills": {"artisan": {"aesthetics": 0, "composition": 0, "design": 0, "smithing": 0}, "martial": {"fitness": 0, "melee": 1, "ranged": 4, "unarmed": 1, "meditation": 1, "tactics": 0}, "scholar": {"culture": 1, "government": 0, "medicine": 0, "sentiment": 0, "theology": 1}, "social": {"command": 3, "courtesy": 1, "games": 0, "performance": 0}, "trade": {"commerce": 0, "labor": 0, "seafaring": 1, "skulduggery": 0, "survival": 0}}, "techniques": [{"name": "Cleansing Spirit", "type": "kiho", "ring": "earth", "skill": "theology", "difficulty": "1", "rank": 1, "source_page": 182, "source_book": "core_rulebook", "xp_cost": 3, "description": "_The monk centers their ki, then reaches out and touches another character, counterbalancing their turbulent energies with the stillness of the monk’s own soul. This restores the character’s spirit, driving out poison, disease, and even the grip of evil spirits, provided they have not yet taken root in the character’s soul._\n\n**Activation:** As a Support action, may make a TN 1 Theology (earth) check to bolster your spiritual resilience. When you perform this action, you may choose one other character at range 0–1 as the target for the burst effect.\n\n**Enhancement Effect:** If you succeed, this kihō activates. While this kihō is active, reduce the TN of all your checks to resist poison, disease, mahō, the Defiled terrain quality, and the effects of Otherworldly and Tainted beings by your Earth Ring.\n\n**Burst Effect:** If you have two or more bonus successes, remove one of the following conditions from your target: Afflicted, Bleeding, Dazed, Disoriented, Dying, Fatigued, or Intoxicated."}, {"name": "Earth Needs No Eyes", "type": "kiho", "ring": "earth", "skill": "meditation", "difficulty": "1", "rank": 1, "source_page": 182, "source_book": "core_rulebook", "xp_cost": 3, "description": "_The monk who waits and listens sees much, even without eyes. Sending out waves of their own energy and letting the ki of the life around them flow back into their body through the ground, the monk feels the reverberations of everything moving nearby, from the thunderous breaths of a warrior in battle to the footsteps of the tiniest ants._\n\n**Activation:** As a Support action, you may activate this kihō. When you do so, you may make a TN 1 Meditation (earth) check to gain an awareness of your surroundings.\n\n**Enhancement Effect:** If you succeed, this kihō activates. While this kihō is active, you can use vibrations through the earth to “see” a number of range bands in all directions equal to your Earth Ring. While this kihō is active, increase your vigilance by your Earth Ring.\n\n**Burst Effect:** If you succeed with three or more bonus successes, you instantly become aware of all living creatures and objects touching the ground within a number of range bands equal to your Earth Ring plus your bonus successes."}, {"name": "Gift of Inner Power", "type": "school_ability", "ring": "void", "skill": "", "difficulty": "", "rank": 1, "source_page": 58, "source_book": "path_of_waves", "xp_cost": 0, "description": "You can infuse other characters with your inner energy. After you perform a check to activate one of your kihō, you can receive fatigue up to your school rank and choose another character at range 0–1. If you do, that character gains the enhancement effect of your kihō in your stead ­you may still resolve the burst effect, if able). This effect persists a number of rounds equal to the amount of fatigue you received this way plus your ranks in Meditation. Only one character can benefit from your kihō at a time."}, {"name": "Sacred Mantras", "type": "title_ability", "ring": "void", "skill": "", "difficulty": "", "rank": 1, "source_page": 0, "source_book": "", "xp_cost": 0, "description": "You can purchase mantra techniques ­(see page 98)."}, {"name": "Threshold Barrier", "type": "ritual", "ring": "void", "skill": "theology", "difficulty": "2", "rank": 1, "source_page": 213, "source_book": "core_rulebook", "xp_cost": 3, "description": "_The ritualist wards an entryway against beings of a certain sort, causing them to fail to observe the entryway or making them mentally repulsed by their efforts to enter it._\n\n**Activation:** As a downtime activity, you may make a TN 2 Theology check using (air), (earth), (fire), (water), or (void) targeting a threshold, gate, or other entryway at range 0–1.\n\n**Effects:** If you succeed, the threshold is barred against a particular type of entity, based on the ring you chose, for one hour, plus additional hours equal to your bonus successes. When an entity of this type attempts to enter, it must resist with a TN 3 Meditation (void) check or be repelled by the spiritual barrier. Whether it succeeds or fails, you immediately become aware of its attempted entry. The particular type of being is based on the ring you chose, as follows:\n\n- (air): Ethereal Otherworldly beings such as spirits and ghosts.\n\n- (earth): Living Tainted beings.\n\n- (fire): Undead beings with corporeal form.\n\n- (water): Wild animals.\n\n- (void): Humans.\n\nNew Opportunities(op): Instead of protecting a threshold, you may protect the entirety of a sealed area that extends a number of range bands around you no greater than your bonus successes.\n\n(op): If any beings of the type you are attempting to seal the threshold against have passed through the threshold within the last twenty-four hours, you become aware of their passage."}], "advancements": [], "titles": [{"name": "Astradhari", "description": "Those who wield astras, the celestial implements blessed by the gods, have been given exceptional powers. These heroes and villains are much rarer than they were in ancient times, but they still exist today. The ability to summon such items requires the influence of a god or intense study under a mentor from the Ivory Kingdoms. If a person can find a sage willing to teach them, they may be able to learn how to summon one of these powerful artifacts, but no sage is willing to teach just anyone these sacred and secret methods. A character must complete tests and trials, which differ depending on the sage in question, to prove their worthiness of wielding such intense power.\n\n**Assigned By:**\u001cAn Ivory Kingdoms High Sage (­such a person may only be chosen by the GM).\n\n**Status Award:**\u001c+0 (+25 in the Ivory Kingdoms, to a maximum of 65)\n\n**Title Ability:** Sacred Mantras\n\nCurriculumScholar Skills\n\nSkill Group\n\nMartial Skills\n\nSkill Group\n\nCommand\n\nSkill\n\nCourtesy\n\nSkill\n\n(ritual) Rank 1-3 Rituals (prereq)\n\nTech. Grp.\n\n(mantra) Summon Mantra : [One Implement] (prereq)\n\nTechnique\n\n(shuji) Touchstone of Courage (prereq)\n\nTechnique"}]}, {"xp": 57, "title": "Astradhari", "full_label": "Sage Tradition · Astradhari, Rank 2", "rank": 2, "rings": {"earth": 2, "air": 2, "water": 2, "fire": 2, "void": 2}, "derived": {"endurance": 8, "composure": 8, "focus": 4, "vigilance": 2, "void_max": 2, "fatigue_max": 8, "strife_max": 8}, "social": {"honor": 50, "glory": 33, "status": 0}, "skills": {"artisan": {"aesthetics": 0, "composition": 0, "design": 0, "smithing": 0}, "martial": {"fitness": 1, "melee": 1, "ranged": 4, "unarmed": 2, "meditation": 1, "tactics": 0}, "scholar": {"culture": 1, "government": 0, "medicine": 0, "sentiment": 0, "theology": 1}, "social": {"command": 3, "courtesy": 1, "games": 0, "performance": 0}, "trade": {"commerce": 0, "labor": 0, "seafaring": 1, "skulduggery": 0, "survival": 0}}, "techniques": [{"name": "Bellow of Resolve", "type": "shuji", "ring": "earth", "skill": "command", "difficulty": "2", "rank": 1, "source_page": 92, "source_book": "path_of_waves", "xp_cost": 3, "description": "_A well-timed word of encouragement or shout of warning can get a fighter back on their feet at a crucial moment, which can mean the difference between life and death on the battlefield._\n\n**Activation:** Once per scene as a Support action, you may make a TN 2 Command (earth) check targeting one Compromised or Incapacitated character.\n\n**Effects:** If you succeed and your target is Compromised, they remove strife until their strife is equal to their composure minus 1.\n\nIf you succeed and your target is Incapacitated, they remove fatigue until their fatigue is equal to their endurance minus 1.\n\nNew Opportunities(earth)(op)(op): You may use this technique one additional time this scene.\n\n(earth)(op)(op)(op): This technique instead targets any number of Compromised and Incapacitated characters of your choice in the scene."}, {"name": "Cleansing Spirit", "type": "kiho", "ring": "earth", "skill": "theology", "difficulty": "1", "rank": 1, "source_page": 182, "source_book": "core_rulebook", "xp_cost": 3, "description": "_The monk centers their ki, then reaches out and touches another character, counterbalancing their turbulent energies with the stillness of the monk’s own soul. This restores the character’s spirit, driving out poison, disease, and even the grip of evil spirits, provided they have not yet taken root in the character’s soul._\n\n**Activation:** As a Support action, may make a TN 1 Theology (earth) check to bolster your spiritual resilience. When you perform this action, you may choose one other character at range 0–1 as the target for the burst effect.\n\n**Enhancement Effect:** If you succeed, this kihō activates. While this kihō is active, reduce the TN of all your checks to resist poison, disease, mahō, the Defiled terrain quality, and the effects of Otherworldly and Tainted beings by your Earth Ring.\n\n**Burst Effect:** If you have two or more bonus successes, remove one of the following conditions from your target: Afflicted, Bleeding, Dazed, Disoriented, Dying, Fatigued, or Intoxicated."}, {"name": "Earth Needs No Eyes", "type": "kiho", "ring": "earth", "skill": "meditation", "difficulty": "1", "rank": 1, "source_page": 182, "source_book": "core_rulebook", "xp_cost": 3, "description": "_The monk who waits and listens sees much, even without eyes. Sending out waves of their own energy and letting the ki of the life around them flow back into their body through the ground, the monk feels the reverberations of everything moving nearby, from the thunderous breaths of a warrior in battle to the footsteps of the tiniest ants._\n\n**Activation:** As a Support action, you may activate this kihō. When you do so, you may make a TN 1 Meditation (earth) check to gain an awareness of your surroundings.\n\n**Enhancement Effect:** If you succeed, this kihō activates. While this kihō is active, you can use vibrations through the earth to “see” a number of range bands in all directions equal to your Earth Ring. While this kihō is active, increase your vigilance by your Earth Ring.\n\n**Burst Effect:** If you succeed with three or more bonus successes, you instantly become aware of all living creatures and objects touching the ground within a number of range bands equal to your Earth Ring plus your bonus successes."}, {"name": "Gift of Inner Power", "type": "school_ability", "ring": "void", "skill": "", "difficulty": "", "rank": 1, "source_page": 58, "source_book": "path_of_waves", "xp_cost": 0, "description": "You can infuse other characters with your inner energy. After you perform a check to activate one of your kihō, you can receive fatigue up to your school rank and choose another character at range 0–1. If you do, that character gains the enhancement effect of your kihō in your stead ­you may still resolve the burst effect, if able). This effect persists a number of rounds equal to the amount of fatigue you received this way plus your ranks in Meditation. Only one character can benefit from your kihō at a time."}, {"name": "Ki Protection", "type": "kiho", "ring": "water", "skill": "meditation", "difficulty": "1", "rank": 1, "source_page": 186, "source_book": "core_rulebook", "xp_cost": 3, "description": "_The monk touches the injured individual, feeling the flow of their ki and using their own to gently correct its flow. While the monk sustains this kihō, their touch continues to heal, though repeating the effort numerous times is quite draining._\n\n**Activation:** As a Movement and Support action, you may make a TN 1 Meditation (water) check. You may choose one character at range 0–1 as the target for the burst effect.\n\n**Enhancement Effect:** If you succeed, this kihō activates. While this kihō is active, when you perform the Calming Breath action, you may remove 2 fatigue instead of 1. While this kihō is active, after you perform an action, you may spend 1 Void point to remove fatigue equal to your ranks in Medicine from one other character at range 0–1.\n\n**Burst Effect:** If you have 2 or more bonus successes, your target removes fatigue equal to your ranks in Medicine plus your bonus successes. Each target cannot be affected by this effect again until the end of the scene."}, {"name": "Sacred Mantras", "type": "title_ability", "ring": "void", "skill": "", "difficulty": "", "rank": 1, "source_page": 0, "source_book": "", "xp_cost": 0, "description": "You can purchase mantra techniques ­(see page 98)."}, {"name": "The Great Silence", "type": "kiho", "ring": "air", "skill": "theology", "difficulty": "1", "rank": 1, "source_page": 184, "source_book": "core_rulebook", "xp_cost": 3, "description": "_The monk swirls their hands in a spiral, pulling noise inward and stealing even the reverberations that sounds make through the air. Lies die on the lips unspoken, and prayers never reach the spirits for whom they were intended. Skilled practitioners often maintain this technique, twisting the wind around them to steal away pernicious words and wicked prayers alike._\n\n**Activation:** As a Scheme and Support action, you may activate this kihō, you may make a TN 1 Theology (air) check to create an area of silence around you.\n\n**Enhancement Effect:** If you succeed, this kihō activates. While this kihō is active, increase the TN of Scheme action checks targeting you by one plus your ranks in Command.\n\n**Burst Effect:** If you have two or more bonus successes, characters at range 0–3 suffer the Silenced condition (see page 273) and cannot hear. This effect persists until the beginning of your next turn."}, {"name": "Threshold Barrier", "type": "ritual", "ring": "void", "skill": "theology", "difficulty": "2", "rank": 1, "source_page": 213, "source_book": "core_rulebook", "xp_cost": 3, "description": "_The ritualist wards an entryway against beings of a certain sort, causing them to fail to observe the entryway or making them mentally repulsed by their efforts to enter it._\n\n**Activation:** As a downtime activity, you may make a TN 2 Theology check using (air), (earth), (fire), (water), or (void) targeting a threshold, gate, or other entryway at range 0–1.\n\n**Effects:** If you succeed, the threshold is barred against a particular type of entity, based on the ring you chose, for one hour, plus additional hours equal to your bonus successes. When an entity of this type attempts to enter, it must resist with a TN 3 Meditation (void) check or be repelled by the spiritual barrier. Whether it succeeds or fails, you immediately become aware of its attempted entry. The particular type of being is based on the ring you chose, as follows:\n\n- (air): Ethereal Otherworldly beings such as spirits and ghosts.\n\n- (earth): Living Tainted beings.\n\n- (fire): Undead beings with corporeal form.\n\n- (water): Wild animals.\n\n- (void): Humans.\n\nNew Opportunities(op): Instead of protecting a threshold, you may protect the entirety of a sealed area that extends a number of range bands around you no greater than your bonus successes.\n\n(op): If any beings of the type you are attempting to seal the threshold against have passed through the threshold within the last twenty-four hours, you become aware of their passage."}, {"name": "Landslide Strike", "type": "kata", "ring": "earth", "skill": "melee", "difficulty": "@T:vigilance", "rank": 2, "source_page": 89, "source_book": "path_of_waves", "xp_cost": 3, "description": "_Lashing out at the foe’s legs, the warrior forces their enemy to either abandon their stance or be knocked from their feet. This tactic is especially effective on uneven ground, as the enemy must watch their footing or risk even further injury._\n\n**Activation:** As an Attack and Scheme action, you may make a Martial Arts [Melee] ((earth) or (water)) check targeting one character in your weapon’s range. The TN is equal to the target’s vigilance. If your target is in Dangerous, Entangling, or Obscuring terrain, the TN is 1 instead.\n\n**Effects:** If you succeed, your target must choose one of the following:\n\n- - Receive fatigue equal to your ranks in Fitness and the Prone condition.\n\n- - Switch to a different stance of their choice and suffer the Immobilized condition.\n\nNew Opportunities(op)(op)+: If your weapon has the Cumbersome quality, choose one additional target with vigilance lower than or equal to your original target’s vigilance per (op)(op) spent this way."}, {"name": "Countering Mantra", "type": "mantra", "ring": "void", "skill": "theology", "difficulty": "5", "rank": 4, "source_page": 99, "source_book": "path_of_waves", "xp_cost": 3, "description": "**Activation:** When a character you can perceive makes a check to use a celestial implement, if you have a readied celestial implement of your own, you may immediately make a TN 5 Theology check targeting that character to attempt to counter their implement’s effects. If your celestial implement’s element matches the counter element of the target’s implement, the TN is 2 instead.\n\n**Effects:** If you succeed, your target’s implement is dispelled. Your target counts as having failed the check to use it, with a shortfall equal to your ranks in Theology, and they do not apply any of its boons to the check."}], "advancements": [], "titles": [{"name": "Astradhari", "description": "Those who wield astras, the celestial implements blessed by the gods, have been given exceptional powers. These heroes and villains are much rarer than they were in ancient times, but they still exist today. The ability to summon such items requires the influence of a god or intense study under a mentor from the Ivory Kingdoms. If a person can find a sage willing to teach them, they may be able to learn how to summon one of these powerful artifacts, but no sage is willing to teach just anyone these sacred and secret methods. A character must complete tests and trials, which differ depending on the sage in question, to prove their worthiness of wielding such intense power.\n\n**Assigned By:**\u001cAn Ivory Kingdoms High Sage (­such a person may only be chosen by the GM).\n\n**Status Award:**\u001c+0 (+25 in the Ivory Kingdoms, to a maximum of 65)\n\n**Title Ability:** Sacred Mantras\n\nCurriculumScholar Skills\n\nSkill Group\n\nMartial Skills\n\nSkill Group\n\nCommand\n\nSkill\n\nCourtesy\n\nSkill\n\n(ritual) Rank 1-3 Rituals (prereq)\n\nTech. Grp.\n\n(mantra) Summon Mantra : [One Implement] (prereq)\n\nTechnique\n\n(shuji) Touchstone of Courage (prereq)\n\nTechnique"}]}];
+
+const RING_ORDER = ['earth','water','fire','air','void'];
+const RING_KANJI = {earth:'土', water:'水', fire:'火', air:'風', void:'空'};
+const RING_NAME  = {earth:'Earth', water:'Water', fire:'Fire', air:'Air', void:'Void'};
+
+const SKILL_CATS = [
+  {key:'artisan',  label:'Artisan', skills:['aesthetics','composition','design','smithing']},
+  {key:'martial',  label:'Martial', skills:['fitness','meditation','tactics','melee','ranged','unarmed']},
+  {key:'scholar',  label:'Scholar', skills:['culture','government','medicine','sentiment','theology']},
+  {key:'social',   label:'Social',  skills:['command','courtesy','games','performance']},
+  {key:'trade',    label:'Trade',   skills:['commerce','labor','seafaring','skulduggery','survival']}
+];
+const SKILL_NAME_MAP = {
+  melee: 'Martial Arts [Melee]',
+  ranged: 'Martial Arts [Ranged]',
+  unarmed: 'Martial Arts [Unarmed]'
+};
+
+const TECH_TYPE_LABELS = {
+  school_ability:'School Ability', mastery_ability:'Mastery Ability', title_ability:'Title Ability',
+  kata:'Kata', shuji:'Shūji', ritual:'Ritual', kiho:'Kihō', invocation:'Invocation',
+  mantra:'Mantra', ninjutsu:'Ninjutsu', inversion:'Inversion', maho:'Mahō'
+};
+const TECH_TYPE_ORDER = ['school_ability','mastery_ability','title_ability','kata','shuji','ritual','kiho','invocation','mantra','ninjutsu','inversion','maho'];
+
+const BOOK_NAMES = {
+  core_rulebook:'Core', path_of_waves:'Path of Waves', court_of_stones:'Court of Stones',
+  fields_of_victory:'Fields of Victory', writ_of_the_wild:'Writ of the Wild',
+  shadowlands:'Shadowlands', celestial_realms:'Celestial Realms', emerald_empire:'Emerald Empire',
+  children_of_the_five_winds: 'Children of the Five Winds',
+  gates_of_chaos: 'Gates of Chaos', roar_of_the_seas: 'Roar of the Seas',
+  across_the_burning_sands: 'Across the Burning Sands',
+  martial_arts_path: 'Path of the Martial Arts'
+};
+
+const ICON_LABELS = {
+  op:'Opportunity', su:'Success', ex:'Explosive Success', st:'Strife',
+  skill:'Skill Die', ring:'Ring Die',
+  earth:'Earth', water:'Water', fire:'Fire', air:'Air', void:'Void',
+  kiho:'Kihō', maho:'Mahō', ninjutsu:'Ninjutsu', ritual:'Ritual',
+  shuji:'Shūji', invocation:'Invocation', kata:'Kata',
+  prereq:'Prerequisite', inversion:'Inversion', mantra:'Mantra'
+};
+
+function iconSvg(tok, extraClass) {
+  const label = ICON_LABELS[tok] || tok;
+  const cls = 'icon icon-' + tok + (extraClass ? ' ' + extraClass : '');
+  return `<svg class="${cls}" role="img" aria-label="${label}"><title>${label}</title><use href="#icon-${tok}"/></svg>`;
+}
+
+const TOKEN_RE = /\((op|su|ex|st|ring|skill|earth|water|fire|air|void|kiho|maho|ninjutsu|ritual|shuji|invocation|kata|prereq|inversion|mantra)\)/g;
+function replaceTokens(s) {
+  if (!s) return '';
+  return s.replace(TOKEN_RE, (_, tok) => iconSvg(tok));
+}
+
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function mdInline(s) {
+  s = escapeHtml(s);
+  s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  s = s.replace(/_([^_\n]+)_/g, '<em>$1</em>');
+  return s;
+}
+
+function renderRulesText(text) {
+  if (!text) return '';
+  const paragraphs = text.split('\n\n').map(p => p.trim()).filter(Boolean);
+  let html = '';
+  let inList = false;
+  for (let p of paragraphs) {
+    const lines = p.split('\n');
+    const allBullets = lines.every(l => l.trim().startsWith('- ') || l.trim().startsWith('-'));
+    if (allBullets && lines.length >= 1) {
+      if (!inList) { html += '<ul class="rules-list">'; inList = true; }
+      for (let line of lines) {
+        line = line.trim();
+        if (line.startsWith('- ')) line = line.slice(2);
+        else if (line.startsWith('-')) line = line.slice(1).trim();
+        html += '<li>' + replaceTokens(mdInline(line)) + '</li>';
+      }
+    } else if (p.startsWith('## ')) {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += '<h5 class="rules-h">' + replaceTokens(mdInline(p.slice(3).trim())) + '</h5>';
+    } else {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += '<p>' + replaceTokens(mdInline(p)) + '</p>';
+    }
+  }
+  if (inList) html += '</ul>';
+  return html;
+}
+
+function srcRef(book, page) {
+  if (!book && !page) return '';
+  const b = BOOK_NAMES[book] || book || '';
+  if (b && page) return `${b} · p.${page}`;
+  if (b) return b;
+  if (page) return `p.${page}`;
+  return '';
+}
+
+function renderRings(snap) {
+  let html = '<div class="rings-grid">';
+  for (const r of RING_ORDER) {
+    const v = snap.rings[r];
+    const label = ICON_LABELS[r];
+    html += `<div class="ring-cell ring-${r}">
+      <svg class="ring-glyph" role="img" aria-label="${label}"><title>${label}</title><use href="#icon-${r}"/></svg>
+      <div class="ring-kanji">${RING_KANJI[r]}</div>
+      <div class="ring-name">${RING_NAME[r]}</div>
+      <div class="ring-value">${v}</div>
+    </div>`;
+  }
+  html += '</div>';
+  html += `<div class="stats-strip">
+    <div class="stat-plate"><div class="sp-label">Endurance</div><div class="sp-value">${snap.derived.endurance}</div></div>
+    <div class="stat-plate"><div class="sp-label">Composure</div><div class="sp-value">${snap.derived.composure}</div></div>
+    <div class="stat-plate"><div class="sp-label">Focus</div><div class="sp-value">${snap.derived.focus}</div></div>
+    <div class="stat-plate"><div class="sp-label">Vigilance</div><div class="sp-value">${snap.derived.vigilance}</div></div>
+    <div class="stat-plate"><div class="sp-label">Void Max</div><div class="sp-value">${snap.derived.void_max}</div></div>
+  </div>
+  <div class="stat-strip-note">Fatigue cap ${snap.derived.fatigue_max} · Strife cap ${snap.derived.strife_max}</div>`;
+  return html;
+}
+
+function renderSocial(snap) {
+  return `
+    <div class="soc-plate">
+      <div class="soc-label">Honor · 名誉</div>
+      <div class="soc-value-wrap"><span class="soc-value">${snap.social.honor}</span></div>
+    </div>
+    <div class="soc-plate">
+      <div class="soc-label">Glory · 栄光</div>
+      <div class="soc-value-wrap"><span class="soc-value">${snap.social.glory}</span></div>
+    </div>
+    <div class="soc-plate">
+      <div class="soc-label">Status · 身分</div>
+      <div class="soc-value-wrap"><span class="soc-value">${snap.social.status}</span></div>
+    </div>`;
+}
+
+function prettyName(skill) {
+  if (SKILL_NAME_MAP[skill]) return SKILL_NAME_MAP[skill];
+  return skill.charAt(0).toUpperCase() + skill.slice(1);
+}
+
+function renderSkills(snap) {
+  let html = '';
+  for (const cat of SKILL_CATS) {
+    const skills = snap.skills[cat.key] || {};
+    html += `<div class="skill-cat"><div class="skill-cat-name">${cat.label}</div>`;
+    for (const sk of cat.skills) {
+      const rank = skills[sk] || 0;
+      const cls = rank === 0 ? 'skill-row zero' : 'skill-row';
+      let pips = '<span class="skill-pips">';
+      for (let i=0; i<5; i++) {
+        pips += `<span class="pip${i < rank ? ' full' : ''}"></span>`;
+      }
+      pips += '</span>';
+      html += `<div class="${cls}"><span class="skill-name">${prettyName(sk)}</span>${pips}</div>`;
+    }
+    html += '</div>';
+  }
+  return html;
+}
+
+function renderTechGroup(key, list) {
+  const TYPES_WITH_ICONS = new Set(['kata','shuji','ritual','kiho','invocation','mantra','ninjutsu','inversion','maho','prereq']);
+  const icon = TYPES_WITH_ICONS.has(key) ? iconSvg(key, 'tech-type-icon') : '';
+  let html = `<div class="tech-group"><div class="tech-group-h">${icon}${TECH_TYPE_LABELS[key]}</div>`;
+  // sort by rank then name
+  list.sort((a,b) => (a.rank||0) - (b.rank||0) || a.name.localeCompare(b.name));
+  for (const t of list) {
+    const ring = t.ring || 'void';
+    let metaParts = [];
+    metaParts.push(`<span class="meta-ring">${iconSvg(ring)}${RING_NAME[ring]}</span>`);
+    if (t.skill) metaParts.push(`<span>${prettyName(t.skill)}</span>`);
+    if (t.difficulty) metaParts.push(`<span class="meta-tn">TN ${t.difficulty}</span>`);
+    if (t.rank) metaParts.push(`<span>Rank ${t.rank}</span>`);
+    const src = srcRef(t.source_book, t.source_page);
+    if (src) metaParts.push(`<span class="meta-src">${src}</span>`);
+    html += `<article class="tech-card tech-ring-${ring}">
+      <header class="tech-head">
+        <span class="tech-name">${escapeHtml(t.name)}</span>
+        <span class="tech-meta">${metaParts.join('')}</span>
+      </header>
+      <div class="rules-text">${renderRulesText(t.description)}</div>
+    </article>`;
+  }
+  html += '</div>';
+  return html;
+}
+
+function renderTechniques(snap, snapIdx) {
+  const grouped = {};
+  for (const t of snap.techniques) {
+    const key = t.type || 'kata';
+    if (!grouped[key]) grouped[key] = [];
+    grouped[key].push(t);
+  }
+
+  // School + Mastery abilities get wrapped in the school-colored full-viewport band.
+  // Mahō techniques get pulled out into their own charcoal full-viewport band — a
+  // visual signal that this is forbidden, transgressive content categorically
+  // different from a normal school discipline.
+  // (Title abilities stay on cream paper outside any band.)
+  const SCHOOL_BAND_KEYS = ['school_ability', 'mastery_ability'];
+  const MAHO_BAND_KEYS = ['maho'];
+  const REGULAR_KEYS = TECH_TYPE_ORDER.filter(k =>
+      !SCHOOL_BAND_KEYS.includes(k) && !MAHO_BAND_KEYS.includes(k));
+
+  let html = '';
+
+  // School + Mastery — colored band
+  const hasSchoolOrMastery = SCHOOL_BAND_KEYS.some(k => (grouped[k] && grouped[k].length > 0));
+  if (hasSchoolOrMastery) {
+    let inner = '';
+    for (const key of SCHOOL_BAND_KEYS) {
+      const list = grouped[key];
+      if (!list || list.length === 0) continue;
+      inner += renderTechGroup(key, list);
+    }
+    html += `<div class="tech-school-section">
+      <div class="tech-school-inner">
+        ${inner}
+      </div>
+    </div>`;
+  }
+
+  // Render regular technique groups (title, kata, shuji, etc).
+  for (const key of REGULAR_KEYS) {
+    const list = grouped[key];
+    if (!list || list.length === 0) continue;
+    html += renderTechGroup(key, list);
+  }
+
+  // Mahō — charcoal band, rendered after all other techniques.
+  const hasMaho = MAHO_BAND_KEYS.some(k => (grouped[k] && grouped[k].length > 0));
+  if (hasMaho) {
+    let inner = '';
+    for (const key of MAHO_BAND_KEYS) {
+      const list = grouped[key];
+      if (!list || list.length === 0) continue;
+      inner += renderTechGroup(key, list);
+    }
+    html += `<div class="tech-maho-section">
+      <div class="tech-maho-inner">
+        ${inner}
+      </div>
+    </div>`;
+  }
+
+  return html;
+}
+
+function renderAdvancement(snap) {
+  let html = '';
+  if (snap.advancements.length === 0) {
+    html += `<ul><li class="no-adv">No XP advancements purchased at this tier. Starting build only.</li></ul>`;
+  } else {
+    html += '<ul>';
+    for (const a of snap.advancements) {
+      html += `<li>${escapeHtml(a)}</li>`;
+    }
+    html += '</ul>';
+  }
+  // Active title
+  if (snap.titles.length > 0) {
+    for (const t of snap.titles) {
+      html += `<div class="title-block">
+        <div class="title-name"><span class="title-kanji">称号</span>${escapeHtml(t.name)}</div>
+        <div class="rules-text title-desc">${renderRulesText(t.description)}</div>
+      </div>`;
+    }
+  }
+  return html;
+}
+
+
+// ====================  EXTRACTED  ====================
+// Pass 2 data: school curriculum, title curricula, per-snapshot advancement
+// logs. Injected by patch_pass2.py from <char>_extracted.json.
+const EXTRACTED = {
+  "school_curriculum": {
+    "1": [
+      {
+        "kind": "skill_group",
+        "name": "Scholar Skills"
+      },
+      {
+        "kind": "skill",
+        "name": "Command"
+      },
+      {
+        "kind": "skill",
+        "name": "Courtesy"
+      },
+      {
+        "kind": "skill",
+        "name": "Fitness"
+      },
+      {
+        "kind": "technique_group",
+        "name": "Rank 1 Kiho"
+      },
+      {
+        "kind": "technique",
+        "name": "Landslide Strike",
+        "tech_type": "kata"
+      },
+      {
+        "kind": "technique",
+        "name": "Bellow of Resolve",
+        "tech_type": "shuji"
+      }
+    ],
+    "2": [
+      {
+        "kind": "skill_group",
+        "name": "Martial Skills"
+      },
+      {
+        "kind": "skill",
+        "name": "Composition"
+      },
+      {
+        "kind": "skill",
+        "name": "Government"
+      },
+      {
+        "kind": "skill",
+        "name": "Sentiment"
+      },
+      {
+        "kind": "technique_group",
+        "name": "Rank 1-2 Kiho"
+      },
+      {
+        "kind": "technique",
+        "name": "Rider's Haste",
+        "tech_type": "kata"
+      },
+      {
+        "kind": "technique",
+        "name": "Lord Hida's Grip",
+        "tech_type": "kata"
+      }
+    ],
+    "3": [
+      {
+        "kind": "skill_group",
+        "name": "Martial Skills"
+      },
+      {
+        "kind": "skill",
+        "name": "Courtesy"
+      },
+      {
+        "kind": "skill",
+        "name": "Sentiment"
+      },
+      {
+        "kind": "skill",
+        "name": "Theology"
+      },
+      {
+        "kind": "technique_group",
+        "name": "Rank 1-3 Kata"
+      },
+      {
+        "kind": "technique",
+        "name": "Thunderous Hooves Style",
+        "tech_type": "kata"
+      },
+      {
+        "kind": "technique",
+        "name": "Cleansing of Coral and Gold",
+        "tech_type": "ritual"
+      }
+    ],
+    "4": [
+      {
+        "kind": "skill_group",
+        "name": "Social Skills"
+      },
+      {
+        "kind": "skill",
+        "name": "Fitness"
+      },
+      {
+        "kind": "skill",
+        "name": "Martial Arts [Melee]"
+      },
+      {
+        "kind": "skill",
+        "name": "Martial Arts [Unarmed]"
+      },
+      {
+        "kind": "technique_group",
+        "name": "Rank 1-4 Kiho"
+      },
+      {
+        "kind": "technique",
+        "name": "Striking as Void",
+        "tech_type": "kata"
+      },
+      {
+        "kind": "technique",
+        "name": "Mentor's Guidance",
+        "tech_type": "shuji"
+      }
+    ],
+    "5": [
+      {
+        "kind": "skill_group",
+        "name": "Social Skills"
+      },
+      {
+        "kind": "skill",
+        "name": "Martial Arts [Melee]"
+      },
+      {
+        "kind": "skill",
+        "name": "Martial Arts [Unarmed]"
+      },
+      {
+        "kind": "skill",
+        "name": "Meditation"
+      },
+      {
+        "kind": "technique_group",
+        "name": "Rank 1-5 Kata"
+      },
+      {
+        "kind": "technique",
+        "name": "Touch the Void Dragon",
+        "tech_type": "kiho"
+      },
+      {
+        "kind": "technique",
+        "name": "Buoyant Arrival",
+        "tech_type": "kata"
+      }
+    ],
+    "6": [
+      {
+        "kind": "note",
+        "name": "Divine Protection (Mastery Ability): You can perform the Threshold Barrier ritual as an action. When a Tainted being enters an area you have warded against it with this ritual, it suffers supernatural damage equal to your ranks in Meditation and the Prone condition."
+      }
+    ]
+  },
+  "title_curricula": {
+    "Astradhari": [
+      {
+        "kind": "skill_group",
+        "name": "Scholar Skills"
+      },
+      {
+        "kind": "skill_group",
+        "name": "Martial Skills"
+      },
+      {
+        "kind": "skill",
+        "name": "Command"
+      },
+      {
+        "kind": "skill",
+        "name": "Courtesy"
+      },
+      {
+        "kind": "technique_group",
+        "name": "(ritual) Rank 1-3 Rituals (prereq)"
+      },
+      {
+        "kind": "technique",
+        "name": "(mantra) Summon Mantra : [One Implement] (prereq)"
+      },
+      {
+        "kind": "technique",
+        "name": "(shuji) Touchstone of Courage (prereq)"
+      }
+    ]
+  },
+  "advancement_logs": [
+    {
+      "hidden": true,
+      "slots": {}
+    },
+    {
+      "hidden": false,
+      "slots": {
+        "Title: Astradhari": {
+          "kind": "title_slot",
+          "rank": null,
+          "total_xp_used": 36,
+          "total_xp_cost": 36,
+          "delta_xp_used": 36,
+          "delta_xp_in_curriculum": 36,
+          "items": [
+            {
+              "name": "Summoning Mantra : [One Implement]",
+              "xp_used": 3,
+              "in_curriculum": true,
+              "source": "technique",
+              "kind": "technique",
+              "tech_type": "mantra"
+            },
+            {
+              "name": "Touchstone of Courage",
+              "xp_used": 3,
+              "in_curriculum": true,
+              "source": "technique",
+              "kind": "technique",
+              "tech_type": "shuji"
+            },
+            {
+              "name": "Blessing of Fertile Fields",
+              "xp_used": 3,
+              "in_curriculum": true,
+              "source": "technique",
+              "kind": "technique",
+              "tech_type": "ritual"
+            },
+            {
+              "name": "Imbue Thunder",
+              "xp_used": 3,
+              "in_curriculum": true,
+              "source": "technique",
+              "kind": "technique",
+              "tech_type": "ritual"
+            },
+            {
+              "name": "Martial Arts [Ranged] +1 (1 -> 2)",
+              "xp_used": 4,
+              "in_curriculum": true,
+              "source": "advancement",
+              "kind": "skill",
+              "target": "ranged"
+            },
+            {
+              "name": "Martial Arts [Ranged] +1 (2 -> 3)",
+              "xp_used": 6,
+              "in_curriculum": true,
+              "source": "advancement",
+              "kind": "skill",
+              "target": "ranged"
+            },
+            {
+              "name": "Martial Arts [Ranged] +1 (3 -> 4)",
+              "xp_used": 8,
+              "in_curriculum": true,
+              "source": "advancement",
+              "kind": "skill",
+              "target": "ranged"
+            },
+            {
+              "name": "Command +1 (2 -> 3)",
+              "xp_used": 6,
+              "in_curriculum": true,
+              "source": "advancement",
+              "kind": "skill",
+              "target": "command"
+            }
+          ]
+        }
+      },
+      "source": "foundry"
+    },
+    {
+      "hidden": false,
+      "slots": {
+        "School Rank 1": {
+          "kind": "school_slot",
+          "rank": 1,
+          "total_xp_used": null,
+          "total_xp_cost": null,
+          "delta_xp_used": 21,
+          "delta_xp_in_curriculum": 20,
+          "items": [
+            {
+              "name": "Fitness +1 (0 -> 1)",
+              "xp_used": 2,
+              "in_curriculum": true,
+              "source": "advancement",
+              "kind": "skill",
+              "target": "fitness"
+            },
+            {
+              "name": "Martial Arts [Unarmed] +1 (1 -> 2)",
+              "xp_used": 4,
+              "in_curriculum": true,
+              "source": "advancement",
+              "kind": "skill",
+              "target": "unarmed"
+            },
+            {
+              "name": "Countering Mantra",
+              "xp_used": 3,
+              "in_curriculum": false,
+              "source": "technique",
+              "kind": "technique",
+              "tech_type": "mantra"
+            },
+            {
+              "name": "Ki Protection",
+              "xp_used": 3,
+              "in_curriculum": true,
+              "source": "technique",
+              "kind": "technique",
+              "tech_type": "kiho"
+            },
+            {
+              "name": "The Great Silence",
+              "xp_used": 3,
+              "in_curriculum": true,
+              "source": "technique",
+              "kind": "technique",
+              "tech_type": "kiho"
+            },
+            {
+              "name": "Bellow of Resolve",
+              "xp_used": 3,
+              "in_curriculum": true,
+              "source": "technique",
+              "kind": "technique",
+              "tech_type": "shuji"
+            },
+            {
+              "name": "Landslide Strike",
+              "xp_used": 3,
+              "in_curriculum": true,
+              "source": "technique",
+              "kind": "technique",
+              "tech_type": "kata"
+            }
+          ]
+        }
+      },
+      "source": "foundry"
+    }
+  ],
+  "school_name": "Ivory Kingdoms Sage Tradition",
+  "stats": {
+    "n_snapshots": 3,
+    "n_foundry": 3,
+    "missing_foundry_for_xp": []
+  }
+};
+
+// Pretty-format L5R skill key → display name. Handles the martial-arts
+// composite skills (e.g. "ranged" → "Martial Arts [Ranged]").
+function prettySkill(key) {
+  if (!key) return '';
+  const lower = key.toLowerCase();
+  if (lower === 'melee' || lower === 'ranged' || lower === 'unarmed') {
+    return 'Martial Arts [' + lower.charAt(0).toUpperCase() + lower.slice(1) + ']';
+  }
+  return key.charAt(0).toUpperCase() + key.slice(1);
+}
+
+const TECH_TYPE_ICONS = new Set(['kata','shuji','ritual','kiho','invocation','mantra','ninjutsu','inversion','maho']);
+
+function changelogItemIcon(it) {
+  // Pick an inline icon for the changelog-item leading column based on kind.
+  if (it.kind === 'skill')     return iconSvg('skill', 'cl-itemicon');
+  if (it.kind === 'ring')      return iconSvg(it.target || 'void', 'cl-itemicon');
+  if (it.kind === 'technique') {
+    if (TECH_TYPE_ICONS.has(it.tech_type)) return iconSvg(it.tech_type, 'cl-itemicon');
+    return '';
+  }
+  if (it.kind === 'bond')      return '';
+  return '';
+}
+
+function renderChangelog(snapIdx) {
+  const log = (EXTRACTED.advancement_logs || [])[snapIdx];
+  if (!log || log.hidden) {
+    return { html: '', hidden: true };
+  }
+  const slotKeys = Object.keys(log.slots);
+  if (slotKeys.length === 0) {
+    return { html: '', hidden: true };
+  }
+
+  let html = '';
+  html += '<div class="cl-header">';
+  html += '<span class="cl-kanji">進歩</span>';
+  html += '<span>Advancement</span>';
+  html += '<span class="cl-en">Shinpo · since previous tier</span>';
+  html += '</div>';
+
+  // Sort slots: school ranks numerically, titles after, bonds last.
+  function slotOrder(k) {
+    if (k.startsWith('School Rank ')) return parseInt(k.slice(12), 10) || 99;
+    if (k.startsWith('Title: ')) return 200;
+    if (k.startsWith('Bond: ')) return 300;
+    return 400;
+  }
+  slotKeys.sort((a, b) => slotOrder(a) - slotOrder(b) || a.localeCompare(b));
+
+  for (const sk of slotKeys) {
+    const slot = log.slots[sk];
+    const items = slot.items || [];
+    if (items.length === 0 && slot.kind !== 'title_slot') continue;
+
+    html += '<div class="cl-slot">';
+    // Slot header
+    html += '<div class="cl-slot-head">';
+    html += '<span>' + escapeHtml(sk) + '</span>';
+    // Totals: show foundry's `total_xp_used` if present; otherwise sum delta.
+    if (slot.delta_xp_used != null && slot.delta_xp_used > 0) {
+      let totalsText = slot.delta_xp_used + ' XP';
+      if (slot.delta_xp_in_curriculum != null) {
+        totalsText = slot.delta_xp_in_curriculum + ' in-curriculum · ' + slot.delta_xp_used + ' total';
+      }
+      html += '<span class="cl-slot-totals">' + escapeHtml(totalsText) + '</span>';
+    } else if (slot.total_xp_used != null && slot.total_xp_cost != null) {
+      // Title slot showing its overall budget when newly purchased
+      html += '<span class="cl-slot-totals">Slot: ' + slot.total_xp_used + ' / ' + slot.total_xp_cost + ' XP</span>';
+    }
+    html += '</div>';
+
+    // Table of items
+    if (items.length > 0) {
+      html += '<table class="cl-table"><tbody>';
+      for (const it of items) {
+        const icon = changelogItemIcon(it);
+        const xp = (it.xp_used != null) ? (it.xp_used + ' XP') : '—';
+        const curr = it.in_curriculum === true ? '🎓' : (it.in_curriculum === false ? '' : '');
+        html += '<tr>';
+        html += '<td class="cl-name">' + icon + escapeHtml(it.name) + '</td>';
+        html += '<td class="cl-curr" title="' + (it.in_curriculum ? 'In curriculum' : 'Out of curriculum') + '">' + curr + '</td>';
+        html += '<td class="cl-xp">' + escapeHtml(xp) + '</td>';
+        html += '</tr>';
+      }
+      html += '</tbody></table>';
+    }
+    html += '</div>';
+  }
+
+  // If we computed via diff (no Foundry JSON for this snap pair), note that
+  // XP costs aren't authoritative.
+  if (log.source === 'diff') {
+    html += '<div class="cl-note">Rank deltas only — Foundry export not available for this tier.</div>';
+  } else if (log.source === 'foundry_gap') {
+    html += '<div class="cl-note">Spans multiple tiers — the intermediate snapshot lacks a Foundry export, so items added across that gap are grouped here.</div>';
+  }
+
+  return { html: html, hidden: false };
+}
+
+// ===== Curriculum tabs + table =====
+
+// Format a curriculum entry as a pill (skill / skill-group / technique-group / technique).
+function curriculumEntryHtml(entry) {
+  // Notes (e.g. mastery-ability rules text in rank 6) render as a block of italic prose,
+  // not a compact pill.
+  if (entry.kind === 'note') {
+    return '<div class="curr-note-text">' + replaceTokens(escapeHtml(entry.name)) + '</div>';
+  }
+  // Mastery-ability reference (Rank 6 in many schools) — render as a distinct
+  // gold pill with a leading label.
+  if (entry.kind === 'mastery_ability_ref') {
+    return '<span class="curr-entry kind-mastery"><span class="curr-mastery-label">Mastery Ability</span>'
+         + escapeHtml(entry.name) + '</span>';
+  }
+  const cls = 'curr-entry kind-' + (entry.kind || 'other');
+  let inner = '';
+  // Technique entries can have a tech_type → prefix with that icon.
+  if (entry.kind === 'technique' && entry.tech_type && TECH_TYPE_ICONS.has(entry.tech_type)) {
+    inner += iconSvg(entry.tech_type, 'curr-tech-icon');
+  }
+  // The entry name may itself contain inline tokens like "(ritual) Rank 1-3 Rituals (prereq)"
+  // — pass through replaceTokens to render them as inline icons.
+  inner += replaceTokens(escapeHtml(entry.name));
+  return '<span class="' + cls + '">' + inner + '</span>';
+}
+
+function renderSchoolCurriculumTable(currentRank) {
+  const cur = EXTRACTED.school_curriculum || {};
+  const ranks = Object.keys(cur).map(Number).sort((a, b) => a - b);
+  if (ranks.length === 0) {
+    return '<div class="curr-missing">Curriculum reference for this school is not loaded.</div>';
+  }
+  let html = '<div class="curr-table-wrap"><table class="curr-table">';
+  html += '<thead><tr><th>Rank</th><th>Requirements</th></tr></thead><tbody>';
+  for (const r of ranks) {
+    const isCurr = (r === currentRank);
+    html += '<tr' + (isCurr ? ' class="curr-current"' : '') + '>';
+    html += '<td class="curr-rank">' + r + '</td>';
+    html += '<td class="curr-entries">';
+    for (const e of cur[r]) html += curriculumEntryHtml(e);
+    html += '</td></tr>';
+  }
+  html += '</tbody></table></div>';
+  return html;
+}
+
+function renderTitleCurriculumTable(titleName) {
+  const allCurs = EXTRACTED.title_curricula || {};
+  const entries = allCurs[titleName];
+  if (!entries) {
+    return '<div class="curr-missing">Curriculum reference for ' + escapeHtml(titleName) + ' is not loaded.</div>';
+  }
+  // Titles in L5R are usually a single-tier curriculum; rendered as one row.
+  let html = '<div class="curr-table-wrap"><table class="curr-table">';
+  html += '<thead><tr><th>Tier</th><th>Requirements</th></tr></thead><tbody>';
+  html += '<tr class="curr-current"><td class="curr-rank">Title</td><td class="curr-entries">';
+  for (const e of entries) html += curriculumEntryHtml(e);
+  html += '</td></tr></tbody></table></div>';
+  return html;
+}
+
+// Tabs state. Per dossier, a single mutable "active tab" string:
+//   '__school__'  or  'Title: <name>'
+let CURR_ACTIVE_TAB = '__school__';
+
+function renderCurriculum(snap) {
+  const held = snap.titles || [];
+  const tabs = [{ key: '__school__', label: 'School' }];
+  for (const t of held) {
+    tabs.push({ key: 'Title: ' + t.name, label: t.name });
+  }
+  // Validate active tab — if the currently-active tab is no longer present
+  // (timeline moved to a snapshot where that title isn't held), fall back to School.
+  if (!tabs.some(t => t.key === CURR_ACTIVE_TAB)) {
+    CURR_ACTIVE_TAB = '__school__';
+  }
+
+  let html = '';
+  // Tab strip
+  html += '<div class="curr-tabs">';
+  for (const t of tabs) {
+    const cls = 'curr-tab' + (t.key === CURR_ACTIVE_TAB ? ' active' : '');
+    html += '<button class="' + cls + '" type="button" data-tab="' + escapeHtml(t.key) + '">'
+         + escapeHtml(t.label) + '</button>';
+  }
+  html += '</div>';
+  // Body for active tab
+  if (CURR_ACTIVE_TAB === '__school__') {
+    html += renderSchoolCurriculumTable(snap.rank);
+  } else if (CURR_ACTIVE_TAB.startsWith('Title: ')) {
+    html += renderTitleCurriculumTable(CURR_ACTIVE_TAB.slice('Title: '.length));
+  }
+  return html;
+}
+
+// Wire up tab clicks (event delegation: re-bind after each render)
+function bindCurriculumTabClicks(snapIdx) {
+  document.querySelectorAll('#curriculum-target .curr-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      CURR_ACTIVE_TAB = btn.getAttribute('data-tab');
+      const snap = SNAPSHOTS[snapIdx];
+      document.getElementById('curriculum-target').innerHTML = renderCurriculum(snap);
+      bindCurriculumTabClicks(snapIdx);
+    });
+  });
+}
+
+function activateSnapshot(idx) {
+  const snap = SNAPSHOTS[idx];
+  document.getElementById('rings-target').innerHTML = renderRings(snap);
+  document.getElementById('social-target').innerHTML = renderSocial(snap);
+  document.getElementById('skills-target').innerHTML = renderSkills(snap);
+  document.getElementById('techniques-target').innerHTML = renderTechniques(snap, idx);
+
+  // Changelog section (between timeline and giri/ninjō)
+  const cl = renderChangelog(idx);
+  const clEl = document.getElementById('changelog-target');
+  clEl.innerHTML = cl.html;
+  clEl.classList.toggle('hidden', cl.hidden);
+
+  // Curriculum section (replaces the old bottom Advancement & Title block)
+  document.getElementById('curriculum-target').innerHTML = renderCurriculum(snap);
+  bindCurriculumTabClicks(idx);
+
+  document.querySelectorAll('#timeline .tl-node').forEach((n, i) => {
+    n.classList.toggle('active', i === idx);
+  });
+}
+
+document.querySelectorAll('#timeline .tl-node').forEach((n, i) => {
+  n.addEventListener('click', () => activateSnapshot(i));
+});
+
+// Initialize with the first snapshot
+activateSnapshot(0);
+</script>
+</body>
+</html>
