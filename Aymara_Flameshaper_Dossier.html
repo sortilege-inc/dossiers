@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Aymara Flameshaper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Reem+Kufi:wght@400;500;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Aymara — Flameshaper · terracotta + ember + woven-red + clan-gold */
+    --ground:       #261411;
+    --ground-deep:  #14080a;
+    --paper:        #ecd6b6;
+    --paper-shade:  #dbc4a0;
+    --paper-edge:   #c2a982;
+    --ink:          #1a120a;
+    --ink-soft:     #2e1f10;
+    --ink-faint:    #5a4028;
+    --accent:       #a8442a;        /* terracotta */
+    --accent-deep:  #6e2a18;
+    --accent-pale:  #c4684e;
+    --ember:        #d8783c;
+    --ember-deep:   #94491c;
+    --woven:        #842e2e;
+    --woven-deep:   #501818;
+    --gold:         #b0852a;
+    --gold-deep:    #785818;
+    --rule:         #b6a484;
+    --rule-soft:    #cdba98;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 12%, rgba(168, 68, 42, 0.32) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 88%, rgba(20, 8, 10, 0.7) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(38, 20, 17, 0.5) 0%, transparent 80%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  /* ============ DOCUMENT FOLIO ============ */
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 3.75rem 4.25rem 4.5rem;
+    position: relative;
+    box-shadow:
+      0 1px 2px rgba(20, 8, 10, 0.45),
+      0 14px 56px rgba(20, 8, 10, 0.65),
+      inset 0 0 0 1px rgba(182, 164, 132, 0.45);
+    background-image:
+      radial-gradient(ellipse at 0% 0%, rgba(216, 120, 60, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 100%, rgba(132, 46, 46, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(110, 42, 24, 0.05) 100%);
+  }
+
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--ground-deep) 0%,
+      var(--woven-deep) 18%,
+      var(--accent) 38%,
+      var(--gold) 50%,
+      var(--accent) 62%,
+      var(--woven-deep) 82%,
+      var(--ground-deep) 100%);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--accent-deep) 20%,
+      var(--gold) 50%,
+      var(--accent-deep) 80%,
+      transparent 100%);
+    opacity: 0.7;
+  }
+
+  .vine-margin {
+    position: absolute;
+    top: 5px; bottom: 3px; left: 0;
+    width: 26px;
+    opacity: 0.26;
+    pointer-events: none;
+    color: var(--woven-deep);
+  }
+
+  .covert-mark {
+    position: absolute;
+    top: 22px;
+    right: 32px;
+    width: 96px;
+    height: 96px;
+    opacity: 0.10;
+    pointer-events: none;
+    color: var(--accent);
+  }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2rem;
+  }
+  .masthead-left { min-width: 0; }
+  .masthead-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.38em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .masthead-eyebrow .dossier-no {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .masthead-eyebrow .arabic {
+    font-family: "Amiri", "Reem Kufi", serif;
+    letter-spacing: 0;
+    font-size: 1.05rem;
+    margin-right: 0.55em;
+    color: var(--accent-deep);
+    font-weight: 400;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+  .masthead-eyebrow .bureau-name {
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.35rem;
+    line-height: 1;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+  .character-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--accent-deep);
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .cartouche {
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+  }
+
+  /* ============ IDENTITY + PORTRAIT BAND ============ */
+  .identity-band {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 2.25rem;
+    margin-bottom: 2.5rem;
+    align-items: start;
+  }
+  .identity-block { min-width: 0; }
+  .identity-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0.4rem 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    align-items: baseline;
+  }
+  .identity-row:last-child { border-bottom: none; }
+  .identity-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .identity-value {
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+  }
+  .identity-value em {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  .surname-note {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    display: block;
+    margin-top: 0.15rem;
+  }
+
+  .portrait-plate { position: relative; }
+  .portrait-frame {
+    border: 1px solid var(--accent-deep);
+    padding: 6px;
+    background: var(--paper-shade);
+    box-shadow:
+      inset 0 0 0 1px var(--gold),
+      0 2px 8px rgba(20, 8, 10, 0.22);
+    position: relative;
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--accent-deep);
+  }
+  .portrait-frame::before {
+    top: -4px; left: -4px;
+    border-right: none; border-bottom: none;
+  }
+  .portrait-frame::after {
+    bottom: -4px; right: -4px;
+    border-left: none; border-top: none;
+  }
+  .portrait-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: sepia(0.06) saturate(0.92) brightness(0.97);
+  }
+  .portrait-frame.empty {
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 12px,
+        rgba(168, 68, 42, 0.05) 12px,
+        rgba(168, 68, 42, 0.05) 24px
+      ),
+      var(--paper-shade);
+  }
+  .portrait-frame.empty .empty-monogram {
+    font-family: "Amiri", "Reem Kufi", serif;
+    font-size: 4rem;
+    color: var(--accent-deep);
+    opacity: 0.32;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    direction: rtl;
+  }
+  .portrait-frame.empty .empty-note {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .portrait-caption {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.7rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .portrait-caption strong {
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+  }
+  .portrait-aliases {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--accent-deep);
+    text-align: center;
+    margin-top: 0.4rem;
+  }
+
+  /* ============ SECTION ORNAMENTS ============ */
+  .section { margin-top: 2.5rem; }
+  .section-head {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    justify-content: center;
+    margin-bottom: 0.7rem;
+  }
+  .section-rule-line {
+    flex: 1;
+    max-width: 180px;
+    height: 1px;
+    background: var(--rule);
+  }
+  .section-ornament {
+    width: 30px; height: 30px;
+    color: var(--accent-deep);
+    flex-shrink: 0;
+  }
+  h2.section-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.55rem;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  .section-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-faint);
+    margin: 0.25rem 0 0;
+  }
+
+  /* ============ BIO ============ */
+  .bio {
+    font-family: "EB Garamond", serif;
+    font-size: 1.08rem;
+    line-height: 1.72;
+    color: var(--ink-soft);
+    text-align: justify;
+    hyphens: auto;
+  }
+  .bio p { margin: 0 0 1em; }
+  .bio p:last-child { margin-bottom: 0; }
+  .bio p:first-child::first-letter {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.1em 0.12em 0 0;
+    color: var(--accent-deep);
+  }
+
+  /* ============ ABILITY SCORES ============ */
+  .abilities {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+  }
+  .ability-card {
+    border: 1px solid var(--rule);
+    background: var(--paper-shade);
+    padding: 0.85rem 0.4rem 0.7rem;
+    text-align: center;
+    position: relative;
+  }
+  .ability-card::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 8px; right: 8px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .ability-card.saveprof::before {
+    background: var(--gold-deep);
+    height: 3px;
+  }
+  .ability-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .ability-score {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 0.15rem 0 0.05rem;
+  }
+  .ability-mod {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem;
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  .ability-save {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+    padding-top: 0.35rem;
+    border-top: 1px dotted var(--rule-soft);
+  }
+  .ability-save .save-val {
+    font-family: "EB Garamond", serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    font-weight: 500;
+    margin-left: 0.2em;
+  }
+  .ability-card.saveprof .ability-save .save-val {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+
+  /* ============ COMBAT STATS ============ */
+  .combat-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 0.7rem 0.65rem;
+  }
+  .stat-cell-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .stat-cell-value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-top: 0.15rem;
+  }
+  .stat-cell-value small {
+    font-family: "EB Garamond", serif;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-left: 0.3em;
+  }
+
+  /* ============ SKILLS ============ */
+  .skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+  }
+  .skills-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .skills-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: baseline;
+  }
+  .skills-table tr:last-child td { border-bottom: none; }
+  .skills-table .bonus {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    color: var(--ink);
+    width: 70px;
+    text-align: center;
+  }
+  .skills-table .bonus.expertise {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .skills-table .source {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+  .skills-note {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    padding: 0.65rem 0.85rem;
+    background: var(--paper-shade);
+    border-left: 3px solid var(--accent);
+    margin-top: 0.8rem;
+  }
+
+  /* ============ FEATURE BLOCKS ============ */
+  .feature {
+    margin: 0 0 1.1rem;
+    padding: 0.85rem 1rem;
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+  }
+  .feature.subclass {
+    border-left-color: var(--woven-deep);
+  }
+  .feature-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    color: var(--ink);
+    margin: 0 0 0.3rem;
+    letter-spacing: 0.01em;
+  }
+  .feature-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .feature-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .feature-body p { margin: 0 0 0.55em; }
+  .feature-body p:last-child { margin-bottom: 0; }
+  .feature-body ul {
+    margin: 0.4em 0 0.2em;
+    padding-left: 1.4em;
+  }
+  .feature-body ul li {
+    padding: 0.15em 0;
+  }
+  .feature-body strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .feature-body em {
+    color: var(--accent-deep);
+  }
+
+  .features-cluster-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .features-cluster-title:first-child { margin-top: 0; }
+
+  .spell-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    padding: 0;
+    margin: 0.5em 0 0;
+    list-style: none;
+  }
+  .spell-pills li {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.97rem;
+    color: var(--ink);
+    padding: 0.15rem 0.7rem;
+    background: var(--paper);
+    border: 1px solid var(--gold);
+    border-left-width: 3px;
+    border-left-color: var(--gold-deep);
+  }
+
+  .dice-callout {
+    margin: 0.5em 0;
+    padding: 0.55rem 0.85rem;
+    background: var(--paper);
+    border: 1px solid var(--gold-deep);
+    border-left: 3px solid var(--woven);
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    font-size: 0.97rem;
+  }
+  .dice-callout-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .dice-callout-dice {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    color: var(--woven-deep);
+    font-size: 1.15rem;
+  }
+
+  /* ============ JOURNEY ============ */
+  .journey-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .journey-card {
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+    padding: 0.85rem 1rem;
+  }
+  .journey-card.event {
+    border-left-color: var(--gold-deep);
+  }
+  .journey-card .jc-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .journey-card.event .jc-label { color: var(--gold-deep); }
+  .journey-card .jc-value {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .journey-card .jc-value em { color: var(--ink-soft); font-style: italic; }
+  .journey-events {
+    margin-top: 1rem;
+  }
+  .journey-event {
+    margin: 0 0 0.8rem;
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+    border: 1px solid var(--rule-soft);
+    border-top: 2px solid var(--gold);
+  }
+  .journey-event-roll {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .journey-event-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin: 0 0 0.35rem;
+  }
+  .journey-event-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.97rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ============ PROFESSION ============ */
+  .profession-block {
+    margin-top: 1rem;
+    padding: 1rem 1.2rem;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0,
+        transparent 24px,
+        rgba(176, 133, 42, 0.05) 24px,
+        rgba(176, 133, 42, 0.05) 48px
+      ),
+      var(--paper);
+    border: 1px solid var(--gold);
+  }
+  .profession-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule-soft);
+    margin-bottom: 0.75rem;
+  }
+  .profession-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.12rem;
+    color: var(--ink);
+  }
+  .profession-rank {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    color: var(--gold-deep);
+    text-transform: uppercase;
+  }
+  .profession-rank .pex {
+    color: var(--ink-faint);
+    margin-left: 0.5em;
+  }
+  .profession-baseline {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .profession-baseline strong { color: var(--ink); }
+  .profession-available {
+    margin-top: 0.85rem;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-faint);
+  }
+
+  /* ============ EQUIPMENT ============ */
+  .equipment-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .equip-block {
+    border: 1px solid var(--rule-soft);
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+  }
+  .equip-block-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 0 0 0.55rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .equip-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .equip-list li {
+    padding: 0.35rem 0;
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .equip-list li:last-child { border-bottom: none; }
+  .equip-list .item-name { font-weight: 500; }
+  .equip-list .item-detail {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-style: italic;
+  }
+  .money-line {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    padding: 0.85rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .money-line .amount {
+    font-family: "Cormorant Garamond", serif;
+    font-style: normal;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--gold-deep);
+    letter-spacing: 0.05em;
+    margin: 0 0.3em;
+  }
+
+  /* ============ PERSONALITY ============ */
+  .personality-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+  .personality-card {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--paper-shade);
+    border-top: 2px solid var(--accent);
+    position: relative;
+  }
+  .personality-card.flaw {
+    border-top-color: var(--woven);
+  }
+  .personality-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .personality-card.flaw .personality-label { color: var(--woven-deep); }
+  .personality-label .alignment-tag {
+    color: var(--ink-faint);
+    font-weight: 400;
+    margin-left: 0.4em;
+  }
+  .personality-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ============ CONNECTIONS ============ */
+  .connections-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .connections-list li {
+    padding: 0.85rem 0 0.85rem 1.5rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+    line-height: 1.6;
+    position: relative;
+  }
+  .connections-list li:last-child { border-bottom: none; }
+  .connections-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 1.3em;
+    width: 8px; height: 8px;
+    border: 1px solid var(--accent);
+    transform: rotate(45deg);
+    background: var(--paper);
+  }
+  .connections-list .conn-name {
+    font-weight: 500;
+    color: var(--accent-deep);
+  }
+
+  /* ============ PATRON'S NOTE ============ */
+  .patron-note {
+    margin: 2.75rem 0 0;
+    padding: 1.5rem 1.75rem 1.65rem;
+    border: 1px solid var(--gold-deep);
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 8px,
+        rgba(176, 133, 42, 0.05) 8px,
+        rgba(176, 133, 42, 0.05) 16px
+      ),
+      var(--paper-shade);
+    position: relative;
+  }
+  .patron-note::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 2px;
+    background: linear-gradient(90deg,
+      var(--gold-deep) 0%,
+      var(--gold) 30%,
+      var(--woven) 50%,
+      var(--gold) 70%,
+      var(--gold-deep) 100%);
+  }
+  .patron-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--gold-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+  .patron-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+  .patron-signature {
+    margin-top: 0.85rem;
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    color: var(--ink-soft);
+  }
+  .patron-signature .sig-name {
+    font-style: italic;
+    color: var(--ink);
+  }
+  .patron-signature .sig-arabic {
+    font-family: "Amiri", serif;
+    font-style: normal;
+    font-size: 1.05rem;
+    color: var(--accent-deep);
+    margin-left: 0.4em;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+
+  /* ============ FOOT ============ */
+  .document-foot {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .foot-seal {
+    width: 38px; height: 38px;
+    color: var(--accent-deep);
+    opacity: 0.75;
+  }
+  .foot-text {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    flex: 1;
+  }
+  .foot-text .arabic {
+    font-family: "Amiri", "Reem Kufi", serif;
+    letter-spacing: 0;
+    color: var(--accent-deep);
+    margin: 0 0.4em;
+    font-size: 0.95rem;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 760px) {
+    body { padding: 1rem 0.4rem 2rem; }
+    .document { padding: 2.25rem 1.5rem 2.75rem; }
+    h1.character-name { font-size: 2.3rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1rem; }
+    .cartouche { width: 80px; height: 80px; justify-self: start; }
+    .identity-band { grid-template-columns: 1fr; }
+    .portrait-plate { max-width: 240px; }
+    .abilities { grid-template-columns: repeat(3, 1fr); }
+    .combat-stats { grid-template-columns: repeat(2, 1fr); }
+    .personality-grid { grid-template-columns: 1fr; }
+    .journey-grid { grid-template-columns: 1fr; }
+    .vine-margin { display: none; }
+    .skills-table .source { display: none; }
+    .covert-mark { display: none; }
+  }
+
+  @media (max-width: 460px) {
+    .abilities { grid-template-columns: repeat(2, 1fr); }
+    .identity-row { grid-template-columns: 1fr; gap: 0.1rem; }
+    .identity-label { font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Inline SVG definitions -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Section ornament: a small flame within a woven-diamond pattern -->
+    <symbol id="aymara-ornament" viewBox="0 0 30 30">
+      <g fill="none" stroke="currentColor" stroke-width="0.7">
+        <!-- Outer diamond -->
+        <path d="M 15 4 L 26 15 L 15 26 L 4 15 Z" stroke-width="0.9"/>
+        <!-- Inner diamond (woven inset) -->
+        <path d="M 15 9 L 21 15 L 15 21 L 9 15 Z" stroke-width="0.5"/>
+        <!-- Cross-hatch (textile suggestion) -->
+        <line x1="15" y1="4" x2="15" y2="9" stroke-width="0.3"/>
+        <line x1="15" y1="21" x2="15" y2="26" stroke-width="0.3"/>
+        <line x1="4" y1="15" x2="9" y2="15" stroke-width="0.3"/>
+        <line x1="21" y1="15" x2="26" y2="15" stroke-width="0.3"/>
+        <!-- Central flame -->
+        <path d="M 15 19 Q 12 16 13 13 Q 14 14 15 13 Q 16 14 17 13 Q 18 16 15 19 Z" fill="currentColor" fill-opacity="0.55" stroke-width="0.5"/>
+      </g>
+    </symbol>
+
+    <!-- Foot seal: hand-cradling-flame icon in a roundel -->
+    <symbol id="aymara-foot-seal" viewBox="0 0 40 40">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <circle cx="20" cy="20" r="17"/>
+        <circle cx="20" cy="20" r="13" stroke-dasharray="1 2"/>
+        <!-- Open hand (cup shape) -->
+        <path d="M 12 24 Q 20 30 28 24 L 27 22 Q 20 27 13 22 Z" fill="currentColor" fill-opacity="0.5" stroke-width="0.7"/>
+        <!-- Fingers (short upward strokes from cup) -->
+        <line x1="13" y1="22" x2="13" y2="18" stroke-width="0.6"/>
+        <line x1="16" y1="22" x2="16" y2="17" stroke-width="0.6"/>
+        <line x1="20" y1="22" x2="20" y2="17" stroke-width="0.6"/>
+        <line x1="24" y1="22" x2="24" y2="17" stroke-width="0.6"/>
+        <line x1="27" y1="22" x2="27" y2="18" stroke-width="0.6"/>
+        <!-- Flame above hand -->
+        <path d="M 20 17 Q 17 13 18 9 Q 19 11 20 10 Q 21 11 22 9 Q 23 13 20 17 Z" fill="currentColor" fill-opacity="0.65" stroke-width="0.6"/>
+      </g>
+    </symbol>
+
+    <!-- Aymara's cartouche: an open hand cradling a flame, surrounded by a woven-pattern circular border -->
+    <symbol id="cartouche-aymara" viewBox="0 0 110 110">
+      <g fill="none" stroke="currentColor" stroke-width="1.1">
+        <!-- Outer ring -->
+        <circle cx="55" cy="55" r="50"/>
+
+        <!-- Woven-diamond border ring (Aymara/Andean textile motif suggestion) -->
+        <g stroke-width="0.6" opacity="0.85">
+          <!-- 12 small diamonds spaced around the inner ring at r=42 -->
+          <g transform="translate(55 13)"><path d="M 0 -3 L 3 0 L 0 3 L -3 0 Z"/></g>
+          <g transform="translate(76 19)"><path d="M 0 -3 L 3 0 L 0 3 L -3 0 Z"/></g>
+          <g transform="translate(91 34)"><path d="M 0 -3 L 3 0 L 0 3 L -3 0 Z"/></g>
+          <g transform="translate(97 55)"><path d="M 0 -3 L 3 0 L 0 3 L -3 0 Z"/></g>
+          <g transform="translate(91 76)"><path d="M 0 -3 L 3 0 L 0 3 L -3 0 Z"/></g>
+          <g transform="translate(76 91)"><path d="M 0 -3 L 3 0 L 0 3 L -3 0 Z"/></g>
+          <g transform="translate(55 97)"><path d="M 0 -3 L 3 0 L 0 3 L -3 0 Z"/></g>
+          <g transform="translate(34 91)"><path d="M 0 -3 L 3 0 L 0 3 L -3 0 Z"/></g>
+          <g transform="translate(19 76)"><path d="M 0 -3 L 3 0 L 0 3 L -3 0 Z"/></g>
+          <g transform="translate(13 55)"><path d="M 0 -3 L 3 0 L 0 3 L -3 0 Z"/></g>
+          <g transform="translate(19 34)"><path d="M 0 -3 L 3 0 L 0 3 L -3 0 Z"/></g>
+          <g transform="translate(34 19)"><path d="M 0 -3 L 3 0 L 0 3 L -3 0 Z"/></g>
+        </g>
+        <!-- Connecting lines between diamonds (woven thread suggestion) -->
+        <circle cx="55" cy="55" r="42" stroke-width="0.4" stroke-dasharray="1 3" opacity="0.7"/>
+        <circle cx="55" cy="55" r="36" stroke-width="0.5"/>
+
+        <!-- Open hand cradling flame, centered slightly lower -->
+        <!-- Palm/cup (curved upward) -->
+        <g transform="translate(55 65)" stroke-width="0.9">
+          <path d="M -16 0 Q 0 16 16 0 L 14 -4 Q 0 12 -14 -4 Z" fill="currentColor" fill-opacity="0.55"/>
+          <!-- Fingers from cup (five short upward strokes) -->
+          <path d="M -14 -4 Q -16 -10 -14 -16" fill="none" stroke-width="1"/>
+          <path d="M -8 -4 Q -10 -12 -7 -20" fill="none" stroke-width="1"/>
+          <path d="M 0 -4 Q 0 -14 0 -22" fill="none" stroke-width="1"/>
+          <path d="M 8 -4 Q 10 -12 7 -20" fill="none" stroke-width="1"/>
+          <path d="M 14 -4 Q 16 -10 14 -16" fill="none" stroke-width="1"/>
+          <!-- Wrist below -->
+          <rect x="-6" y="3" width="12" height="6" fill="currentColor" fill-opacity="0.45" stroke-width="0.6"/>
+        </g>
+
+        <!-- Flame with five tongues, above the hand -->
+        <g transform="translate(55 43)" fill="currentColor" stroke="currentColor" stroke-width="0.6">
+          <!-- Center tongue (tallest) -->
+          <path d="M 0 6 Q -3 -2 -1 -12 Q 0 -8 0 -10 Q 0 -8 1 -12 Q 3 -2 0 6 Z" fill-opacity="0.85"/>
+          <!-- Inner-left tongue -->
+          <path d="M -5 6 Q -8 0 -7 -7 Q -6 -3 -5 -4 Q -4 -3 -3 -7 Q -2 0 -5 6 Z" fill-opacity="0.7"/>
+          <!-- Inner-right tongue -->
+          <path d="M 5 6 Q 8 0 7 -7 Q 6 -3 5 -4 Q 4 -3 3 -7 Q 2 0 5 6 Z" fill-opacity="0.7"/>
+          <!-- Outer-left tongue (short) -->
+          <path d="M -10 6 Q -13 2 -12 -3 Q -11 0 -10 -1 Q -9 0 -8 -3 Q -7 2 -10 6 Z" fill-opacity="0.55"/>
+          <!-- Outer-right tongue (short) -->
+          <path d="M 10 6 Q 13 2 12 -3 Q 11 0 10 -1 Q 9 0 8 -3 Q 7 2 10 6 Z" fill-opacity="0.55"/>
+        </g>
+      </g>
+    </symbol>
+
+    <!-- Covert mark: a great vessel (terracotta urn shape) with three flames rising from its mouth, on a woven background -->
+    <symbol id="aymara-covert-mark" viewBox="0 0 96 96">
+      <g fill="none" stroke="currentColor" stroke-width="1.3">
+        <circle cx="48" cy="48" r="44"/>
+        <!-- Woven cross-hatch interior -->
+        <g stroke-width="0.4" opacity="0.55">
+          <line x1="20" y1="30" x2="76" y2="30"/>
+          <line x1="20" y1="42" x2="76" y2="42"/>
+          <line x1="20" y1="54" x2="76" y2="54"/>
+          <line x1="20" y1="66" x2="76" y2="66"/>
+          <line x1="30" y1="20" x2="30" y2="76"/>
+          <line x1="42" y1="20" x2="42" y2="76"/>
+          <line x1="54" y1="20" x2="54" y2="76"/>
+          <line x1="66" y1="20" x2="66" y2="76"/>
+        </g>
+        <!-- Vessel/urn -->
+        <g stroke-width="1.4">
+          <!-- Urn body (rounded) -->
+          <path d="M 36 50 Q 32 60 36 72 Q 48 78 60 72 Q 64 60 60 50 Z" fill="currentColor" fill-opacity="0.45"/>
+          <!-- Urn neck -->
+          <path d="M 40 50 L 40 44 L 56 44 L 56 50" fill="currentColor" fill-opacity="0.45"/>
+          <!-- Urn mouth (lip) -->
+          <line x1="38" y1="44" x2="58" y2="44"/>
+          <!-- Handles -->
+          <path d="M 36 52 Q 30 56 34 64" fill="none" stroke-width="1"/>
+          <path d="M 60 52 Q 66 56 62 64" fill="none" stroke-width="1"/>
+          <!-- Decorative band -->
+          <line x1="38" y1="60" x2="58" y2="60" stroke-width="0.7"/>
+        </g>
+        <!-- Three flames rising from mouth -->
+        <g transform="translate(48 44)" fill="currentColor">
+          <path d="M 0 0 Q -3 -8 -1 -16 Q 0 -12 0 -14 Q 0 -12 1 -16 Q 3 -8 0 0 Z" fill-opacity="0.7" stroke-width="0.6"/>
+          <path d="M -7 0 Q -10 -5 -9 -10 Q -8 -7 -7 -8 Q -6 -7 -5 -10 Q -4 -5 -7 0 Z" fill-opacity="0.55" stroke-width="0.5"/>
+          <path d="M 7 0 Q 10 -5 9 -10 Q 8 -7 7 -8 Q 6 -7 5 -10 Q 4 -5 7 0 Z" fill-opacity="0.55" stroke-width="0.5"/>
+        </g>
+      </g>
+    </symbol>
+
+    <!-- Vine pattern: column of woven-textile diamonds with small flame-strokes between -->
+    <pattern id="vinePattern" width="26" height="120" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="currentColor" stroke-width="0.6">
+        <!-- Diamond 1 -->
+        <g transform="translate(13 12)">
+          <path d="M 0 -5 L 5 0 L 0 5 L -5 0 Z"/>
+          <path d="M 0 -2 L 2 0 L 0 2 L -2 0 Z" stroke-width="0.4"/>
+        </g>
+        <!-- Flame stroke 1 -->
+        <g transform="translate(13 27)" fill="currentColor" stroke-width="0.4">
+          <path d="M 0 -2 Q -1.5 -5 -0.5 -7 Q 0 -6 0 -6.5 Q 0 -6 0.5 -7 Q 1.5 -5 0 -2 Z" fill-opacity="0.6"/>
+        </g>
+        <!-- Diamond 2 -->
+        <g transform="translate(13 42)">
+          <path d="M 0 -5 L 5 0 L 0 5 L -5 0 Z"/>
+          <path d="M 0 -2 L 2 0 L 0 2 L -2 0 Z" stroke-width="0.4"/>
+        </g>
+        <!-- Flame stroke 2 -->
+        <g transform="translate(13 57)" fill="currentColor" stroke-width="0.4">
+          <path d="M 0 -2 Q -1.5 -5 -0.5 -7 Q 0 -6 0 -6.5 Q 0 -6 0.5 -7 Q 1.5 -5 0 -2 Z" fill-opacity="0.6"/>
+        </g>
+        <!-- Diamond 3 -->
+        <g transform="translate(13 72)">
+          <path d="M 0 -5 L 5 0 L 0 5 L -5 0 Z"/>
+          <path d="M 0 -2 L 2 0 L 0 2 L -2 0 Z" stroke-width="0.4"/>
+        </g>
+        <!-- Flame stroke 3 -->
+        <g transform="translate(13 87)" fill="currentColor" stroke-width="0.4">
+          <path d="M 0 -2 Q -1.5 -5 -0.5 -7 Q 0 -6 0 -6.5 Q 0 -6 0.5 -7 Q 1.5 -5 0 -2 Z" fill-opacity="0.6"/>
+        </g>
+        <!-- Diamond 4 -->
+        <g transform="translate(13 102)">
+          <path d="M 0 -5 L 5 0 L 0 5 L -5 0 Z"/>
+          <path d="M 0 -2 L 2 0 L 0 2 L -2 0 Z" stroke-width="0.4"/>
+        </g>
+      </g>
+    </pattern>
+  </defs>
+</svg>
+
+<article class="document">
+
+  <svg class="vine-margin" preserveAspectRatio="none" aria-hidden="true" style="width:26px; height:100%;">
+    <rect width="100%" height="100%" fill="url(#vinePattern)"/>
+  </svg>
+
+  <svg class="covert-mark" aria-hidden="true"><use href="#aymara-covert-mark"/></svg>
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="masthead-eyebrow">
+        <span class="arabic">دیوان الطریق</span>
+        <span class="bureau-name">Dīwān al-Ṭarīq</span> &middot; Bureau of the Roads &middot; <span class="dossier-no">Dossier · Barbarian</span>
+      </div>
+      <h1 class="character-name">Aymara Flameshaper</h1>
+      <p class="character-subtitle">Djinnbound of the Clan-Flames &middot; Chosen of Al-Ghaib</p>
+    </div>
+    <svg class="cartouche" aria-hidden="true" style="color: var(--accent-deep);">
+      <use href="#cartouche-aymara"/>
+    </svg>
+  </header>
+
+  <!-- ============ IDENTITY + PORTRAIT ============ -->
+  <section class="identity-band">
+    <div class="identity-block">
+      <div class="identity-row">
+        <span class="identity-label">Class &amp; Level</span>
+        <span class="identity-value">Barbarian 3 &middot; Path of the Djinnbound</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Race</span>
+        <span class="identity-value">Human (Standard)</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Background</span>
+        <span class="identity-value">Outlander <em>— Tribal Nomad (SRD)</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Age</span>
+        <span class="identity-value">22</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Heritage</span>
+        <span class="identity-value">Central Asian nomad <em>— Turkic / Mongolian-coded steppe clan; raised among aunts, uncles, and cousins as much as parents.</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Faith</span>
+        <span class="identity-value">Animistic worship of <strong>Al-Ghaib</strong> (the spirit-world) <em>— reveres the djinn-spirits and the eternal blue sky; Tengrist-adjacent.</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Alignment</span>
+        <span class="identity-value">Chaotic Good</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Languages</span>
+        <span class="identity-value">Turkish (Common of the Silk Road), Mongolian
+          <span class="surname-note">She can also read and write Old Turkic runes after a fashion (Past Education).</span>
+        </span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Byname</span>
+        <span class="identity-value"><em>Kül-Tegin — "Ash-Prince"</em>
+          <span class="surname-note">Old Turkic compound; a clan-name suited to a Djinnbound whose bound djinn manifests in fire and ash when she rages. <strong>Flameshaper</strong> is the road-byname her clan and caravan-companions use.</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="portrait-plate">
+      <div class="portrait-frame empty">
+        <div class="empty-monogram">أ</div>
+        <div class="empty-note">Portrait pending</div>
+      </div>
+      <div class="portrait-caption">
+        <strong>Aymara Kül-Tegin</strong><br>
+        Steppe Nomad &middot; Aged Twenty-Two
+      </div>
+      <div class="portrait-aliases">the djinn rides her shoulder unseen</div>
+    </div>
+  </section>
+
+  <!-- ============ BIO ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aymara-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">On the Subject</h2>
+    </div>
+    <div class="bio">
+      <p>Aymara was chosen by her clan as an infant — the omens in the ceremonial flames marked her. The sages drew her inside the ring of incense and ancestral fires and called upon Al-Ghaib; a desert djinn answered, and its essence wound into her unborn soul before she could speak its name. She grew up knowing the weight of that bond. Her clan kept her close, trained her in the old ways of the spirit-warrior, and set her to protect their caravans as they moved along the Silk Road. The djinn rides her shoulder unseen, snapping into being when she rages — an invisible companion that bends light and pushes her enemies where she wills.</p>
+      <p>She does not fully understand the djinn. It does not always speak. Once, she saw what happens when a binding goes wrong — a man down the road taken by a lesser djinn that had not been welcomed in, his eyes gone glassy and his voice not his own. She does not speak of it. But when she swings her greataxe, its echoes carry farther than steel should reach, and that is enough for the road.</p>
+    </div>
+  </section>
+
+  <!-- ============ ABILITY SCORES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aymara-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Faculties &amp; Saving Throws</h2>
+      <p class="section-subtitle">Rolled block #13: 10, 12, 15, 15, 16, 17 &middot; Human +1 to all six &middot; no ASI (Mounted Combatant feat)</p>
+    </div>
+    <div class="abilities">
+      <div class="ability-card saveprof">
+        <div class="ability-name">Strength</div>
+        <div class="ability-score">18</div>
+        <div class="ability-mod">+4</div>
+        <div class="ability-save">Save <span class="save-val">+6</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Dexterity</div>
+        <div class="ability-score">16</div>
+        <div class="ability-mod">+3</div>
+        <div class="ability-save">Save <span class="save-val">+3</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Constitution</div>
+        <div class="ability-score">17</div>
+        <div class="ability-mod">+3</div>
+        <div class="ability-save">Save <span class="save-val">+5</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Intelligence</div>
+        <div class="ability-score">12</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Wisdom</div>
+        <div class="ability-score">13</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Charisma</div>
+        <div class="ability-score">11</div>
+        <div class="ability-mod">+0</div>
+        <div class="ability-save">Save <span class="save-val">+0</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMBAT STATS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aymara-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Bearing on the Route</h2>
+    </div>
+    <div class="combat-stats">
+      <div class="stat-cell">
+        <div class="stat-cell-label">Proficiency</div>
+        <div class="stat-cell-value">+2</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Armour Class</div>
+        <div class="stat-cell-value">16 <small>unarmoured</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Initiative</div>
+        <div class="stat-cell-value">+3</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Speed</div>
+        <div class="stat-cell-value">30 <small>ft</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Points</div>
+        <div class="stat-cell-value">35</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Dice</div>
+        <div class="stat-cell-value">3d12</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Passive Perception</div>
+        <div class="stat-cell-value">13</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Rage / Djinn-Hand DC</div>
+        <div class="stat-cell-value">13 <small>3 rage/long rest</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aymara-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <table class="skills-table">
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th class="bonus" style="text-align:center;">Bonus</th>
+          <th class="source">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Athletics</td>        <td class="bonus">+6</td> <td class="source">Outlander</td></tr>
+        <tr><td>Survival</td>         <td class="bonus">+3</td> <td class="source">Outlander</td></tr>
+        <tr><td>Intimidation</td>     <td class="bonus">+2</td> <td class="source">Barbarian</td></tr>
+        <tr><td>Perception</td>       <td class="bonus">+3</td> <td class="source">Barbarian</td></tr>
+        <tr><td>Animal Handling</td>  <td class="bonus">+3</td> <td class="source">Beast Tamer (Apprentice)</td></tr>
+      </tbody>
+    </table>
+    <div class="skills-note">
+      Tool proficiencies: <strong>Dombra</strong> (Outlander musical instrument — the two-stringed long-necked lute of the Central Asian steppes); <strong>Pan flute</strong> (Past Education Option 3, unorthodox education — clan ritual use).
+    </div>
+  </section>
+
+  <!-- ============ CLASS FEATURES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aymara-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Class Features</h2>
+    </div>
+
+    <div class="features-cluster-title">Barbarian — Base</div>
+
+    <div class="feature">
+      <div class="feature-title">Rage</div>
+      <div class="feature-meta">Level 1 &middot; 3 uses/long rest &middot; +2 rage damage</div>
+      <div class="feature-body">
+        <p>Bonus action. While raging she has <strong>advantage on Strength checks and saves</strong>, deals <strong>+2 damage</strong> on Strength-based melee attacks, and has <strong>resistance to bludgeoning, piercing, and slashing</strong> damage. Lasts 1 minute or until she ends her turn without attacking a hostile creature or taking damage since her last turn — but <em>Power Unleashed</em> below extends this when she forces a hostile to move.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Unarmored Defense</div>
+      <div class="feature-meta">Level 1</div>
+      <div class="feature-body">
+        <p>While wearing no armour, AC = 10 + Dex mod + Con mod = <strong>10 + 3 + 3 = 16</strong>. May still use a shield.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Reckless Attack</div>
+      <div class="feature-meta">Level 2</div>
+      <div class="feature-body">
+        <p>On her first attack of the turn, she may attack recklessly — <strong>advantage</strong> on Strength-based melee attack rolls this turn, but all attacks against her have advantage until her next turn.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Danger Sense</div>
+      <div class="feature-meta">Level 2</div>
+      <div class="feature-body">
+        <p>Advantage on Dex saves against effects she can see (traps, spells, etc.), provided she is not incapacitated, blinded, or deafened.</p>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">Path of the Djinnbound — Empires of the Silk Road</div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Power Unleashed</div>
+      <div class="feature-meta">Level 3 · While raging</div>
+      <div class="feature-body">
+        <p>When she rages, her bound djinn manifests on her back as an unseen presence that occasionally catches light. While raging she gains:</p>
+        <ul>
+          <li><strong>Echoing Reach</strong> — her reach with a melee weapon increases by <strong>5 ft.</strong> (so 10-ft. reach with greataxe).</li>
+          <li><strong>Djinn-Hand</strong> — as a bonus action, attempt to move a creature within her reach <strong>5 ft.</strong> in any direction (not ending out of her reach). Str save DC 13 (8 + PB + Con). On a fail, the creature is moved. Willing creatures may choose to fail.</li>
+          <li><strong>Persistent Rage in Movement</strong> — if she grapples or forces a hostile creature to move on her turn, her rage does <strong>not</strong> end at the end of that turn due to inactivity.</li>
+        </ul>
+        <div class="dice-callout">
+          <span class="dice-callout-label">Djinn-Hand</span>
+          <span class="dice-callout-dice">Str DC 13</span>
+          <span style="color:var(--ink-soft);font-style:italic;font-size:0.95rem;">bonus action · 5-ft. shove within reach</span>
+        </div>
+        <p><em>Origin (rolled on the d6 Djinnbound table — result 1):</em> She was chosen before birth, as the omens in the flames indicated her.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEAT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aymara-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Feat</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Mounted Combatant</div>
+      <div class="feature-meta">Level 1 · Granted feat (no ASI applied)</div>
+      <div class="feature-body">
+        <p>Trained from childhood on the steppe; she rides better than she walks.</p>
+        <ul>
+          <li><strong>Advantage</strong> on melee attack rolls against any unmounted creature smaller than her mount.</li>
+          <li>She may force an attack targeted at her mount to target her instead.</li>
+          <li>If her mount is subjected to an effect that allows a Dexterity save for half damage, it instead takes <strong>no damage on a success</strong> and only half on a fail.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BACKGROUND ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aymara-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Background — Outlander (Tribal Nomad)</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Wanderer</div>
+      <div class="feature-body">
+        <p>She has an excellent memory for maps and geography and can always recall the general layout of terrain, settlements, and other features around her. She can find food and fresh water for herself and up to five other people each day, provided that the land offers berries, small game, water, and so forth.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Specialty &middot; Tribal Nomad of the Steppe</div>
+      <div class="feature-body">
+        <p>She has spent her life among the migrating clans of the steppe, following herds and seasonal pasture. Her clan keeps horses, sheep, and goats; their wealth is in herds.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ YOUR JOURNEY (LIFEPATH) ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aymara-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Your Journey</h2>
+      <p class="section-subtitle">Lifepath &middot; rolled and chosen entries from the Silk Road book</p>
+    </div>
+
+    <div class="journey-grid">
+      <div class="journey-card">
+        <div class="jc-label">Birthplace</div>
+        <div class="jc-value">Under the stars — born on the open steppe as her clan moved with the herds.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Family</div>
+        <div class="jc-value">Close relatives (rolled 18) — clan-raised. She grew up surrounded by aunts, uncles, and cousins as much as by parents.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Siblings</div>
+        <div class="jc-value">One sibling.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Family Occupation</div>
+        <div class="jc-value">Farmer or Herder — her clan keeps horses, sheep, and goats; their wealth is in herds.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Lifestyle</div>
+        <div class="jc-value"><strong>Comfortable</strong> (rolled 79). A well-off clan. Her gear and weapons are good ones, paid for in honest livestock.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Strings to Arcanum</div>
+        <div class="jc-value">Her community harnesses arcane powers. The djinn-binding ritual is not a secret; the clan's sages know it and have practiced it for generations. <em>Grants +1 extra Life Event, which must be an Arcane Event.</em></div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Past Education</div>
+        <div class="jc-value">Unorthodox — taught by family, clan, and the rare wandering scholar who took shelter in the clan's yurts. She can read and write the Old Turkic runes after a fashion. <em>Grants the Pan flute.</em></div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Path to the Djinnbound</div>
+        <div class="jc-value">Not chosen by her — the clan chose. The omens in the ceremonial flames picked her out before she was born.</div>
+      </div>
+    </div>
+
+    <div class="journey-events">
+      <div class="journey-event">
+        <div class="journey-event-roll">Event I &middot; d20 = 6</div>
+        <h4 class="journey-event-title">Hostile important figure.</h4>
+        <div class="journey-event-body">
+          <p>Met someone in a position of power — a governor, a general, or a senior officer — and earned their enmity. <em>GM-assigned; the figure is not yet named in the chronicle.</em></p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event II &middot; Arcane · d20 = 4 → d8 = 7</div>
+        <h4 class="journey-event-title">Saw a humanoid possessed by a lesser djinn.</h4>
+        <div class="journey-event-body">
+          <p>This event is heavy with implication for a Djinnbound: she has seen, with her own eyes, what can go wrong when a binding sours or a djinn rides without consent. <em>She does not speak of it.</em></p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event III &middot; d20 = 12</div>
+        <h4 class="journey-event-title">A first love, left behind.</h4>
+        <div class="journey-event-body">
+          <p>Not married — a clan-mate her own age. Whether the relationship ended in distance, death, or her own departure is open for play.</p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event IV &middot; Crime · d20 = 3 → d10 = 4</div>
+        <h4 class="journey-event-title">Committed assault.</h4>
+        <div class="journey-event-body">
+          <p>The crime is on her record somewhere — committed, not falsely accused. In a clan warrior's life this might have been defending a caravan brother, or a youthful brawl that went too far. Defensible, but the law sometimes does not care.</p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event V &middot; d20 = 8</div>
+        <h4 class="journey-event-title">Made an enemy of an adventurer.</h4>
+        <div class="journey-event-body">
+          <p>Another adventurer-type figure bears her ill will. <em>GM-assigned.</em></p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event VI &middot; Forced Arcane · d8 = 5</div>
+        <h4 class="journey-event-title">Drank a potion.</h4>
+        <div class="journey-event-body">
+          <p>What it was, who gave it to her, and what it did — open at the GM's discretion. Given her upbringing, plausibly a clan ritual draught taken at adolescence; plausibly something darker.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROFESSION ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aymara-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Profession</h2>
+      <p class="section-subtitle">Silk Road PEX system &middot; Apprentice rank</p>
+    </div>
+    <div class="profession-block">
+      <div class="profession-head">
+        <div class="profession-name">Beast Tamer</div>
+        <div class="profession-rank">Apprentice · Rank 1 <span class="pex">PEX 0</span></div>
+      </div>
+      <p class="profession-baseline">
+        <strong>Beast Taming</strong> (free): Proficiency in Animal Handling (reflected in her skills table). She can attempt to soothe and tame wild beasts — horses, donkeys, mules, bears, boars, lions, panthers — by spending 1 hour with the beast and proper tools, then succeeding on a CR-scaled Animal Handling check. Already-tamed mounts will obey her on a DC 10 Animal Handling check if their original owner is not visible.
+      </p>
+      <p class="profession-available">
+        Mounted Combatant + Beast Tamer pair into a cavalry-shock specialist: she rides, she tames the mount, and the djinn rides with her.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ EQUIPMENT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aymara-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Equipment</h2>
+    </div>
+    <div class="equipment-grid">
+      <div class="equip-block">
+        <div class="equip-block-title">Weapons</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Greataxe</span> &mdash; <span class="item-detail">1d12 slashing, heavy, two-handed; <strong>+6 to hit / 1d12+4</strong>; <strong>+2 rage damage</strong> while raging → 1d12+6. 10-ft. reach while raging.</span></li>
+          <li><span class="item-name">2× Handaxes</span> &mdash; <span class="item-detail">1d6 slashing, light, thrown 20/60; <strong>+6 to hit / 1d6+4</strong>.</span></li>
+          <li><span class="item-name">Hanchar</span> &mdash; <span class="item-detail">Silk Road dagger; 1d4 slashing (handy — may deal piercing), finesse, light; <strong>+6 to hit / 1d4+4</strong> (Str via Finesse, since Str 18 beats Dex 16).</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Armour</div>
+        <ul class="equip-list">
+          <li><span class="item-name">None worn</span> &mdash; <span class="item-detail">Unarmored Defense. She wears nomadic robes, hide-lined coat, and felt boots — purely for the cold and the sun. <strong>Final AC 16.</strong></span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Arcane Focus</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Djinn-bound talisman</span> &mdash; <span class="item-detail">a stone carved with spiraling marks, hung from a leather thong. Not a spellcasting focus (she casts no spells); it serves as the anchor for her bond to the djinn. Loss does not break the bond, but she would not part with it.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Personal Items</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Explorer's pack</span> &mdash; <span class="item-detail">backpack, bedroll, mess kit, tinderbox, 10 torches, 10 days of rations, waterskin, 50 ft. hempen rope.</span></li>
+          <li><span class="item-name">Hunting trap</span></li>
+          <li><span class="item-name">Trophy from a slain spirit-beast</span> &mdash; <span class="item-detail">a desiccated claw, wrapped in red cord.</span></li>
+          <li><span class="item-name">Set of traveler's clothes</span></li>
+          <li><span class="item-name">Pan flute</span> &mdash; <span class="item-detail">clan instrument, used in rituals.</span></li>
+          <li><span class="item-name">Belt pouch</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Available, Not Currently Carried</div>
+        <ul class="equip-list">
+          <li><span class="item-name">A warhorse and tack</span> &mdash; <span class="item-detail">kept with the clan or stabled at the last caravanserai — comes and goes with the journey.</span></li>
+        </ul>
+      </div>
+
+      <div class="money-line">
+        Carrying <span class="amount">10 gp</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERSONALITY ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aymara-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Personality</h2>
+    </div>
+    <div class="personality-grid">
+      <div class="personality-card">
+        <div class="personality-label">Trait</div>
+        <p class="personality-text">"I do not flinch from what the elders chose for me. The djinn rides with me; I ride with my clan."</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Ideal <span class="alignment-tag">— Tradition · Lawful</span></div>
+        <p class="personality-text">"The old ways kept us alive on the steppe. They will keep us alive on the road."</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Bond</div>
+        <p class="personality-text">"My clan chose me before I could speak. Whatever the djinn wants of me in the end, my clan comes first."</p>
+      </div>
+      <div class="personality-card flaw">
+        <div class="personality-label">Flaw</div>
+        <p class="personality-text">"I do not know what the djinn truly is. I have never asked. Some nights I am afraid of the answer."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONNECTIONS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aymara-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Connections</h2>
+    </div>
+    <ul class="connections-list">
+      <li><span class="conn-name">Nazim ibn Yusuf</span> — Two summers ago, Aymara's clan camped beside a half-buried kurgan-stelae two days west of Samarkand. A wandering scholar in a quilted under-tunic appeared at the edge of the camp at dusk, asking permission to read the inscription before the clan moved on. Her aunts let him stay three nights; he traced rubbings by lamp-light, ate at their fire, and left her grandmother a folded paper covered in his careful Old Turkic glyphs — a copy, he said, of the line her grandmother had been worrying at. Aymara remembers Nazim as the quiet one whose hands shook a little when he touched the carved stone. <em>She does not yet know he came back the following spring and read the line again, alone, and that he is still trying to understand what it said.</em></li>
+      <li><span class="conn-name">Farideh al-Saffar</span> — A perfume-caravan out of Baghdad bound for Bukhara hired Aymara's clan as escort across the Karakum the year she turned twenty. The lead merchant was a Baghdad woman with cedar-chests of vials and a tongue for bargaining that made the bandits Aymara was paid to fight unnecessary on three separate evenings. At the end of the route, Farideh paid in clan-livestock by the head and tucked a small vial of <em>rose-of-Qaf</em> into Aymara's saddlebag as bonus. Aymara still has the vial, unopened. <em>The djinn does not like it. She has not opened it for that reason, and one other reason she does not say.</em></li>
+    </ul>
+  </section>
+
+  <!-- ============ PATRON'S NOTE ============ -->
+  <section class="patron-note">
+    <div class="patron-label">From the Vizier's Hand</div>
+    <p class="patron-text">Where the steppe meets the trade-road and bandits learn the old answer to the new question, send her; the djinn that rides her shoulder costs us nothing and answers questions we are not permitted to ask.</p>
+    <div class="patron-signature">
+      &mdash; <span class="sig-name">Rashīd al-Dīn Hamadānī</span><span class="sig-arabic">رشید الدین</span>
+    </div>
+  </section>
+
+  <!-- ============ FOOT ============ -->
+  <footer class="document-foot">
+    <svg class="foot-seal" aria-hidden="true"><use href="#aymara-foot-seal"/></svg>
+    <div class="foot-text">
+      Compiled at the <span class="arabic">دیوان الطریق</span> &middot; Bureau of the Roads &middot; from Cathay to Constantinople
+    </div>
+    <svg class="foot-seal" aria-hidden="true"><use href="#aymara-foot-seal"/></svg>
+  </footer>
+
+</article>
+
+</body>
+</html>

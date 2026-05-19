@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Arman of the Black Forge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Reem+Kufi:wght@400;500;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Arman — Black Forge · anthracite + ember + brass */
+    --ground:       #15120e;
+    --ground-deep:  #0a0806;
+    --paper:        #d8cdb6;
+    --paper-shade:  #c8bd9f;
+    --paper-edge:   #ac9f7e;
+    --ink:          #15110c;
+    --ink-soft:     #2a221a;
+    --ink-faint:    #5a4d3c;
+    --accent:       #c8602a;        /* ember */
+    --accent-deep:  #7a3414;
+    --accent-pale:  #d4844a;
+    --anthracite:   #1a1612;
+    --anthracite-pale: #3a322a;
+    --brass:        #a07e34;
+    --brass-deep:   #6a5320;
+    --ochre:        #a07e34;        /* alias for shared component styles */
+    --ochre-deep:   #6a5320;
+    --rose:         #c8602a;        /* alias — ember reuse for flaw card */
+    --rose-deep:    #7a3414;
+    --gold:         #b0883a;
+    --gold-deep:    #7a5e1e;
+    --rule:         #ac9e7a;
+    --rule-soft:    #c5b58e;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 12%, rgba(200, 96, 42, 0.22) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 88%, rgba(10, 8, 6, 0.78) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(26, 22, 18, 0.55) 0%, transparent 80%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  /* ============ DOCUMENT FOLIO ============ */
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 3.75rem 4.25rem 4.5rem;
+    position: relative;
+    box-shadow:
+      0 1px 2px rgba(10, 8, 6, 0.5),
+      0 14px 56px rgba(10, 8, 6, 0.7),
+      inset 0 0 0 1px rgba(172, 158, 122, 0.5);
+    background-image:
+      radial-gradient(ellipse at 0% 0%, rgba(200, 96, 42, 0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 100%, rgba(160, 126, 52, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(90, 77, 60, 0.05) 100%);
+  }
+
+  /* Top folio band — anthracite / ember / brass */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--ground-deep) 0%,
+      var(--anthracite) 18%,
+      var(--accent-deep) 38%,
+      var(--accent) 50%,
+      var(--accent-deep) 62%,
+      var(--anthracite) 82%,
+      var(--ground-deep) 100%);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--anthracite) 20%,
+      var(--accent) 50%,
+      var(--anthracite) 80%,
+      transparent 100%);
+    opacity: 0.75;
+  }
+
+  /* Left-margin pattern */
+  .vine-margin {
+    position: absolute;
+    top: 5px; bottom: 3px; left: 0;
+    width: 26px;
+    opacity: 0.22;
+    pointer-events: none;
+    color: var(--anthracite);
+  }
+
+  /* ============ COVERT / FORGE MARK ============ */
+  .covert-mark {
+    position: absolute;
+    top: 22px;
+    right: 32px;
+    width: 96px;
+    height: 96px;
+    opacity: 0.09;
+    pointer-events: none;
+    color: var(--anthracite);
+  }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2rem;
+  }
+  .masthead-left { min-width: 0; }
+  .masthead-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.38em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .masthead-eyebrow .dossier-no {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .masthead-eyebrow .arabic {
+    font-family: "Amiri", "Reem Kufi", serif;
+    letter-spacing: 0;
+    font-size: 1.05rem;
+    margin-right: 0.55em;
+    color: var(--accent-deep);
+    font-weight: 400;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+  .masthead-eyebrow .bureau-name {
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.35rem;
+    line-height: 1;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+  .character-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--accent-deep);
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .cartouche {
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+  }
+
+  /* ============ IDENTITY + PORTRAIT BAND ============ */
+  .identity-band {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 2.25rem;
+    margin-bottom: 2.5rem;
+    align-items: start;
+  }
+  .identity-block { min-width: 0; }
+  .identity-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0.4rem 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    align-items: baseline;
+  }
+  .identity-row:last-child { border-bottom: none; }
+  .identity-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .identity-value {
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+  }
+  .identity-value em {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  .surname-note {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    display: block;
+    margin-top: 0.15rem;
+  }
+
+  /* Portrait plate */
+  .portrait-plate { position: relative; }
+  .portrait-frame {
+    border: 1px solid var(--anthracite);
+    padding: 6px;
+    background: var(--paper-shade);
+    box-shadow:
+      inset 0 0 0 1px var(--brass),
+      0 2px 8px rgba(10, 8, 6, 0.3);
+    position: relative;
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--anthracite);
+  }
+  .portrait-frame::before {
+    top: -4px; left: -4px;
+    border-right: none; border-bottom: none;
+  }
+  .portrait-frame::after {
+    bottom: -4px; right: -4px;
+    border-left: none; border-top: none;
+  }
+  .portrait-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: sepia(0.08) saturate(0.92) brightness(0.96);
+  }
+  .portrait-frame.empty {
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 12px,
+        rgba(122, 52, 20, 0.05) 12px,
+        rgba(122, 52, 20, 0.05) 24px
+      ),
+      var(--paper-shade);
+  }
+  .portrait-frame.empty .empty-monogram {
+    font-family: "Amiri", "Reem Kufi", serif;
+    font-size: 4rem;
+    color: var(--accent-deep);
+    opacity: 0.35;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    direction: rtl;
+  }
+  .portrait-frame.empty .empty-note {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .portrait-caption {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.7rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .portrait-caption strong {
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+  }
+  .portrait-aliases {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--accent-deep);
+    text-align: center;
+    margin-top: 0.4rem;
+  }
+
+  /* ============ SECTION ORNAMENTS ============ */
+  .section { margin-top: 2.5rem; }
+  .section-head {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    justify-content: center;
+    margin-bottom: 0.7rem;
+  }
+  .section-rule-line {
+    flex: 1;
+    max-width: 180px;
+    height: 1px;
+    background: var(--rule);
+  }
+  .section-ornament {
+    width: 30px; height: 30px;
+    color: var(--accent-deep);
+    flex-shrink: 0;
+  }
+  h2.section-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.55rem;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  .section-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-faint);
+    margin: 0.25rem 0 0;
+  }
+
+  /* ============ BIO ============ */
+  .bio {
+    font-family: "EB Garamond", serif;
+    font-size: 1.08rem;
+    line-height: 1.72;
+    color: var(--ink-soft);
+    text-align: justify;
+    hyphens: auto;
+  }
+  .bio p { margin: 0 0 1em; }
+  .bio p:last-child { margin-bottom: 0; }
+  .bio p:first-child::first-letter {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.1em 0.12em 0 0;
+    color: var(--accent-deep);
+  }
+
+  /* ============ ABILITY SCORES ============ */
+  .abilities {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+  }
+  .ability-card {
+    border: 1px solid var(--rule);
+    background: var(--paper-shade);
+    padding: 0.85rem 0.4rem 0.7rem;
+    text-align: center;
+    position: relative;
+  }
+  .ability-card::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 8px; right: 8px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .ability-card.saveprof::before {
+    background: var(--brass-deep);
+    height: 3px;
+  }
+  .ability-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .ability-score {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 0.15rem 0 0.05rem;
+  }
+  .ability-mod {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem;
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  .ability-save {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+    padding-top: 0.35rem;
+    border-top: 1px dotted var(--rule-soft);
+  }
+  .ability-save .save-val {
+    font-family: "EB Garamond", serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    font-weight: 500;
+    margin-left: 0.2em;
+  }
+  .ability-card.saveprof .ability-save .save-val {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+
+  /* ============ COMBAT STATS ============ */
+  .combat-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 0.7rem 0.65rem;
+  }
+  .stat-cell-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .stat-cell-value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-top: 0.15rem;
+  }
+  .stat-cell-value small {
+    font-family: "EB Garamond", serif;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-left: 0.3em;
+  }
+
+  /* ============ SKILLS ============ */
+  .skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+  }
+  .skills-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .skills-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: baseline;
+  }
+  .skills-table tr:last-child td { border-bottom: none; }
+  .skills-table .bonus {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    color: var(--ink);
+    width: 70px;
+    text-align: center;
+  }
+  .skills-table .bonus.expertise {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .skills-table .source {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+  .skills-note {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    padding: 0.65rem 0.85rem;
+    background: var(--paper-shade);
+    border-left: 3px solid var(--accent);
+    margin-top: 0.8rem;
+  }
+
+  /* ============ FEATURE BLOCKS ============ */
+  .feature {
+    margin: 0 0 1.1rem;
+    padding: 0.85rem 1rem;
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+  }
+  .feature.subclass {
+    border-left-color: var(--brass-deep);
+  }
+  .feature-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    color: var(--ink);
+    margin: 0 0 0.3rem;
+    letter-spacing: 0.01em;
+  }
+  .feature-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .feature-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .feature-body p { margin: 0 0 0.55em; }
+  .feature-body p:last-child { margin-bottom: 0; }
+  .feature-body ul {
+    margin: 0.4em 0 0.2em;
+    padding-left: 1.4em;
+  }
+  .feature-body ul li {
+    padding: 0.15em 0;
+  }
+  .feature-body strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .feature-body em {
+    color: var(--accent-deep);
+  }
+
+  .features-cluster-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .features-cluster-title:first-child { margin-top: 0; }
+
+  .spell-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    padding: 0;
+    margin: 0.5em 0 0;
+    list-style: none;
+  }
+  .spell-pills li {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.97rem;
+    color: var(--ink);
+    padding: 0.15rem 0.7rem;
+    background: var(--paper);
+    border: 1px solid var(--brass);
+    border-left-width: 3px;
+    border-left-color: var(--brass-deep);
+  }
+
+  .dice-callout {
+    margin: 0.5em 0;
+    padding: 0.55rem 0.85rem;
+    background: var(--paper);
+    border: 1px solid var(--brass-deep);
+    border-left: 3px solid var(--accent);
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    font-size: 0.97rem;
+  }
+  .dice-callout-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .dice-callout-dice {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    color: var(--accent-deep);
+    font-size: 1.15rem;
+  }
+
+  /* ============ JOURNEY (LIFEPATH) ============ */
+  .journey-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .journey-card {
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+    padding: 0.85rem 1rem;
+  }
+  .journey-card.event {
+    border-left-color: var(--brass-deep);
+  }
+  .journey-card .jc-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .journey-card.event .jc-label { color: var(--brass-deep); }
+  .journey-card .jc-value {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .journey-card .jc-value em { color: var(--ink-soft); font-style: italic; }
+  .journey-events {
+    margin-top: 1rem;
+  }
+  .journey-event {
+    margin: 0 0 0.8rem;
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+    border: 1px solid var(--rule-soft);
+    border-top: 2px solid var(--brass);
+  }
+  .journey-event-roll {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .journey-event-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin: 0 0 0.35rem;
+  }
+  .journey-event-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.97rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ============ PROFESSION ============ */
+  .profession-block {
+    margin-top: 1rem;
+    padding: 1rem 1.2rem;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0,
+        transparent 24px,
+        rgba(160, 126, 52, 0.05) 24px,
+        rgba(160, 126, 52, 0.05) 48px
+      ),
+      var(--paper);
+    border: 1px solid var(--brass);
+  }
+  .profession-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule-soft);
+    margin-bottom: 0.75rem;
+  }
+  .profession-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.12rem;
+    color: var(--ink);
+  }
+  .profession-rank {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    color: var(--brass-deep);
+    text-transform: uppercase;
+  }
+  .profession-rank .pex {
+    color: var(--ink-faint);
+    margin-left: 0.5em;
+  }
+  .profession-baseline {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .profession-baseline strong { color: var(--ink); }
+  .profession-available {
+    margin-top: 0.85rem;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-faint);
+  }
+
+  /* ============ EQUIPMENT ============ */
+  .equipment-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .equip-block {
+    border: 1px solid var(--rule-soft);
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+  }
+  .equip-block-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 0 0 0.55rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .equip-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .equip-list li {
+    padding: 0.35rem 0;
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .equip-list li:last-child { border-bottom: none; }
+  .equip-list .item-name { font-weight: 500; }
+  .equip-list .item-detail {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-style: italic;
+  }
+  .money-line {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    padding: 0.85rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .money-line .amount {
+    font-family: "Cormorant Garamond", serif;
+    font-style: normal;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--brass-deep);
+    letter-spacing: 0.05em;
+    margin: 0 0.3em;
+  }
+
+  /* ============ PERSONALITY ============ */
+  .personality-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+  .personality-card {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--paper-shade);
+    border-top: 2px solid var(--accent);
+    position: relative;
+  }
+  .personality-card.flaw {
+    border-top-color: var(--rose);
+  }
+  .personality-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .personality-card.flaw .personality-label { color: var(--rose-deep); }
+  .personality-label .alignment-tag {
+    color: var(--ink-faint);
+    font-weight: 400;
+    margin-left: 0.4em;
+  }
+  .personality-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ============ CONNECTIONS ============ */
+  .connections-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .connections-list li {
+    padding: 0.85rem 0 0.85rem 1.5rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+    line-height: 1.6;
+    position: relative;
+  }
+  .connections-list li:last-child { border-bottom: none; }
+  .connections-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 1.3em;
+    width: 8px; height: 8px;
+    border: 1px solid var(--accent);
+    transform: rotate(45deg);
+    background: var(--paper);
+  }
+  .connections-list .conn-name {
+    font-weight: 500;
+    color: var(--accent-deep);
+  }
+
+  /* ============ PATRON'S NOTE ============ */
+  .patron-note {
+    margin: 2.75rem 0 0;
+    padding: 1.5rem 1.75rem 1.65rem;
+    border: 1px solid var(--brass-deep);
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 8px,
+        rgba(160, 126, 52, 0.05) 8px,
+        rgba(160, 126, 52, 0.05) 16px
+      ),
+      var(--paper-shade);
+    position: relative;
+  }
+  .patron-note::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 2px;
+    background: linear-gradient(90deg,
+      var(--gold-deep) 0%,
+      var(--gold) 30%,
+      var(--accent) 50%,
+      var(--gold) 70%,
+      var(--gold-deep) 100%);
+  }
+  .patron-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--brass-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+  .patron-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+  .patron-signature {
+    margin-top: 0.85rem;
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    color: var(--ink-soft);
+  }
+  .patron-signature .sig-name {
+    font-style: italic;
+    color: var(--ink);
+  }
+  .patron-signature .sig-arabic {
+    font-family: "Amiri", serif;
+    font-style: normal;
+    font-size: 1.05rem;
+    color: var(--accent-deep);
+    margin-left: 0.4em;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+
+  /* ============ FOOT ============ */
+  .document-foot {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .foot-seal {
+    width: 38px; height: 38px;
+    color: var(--accent-deep);
+    opacity: 0.75;
+  }
+  .foot-text {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    flex: 1;
+  }
+  .foot-text .arabic {
+    font-family: "Amiri", "Reem Kufi", serif;
+    letter-spacing: 0;
+    color: var(--accent-deep);
+    margin: 0 0.4em;
+    font-size: 0.95rem;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 760px) {
+    body { padding: 1rem 0.4rem 2rem; }
+    .document { padding: 2.25rem 1.5rem 2.75rem; }
+    h1.character-name { font-size: 2.3rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1rem; }
+    .cartouche { width: 80px; height: 80px; justify-self: start; }
+    .identity-band { grid-template-columns: 1fr; }
+    .portrait-plate { max-width: 240px; }
+    .abilities { grid-template-columns: repeat(3, 1fr); }
+    .combat-stats { grid-template-columns: repeat(2, 1fr); }
+    .personality-grid { grid-template-columns: 1fr; }
+    .journey-grid { grid-template-columns: 1fr; }
+    .vine-margin { display: none; }
+    .skills-table .source { display: none; }
+    .covert-mark { display: none; }
+  }
+
+  @media (max-width: 460px) {
+    .abilities { grid-template-columns: repeat(2, 1fr); }
+    .identity-row { grid-template-columns: 1fr; gap: 0.1rem; }
+    .identity-label { font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Inline SVG definitions -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Section ornament: small hammer crossed with anvil-block -->
+    <symbol id="arman-ornament" viewBox="0 0 30 30">
+      <g fill="none" stroke="currentColor" stroke-width="0.8">
+        <!-- Anvil silhouette (centered, slightly lower) -->
+        <path d="M 7 19 L 23 19 L 21 21 L 9 21 Z" fill="currentColor" stroke="none"/>
+        <rect x="12" y="21" width="6" height="3" fill="currentColor" stroke="none"/>
+        <path d="M 5 17 L 9 17 L 9 19 L 5 19 Z" fill="currentColor" stroke="none"/>
+        <!-- Crossed hammer (diagonal from upper-left to lower-right) -->
+        <line x1="6" y1="6" x2="22" y2="15" stroke-width="1.2"/>
+        <rect x="20" y="13" width="6" height="4" transform="rotate(28 23 15)" fill="currentColor" stroke="none"/>
+        <!-- Spark dots -->
+        <circle cx="15" cy="14" r="0.6" fill="currentColor" stroke="none"/>
+        <circle cx="18" cy="11" r="0.5" fill="currentColor" stroke="none"/>
+        <circle cx="12" cy="11" r="0.5" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Foot seal: small hammer in a roundel -->
+    <symbol id="foot-seal-arman" viewBox="0 0 40 40">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <circle cx="20" cy="20" r="17"/>
+        <circle cx="20" cy="20" r="13" stroke-dasharray="1 2"/>
+        <!-- Hammer head -->
+        <rect x="13" y="11" width="14" height="6" rx="1" fill="currentColor" stroke="none"/>
+        <!-- Hammer handle -->
+        <rect x="19" y="17" width="2" height="14" rx="0.6" fill="currentColor" stroke="none"/>
+        <!-- Centre stud -->
+        <circle cx="20" cy="14" r="1" fill="var(--paper)" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Arman's cartouche: hammer-and-anvil framed by an arc of forge-flame -->
+    <symbol id="cartouche-arman" viewBox="0 0 110 110">
+      <g fill="none" stroke="currentColor" stroke-width="1.1">
+        <!-- Outer ring -->
+        <circle cx="55" cy="55" r="50"/>
+        <!-- Inner dashed ring with spark-dots -->
+        <circle cx="55" cy="55" r="42" stroke-width="0.7" stroke-dasharray="2 3"/>
+
+        <!-- Scattered spark dots between rings -->
+        <g fill="currentColor" stroke="none">
+          <circle cx="55" cy="9" r="0.9"/>
+          <circle cx="80" cy="16" r="0.7"/>
+          <circle cx="98" cy="40" r="0.9"/>
+          <circle cx="100" cy="68" r="0.7"/>
+          <circle cx="85" cy="92" r="0.9"/>
+          <circle cx="55" cy="100" r="0.7"/>
+          <circle cx="25" cy="92" r="0.9"/>
+          <circle cx="10" cy="68" r="0.7"/>
+          <circle cx="12" cy="40" r="0.9"/>
+          <circle cx="30" cy="16" r="0.7"/>
+        </g>
+
+        <!-- Forge-flame arc rising from below the anvil -->
+        <g stroke="currentColor" stroke-width="0.9" fill="currentColor" fill-opacity="0.32">
+          <path d="M 30 80 Q 28 70 32 62 Q 36 55 33 48 Q 38 56 38 64 Q 38 72 35 80 Z"/>
+          <path d="M 45 84 Q 42 74 47 64 Q 51 56 47 47 Q 53 54 54 64 Q 55 75 51 84 Z"/>
+          <path d="M 60 84 Q 57 74 62 62 Q 66 53 61 43 Q 69 51 70 64 Q 71 77 67 84 Z"/>
+          <path d="M 75 80 Q 72 70 76 62 Q 80 55 77 48 Q 83 56 82 64 Q 81 73 78 80 Z"/>
+        </g>
+
+        <!-- Anvil silhouette (resting on a small block) -->
+        <g fill="currentColor" stroke="currentColor" stroke-width="0.8">
+          <!-- Anvil top -->
+          <path d="M 28 50 L 82 50 L 76 56 L 34 56 Z" fill-opacity="0.85"/>
+          <!-- Anvil horn -->
+          <path d="M 18 52 L 28 50 L 28 54 L 22 56 Z" fill-opacity="0.85"/>
+          <!-- Anvil body / waist -->
+          <path d="M 38 56 L 72 56 L 68 64 L 42 64 Z" fill-opacity="0.85"/>
+          <!-- Anvil base -->
+          <rect x="36" y="64" width="38" height="4" fill-opacity="0.85"/>
+        </g>
+
+        <!-- Hammer mid-strike, resting atop the anvil -->
+        <g>
+          <!-- Hammer handle (angled, coming from upper-right) -->
+          <rect x="56" y="22" width="3" height="28" rx="0.8"
+                fill="currentColor" stroke="currentColor" stroke-width="0.6"
+                transform="rotate(-18 57.5 36)"/>
+          <!-- Hammer head -->
+          <rect x="44" y="40" width="22" height="9" rx="1"
+                fill="currentColor" stroke="currentColor" stroke-width="0.7"
+                transform="rotate(-18 55 44.5)"/>
+        </g>
+
+        <!-- Central inscription circle on the anvil face — letter alif -->
+        <circle cx="55" cy="50" r="3" fill="var(--paper)" stroke="currentColor" stroke-width="0.6"/>
+      </g>
+    </symbol>
+
+    <!-- Covert mark: faded great-anvil silhouette with three forge-flames behind it -->
+    <symbol id="covert-mark-arman" viewBox="0 0 96 96">
+      <g fill="none" stroke="currentColor" stroke-width="1.4">
+        <!-- Outer ring -->
+        <circle cx="48" cy="48" r="44"/>
+        <circle cx="48" cy="48" r="36" stroke-dasharray="3 4"/>
+        <!-- Three forge-flames rising behind anvil -->
+        <g stroke="currentColor" stroke-width="1.1" fill="currentColor" fill-opacity="0.2">
+          <path d="M 30 60 Q 28 48 33 36 Q 38 26 35 18 Q 42 28 42 42 Q 42 54 38 60 Z"/>
+          <path d="M 48 64 Q 45 52 50 38 Q 55 26 50 16 Q 60 26 60 42 Q 60 56 55 64 Z"/>
+          <path d="M 66 60 Q 64 48 68 36 Q 72 26 70 18 Q 76 28 76 42 Q 76 54 73 60 Z"/>
+        </g>
+        <!-- Great-anvil silhouette over flames -->
+        <g fill="currentColor" stroke="currentColor" stroke-width="1" fill-opacity="0.5">
+          <path d="M 22 58 L 74 58 L 68 64 L 28 64 Z"/>
+          <path d="M 14 60 L 22 58 L 22 62 L 18 64 Z"/>
+          <path d="M 30 64 L 66 64 L 62 72 L 34 72 Z"/>
+          <rect x="28" y="72" width="40" height="4"/>
+        </g>
+      </g>
+    </symbol>
+
+    <!-- Vine pattern: repeating column of ingots / hammer-heads connected by chain -->
+    <pattern id="vinePatternArman" width="26" height="120" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="currentColor" stroke-width="0.7">
+        <!-- Central chain line -->
+        <line x1="13" y1="0" x2="13" y2="120" stroke-width="0.4" stroke-dasharray="2 2"/>
+        <!-- Chain links -->
+        <g stroke="currentColor" stroke-width="0.6">
+          <ellipse cx="13" cy="8" rx="2.4" ry="1.4" transform="rotate(90 13 8)"/>
+          <ellipse cx="13" cy="38" rx="2.4" ry="1.4" transform="rotate(90 13 38)"/>
+          <ellipse cx="13" cy="68" rx="2.4" ry="1.4" transform="rotate(90 13 68)"/>
+          <ellipse cx="13" cy="98" rx="2.4" ry="1.4" transform="rotate(90 13 98)"/>
+        </g>
+        <!-- Ingot (rectangular) at upper-mid and lower-mid -->
+        <g fill="currentColor" stroke="none">
+          <rect x="9" y="22" width="8" height="3" rx="0.5"/>
+          <rect x="9" y="82" width="8" height="3" rx="0.5"/>
+        </g>
+        <!-- Hammer-head silhouette mid-stem -->
+        <g fill="currentColor" stroke="none">
+          <rect x="8" y="52" width="10" height="4" rx="0.6"/>
+          <rect x="8" y="112" width="10" height="4" rx="0.6"/>
+        </g>
+      </g>
+    </pattern>
+  </defs>
+</svg>
+
+<article class="document">
+
+  <svg class="vine-margin" preserveAspectRatio="none" aria-hidden="true" style="width:26px; height:100%;">
+    <rect width="100%" height="100%" fill="url(#vinePatternArman)"/>
+  </svg>
+
+  <!-- Forge mark watermark -->
+  <svg class="covert-mark" aria-hidden="true"><use href="#covert-mark-arman"/></svg>
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="masthead-eyebrow">
+        <span class="arabic">دیوان الطریق</span>
+        <span class="bureau-name">Dīwān al-Ṭarīq</span> &middot; Bureau of the Roads &middot; <span class="dossier-no">Dossier · Warlock</span>
+      </div>
+      <h1 class="character-name">Arman of the Black Forge</h1>
+      <p class="character-subtitle">The Smith of the Dark Furnace &middot; Bargained at the Bellows</p>
+    </div>
+    <svg class="cartouche" aria-hidden="true" style="color: var(--anthracite);">
+      <use href="#cartouche-arman"/>
+    </svg>
+  </header>
+
+  <!-- ============ IDENTITY + PORTRAIT ============ -->
+  <section class="identity-band">
+    <div class="identity-block">
+      <div class="identity-row">
+        <span class="identity-label">Class &amp; Level</span>
+        <span class="identity-value">Warlock 3 &middot; The Underground Patron (Erlik)</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Race</span>
+        <span class="identity-value">Human (Standard)</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Background</span>
+        <span class="identity-value">Tradesman of Fars <em>— Empires of the Silk Road</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Age</span>
+        <span class="identity-value">31</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Heritage</span>
+        <span class="identity-value">Persian &middot; Zagros mountain village in Fars <em>(four generations at the same village forge)</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Faith</span>
+        <span class="identity-value">Outwardly Sunni Islam <em>— privately addresses Erlik, the steppe under-god of the forge-fire; has not seen his imam in three years</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Alignment</span>
+        <span class="identity-value">Neutral</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Languages</span>
+        <span class="identity-value">Persian (Common of Fars), Turkish, Infernal
+          <span class="surname-note">Infernal acquired through his Tradesman-of-Fars language slot — the older underworld-tongue his patron speaks; he understands it haltingly, and would rather not.</span>
+        </span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Epithet</span>
+        <span class="identity-value"><em>"of the Black Forge"</em>
+          <span class="surname-note">A road-name. He no longer uses his village family name; the forge took it when the raiders took the building. Travelers along the Silk Road call him by where his fire was kindled, not where he was born.</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="portrait-plate">
+      <div class="portrait-frame empty">
+        <div class="empty-monogram">ا</div>
+        <div class="empty-note">Portrait pending</div>
+      </div>
+      <div class="portrait-caption">
+        <strong>Arman of the Black Forge</strong><br>
+        Persian / Fars &middot; Aged Thirty-One
+      </div>
+      <div class="portrait-aliases">the fire that lit him still answers when he calls</div>
+    </div>
+  </section>
+
+  <!-- ============ BIO ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#arman-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">On the Subject</h2>
+    </div>
+    <div class="bio">
+      <p>Arman's family worked iron for four generations in a Zagros mountain village before he broke the lineage. He was the eldest son, and good at the trade — by twenty he was running the forge alone on the days his father went down the mountain for stock-iron. His back gave out the spring he turned twenty-three: a stupid lift, an iron billet he should have asked a neighbor to help with, a slipped vertebra he could feel grinding when he moved. The village's only physician, a Sufi who passed through every season and a half, gave him three months of poppy-tincture and a recommendation to stop forging. He could not stop. The forge was the family's only income.</p>
+      <p>He kept working. The pain was bad. He started staying up at the forge through the night because the work distracted him from it. On a night three months after the injury, he was alone at the bellows, half-delirious from poppy and pain, and something in the fire spoke to him. It said its name was <em>Erlik</em>. He had heard it in steppe-traders' stories — the god of the underworld, the great smith below the mountains, the keeper of fires that do not go out. It offered him a bargain: take the fire into himself, and the fire would carry the work the body could not. He said yes. He does not remember saying yes; he remembers waking up at dawn at the forge with the fire still burning despite no one having fed it for hours, and a new heat in his hands.</p>
+      <p>That was eight years ago. He cannot lift heavy things anymore — his back is still bad, and the bargain did not cure it — but he can shape metal with a touch of his fingers, heat a blade to glowing without coals, and call fire into being where there is none. The village kept him for a while; he made better tools than anyone else, and the priests of the local mosque looked the other way. Then a Mongol-aligned raiding party came through two winters ago and burned the forge, and Arman walked out of the village with what he could carry. He has been moving along the Silk Road since, fixing what travelers need fixed, and listening — sometimes — for the next thing the fire wants of him.</p>
+      <p>He is wary of his patron. He is also grateful to it. He has not yet decided which of those is the truer feeling.</p>
+    </div>
+  </section>
+
+  <!-- ============ ABILITY SCORES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#arman-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Faculties &amp; Saving Throws</h2>
+      <p class="section-subtitle">Rolled array 6, 9, 10, 11, 12, 16 &middot; Human +1 to all six &middot; Focused Caster feat +1 Cha</p>
+    </div>
+    <div class="abilities">
+      <div class="ability-card">
+        <div class="ability-name">Strength</div>
+        <div class="ability-score">7</div>
+        <div class="ability-mod">&minus;2</div>
+        <div class="ability-save">Save <span class="save-val">&minus;2</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Dexterity</div>
+        <div class="ability-score">11</div>
+        <div class="ability-mod">+0</div>
+        <div class="ability-save">Save <span class="save-val">+0</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Constitution</div>
+        <div class="ability-score">10</div>
+        <div class="ability-mod">+0</div>
+        <div class="ability-save">Save <span class="save-val">+0</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Intelligence</div>
+        <div class="ability-score">12</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Wisdom</div>
+        <div class="ability-score">13</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+3</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Charisma</div>
+        <div class="ability-score">18</div>
+        <div class="ability-mod">+4</div>
+        <div class="ability-save">Save <span class="save-val">+6</span></div>
+      </div>
+    </div>
+    <div class="skills-note">
+      <strong>Str 7 is canonical to the bio.</strong> The back injury at twenty-three preceded the patron-bargain; the bargain added a gift, but did not cure the body. He cannot wield heavy weapons, cannot make a meaningful melee Str attack, and has &minus;2 on Str saves (grapple, shove, restrain).
+    </div>
+  </section>
+
+  <!-- ============ COMBAT STATS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#arman-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Bearing on the Route</h2>
+    </div>
+    <div class="combat-stats">
+      <div class="stat-cell">
+        <div class="stat-cell-label">Proficiency</div>
+        <div class="stat-cell-value">+2</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Armour Class</div>
+        <div class="stat-cell-value">14 <small>unarmored · Herald of Fire</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Initiative</div>
+        <div class="stat-cell-value">+0</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Speed</div>
+        <div class="stat-cell-value">30 <small>ft</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Points</div>
+        <div class="stat-cell-value">18</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Dice</div>
+        <div class="stat-cell-value">3d8</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Passive Perception</div>
+        <div class="stat-cell-value">11</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Spell Save DC</div>
+        <div class="stat-cell-value">14 <small>+6 atk &middot; Cha</small></div>
+      </div>
+    </div>
+    <div class="skills-note">
+      <strong>Pact magic:</strong> 2 slots, both 2nd-level, recharging on a <strong>short rest</strong>. <strong>Herald of Fire</strong> gives him AC 14 unarmored (10 + Dex 0 + Cha 4), beating both leather (AC 11) and Mage Armor (AC 13); he keeps <em>Armor of Shadows</em> as a backup invocation in case the feature is suppressed.
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#arman-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <table class="skills-table">
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th class="bonus" style="text-align:center;">Bonus</th>
+          <th class="source">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Insight</td>     <td class="bonus">+3</td> <td class="source">Tradesman of Fars</td></tr>
+        <tr><td>Persuasion</td>  <td class="bonus">+6</td> <td class="source">Tradesman of Fars</td></tr>
+        <tr><td>Arcana</td>      <td class="bonus">+3</td> <td class="source">Warlock</td></tr>
+        <tr><td>Religion</td>    <td class="bonus">+3</td> <td class="source">Warlock</td></tr>
+        <tr><td>History</td>     <td class="bonus">+3</td> <td class="source">Tinker — Necessary Tools</td></tr>
+      </tbody>
+    </table>
+    <div class="skills-note">
+      Tool proficiencies: <strong>Smith's tools</strong> (Tradesman of Fars); <strong>Tinker's tools</strong> (Tinker profession — Necessary Tools); <strong>Kamancheh</strong> (Past Education Option 3 — the Persian bowed string instrument, learned haltingly at weddings and harvest gatherings in his Fars village; an uncle played, and Arman picked up the basic fingering from watching).
+    </div>
+  </section>
+
+  <!-- ============ CLASS FEATURES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#arman-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Class Features</h2>
+    </div>
+
+    <div class="features-cluster-title">Warlock — Base</div>
+
+    <div class="feature">
+      <div class="feature-title">Otherworldly Patron &middot; The Underground (Erlik)</div>
+      <div class="feature-meta">Level 1</div>
+      <div class="feature-body">
+        <p>His patron is the steppe-Tengrist god of the underworld, the great smith below the mountains, the keeper of fires that do not go out. The bargain was struck in the forge-fire one night when he was twenty-three. See the Mirage Adept — pardon: the <em>Smith of Black Hells</em> — features below.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Pact Magic</div>
+      <div class="feature-meta">Level 1 &middot; Cha-based</div>
+      <div class="feature-body">
+        <p>Charisma is his spellcasting ability. <strong>Spell save DC 14 &middot; Spell attack +6</strong>. <strong>Spell slots: 2, both of 2nd level</strong>, recharging on a short <em>or</em> long rest. Cantrips known: 2 base + 3 from Pact of the Tome = <strong>5</strong>. Spells known: <strong>4</strong> (all cast at 2nd level).</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Eldritch Invocations</div>
+      <div class="feature-meta">Level 2 &middot; 2 known at L3</div>
+      <div class="feature-body">
+        <ul>
+          <li><strong>Agonizing Blast</strong> (req. <em>Eldritch Blast</em>) — Adds his Cha mod (<strong>+4</strong>) to each Eldritch Blast force-damage instance.</li>
+          <li><strong>Armor of Shadows</strong> — Casts <em>Mage Armor</em> on self at will, no slot, no components. Backup in case Herald of Fire is suppressed.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Pact Boon &middot; Pact of the Tome</div>
+      <div class="feature-meta">Level 3 &middot; Book of Shadows</div>
+      <div class="feature-body">
+        <p>His patron has gifted him a small leather-bound <em>Book of Shadows</em> containing <strong>3 cantrips of his choice</strong> from any class's spell list; they function as warlock cantrips for him (cast with Cha). Selected: <em>Sacred Flame</em> (cleric), <em>Druidcraft</em> (druid), <em>Mending</em> (sorcerer/wizard). The cover, he insists, is not human leather. He is not certain.</p>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">The Underground Patron — Empires of the Silk Road</div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Expanded Spell List</div>
+      <div class="feature-meta">Subclass spells &middot; always available as spells known</div>
+      <div class="feature-body">
+        <ul class="spell-pills">
+          <li>Farabi's Favor <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L1</span></li>
+          <li>Hunter's Mark <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L1</span></li>
+          <li>Flame Blade <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L2</span></li>
+          <li>Magic Weapon <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L2</span></li>
+          <li>Bestow Curse <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L3</span></li>
+          <li>Fear <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L3</span></li>
+          <li>Fabricate <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L4</span></li>
+          <li>Fire Shield <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L4</span></li>
+          <li>Creation <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L5</span></li>
+          <li>Raise Dead <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L5</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature subclass">
+      <div class="feature-title">The Smith of Black Hells</div>
+      <div class="feature-meta">Level 1 · Subclass core</div>
+      <div class="feature-body">
+        <p>He learns <em>heat metal</em> as a warlock spell; it does not count against his spells known, and he can cast it <strong>once per long rest without expending a slot</strong>, or normally with slots.</p>
+        <ul>
+          <li><strong>Ritual variant</strong> — imbue up to <strong>3 melee weapons</strong> with magical heat. They count as magical and deal an extra <strong>+1d4 fire</strong> on each hit (scaling: +1 at L1, +1d4 at L3, +1d6 at L5, +1d8 at L11, +1d10 at L16). Imbue a fourth, the earliest loses its property. He may instead imbue <strong>up to 5 pieces of ammunition</strong>, which lose the property on firing.</li>
+          <li><strong>Armor variant</strong> — imbue <strong>2 sets of armor</strong>. When a wearer is hit by a melee attacker within 5 ft., the attacker takes <strong>1d4 fire</strong> (once per round per armor piece).</li>
+          <li><strong>Proficiencies granted</strong> — Smith's tools (already had), plus <strong>two martial melee weapons of choice</strong>. Selected: <strong>scimitar</strong> and <strong>shortsword</strong> — both light/finesse options his Str 7 can actually wield.</li>
+          <li><strong>Spellcasting focus</strong> — Smith's tools <em>or</em> any metal melee weapon. He uses the small hand-hammer at his belt.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Herald of Fire</div>
+      <div class="feature-meta">Level 1 · Subclass core</div>
+      <div class="feature-body">
+        <p>His fiery soul protects him and answers his hand.</p>
+        <ul>
+          <li><strong>Unarmored AC</strong> = 10 + Dex 0 + Cha 4 = <strong>14</strong>, while wearing no armor and holding no shields.</li>
+          <li><strong>Fire control</strong> — Ignite or extinguish flammable objects within 5 ft.</li>
+          <li><strong>Bright/dim light</strong> — Double or halve the bright-and-dim radius of an existing flame, change its color, or both. 1 hour.</li>
+          <li><strong>Flame-shapes</strong> — Cause simple shapes or images to appear within flames and animate them. 1 hour.</li>
+        </ul>
+        <div class="dice-callout">
+          <span class="dice-callout-label">Subclass spell</span>
+          <span class="dice-callout-dice">Heat Metal · 3d8</span>
+          <span style="color:var(--ink-soft);font-style:italic;font-size:0.95rem;">fire on cast + bonus action to repeat each round &middot; DC 14 Con save or drop. Free 1/long rest.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPELLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#arman-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Spells</h2>
+      <p class="section-subtitle">Cha &middot; DC 14 &middot; Atk +6 &middot; 2 × 2nd-level slots (short rest)</p>
+    </div>
+
+    <div class="features-cluster-title">Cantrips Known (5)</div>
+
+    <div class="feature">
+      <div class="feature-title">Eldritch Blast</div>
+      <div class="feature-meta">Warlock base &middot; signature</div>
+      <div class="feature-body">
+        <p>Ranged spell attack, 1d10 force, 120 ft. <strong>+ Agonizing Blast: +4 Cha to damage</strong> → 1d10+4 per dart. 1 dart at L3.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Fire Bolt &middot; Sacred Flame &middot; Druidcraft &middot; Mending</div>
+      <div class="feature-meta">Warlock base + Pact of the Tome</div>
+      <div class="feature-body">
+        <p><em>Fire Bolt</em> — 1d10 fire, 120 ft; alt-element option vs. force-resistant targets.<br>
+        <em>Sacred Flame</em> (Tome — cleric) — Dex save vs DC 14; 1d8 radiant; ignores cover. Cast with Cha per Pact rules.<br>
+        <em>Druidcraft</em> (Tome — druid) — weather-predict, fire-kindle, flower-bloom. Utility.<br>
+        <em>Mending</em> (Tome — universal) — repair in 1 minute. <strong>Critical to his trade — used constantly when fixing customers' broken items.</strong></p>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">Spells Known (4 — all cast at 2nd-level slot)</div>
+
+    <div class="feature">
+      <div class="feature-title">Hex</div>
+      <div class="feature-meta">1st &middot; concentration · bonus action</div>
+      <div class="feature-body">
+        <p>Mark one target; +1d6 necrotic on hits; disadvantage on a chosen ability check. <strong>Signature warlock buff</strong> — stacks with EB + Agonizing for ~9.5 avg per dart.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Hellish Rebuke</div>
+      <div class="feature-meta">1st &middot; reaction</div>
+      <div class="feature-body">
+        <p>When damaged by a creature he can see, retort with 2d10 fire (Dex save for half). Cast at 2nd-level slot: <strong>3d10</strong>. Thematic fit.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Flame Blade</div>
+      <div class="feature-meta">2nd &middot; concentration · 10 min · expanded list</div>
+      <div class="feature-body">
+        <p>Bonus action conjure a flaming scimitar; melee spell attack at <strong>+6 to hit / 3d6 fire</strong>. Sheds bright light. <strong>His melee option</strong> — competes with Hex for concentration; pick one.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Invisibility</div>
+      <div class="feature-meta">2nd &middot; concentration · 1 hour</div>
+      <div class="feature-body">
+        <p>Bonus-action self-cast and walk away from a fight he is losing. <strong>Critical defensive option for a glass-cannon body.</strong> Concurrent with Hex (both concentration); he chooses damage-buff Hex or escape-ready Invisibility, not both.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEAT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#arman-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Feat</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Focused Caster</div>
+      <div class="feature-meta">Level 1 · Granted feat &middot; Empires of the Silk Road</div>
+      <div class="feature-body">
+        <p>The patron's fire does not let go of what it has lit easily. Even when struck and reeling, the spell holds for one more breath.</p>
+        <ul>
+          <li><strong>+1 spellcasting ability score</strong> — taken as <strong>+1 Cha → 18</strong>.</li>
+          <li>When he loses concentration due to receiving damage and failing the check, the spell remains in effect <strong>until the end of his next turn</strong>. Once per short rest.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BACKGROUND ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#arman-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Background — Tradesman of Fars</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Tradesman</div>
+      <div class="feature-body">
+        <p>Local salesmen are inclined to give him a discount, and he immediately knows if simple sellers are trying to deceive him.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Specialty &middot; Village Smith Turned Itinerant</div>
+      <div class="feature-body">
+        <p>Once the four-generation village blacksmith; now an itinerant smith and repair-man. He sells small repaired items, fixes traveler-gear at caravanserais, and quietly works the kind of metalwork that requires more heat than most forges can produce.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ YOUR JOURNEY (LIFEPATH) ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#arman-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Your Journey</h2>
+      <p class="section-subtitle">Lifepath &middot; rolled and chosen entries from the Silk Road book</p>
+    </div>
+
+    <div class="journey-grid">
+      <div class="journey-card">
+        <div class="jc-label">Birthplace</div>
+        <div class="jc-value">The family's <strong>forge-shed</strong>, adjacent to the house — born on a winter night his mother could not be moved.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Family</div>
+        <div class="jc-value"><strong>Single father.</strong> His mother died of a fever when he was eight; his father raised him and his younger brother alone.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Siblings</div>
+        <div class="jc-value">One — a younger brother who left at sixteen for Isfahan to become a Sufi student. Eleven years now without word.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Lifestyle</div>
+        <div class="jc-value"><strong>Comfortable.</strong> A working smith's family — the forge paid well enough for a four-generation business; solidly above subsistence. <em>Until the raid burned it.</em></div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Strings to Arcanum</div>
+        <div class="jc-value">The community had seen the supernatural — a possessed traveler thirty years before, a wood-bound charm against djinn over the inn-door, the <em>deva-fires</em> the older women said sometimes appeared in the high pastures during dry years. No one in the village was surprised when fire spoke to Arman.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Past Education</div>
+        <div class="jc-value">Apprenticed to his father at the family forge from age six (Option 3 — unorthodox). Learned enough Persian to handle accounts; no scholarly tradition. <em>Grants kamancheh proficiency — the Persian bowed string instrument.</em></div>
+      </div>
+    </div>
+
+    <div class="journey-events">
+      <div class="journey-event">
+        <div class="journey-event-roll">Event I &middot; Arcane &middot; d20 = 4 → d8 = 5</div>
+        <h4 class="journey-event-title">Drank a potion — GM chooses the contents.</h4>
+        <div class="journey-event-body">
+          <p>Two winters ago, before the raid, a traveling Sufi physician passed through his village and offered him a black liquid in a small bone-stoppered vial "for the fire in his back." He drank it. He slept for two days. When he woke, the back pain was meaningfully less for the first time since the injury — but his hair, which had been black, grew back grey at the temples afterward, and he sometimes hears voices in the boundary-state between sleep and waking. The Sufi is gone. <em>The GM decides what was actually in the vial.</em></p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event II &middot; d20 = 11</div>
+        <h4 class="journey-event-title">Lost something or someone important.</h4>
+        <div class="journey-event-body">
+          <p>The forge. Burned by a Mongol-aligned raiding party two winters ago. He saved a few tools and the small hand-hammer he now carries; everything else four generations had built went with the building. The village survived; the smithy did not. He left rather than rebuild on borrowed iron.</p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event III &middot; d20 = 19</div>
+        <h4 class="journey-event-title">Religious faith changed completely.</h4>
+        <div class="journey-event-body">
+          <p>Officially he is still Sunni Muslim. Privately, since the bargain at twenty-three, he addresses Erlik. He has not been to a mosque in three years. The two faiths sit uncomfortably in him; he does not know which will be the one he dies inside.</p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event IV &middot; d20 = 7</div>
+        <h4 class="journey-event-title">Made a friend of an adventurer.</h4>
+        <div class="journey-event-body">
+          <p>Somewhere along the Silk Road since the raid — Isfahan, a caravanserai near Tabriz, a roadhouse where two refugees shared a fire — he made a friend of another adventurer who will come to his aid when called. <em>GM-assigned, not yet named.</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROFESSION ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#arman-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Profession</h2>
+      <p class="section-subtitle">Silk Road PEX system &middot; Apprentice rank</p>
+    </div>
+    <div class="profession-block">
+      <div class="profession-head">
+        <div class="profession-name">Tinker</div>
+        <div class="profession-rank">Apprentice · Rank 1 <span class="pex">PEX 0</span></div>
+      </div>
+      <p class="profession-baseline">
+        <strong>Necessary Tools</strong> (free starting ability) — Proficiency in <strong>Tinker's Tools</strong> and a <strong>skill of his choice</strong>. Selected skill: <strong>History</strong>. His work involves repairing old objects; he has learned to read mark-stamps, regional smith-signatures, and what a piece's age tells him about its provenance.
+      </p>
+      <p class="profession-available">
+        Arman's smith-trade now travels with him. He fixes broken devices, mends tools, occasionally repairs jewelry for desperate caravan-merchants, and uses his patron-fire for the kind of heat-work ordinary forges cannot match. The higher Tinker ranks — <em>Searching for the Needle</em>, <em>Substance Detection</em>, <em>Streetwise</em> — all fit his trajectory but cost PEX he has not yet earned. He is at the start of formal proficiency.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ EQUIPMENT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#arman-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Equipment</h2>
+    </div>
+    <div class="equipment-grid">
+      <div class="equip-block">
+        <div class="equip-block-title">Weapons</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Scimitar</span> &mdash; <span class="item-detail">1d6 slashing; finesse, light; <strong>+2 to hit / 1d6+0</strong> (used at Dex 0; Str &minus;2 is worse). Subclass martial grant.</span></li>
+          <li><span class="item-name">Shortsword</span> &mdash; <span class="item-detail">1d6 piercing; finesse, light; <strong>+2 to hit / 1d6+0</strong>. Subclass martial grant; secondary blade.</span></li>
+          <li><span class="item-name">Hand-hammer</span> &mdash; <span class="item-detail">treated as a club; 1d4 bludgeoning, light; <strong>+0 to hit / 1d4&minus;2</strong> at Str 7. Salvaged forge-hammer; primarily a spellcasting focus, not a real weapon.</span></li>
+          <li><span class="item-name">Light Crossbow</span> &mdash; <span class="item-detail">1d8 piercing; ammunition 80/320, loading, two-handed; <strong>+2 to hit / 1d8+0</strong>. With 20 bolts. Ranged option when <em>Eldritch Blast</em> is unavailable or socially unwise.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Armour</div>
+        <ul class="equip-list">
+          <li><span class="item-name">None.</span> &mdash; <span class="item-detail">Herald of Fire gives him AC 14 unarmored. Wearing armor would <em>reduce</em> his effective AC and suppress the feature. <strong>Functionally a ranged caster:</strong> Str 7 makes all mundane melee weak; for melee, he should cast <em>Flame Blade</em> rather than swing a blade.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Spellcasting Focus</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Hand-hammer</span> &mdash; <span class="item-detail">small forge-hammer salvaged from the burned smithy; qualifies as a metal melee weapon per Smith of Black Hells.</span></li>
+          <li><span class="item-name">Smith's tools</span> &mdash; <span class="item-detail">alternate; he keeps a small case of them.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Personal Items</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Book of Shadows</span> &mdash; <span class="item-detail">small, leather-bound; the cover insists on being unidentifiable. Three cantrips inscribed within.</span></li>
+          <li><span class="item-name">Smith's tools</span> &mdash; <span class="item-detail">portable subset: small hammer, files, tongs, awl, soldering wire.</span></li>
+          <li><span class="item-name">Tinker's tools</span> &mdash; <span class="item-detail">a similar small case for repair-work.</span></li>
+          <li><span class="item-name">Forge-apron</span> &mdash; <span class="item-detail">old leather; still smells of iron and burnt linseed.</span></li>
+          <li><span class="item-name">Small bone-stoppered vial</span> &mdash; <span class="item-detail">empty now — the Sufi's vial from Event I. He kept it.</span></li>
+          <li><span class="item-name">Wax-rubbing of his great-grandfather's smith-mark</span> &mdash; <span class="item-detail">taken before the forge burned; carried inside the Book of Shadows.</span></li>
+          <li><span class="item-name">Belt pouch and tinder-box</span> &mdash; <span class="item-detail">the tinder-box is purely habit; he can light fires by touch.</span></li>
+          <li><span class="item-name">Set of common clothes &middot; traveler's hat</span> &mdash; <span class="item-detail">broad-brimmed, plain.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Mount — Available, Not Currently Carried</div>
+        <ul class="equip-list">
+          <li><span class="item-name">A small donkey named Nesim</span> &mdash; <span class="item-detail">"breeze" in Persian. Kept at his current safehouse-caravanserai; used for hauling tools when commissioned for larger repair-work.</span></li>
+        </ul>
+      </div>
+
+      <div class="money-line">
+        Carrying <span class="amount">15 gp</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERSONALITY ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#arman-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Personality</h2>
+    </div>
+    <div class="personality-grid">
+      <div class="personality-card">
+        <div class="personality-label">Trait</div>
+        <p class="personality-text">"I do not entirely trust the fire that lives in me. I am also entirely grateful to it. I have not yet figured out how both can be true at once."</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Ideal <span class="alignment-tag">— Repair · Neutral</span></div>
+        <p class="personality-text">"Things break. The world is mostly broken things. My work — both kinds of my work — is to mend a little of it before I go."</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Bond</div>
+        <p class="personality-text">"My father trained me at the forge before he died. The forge is gone now. The hand-hammer is the only thing left of him I still carry. If I lose it I will not have words for what I have lost."</p>
+      </div>
+      <div class="personality-card flaw">
+        <div class="personality-label">Flaw</div>
+        <p class="personality-text">"I said yes to the bargain because I was in pain and the offer was real. I have not yet been asked to pay for it. I am thirty-one and afraid of being thirty-five."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONNECTIONS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#arman-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Connections</h2>
+    </div>
+    <ul class="connections-list">
+      <li><span class="conn-name">Zerah ibn Dawud al-Isfahani</span> — They met at a Sufi-run roadhouse in the hills above Isfahan eighteen months ago, the night a winter storm pinned six travelers under one roof. Zerah was on his way down from the Mountain House on an errand for the abbot; Arman was working an itinerant repair-route between Persianate towns. They got to talking about fire — the only subject Zerah talks about freely with strangers — and discovered, by candlelight, that they hold mirrored cosmologies: Zerah's everlasting flame is the world's first kindled light; Arman's patron-fire is the world's first buried fire. Neither managed to argue the other out of their position. They parted at dawn, civil and a little unsettled. Arman still thinks about the way Zerah held a coal in his bare palm during the conversation — not to demonstrate; just because his hands were cold.</li>
+      <li><span class="conn-name">Safiyya bint Tariq al-Qıpçaq</span> — They have not met. They share a cosmological doubleness that would be visible to either of them within a single conversation: Safiyya's seer-line draws from the Blue Sky (Kök Tengri) and ancestors who walk in the upper world; Arman's patron-bargain draws from Erlik, who rules the fires beneath. The Kipchak shamans Safiyya was raised among acknowledge Erlik without worship — the under-side of the same theology her grandmother's voice speaks from. Arman's village charms against djinn were the southern Persian mirror of the same precaution. If they meet — likely at a roadhouse on the Khwarezm trade-route, where eastbound steppe-folk and westbound Persian travelers cross paths — they will recognize each other within an hour. The recognition will be wary. Each will know the other is touched by the same family of powers, from opposite faces of it. Neither will be sure whether to consider the other an ally.</li>
+    </ul>
+  </section>
+
+  <!-- ============ PATRON'S NOTE ============ -->
+  <section class="patron-note">
+    <div class="patron-label">From the Vizier's Hand</div>
+    <p class="patron-text">A smith who bargained at the bellows is worth more than a smith who never had to: he knows the price of his own fire, and will not pretend with mine.</p>
+    <div class="patron-signature">
+      &mdash; <span class="sig-name">Rashīd al-Dīn Hamadānī</span><span class="sig-arabic">رشید الدین</span>
+    </div>
+  </section>
+
+  <!-- ============ FOOT ============ -->
+  <footer class="document-foot">
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal-arman"/></svg>
+    <div class="foot-text">
+      Compiled at the <span class="arabic">دیوان الطریق</span> &middot; Bureau of the Roads &middot; from Cathay to Constantinople
+    </div>
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal-arman"/></svg>
+  </footer>
+
+</article>
+
+</body>
+</html>

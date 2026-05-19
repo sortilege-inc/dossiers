@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Yasmina al-Khorasani</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Reem+Kufi:wght@400;500;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Yasmina — Mirage Seeker · Khorasan dawn-indigo + dune ochre + jasmine */
+    --ground:       #2a2940;
+    --ground-deep:  #161528;
+    --paper:        #f0e5cc;        /* pale dune-cream */
+    --paper-shade:  #e3d8be;
+    --paper-edge:   #cbbf9f;
+    --ink:          #1f1a14;
+    --ink-soft:     #3e3528;
+    --ink-faint:    #6c5e48;
+    --accent:       #2a3a5a;        /* dawn indigo */
+    --accent-deep:  #15243d;
+    --accent-pale:  #5e7090;
+    --ochre:        #c89c5a;        /* dune ochre */
+    --ochre-deep:   #8a6a3a;
+    --rose:         #a85a64;        /* jasmine accent — used very sparingly */
+    --rose-deep:    #6e3a44;
+    --gold:         #b08840;
+    --gold-deep:    #7a5e2a;
+    --rule:         #b8a87e;
+    --rule-soft:    #d0c298;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 12%, rgba(42, 58, 90, 0.34) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 88%, rgba(22, 21, 40, 0.7) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(42, 41, 64, 0.5) 0%, transparent 80%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  /* ============ DOCUMENT FOLIO ============ */
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 3.75rem 4.25rem 4.5rem;
+    position: relative;
+    box-shadow:
+      0 1px 2px rgba(22, 21, 40, 0.45),
+      0 14px 56px rgba(22, 21, 40, 0.65),
+      inset 0 0 0 1px rgba(184, 168, 126, 0.45);
+    background-image:
+      radial-gradient(ellipse at 0% 0%, rgba(200, 156, 90, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 100%, rgba(42, 58, 90, 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(110, 90, 60, 0.05) 100%);
+  }
+
+  /* Top folio band — indigo / ochre / dune gilt */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--ground-deep) 0%,
+      var(--accent-deep) 18%,
+      var(--accent) 38%,
+      var(--ochre) 50%,
+      var(--accent) 62%,
+      var(--accent-deep) 82%,
+      var(--ground-deep) 100%);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--accent-deep) 20%,
+      var(--ochre) 50%,
+      var(--accent-deep) 80%,
+      transparent 100%);
+    opacity: 0.7;
+  }
+
+  /* Left-margin pattern: stylized jasmine petals down the side */
+  .vine-margin {
+    position: absolute;
+    top: 5px; bottom: 3px; left: 0;
+    width: 26px;
+    opacity: 0.22;
+    pointer-events: none;
+    color: var(--accent-deep);
+  }
+
+  /* ============ COVERT / CARAVAN STAMP ============ */
+  /* A faded "caravanserai stamp" watermark in the upper-right —
+     suggests this dossier was registered at a road-station along the route. */
+  .covert-mark {
+    position: absolute;
+    top: 22px;
+    right: 32px;
+    width: 96px;
+    height: 96px;
+    opacity: 0.09;
+    pointer-events: none;
+    color: var(--accent);
+  }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2rem;
+  }
+  .masthead-left { min-width: 0; }
+  .masthead-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.38em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .masthead-eyebrow .dossier-no {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .masthead-eyebrow .arabic {
+    font-family: "Amiri", "Reem Kufi", serif;
+    letter-spacing: 0;
+    font-size: 1.05rem;
+    margin-right: 0.55em;
+    color: var(--accent-deep);
+    font-weight: 400;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+  .masthead-eyebrow .bureau-name {
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.35rem;
+    line-height: 1;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+  .character-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--accent-deep);
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .cartouche {
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+  }
+
+  /* ============ IDENTITY + PORTRAIT BAND ============ */
+  .identity-band {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 2.25rem;
+    margin-bottom: 2.5rem;
+    align-items: start;
+  }
+  .identity-block { min-width: 0; }
+  .identity-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0.4rem 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    align-items: baseline;
+  }
+  .identity-row:last-child { border-bottom: none; }
+  .identity-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .identity-value {
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+  }
+  .identity-value em {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  .surname-note {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    display: block;
+    margin-top: 0.15rem;
+  }
+
+  /* Portrait plate */
+  .portrait-plate { position: relative; }
+  .portrait-frame {
+    border: 1px solid var(--accent-deep);
+    padding: 6px;
+    background: var(--paper-shade);
+    box-shadow:
+      inset 0 0 0 1px var(--ochre),
+      0 2px 8px rgba(22, 21, 40, 0.22);
+    position: relative;
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--accent-deep);
+  }
+  .portrait-frame::before {
+    top: -4px; left: -4px;
+    border-right: none; border-bottom: none;
+  }
+  .portrait-frame::after {
+    bottom: -4px; right: -4px;
+    border-left: none; border-top: none;
+  }
+  .portrait-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: sepia(0.06) saturate(0.92) brightness(0.97);
+  }
+  /* Empty portrait placeholder — used when no portrait file is yet in place */
+  .portrait-frame.empty {
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 12px,
+        rgba(42, 58, 90, 0.04) 12px,
+        rgba(42, 58, 90, 0.04) 24px
+      ),
+      var(--paper-shade);
+  }
+  .portrait-frame.empty .empty-monogram {
+    font-family: "Amiri", "Reem Kufi", serif;
+    font-size: 4rem;
+    color: var(--accent-deep);
+    opacity: 0.32;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    direction: rtl;
+  }
+  .portrait-frame.empty .empty-note {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .portrait-caption {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.7rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .portrait-caption strong {
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+  }
+  .portrait-aliases {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--accent-deep);
+    text-align: center;
+    margin-top: 0.4rem;
+  }
+
+  /* ============ SECTION ORNAMENTS ============ */
+  .section { margin-top: 2.5rem; }
+  .section-head {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    justify-content: center;
+    margin-bottom: 0.7rem;
+  }
+  .section-rule-line {
+    flex: 1;
+    max-width: 180px;
+    height: 1px;
+    background: var(--rule);
+  }
+  .section-ornament {
+    width: 30px; height: 30px;
+    color: var(--accent-deep);
+    flex-shrink: 0;
+  }
+  h2.section-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.55rem;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  .section-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-faint);
+    margin: 0.25rem 0 0;
+  }
+
+  /* ============ BIO ============ */
+  .bio {
+    font-family: "EB Garamond", serif;
+    font-size: 1.08rem;
+    line-height: 1.72;
+    color: var(--ink-soft);
+    text-align: justify;
+    hyphens: auto;
+  }
+  .bio p { margin: 0 0 1em; }
+  .bio p:last-child { margin-bottom: 0; }
+  .bio p:first-child::first-letter {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.1em 0.12em 0 0;
+    color: var(--accent-deep);
+  }
+
+  /* ============ ABILITY SCORES ============ */
+  .abilities {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+  }
+  .ability-card {
+    border: 1px solid var(--rule);
+    background: var(--paper-shade);
+    padding: 0.85rem 0.4rem 0.7rem;
+    text-align: center;
+    position: relative;
+  }
+  .ability-card::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 8px; right: 8px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .ability-card.saveprof::before {
+    background: var(--ochre-deep);
+    height: 3px;
+  }
+  .ability-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .ability-score {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 0.15rem 0 0.05rem;
+  }
+  .ability-mod {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem;
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  .ability-save {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+    padding-top: 0.35rem;
+    border-top: 1px dotted var(--rule-soft);
+  }
+  .ability-save .save-val {
+    font-family: "EB Garamond", serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    font-weight: 500;
+    margin-left: 0.2em;
+  }
+  .ability-card.saveprof .ability-save .save-val {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+
+  /* ============ COMBAT STATS ============ */
+  .combat-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 0.7rem 0.65rem;
+  }
+  .stat-cell-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .stat-cell-value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-top: 0.15rem;
+  }
+  .stat-cell-value small {
+    font-family: "EB Garamond", serif;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-left: 0.3em;
+  }
+
+  /* ============ SKILLS ============ */
+  .skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+  }
+  .skills-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .skills-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: baseline;
+  }
+  .skills-table tr:last-child td { border-bottom: none; }
+  .skills-table .bonus {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    color: var(--ink);
+    width: 70px;
+    text-align: center;
+  }
+  .skills-table .bonus.expertise {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .skills-table .source {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+  .skills-note {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    padding: 0.65rem 0.85rem;
+    background: var(--paper-shade);
+    border-left: 3px solid var(--accent);
+    margin-top: 0.8rem;
+  }
+
+  /* ============ FEATURE BLOCKS ============ */
+  .feature {
+    margin: 0 0 1.1rem;
+    padding: 0.85rem 1rem;
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+  }
+  .feature.subclass {
+    border-left-color: var(--ochre-deep);
+  }
+  .feature-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    color: var(--ink);
+    margin: 0 0 0.3rem;
+    letter-spacing: 0.01em;
+  }
+  .feature-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .feature-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .feature-body p { margin: 0 0 0.55em; }
+  .feature-body p:last-child { margin-bottom: 0; }
+  .feature-body ul {
+    margin: 0.4em 0 0.2em;
+    padding-left: 1.4em;
+  }
+  .feature-body ul li {
+    padding: 0.15em 0;
+  }
+  .feature-body strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .feature-body em {
+    color: var(--accent-deep);
+  }
+
+  .features-cluster-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .features-cluster-title:first-child { margin-top: 0; }
+
+  /* Subclass-spell pills (mirror Crescent City's Subtle Arcana list) */
+  .spell-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    padding: 0;
+    margin: 0.5em 0 0;
+    list-style: none;
+  }
+  .spell-pills li {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.97rem;
+    color: var(--ink);
+    padding: 0.15rem 0.7rem;
+    background: var(--paper);
+    border: 1px solid var(--ochre);
+    border-left-width: 3px;
+    border-left-color: var(--ochre-deep);
+  }
+
+  /* Damage / dice callout (mirror Crescent City's Sneak Attack callout) */
+  .dice-callout {
+    margin: 0.5em 0;
+    padding: 0.55rem 0.85rem;
+    background: var(--paper);
+    border: 1px solid var(--ochre-deep);
+    border-left: 3px solid var(--rose);
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    font-size: 0.97rem;
+  }
+  .dice-callout-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .dice-callout-dice {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    color: var(--rose-deep);
+    font-size: 1.15rem;
+  }
+
+  /* ============ JOURNEY (LIFEPATH) — Silk Road addition ============ */
+  .journey-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .journey-card {
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+    padding: 0.85rem 1rem;
+  }
+  .journey-card.event {
+    border-left-color: var(--ochre-deep);
+  }
+  .journey-card .jc-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .journey-card.event .jc-label { color: var(--ochre-deep); }
+  .journey-card .jc-value {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .journey-card .jc-value em { color: var(--ink-soft); font-style: italic; }
+  .journey-events {
+    margin-top: 1rem;
+  }
+  .journey-event {
+    margin: 0 0 0.8rem;
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+    border: 1px solid var(--rule-soft);
+    border-top: 2px solid var(--ochre);
+  }
+  .journey-event-roll {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .journey-event-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin: 0 0 0.35rem;
+  }
+  .journey-event-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.97rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ============ PROFESSION — Silk Road addition ============ */
+  .profession-block {
+    margin-top: 1rem;
+    padding: 1rem 1.2rem;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0,
+        transparent 24px,
+        rgba(200, 156, 90, 0.04) 24px,
+        rgba(200, 156, 90, 0.04) 48px
+      ),
+      var(--paper);
+    border: 1px solid var(--ochre);
+  }
+  .profession-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule-soft);
+    margin-bottom: 0.75rem;
+  }
+  .profession-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.12rem;
+    color: var(--ink);
+  }
+  .profession-rank {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    color: var(--ochre-deep);
+    text-transform: uppercase;
+  }
+  .profession-rank .pex {
+    color: var(--ink-faint);
+    margin-left: 0.5em;
+  }
+  .profession-baseline {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .profession-baseline strong { color: var(--ink); }
+  .profession-available {
+    margin-top: 0.85rem;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-faint);
+  }
+
+  /* ============ EQUIPMENT ============ */
+  .equipment-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .equip-block {
+    border: 1px solid var(--rule-soft);
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+  }
+  .equip-block-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 0 0 0.55rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .equip-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .equip-list li {
+    padding: 0.35rem 0;
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .equip-list li:last-child { border-bottom: none; }
+  .equip-list .item-name { font-weight: 500; }
+  .equip-list .item-detail {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-style: italic;
+  }
+  .money-line {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    padding: 0.85rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .money-line .amount {
+    font-family: "Cormorant Garamond", serif;
+    font-style: normal;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--ochre-deep);
+    letter-spacing: 0.05em;
+    margin: 0 0.3em;
+  }
+
+  /* ============ PERSONALITY ============ */
+  .personality-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+  .personality-card {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--paper-shade);
+    border-top: 2px solid var(--accent);
+    position: relative;
+  }
+  .personality-card.flaw {
+    border-top-color: var(--rose);
+  }
+  .personality-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .personality-card.flaw .personality-label { color: var(--rose-deep); }
+  .personality-label .alignment-tag {
+    color: var(--ink-faint);
+    font-weight: 400;
+    margin-left: 0.4em;
+  }
+  .personality-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ============ CONNECTIONS ============ */
+  .connections-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .connections-list li {
+    padding: 0.85rem 0 0.85rem 1.5rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+    line-height: 1.6;
+    position: relative;
+  }
+  .connections-list li:last-child { border-bottom: none; }
+  .connections-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 1.3em;
+    width: 8px; height: 8px;
+    border: 1px solid var(--accent);
+    transform: rotate(45deg);
+    background: var(--paper);
+  }
+  .connections-list .conn-name {
+    font-weight: 500;
+    color: var(--accent-deep);
+  }
+
+  /* ============ PATRON'S NOTE ============ */
+  .patron-note {
+    margin: 2.75rem 0 0;
+    padding: 1.5rem 1.75rem 1.65rem;
+    border: 1px solid var(--ochre-deep);
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 8px,
+        rgba(200, 156, 90, 0.04) 8px,
+        rgba(200, 156, 90, 0.04) 16px
+      ),
+      var(--paper-shade);
+    position: relative;
+  }
+  .patron-note::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 2px;
+    background: linear-gradient(90deg,
+      var(--gold-deep) 0%,
+      var(--gold) 30%,
+      var(--ochre) 50%,
+      var(--gold) 70%,
+      var(--gold-deep) 100%);
+  }
+  .patron-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ochre-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+  .patron-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+  .patron-signature {
+    margin-top: 0.85rem;
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    color: var(--ink-soft);
+  }
+  .patron-signature .sig-name {
+    font-style: italic;
+    color: var(--ink);
+  }
+  .patron-signature .sig-arabic {
+    font-family: "Amiri", serif;
+    font-style: normal;
+    font-size: 1.05rem;
+    color: var(--accent-deep);
+    margin-left: 0.4em;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+
+  /* ============ FOOT ============ */
+  .document-foot {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .foot-seal {
+    width: 38px; height: 38px;
+    color: var(--accent-deep);
+    opacity: 0.75;
+  }
+  .foot-text {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    flex: 1;
+  }
+  .foot-text .arabic {
+    font-family: "Amiri", "Reem Kufi", serif;
+    letter-spacing: 0;
+    color: var(--accent-deep);
+    margin: 0 0.4em;
+    font-size: 0.95rem;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 760px) {
+    body { padding: 1rem 0.4rem 2rem; }
+    .document { padding: 2.25rem 1.5rem 2.75rem; }
+    h1.character-name { font-size: 2.3rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1rem; }
+    .cartouche { width: 80px; height: 80px; justify-self: start; }
+    .identity-band { grid-template-columns: 1fr; }
+    .portrait-plate { max-width: 240px; }
+    .abilities { grid-template-columns: repeat(3, 1fr); }
+    .combat-stats { grid-template-columns: repeat(2, 1fr); }
+    .personality-grid { grid-template-columns: 1fr; }
+    .journey-grid { grid-template-columns: 1fr; }
+    .vine-margin { display: none; }
+    .skills-table .source { display: none; }
+    .covert-mark { display: none; }
+  }
+
+  @media (max-width: 460px) {
+    .abilities { grid-template-columns: repeat(2, 1fr); }
+    .identity-row { grid-template-columns: 1fr; gap: 0.1rem; }
+    .identity-label { font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Inline SVG definitions -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Section ornament: stylized jasmine flower (yāsamīn = jasmine) with mirage waves -->
+    <symbol id="jasmine" viewBox="0 0 30 30">
+      <g fill="none" stroke="currentColor" stroke-width="0.7">
+        <!-- Six petals around a center -->
+        <ellipse cx="15" cy="6.5" rx="2.6" ry="4.5"/>
+        <ellipse cx="15" cy="23.5" rx="2.6" ry="4.5"/>
+        <ellipse cx="6.5" cy="15" rx="4.5" ry="2.6"/>
+        <ellipse cx="23.5" cy="15" rx="4.5" ry="2.6"/>
+        <ellipse cx="9" cy="9" rx="3" ry="3" transform="rotate(45 9 9)"/>
+        <ellipse cx="21" cy="21" rx="3" ry="3" transform="rotate(45 21 21)"/>
+        <ellipse cx="21" cy="9" rx="3" ry="3" transform="rotate(-45 21 9)"/>
+        <ellipse cx="9" cy="21" rx="3" ry="3" transform="rotate(-45 9 21)"/>
+        <!-- Center pistil -->
+        <circle cx="15" cy="15" r="1.6" fill="currentColor" stroke="none"/>
+        <!-- Faint horizon ring -->
+        <circle cx="15" cy="15" r="12" stroke-width="0.4" stroke-dasharray="1 1.5" opacity="0.6"/>
+      </g>
+    </symbol>
+
+    <!-- Foot seal: small astrolabe quadrant -->
+    <symbol id="foot-seal" viewBox="0 0 40 40">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <!-- Outer ring -->
+        <circle cx="20" cy="20" r="17"/>
+        <!-- Inner ring (degree marks) -->
+        <circle cx="20" cy="20" r="13" stroke-dasharray="1 2"/>
+        <!-- Quadrant arc -->
+        <path d="M 4 20 A 16 16 0 0 1 20 4" stroke-width="1.2"/>
+        <!-- Pointer arm -->
+        <line x1="20" y1="20" x2="32" y2="11" stroke-width="0.9"/>
+        <!-- Centre stud -->
+        <circle cx="20" cy="20" r="1.5" fill="currentColor" stroke="none"/>
+        <!-- Tiny star at pointer tip -->
+        <circle cx="32" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Yasmina's cartouche: compass-rose with one shadowed (missing) pointer.
+         The northwest cardinal is faded — this is the compass-disk she lost. -->
+    <symbol id="cartouche-yasmina" viewBox="0 0 110 110">
+      <g fill="none" stroke="currentColor" stroke-width="1.1">
+        <!-- Outer ring -->
+        <circle cx="55" cy="55" r="50"/>
+        <!-- Inner dashed ring -->
+        <circle cx="55" cy="55" r="42" stroke-width="0.7" stroke-dasharray="2 3"/>
+
+        <!-- Compass rose: 8 points (4 cardinal solid, 4 ordinal lighter) -->
+        <g>
+          <!-- North/East/South: solid -->
+          <path d="M 55 14 L 59 50 L 55 55 L 51 50 Z" fill="currentColor" fill-opacity="0.78"/>
+          <path d="M 96 55 L 60 59 L 55 55 L 60 51 Z" fill="currentColor" fill-opacity="0.78"/>
+          <path d="M 55 96 L 59 60 L 55 55 L 51 60 Z" fill="currentColor" fill-opacity="0.78"/>
+          <!-- West: SHADOWED / MISSING — the lost direction -->
+          <path d="M 14 55 L 50 59 L 55 55 L 50 51 Z" fill="currentColor" fill-opacity="0.15" stroke-dasharray="1.5 1.5"/>
+
+          <!-- Diagonals (shorter) -->
+          <path d="M 26 26 L 50 50 L 51 49 L 27 25 Z" fill="currentColor" fill-opacity="0.4"/>
+          <path d="M 84 26 L 60 50 L 59 49 L 83 25 Z" fill="currentColor" fill-opacity="0.4"/>
+          <path d="M 26 84 L 50 60 L 51 61 L 27 85 Z" fill="currentColor" fill-opacity="0.4"/>
+          <path d="M 84 84 L 60 60 L 59 61 L 83 85 Z" fill="currentColor" fill-opacity="0.4"/>
+        </g>
+
+        <!-- Central pivot: a small jasmine flower in place of the keyhole -->
+        <g>
+          <circle cx="55" cy="55" r="9" fill="var(--paper)" stroke="currentColor" stroke-width="1.2"/>
+          <!-- Jasmine center -->
+          <ellipse cx="55" cy="50" rx="1.6" ry="2.6"/>
+          <ellipse cx="55" cy="60" rx="1.6" ry="2.6"/>
+          <ellipse cx="50" cy="55" rx="2.6" ry="1.6"/>
+          <ellipse cx="60" cy="55" rx="2.6" ry="1.6"/>
+          <circle cx="55" cy="55" r="0.9" fill="currentColor" stroke="none"/>
+        </g>
+
+        <!-- Cardinal letters -->
+        <text x="55" y="9" font-family="Cormorant SC, serif" font-size="6" fill="currentColor" text-anchor="middle" font-weight="600">N</text>
+        <text x="55" y="106" font-family="Cormorant SC, serif" font-size="6" fill="currentColor" text-anchor="middle" font-weight="600">S</text>
+        <text x="8" y="58" font-family="Cormorant SC, serif" font-size="6" fill="currentColor" text-anchor="middle" font-weight="600" opacity="0.45">W</text>
+        <text x="102" y="58" font-family="Cormorant SC, serif" font-size="6" fill="currentColor" text-anchor="middle" font-weight="600">E</text>
+      </g>
+    </symbol>
+
+    <!-- Covert mark: caravanserai stamp — a road-station's seal at the upper-right corner -->
+    <symbol id="covert-mark" viewBox="0 0 96 96">
+      <g fill="none" stroke="currentColor" stroke-width="1.5">
+        <!-- Outer ring -->
+        <circle cx="48" cy="48" r="44"/>
+        <circle cx="48" cy="48" r="36" stroke-dasharray="3 4"/>
+        <circle cx="48" cy="48" r="28"/>
+        <!-- Crescent within (caravanserai motif) -->
+        <path d="M 38 48 A 14 14 0 1 0 38 47.5" stroke-width="1.5"/>
+        <!-- A small caravan-trail line crossing the seal -->
+        <path d="M 18 60 Q 32 50 48 56 Q 64 62 78 52" stroke-width="0.8" stroke-dasharray="2 3"/>
+        <!-- Three small stars (the road-stations) -->
+        <circle cx="28" cy="58" r="1.1" fill="currentColor" stroke="none"/>
+        <circle cx="48" cy="56" r="1.1" fill="currentColor" stroke="none"/>
+        <circle cx="68" cy="55" r="1.1" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Vine pattern: stylized jasmine petals running vertically -->
+    <pattern id="vinePattern" width="26" height="120" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="currentColor" stroke-width="0.7">
+        <!-- Stem -->
+        <line x1="13" y1="0" x2="13" y2="120" stroke-width="0.4"/>
+        <!-- Jasmine clusters at four points along the stem -->
+        <g transform="translate(13 15)">
+          <ellipse cx="0" cy="-3" rx="1.3" ry="2.2"/>
+          <ellipse cx="0" cy="3" rx="1.3" ry="2.2"/>
+          <ellipse cx="-3" cy="0" rx="2.2" ry="1.3"/>
+          <ellipse cx="3" cy="0" rx="2.2" ry="1.3"/>
+          <circle cx="0" cy="0" r="0.7" fill="currentColor" stroke="none"/>
+        </g>
+        <g transform="translate(13 45)">
+          <ellipse cx="0" cy="-3" rx="1.3" ry="2.2"/>
+          <ellipse cx="0" cy="3" rx="1.3" ry="2.2"/>
+          <ellipse cx="-3" cy="0" rx="2.2" ry="1.3"/>
+          <ellipse cx="3" cy="0" rx="2.2" ry="1.3"/>
+          <circle cx="0" cy="0" r="0.7" fill="currentColor" stroke="none"/>
+        </g>
+        <g transform="translate(13 75)">
+          <ellipse cx="0" cy="-3" rx="1.3" ry="2.2"/>
+          <ellipse cx="0" cy="3" rx="1.3" ry="2.2"/>
+          <ellipse cx="-3" cy="0" rx="2.2" ry="1.3"/>
+          <ellipse cx="3" cy="0" rx="2.2" ry="1.3"/>
+          <circle cx="0" cy="0" r="0.7" fill="currentColor" stroke="none"/>
+        </g>
+        <g transform="translate(13 105)">
+          <ellipse cx="0" cy="-3" rx="1.3" ry="2.2"/>
+          <ellipse cx="0" cy="3" rx="1.3" ry="2.2"/>
+          <ellipse cx="-3" cy="0" rx="2.2" ry="1.3"/>
+          <ellipse cx="3" cy="0" rx="2.2" ry="1.3"/>
+          <circle cx="0" cy="0" r="0.7" fill="currentColor" stroke="none"/>
+        </g>
+      </g>
+    </pattern>
+  </defs>
+</svg>
+
+<article class="document">
+
+  <svg class="vine-margin" preserveAspectRatio="none" aria-hidden="true" style="width:26px; height:100%;">
+    <rect width="100%" height="100%" fill="url(#vinePattern)"/>
+  </svg>
+
+  <!-- Caravanserai stamp watermark -->
+  <svg class="covert-mark" aria-hidden="true"><use href="#covert-mark"/></svg>
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="masthead-eyebrow">
+        <span class="arabic">دیوان الطریق</span>
+        <span class="bureau-name">Dīwān al-Ṭarīq</span> &middot; Bureau of the Roads &middot; <span class="dossier-no">Dossier · Ranger</span>
+      </div>
+      <h1 class="character-name">Yasmina al-Khorasani</h1>
+      <p class="character-subtitle">Mirage Seeker of the Kara-Kum &middot; The Compass-Lost Guide</p>
+    </div>
+    <svg class="cartouche" aria-hidden="true" style="color: var(--accent-deep);">
+      <use href="#cartouche-yasmina"/>
+    </svg>
+  </header>
+
+  <!-- ============ IDENTITY + PORTRAIT ============ -->
+  <section class="identity-band">
+    <div class="identity-block">
+      <div class="identity-row">
+        <span class="identity-label">Class &amp; Level</span>
+        <span class="identity-value">Ranger 3 &middot; Mirage Seeker</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Race</span>
+        <span class="identity-value">Human (Standard)</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Background</span>
+        <span class="identity-value">Khorasan Guide <em>— Empires of the Silk Road</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Age</span>
+        <span class="identity-value">27</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Heritage</span>
+        <span class="identity-value">Persian &middot; Khorasan caravan-guide family <em>(three generations of the trade)</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Faith</span>
+        <span class="identity-value">Sunni Islam <em>— quiet Zoroastrian sympathies; her grandfather kept the fire</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Alignment</span>
+        <span class="identity-value">Neutral Good</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Languages</span>
+        <span class="identity-value">Persian (Common of Khorasan), Arabic, Turkish, Infernal
+          <span class="surname-note">Infernal acquired through Favored Enemy: Fiends — the language of djinn and lesser planar intruders.</span>
+        </span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Byname</span>
+        <span class="identity-value"><em>al-Khorasani — "of Khorasan"</em>
+          <span class="surname-note">A regional byname placing her origin in the eastern Persianate region. Yasmina ("jasmine") is the name her mother gave her; the family name she does not use on the road.</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="portrait-plate">
+      <div class="portrait-frame empty">
+        <div class="empty-monogram">ی</div>
+        <div class="empty-note">Portrait pending</div>
+      </div>
+      <div class="portrait-caption">
+        <strong>Yasmina al-Khorasani</strong><br>
+        Persian / Khorasan &middot; Aged Twenty-Seven
+      </div>
+      <div class="portrait-aliases">she reads the dunes the way others read faces</div>
+    </div>
+  </section>
+
+  <!-- ============ BIO ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#jasmine"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">On the Subject</h2>
+    </div>
+    <div class="bio">
+      <p>Yasmina was born into a family of caravan-guides on the western edge of the Kara-Kum. Her grandfather had been a Zoroastrian fire-keeper before the family's quiet conversion two generations back; her father kept the trade alive by leading merchants across the sand to Merv and back, and by the time Yasmina could ride she could read dunes the way other children read faces.</p>
+      <p>The desert taught her early that it lies. Heat-shimmer above the sand looks like water; a distant copse of trees that resolves, on approach, into a pile of bones; a caravan track that fades into nothing because the wind has rewritten it overnight. She learned to tell a true thing from a false one — by smell, by light, by the way her own pulse changed when something was wrong.</p>
+      <p>She learned, also, that some of the desert's lies were not natural. Once, when she was nineteen and guiding a small spice-caravan toward Merv, she watched an oasis appear ahead of them — palm trees, a clear pool, the smoke of a cook-fire — and felt, in her chest, that it was not there. She held the caravan back. The merchants cursed her. She made them wait until the sun moved, and the oasis went with it, and beneath where it had been there was only sand and the half-buried bones of an older caravan that had not been so careful. After that the older guides took her aside and taught her things they did not teach everyone. There were techniques, they said. There were ways of seeing. There were people on the Silk Road who manipulated mirages, and people who could unmake them, and her family was one of the latter.</p>
+      <p>She has been working the Khorasan routes for eight years now. She knows the wells. She knows the stones. She knows, sometimes before she sees them, the things that walk between the planes and try to pass themselves off as oases.</p>
+    </div>
+  </section>
+
+  <!-- ============ ABILITY SCORES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#jasmine"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Faculties &amp; Saving Throws</h2>
+      <p class="section-subtitle">Rolled array 12, 12, 12, 12, 14, 17 &middot; Human +1 to all six &middot; no ASI (Sharpshooter feat)</p>
+    </div>
+    <div class="abilities">
+      <div class="ability-card saveprof">
+        <div class="ability-name">Strength</div>
+        <div class="ability-score">13</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Dexterity</div>
+        <div class="ability-score">18</div>
+        <div class="ability-mod">+4</div>
+        <div class="ability-save">Save <span class="save-val">+6</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Constitution</div>
+        <div class="ability-score">13</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Intelligence</div>
+        <div class="ability-score">13</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Wisdom</div>
+        <div class="ability-score">15</div>
+        <div class="ability-mod">+2</div>
+        <div class="ability-save">Save <span class="save-val">+2</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Charisma</div>
+        <div class="ability-score">13</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMBAT STATS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#jasmine"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Bearing on the Route</h2>
+    </div>
+    <div class="combat-stats">
+      <div class="stat-cell">
+        <div class="stat-cell-label">Proficiency</div>
+        <div class="stat-cell-value">+2</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Armour Class</div>
+        <div class="stat-cell-value">16 <small>leather kaftan</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Initiative</div>
+        <div class="stat-cell-value">+4</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Speed</div>
+        <div class="stat-cell-value">30 <small>ft</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Points</div>
+        <div class="stat-cell-value">25</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Dice</div>
+        <div class="stat-cell-value">3d10</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Passive Perception</div>
+        <div class="stat-cell-value">14</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Spell Save DC</div>
+        <div class="stat-cell-value">12 <small>+4 atk &middot; Wis</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#jasmine"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <table class="skills-table">
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th class="bonus" style="text-align:center;">Bonus</th>
+          <th class="source">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Animal Handling</td>  <td class="bonus">+4</td> <td class="source">Ranger</td></tr>
+        <tr><td>Insight</td>          <td class="bonus">+4</td> <td class="source">Ranger</td></tr>
+        <tr><td>Nature</td>           <td class="bonus">+3</td> <td class="source">Khorasan Guide</td></tr>
+        <tr><td>Perception</td>       <td class="bonus">+4</td> <td class="source">Ranger</td></tr>
+        <tr><td>Survival</td>         <td class="bonus">+4</td> <td class="source">Khorasan Guide</td></tr>
+      </tbody>
+    </table>
+    <div class="skills-note">
+      Tool proficiencies: <strong>Cartographer's tools</strong> (Khorasan Guide); <strong>Nard set</strong> (caravanserai evenings — Life Event 2). An earlier draft listed Navigator's Tools from Past Education Option 4; corrected here, as Option 4 grants a language only.
+    </div>
+  </section>
+
+  <!-- ============ CLASS FEATURES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#jasmine"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Class Features</h2>
+    </div>
+
+    <div class="features-cluster-title">Ranger — Base</div>
+
+    <div class="feature">
+      <div class="feature-title">Favored Enemy &middot; Fiends</div>
+      <div class="feature-meta">Level 1</div>
+      <div class="feature-body">
+        <p>Advantage on Wisdom (Survival) checks to track fiends, and on Intelligence checks to recall information about them. Yasmina also learns one language they speak: <strong>Infernal</strong>.</p>
+        <p><em>Choice rationale: the Mirage Seeker's later "Touching the Fabric of Reality" feature references creatures "not native to this plane"; in the Silk Road setting, malevolent djinn and lesser planar intruders are most naturally mapped to the Fiend type.</em></p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Natural Explorer &middot; Desert</div>
+      <div class="feature-meta">Level 1 · Arid terrain</div>
+      <div class="feature-body">
+        <p>While traveling for an hour or more in desert terrain, Yasmina and her party gain:</p>
+        <ul>
+          <li>Difficult terrain doesn't slow group travel.</li>
+          <li>Cannot become lost except by magical means.</li>
+          <li>Remains alert to danger even while foraging, navigating, or tracking.</li>
+          <li>If traveling alone, can move stealthily at a normal pace.</li>
+          <li>Finds twice as much food when foraging.</li>
+          <li>While tracking other creatures, also learns their exact number, sizes, and how long ago they passed.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Fighting Style &middot; Archery</div>
+      <div class="feature-meta">Level 2</div>
+      <div class="feature-body">
+        <p><strong>+2 to attack rolls</strong> with ranged weapons. Stacks with Sharpshooter at long range to make her longbow effective at distances most archers would call madness.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Spellcasting</div>
+      <div class="feature-meta">Level 2 &middot; Wis-based</div>
+      <div class="feature-body">
+        <p>Wisdom is her spellcasting ability. <strong>Spell save DC 12 &middot; Spell attack +4</strong>. Spells known: <strong>3</strong>. Spell slots: <strong>three of 1st level</strong>.</p>
+        <ul>
+          <li><em>Hunter's Mark</em> — concentration bonus action; +1d6 damage on attacks vs. target. Signature.</li>
+          <li><em>Cure Wounds</em> — touch, 1d8 + 2; reliable field heal.</li>
+          <li><em>Detect Magic</em> — concentration, 10 minutes, 30-ft. radius; synergy with her illusion-detection role.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Primeval Awareness</div>
+      <div class="feature-meta">Level 3 &middot; Action · expend a slot</div>
+      <div class="feature-body">
+        <p>Spend one ranger spell slot. For 1 minute per slot level, sense whether <strong>aberrations, celestials, dragons, elementals, fey, fiends, or undead</strong> are present within <strong>1 mile</strong> (or <strong>6 miles</strong> in Natural Explorer terrain — desert). Reveals presence only, not location or number.</p>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">Mirage Seeker — Empires of the Silk Road</div>
+
+    <div class="feature subclass">
+      <div class="feature-title">The Mirage Adept</div>
+      <div class="feature-meta">Level 3 · Subclass core</div>
+      <div class="feature-body">
+        <p>Yasmina learns <em>minor illusion</em> as a ranger cantrip. She also gains free subclass spells by ranger level (always known, no count against spells known):</p>
+        <ul class="spell-pills">
+          <li>Minor Illusion</li>
+          <li>Silent Image <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L3</span></li>
+        </ul>
+        <p style="font-size:0.92rem;font-style:italic;color:var(--ink-faint);margin-top:0.8em;">When she uses <strong>Primeval Awareness</strong>, she also gains a <strong>30-ft. aura</strong> that detects illusion spells within range for the next 10 minutes. Up to <strong>two creatures</strong> she chooses (Wis mod) — herself included — gain advantage on the next Wisdom saving throw against any spell made within those 10 minutes while within her aura. The aura also pinpoints natural phenomena within Primeval Awareness range — oases, water sources, hidden wells.</p>
+      </div>
+    </div>
+
+    <div class="feature subclass">
+      <div class="feature-title">The Mirage Power</div>
+      <div class="feature-meta">Level 3 · Once per turn per target</div>
+      <div class="feature-body">
+        <p>When Yasmina hits a creature with a weapon, she deals extra <strong>psychic</strong> damage. A given target can take this damage only once per turn.</p>
+        <div class="dice-callout">
+          <span class="dice-callout-label">Mirage Power</span>
+          <span class="dice-callout-dice">1d4</span>
+          <span style="color:var(--ink-soft);font-style:italic;font-size:0.95rem;">psychic, on hit — scales to 1d6 at Ranger L11</span>
+        </div>
+        <p style="font-size:0.92rem;font-style:italic;color:var(--ink-faint);margin-top:0.5em;">Combined with Hunter's Mark and Sharpshooter: a marked target takes 1d8 (longbow) + 4 (Dex) + 1d6 (mark) + 1d4 (mirage) = avg ~14 damage per hit, before the −5/+10 toggle.</p>
+      </div>
+    </div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Spell Rebound &middot; Universe Note</div>
+      <div class="feature-meta">Historica Arcanum &middot; Mirage Seeker grant</div>
+      <div class="feature-body">
+        <p>When Yasmina casts a spell from the <strong>illusion school</strong>, her <em>first illusion spell of the day</em> does not count against the campaign's Spell Rebound Table.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEAT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#jasmine"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Feat</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Sharpshooter</div>
+      <div class="feature-meta">Level 1 · Granted feat (no ASI applied)</div>
+      <div class="feature-body">
+        <p>Years of guiding caravans across open desert have taught her to read wind, distance, and target with an uncommon eye. Her longbow strikes at impossible ranges, and where lesser archers' arrows would skip off a ridge, hers find the chest.</p>
+        <ul>
+          <li>Attacking at <strong>long range</strong> does not impose disadvantage on her ranged weapon attacks.</li>
+          <li>Her ranged weapon attacks <strong>ignore half cover and three-quarters cover</strong>.</li>
+          <li>Before a ranged attack with a proficient weapon, she may take <strong>−5 to hit</strong> for <strong>+10 damage</strong> on a hit.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BACKGROUND ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#jasmine"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Background — Khorasan Guide</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Knowing the Way</div>
+      <div class="feature-body">
+        <p>If Yasmina has ever visited a place in the Material Plane or seen it on a map, she can find it without getting lost, <strong>except when hindered by magical means</strong>.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Specialty &middot; Caravan-Guide of Three Generations</div>
+      <div class="feature-body">
+        <p>Her family has worked the desert routes between the western Persianate cities and Merv for three generations. She knows the wells, the stone-piled cairns, the names of every caravanserai keeper between Tabriz and Mary, and which checkpoints take which bribes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ YOUR JOURNEY (LIFEPATH) ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#jasmine"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Your Journey</h2>
+      <p class="section-subtitle">Lifepath &middot; rolled and chosen entries from the Silk Road book</p>
+    </div>
+
+    <div class="journey-grid">
+      <div class="journey-card">
+        <div class="jc-label">Birthplace</div>
+        <div class="jc-value">A mud-brick compound in a caravan-town on the western edge of the <strong>Kara-Kum</strong>. Her family has lived there for at least three generations.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Family</div>
+        <div class="jc-value">Both mother and father alive. An intact guide-family household — her father still works the routes; her mother runs the household and the small date-grove they own.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Siblings</div>
+        <div class="jc-value">Three. Two older brothers (both caravan-guides; one has gone into trade) and one younger sister.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Lifestyle</div>
+        <div class="jc-value"><strong>Modest.</strong> A working guide-family — they eat, they have a roof, they own their date-grove. <em>The desert pays in survival, not in coin.</em></div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Strings to Arcanum</div>
+        <div class="jc-value">The village holds the supernatural at arm's length — djinn-stories told to keep children near the well at night, charms against the desert wind, half-remembered Zoroastrian rites her grandfather kept. Most of it is superstition. Some of it is true. The older guides know which is which.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Past Education</div>
+        <div class="jc-value">She did not attend a madrasa. Her father sheltered a wandering Turkish scholar for the winter of her fifteenth year, and the scholar taught her enough Turkish to read trade-letters and enough astronomy and cartography to use a navigator's astrolabe. <em>Grants the Turkish language.</em></div>
+      </div>
+    </div>
+
+    <div class="journey-events">
+      <div class="journey-event">
+        <div class="journey-event-roll">Event I &middot; Arcane &middot; d20 = 4 → d8 = 6</div>
+        <h4 class="journey-event-title">Found a magical item, used it, lost it.</h4>
+        <div class="journey-event-body">
+          <p>At nineteen, leading her first solo caravan toward Merv, she found a small <strong>silvered compass-disk</strong> half-buried where a mirage-oasis had been. It pointed not to north, but to <em>truth</em> — toward whichever direction held the realest thing within a mile. She used it for two seasons. She lost it in a sandstorm outside Mary the spring she turned twenty-one. She has been looking for it on every route since, and has never told anyone what it actually did.</p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event II &middot; d20 = 15</div>
+        <h4 class="journey-event-title">Spent time at inns playing games &mdash; gained a game set proficiency.</h4>
+        <div class="journey-event-body">
+          <p>Caravan stopovers at Merv and Nishapur involve long evenings in caravanserai courtyards. She plays <strong>Nard</strong> (the medieval ancestor of backgammon) well enough to keep her purse fat between commissions.</p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event III &middot; d20 = 18</div>
+        <h4 class="journey-event-title">Always felt followed throughout her life.</h4>
+        <div class="journey-event-body">
+          <p>Since she lost the compass-disk, something has been on her trail. Maybe the previous owner. Maybe whatever made the false oasis in the first place. Maybe nothing — she has felt the pull of paranoia on long desert crossings before, and knows it can lie. But the feeling has not gone away, and it has been six years.</p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event IV &middot; Battle &middot; d20 = 9 → d10 = 6</div>
+        <h4 class="journey-event-title">Escaped from a battlefield. Some say fled.</h4>
+        <div class="journey-event-body">
+          <p>Two years ago, the caravan she was guiding was caught in a raider-skirmish on the road south of Merv. She got the merchants and their goods to safety by riding hard down a side-trail she knew, while the hired guards held the road. The guards died. The merchants paid her well. One of the guards' younger brothers, who survived, has been telling a different version of the story to anyone who'll listen in the Merv caravanserai. <em>She has not gone back to Merv since. She is overdue.</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROFESSION ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#jasmine"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Profession</h2>
+      <p class="section-subtitle">Silk Road PEX system &middot; Apprentice rank</p>
+    </div>
+    <div class="profession-block">
+      <div class="profession-head">
+        <div class="profession-name">Smuggler</div>
+        <div class="profession-rank">Apprentice · Rank 1 <span class="pex">PEX 0</span></div>
+      </div>
+      <p class="profession-baseline">
+        <strong>Apprentice baseline (Cha-floor):</strong> When making an ability check using Charisma or a related skill, she <strong>cannot roll below 7</strong>. At her Cha 13 / +1 mod, this protects her social rolls from low dice — a Cha check has a floor of <strong>8</strong>.
+      </p>
+      <p class="profession-available">
+        Yasmina is not a smuggler in the criminal-archetype sense — she does not move contraband for a living. But a Khorasan-Guide who hires out to a caravan is also frequently the person who knows which checkpoint to detour around, which border-officer takes which bribe, and which oasis-village will hide a wagon for a price. Her Apprentice rank reflects skills she has watched, not yet practiced. Natural first PEX purchases when she spends: <strong>City Secrets</strong>, <strong>Right Tools for the Job</strong> (Disguise + Forgery Kits).
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ EQUIPMENT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#jasmine"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Equipment</h2>
+    </div>
+    <div class="equipment-grid">
+      <div class="equip-block">
+        <div class="equip-block-title">Weapons</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Longbow</span> &mdash; <span class="item-detail">primary; ammunition 150/600, heavy, two-handed; <strong>+8 to hit / 1d8+4</strong> (PB +2, Dex +4, Archery +2). Effective at long range without disadvantage thanks to Sharpshooter.</span></li>
+          <li><span class="item-name">Steppe Bow</span> &mdash; <span class="item-detail">Silk Road martial; 1d6 piercing, mounted, two-handed, ammunition 120/500; <strong>+8 to hit / 1d6+4</strong>. The shorter, recurved bow she uses from horseback on open ground.</span></li>
+          <li><span class="item-name">Shamshir</span> &mdash; <span class="item-detail">Silk Road simple; 1d6 slashing, finesse, light; <strong>+6 to hit / 1d6+4</strong>. Curved single-edged sword; sidearm.</span></li>
+          <li><span class="item-name">Hanchar</span> &mdash; <span class="item-detail">Silk Road dagger; 1d4 slashing (handy — may deal piercing), finesse, light; <strong>+6 to hit / 1d4+4</strong>. Utility blade.</span></li>
+          <li><span class="item-name">Quiver &times; 40 arrows</span> &mdash; <span class="item-detail">purchased from starting purse; Khorasan Guide does not grant ammunition.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Armour</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Leather Kaftan</span> &mdash; <span class="item-detail">Silk Road light armour; AC 12 + Dex; <strong>−1 damage from ranged weapons</strong>; 13 lb.; no Str req; no Stealth disadvantage. <strong>Final AC 16.</strong> Setting-appropriate Khorasan dress; the ranged-damage property is meaningful against bandit archers on the trade routes.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Tools</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Cartographer's tools</span> &mdash; <span class="item-detail">brass dividers, ink, vellum, wax-tipped stylus.</span></li>
+          <li><span class="item-name">Nard set</span> &mdash; <span class="item-detail">small wooden board and bone pieces; rolled up in cloth (Life Event 2).</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Personal Items</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Local map of the western Khorasan trade routes</span> &mdash; <span class="item-detail">her own hand-drawn additions to an older Merv-to-Mary base map.</span></li>
+          <li><span class="item-name">Winter blanket</span></li>
+          <li><span class="item-name">Quarterstaff</span> &mdash; <span class="item-detail">used as a walking staff on foot-stretches.</span></li>
+          <li><span class="item-name">Traveler's clothes</span></li>
+          <li><span class="item-name">Explorer's pack</span> &mdash; <span class="item-detail">backpack, bedroll, mess kit, tinderbox, 10 torches, 10 days of rations, waterskin, 50 ft. hempen rope.</span></li>
+          <li><span class="item-name">Small silvered locket</span> &mdash; <span class="item-detail">holds a single dried jasmine petal; her mother's, given the morning she left for her first solo guide-job at nineteen.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Mount — Available, Not Currently Carried</div>
+        <ul class="equip-list">
+          <li><span class="item-name">A camel named Bahram</span> &mdash; <span class="item-detail">named for the Zoroastrian fire-god, mostly because her grandfather would have approved. Kept with a stable-keeper in her home village; she takes him on long-distance jobs, leaves him home for short ones.</span></li>
+        </ul>
+      </div>
+
+      <div class="money-line">
+        Carrying <span class="amount">10 gp</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERSONALITY ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#jasmine"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Personality</h2>
+    </div>
+    <div class="personality-grid">
+      <div class="personality-card">
+        <div class="personality-label">Trait</div>
+        <p class="personality-text">"The desert tells you what it wants you to see. The trick is to ask what it does not want you to see, and to look for that instead."</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Ideal <span class="alignment-tag">— Truth · Neutral Good</span></div>
+        <p class="personality-text">"There is enough that wants to deceive us in this world. I will not add my voice to it. I will not see what I am told to see."</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Bond</div>
+        <p class="personality-text">"I lost something six years ago that showed me the realest thing within a mile. I do not know where it went. I do not know who is looking for me because of it. I will find both answers before I die."</p>
+      </div>
+      <div class="personality-card flaw">
+        <div class="personality-label">Flaw</div>
+        <p class="personality-text">"I trust my eyes more than I trust any other guide's. Sometimes my eyes have been wrong."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONNECTIONS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#jasmine"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Connections</h2>
+    </div>
+    <ul class="connections-list">
+      <li><span class="conn-name">Khalid ibn Sinan al-Alamuti</span> — They have crossed paths three times in two years, at three different caravanserais between Tabriz and Merv. The first time Yasmina noticed him because he was the only other guest in the courtyard who refused the wine and watched the doorways instead of the dancers. The second time he noticed her because she was the only other guest reading a small folded paper she did not want anyone to see. The third time they nodded across a fire and did not speak. They have a wary, unspoken professional respect — both work in margins where seeing-clearly matters. <em>Neither yet knows the other's order. Both suspect.</em></li>
+      <li><span class="conn-name">Aftab Singh the Arbiter</span> — They have not met. They share an inheritance neither knows the other carries: the feeling, every few weeks now, of being watched. Yasmina has been carrying it for six years and has assumed all that time it was tied to the lost compass-disk. If she meets Aftab and learns he has carried the same feeling, in the same texture, for roughly the same span of years, she will have to ask whether the feeling has one source or two. <em>She does not know which answer she would rather have.</em></li>
+    </ul>
+  </section>
+
+  <!-- ============ PATRON'S NOTE ============ -->
+  <section class="patron-note">
+    <div class="patron-label">From the Vizier's Hand</div>
+    <p class="patron-text">She reads the desert the way I read a chronicle: she knows where the truth has been smudged. I would have her on any expedition that crosses sand or hears the wrong story twice.</p>
+    <div class="patron-signature">
+      &mdash; <span class="sig-name">Rashīd al-Dīn Hamadānī</span><span class="sig-arabic">رشید الدین</span>
+    </div>
+  </section>
+
+  <!-- ============ FOOT ============ -->
+  <footer class="document-foot">
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal"/></svg>
+    <div class="foot-text">
+      Compiled at the <span class="arabic">دیوان الطریق</span> &middot; Bureau of the Roads &middot; from Cathay to Constantinople
+    </div>
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal"/></svg>
+  </footer>
+
+</article>
+
+</body>
+</html>

@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Aftab Singh the Arbiter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Reem+Kufi:wght@400;500;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Aftab Singh — Karma Paladin · Dharmic saffron + onyx + brass */
+    --ground:       #2a1f0c;
+    --ground-deep:  #18110a;
+    --paper:        #f4e6c2;
+    --paper-shade:  #e6d8b1;
+    --paper-edge:   #cbbb91;
+    --ink:          #1a1510;
+    --ink-soft:     #322920;
+    --ink-faint:    #5e5040;
+    --accent:       #b88a2e;
+    --accent-deep:  #7a5818;
+    --accent-pale:  #d4a85a;
+    --onyx:         #1a1612;
+    --onyx-pale:    #4a4238;
+    --brass:        #a07e34;
+    --brass-deep:   #6a5320;
+    --gold:         #c8a060;
+    --gold-deep:    #8a6c34;
+    --rule:         #b8a87e;
+    --rule-soft:    #d0c298;
+    /* Aliased to shared component CSS */
+    --ochre:        var(--brass);
+    --ochre-deep:   var(--brass-deep);
+    --rose:         var(--accent-pale);
+    --rose-deep:    var(--accent);
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 12%, rgba(184, 138, 46, 0.30) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 88%, rgba(24, 17, 10, 0.7) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(42, 31, 12, 0.5) 0%, transparent 80%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 3.75rem 4.25rem 4.5rem;
+    position: relative;
+    box-shadow:
+      0 1px 2px rgba(24, 17, 10, 0.45),
+      0 14px 56px rgba(24, 17, 10, 0.65),
+      inset 0 0 0 1px rgba(184, 168, 126, 0.45);
+    background-image:
+      radial-gradient(ellipse at 0% 0%, rgba(160, 126, 52, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 100%, rgba(184, 138, 46, 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(122, 88, 24, 0.05) 100%);
+  }
+
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--ground-deep) 0%,
+      var(--brass-deep) 18%,
+      var(--accent) 38%,
+      var(--gold) 50%,
+      var(--accent) 62%,
+      var(--brass-deep) 82%,
+      var(--ground-deep) 100%);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--brass-deep) 20%,
+      var(--gold) 50%,
+      var(--brass-deep) 80%,
+      transparent 100%);
+    opacity: 0.7;
+  }
+
+  .vine-margin {
+    position: absolute;
+    top: 5px; bottom: 3px; left: 0;
+    width: 26px;
+    opacity: 0.22;
+    pointer-events: none;
+    color: var(--accent-deep);
+  }
+
+  .covert-mark {
+    position: absolute;
+    top: 22px;
+    right: 32px;
+    width: 96px;
+    height: 96px;
+    opacity: 0.09;
+    pointer-events: none;
+    color: var(--accent);
+  }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2rem;
+  }
+  .masthead-left { min-width: 0; }
+  .masthead-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.38em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .masthead-eyebrow .dossier-no {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .masthead-eyebrow .arabic {
+    font-family: "Amiri", "Reem Kufi", serif;
+    letter-spacing: 0;
+    font-size: 1.05rem;
+    margin-right: 0.55em;
+    color: var(--accent-deep);
+    font-weight: 400;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+  .masthead-eyebrow .bureau-name {
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.35rem;
+    line-height: 1;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+  .character-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--accent-deep);
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .cartouche {
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+  }
+
+  .identity-band {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 2.25rem;
+    margin-bottom: 2.5rem;
+    align-items: start;
+  }
+  .identity-block { min-width: 0; }
+  .identity-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0.4rem 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    align-items: baseline;
+  }
+  .identity-row:last-child { border-bottom: none; }
+  .identity-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .identity-value {
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+  }
+  .identity-value em {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  .surname-note {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    display: block;
+    margin-top: 0.15rem;
+  }
+
+  .portrait-plate { position: relative; }
+  .portrait-frame {
+    border: 1px solid var(--accent-deep);
+    padding: 6px;
+    background: var(--paper-shade);
+    box-shadow:
+      inset 0 0 0 1px var(--brass),
+      0 2px 8px rgba(24, 17, 10, 0.22);
+    position: relative;
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--accent-deep);
+  }
+  .portrait-frame::before {
+    top: -4px; left: -4px;
+    border-right: none; border-bottom: none;
+  }
+  .portrait-frame::after {
+    bottom: -4px; right: -4px;
+    border-left: none; border-top: none;
+  }
+  .portrait-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: sepia(0.06) saturate(0.92) brightness(0.97);
+  }
+  .portrait-frame.empty {
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 12px,
+        rgba(184, 138, 46, 0.04) 12px,
+        rgba(184, 138, 46, 0.04) 24px
+      ),
+      var(--paper-shade);
+  }
+  .portrait-frame.empty .empty-monogram {
+    font-family: "Amiri", "Reem Kufi", serif;
+    font-size: 4rem;
+    color: var(--accent-deep);
+    opacity: 0.32;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    direction: rtl;
+  }
+  .portrait-frame.empty .empty-note {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .portrait-caption {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.7rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .portrait-caption strong {
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+  }
+  .portrait-aliases {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--accent-deep);
+    text-align: center;
+    margin-top: 0.4rem;
+  }
+
+  .section { margin-top: 2.5rem; }
+  .section-head { text-align: center; margin-bottom: 1.5rem; }
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    justify-content: center;
+    margin-bottom: 0.7rem;
+  }
+  .section-rule-line {
+    flex: 1;
+    max-width: 180px;
+    height: 1px;
+    background: var(--rule);
+  }
+  .section-ornament {
+    width: 30px; height: 30px;
+    color: var(--accent-deep);
+    flex-shrink: 0;
+  }
+  h2.section-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.55rem;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  .section-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-faint);
+    margin: 0.25rem 0 0;
+  }
+
+  .bio {
+    font-family: "EB Garamond", serif;
+    font-size: 1.08rem;
+    line-height: 1.72;
+    color: var(--ink-soft);
+    text-align: justify;
+    hyphens: auto;
+  }
+  .bio p { margin: 0 0 1em; }
+  .bio p:last-child { margin-bottom: 0; }
+  .bio p:first-child::first-letter {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.1em 0.12em 0 0;
+    color: var(--accent-deep);
+  }
+
+  .abilities {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+  }
+  .ability-card {
+    border: 1px solid var(--rule);
+    background: var(--paper-shade);
+    padding: 0.85rem 0.4rem 0.7rem;
+    text-align: center;
+    position: relative;
+  }
+  .ability-card::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 8px; right: 8px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .ability-card.saveprof::before {
+    background: var(--brass-deep);
+    height: 3px;
+  }
+  .ability-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .ability-score {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 0.15rem 0 0.05rem;
+  }
+  .ability-mod {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem;
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  .ability-save {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+    padding-top: 0.35rem;
+    border-top: 1px dotted var(--rule-soft);
+  }
+  .ability-save .save-val {
+    font-family: "EB Garamond", serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    font-weight: 500;
+    margin-left: 0.2em;
+  }
+  .ability-card.saveprof .ability-save .save-val {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+
+  .combat-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 0.7rem 0.65rem;
+  }
+  .stat-cell-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .stat-cell-value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-top: 0.15rem;
+  }
+  .stat-cell-value small {
+    font-family: "EB Garamond", serif;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-left: 0.3em;
+  }
+
+  .skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+  }
+  .skills-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .skills-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: baseline;
+  }
+  .skills-table tr:last-child td { border-bottom: none; }
+  .skills-table .bonus {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    color: var(--ink);
+    width: 70px;
+    text-align: center;
+  }
+  .skills-table .bonus.expertise {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .skills-table .source {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+  .skills-note {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    padding: 0.65rem 0.85rem;
+    background: var(--paper-shade);
+    border-left: 3px solid var(--accent);
+    margin-top: 0.8rem;
+  }
+
+  .feature {
+    margin: 0 0 1.1rem;
+    padding: 0.85rem 1rem;
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+  }
+  .feature.subclass {
+    border-left-color: var(--brass-deep);
+  }
+  .feature-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    color: var(--ink);
+    margin: 0 0 0.3rem;
+    letter-spacing: 0.01em;
+  }
+  .feature-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .feature-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .feature-body p { margin: 0 0 0.55em; }
+  .feature-body p:last-child { margin-bottom: 0; }
+  .feature-body ul {
+    margin: 0.4em 0 0.2em;
+    padding-left: 1.4em;
+  }
+  .feature-body ul li {
+    padding: 0.15em 0;
+  }
+  .feature-body strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .feature-body em {
+    color: var(--accent-deep);
+  }
+
+  .features-cluster-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .features-cluster-title:first-child { margin-top: 0; }
+
+  .spell-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    padding: 0;
+    margin: 0.5em 0 0;
+    list-style: none;
+  }
+  .spell-pills li {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.97rem;
+    color: var(--ink);
+    padding: 0.15rem 0.7rem;
+    background: var(--paper);
+    border: 1px solid var(--brass);
+    border-left-width: 3px;
+    border-left-color: var(--brass-deep);
+  }
+
+  .dice-callout {
+    margin: 0.5em 0;
+    padding: 0.55rem 0.85rem;
+    background: var(--paper);
+    border: 1px solid var(--brass-deep);
+    border-left: 3px solid var(--accent);
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    font-size: 0.97rem;
+  }
+  .dice-callout-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .dice-callout-dice {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    color: var(--accent-deep);
+    font-size: 1.15rem;
+  }
+
+  .journey-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .journey-card {
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+    padding: 0.85rem 1rem;
+  }
+  .journey-card.event {
+    border-left-color: var(--brass-deep);
+  }
+  .journey-card .jc-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .journey-card.event .jc-label { color: var(--brass-deep); }
+  .journey-card .jc-value {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .journey-card .jc-value em { color: var(--ink-soft); font-style: italic; }
+  .journey-events {
+    margin-top: 1rem;
+  }
+  .journey-event {
+    margin: 0 0 0.8rem;
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+    border: 1px solid var(--rule-soft);
+    border-top: 2px solid var(--brass);
+  }
+  .journey-event-roll {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .journey-event-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin: 0 0 0.35rem;
+  }
+  .journey-event-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.97rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  .profession-block {
+    margin-top: 1rem;
+    padding: 1rem 1.2rem;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0,
+        transparent 24px,
+        rgba(184, 138, 46, 0.04) 24px,
+        rgba(184, 138, 46, 0.04) 48px
+      ),
+      var(--paper);
+    border: 1px solid var(--brass);
+  }
+  .profession-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule-soft);
+    margin-bottom: 0.75rem;
+  }
+  .profession-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.12rem;
+    color: var(--ink);
+  }
+  .profession-rank {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    color: var(--brass-deep);
+    text-transform: uppercase;
+  }
+  .profession-rank .pex {
+    color: var(--ink-faint);
+    margin-left: 0.5em;
+  }
+  .profession-baseline {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .profession-baseline strong { color: var(--ink); }
+  .profession-available {
+    margin-top: 0.85rem;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-faint);
+  }
+
+  .equipment-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .equip-block {
+    border: 1px solid var(--rule-soft);
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+  }
+  .equip-block-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 0 0 0.55rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .equip-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .equip-list li {
+    padding: 0.35rem 0;
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .equip-list li:last-child { border-bottom: none; }
+  .equip-list .item-name { font-weight: 500; }
+  .equip-list .item-detail {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-style: italic;
+  }
+  .money-line {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    padding: 0.85rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .money-line .amount {
+    font-family: "Cormorant Garamond", serif;
+    font-style: normal;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--brass-deep);
+    letter-spacing: 0.05em;
+    margin: 0 0.3em;
+  }
+
+  .personality-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+  .personality-card {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--paper-shade);
+    border-top: 2px solid var(--accent);
+    position: relative;
+  }
+  .personality-card.flaw {
+    border-top-color: var(--accent-pale);
+  }
+  .personality-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .personality-card.flaw .personality-label { color: var(--accent); }
+  .personality-label .alignment-tag {
+    color: var(--ink-faint);
+    font-weight: 400;
+    margin-left: 0.4em;
+  }
+  .personality-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .connections-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .connections-list li {
+    padding: 0.85rem 0 0.85rem 1.5rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+    line-height: 1.6;
+    position: relative;
+  }
+  .connections-list li:last-child { border-bottom: none; }
+  .connections-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 1.3em;
+    width: 8px; height: 8px;
+    border: 1px solid var(--accent);
+    transform: rotate(45deg);
+    background: var(--paper);
+  }
+  .connections-list .conn-name {
+    font-weight: 500;
+    color: var(--accent-deep);
+  }
+
+  .patron-note {
+    margin: 2.75rem 0 0;
+    padding: 1.5rem 1.75rem 1.65rem;
+    border: 1px solid var(--brass-deep);
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 8px,
+        rgba(184, 138, 46, 0.04) 8px,
+        rgba(184, 138, 46, 0.04) 16px
+      ),
+      var(--paper-shade);
+    position: relative;
+  }
+  .patron-note::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 2px;
+    background: linear-gradient(90deg,
+      var(--gold-deep) 0%,
+      var(--gold) 30%,
+      var(--accent) 50%,
+      var(--gold) 70%,
+      var(--gold-deep) 100%);
+  }
+  .patron-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--brass-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+  .patron-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+  .patron-signature {
+    margin-top: 0.85rem;
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    color: var(--ink-soft);
+  }
+  .patron-signature .sig-name {
+    font-style: italic;
+    color: var(--ink);
+  }
+  .patron-signature .sig-arabic {
+    font-family: "Amiri", serif;
+    font-style: normal;
+    font-size: 1.05rem;
+    color: var(--accent-deep);
+    margin-left: 0.4em;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+
+  .document-foot {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .foot-seal {
+    width: 38px; height: 38px;
+    color: var(--accent-deep);
+    opacity: 0.75;
+  }
+  .foot-text {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    flex: 1;
+  }
+  .foot-text .arabic {
+    font-family: "Amiri", "Reem Kufi", serif;
+    letter-spacing: 0;
+    color: var(--accent-deep);
+    margin: 0 0.4em;
+    font-size: 0.95rem;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+
+  @media (max-width: 760px) {
+    body { padding: 1rem 0.4rem 2rem; }
+    .document { padding: 2.25rem 1.5rem 2.75rem; }
+    h1.character-name { font-size: 2.3rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1rem; }
+    .cartouche { width: 80px; height: 80px; justify-self: start; }
+    .identity-band { grid-template-columns: 1fr; }
+    .portrait-plate { max-width: 240px; }
+    .abilities { grid-template-columns: repeat(3, 1fr); }
+    .combat-stats { grid-template-columns: repeat(2, 1fr); }
+    .personality-grid { grid-template-columns: 1fr; }
+    .journey-grid { grid-template-columns: 1fr; }
+    .vine-margin { display: none; }
+    .skills-table .source { display: none; }
+    .covert-mark { display: none; }
+  }
+
+  @media (max-width: 460px) {
+    .abilities { grid-template-columns: repeat(2, 1fr); }
+    .identity-row { grid-template-columns: 1fr; gap: 0.1rem; }
+    .identity-label { font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Inline SVG definitions -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Section ornament: small scale of judgement (two cups + central beam) -->
+    <symbol id="aftab-ornament" viewBox="0 0 30 30">
+      <g fill="none" stroke="currentColor" stroke-width="0.7">
+        <!-- Central pillar -->
+        <line x1="15" y1="5" x2="15" y2="24" stroke-width="0.9"/>
+        <!-- Top finial -->
+        <circle cx="15" cy="4" r="1.2" fill="currentColor" stroke="none"/>
+        <!-- Base -->
+        <path d="M 11 25 L 19 25 L 18 27 L 12 27 Z" fill="currentColor" fill-opacity="0.6" stroke="currentColor" stroke-width="0.5"/>
+        <!-- Horizontal beam -->
+        <line x1="5" y1="9" x2="25" y2="9" stroke-width="0.7"/>
+        <!-- Hanging chains -->
+        <line x1="6" y1="9" x2="6" y2="14" stroke-width="0.4"/>
+        <line x1="24" y1="9" x2="24" y2="14" stroke-width="0.4"/>
+        <!-- Left pan -->
+        <path d="M 3 14 Q 6 18 9 14" fill="currentColor" fill-opacity="0.45" stroke="currentColor" stroke-width="0.6"/>
+        <!-- Right pan -->
+        <path d="M 21 14 Q 24 18 27 14" fill="currentColor" fill-opacity="0.45" stroke="currentColor" stroke-width="0.6"/>
+        <!-- Outer ring -->
+        <circle cx="15" cy="15" r="13" stroke-width="0.4" stroke-dasharray="1 1.5" opacity="0.55"/>
+      </g>
+    </symbol>
+
+    <!-- Foot seal: 8-spoked dharmachakra wheel in roundel -->
+    <symbol id="aftab-foot-seal" viewBox="0 0 40 40">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <circle cx="20" cy="20" r="17"/>
+        <circle cx="20" cy="20" r="13" stroke-dasharray="1 2"/>
+        <!-- Outer wheel rim -->
+        <circle cx="20" cy="20" r="10" stroke-width="1.1"/>
+        <!-- Inner hub -->
+        <circle cx="20" cy="20" r="2" fill="currentColor" stroke="none"/>
+        <!-- 8 spokes -->
+        <line x1="20" y1="10" x2="20" y2="30" stroke-width="0.7"/>
+        <line x1="10" y1="20" x2="30" y2="20" stroke-width="0.7"/>
+        <line x1="13" y1="13" x2="27" y2="27" stroke-width="0.7"/>
+        <line x1="27" y1="13" x2="13" y2="27" stroke-width="0.7"/>
+      </g>
+    </symbol>
+
+    <!-- Cartouche: balanced scale of justice within a sun-disk; central pillar = 8-spoked dharma-wheel -->
+    <symbol id="cartouche-aftab" viewBox="0 0 110 110">
+      <g fill="none" stroke="currentColor" stroke-width="1.1">
+        <!-- Outer ring (sun-disk for "Aftab" = sun) -->
+        <circle cx="55" cy="55" r="50"/>
+        <!-- Sun rays -->
+        <g stroke-width="0.7" opacity="0.55">
+          <line x1="55" y1="2" x2="55" y2="9"/>
+          <line x1="55" y1="101" x2="55" y2="108"/>
+          <line x1="2" y1="55" x2="9" y2="55"/>
+          <line x1="101" y1="55" x2="108" y2="55"/>
+          <line x1="20" y1="20" x2="25" y2="25"/>
+          <line x1="90" y1="20" x2="85" y2="25"/>
+          <line x1="20" y1="90" x2="25" y2="85"/>
+          <line x1="90" y1="90" x2="85" y2="85"/>
+          <line x1="55" y1="5" x2="55" y2="9" stroke-width="0.5"/>
+          <line x1="38" y1="6" x2="40" y2="12" stroke-width="0.5"/>
+          <line x1="72" y1="6" x2="70" y2="12" stroke-width="0.5"/>
+          <line x1="38" y1="104" x2="40" y2="98" stroke-width="0.5"/>
+          <line x1="72" y1="104" x2="70" y2="98" stroke-width="0.5"/>
+        </g>
+        <!-- Inner dashed ring -->
+        <circle cx="55" cy="55" r="42" stroke-width="0.7" stroke-dasharray="2 3"/>
+
+        <!-- Central pillar: 8-spoked dharma-wheel -->
+        <g>
+          <circle cx="55" cy="55" r="14" stroke-width="1.2"/>
+          <circle cx="55" cy="55" r="3" fill="currentColor" stroke="none"/>
+          <line x1="55" y1="41" x2="55" y2="69" stroke-width="0.7"/>
+          <line x1="41" y1="55" x2="69" y2="55" stroke-width="0.7"/>
+          <line x1="45" y1="45" x2="65" y2="65" stroke-width="0.7"/>
+          <line x1="65" y1="45" x2="45" y2="65" stroke-width="0.7"/>
+        </g>
+
+        <!-- Horizontal beam of the scale -->
+        <line x1="22" y1="42" x2="88" y2="42" stroke-width="1.4"/>
+
+        <!-- Top finial above the dharma-wheel -->
+        <line x1="55" y1="42" x2="55" y2="20" stroke-width="0.8"/>
+        <circle cx="55" cy="18" r="2.4" fill="currentColor" stroke="currentColor" stroke-width="0.7"/>
+
+        <!-- Hanging chains down to the pans -->
+        <line x1="25" y1="42" x2="25" y2="56" stroke-width="0.5"/>
+        <line x1="85" y1="42" x2="85" y2="56" stroke-width="0.5"/>
+
+        <!-- Left pan with faint glowing weight -->
+        <path d="M 16 56 Q 25 68 34 56" fill="currentColor" fill-opacity="0.18" stroke="currentColor" stroke-width="1"/>
+        <circle cx="25" cy="60" r="2.4" fill="currentColor" fill-opacity="0.7" stroke="none"/>
+        <!-- glow -->
+        <circle cx="25" cy="60" r="4" stroke-width="0.4" opacity="0.5"/>
+
+        <!-- Right pan with faint glowing weight -->
+        <path d="M 76 56 Q 85 68 94 56" fill="currentColor" fill-opacity="0.18" stroke="currentColor" stroke-width="1"/>
+        <circle cx="85" cy="60" r="2.4" fill="currentColor" fill-opacity="0.7" stroke="none"/>
+        <circle cx="85" cy="60" r="4" stroke-width="0.4" opacity="0.5"/>
+
+        <!-- Base under wheel -->
+        <line x1="48" y1="76" x2="62" y2="76" stroke-width="0.7"/>
+        <path d="M 46 76 L 64 76 L 62 80 L 48 80 Z" fill="currentColor" fill-opacity="0.5" stroke="currentColor" stroke-width="0.5"/>
+
+        <!-- Karma motto fragment -->
+        <text x="55" y="98" font-family="Cormorant SC, serif" font-size="5" fill="currentColor" text-anchor="middle" font-weight="600" opacity="0.5">KARMA</text>
+      </g>
+    </symbol>
+
+    <!-- Covert mark: larger sun-disk with inset scale, faded -->
+    <symbol id="covert-mark-aftab" viewBox="0 0 96 96">
+      <g fill="none" stroke="currentColor" stroke-width="1.4">
+        <!-- Sun disk -->
+        <circle cx="48" cy="48" r="42"/>
+        <circle cx="48" cy="48" r="34" stroke-dasharray="3 4"/>
+        <!-- Sun rays -->
+        <g stroke-width="1" opacity="0.6">
+          <line x1="48" y1="2" x2="48" y2="8"/>
+          <line x1="48" y1="88" x2="48" y2="94"/>
+          <line x1="2" y1="48" x2="8" y2="48"/>
+          <line x1="88" y1="48" x2="94" y2="48"/>
+          <line x1="16" y1="16" x2="20" y2="20"/>
+          <line x1="80" y1="16" x2="76" y2="20"/>
+          <line x1="16" y1="80" x2="20" y2="76"/>
+          <line x1="80" y1="80" x2="76" y2="76"/>
+        </g>
+        <!-- Inset small scale -->
+        <line x1="48" y1="32" x2="48" y2="64" stroke-width="1"/>
+        <line x1="32" y1="40" x2="64" y2="40" stroke-width="1"/>
+        <path d="M 28 44 Q 32 50 36 44" stroke-width="0.9"/>
+        <path d="M 60 44 Q 64 50 68 44" stroke-width="0.9"/>
+        <circle cx="48" cy="68" r="1.6" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Vine pattern: scales-of-justice icons linked by dharma-wheel rings -->
+    <pattern id="vinePattern" width="26" height="120" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="currentColor" stroke-width="0.6">
+        <line x1="13" y1="0" x2="13" y2="120" stroke-width="0.4"/>
+        <!-- Scale 1 -->
+        <g transform="translate(13 15)">
+          <line x1="0" y1="-4" x2="0" y2="4" stroke-width="0.6"/>
+          <line x1="-5" y1="-2" x2="5" y2="-2" stroke-width="0.6"/>
+          <path d="M -6 1 Q -5 3 -4 1" stroke-width="0.5"/>
+          <path d="M 4 1 Q 5 3 6 1" stroke-width="0.5"/>
+          <circle cx="0" cy="-5" r="0.6" fill="currentColor" stroke="none"/>
+        </g>
+        <!-- Dharma wheel link -->
+        <g transform="translate(13 27)">
+          <circle cx="0" cy="0" r="2" stroke-width="0.5"/>
+          <line x1="0" y1="-2" x2="0" y2="2" stroke-width="0.3"/>
+          <line x1="-2" y1="0" x2="2" y2="0" stroke-width="0.3"/>
+          <line x1="-1.4" y1="-1.4" x2="1.4" y2="1.4" stroke-width="0.3"/>
+          <line x1="1.4" y1="-1.4" x2="-1.4" y2="1.4" stroke-width="0.3"/>
+        </g>
+        <!-- Scale 2 -->
+        <g transform="translate(13 45)">
+          <line x1="0" y1="-4" x2="0" y2="4" stroke-width="0.6"/>
+          <line x1="-5" y1="-2" x2="5" y2="-2" stroke-width="0.6"/>
+          <path d="M -6 1 Q -5 3 -4 1" stroke-width="0.5"/>
+          <path d="M 4 1 Q 5 3 6 1" stroke-width="0.5"/>
+          <circle cx="0" cy="-5" r="0.6" fill="currentColor" stroke="none"/>
+        </g>
+        <g transform="translate(13 57)">
+          <circle cx="0" cy="0" r="2" stroke-width="0.5"/>
+          <line x1="0" y1="-2" x2="0" y2="2" stroke-width="0.3"/>
+          <line x1="-2" y1="0" x2="2" y2="0" stroke-width="0.3"/>
+          <line x1="-1.4" y1="-1.4" x2="1.4" y2="1.4" stroke-width="0.3"/>
+          <line x1="1.4" y1="-1.4" x2="-1.4" y2="1.4" stroke-width="0.3"/>
+        </g>
+        <!-- Scale 3 -->
+        <g transform="translate(13 75)">
+          <line x1="0" y1="-4" x2="0" y2="4" stroke-width="0.6"/>
+          <line x1="-5" y1="-2" x2="5" y2="-2" stroke-width="0.6"/>
+          <path d="M -6 1 Q -5 3 -4 1" stroke-width="0.5"/>
+          <path d="M 4 1 Q 5 3 6 1" stroke-width="0.5"/>
+          <circle cx="0" cy="-5" r="0.6" fill="currentColor" stroke="none"/>
+        </g>
+        <g transform="translate(13 87)">
+          <circle cx="0" cy="0" r="2" stroke-width="0.5"/>
+          <line x1="0" y1="-2" x2="0" y2="2" stroke-width="0.3"/>
+          <line x1="-2" y1="0" x2="2" y2="0" stroke-width="0.3"/>
+          <line x1="-1.4" y1="-1.4" x2="1.4" y2="1.4" stroke-width="0.3"/>
+          <line x1="1.4" y1="-1.4" x2="-1.4" y2="1.4" stroke-width="0.3"/>
+        </g>
+        <!-- Scale 4 -->
+        <g transform="translate(13 105)">
+          <line x1="0" y1="-4" x2="0" y2="4" stroke-width="0.6"/>
+          <line x1="-5" y1="-2" x2="5" y2="-2" stroke-width="0.6"/>
+          <path d="M -6 1 Q -5 3 -4 1" stroke-width="0.5"/>
+          <path d="M 4 1 Q 5 3 6 1" stroke-width="0.5"/>
+          <circle cx="0" cy="-5" r="0.6" fill="currentColor" stroke="none"/>
+        </g>
+      </g>
+    </pattern>
+  </defs>
+</svg>
+
+<article class="document">
+
+  <svg class="vine-margin" preserveAspectRatio="none" aria-hidden="true" style="width:26px; height:100%;">
+    <rect width="100%" height="100%" fill="url(#vinePattern)"/>
+  </svg>
+
+  <svg class="covert-mark" aria-hidden="true"><use href="#covert-mark-aftab"/></svg>
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="masthead-eyebrow">
+        <span class="arabic">دیوان الطریق</span>
+        <span class="bureau-name">Dīwān al-Ṭarīq</span> &middot; Bureau of the Roads &middot; <span class="dossier-no">Dossier · Paladin</span>
+      </div>
+      <h1 class="character-name">Aftab Singh the Arbiter</h1>
+      <p class="character-subtitle">Oath of Karma &middot; Manumitted Ghulam of the Sind</p>
+    </div>
+    <svg class="cartouche" aria-hidden="true" style="color: var(--accent-deep);">
+      <use href="#cartouche-aftab"/>
+    </svg>
+  </header>
+
+  <!-- ============ IDENTITY + PORTRAIT ============ -->
+  <section class="identity-band">
+    <div class="identity-block">
+      <div class="identity-row">
+        <span class="identity-label">Class &amp; Level</span>
+        <span class="identity-value">Paladin 3 &middot; Oath of Karma</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Race</span>
+        <span class="identity-value">Human (Standard)</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Background</span>
+        <span class="identity-value">Ghulam <em>— Empires of the Silk Road</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Age</span>
+        <span class="identity-value">35</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Heritage</span>
+        <span class="identity-value">Punjabi / Sindhi <em>— born to a fisherman's family on the lower Indus; taken by slavers as a boy; trained as a ghulam (slave-soldier); freed in his twenty-fourth year</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Faith</span>
+        <span class="identity-value">Hindu (Vaishnava lean, with Buddhist sympathies) <em>— the Oath's tenets draw from the Upanishads and the Dhammapada; prayers are to Vishnu and the karmic cycle</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Alignment</span>
+        <span class="identity-value">Lawful Neutral</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Languages</span>
+        <span class="identity-value">Persian (primary), Sindhi, Arabic, Sanskrit
+          <span class="surname-note">Persian as Silk Road / sultanate-army Common; Sindhi as Human's extra; Arabic from his ghulam years of scripture-study with the <em>qurra</em>; Sanskrit from a Buddhist monk who taught him the Bhagavad Gita and Upanishads (Past Education Option 4).</span>
+        </span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Byname</span>
+        <span class="identity-value"><em>Singh — "lion"; of the Sind</em>
+          <span class="surname-note">Aftab (Persian, "sun") is his given name. <em>Singh</em> (Sanskrit <em>siṃha</em>, "lion") is the canonical Rajput / Punjabi martial surname. He took <em>Singh</em> the day he walked out of the dirt cell in Multan, as a claim on the warrior identity he had earned, not inherited.</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="portrait-plate">
+      <div class="portrait-frame empty">
+        <div class="empty-monogram">آ</div>
+        <div class="empty-note">Portrait pending</div>
+      </div>
+      <div class="portrait-caption">
+        <strong>Aftab Singh the Arbiter</strong><br>
+        Punjabi / Sindhi &middot; Aged Thirty-Five
+      </div>
+      <div class="portrait-aliases">he says the names of the executed at sunset; none is a man he should not have executed</div>
+    </div>
+  </section>
+
+  <!-- ============ BIO ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aftab-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">On the Subject</h2>
+    </div>
+    <div class="bio">
+      <p>Aftab was born in a fishing village on the lower Indus, the elder of two children of a widowed mother. His father had drowned the year before his birth; his mother kept their small boat going alone, and Aftab learned to row before he learned to read. His childhood was comfortable in the way a fisher-village is comfortable: enough fish, enough rice, a roof, neighbors who knew his name.</p>
+      <p>Slavers came when he was twelve. They were a small raiding party, three boats, working the river under the cover of a monsoon storm. They took him and four other boys from the village. <em>He never saw his mother or sister again.</em></p>
+      <p>He spent the next twelve years as a ghulam — a slave-soldier — in the service of a sultanate whose name he no longer says aloud. He was good at it. He was big for his age, then big for any age; the bowyers gave him heavier draws and the armorers fitted him with mail when most of his cohort still rode in leather. He killed men in three battles and stopped counting after that. His master, an emir of moderate rank, treated him well enough — better than most ghilman had it — and in his twenty-fourth year, on the occasion of the master's son's wedding, manumitted him along with a dozen others. He was given fifty dinars, a horse, and his freedom.</p>
+      <p>Within the month he was falsely accused of theft by a merchant in a caravan-town outside Multan. The accusation was malicious; he had refused the merchant's daughter, and the merchant repaid him. There was no due process to speak of. He served sixty lashes and ten months in a dirt cell before the merchant died of a fever and the magistrate, embarrassed, released him.</p>
+      <p>He took the name <em>Singh</em> the day he walked out. He has not put down his sword since. He does not believe in vengeance — <em>karma is the universe's accounting, not mine</em> — but he believes in consequence. He follows the Oath where it leads. He has executed three men in the years since his release; each one was justly executed; he still says their names at sunset.</p>
+      <p>He has felt watched, the past few years. He does not know by whom or by what — the souls of the men he has executed, perhaps, or some older debt he has not yet paid. He does not flinch from it.</p>
+    </div>
+  </section>
+
+  <!-- ============ ABILITY SCORES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aftab-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Faculties &amp; Saving Throws</h2>
+      <p class="section-subtitle">Rolled array 11, 12, 12, 12, 14, 16 &middot; Human +1 to all six &middot; Athlete: +1 Str</p>
+    </div>
+    <div class="abilities">
+      <div class="ability-card">
+        <div class="ability-name">Strength</div>
+        <div class="ability-score">18</div>
+        <div class="ability-mod">+4</div>
+        <div class="ability-save">Save <span class="save-val">+4</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Dexterity</div>
+        <div class="ability-score">13</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Constitution</div>
+        <div class="ability-score">13</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Intelligence</div>
+        <div class="ability-score">12</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Wisdom</div>
+        <div class="ability-score">13</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+3</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Charisma</div>
+        <div class="ability-score">15</div>
+        <div class="ability-mod">+2</div>
+        <div class="ability-save">Save <span class="save-val">+4</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMBAT STATS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aftab-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Bearing on the Route</h2>
+    </div>
+    <div class="combat-stats">
+      <div class="stat-cell">
+        <div class="stat-cell-label">Proficiency</div>
+        <div class="stat-cell-value">+2</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Armour Class</div>
+        <div class="stat-cell-value">19 <small>mail + shield + Defense</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Initiative</div>
+        <div class="stat-cell-value">+1</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Speed</div>
+        <div class="stat-cell-value">30 <small>ft</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Points</div>
+        <div class="stat-cell-value">25</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Dice</div>
+        <div class="stat-cell-value">3d10</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Passive Perception</div>
+        <div class="stat-cell-value">11</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Spell Save DC</div>
+        <div class="stat-cell-value">12 <small>+4 atk &middot; Cha</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Lay on Hands</div>
+        <div class="stat-cell-value">15 <small>hp pool</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aftab-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <table class="skills-table">
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th class="bonus" style="text-align:center;">Bonus</th>
+          <th class="source">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Athletics</td>      <td class="bonus">+6</td> <td class="source">Ghulam</td></tr>
+        <tr><td>Insight</td>        <td class="bonus">+3</td> <td class="source">Ghulam</td></tr>
+        <tr><td>Religion</td>       <td class="bonus">+3</td> <td class="source">Paladin</td></tr>
+        <tr><td>Persuasion</td>     <td class="bonus">+4</td> <td class="source">Paladin</td></tr>
+      </tbody>
+    </table>
+    <div class="skills-note">
+      No tool proficiencies mechanically granted; Past Education Option 4 grants a language (Sanskrit) instead. <em>Qurra</em>-led scripture-study during his ghulam years gave him Arabic; a Buddhist monk's tutelage during a season of road-travel gave him Sanskrit and the Gita.
+    </div>
+  </section>
+
+  <!-- ============ CLASS FEATURES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aftab-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Class Features</h2>
+    </div>
+
+    <div class="features-cluster-title">Paladin — Base</div>
+
+    <div class="feature">
+      <div class="feature-title">Divine Sense</div>
+      <div class="feature-meta">Level 1 &middot; Action &middot; 3/long rest (= 1 + Cha mod)</div>
+      <div class="feature-body">
+        <p>For 1 round, detect <strong>celestial, fiend, or undead</strong> creatures within <strong>60 ft.</strong> (not behind total cover).</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Lay on Hands</div>
+      <div class="feature-meta">Level 1 &middot; Action &middot; 15-hp pool / long rest</div>
+      <div class="feature-body">
+        <p>Pool of healing equal to <strong>5 &times; Paladin level = 15 hp</strong>. Touch a creature to restore HP from the pool (any number at once). <strong>5 hp from the pool</strong> can instead cure one disease or one poison.</p>
+        <p style="font-size:0.93rem;font-style:italic;color:var(--ink-faint);">Significant emergency healing. Can be split into 1-hp chunks to stabilize multiple downed allies, or burned in one go for a 15-hp pick-up.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Fighting Style &middot; Defense</div>
+      <div class="feature-meta">Level 2</div>
+      <div class="feature-body">
+        <p><strong>+1 AC</strong> while wearing armor. Reflected in AC 19 above.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Spellcasting</div>
+      <div class="feature-meta">Level 2 &middot; Cha-based half-caster</div>
+      <div class="feature-body">
+        <p>Charisma is his spellcasting ability. <strong>Spell save DC 12 &middot; Spell attack +4</strong>. Prepares <strong>3 spells</strong> (Cha mod 2 + ½ Paladin level 1) from the paladin spell list, plus the two Oath spells always prepared. <strong>Spell slots: 1st × 3.</strong></p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Divine Smite</div>
+      <div class="feature-meta">Level 2 &middot; On hit, expend a slot</div>
+      <div class="feature-body">
+        <p>When he hits with a melee weapon attack, may expend a paladin spell slot:</p>
+        <div class="dice-callout">
+          <span class="dice-callout-label">Smite (1st)</span>
+          <span class="dice-callout-dice">2d8</span>
+          <span style="color:var(--ink-soft);font-style:italic;font-size:0.95rem;">radiant; +1d8 vs. undead / fiends &middot; max 5d8</span>
+        </div>
+        <p style="font-size:0.93rem;font-style:italic;color:var(--ink-faint);margin-top:0.4em;">Burst potential: yatagan two-handed (1d10+4) + 1st-level smite (2d8) ≈ <strong>~20 damage per hit</strong>. With <em>Bless</em> active (free Oath spell, concentration) he hits more often.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Divine Health</div>
+      <div class="feature-meta">Level 3</div>
+      <div class="feature-body">
+        <p>Immune to disease.</p>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">Oath of Karma — Empires of the Silk Road</div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Tenets of Karma</div>
+      <div class="feature-meta">Subclass core</div>
+      <div class="feature-body">
+        <ul>
+          <li><strong>Reason</strong> — Never rush into mindless action. Weigh acts before deciding fate.</li>
+          <li><strong>Responsibility</strong> — All acts have consequences. Do not run from yours.</li>
+          <li><strong>Consequence</strong> — All meet a fate for their deeds. Bring the consequence.</li>
+          <li><strong>Duty</strong> — Keep your word. A word given is a deed.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Oath Spells</div>
+      <div class="feature-meta">Always prepared &middot; do not count against prep limit</div>
+      <div class="feature-body">
+        <ul class="spell-pills">
+          <li>Bane <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">1st</span></li>
+          <li>Bless <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">1st</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Channel Divinity &middot; Vital Equality</div>
+      <div class="feature-meta">Level 3 · Bonus action · 1/short or long rest</div>
+      <div class="feature-body">
+        <p>Choose two creatures (one may be himself) within <strong>60 ft.</strong>. If both are willing, their hit points are combined and <strong>distributed equally</strong> (rounded down). Each chosen creature also gains <strong>temporary HP equal to Paladin level (3)</strong>.</p>
+        <p style="font-size:0.93rem;font-style:italic;color:var(--ink-faint);">Niche but powerful at tier 1 — splitting HP between a near-dead ally and a healthy Aftab can stabilize a low-Con party-mate while he absorbs future hits more easily.</p>
+      </div>
+    </div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Channel Divinity &middot; Mirroring Force</div>
+      <div class="feature-meta">Level 3 · Reaction · 1/short or long rest</div>
+      <div class="feature-body">
+        <p>When a creature within <strong>60 ft.</strong> applies a condition (<em>poisoned, blinded, deafened, stunned, paralyzed</em>, or a disease) to a creature <em>other than himself</em>, force the offending creature to make a <strong>Constitution save DC 12</strong> (8 + PB 2 + Cha 2). On a failed save, the <strong>same condition is applied to it</strong> with the same duration and rules.</p>
+        <p style="font-size:0.93rem;font-style:italic;color:var(--ink-faint);">Hard counter to enemy casters who paralyze a party-mate. He can only mirror conditions applied to non-self allies, by rule.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPELLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aftab-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Spells</h2>
+      <p class="section-subtitle">3 prepared + 2 Oath always-prepared = 5 castable &middot; Spell save DC 12 &middot; Spell attack +4 &middot; Slots: 1st × 3</p>
+    </div>
+    <div class="feature">
+      <div class="feature-title">1st Level</div>
+      <div class="feature-body">
+        <ul>
+          <li><strong>Bane</strong> <em>(Oath, free)</em> — 30 ft., 3 targets, Cha save; −1d4 to their attacks &amp; saves. Concentration 1 min.</li>
+          <li><strong>Bless</strong> <em>(Oath, free)</em> — 30 ft., 3 targets; +1d4 to their attacks &amp; saves. Concentration 1 min.</li>
+          <li><strong>Cure Wounds</strong> — Touch; 1d8 + Cha (2) healing.</li>
+          <li><strong>Compelled Duel</strong> — Bonus action; 30 ft.; target Wis save DC 12; disadvantage on attacks not against him. Concentration 1 min.</li>
+          <li><strong>Shield of Faith</strong> — Bonus action; target +2 AC. Concentration 10 min.</li>
+        </ul>
+        <p style="font-size:0.93rem;font-style:italic;color:var(--ink-faint);margin-top:0.6em;">With Lay on Hands available at 15 hp/long rest, he preserves slots for Divine Smite or Compelled Duel rather than burning them on Cure Wounds; the prep is held for ranged emergencies.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEAT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aftab-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Feat</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Athlete</div>
+      <div class="feature-meta">Level 1 · Granted feat &middot; SRD</div>
+      <div class="feature-body">
+        <ul>
+          <li><strong>+1 Strength</strong> → final Str 18.</li>
+          <li>Standing up from prone uses only <strong>5 feet of movement</strong>.</li>
+          <li>Climbing speed equals walking speed.</li>
+          <li>Running long jump or running high jump requires only <strong>5 feet</strong> of running.</li>
+        </ul>
+        <p>Twelve years as a ghulam-soldier built him into a battlefield athlete. He can move heavy in mail.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BACKGROUND ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aftab-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Background — Ghulam</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Seasoned Warrior</div>
+      <div class="feature-body">
+        <p>He immediately <strong>recognizes the potential and experience of a fellow warrior</strong> he encounters. Experienced eyes also notice he carries more weight than a standard soldier — career military, freed-slave, and Oath-sworn at once.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Specialty &middot; Manumitted Ghulam</div>
+      <div class="feature-body">
+        <p>Twelve years in service before freedom; eleven years as a free man since.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ YOUR JOURNEY ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aftab-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Your Journey</h2>
+      <p class="section-subtitle">Lifepath &middot; rolled and chosen entries from the Silk Road book</p>
+    </div>
+
+    <div class="journey-grid">
+      <div class="journey-card">
+        <div class="jc-label">Birthplace</div>
+        <div class="jc-value">His family house — a small <strong>wood-and-thatch home</strong> in a fishing village on the lower Indus.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Family</div>
+        <div class="jc-value"><strong>Single Mother.</strong> His father drowned the year before his birth. His mother raised him and his sibling alone, rowing the family boat at dawn.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Siblings</div>
+        <div class="jc-value"><strong>One sibling</strong> — a younger sister. <em>Fate unknown after the slaver raid that took him at age twelve.</em></div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Lifestyle</div>
+        <div class="jc-value"><strong>Comfortable.</strong> A modest but honest fisher-family. They had a boat, a roof, enough rice. Not rich; not poor.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Strings to Arcanum</div>
+        <div class="jc-value"><strong>Community doesn't believe in magic.</strong> The fishing village laughed at upriver tales. Magic was for the cities of north India, not for Sind river-folk. <em>This belief did not survive Aftab's life. He has met things since.</em></div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Past Education</div>
+        <div class="jc-value">Institution of learning — adjacent to it, anyway. After his manumission, he traveled for a season with a Buddhist monk in the lower Indus who taught him to read <strong>Sanskrit</strong> and study the Upanishads and the Bhagavad Gita. <em>Lifestyle qualifies; grants the Sanskrit language.</em></div>
+      </div>
+    </div>
+
+    <div class="journey-events">
+      <div class="journey-event">
+        <div class="journey-event-roll">Event I &middot; d20 = 2 → Fortune d10 = 6 &middot; A golden ring from a lord</div>
+        <h4 class="journey-event-title">A small gold signet ring from his former master.</h4>
+        <div class="journey-event-body">
+          <p>After his manumission, his former master gave him a small <strong>gold signet ring</strong> along with the fifty dinars and the horse. He wears it on his sword-hand; it is one of the few possessions he has not sold or traded in eleven years.</p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event II &middot; d20 = 18 &middot; Felt followed throughout his life</div>
+        <h4 class="journey-event-title">A watcher he attributes to the men he has executed.</h4>
+        <div class="journey-event-body">
+          <p>Since the false accusation and his release, he has felt watched. He suspects the souls of the three men he has justly executed under the Oath; he suspects his own paranoia from cell-years; he suspects an older karmic debt he has not yet paid. <em>He does not flinch from it, but he has not resolved it.</em></p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event III &middot; d20 = 3 → Crime d10 = 2 &middot; Falsely accused of theft</div>
+        <h4 class="journey-event-title">The defining injustice of his life. The Oath was sworn on the morning of his release.</h4>
+        <div class="journey-event-body">
+          <p>The merchant outside Multan accused him of stealing after Aftab refused the merchant's daughter; no proof, no defense, <strong>sixty lashes</strong>, <strong>ten months in a dirt cell</strong>. The merchant died of fever; Aftab was released. He held — and still holds — that the merchant's death was karma's accounting, not his.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROFESSION ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aftab-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Profession</h2>
+      <p class="section-subtitle">Silk Road PEX system &middot; Apprentice rank</p>
+    </div>
+    <div class="profession-block">
+      <div class="profession-head">
+        <div class="profession-name">Ecclesiastic</div>
+        <div class="profession-rank">Apprentice · Rank 1 <span class="pex">PEX 0</span></div>
+      </div>
+      <p class="profession-baseline">
+        <strong>No free starting abilities at Apprentice rank.</strong> All four Apprentice abilities — <em>Depth of the Holy Teachings</em>, <em>Divine Tongues</em>, <em>The Night Belongs to the Lord</em>, <em>Long and Hard Journeys</em> — cost <strong>50 PEX each</strong>. He is a novice in the formal sense.
+      </p>
+      <p class="profession-available">
+        Aftab does not lead a congregation, but his Oath obliges him to study and teach the texts that ground it. He reads the Upanishads in Sanskrit (taught informally by the Buddhist monk he traveled with for a season), the Bhagavad Gita, and the Dhammapada; he carries an old copy of the Gita in his pack. Natural first PEX purchases when he has the points: <strong>Depth of the Holy Teachings</strong>, <strong>Divine Tongues</strong>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ EQUIPMENT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aftab-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Equipment</h2>
+    </div>
+    <div class="equipment-grid">
+      <div class="equip-block">
+        <div class="equip-block-title">Weapons</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Yatagan</span> &mdash; <span class="item-detail">Silk Road martial; 1d8 slashing, versatile 1d10, handy (may deal piercing); <strong>+6 to hit / 1d8+4</strong> one-handed, <strong>1d10+4</strong> two-handed. His ghulam-issued blade, kept after manumission.</span></li>
+          <li><span class="item-name">Javelin &times; 4</span> &mdash; <span class="item-detail">1d6 piercing; thrown 30/120; <strong>+6 to hit / 1d6+4</strong>. Light ranged option.</span></li>
+          <li><span class="item-name">Hanchar</span> &mdash; <span class="item-detail">Silk Road dagger; 1d4 slashing (handy — may deal piercing), finesse, light; <strong>+6 to hit / 1d4+4</strong>. Utility.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Armour &amp; Shield</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Chain Mail</span> &mdash; <span class="item-detail">AC 16; heavy armor; disadvantage on Stealth; Str 13 req — meets easily.</span></li>
+          <li><span class="item-name">Shield</span> &mdash; <span class="item-detail">+2 AC. Wooden, banded in iron, plain. <strong>Final AC 19</strong> with Defense fighting style.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Spellcasting Focus</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Holy symbol — bronze trishula</span> &mdash; <span class="item-detail">a small trident (sacred to Vishnu / Shiva) hung at his throat. <em>Gift of the Buddhist monk who taught him the Gita.</em></span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Personal Items</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Gold signet ring</span> &mdash; <span class="item-detail">from his former master (Event I) — worn on sword-hand. Bears the master's emir-sigil; functions as letter of identification in Persianate-Indian courts when shown discreetly.</span></li>
+          <li><span class="item-name">Old copy of the Bhagavad Gita</span> &mdash; <span class="item-detail">in Sanskrit, small, leather-wrapped, much-read.</span></li>
+          <li><span class="item-name">Wooden prayer-beads (mala)</span> &mdash; <span class="item-detail">108 beads, Hindu; for sunset recitation of the three names.</span></li>
+          <li><span class="item-name">Ghulam kit</span> &mdash; <span class="item-detail">a set of fine clothes from his old service (kept clean for ceremonial visits), book of poetry (Persian — Rumi's <em>Masnavi</em>, partial), belt pouch.</span></li>
+          <li><span class="item-name">Adventuring pack</span> &mdash; <span class="item-detail">waterskin, bedroll, mess kit, tinderbox, 50 ft. hempen rope.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Mount — Available, Not Currently Carried</div>
+        <ul class="equip-list">
+          <li><span class="item-name">A small mare named Saraswati</span> &mdash; <span class="item-detail">after the river-goddess; stabled with a caravan-master in Multan who owes him a favor. Comes and goes.</span></li>
+        </ul>
+      </div>
+
+      <div class="money-line">
+        Carrying <span class="amount">20 gp</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERSONALITY ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aftab-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Personality</h2>
+    </div>
+    <div class="personality-grid">
+      <div class="personality-card">
+        <div class="personality-label">Trait</div>
+        <p class="personality-text">"I say the names of the men I have executed at sunset. None of them is a man I should not have executed. None of them is a man I will forget."</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Ideal <span class="alignment-tag">— Consequence · Lawful Neutral</span></div>
+        <p class="personality-text">"The merchant who lied about me died of fever before I could touch him. That was karma. My work is to be karma's instrument when karma needs hands — not to be karma itself."</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Bond</div>
+        <p class="personality-text">"My sister, if she is alive, is somewhere on the lower Indus. I have not gone back. The day I have answered enough other debts, I will."</p>
+      </div>
+      <div class="personality-card flaw">
+        <div class="personality-label">Flaw</div>
+        <p class="personality-text">"I served twelve years as a ghulam. I was good at it. Some days I miss the simplicity of obeying. Some days I am afraid of how good I was at it."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONNECTIONS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#aftab-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Connections</h2>
+    </div>
+    <ul class="connections-list">
+      <li><span class="conn-name">Orkhan-Tegin of the Yamak</span> — They met at a caravanserai outside Merv four years ago, both hired to the same merchant's escort for a six-day haul east. Orkhan was the captain of the small mercenary brotherhood Aftab fell in with; Aftab was the new contracted blade. They recognized each other inside an hour — Seasoned Warrior on Aftab's side, the same gift on Orkhan's — and the unspoken acknowledgment between two career-killers from different traditions held them civil through six days of dust. They have crossed paths twice since, at other caravanserais. They drink (Orkhan) and abstain (Aftab) at the same table when the work permits, and they have never asked each other about the men they have killed. They will not. <em>The fact that they have not is itself the friendship.</em></li>
+      <li><span class="conn-name">Yasmina al-Khorasani</span> — They have not met in person. They share an inheritance neither knows the other carries: the feeling, every few weeks now, of being watched. Aftab's watcher he attributes to the men he has executed; Yasmina's she attributes to the silvered compass-disk she lost outside Mary. The two trails may be a single thread; they may be two unrelated coincidences in a country full of watchers. <em>Aftab and Yasmina meeting on the road may be the moment one or both of them realize their watcher has a face.</em></li>
+    </ul>
+  </section>
+
+  <!-- ============ PATRON'S NOTE ============ -->
+  <section class="patron-note">
+    <div class="patron-label">From the Vizier's Hand</div>
+    <p class="patron-text">A man who served twelve years under a master he no longer names, and who still says the names of the men he has executed at sunset, is a man who has counted the cost of his own hand. I would have him at the head of any expedition through hostile country where the question is not <em>can we kill</em>, but <em>should we have killed</em>.</p>
+    <div class="patron-signature">
+      &mdash; <span class="sig-name">Rashīd al-Dīn Hamadānī</span><span class="sig-arabic">رشید الدین</span>
+    </div>
+  </section>
+
+  <!-- ============ FOOT ============ -->
+  <footer class="document-foot">
+    <svg class="foot-seal" aria-hidden="true"><use href="#aftab-foot-seal"/></svg>
+    <div class="foot-text">
+      Compiled at the <span class="arabic">دیوان الطریق</span> &middot; Bureau of the Roads &middot; from Cathay to Constantinople
+    </div>
+    <svg class="foot-seal" aria-hidden="true"><use href="#aftab-foot-seal"/></svg>
+  </footer>
+
+</article>
+
+</body>
+</html>

@@ -1,0 +1,1928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Nazim ibn Yusuf the Stone-Bound</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Reem+Kufi:wght@400;500;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Nazim — Stone-Bound · granite + moss + iron */
+    --ground:       #1c1f20;
+    --ground-deep:  #0e1010;
+    --paper:        #e3dccd;
+    --paper-shade:  #d4ccba;
+    --paper-edge:   #b8af9a;
+    --ink:          #14160e;
+    --ink-soft:     #2a2c22;
+    --ink-faint:    #5a5a4a;
+    --accent:       #4a5450;        /* slate granite */
+    --accent-deep:  #282e2b;
+    --accent-pale:  #7a8480;
+    --moss:         #6a7a48;
+    --moss-deep:    #424e28;
+    --iron:         #44494c;
+    --iron-deep:    #25282a;
+    --ochre:        #8a7438;        /* alias for shared component styles */
+    --ochre-deep:   #5a4c24;
+    --rose:         #6a7a48;        /* alias — moss reuse for flaw card */
+    --rose-deep:    #424e28;
+    --gold:         #8a7438;
+    --gold-deep:    #5a4c24;
+    --rule:         #a8a08c;
+    --rule-soft:    #c2bba6;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 12%, rgba(74, 84, 80, 0.34) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 88%, rgba(14, 16, 16, 0.72) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(28, 31, 32, 0.55) 0%, transparent 80%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  /* ============ DOCUMENT FOLIO ============ */
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 3.75rem 4.25rem 4.5rem;
+    position: relative;
+    box-shadow:
+      0 1px 2px rgba(14, 16, 16, 0.5),
+      0 14px 56px rgba(14, 16, 16, 0.65),
+      inset 0 0 0 1px rgba(168, 160, 140, 0.5);
+    background-image:
+      radial-gradient(ellipse at 0% 0%, rgba(74, 84, 80, 0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 100%, rgba(106, 122, 72, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(90, 90, 74, 0.05) 100%);
+  }
+
+  /* Top folio band — slate / moss / iron */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--ground-deep) 0%,
+      var(--iron-deep) 18%,
+      var(--accent-deep) 38%,
+      var(--moss-deep) 50%,
+      var(--accent-deep) 62%,
+      var(--iron-deep) 82%,
+      var(--ground-deep) 100%);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--accent-deep) 20%,
+      var(--moss) 50%,
+      var(--accent-deep) 80%,
+      transparent 100%);
+    opacity: 0.7;
+  }
+
+  /* Left-margin pattern */
+  .vine-margin {
+    position: absolute;
+    top: 5px; bottom: 3px; left: 0;
+    width: 26px;
+    opacity: 0.24;
+    pointer-events: none;
+    color: var(--accent-deep);
+  }
+
+  /* ============ COVERT / STONE-SEAL MARK ============ */
+  .covert-mark {
+    position: absolute;
+    top: 22px;
+    right: 32px;
+    width: 96px;
+    height: 96px;
+    opacity: 0.10;
+    pointer-events: none;
+    color: var(--accent-deep);
+  }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2rem;
+  }
+  .masthead-left { min-width: 0; }
+  .masthead-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.38em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .masthead-eyebrow .dossier-no {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .masthead-eyebrow .arabic {
+    font-family: "Amiri", "Reem Kufi", serif;
+    letter-spacing: 0;
+    font-size: 1.05rem;
+    margin-right: 0.55em;
+    color: var(--accent-deep);
+    font-weight: 400;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+  .masthead-eyebrow .bureau-name {
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.35rem;
+    line-height: 1;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+  .character-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--accent-deep);
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .cartouche {
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+  }
+
+  /* ============ IDENTITY + PORTRAIT BAND ============ */
+  .identity-band {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 2.25rem;
+    margin-bottom: 2.5rem;
+    align-items: start;
+  }
+  .identity-block { min-width: 0; }
+  .identity-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0.4rem 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    align-items: baseline;
+  }
+  .identity-row:last-child { border-bottom: none; }
+  .identity-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .identity-value {
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+  }
+  .identity-value em {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  .surname-note {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    display: block;
+    margin-top: 0.15rem;
+  }
+
+  /* Portrait plate */
+  .portrait-plate { position: relative; }
+  .portrait-frame {
+    border: 1px solid var(--accent-deep);
+    padding: 6px;
+    background: var(--paper-shade);
+    box-shadow:
+      inset 0 0 0 1px var(--moss),
+      0 2px 8px rgba(14, 16, 16, 0.28);
+    position: relative;
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--accent-deep);
+  }
+  .portrait-frame::before {
+    top: -4px; left: -4px;
+    border-right: none; border-bottom: none;
+  }
+  .portrait-frame::after {
+    bottom: -4px; right: -4px;
+    border-left: none; border-top: none;
+  }
+  .portrait-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: sepia(0.04) saturate(0.85) brightness(0.96);
+  }
+  .portrait-frame.empty {
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 12px,
+        rgba(74, 84, 80, 0.05) 12px,
+        rgba(74, 84, 80, 0.05) 24px
+      ),
+      var(--paper-shade);
+  }
+  .portrait-frame.empty .empty-monogram {
+    font-family: "Amiri", "Reem Kufi", serif;
+    font-size: 4rem;
+    color: var(--accent-deep);
+    opacity: 0.34;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    direction: rtl;
+  }
+  .portrait-frame.empty .empty-note {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .portrait-caption {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.7rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .portrait-caption strong {
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+  }
+  .portrait-aliases {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--accent-deep);
+    text-align: center;
+    margin-top: 0.4rem;
+  }
+
+  /* ============ SECTION ORNAMENTS ============ */
+  .section { margin-top: 2.5rem; }
+  .section-head {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    justify-content: center;
+    margin-bottom: 0.7rem;
+  }
+  .section-rule-line {
+    flex: 1;
+    max-width: 180px;
+    height: 1px;
+    background: var(--rule);
+  }
+  .section-ornament {
+    width: 30px; height: 30px;
+    color: var(--accent-deep);
+    flex-shrink: 0;
+  }
+  h2.section-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.55rem;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  .section-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-faint);
+    margin: 0.25rem 0 0;
+  }
+
+  /* ============ BIO ============ */
+  .bio {
+    font-family: "EB Garamond", serif;
+    font-size: 1.08rem;
+    line-height: 1.72;
+    color: var(--ink-soft);
+    text-align: justify;
+    hyphens: auto;
+  }
+  .bio p { margin: 0 0 1em; }
+  .bio p:last-child { margin-bottom: 0; }
+  .bio p:first-child::first-letter {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.1em 0.12em 0 0;
+    color: var(--accent-deep);
+  }
+
+  /* ============ ABILITY SCORES ============ */
+  .abilities {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+  }
+  .ability-card {
+    border: 1px solid var(--rule);
+    background: var(--paper-shade);
+    padding: 0.85rem 0.4rem 0.7rem;
+    text-align: center;
+    position: relative;
+  }
+  .ability-card::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 8px; right: 8px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .ability-card.saveprof::before {
+    background: var(--moss-deep);
+    height: 3px;
+  }
+  .ability-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .ability-score {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 0.15rem 0 0.05rem;
+  }
+  .ability-mod {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem;
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  .ability-save {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+    padding-top: 0.35rem;
+    border-top: 1px dotted var(--rule-soft);
+  }
+  .ability-save .save-val {
+    font-family: "EB Garamond", serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    font-weight: 500;
+    margin-left: 0.2em;
+  }
+  .ability-card.saveprof .ability-save .save-val {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+
+  /* ============ COMBAT STATS ============ */
+  .combat-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 0.7rem 0.65rem;
+  }
+  .stat-cell-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .stat-cell-value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-top: 0.15rem;
+  }
+  .stat-cell-value small {
+    font-family: "EB Garamond", serif;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-left: 0.3em;
+  }
+
+  /* ============ SKILLS ============ */
+  .skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+  }
+  .skills-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .skills-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: baseline;
+  }
+  .skills-table tr:last-child td { border-bottom: none; }
+  .skills-table .bonus {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    color: var(--ink);
+    width: 70px;
+    text-align: center;
+  }
+  .skills-table .bonus.expertise {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .skills-table .source {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+  .skills-note {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    padding: 0.65rem 0.85rem;
+    background: var(--paper-shade);
+    border-left: 3px solid var(--accent);
+    margin-top: 0.8rem;
+  }
+
+  /* ============ FEATURE BLOCKS ============ */
+  .feature {
+    margin: 0 0 1.1rem;
+    padding: 0.85rem 1rem;
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+  }
+  .feature.subclass {
+    border-left-color: var(--moss-deep);
+  }
+  .feature-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    color: var(--ink);
+    margin: 0 0 0.3rem;
+    letter-spacing: 0.01em;
+  }
+  .feature-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .feature-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .feature-body p { margin: 0 0 0.55em; }
+  .feature-body p:last-child { margin-bottom: 0; }
+  .feature-body ul {
+    margin: 0.4em 0 0.2em;
+    padding-left: 1.4em;
+  }
+  .feature-body ul li {
+    padding: 0.15em 0;
+  }
+  .feature-body strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .feature-body em {
+    color: var(--accent-deep);
+  }
+
+  .features-cluster-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .features-cluster-title:first-child { margin-top: 0; }
+
+  .spell-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    padding: 0;
+    margin: 0.5em 0 0;
+    list-style: none;
+  }
+  .spell-pills li {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.97rem;
+    color: var(--ink);
+    padding: 0.15rem 0.7rem;
+    background: var(--paper);
+    border: 1px solid var(--moss);
+    border-left-width: 3px;
+    border-left-color: var(--moss-deep);
+  }
+
+  .dice-callout {
+    margin: 0.5em 0;
+    padding: 0.55rem 0.85rem;
+    background: var(--paper);
+    border: 1px solid var(--moss-deep);
+    border-left: 3px solid var(--accent);
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    font-size: 0.97rem;
+  }
+  .dice-callout-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .dice-callout-dice {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    color: var(--accent-deep);
+    font-size: 1.15rem;
+  }
+
+  /* ============ SPELLBOOK TABLE — Nazim-specific ============ */
+  .spellbook-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 0.96rem;
+    margin: 0.5em 0 0.2em;
+  }
+  .spellbook-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.45rem 0.55rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .spellbook-table td {
+    padding: 0.4rem 0.55rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: baseline;
+  }
+  .spellbook-table td.lvl {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    color: var(--accent-deep);
+    width: 12%;
+    text-align: center;
+  }
+  .spellbook-table td.spell {
+    font-style: italic;
+  }
+  .spellbook-table td.note {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-style: italic;
+  }
+
+  /* ============ JOURNEY (LIFEPATH) ============ */
+  .journey-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .journey-card {
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+    padding: 0.85rem 1rem;
+  }
+  .journey-card.event {
+    border-left-color: var(--moss-deep);
+  }
+  .journey-card .jc-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .journey-card.event .jc-label { color: var(--moss-deep); }
+  .journey-card .jc-value {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .journey-card .jc-value em { color: var(--ink-soft); font-style: italic; }
+  .journey-events {
+    margin-top: 1rem;
+  }
+  .journey-event {
+    margin: 0 0 0.8rem;
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+    border: 1px solid var(--rule-soft);
+    border-top: 2px solid var(--moss);
+  }
+  .journey-event-roll {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .journey-event-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin: 0 0 0.35rem;
+  }
+  .journey-event-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.97rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ============ PROFESSION ============ */
+  .profession-block {
+    margin-top: 1rem;
+    padding: 1rem 1.2rem;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0,
+        transparent 24px,
+        rgba(106, 122, 72, 0.05) 24px,
+        rgba(106, 122, 72, 0.05) 48px
+      ),
+      var(--paper);
+    border: 1px solid var(--moss);
+  }
+  .profession-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule-soft);
+    margin-bottom: 0.75rem;
+  }
+  .profession-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.12rem;
+    color: var(--ink);
+  }
+  .profession-rank {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    color: var(--moss-deep);
+    text-transform: uppercase;
+  }
+  .profession-rank .pex {
+    color: var(--ink-faint);
+    margin-left: 0.5em;
+  }
+  .profession-baseline {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .profession-baseline strong { color: var(--ink); }
+  .profession-available {
+    margin-top: 0.85rem;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-faint);
+  }
+
+  /* ============ EQUIPMENT ============ */
+  .equipment-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .equip-block {
+    border: 1px solid var(--rule-soft);
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+  }
+  .equip-block-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 0 0 0.55rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .equip-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .equip-list li {
+    padding: 0.35rem 0;
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .equip-list li:last-child { border-bottom: none; }
+  .equip-list .item-name { font-weight: 500; }
+  .equip-list .item-detail {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-style: italic;
+  }
+  .money-line {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    padding: 0.85rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .money-line .amount {
+    font-family: "Cormorant Garamond", serif;
+    font-style: normal;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--moss-deep);
+    letter-spacing: 0.05em;
+    margin: 0 0.3em;
+  }
+
+  /* ============ PERSONALITY ============ */
+  .personality-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+  .personality-card {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--paper-shade);
+    border-top: 2px solid var(--accent);
+    position: relative;
+  }
+  .personality-card.flaw {
+    border-top-color: var(--rose);
+  }
+  .personality-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .personality-card.flaw .personality-label { color: var(--rose-deep); }
+  .personality-label .alignment-tag {
+    color: var(--ink-faint);
+    font-weight: 400;
+    margin-left: 0.4em;
+  }
+  .personality-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ============ CONNECTIONS ============ */
+  .connections-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .connections-list li {
+    padding: 0.85rem 0 0.85rem 1.5rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+    line-height: 1.6;
+    position: relative;
+  }
+  .connections-list li:last-child { border-bottom: none; }
+  .connections-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 1.3em;
+    width: 8px; height: 8px;
+    border: 1px solid var(--accent);
+    transform: rotate(45deg);
+    background: var(--paper);
+  }
+  .connections-list .conn-name {
+    font-weight: 500;
+    color: var(--accent-deep);
+  }
+
+  /* ============ PATRON'S NOTE ============ */
+  .patron-note {
+    margin: 2.75rem 0 0;
+    padding: 1.5rem 1.75rem 1.65rem;
+    border: 1px solid var(--moss-deep);
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 8px,
+        rgba(106, 122, 72, 0.05) 8px,
+        rgba(106, 122, 72, 0.05) 16px
+      ),
+      var(--paper-shade);
+    position: relative;
+  }
+  .patron-note::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 2px;
+    background: linear-gradient(90deg,
+      var(--gold-deep) 0%,
+      var(--gold) 30%,
+      var(--moss) 50%,
+      var(--gold) 70%,
+      var(--gold-deep) 100%);
+  }
+  .patron-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--moss-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+  .patron-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+  .patron-signature {
+    margin-top: 0.85rem;
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    color: var(--ink-soft);
+  }
+  .patron-signature .sig-name {
+    font-style: italic;
+    color: var(--ink);
+  }
+  .patron-signature .sig-arabic {
+    font-family: "Amiri", serif;
+    font-style: normal;
+    font-size: 1.05rem;
+    color: var(--accent-deep);
+    margin-left: 0.4em;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+
+  /* ============ FOOT ============ */
+  .document-foot {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .foot-seal {
+    width: 38px; height: 38px;
+    color: var(--accent-deep);
+    opacity: 0.75;
+  }
+  .foot-text {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    flex: 1;
+  }
+  .foot-text .arabic {
+    font-family: "Amiri", "Reem Kufi", serif;
+    letter-spacing: 0;
+    color: var(--accent-deep);
+    margin: 0 0.4em;
+    font-size: 0.95rem;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 760px) {
+    body { padding: 1rem 0.4rem 2rem; }
+    .document { padding: 2.25rem 1.5rem 2.75rem; }
+    h1.character-name { font-size: 2.3rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1rem; }
+    .cartouche { width: 80px; height: 80px; justify-self: start; }
+    .identity-band { grid-template-columns: 1fr; }
+    .portrait-plate { max-width: 240px; }
+    .abilities { grid-template-columns: repeat(3, 1fr); }
+    .combat-stats { grid-template-columns: repeat(2, 1fr); }
+    .personality-grid { grid-template-columns: 1fr; }
+    .journey-grid { grid-template-columns: 1fr; }
+    .vine-margin { display: none; }
+    .skills-table .source { display: none; }
+    .covert-mark { display: none; }
+  }
+
+  @media (max-width: 460px) {
+    .abilities { grid-template-columns: repeat(2, 1fr); }
+    .identity-row { grid-template-columns: 1fr; gap: 0.1rem; }
+    .identity-label { font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Inline SVG definitions -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Section ornament: small mountain peak crossed with a stone-tablet -->
+    <symbol id="nazim-ornament" viewBox="0 0 30 30">
+      <g fill="none" stroke="currentColor" stroke-width="0.8">
+        <!-- Stone tablet (rectangle, slightly behind, faded) -->
+        <rect x="6" y="13" width="18" height="11" stroke-width="0.9" fill="currentColor" fill-opacity="0.18"/>
+        <!-- Cuneiform-style mark lines on tablet -->
+        <g stroke="currentColor" stroke-width="0.5">
+          <line x1="9" y1="17" x2="13" y2="17"/>
+          <line x1="14" y1="17" x2="17" y2="17"/>
+          <line x1="18" y1="17" x2="21" y2="17"/>
+          <line x1="9" y1="20" x2="12" y2="20"/>
+          <line x1="13" y1="20" x2="18" y2="20"/>
+          <line x1="19" y1="20" x2="21" y2="20"/>
+        </g>
+        <!-- Mountain peak in front -->
+        <path d="M 8 22 L 15 6 L 22 22 Z" fill="currentColor" fill-opacity="0.5" stroke-width="1"/>
+        <!-- Snow line on peak -->
+        <path d="M 12 12 L 15 6 L 18 12" stroke="var(--paper)" stroke-width="0.6" fill="none"/>
+      </g>
+    </symbol>
+
+    <!-- Foot seal: small mountain-with-chain in a roundel -->
+    <symbol id="foot-seal-nazim" viewBox="0 0 40 40">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <circle cx="20" cy="20" r="17"/>
+        <circle cx="20" cy="20" r="13" stroke-dasharray="1 2"/>
+        <!-- Mountain silhouette -->
+        <path d="M 9 27 L 20 11 L 31 27 Z" fill="currentColor" fill-opacity="0.45" stroke="currentColor" stroke-width="0.9"/>
+        <!-- Chain crossing -->
+        <g stroke="currentColor" stroke-width="0.6" fill="none">
+          <ellipse cx="13" cy="22" rx="1.4" ry="0.9" transform="rotate(-30 13 22)"/>
+          <ellipse cx="17" cy="20" rx="1.4" ry="0.9" transform="rotate(-30 17 20)"/>
+          <ellipse cx="21" cy="18" rx="1.4" ry="0.9" transform="rotate(-30 21 18)"/>
+          <ellipse cx="25" cy="16" rx="1.4" ry="0.9" transform="rotate(-30 25 16)"/>
+          <ellipse cx="29" cy="14" rx="1.4" ry="0.9" transform="rotate(-30 29 14)"/>
+        </g>
+      </g>
+    </symbol>
+
+    <!-- Nazim's cartouche: three-peak mountain with bound chains crossing diagonally; stone-tablet below -->
+    <symbol id="cartouche-nazim" viewBox="0 0 110 110">
+      <g fill="none" stroke="currentColor" stroke-width="1.1">
+        <!-- Outer ring -->
+        <circle cx="55" cy="55" r="50"/>
+        <!-- Inner dashed ring -->
+        <circle cx="55" cy="55" r="42" stroke-width="0.7" stroke-dasharray="2 3"/>
+
+        <!-- Scattered stone-spec dots around the rings -->
+        <g fill="currentColor" stroke="none">
+          <circle cx="55" cy="9" r="0.9"/>
+          <circle cx="80" cy="16" r="0.7"/>
+          <circle cx="98" cy="40" r="0.9"/>
+          <circle cx="100" cy="68" r="0.7"/>
+          <circle cx="85" cy="92" r="0.9"/>
+          <circle cx="25" cy="92" r="0.7"/>
+          <circle cx="10" cy="68" r="0.9"/>
+          <circle cx="12" cy="40" r="0.7"/>
+          <circle cx="30" cy="16" r="0.9"/>
+        </g>
+
+        <!-- Three-peak mountain silhouette (vertical composition, upper-middle) -->
+        <g fill="currentColor" stroke="currentColor" stroke-width="0.9" fill-opacity="0.6">
+          <!-- Left peak (smaller, slightly back) -->
+          <path d="M 22 64 L 36 30 L 50 64 Z"/>
+          <!-- Right peak (smaller) -->
+          <path d="M 60 64 L 74 30 L 88 64 Z"/>
+          <!-- Center peak (tallest, in front) -->
+          <path d="M 32 64 L 55 18 L 78 64 Z" fill-opacity="0.78"/>
+        </g>
+
+        <!-- Snow lines on peaks -->
+        <g stroke="var(--paper)" stroke-width="0.7" fill="none">
+          <path d="M 30 36 L 36 30 L 42 36"/>
+          <path d="M 47 28 L 55 18 L 63 28"/>
+          <path d="M 68 36 L 74 30 L 80 36"/>
+        </g>
+
+        <!-- Bound chains crossing diagonally over the mountain -->
+        <g stroke="currentColor" stroke-width="0.7" fill="none">
+          <!-- Chain 1 (upper-left to lower-right) -->
+          <ellipse cx="22" cy="36" rx="2.4" ry="1.4" transform="rotate(35 22 36)"/>
+          <ellipse cx="30" cy="42" rx="2.4" ry="1.4" transform="rotate(35 30 42)"/>
+          <ellipse cx="38" cy="48" rx="2.4" ry="1.4" transform="rotate(35 38 48)"/>
+          <ellipse cx="46" cy="54" rx="2.4" ry="1.4" transform="rotate(35 46 54)"/>
+          <ellipse cx="54" cy="60" rx="2.4" ry="1.4" transform="rotate(35 54 60)"/>
+          <ellipse cx="62" cy="66" rx="2.4" ry="1.4" transform="rotate(35 62 66)"/>
+          <ellipse cx="70" cy="72" rx="2.4" ry="1.4" transform="rotate(35 70 72)"/>
+          <!-- Chain 2 (upper-right to lower-left, lighter) -->
+          <ellipse cx="88" cy="36" rx="2.4" ry="1.4" transform="rotate(-35 88 36)" opacity="0.7"/>
+          <ellipse cx="80" cy="42" rx="2.4" ry="1.4" transform="rotate(-35 80 42)" opacity="0.7"/>
+          <ellipse cx="72" cy="48" rx="2.4" ry="1.4" transform="rotate(-35 72 48)" opacity="0.7"/>
+          <ellipse cx="64" cy="54" rx="2.4" ry="1.4" transform="rotate(-35 64 54)" opacity="0.7"/>
+          <ellipse cx="48" cy="64" rx="2.4" ry="1.4" transform="rotate(-35 48 64)" opacity="0.7"/>
+          <ellipse cx="40" cy="70" rx="2.4" ry="1.4" transform="rotate(-35 40 70)" opacity="0.7"/>
+          <ellipse cx="32" cy="76" rx="2.4" ry="1.4" transform="rotate(-35 32 76)" opacity="0.7"/>
+        </g>
+
+        <!-- Stone tablet below the mountain, with cuneiform-style carved marks -->
+        <g fill="currentColor" stroke="currentColor" stroke-width="0.8">
+          <rect x="32" y="76" width="46" height="20" fill-opacity="0.32"/>
+          <!-- Cuneiform-like wedge marks -->
+          <g stroke="currentColor" stroke-width="0.6" stroke-linecap="butt">
+            <line x1="36" y1="81" x2="40" y2="81"/>
+            <line x1="42" y1="81" x2="47" y2="81"/>
+            <line x1="49" y1="81" x2="52" y2="81"/>
+            <line x1="54" y1="81" x2="59" y2="81"/>
+            <line x1="61" y1="81" x2="65" y2="81"/>
+            <line x1="67" y1="81" x2="74" y2="81"/>
+
+            <line x1="36" y1="86" x2="42" y2="86"/>
+            <line x1="44" y1="86" x2="48" y2="86"/>
+            <line x1="50" y1="86" x2="56" y2="86"/>
+            <line x1="58" y1="86" x2="62" y2="86"/>
+            <line x1="64" y1="86" x2="70" y2="86"/>
+
+            <line x1="36" y1="91" x2="41" y2="91"/>
+            <line x1="43" y1="91" x2="46" y2="91"/>
+            <line x1="48" y1="91" x2="53" y2="91"/>
+            <line x1="55" y1="91" x2="60" y2="91"/>
+            <line x1="62" y1="91" x2="65" y2="91"/>
+            <line x1="67" y1="91" x2="72" y2="91"/>
+          </g>
+        </g>
+      </g>
+    </symbol>
+
+    <!-- Covert mark: large stone-seal stamp (rectangular tablet with cuneiform-style marks) on faded granite -->
+    <symbol id="covert-mark-nazim" viewBox="0 0 96 96">
+      <g fill="none" stroke="currentColor" stroke-width="1.4">
+        <!-- Outer ring -->
+        <circle cx="48" cy="48" r="44"/>
+        <circle cx="48" cy="48" r="36" stroke-dasharray="3 4"/>
+        <!-- Rectangular stone tablet -->
+        <g fill="currentColor" stroke="currentColor" stroke-width="1.2">
+          <rect x="20" y="26" width="56" height="44" fill-opacity="0.32"/>
+          <!-- Corner notches (broken stone) -->
+          <path d="M 20 30 L 24 26"/>
+          <path d="M 72 26 L 76 30"/>
+          <path d="M 20 66 L 24 70"/>
+          <path d="M 72 70 L 76 66"/>
+        </g>
+        <!-- Carved cuneiform-style marks across the tablet face -->
+        <g stroke="currentColor" stroke-width="0.9" fill="none">
+          <line x1="26" y1="34" x2="34" y2="34"/>
+          <line x1="36" y1="34" x2="42" y2="34"/>
+          <line x1="44" y1="34" x2="50" y2="34"/>
+          <line x1="52" y1="34" x2="60" y2="34"/>
+          <line x1="62" y1="34" x2="70" y2="34"/>
+
+          <line x1="26" y1="42" x2="32" y2="42"/>
+          <line x1="34" y1="42" x2="42" y2="42"/>
+          <line x1="44" y1="42" x2="48" y2="42"/>
+          <line x1="50" y1="42" x2="58" y2="42"/>
+          <line x1="60" y1="42" x2="70" y2="42"/>
+
+          <line x1="26" y1="50" x2="34" y2="50"/>
+          <line x1="36" y1="50" x2="40" y2="50"/>
+          <line x1="42" y1="50" x2="50" y2="50"/>
+          <line x1="52" y1="50" x2="58" y2="50"/>
+          <line x1="60" y1="50" x2="68" y2="50"/>
+
+          <line x1="26" y1="58" x2="32" y2="58"/>
+          <line x1="34" y1="58" x2="40" y2="58"/>
+          <line x1="42" y1="58" x2="48" y2="58"/>
+          <line x1="50" y1="58" x2="56" y2="58"/>
+          <line x1="58" y1="58" x2="64" y2="58"/>
+          <line x1="66" y1="58" x2="70" y2="58"/>
+
+          <line x1="26" y1="66" x2="34" y2="66"/>
+          <line x1="36" y1="66" x2="44" y2="66"/>
+          <line x1="46" y1="66" x2="50" y2="66"/>
+          <line x1="52" y1="66" x2="60" y2="66"/>
+          <line x1="62" y1="66" x2="70" y2="66"/>
+        </g>
+      </g>
+    </symbol>
+
+    <!-- Vine pattern: repeating column of small mountain-peaks alternating with bound-chain links -->
+    <pattern id="vinePatternNazim" width="26" height="120" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="currentColor" stroke-width="0.7">
+        <!-- Stem -->
+        <line x1="13" y1="0" x2="13" y2="120" stroke-width="0.4" stroke-dasharray="2 2"/>
+        <!-- Mountain peak -->
+        <g transform="translate(13 14)">
+          <path d="M -5 4 L 0 -5 L 5 4 Z" fill="currentColor" fill-opacity="0.45" stroke="currentColor" stroke-width="0.6"/>
+        </g>
+        <!-- Chain link -->
+        <g transform="translate(13 38)">
+          <ellipse cx="0" cy="0" rx="3" ry="1.6" stroke="currentColor" stroke-width="0.7" fill="none"/>
+          <ellipse cx="0" cy="0" rx="1.5" ry="0.8" stroke="currentColor" stroke-width="0.5" fill="none"/>
+        </g>
+        <!-- Mountain peak -->
+        <g transform="translate(13 62)">
+          <path d="M -5 4 L 0 -5 L 5 4 Z" fill="currentColor" fill-opacity="0.45" stroke="currentColor" stroke-width="0.6"/>
+        </g>
+        <!-- Chain link -->
+        <g transform="translate(13 86)">
+          <ellipse cx="0" cy="0" rx="3" ry="1.6" stroke="currentColor" stroke-width="0.7" fill="none"/>
+          <ellipse cx="0" cy="0" rx="1.5" ry="0.8" stroke="currentColor" stroke-width="0.5" fill="none"/>
+        </g>
+        <!-- Mountain peak -->
+        <g transform="translate(13 110)">
+          <path d="M -5 4 L 0 -5 L 5 4 Z" fill="currentColor" fill-opacity="0.45" stroke="currentColor" stroke-width="0.6"/>
+        </g>
+      </g>
+    </pattern>
+  </defs>
+</svg>
+
+<article class="document">
+
+  <svg class="vine-margin" preserveAspectRatio="none" aria-hidden="true" style="width:26px; height:100%;">
+    <rect width="100%" height="100%" fill="url(#vinePatternNazim)"/>
+  </svg>
+
+  <!-- Stone-seal mark watermark -->
+  <svg class="covert-mark" aria-hidden="true"><use href="#covert-mark-nazim"/></svg>
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="masthead-eyebrow">
+        <span class="arabic">دیوان الطریق</span>
+        <span class="bureau-name">Dīwān al-Ṭarīq</span> &middot; Bureau of the Roads &middot; <span class="dossier-no">Dossier · Wizard</span>
+      </div>
+      <h1 class="character-name">Nazim ibn Yusuf</h1>
+      <p class="character-subtitle">the Stone-Bound &middot; Qara Bitigchi of the Kurgan-Stones</p>
+    </div>
+    <svg class="cartouche" aria-hidden="true" style="color: var(--accent-deep);">
+      <use href="#cartouche-nazim"/>
+    </svg>
+  </header>
+
+  <!-- ============ IDENTITY + PORTRAIT ============ -->
+  <section class="identity-band">
+    <div class="identity-block">
+      <div class="identity-row">
+        <span class="identity-label">Class &amp; Level</span>
+        <span class="identity-value">Wizard 3 &middot; School of the Stone Scribe</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Race</span>
+        <span class="identity-value">Human (Standard)</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Background</span>
+        <span class="identity-value">Âlim <em>— Empires of the Silk Road</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Age</span>
+        <span class="identity-value">33</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Heritage</span>
+        <span class="identity-value">Turkic &middot; Cuman-adjacent clan, born on the open steppe <em>(herder's son; later a wandering scholar's apprentice)</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Faith</span>
+        <span class="identity-value">Tengrist <em>— venerates Mergen and the eternal blue sky; a thin Islamic veneer in the bazaar cities of Samarkand and Bukhara because it is easier than arguing</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Alignment</span>
+        <span class="identity-value">Neutral Good</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Languages</span>
+        <span class="identity-value">Turkish (Common of the steppe), Old Turkic, Persian
+          <span class="surname-note">Old Turkic and Persian both acquired through the Âlim background. Old Turkic is the language of the kurgan inscriptions; Persian is the scholarly tongue of his sometime-employers.</span>
+        </span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Epithet</span>
+        <span class="identity-value"><em>"the Stone-Bound"</em>
+          <span class="surname-note">The qara bitigchi tradition's own name for its scribes — those <em>bound</em> to the silent witnesses of the steppe, the kurgan-stelae carved by the Göktürk and Uyghur khaganates.</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="portrait-plate">
+      <div class="portrait-frame empty">
+        <div class="empty-monogram">ن</div>
+        <div class="empty-note">Portrait pending</div>
+      </div>
+      <div class="portrait-caption">
+        <strong>Nazim ibn Yusuf</strong><br>
+        Turkic / Steppe &middot; Aged Thirty-Three
+      </div>
+      <div class="portrait-aliases">he measures a place by what is carved into its oldest stone</div>
+    </div>
+  </section>
+
+  <!-- ============ BIO ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazim-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">On the Subject</h2>
+    </div>
+    <div class="bio">
+      <p>Nazim was born in a felt-walled <em>aul</em> on the high steppe, the son of a herdsman named Yusuf and a mother who could read the cracks in a fire-heated shoulder-blade. He showed early the patience that the Stone Scribes look for — the kind of child who would sit for hours tracing the wind-carved grooves on a <em>balbal</em> stelae until he could close his eyes and feel the letter-shapes under his fingertips. A passing scholar of the <em>Qara Bitig</em> tradition — the ancient circle of arcanists who read the Old Turkic runic inscriptions left on kurgan-stones by the Göktürk and Uyghur khaganates — noticed him at thirteen and took him for an apprentice. He spent twenty years on the road since then, riding from one weathered stelae to the next: the Orkhon inscriptions, the Bilge Kagan stones, the half-buried Uyghur memorial pillars west of the Tien Shan. He has copied so many inscriptions into his spellbook that the book itself has become a kind of small kurgan — a stone in leather, carrying the voices of the dead.</p>
+      <p>In the cities along the Silk Road he hires himself out as an oracle — reading star-signs, casting bones, and now and then deciphering a real inscription for a merchant or governor who suspects their land has older bones than they thought. He keeps a thin Muslim veneer in Samarkand and Bukhara because it is easier than arguing, but his real loyalty is to Tengri's eternal blue sky and to the chain of <em>qara bitigchi</em> who came before him.</p>
+      <p>He is mid-career: old enough to have outlived his first master, young enough that the road still feels like an answer rather than a verdict.</p>
+    </div>
+  </section>
+
+  <!-- ============ ABILITY SCORES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazim-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Faculties &amp; Saving Throws</h2>
+      <p class="section-subtitle">Rolled array 9, 10, 10, 11, 12, 16 &middot; Human +1 to all six &middot; Ritual Master feat +1 Int</p>
+    </div>
+    <div class="abilities">
+      <div class="ability-card">
+        <div class="ability-name">Strength</div>
+        <div class="ability-score">10</div>
+        <div class="ability-mod">+0</div>
+        <div class="ability-save">Save <span class="save-val">+0</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Dexterity</div>
+        <div class="ability-score">11</div>
+        <div class="ability-mod">+0</div>
+        <div class="ability-save">Save <span class="save-val">+0</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Constitution</div>
+        <div class="ability-score">12</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Intelligence</div>
+        <div class="ability-score">18</div>
+        <div class="ability-mod">+4</div>
+        <div class="ability-save">Save <span class="save-val">+6</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Wisdom</div>
+        <div class="ability-score">13</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+3</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Charisma</div>
+        <div class="ability-score">11</div>
+        <div class="ability-mod">+0</div>
+        <div class="ability-save">Save <span class="save-val">+0</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMBAT STATS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazim-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Bearing on the Route</h2>
+    </div>
+    <div class="combat-stats">
+      <div class="stat-cell">
+        <div class="stat-cell-label">Proficiency</div>
+        <div class="stat-cell-value">+2</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Armour Class</div>
+        <div class="stat-cell-value">13 <small>with <em>Mage Armor</em>; 10 unarmored</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Initiative</div>
+        <div class="stat-cell-value">+0</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Speed</div>
+        <div class="stat-cell-value">30 <small>ft</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Points</div>
+        <div class="stat-cell-value">17</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Dice</div>
+        <div class="stat-cell-value">3d6</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Passive Perception</div>
+        <div class="stat-cell-value">11</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Spell Save DC</div>
+        <div class="stat-cell-value">14 <small>+6 atk &middot; Int</small></div>
+      </div>
+    </div>
+    <div class="skills-note">
+      Practice: he prepares <em>Mage Armor</em> daily and casts it at dawn for AC 13 across the working day; he keeps <em>Shield</em> as his reaction defense.
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazim-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <table class="skills-table">
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th class="bonus" style="text-align:center;">Bonus</th>
+          <th class="source">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Arcana</td>        <td class="bonus">+6</td> <td class="source">Âlim</td></tr>
+        <tr><td>History</td>       <td class="bonus">+6</td> <td class="source">Âlim</td></tr>
+        <tr><td>Investigation</td> <td class="bonus">+6</td> <td class="source">Wizard</td></tr>
+        <tr><td>Religion</td>      <td class="bonus">+3</td> <td class="source">Wizard</td></tr>
+        <tr><td>Insight</td>       <td class="bonus">+3</td> <td class="source">Oracle — <em>Cold Reading</em></td></tr>
+      </tbody>
+    </table>
+    <div class="skills-note">
+      Tool / instrument proficiencies: <strong>Shagai</strong> game set (Past Education Option 3 — the Mongolian / Central Asian knucklebones, steppe-traditional, used for both gaming and seer-divination; pairs with the Oracle profession overlay). Wizard skill picks intentionally avoided Arcana and History, both already granted by Âlim, to recover the proficiency slots.
+    </div>
+  </section>
+
+  <!-- ============ CLASS FEATURES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazim-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Class Features</h2>
+    </div>
+
+    <div class="features-cluster-title">Wizard — Base</div>
+
+    <div class="feature">
+      <div class="feature-title">Armor / Weapons</div>
+      <div class="feature-meta">Level 1</div>
+      <div class="feature-body">
+        <p>Daggers, darts, slings, quarterstaffs, light crossbows. <strong>No armor proficiency.</strong></p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Spellcasting</div>
+      <div class="feature-meta">Level 1 &middot; Int-based</div>
+      <div class="feature-body">
+        <p>Intelligence is his spellcasting ability. <strong>Spell save DC 14 &middot; Spell attack +6</strong>. Prepares spells from spellbook each long rest; can cast <strong>known rituals from the book without preparing them</strong>. <strong>Spell slots:</strong> 4 × 1st &middot; 2 × 2nd.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Arcane Recovery</div>
+      <div class="feature-meta">Level 1 &middot; 1/long rest</div>
+      <div class="feature-body">
+        <p>On a short rest, recover spell slots whose combined level ≤ ½ wizard level rounded up = <strong>2 levels of slots</strong> (e.g., two 1st-level slots, or one 2nd-level slot). No slot recovered may be 6th level or higher.</p>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">School of the Stone Scribe — Empires of the Silk Road</div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Secrets of the Stone</div>
+      <div class="feature-meta">Level 2 · Subclass core</div>
+      <div class="feature-body">
+        <p>When Nazim encounters an inscription bearing a spell that belongs to his arcane tradition, he can use his action to touch the inscription and memorize the spell. He can memorize spells this way a number of times equal to his Int mod (<strong>4 / long rest</strong>); each memorized spell can be cast once without expending a spell slot. Once such a memorized spell is expended, he cannot cast it that way again — but he may <strong>scribe it into his spellbook in half the normal time and at half the normal material cost</strong>. If it is a ritual, he can cast it as a ritual in half the given time (after which the memorized copy is spent).</p>
+      </div>
+    </div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Shared Memory</div>
+      <div class="feature-meta">Level 2 · Subclass · bonus action · 20 ft</div>
+      <div class="feature-body">
+        <p>As a bonus action, Nazim can choose a bard, cleric, druid, sorcerer, or another wizard within 20 ft. and choose one of his own spell slots of 5th level or lower. That slot counts as expended for him, and for the next 10 minutes the chosen caster may use that slot to cast any appropriate spell of their own.</p>
+        <div class="dice-callout">
+          <span class="dice-callout-label">When he shares</span>
+          <span class="dice-callout-dice">d10 — on a 10</span>
+          <span style="color:var(--ink-soft);font-style:italic;font-size:0.95rem;">the slot is not actually expended for him, and the ally still gets the benefit.</span>
+        </div>
+        <p><strong>Free language utility:</strong> he also knows <em>comprehend languages</em> and can cast it without expending a slot <strong>4 / long rest</strong> (= Int mod). He may also cast it normally with a slot, and it does not count against his prepared list.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPELLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazim-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Spells</h2>
+      <p class="section-subtitle">Int &middot; DC 14 &middot; Atk +6 &middot; 4 × 1st, 2 × 2nd &middot; prepares <strong>7</strong></p>
+    </div>
+
+    <div class="features-cluster-title">Cantrips Known (3)</div>
+
+    <div class="feature">
+      <div class="feature-title">Fire Bolt &middot; Mage Hand &middot; Mending</div>
+      <div class="feature-body">
+        <p><em>Fire Bolt</em> — 120 ft, ranged spell attack (+6), 1d10 fire.<br>
+        <em>Mage Hand</em> — spectral hand, 30 ft, 10 lb. limit, 1 minute.<br>
+        <em>Mending</em> — repair a single break or tear. Fitting for a man who restores eroded inscriptions.</p>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">Spellbook (10 spells + Ritual Master bonus)</div>
+
+    <div class="feature">
+      <div class="feature-title">Inscribed</div>
+      <div class="feature-meta">Ritual spells marked (R) — castable from the book without preparation if 10 extra minutes are spent</div>
+      <div class="feature-body">
+        <table class="spellbook-table">
+          <thead>
+            <tr>
+              <th>Lvl</th>
+              <th>Spell</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="lvl">1</td><td class="spell">Detect Magic (R)</td><td class="note">ritual</td></tr>
+            <tr><td class="lvl">1</td><td class="spell">Identify (R)</td><td class="note">ritual</td></tr>
+            <tr><td class="lvl">1</td><td class="spell">Find Familiar (R)</td><td class="note">a steppe-spirit familiar — falcon or fox</td></tr>
+            <tr><td class="lvl">1</td><td class="spell">Shield</td><td class="note">reaction defense</td></tr>
+            <tr><td class="lvl">1</td><td class="spell">Sleep</td><td class="note">party crowd-control</td></tr>
+            <tr><td class="lvl">1</td><td class="spell">Magic Missile</td><td class="note">reliable damage</td></tr>
+            <tr><td class="lvl">1</td><td class="spell">Mage Armor</td><td class="note">AC 13 at dawn for the day</td></tr>
+            <tr><td class="lvl">1</td><td class="spell">Unseen Servant (R)</td><td class="note">ritual</td></tr>
+            <tr><td class="lvl">1</td><td class="spell">Alarm (R)</td><td class="note">Ritual Master bonus — free scribe</td></tr>
+            <tr><td class="lvl">2</td><td class="spell">Mirror Image</td><td class="note">defensive, concentration-free</td></tr>
+            <tr><td class="lvl">2</td><td class="spell">Misty Step</td><td class="note">bonus-action escape</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">Prepared (7 — Int mod 4 + Wizard level 3)</div>
+
+    <div class="feature">
+      <div class="feature-title">Today's preparation</div>
+      <div class="feature-body">
+        <ul class="spell-pills">
+          <li>Mage Armor <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L1</span></li>
+          <li>Shield <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L1</span></li>
+          <li>Magic Missile <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L1</span></li>
+          <li>Sleep <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L1</span></li>
+          <li>Find Familiar <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L1</span></li>
+          <li>Mirror Image <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L2</span></li>
+          <li>Misty Step <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L2</span></li>
+        </ul>
+        <p style="margin-top:0.8em;">Rituals from the book (<em>Detect Magic, Identify, Unseen Servant, Alarm</em>) need not be prepared and may be cast straight from the page.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Spellcasting Focus</div>
+      <div class="feature-body">
+        <p>A <strong>bone-and-iron stylus</strong>, used for scribing fresh inscriptions onto stone or paper.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEAT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazim-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Feat</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Ritual Master</div>
+      <div class="feature-meta">Level 1 · Granted feat &middot; Empires of the Silk Road</div>
+      <div class="feature-body">
+        <ul>
+          <li><strong>+1 Intelligence</strong> — already applied (Int 17 → <strong>18</strong>).</li>
+          <li>Learns <em>alarm</em>, treated as a wizard spell for him and scribed into his spellbook at no cost.</li>
+          <li>Once per long rest, when he casts a spell as a ritual, he may use the spell's normal casting time rather than adding 10 minutes to it.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BACKGROUND ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazim-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Background — Âlim</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Scholarly Tradition</div>
+      <div class="feature-body">
+        <p>Thanks to his studies, Nazim can recognize <strong>through which means to find a specific piece of knowledge, or how such knowledge could be lost to ages</strong>. In practice: if it can be known, he knows where to start looking — which library, which stelae, which memory-keeper to ask.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Specialty &middot; Qara Bitigchi of the Stone Scribes</div>
+      <div class="feature-body">
+        <p>Apprenticed at thirteen to a wandering master of the <em>Qara Bitig</em> — the ancient circle of arcanists who read the Old Turkic runic inscriptions left on kurgan-stones by the Göktürk and Uyghur khaganates. Twenty years on the road, from the Orkhon inscriptions to the Bilge Kagan stones to the half-buried Uyghur memorial pillars west of the Tien Shan. Grants <strong>Old Turkic</strong> and <strong>Persian</strong>; grants a partial copy of the <em>Qara Bitig</em> ledger.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ YOUR JOURNEY (LIFEPATH) ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazim-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Your Journey</h2>
+      <p class="section-subtitle">Lifepath &middot; rolled and chosen entries from the Silk Road book</p>
+    </div>
+
+    <div class="journey-grid">
+      <div class="journey-card">
+        <div class="jc-label">Birthplace</div>
+        <div class="jc-value"><strong>Under the stars</strong> — born on the open steppe as his mother's <em>aul</em> moved with the herds.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Family</div>
+        <div class="jc-value">Both parents alive at his birth — his father <strong>Yusuf</strong>, a herdsman; his mother a reader of fire-heated shoulder-blades. His father died of fever sometime between Nazim's age 13 and now. Both his father and his first master are gone.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Siblings</div>
+        <div class="jc-value">One — an elder sister still with the clan's herds.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Lifestyle</div>
+        <div class="jc-value"><strong>Modest.</strong> Enough to feed, clothe, and trade for the books his teacher needed. <em>No starting gold bonus.</em></div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Strings to Arcanum</div>
+        <div class="jc-value">His clan harbored a quiet line of <em>qara bitigchi</em> scribes. The arcane circle is small, generational, and discreet. <em>Grants +1 extra Life Event, which must be an Arcane Event.</em></div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Past Education</div>
+        <div class="jc-value">Taught by family, then by a wandering master of the <em>Qara Bitig</em> (Option 3 — unorthodox). He learned at a master's elbow on the road, not in a Baghdad lecture hall. <em>Grants the Shagai game set.</em></div>
+      </div>
+    </div>
+
+    <div class="journey-events">
+      <div class="journey-event">
+        <div class="journey-event-roll">Event I &middot; d20 = 11</div>
+        <h4 class="journey-event-title">Lost something or someone important.</h4>
+        <div class="journey-event-body">
+          <p>His first master — dead and buried east of Samarkand under the kurgan whose inscription Nazim has not yet been strong enough to go and read. This is the bio's central bond.</p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event II &middot; d20 = 10 → d6 = 4</div>
+        <h4 class="journey-event-title">Met a great poet of his time.</h4>
+        <div class="journey-event-body">
+          <p>During his travels, Nazim crossed paths with a <em>known</em> poet of the Silk Road era. Plausible: a Persian Sufi poet at a Samarkand court, or a Turkic <em>ozan</em> whose songs preserved old Tengrist inscriptions. The poet recognized what Nazim was reading on the stones and gave him a piece of language he hadn't seen before. <em>GM-named.</em></p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event III &middot; d20 = 18</div>
+        <h4 class="journey-event-title">Throughout his life, he always felt he was being followed.</h4>
+        <div class="journey-event-body">
+          <p>Some nights on the road between kurgans, he has heard a second set of footsteps in the snow that stop when he stops. He has never seen who. He has a strong suspicion — connected to the master's unread capstone — but he does not speak of it.</p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event IV &middot; Arcane &middot; d20 = 4 → d8 = 2</div>
+        <h4 class="journey-event-title">Saw a mage conjure some kind of otherworldly entity.</h4>
+        <div class="journey-event-body">
+          <p>He watched, did not speak of it, did not approach. He has read inscriptions about such bindings since.</p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event V &middot; d20 = 7</div>
+        <h4 class="journey-event-title">Made an enemy of an adventurer.</h4>
+        <div class="journey-event-body">
+          <p>Some rival <em>qara bitigchi</em> who reads the same stones for a different patron and resents Nazim's access to the <em>Qara Bitig</em> fragment. <em>GM-assigned.</em></p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event VI &middot; Forced Arcane &middot; d8 = 6</div>
+        <h4 class="journey-event-title">Found a magical item, used it, lost it.</h4>
+        <div class="journey-event-body">
+          <p>A minor scribe's tool he found in a half-collapsed kurgan early in his apprenticeship — a stylus that briefly let him read any inscription regardless of language. He used it for a year and then it broke. He thinks his master may have ensured it broke. He is not yet sure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROFESSION ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazim-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Profession</h2>
+      <p class="section-subtitle">Silk Road PEX system &middot; Apprentice rank</p>
+    </div>
+    <div class="profession-block">
+      <div class="profession-head">
+        <div class="profession-name">Oracle</div>
+        <div class="profession-rank">Apprentice · Rank 1 <span class="pex">PEX 0</span></div>
+      </div>
+      <p class="profession-baseline">
+        <strong>Cold Reading</strong> (free) — Insight proficiency, usable for fortune-telling checks; at GM's discretion may be rolled with <strong>Intelligence</strong> as well as Wisdom.<br>
+        <strong>Basic Astrology</strong> (free) — By learning a person's birthday and birth-hour, he can determine their star-signs (DC 10 Int (Nature) check; DC 15 without the hour) and learn the personality summary the GM provides.
+      </p>
+      <p class="profession-available">
+        Nazim earns PEX in play by reading hands, predicting weather, charting star-maps, and the like. Higher-rank Oracle abilities — deeper readings, true divinations, the binding of small omens — fit his trajectory but cost PEX he has not yet earned. His Oracle hangs over the Stone Scribe like a useful disguise: a man who can read your fortune is welcome at any caravanserai; a man who reads kurgan-stones is not.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ EQUIPMENT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazim-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Equipment</h2>
+    </div>
+    <div class="equipment-grid">
+      <div class="equip-block">
+        <div class="equip-block-title">Weapons</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Quarterstaff</span> &mdash; <span class="item-detail">1d6 bludgeoning (1d8 versatile). Walking-staff and last resort.</span></li>
+          <li><span class="item-name">Dagger &times; 2</span> &mdash; <span class="item-detail">1d4 piercing, finesse, light, thrown 20/60.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Armour</div>
+        <ul class="equip-list">
+          <li><span class="item-name">None.</span> &mdash; <span class="item-detail">No armor proficiency. He prepares <em>Mage Armor</em> daily and casts it at dawn for AC 13 throughout the working day; <em>Shield</em> as a reaction for spike protection.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Spellcasting Focus</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Bone-and-iron stylus</span> &mdash; <span class="item-detail">used for scribing fresh inscriptions onto stone or paper. His arcane focus.</span></li>
+          <li><span class="item-name">Component pouch</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Personal Items</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Spellbook</span> &mdash; <span class="item-detail">a leather-bound volume thick with rubbings, traced and re-traced from kurgan-stones. The book itself has become a kind of small kurgan — a stone in leather, carrying the voices of the dead.</span></li>
+          <li><span class="item-name">The Qara Bitig fragment</span> &mdash; <span class="item-detail">a partial copy of the Stone Scribe ledger; gift from his first master.</span></li>
+          <li><span class="item-name">Bottle of ink, quill, ten sheets of parchment</span> &mdash; <span class="item-detail">Âlim background.</span></li>
+          <li><span class="item-name">Explorer's pack</span> &mdash; <span class="item-detail">backpack, bedroll, mess kit, tinderbox, 10 days' rations, waterskin, 50 ft. hempen rope. More appropriate than a scholar's pack for a man who rides between kurgan-stones across the steppe.</span></li>
+          <li><span class="item-name">Set of common clothes</span> &mdash; <span class="item-detail">traveler's robe over a quilted under-tunic, steppe-fashion.</span></li>
+          <li><span class="item-name">Belt pouch</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Available — Not Carried</div>
+        <ul class="equip-list">
+          <li><span class="item-name">A second quill and ink set</span> &mdash; <span class="item-detail">kept for fieldwork. Wrapped in oilcloth at the bottom of a saddle-bag.</span></li>
+        </ul>
+      </div>
+
+      <div class="money-line">
+        Carrying <span class="amount">10 gp</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERSONALITY ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazim-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Personality</h2>
+    </div>
+    <div class="personality-grid">
+      <div class="personality-card">
+        <div class="personality-label">Trait</div>
+        <p class="personality-text">"I measure a place by what is carved into its oldest stone, not by what its current rulers say about themselves. I will excuse myself mid-conversation to copy down an inscription on a doorpost."</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Ideal <span class="alignment-tag">— Continuity · Neutral Good</span></div>
+        <p class="personality-text">"The chain of those who can read the old stones must not be broken. Whatever else I do, I must one day teach what I was taught."</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Bond</div>
+        <p class="personality-text">"Somewhere in the steppes east of Samarkand stands a kurgan I have not yet read — the burial-mound of the master who taught me, with his own final inscription carved on its capstone. I have not yet been strong enough, in any sense of the word, to go and read it."</p>
+      </div>
+      <div class="personality-card flaw">
+        <div class="personality-label">Flaw</div>
+        <p class="personality-text">"I cannot leave a half-translated inscription alone. I have walked into more than one bad situation because there was one more glyph to puzzle out before I left."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONNECTIONS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#nazim-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Connections</h2>
+    </div>
+    <ul class="connections-list">
+      <li><span class="conn-name">Aymara Flameshaper</span> — Two summers ago, Aymara's clan camped beside a half-buried kurgan-stelae two days west of Samarkand. Nazim, asking permission to read the inscription before the clan moved on, was let stay three nights. He traced rubbings by lamp-light, ate at their fire, and left Aymara's grandmother a folded paper covered in his careful Old Turkic glyphs — a copy of the line her grandmother had been worrying at. The clan that let him stay three nights was kinder than most, and the granddaughter — small for her age, then, with eyes that watched the fire too long — was the only one who asked him a question while he worked. She asked what the line said. He told her: "The road is older than the rider." She nodded as if she had known. He thought about that nod for months. When he came back the following spring to re-read the stelae alone, he hoped, foolishly, that the clan would still be camped there.</li>
+      <li><span class="conn-name">Farideh al-Saffar</span> — They met at the House of Wisdom in Baghdad seven years ago, when she was nineteen and still her father's apprentice, and he was passing through to consult a manuscript on Old Turkic kurgan-inscriptions. She sat down in the reading-stall next to his; he looked up, nodded, and went back to his work. <em>He does remember her.</em> He has remembered her for seven years. He has not told anyone, and would not know how to begin telling her, and is increasingly aware that he has now also failed to tell her for seven years.</li>
+    </ul>
+  </section>
+
+  <!-- ============ PATRON'S NOTE ============ -->
+  <section class="patron-note">
+    <div class="patron-label">From the Vizier's Hand</div>
+    <p class="patron-text">A man who reads stones older than empires is a man who will not be impressed by the empire I serve — which is precisely why I trust his copy of a line before I trust my own minister's translation of it.</p>
+    <div class="patron-signature">
+      &mdash; <span class="sig-name">Rashīd al-Dīn Hamadānī</span><span class="sig-arabic">رشید الدین</span>
+    </div>
+  </section>
+
+  <!-- ============ FOOT ============ -->
+  <footer class="document-foot">
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal-nazim"/></svg>
+    <div class="foot-text">
+      Compiled at the <span class="arabic">دیوان الطریق</span> &middot; Bureau of the Roads &middot; from Cathay to Constantinople
+    </div>
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal-nazim"/></svg>
+  </footer>
+
+</article>
+
+</body>
+</html>

@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Yakub the Riftwalker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Reem+Kufi:wght@400;500;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Yakub — Riftwalker · planar violet + obsidian + starlight + rift-gold */
+    --ground:       #1a1228;
+    --ground-deep:  #0a0612;
+    --paper:        #e3d8cc;
+    --paper-shade:  #d2c5b6;
+    --paper-edge:   #b6a896;
+    --ink:          #18141a;
+    --ink-soft:     #2e2832;
+    --ink-faint:    #5a4f60;
+    --accent:       #5a2a80;        /* planar violet */
+    --accent-deep:  #2e1244;
+    --accent-pale:  #8a5fb4;
+    --obsidian:     #1a1218;
+    --starlight:    #a8a4d4;
+    --rift-gold:    #b09028;
+    --rift-gold-deep:#6e5e1e;
+    --rule:         #a89880;
+    --rule-soft:    #c3b49a;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 12%, rgba(90, 42, 128, 0.34) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 88%, rgba(10, 6, 18, 0.7) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(26, 18, 40, 0.5) 0%, transparent 80%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  /* ============ DOCUMENT FOLIO ============ */
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 3.75rem 4.25rem 4.5rem;
+    position: relative;
+    box-shadow:
+      0 1px 2px rgba(10, 6, 18, 0.45),
+      0 14px 56px rgba(10, 6, 18, 0.65),
+      inset 0 0 0 1px rgba(168, 152, 128, 0.45);
+    background-image:
+      radial-gradient(ellipse at 0% 0%, rgba(176, 144, 40, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 100%, rgba(90, 42, 128, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(46, 18, 68, 0.05) 100%);
+  }
+
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--ground-deep) 0%,
+      var(--accent-deep) 18%,
+      var(--accent) 38%,
+      var(--rift-gold) 50%,
+      var(--accent) 62%,
+      var(--accent-deep) 82%,
+      var(--ground-deep) 100%);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--accent-deep) 20%,
+      var(--rift-gold) 50%,
+      var(--accent-deep) 80%,
+      transparent 100%);
+    opacity: 0.7;
+  }
+
+  .vine-margin {
+    position: absolute;
+    top: 5px; bottom: 3px; left: 0;
+    width: 26px;
+    opacity: 0.24;
+    pointer-events: none;
+    color: var(--accent-deep);
+  }
+
+  .covert-mark {
+    position: absolute;
+    top: 22px;
+    right: 32px;
+    width: 96px;
+    height: 96px;
+    opacity: 0.10;
+    pointer-events: none;
+    color: var(--accent);
+  }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2rem;
+  }
+  .masthead-left { min-width: 0; }
+  .masthead-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.38em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .masthead-eyebrow .dossier-no {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .masthead-eyebrow .arabic {
+    font-family: "Amiri", "Reem Kufi", serif;
+    letter-spacing: 0;
+    font-size: 1.05rem;
+    margin-right: 0.55em;
+    color: var(--accent-deep);
+    font-weight: 400;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+  .masthead-eyebrow .bureau-name {
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.35rem;
+    line-height: 1;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+  .character-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--accent-deep);
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .cartouche {
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+  }
+
+  /* ============ IDENTITY + PORTRAIT BAND ============ */
+  .identity-band {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 2.25rem;
+    margin-bottom: 2.5rem;
+    align-items: start;
+  }
+  .identity-block { min-width: 0; }
+  .identity-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0.4rem 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    align-items: baseline;
+  }
+  .identity-row:last-child { border-bottom: none; }
+  .identity-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .identity-value {
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+  }
+  .identity-value em {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  .surname-note {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    display: block;
+    margin-top: 0.15rem;
+  }
+
+  .portrait-plate { position: relative; }
+  .portrait-frame {
+    border: 1px solid var(--accent-deep);
+    padding: 6px;
+    background: var(--paper-shade);
+    box-shadow:
+      inset 0 0 0 1px var(--rift-gold),
+      0 2px 8px rgba(10, 6, 18, 0.25);
+    position: relative;
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--accent-deep);
+  }
+  .portrait-frame::before {
+    top: -4px; left: -4px;
+    border-right: none; border-bottom: none;
+  }
+  .portrait-frame::after {
+    bottom: -4px; right: -4px;
+    border-left: none; border-top: none;
+  }
+  .portrait-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: sepia(0.06) saturate(0.92) brightness(0.97);
+  }
+  .portrait-frame.empty {
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 12px,
+        rgba(90, 42, 128, 0.05) 12px,
+        rgba(90, 42, 128, 0.05) 24px
+      ),
+      var(--paper-shade);
+  }
+  .portrait-frame.empty .empty-monogram {
+    font-family: "Amiri", "Reem Kufi", serif;
+    font-size: 4rem;
+    color: var(--accent-deep);
+    opacity: 0.32;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    direction: rtl;
+  }
+  .portrait-frame.empty .empty-note {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .portrait-caption {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.7rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .portrait-caption strong {
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+  }
+  .portrait-aliases {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--accent-deep);
+    text-align: center;
+    margin-top: 0.4rem;
+  }
+
+  /* ============ SECTION ORNAMENTS ============ */
+  .section { margin-top: 2.5rem; }
+  .section-head {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    justify-content: center;
+    margin-bottom: 0.7rem;
+  }
+  .section-rule-line {
+    flex: 1;
+    max-width: 180px;
+    height: 1px;
+    background: var(--rule);
+  }
+  .section-ornament {
+    width: 30px; height: 30px;
+    color: var(--accent-deep);
+    flex-shrink: 0;
+  }
+  h2.section-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.55rem;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  .section-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-faint);
+    margin: 0.25rem 0 0;
+  }
+
+  /* ============ BIO ============ */
+  .bio {
+    font-family: "EB Garamond", serif;
+    font-size: 1.08rem;
+    line-height: 1.72;
+    color: var(--ink-soft);
+    text-align: justify;
+    hyphens: auto;
+  }
+  .bio p { margin: 0 0 1em; }
+  .bio p:last-child { margin-bottom: 0; }
+  .bio p:first-child::first-letter {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.1em 0.12em 0 0;
+    color: var(--accent-deep);
+  }
+
+  /* ============ ABILITY SCORES ============ */
+  .abilities {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+  }
+  .ability-card {
+    border: 1px solid var(--rule);
+    background: var(--paper-shade);
+    padding: 0.85rem 0.4rem 0.7rem;
+    text-align: center;
+    position: relative;
+  }
+  .ability-card::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 8px; right: 8px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .ability-card.saveprof::before {
+    background: var(--rift-gold-deep);
+    height: 3px;
+  }
+  .ability-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .ability-score {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 0.15rem 0 0.05rem;
+  }
+  .ability-mod {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem;
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  .ability-save {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+    padding-top: 0.35rem;
+    border-top: 1px dotted var(--rule-soft);
+  }
+  .ability-save .save-val {
+    font-family: "EB Garamond", serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    font-weight: 500;
+    margin-left: 0.2em;
+  }
+  .ability-card.saveprof .ability-save .save-val {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+
+  /* ============ COMBAT STATS ============ */
+  .combat-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 0.7rem 0.65rem;
+  }
+  .stat-cell-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .stat-cell-value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-top: 0.15rem;
+  }
+  .stat-cell-value small {
+    font-family: "EB Garamond", serif;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-left: 0.3em;
+  }
+
+  /* ============ SKILLS ============ */
+  .skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+  }
+  .skills-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .skills-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: baseline;
+  }
+  .skills-table tr:last-child td { border-bottom: none; }
+  .skills-table .bonus {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    color: var(--ink);
+    width: 70px;
+    text-align: center;
+  }
+  .skills-table .bonus.expertise {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .skills-table .source {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+  .skills-note {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    padding: 0.65rem 0.85rem;
+    background: var(--paper-shade);
+    border-left: 3px solid var(--accent);
+    margin-top: 0.8rem;
+  }
+
+  /* ============ FEATURE BLOCKS ============ */
+  .feature {
+    margin: 0 0 1.1rem;
+    padding: 0.85rem 1rem;
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+  }
+  .feature.subclass {
+    border-left-color: var(--rift-gold-deep);
+  }
+  .feature-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    color: var(--ink);
+    margin: 0 0 0.3rem;
+    letter-spacing: 0.01em;
+  }
+  .feature-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .feature-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .feature-body p { margin: 0 0 0.55em; }
+  .feature-body p:last-child { margin-bottom: 0; }
+  .feature-body ul {
+    margin: 0.4em 0 0.2em;
+    padding-left: 1.4em;
+  }
+  .feature-body ul li {
+    padding: 0.15em 0;
+  }
+  .feature-body strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .feature-body em {
+    color: var(--accent-deep);
+  }
+
+  .features-cluster-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .features-cluster-title:first-child { margin-top: 0; }
+
+  .spell-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    padding: 0;
+    margin: 0.5em 0 0;
+    list-style: none;
+  }
+  .spell-pills li {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.97rem;
+    color: var(--ink);
+    padding: 0.15rem 0.7rem;
+    background: var(--paper);
+    border: 1px solid var(--rift-gold);
+    border-left-width: 3px;
+    border-left-color: var(--rift-gold-deep);
+  }
+
+  .dice-callout {
+    margin: 0.5em 0;
+    padding: 0.55rem 0.85rem;
+    background: var(--paper);
+    border: 1px solid var(--rift-gold-deep);
+    border-left: 3px solid var(--accent);
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    font-size: 0.97rem;
+  }
+  .dice-callout-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .dice-callout-dice {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    color: var(--accent-deep);
+    font-size: 1.15rem;
+  }
+
+  /* ============ JOURNEY ============ */
+  .journey-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .journey-card {
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+    padding: 0.85rem 1rem;
+  }
+  .journey-card.event {
+    border-left-color: var(--rift-gold-deep);
+  }
+  .journey-card .jc-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .journey-card.event .jc-label { color: var(--rift-gold-deep); }
+  .journey-card .jc-value {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .journey-card .jc-value em { color: var(--ink-soft); font-style: italic; }
+  .journey-events {
+    margin-top: 1rem;
+  }
+  .journey-event {
+    margin: 0 0 0.8rem;
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+    border: 1px solid var(--rule-soft);
+    border-top: 2px solid var(--rift-gold);
+  }
+  .journey-event-roll {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .journey-event-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin: 0 0 0.35rem;
+  }
+  .journey-event-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.97rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ============ PROFESSION ============ */
+  .profession-block {
+    margin-top: 1rem;
+    padding: 1rem 1.2rem;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0,
+        transparent 24px,
+        rgba(176, 144, 40, 0.04) 24px,
+        rgba(176, 144, 40, 0.04) 48px
+      ),
+      var(--paper);
+    border: 1px solid var(--rift-gold);
+  }
+  .profession-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule-soft);
+    margin-bottom: 0.75rem;
+  }
+  .profession-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.12rem;
+    color: var(--ink);
+  }
+  .profession-rank {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    color: var(--rift-gold-deep);
+    text-transform: uppercase;
+  }
+  .profession-rank .pex {
+    color: var(--ink-faint);
+    margin-left: 0.5em;
+  }
+  .profession-baseline {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .profession-baseline strong { color: var(--ink); }
+  .profession-available {
+    margin-top: 0.85rem;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-faint);
+  }
+
+  /* ============ EQUIPMENT ============ */
+  .equipment-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .equip-block {
+    border: 1px solid var(--rule-soft);
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+  }
+  .equip-block-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 0 0 0.55rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .equip-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .equip-list li {
+    padding: 0.35rem 0;
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .equip-list li:last-child { border-bottom: none; }
+  .equip-list .item-name { font-weight: 500; }
+  .equip-list .item-detail {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-style: italic;
+  }
+  .money-line {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    padding: 0.85rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .money-line .amount {
+    font-family: "Cormorant Garamond", serif;
+    font-style: normal;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--rift-gold-deep);
+    letter-spacing: 0.05em;
+    margin: 0 0.3em;
+  }
+
+  /* ============ PERSONALITY ============ */
+  .personality-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+  .personality-card {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--paper-shade);
+    border-top: 2px solid var(--accent);
+    position: relative;
+  }
+  .personality-card.flaw {
+    border-top-color: var(--rift-gold);
+  }
+  .personality-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .personality-card.flaw .personality-label { color: var(--rift-gold-deep); }
+  .personality-label .alignment-tag {
+    color: var(--ink-faint);
+    font-weight: 400;
+    margin-left: 0.4em;
+  }
+  .personality-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ============ CONNECTIONS ============ */
+  .connections-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .connections-list li {
+    padding: 0.85rem 0 0.85rem 1.5rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+    line-height: 1.6;
+    position: relative;
+  }
+  .connections-list li:last-child { border-bottom: none; }
+  .connections-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 1.3em;
+    width: 8px; height: 8px;
+    border: 1px solid var(--accent);
+    transform: rotate(45deg);
+    background: var(--paper);
+  }
+  .connections-list .conn-name {
+    font-weight: 500;
+    color: var(--accent-deep);
+  }
+
+  /* ============ PATRON'S NOTE ============ */
+  .patron-note {
+    margin: 2.75rem 0 0;
+    padding: 1.5rem 1.75rem 1.65rem;
+    border: 1px solid var(--rift-gold-deep);
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 8px,
+        rgba(176, 144, 40, 0.04) 8px,
+        rgba(176, 144, 40, 0.04) 16px
+      ),
+      var(--paper-shade);
+    position: relative;
+  }
+  .patron-note::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 2px;
+    background: linear-gradient(90deg,
+      var(--rift-gold-deep) 0%,
+      var(--rift-gold) 30%,
+      var(--accent) 50%,
+      var(--rift-gold) 70%,
+      var(--rift-gold-deep) 100%);
+  }
+  .patron-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--rift-gold-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+  .patron-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+  .patron-signature {
+    margin-top: 0.85rem;
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    color: var(--ink-soft);
+  }
+  .patron-signature .sig-name {
+    font-style: italic;
+    color: var(--ink);
+  }
+  .patron-signature .sig-arabic {
+    font-family: "Amiri", serif;
+    font-style: normal;
+    font-size: 1.05rem;
+    color: var(--accent-deep);
+    margin-left: 0.4em;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+
+  /* ============ FOOT ============ */
+  .document-foot {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .foot-seal {
+    width: 38px; height: 38px;
+    color: var(--accent-deep);
+    opacity: 0.75;
+  }
+  .foot-text {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    flex: 1;
+  }
+  .foot-text .arabic {
+    font-family: "Amiri", "Reem Kufi", serif;
+    letter-spacing: 0;
+    color: var(--accent-deep);
+    margin: 0 0.4em;
+    font-size: 0.95rem;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 760px) {
+    body { padding: 1rem 0.4rem 2rem; }
+    .document { padding: 2.25rem 1.5rem 2.75rem; }
+    h1.character-name { font-size: 2.3rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1rem; }
+    .cartouche { width: 80px; height: 80px; justify-self: start; }
+    .identity-band { grid-template-columns: 1fr; }
+    .portrait-plate { max-width: 240px; }
+    .abilities { grid-template-columns: repeat(3, 1fr); }
+    .combat-stats { grid-template-columns: repeat(2, 1fr); }
+    .personality-grid { grid-template-columns: 1fr; }
+    .journey-grid { grid-template-columns: 1fr; }
+    .vine-margin { display: none; }
+    .skills-table .source { display: none; }
+    .covert-mark { display: none; }
+  }
+
+  @media (max-width: 460px) {
+    .abilities { grid-template-columns: repeat(2, 1fr); }
+    .identity-row { grid-template-columns: 1fr; gap: 0.1rem; }
+    .identity-label { font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Inline SVG definitions -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Section ornament: two overlapping circles (vesica piscis) with three stars inside -->
+    <symbol id="yakub-ornament" viewBox="0 0 30 30">
+      <g fill="none" stroke="currentColor" stroke-width="0.7">
+        <!-- Two overlapping circles forming the vesica -->
+        <circle cx="11" cy="15" r="7"/>
+        <circle cx="19" cy="15" r="7"/>
+        <!-- Almond fill — the rift -->
+        <path d="M 15 8.3 A 7 7 0 0 1 15 21.7 A 7 7 0 0 1 15 8.3 Z" fill="currentColor" fill-opacity="0.22" stroke="none"/>
+        <!-- Three small stars inside the almond -->
+        <circle cx="15" cy="11" r="0.7" fill="currentColor" stroke="none"/>
+        <circle cx="15" cy="15" r="0.8" fill="currentColor" stroke="none"/>
+        <circle cx="15" cy="19" r="0.7" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Foot seal: a small rift (vesica piscis) within a circle -->
+    <symbol id="yakub-foot-seal" viewBox="0 0 40 40">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <circle cx="20" cy="20" r="17"/>
+        <circle cx="20" cy="20" r="13" stroke-dasharray="1 2"/>
+        <!-- Vesica -->
+        <circle cx="16" cy="20" r="6"/>
+        <circle cx="24" cy="20" r="6"/>
+        <path d="M 20 14 A 6 6 0 0 1 20 26 A 6 6 0 0 1 20 14 Z" fill="currentColor" fill-opacity="0.45" stroke="none"/>
+        <!-- A small star inside -->
+        <circle cx="20" cy="20" r="0.8" fill="var(--paper)" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- Yakub's cartouche: a vertical rift (vesica piscis) within a larger outer ring; almond is dark with stars; constellation marks at the rim -->
+    <symbol id="cartouche-yakub" viewBox="0 0 110 110">
+      <g fill="none" stroke="currentColor" stroke-width="1.1">
+        <!-- Outer ring -->
+        <circle cx="55" cy="55" r="50"/>
+        <!-- Inner dashed ring -->
+        <circle cx="55" cy="55" r="42" stroke-width="0.7" stroke-dasharray="2 3"/>
+
+        <!-- Constellation marks at the rim — small star groups at cardinal points -->
+        <g fill="currentColor" stroke="none" opacity="0.7">
+          <!-- North cluster -->
+          <circle cx="55" cy="10" r="1"/>
+          <circle cx="50" cy="13" r="0.7"/>
+          <circle cx="60" cy="13" r="0.7"/>
+          <!-- East cluster -->
+          <circle cx="100" cy="55" r="1"/>
+          <circle cx="97" cy="50" r="0.7"/>
+          <circle cx="97" cy="60" r="0.7"/>
+          <!-- South cluster -->
+          <circle cx="55" cy="100" r="1"/>
+          <circle cx="50" cy="97" r="0.7"/>
+          <circle cx="60" cy="97" r="0.7"/>
+          <!-- West cluster -->
+          <circle cx="10" cy="55" r="1"/>
+          <circle cx="13" cy="50" r="0.7"/>
+          <circle cx="13" cy="60" r="0.7"/>
+        </g>
+
+        <!-- Two overlapping circles forming the vertical rift -->
+        <circle cx="55" cy="40" r="25" stroke-width="1.0"/>
+        <circle cx="55" cy="70" r="25" stroke-width="1.0"/>
+
+        <!-- The vesica almond — obsidian fill, semi-transparent -->
+        <path d="M 55 19 A 25 25 0 0 1 55 91 A 25 25 0 0 1 55 19 Z" fill="currentColor" fill-opacity="0.72" stroke="currentColor" stroke-width="1.2"/>
+
+        <!-- Stars scattered inside the rift -->
+        <g fill="var(--paper)" stroke="none" opacity="0.92">
+          <circle cx="55" cy="30" r="0.9"/>
+          <circle cx="51" cy="38" r="0.7"/>
+          <circle cx="58" cy="44" r="1.0"/>
+          <circle cx="53" cy="52" r="0.8"/>
+          <circle cx="57" cy="58" r="0.9"/>
+          <circle cx="52" cy="66" r="0.7"/>
+          <circle cx="58" cy="72" r="0.9"/>
+          <circle cx="54" cy="80" r="0.8"/>
+        </g>
+        <!-- A larger "guide star" near center -->
+        <g transform="translate(55 55)" fill="var(--paper)" stroke="none">
+          <path d="M 0 -3 L 0.8 -0.8 L 3 0 L 0.8 0.8 L 0 3 L -0.8 0.8 L -3 0 L -0.8 -0.8 Z"/>
+        </g>
+
+        <!-- A faint Eris-spiral at the very center -->
+        <g transform="translate(55 55)" stroke="var(--paper)" stroke-width="0.4" fill="none" opacity="0.6">
+          <path d="M -1 0 A 1 1 0 1 1 1 0 A 0.4 0.4 0 1 0 0.4 -0.4"/>
+        </g>
+      </g>
+    </symbol>
+
+    <!-- Covert mark: a constellation field with a vertical rift bisecting it -->
+    <symbol id="yakub-covert-mark" viewBox="0 0 96 96">
+      <g fill="none" stroke="currentColor" stroke-width="1.3">
+        <circle cx="48" cy="48" r="44"/>
+        <circle cx="48" cy="48" r="36" stroke-dasharray="3 4"/>
+        <!-- Constellation field (stars) -->
+        <g fill="currentColor" stroke="none">
+          <circle cx="22" cy="30" r="1.2"/>
+          <circle cx="30" cy="22" r="0.8"/>
+          <circle cx="18" cy="44" r="1.0"/>
+          <circle cx="28" cy="58" r="0.9"/>
+          <circle cx="22" cy="72" r="1.1"/>
+          <circle cx="34" cy="76" r="0.8"/>
+          <circle cx="62" cy="22" r="1.0"/>
+          <circle cx="74" cy="30" r="0.9"/>
+          <circle cx="78" cy="48" r="1.2"/>
+          <circle cx="68" cy="62" r="0.8"/>
+          <circle cx="76" cy="72" r="1.0"/>
+          <circle cx="60" cy="76" r="0.9"/>
+        </g>
+        <!-- Connecting lines (faint) -->
+        <g stroke-width="0.4" opacity="0.5">
+          <line x1="22" y1="30" x2="30" y2="22"/>
+          <line x1="22" y1="30" x2="18" y2="44"/>
+          <line x1="18" y1="44" x2="28" y2="58"/>
+          <line x1="74" y1="30" x2="78" y2="48"/>
+          <line x1="78" y1="48" x2="68" y2="62"/>
+          <line x1="68" y1="62" x2="76" y2="72"/>
+        </g>
+        <!-- The vertical rift bisecting the field -->
+        <circle cx="48" cy="34" r="18" stroke-width="1.2"/>
+        <circle cx="48" cy="62" r="18" stroke-width="1.2"/>
+        <path d="M 48 16 A 18 18 0 0 1 48 80 A 18 18 0 0 1 48 16 Z" fill="currentColor" fill-opacity="0.4" stroke="currentColor" stroke-width="1.4"/>
+        <!-- Inner rift stars -->
+        <g fill="var(--paper)" stroke="none">
+          <circle cx="48" cy="30" r="0.9"/>
+          <circle cx="48" cy="48" r="1.0"/>
+          <circle cx="48" cy="64" r="0.9"/>
+        </g>
+      </g>
+    </symbol>
+
+    <!-- Vine pattern: column of small rifts linked by faint star-trails -->
+    <pattern id="vinePattern" width="26" height="120" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="currentColor" stroke-width="0.5">
+        <!-- Stem -->
+        <line x1="13" y1="0" x2="13" y2="120" stroke-width="0.3"/>
+        <!-- Rift 1 -->
+        <g transform="translate(13 15)">
+          <circle cx="-2" cy="0" r="3"/>
+          <circle cx="2" cy="0" r="3"/>
+          <path d="M 0 -3 A 3 3 0 0 1 0 3 A 3 3 0 0 1 0 -3 Z" fill="currentColor" fill-opacity="0.45" stroke="none"/>
+        </g>
+        <!-- Star trail -->
+        <g fill="currentColor" stroke="none" opacity="0.6">
+          <circle cx="13" cy="22" r="0.4"/>
+          <circle cx="13" cy="26" r="0.5"/>
+          <circle cx="13" cy="32" r="0.4"/>
+        </g>
+        <!-- Rift 2 -->
+        <g transform="translate(13 45)">
+          <circle cx="-2" cy="0" r="3"/>
+          <circle cx="2" cy="0" r="3"/>
+          <path d="M 0 -3 A 3 3 0 0 1 0 3 A 3 3 0 0 1 0 -3 Z" fill="currentColor" fill-opacity="0.45" stroke="none"/>
+        </g>
+        <g fill="currentColor" stroke="none" opacity="0.6">
+          <circle cx="13" cy="52" r="0.4"/>
+          <circle cx="13" cy="56" r="0.5"/>
+          <circle cx="13" cy="62" r="0.4"/>
+        </g>
+        <!-- Rift 3 -->
+        <g transform="translate(13 75)">
+          <circle cx="-2" cy="0" r="3"/>
+          <circle cx="2" cy="0" r="3"/>
+          <path d="M 0 -3 A 3 3 0 0 1 0 3 A 3 3 0 0 1 0 -3 Z" fill="currentColor" fill-opacity="0.45" stroke="none"/>
+        </g>
+        <g fill="currentColor" stroke="none" opacity="0.6">
+          <circle cx="13" cy="82" r="0.4"/>
+          <circle cx="13" cy="86" r="0.5"/>
+          <circle cx="13" cy="92" r="0.4"/>
+        </g>
+        <!-- Rift 4 -->
+        <g transform="translate(13 105)">
+          <circle cx="-2" cy="0" r="3"/>
+          <circle cx="2" cy="0" r="3"/>
+          <path d="M 0 -3 A 3 3 0 0 1 0 3 A 3 3 0 0 1 0 -3 Z" fill="currentColor" fill-opacity="0.45" stroke="none"/>
+        </g>
+      </g>
+    </pattern>
+  </defs>
+</svg>
+
+<article class="document">
+
+  <svg class="vine-margin" preserveAspectRatio="none" aria-hidden="true" style="width:26px; height:100%;">
+    <rect width="100%" height="100%" fill="url(#vinePattern)"/>
+  </svg>
+
+  <svg class="covert-mark" aria-hidden="true"><use href="#yakub-covert-mark"/></svg>
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="masthead-eyebrow">
+        <span class="arabic">دیوان الطریق</span>
+        <span class="bureau-name">Dīwān al-Ṭarīq</span> &middot; Bureau of the Roads &middot; <span class="dossier-no">Dossier · Cleric</span>
+      </div>
+      <h1 class="character-name">Yakub the Riftwalker</h1>
+      <p class="character-subtitle">Brother of the Mystic Order of Samarkand &middot; Voice of Eris</p>
+    </div>
+    <svg class="cartouche" aria-hidden="true" style="color: var(--accent-deep);">
+      <use href="#cartouche-yakub"/>
+    </svg>
+  </header>
+
+  <!-- ============ IDENTITY + PORTRAIT ============ -->
+  <section class="identity-band">
+    <div class="identity-block">
+      <div class="identity-row">
+        <span class="identity-label">Class &amp; Level</span>
+        <span class="identity-value">Cleric 3 &middot; Chaos Domain</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Race</span>
+        <span class="identity-value">Human (Standard)</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Background</span>
+        <span class="identity-value">Âlim <em>— scholar/occult specialty, Empires of the Silk Road</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Age</span>
+        <span class="identity-value">41</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Heritage</span>
+        <span class="identity-value">Cuman (Turkic) by birth &middot; Persianate by upbringing <em>— given to a Persianate merchant household at age seven; took final vows with the Mystic Order of Samarkand. Identity has shifted three times.</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Faith</span>
+        <span class="identity-value">Worshiper of <strong>Eris, goddess of discord</strong> <em>— a canonical Chaos Domain patron, alongside Leviathan, Set, and the sons of Erlik.</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Alignment</span>
+        <span class="identity-value">Chaotic Neutral</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Languages</span>
+        <span class="identity-value">Persian (Common of Samarkand), Arabic, Celestial, Turkish
+          <span class="surname-note">Celestial as occult-scholar language. Turkish recovered through the Mystic Order's training (Past Education grant), formalized from his early Cuman childhood.</span>
+        </span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Byname</span>
+        <span class="identity-value"><em>al-Samarqandi — "of Samarkand"</em>
+          <span class="surname-note">"Mansur" — his father's name in the chain — was the given name of the famous Sufi mystic al-Hallaj. "al-Samarqandi" denotes membership in the Mystic Order, not birthplace. He answers to "of Samarkand" now.</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="portrait-plate">
+      <div class="portrait-frame empty">
+        <div class="empty-monogram">ی</div>
+        <div class="empty-note">Portrait pending</div>
+      </div>
+      <div class="portrait-caption">
+        <strong>Yakub ibn Mansur al-Samarqandi</strong><br>
+        Cuman / Persianate &middot; Aged Forty-One
+      </div>
+      <div class="portrait-aliases">discord made him make sense</div>
+    </div>
+  </section>
+
+  <!-- ============ BIO ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#yakub-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">On the Subject</h2>
+    </div>
+    <div class="bio">
+      <p>Yakub was born to a Cuman raiding clan on the open steppe — his early childhood was tents, horses, and the constant motion of a band that lived on what they took. At around seven he was given (or sold; he no longer remembers which) to a wealthy Persianate merchant in a city he could not name, where he served as a household servant for the next decade. The household was a comfortable one and he was treated well enough, but he was never of them. He filed and observed and read what books he could.</p>
+      <p>One stormy night when he was perhaps eighteen, an otherworldly voice spoke to him in a dream. He did not understand what it wanted — he only knew that the world he had been taught to accept was a lie, that something underneath it was speaking. He left service. He found the Mystic Order of Samarkand, scholars and seers who studied the tears in reality and the unpredictable powers that emerged through them, and he gave himself to their study. They named him <em>al-Samarqandi</em> in time. He took to it.</p>
+      <p>Twenty years have passed since. He has seen things. He fought once in a battle — the only battle of his life — and walked away from it the only man who did. A close friend died in another circumstance, and he holds himself responsible. He watched a djinn level a town from a hillside and was marked by it: a scar across his ribs that does not heal, that aches when the wind shifts. He came to Eris because the order's other masters spoke of balance and pattern and his life had taught him that the world is none of those things. Discord made sense. Discord made <em>him</em> make sense.</p>
+      <p>He delves into the secrets of chaos along the Silk Road, seeking to uncover the primal forces that move beneath it. His powers are volatile and he is feared and revered by those who know what he is — which is not many.</p>
+    </div>
+  </section>
+
+  <!-- ============ ABILITY SCORES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#yakub-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Faculties &amp; Saving Throws</h2>
+      <p class="section-subtitle">Rolled block #3: 7, 12, 13, 15, 16, 17 &middot; Human +1 to all six &middot; Ritual Master: +1 Wis</p>
+    </div>
+    <div class="abilities">
+      <div class="ability-card">
+        <div class="ability-name">Strength</div>
+        <div class="ability-score">8</div>
+        <div class="ability-mod">−1</div>
+        <div class="ability-save">Save <span class="save-val">−1</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Dexterity</div>
+        <div class="ability-score">13</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Constitution</div>
+        <div class="ability-score">17</div>
+        <div class="ability-mod">+3</div>
+        <div class="ability-save">Save <span class="save-val">+3</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Intelligence</div>
+        <div class="ability-score">14</div>
+        <div class="ability-mod">+2</div>
+        <div class="ability-save">Save <span class="save-val">+2</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Wisdom</div>
+        <div class="ability-score">19</div>
+        <div class="ability-mod">+4</div>
+        <div class="ability-save">Save <span class="save-val">+6</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Charisma</div>
+        <div class="ability-score">16</div>
+        <div class="ability-mod">+3</div>
+        <div class="ability-save">Save <span class="save-val">+5</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMBAT STATS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#yakub-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Bearing on the Route</h2>
+    </div>
+    <div class="combat-stats">
+      <div class="stat-cell">
+        <div class="stat-cell-label">Proficiency</div>
+        <div class="stat-cell-value">+2</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Armour Class</div>
+        <div class="stat-cell-value">15 <small>scale mail</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Initiative</div>
+        <div class="stat-cell-value">+1</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Speed</div>
+        <div class="stat-cell-value">30 <small>ft</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Points</div>
+        <div class="stat-cell-value">27</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Dice</div>
+        <div class="stat-cell-value">3d8</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Passive Perception</div>
+        <div class="stat-cell-value">14</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Spell Save DC</div>
+        <div class="stat-cell-value">14 <small>+6 atk &middot; Wis</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#yakub-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <table class="skills-table">
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th class="bonus" style="text-align:center;">Bonus</th>
+          <th class="source">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Arcana</td>    <td class="bonus">+4</td> <td class="source">Âlim</td></tr>
+        <tr><td>History</td>   <td class="bonus">+4</td> <td class="source">Âlim</td></tr>
+        <tr><td>Religion</td>  <td class="bonus">+4</td> <td class="source">Cleric</td></tr>
+        <tr><td>Medicine</td>  <td class="bonus">+6</td> <td class="source">Cleric</td></tr>
+        <tr><td>Insight</td>   <td class="bonus">+6</td> <td class="source">Oracle (Cold Reading)</td></tr>
+      </tbody>
+    </table>
+    <div class="skills-note">
+      Tool proficiencies: <strong>none</strong>. Âlim grants no tools per source; Oracle Apprentice grants no tools without spending PEX on "The Old Arts," which Yakub has not yet purchased.
+    </div>
+  </section>
+
+  <!-- ============ CLASS FEATURES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#yakub-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Class Features</h2>
+    </div>
+
+    <div class="features-cluster-title">Cleric — Base</div>
+
+    <div class="feature">
+      <div class="feature-title">Spellcasting</div>
+      <div class="feature-meta">Level 1 &middot; Wis-based</div>
+      <div class="feature-body">
+        <p>Wisdom is his spellcasting ability. <strong>Spell save DC 14 &middot; Spell attack +6</strong>. Prepares spells equal to Wis mod + cleric level = <strong>7 spells</strong> per day, from the full cleric spell list. Plus domain spells (always prepared, no count). Spellcasting focus: a holy symbol of chaos.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Channel Divinity</div>
+      <div class="feature-meta">Level 2 &middot; 1 use/short or long rest</div>
+      <div class="feature-body">
+        <p>One option per use. Available options: <strong>Turn Undead</strong> (standard), <strong>Chaotic Displacement</strong>, or <strong>Disturbance in the Fabric</strong> (Chaos Domain).</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Ritual Casting</div>
+      <div class="feature-meta">Level 1</div>
+      <div class="feature-body">
+        <p>He may cast a cleric spell as a ritual if the spell has the ritual tag and is in his prepared list. Combined with the Ritual Master feat below, his ritual casts use the spell's normal casting time rather than the +10-minute ritual surcharge — <em>once per long rest.</em></p>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">Chaos Domain — Empires of the Silk Road</div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Domain Spells</div>
+      <div class="feature-meta">Always prepared</div>
+      <div class="feature-body">
+        <ul class="spell-pills">
+          <li>Color Spray <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">1st</span></li>
+          <li>Inflict Wounds <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">1st</span></li>
+          <li>Enthrall <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">2nd</span></li>
+          <li>Suggestion <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">2nd</span></li>
+        </ul>
+        <p style="font-size:0.92rem;font-style:italic;color:var(--ink-faint);margin-top:0.8em;">Domain spells are always prepared and do not count against the 7-spell preparation limit.</p>
+      </div>
+    </div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Voice of Chaos</div>
+      <div class="feature-meta">Level 1 · Highest-slot trigger</div>
+      <div class="feature-body">
+        <p>When Yakub expends a spell slot of the highest level he currently has (at L3: 2nd-level slots), he rolls on the <strong>Chaos Table</strong> (d20). The GM may also trigger rolls in other situations no more than twice per session. At Cleric 20 he ignores the table.</p>
+      </div>
+    </div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Unpredictable Might</div>
+      <div class="feature-meta">Level 1 · Reaction · 2 uses/long rest (= PB)</div>
+      <div class="feature-body">
+        <p>When a creature within 30 ft. casts a spell of 1st level or higher, he may use his reaction. First, he makes a Wisdom save (DC 10 + spell's level). On a success, he applies one of the following effects:</p>
+        <ul>
+          <li><strong>Change Target</strong> — single-target spell to a new target within range.</li>
+          <li><strong>Change Type</strong> — acid/cold/fire/lightning/poison/thunder to any of the others.</li>
+          <li><strong>Change Origin</strong> — AoE spell with non-caster origin shifts 10 ft.</li>
+          <li><strong>Cause Harm</strong> — after a healing spell, deal <strong>1d6 psychic</strong> to target or caster within 30 ft.</li>
+          <li><strong>Cause Heal</strong> — after a damaging spell, restore <strong>1d6 HP</strong> to target or caster (not him).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Channel Divinity · Chaotic Displacement</div>
+      <div class="feature-meta">Level 2 · Choose 4 willing within 120 ft.</div>
+      <div class="feature-body">
+        <p>Utters a word; he chooses four willing creatures within 120 ft. He does not need to see them but must know their locations. All four swap locations randomly and gain temporary HP equal to <strong>2d4 + 2</strong> (PB), and advantage on the next save they make until the end of his next turn.</p>
+      </div>
+    </div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Channel Divinity · Disturbance in the Fabric</div>
+      <div class="feature-meta">Level 2 · 30-ft. radius · maintained</div>
+      <div class="feature-body">
+        <p>He touches enemies' deepest fears. All enemies within 30 ft. make a Cha save (DC 14) or perceive their allies as enemies for the duration. Each turn he makes a DC 15 Wis save to maintain; on failure he takes <strong>1d6 psychic</strong> (increases by 1d6 per 2 cleric levels) and the effect ends. Maintained 1 minute = full effect; concentration-like.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPELLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#yakub-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Spells</h2>
+      <p class="section-subtitle">Spell save DC 14 &middot; Spell attack +6 &middot; Slots: 1st × 4, 2nd × 2</p>
+    </div>
+
+    <div class="features-cluster-title">Cantrips (3)</div>
+    <div class="feature">
+      <div class="feature-body">
+        <ul class="spell-pills">
+          <li>Guidance</li>
+          <li>Toll the Dead</li>
+          <li>Sacred Flame</li>
+        </ul>
+        <p style="font-size:0.92rem;font-style:italic;color:var(--ink-faint);margin-top:0.8em;"><em>Toll the Dead</em> is a Xanathar's cantrip, not SRD; approved for inclusion in this campaign.</p>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">Prepared Spells (7, + Alarm via Ritual Master)</div>
+    <div class="feature">
+      <div class="feature-body">
+        <ul class="spell-pills">
+          <li>Bless <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">1st</span></li>
+          <li>Cure Wounds <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">1st</span></li>
+          <li>Sanctuary <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">1st</span></li>
+          <li>Shield of Faith <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">1st</span></li>
+          <li>Spiritual Weapon <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">2nd</span></li>
+          <li>Hold Person <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">2nd</span></li>
+          <li>Augury <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">2nd · ritual</span></li>
+          <li>Alarm <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">feat · ritual</span></li>
+        </ul>
+        <p style="font-size:0.92rem;font-style:italic;color:var(--ink-faint);margin-top:0.8em;"><em>Augury</em> casts as ritual via Ritual Master; <em>Alarm</em> learned through the feat regardless of class list.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEAT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#yakub-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Feat</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Ritual Master</div>
+      <div class="feature-meta">Level 1 · Empires of the Silk Road</div>
+      <div class="feature-body">
+        <p>Years of training in the Mystic Order specialized him in ritual work — circles, sealings, the slow magics that handle otherworldly intruders.</p>
+        <ul>
+          <li><strong>+1 Wisdom</strong> (his spellcasting ability) → final <strong>Wis 19</strong>.</li>
+          <li>Learns the <em>alarm</em> spell regardless of class list.</li>
+          <li>When casting a spell as a ritual, he uses the spell's normal casting time rather than adding 10 minutes to it. <em>Once per long rest.</em></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BACKGROUND ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#yakub-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Background — Âlim</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Scholarly Tradition</div>
+      <div class="feature-body">
+        <p>Yakub recognizes through which means to find a specific piece of knowledge, or how such knowledge could be lost to ages. When his player asks "where would I learn about X?", the GM gives a real answer — a specific library, a known scholar, an oral tradition.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Specialty &middot; Occult Scholar of the Mystic Order of Samarkand</div>
+      <div class="feature-body">
+        <p>The Order studies the tears in reality and the unpredictable powers that emerge through them. Yakub is one of their senior brothers, despite not being born to it — his cell in the Order's house in Samarkand holds two decades of annotated notes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ YOUR JOURNEY (LIFEPATH) ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#yakub-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Your Journey</h2>
+      <p class="section-subtitle">Lifepath &middot; rolled and chosen entries from the Silk Road book</p>
+    </div>
+
+    <div class="journey-grid">
+      <div class="journey-card">
+        <div class="jc-label">Birthplace</div>
+        <div class="jc-value">Home of a relative or family friend (rolled 49) — born off the steppe in a settled household, perhaps because his Cuman mother was visiting a settled kinswoman.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Family</div>
+        <div class="jc-value">Servant to a merchant or lord (rolled 43) — given (or sold) into service of a Persianate merchant household around age seven.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Siblings</div>
+        <div class="jc-value">One sibling, somewhere — they have not seen each other in decades.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Family Occupation</div>
+        <div class="jc-value"><strong>Raider</strong> (rolled 13). His Cuman birth-family lived off the steppes' edge. +1 lifestyle modifier.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Lifestyle</div>
+        <div class="jc-value"><strong>Comfortable</strong> (74 + 1 = 75). The merchant household he served in was prosperous; he was a servant, but in good clothes.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Strings to Arcanum</div>
+        <div class="jc-value">Devoted community of arcane investigation — the <strong>Mystic Order of Samarkand</strong>. <em>Grants +1 forced Catastrophic Arcane Event.</em></div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Past Education</div>
+        <div class="jc-value">Trained at an institution of learning — the Mystic Order itself, which functions as a madrasa for occult subjects. <em>Grants Turkish</em> (his early childhood tongue, recovered and formalized through study).</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Path to Chaos</div>
+        <div class="jc-value">He was normal until one stormy night, when an otherworldly voice spoke to him in his dreams.</div>
+      </div>
+    </div>
+
+    <div class="journey-events">
+      <div class="journey-event">
+        <div class="journey-event-roll">Event I &middot; d20 = 18</div>
+        <h4 class="journey-event-title">Followed.</h4>
+        <div class="journey-event-body">
+          <p>Throughout his life he has felt he is being followed. Whether this is paranoia, the voice that first spoke to him, or something else has never been resolved.</p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event II &middot; Battle · d20 = 9 → d10 = 9</div>
+        <h4 class="journey-event-title">The Lone Survivor.</h4>
+        <div class="journey-event-body">
+          <p>Fought in a single battle in his life. <strong>He lost all his companions that terrible day.</strong> The details are not in the chronicle. He walked away the only one of his unit who did.</p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event III &middot; d20 = 13</div>
+        <h4 class="journey-event-title">Witnessed something horrible.</h4>
+        <div class="journey-event-body">
+          <p>Grants one additional flaw — drafted as the "second flaw" in the Personality section. <em>He has not slept with the lamp out since.</em></p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event IV &middot; d20 = 19</div>
+        <h4 class="journey-event-title">Religious conversion.</h4>
+        <div class="journey-event-body">
+          <p>His faith changed completely at some point — from a vague allegiance to the household gods of his service-family, to <strong>Eris, goddess of discord</strong>. The shift came after years of mystical study.</p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event V &middot; Tragedy · d20 = 1 → d10 = 1</div>
+        <h4 class="journey-event-title">A close friend died, and he blames himself.</h4>
+        <div class="journey-event-body">
+          <p>The friend is not named. The weight is real.</p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event VI &middot; d20 = 8</div>
+        <h4 class="journey-event-title">Made an enemy of an adventurer.</h4>
+        <div class="journey-event-body">
+          <p>GM-assigned figure.</p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event VII &middot; Forced Catastrophic Arcane · d4 = 1</div>
+        <h4 class="journey-event-title">He saw a powerful djinn destroy a town.</h4>
+        <div class="journey-event-body">
+          <p>He has a scar across his ribs that does not heal — that aches when the wind shifts. Mundane and magical healing affect it only superficially; it always opens again.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROFESSION ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#yakub-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Profession</h2>
+      <p class="section-subtitle">Silk Road PEX system &middot; Apprentice rank</p>
+    </div>
+    <div class="profession-block">
+      <div class="profession-head">
+        <div class="profession-name">Oracle</div>
+        <div class="profession-rank">Apprentice · Rank 1 <span class="pex">PEX 0</span></div>
+      </div>
+      <p class="profession-baseline">
+        <strong>Cold Reading</strong> (free): Proficiency in Insight (reflected in his skills table). He may use Insight for fortune-telling checks; the GM may permit Intelligence or Wisdom depending on his method. <strong>Basic Astrology</strong> (free): by learning a person's birthday and birth hour, he can determine their star-signs via an Int (Nature) check (DC 10 with both, DC 15 without).
+      </p>
+      <p class="profession-available">
+        Yakub reads chaos through the Order's arcane formulas — celestial diagrams, ink-cast lots, the spread of dice on a chalked circle. Temir of the Skyborn, on the steppe, reads spirits through drum, fire, and the Spirit Walk. They share a profession; their methods diverge sharply.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ EQUIPMENT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#yakub-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Equipment</h2>
+    </div>
+    <div class="equipment-grid">
+      <div class="equip-block">
+        <div class="equip-block-title">Weapons</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Mace</span> &mdash; <span class="item-detail">ceremonial, sized for ritual work as much as fighting. 1d6 bludgeoning; <strong>+1 to hit / 1d6−1</strong>.</span></li>
+          <li><span class="item-name">Light Crossbow</span> &mdash; <span class="item-detail">1d8 piercing, ammunition 80/320, loading, two-handed; <strong>+3 to hit / 1d8+1</strong>; with 20 bolts.</span></li>
+          <li><span class="item-name">Hanchar</span> &mdash; <span class="item-detail">Silk Road dagger; 1d4 slashing, finesse, light, handy; <strong>+3 to hit / 1d4+1</strong>.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Armour</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Scale Mail</span> &mdash; <span class="item-detail">AC 14 + Dex (cap +2); medium armour; disadvantage on Stealth. Robes of the Order worn over it. <strong>Final AC 15.</strong> Scale mail (not chain) — Chaos Domain does not grant heavy-armour proficiency, and Yakub's Str 8 fails chain's Str 13 requirement anyway.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Spellcasting Focus</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Holy Symbol of Chaos</span> &mdash; <span class="item-detail">a small spiral of beaten copper, set with a black stone. Worn around his neck.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Personal Items</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Robes of the Mystic Order of Samarkand</span> &mdash; <span class="item-detail">heavy, dyed dark, marked with subtle symbols.</span></li>
+          <li><span class="item-name">Bottle of ink, quill, ten sheets of parchment</span> &mdash; <span class="item-detail">Âlim equipment.</span></li>
+          <li><span class="item-name">A book given by one of his Order teachers</span> &mdash; <span class="item-detail">annotated, much-read.</span></li>
+          <li><span class="item-name">Alchemy/herbalist's case</span> &mdash; <span class="item-detail">mundane reagents.</span></li>
+          <li><span class="item-name">The chronicle of his battle</span> &mdash; <span class="item-detail">a folded letter naming the dead companions, kept on his person.</span></li>
+          <li><span class="item-name">Belt pouch</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Available, Not Currently Carried</div>
+        <ul class="equip-list">
+          <li><span class="item-name">A cell at the Mystic Order's house in Samarkand</span> &mdash; <span class="item-detail">books, notes, a small caged starling that one of his Order brothers feeds while he travels.</span></li>
+        </ul>
+      </div>
+
+      <div class="money-line">
+        Carrying <span class="amount">10 gp</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERSONALITY ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#yakub-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Personality</h2>
+    </div>
+    <div class="personality-grid">
+      <div class="personality-card">
+        <div class="personality-label">Trait</div>
+        <p class="personality-text">"Order is a lie people tell each other to sleep. I have stopped lying."</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Ideal <span class="alignment-tag">— Discord · Chaotic</span></div>
+        <p class="personality-text">"What you call disorder, I call honesty. The world is not arranged; it only seems so to those who do not look."</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Bond</div>
+        <p class="personality-text">"Twelve men went into that battle with me. One came out. The other eleven are not done with me yet — and I am not done with them."</p>
+      </div>
+      <div class="personality-card flaw">
+        <div class="personality-label">Flaw</div>
+        <p class="personality-text">"I always feel I am being followed. I do not know if I am right or wrong, and I do not know which would be worse."</p>
+      </div>
+      <div class="personality-card flaw">
+        <div class="personality-label">Second Flaw <span class="alignment-tag">— Event III</span></div>
+        <p class="personality-text">"Since I saw what I saw, I have not been able to sleep with the lamp out."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONNECTIONS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#yakub-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Connections</h2>
+    </div>
+    <ul class="connections-list">
+      <li><span class="conn-name">Nazim ibn Yusuf</span> — They have met twice, both in the Mystic Order's library in Samarkand. Nazim was passing through to consult a fragment of <em>Qara Bitig</em> glossary that the Order had acquired from a Kievan exile decades earlier; Yakub was the senior brother on duty in the reading-room. They spoke for half an hour the first time about the relationship between Old Turkic kurgan-inscriptions and the sealing-circles the Mystic Order kept catalogued in their inner library. They spoke for two hours the second time about the same subject and a margin of related ones, and Yakub asked Nazim if he had ever encountered a particular glyph in his fieldwork. Nazim said he had not. <em>He had.</em></li>
+      <li><span class="conn-name">Safiyya bint Tariq al-Qıpçaq</span> — They have not met. If they do, the meeting will be uneven: Yakub is forty-one and twenty years into his bargain with the unseen; Safiyya is twenty-one and three years into hers. He will recognize her almost immediately — the cloud-eyes are visible, and the Mystic Order keeps records of seer-line bloodlines from the Kipchak and Cuman steppes. He may know her grandmother's name. (He almost certainly does.) She will recognize him by his quiet — the particular quiet of a man who has spent a long time listening to a voice that is not his own — and will not know, at first, whether he is an older version of what she is becoming, or a warning about what she might become. <em>He will not tell her which. He may not himself know.</em></li>
+    </ul>
+  </section>
+
+  <!-- ============ PATRON'S NOTE ============ -->
+  <section class="patron-note">
+    <div class="patron-label">From the Vizier's Hand</div>
+    <p class="patron-text">He is the only scholar I trust in the Mystic Order's reading-room, precisely because he no longer trusts the order of things himself; when a road develops the kind of trouble that does not belong to this world, send him.</p>
+    <div class="patron-signature">
+      &mdash; <span class="sig-name">Rashīd al-Dīn Hamadānī</span><span class="sig-arabic">رشید الدین</span>
+    </div>
+  </section>
+
+  <!-- ============ FOOT ============ -->
+  <footer class="document-foot">
+    <svg class="foot-seal" aria-hidden="true"><use href="#yakub-foot-seal"/></svg>
+    <div class="foot-text">
+      Compiled at the <span class="arabic">دیوان الطریق</span> &middot; Bureau of the Roads &middot; from Cathay to Constantinople
+    </div>
+    <svg class="foot-seal" aria-hidden="true"><use href="#yakub-foot-seal"/></svg>
+  </footer>
+
+</article>
+
+</body>
+</html>

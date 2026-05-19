@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Temir of the Skyborn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Reem+Kufi:wght@400;500;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Temir — Skyborn Falcon · Tengri-blue sky + falcon-brown + steppe gold */
+    --ground:       #1a2a3a;
+    --ground-deep:  #0e1a2a;
+    --paper:        #ebe4d0;
+    --paper-shade:  #ddd6c0;
+    --paper-edge:   #c4bd9e;
+    --ink:          #15140e;
+    --ink-soft:     #2a281e;
+    --ink-faint:    #5a5040;
+    --accent:       #4a78a8;        /* sky blue */
+    --accent-deep:  #28507a;
+    --accent-pale:  #7aa0c8;
+    --falcon:       #6a4828;        /* falcon-brown */
+    --falcon-deep:  #3a2818;
+    --cloud:        #d8d4c4;
+    --gold:         #b08a3c;
+    --gold-deep:    #7a5e24;
+    --rule:         #b8aa84;
+    --rule-soft:    #cfc29c;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 12%, rgba(74, 120, 168, 0.30) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 88%, rgba(14, 26, 42, 0.7) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(26, 42, 58, 0.5) 0%, transparent 80%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  /* ============ DOCUMENT FOLIO ============ */
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 3.75rem 4.25rem 4.5rem;
+    position: relative;
+    box-shadow:
+      0 1px 2px rgba(14, 26, 42, 0.45),
+      0 14px 56px rgba(14, 26, 42, 0.65),
+      inset 0 0 0 1px rgba(184, 170, 132, 0.45);
+    background-image:
+      radial-gradient(ellipse at 0% 0%, rgba(176, 138, 60, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 100%, rgba(74, 120, 168, 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(106, 72, 40, 0.05) 100%);
+  }
+
+  /* Top folio band */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--ground-deep) 0%,
+      var(--accent-deep) 18%,
+      var(--accent) 38%,
+      var(--gold) 50%,
+      var(--accent) 62%,
+      var(--accent-deep) 82%,
+      var(--ground-deep) 100%);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--accent-deep) 20%,
+      var(--gold) 50%,
+      var(--accent-deep) 80%,
+      transparent 100%);
+    opacity: 0.7;
+  }
+
+  /* Left-margin pattern */
+  .vine-margin {
+    position: absolute;
+    top: 5px; bottom: 3px; left: 0;
+    width: 26px;
+    opacity: 0.22;
+    pointer-events: none;
+    color: var(--falcon-deep);
+  }
+
+  /* ============ COVERT / SKY-MARK ============ */
+  .covert-mark {
+    position: absolute;
+    top: 22px;
+    right: 32px;
+    width: 96px;
+    height: 96px;
+    opacity: 0.09;
+    pointer-events: none;
+    color: var(--accent);
+  }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2rem;
+  }
+  .masthead-left { min-width: 0; }
+  .masthead-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.38em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .masthead-eyebrow .dossier-no {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .masthead-eyebrow .arabic {
+    font-family: "Amiri", "Reem Kufi", serif;
+    letter-spacing: 0;
+    font-size: 1.05rem;
+    margin-right: 0.55em;
+    color: var(--accent-deep);
+    font-weight: 400;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+  .masthead-eyebrow .bureau-name {
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.35rem;
+    line-height: 1;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+  .character-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--accent-deep);
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .cartouche {
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+  }
+
+  /* ============ IDENTITY + PORTRAIT BAND ============ */
+  .identity-band {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 2.25rem;
+    margin-bottom: 2.5rem;
+    align-items: start;
+  }
+  .identity-block { min-width: 0; }
+  .identity-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0.4rem 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    align-items: baseline;
+  }
+  .identity-row:last-child { border-bottom: none; }
+  .identity-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .identity-value {
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+  }
+  .identity-value em {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  .surname-note {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    display: block;
+    margin-top: 0.15rem;
+  }
+
+  /* Portrait plate */
+  .portrait-plate { position: relative; }
+  .portrait-frame {
+    border: 1px solid var(--accent-deep);
+    padding: 6px;
+    background: var(--paper-shade);
+    box-shadow:
+      inset 0 0 0 1px var(--gold),
+      0 2px 8px rgba(14, 26, 42, 0.22);
+    position: relative;
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--accent-deep);
+  }
+  .portrait-frame::before {
+    top: -4px; left: -4px;
+    border-right: none; border-bottom: none;
+  }
+  .portrait-frame::after {
+    bottom: -4px; right: -4px;
+    border-left: none; border-top: none;
+  }
+  .portrait-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: sepia(0.06) saturate(0.92) brightness(0.97);
+  }
+  .portrait-frame.empty {
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 12px,
+        rgba(74, 120, 168, 0.04) 12px,
+        rgba(74, 120, 168, 0.04) 24px
+      ),
+      var(--paper-shade);
+  }
+  .portrait-frame.empty .empty-monogram {
+    font-family: "Amiri", "Reem Kufi", serif;
+    font-size: 4rem;
+    color: var(--accent-deep);
+    opacity: 0.32;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    direction: rtl;
+  }
+  .portrait-frame.empty .empty-note {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .portrait-caption {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.7rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .portrait-caption strong {
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+  }
+  .portrait-aliases {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--accent-deep);
+    text-align: center;
+    margin-top: 0.4rem;
+  }
+
+  /* ============ SECTION ORNAMENTS ============ */
+  .section { margin-top: 2.5rem; }
+  .section-head {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    justify-content: center;
+    margin-bottom: 0.7rem;
+  }
+  .section-rule-line {
+    flex: 1;
+    max-width: 180px;
+    height: 1px;
+    background: var(--rule);
+  }
+  .section-ornament {
+    width: 30px; height: 30px;
+    color: var(--accent-deep);
+    flex-shrink: 0;
+  }
+  h2.section-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.55rem;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  .section-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-faint);
+    margin: 0.25rem 0 0;
+  }
+
+  /* ============ BIO ============ */
+  .bio {
+    font-family: "EB Garamond", serif;
+    font-size: 1.08rem;
+    line-height: 1.72;
+    color: var(--ink-soft);
+    text-align: justify;
+    hyphens: auto;
+  }
+  .bio p { margin: 0 0 1em; }
+  .bio p:last-child { margin-bottom: 0; }
+  .bio p:first-child::first-letter {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.1em 0.12em 0 0;
+    color: var(--accent-deep);
+  }
+
+  /* ============ ABILITY SCORES ============ */
+  .abilities {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+  }
+  .ability-card {
+    border: 1px solid var(--rule);
+    background: var(--paper-shade);
+    padding: 0.85rem 0.4rem 0.7rem;
+    text-align: center;
+    position: relative;
+  }
+  .ability-card::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 8px; right: 8px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .ability-card.saveprof::before {
+    background: var(--gold-deep);
+    height: 3px;
+  }
+  .ability-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .ability-score {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 0.15rem 0 0.05rem;
+  }
+  .ability-mod {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem;
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  .ability-save {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+    padding-top: 0.35rem;
+    border-top: 1px dotted var(--rule-soft);
+  }
+  .ability-save .save-val {
+    font-family: "EB Garamond", serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    font-weight: 500;
+    margin-left: 0.2em;
+  }
+  .ability-card.saveprof .ability-save .save-val {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+
+  /* ============ COMBAT STATS ============ */
+  .combat-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 0.7rem 0.65rem;
+  }
+  .stat-cell-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .stat-cell-value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-top: 0.15rem;
+  }
+  .stat-cell-value small {
+    font-family: "EB Garamond", serif;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-left: 0.3em;
+  }
+
+  /* ============ SKILLS ============ */
+  .skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+  }
+  .skills-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .skills-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: baseline;
+  }
+  .skills-table tr:last-child td { border-bottom: none; }
+  .skills-table .bonus {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    color: var(--ink);
+    width: 70px;
+    text-align: center;
+  }
+  .skills-table .bonus.expertise {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .skills-table .source {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+  .skills-note {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    padding: 0.65rem 0.85rem;
+    background: var(--paper-shade);
+    border-left: 3px solid var(--accent);
+    margin-top: 0.8rem;
+  }
+
+  /* ============ FEATURE BLOCKS ============ */
+  .feature {
+    margin: 0 0 1.1rem;
+    padding: 0.85rem 1rem;
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+  }
+  .feature.subclass {
+    border-left-color: var(--gold-deep);
+  }
+  .feature-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    color: var(--ink);
+    margin: 0 0 0.3rem;
+    letter-spacing: 0.01em;
+  }
+  .feature-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .feature-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .feature-body p { margin: 0 0 0.55em; }
+  .feature-body p:last-child { margin-bottom: 0; }
+  .feature-body ul {
+    margin: 0.4em 0 0.2em;
+    padding-left: 1.4em;
+  }
+  .feature-body ul li {
+    padding: 0.15em 0;
+  }
+  .feature-body strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .feature-body em {
+    color: var(--accent-deep);
+  }
+
+  .features-cluster-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .features-cluster-title:first-child { margin-top: 0; }
+
+  .spell-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    padding: 0;
+    margin: 0.5em 0 0;
+    list-style: none;
+  }
+  .spell-pills li {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.97rem;
+    color: var(--ink);
+    padding: 0.15rem 0.7rem;
+    background: var(--paper);
+    border: 1px solid var(--gold);
+    border-left-width: 3px;
+    border-left-color: var(--gold-deep);
+  }
+
+  .dice-callout {
+    margin: 0.5em 0;
+    padding: 0.55rem 0.85rem;
+    background: var(--paper);
+    border: 1px solid var(--gold-deep);
+    border-left: 3px solid var(--falcon);
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    font-size: 0.97rem;
+  }
+  .dice-callout-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .dice-callout-dice {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    color: var(--falcon-deep);
+    font-size: 1.15rem;
+  }
+
+  /* ============ JOURNEY (LIFEPATH) ============ */
+  .journey-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .journey-card {
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+    padding: 0.85rem 1rem;
+  }
+  .journey-card.event {
+    border-left-color: var(--gold-deep);
+  }
+  .journey-card .jc-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .journey-card.event .jc-label { color: var(--gold-deep); }
+  .journey-card .jc-value {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .journey-card .jc-value em { color: var(--ink-soft); font-style: italic; }
+  .journey-events {
+    margin-top: 1rem;
+  }
+  .journey-event {
+    margin: 0 0 0.8rem;
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+    border: 1px solid var(--rule-soft);
+    border-top: 2px solid var(--gold);
+  }
+  .journey-event-roll {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .journey-event-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin: 0 0 0.35rem;
+  }
+  .journey-event-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.97rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ============ PROFESSION ============ */
+  .profession-block {
+    margin-top: 1rem;
+    padding: 1rem 1.2rem;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0,
+        transparent 24px,
+        rgba(176, 138, 60, 0.04) 24px,
+        rgba(176, 138, 60, 0.04) 48px
+      ),
+      var(--paper);
+    border: 1px solid var(--gold);
+  }
+  .profession-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule-soft);
+    margin-bottom: 0.75rem;
+  }
+  .profession-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.12rem;
+    color: var(--ink);
+  }
+  .profession-rank {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    color: var(--gold-deep);
+    text-transform: uppercase;
+  }
+  .profession-rank .pex {
+    color: var(--ink-faint);
+    margin-left: 0.5em;
+  }
+  .profession-baseline {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .profession-baseline strong { color: var(--ink); }
+  .profession-available {
+    margin-top: 0.85rem;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-faint);
+  }
+
+  /* ============ EQUIPMENT ============ */
+  .equipment-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .equip-block {
+    border: 1px solid var(--rule-soft);
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+  }
+  .equip-block-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 0 0 0.55rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .equip-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .equip-list li {
+    padding: 0.35rem 0;
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .equip-list li:last-child { border-bottom: none; }
+  .equip-list .item-name { font-weight: 500; }
+  .equip-list .item-detail {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-style: italic;
+  }
+  .money-line {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    padding: 0.85rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .money-line .amount {
+    font-family: "Cormorant Garamond", serif;
+    font-style: normal;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--gold-deep);
+    letter-spacing: 0.05em;
+    margin: 0 0.3em;
+  }
+
+  /* ============ PERSONALITY ============ */
+  .personality-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+  .personality-card {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--paper-shade);
+    border-top: 2px solid var(--accent);
+    position: relative;
+  }
+  .personality-card.flaw {
+    border-top-color: var(--falcon);
+  }
+  .personality-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .personality-card.flaw .personality-label { color: var(--falcon-deep); }
+  .personality-label .alignment-tag {
+    color: var(--ink-faint);
+    font-weight: 400;
+    margin-left: 0.4em;
+  }
+  .personality-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ============ CONNECTIONS ============ */
+  .connections-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .connections-list li {
+    padding: 0.85rem 0 0.85rem 1.5rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+    line-height: 1.6;
+    position: relative;
+  }
+  .connections-list li:last-child { border-bottom: none; }
+  .connections-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 1.3em;
+    width: 8px; height: 8px;
+    border: 1px solid var(--accent);
+    transform: rotate(45deg);
+    background: var(--paper);
+  }
+  .connections-list .conn-name {
+    font-weight: 500;
+    color: var(--accent-deep);
+  }
+
+  /* ============ PATRON'S NOTE ============ */
+  .patron-note {
+    margin: 2.75rem 0 0;
+    padding: 1.5rem 1.75rem 1.65rem;
+    border: 1px solid var(--gold-deep);
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 8px,
+        rgba(176, 138, 60, 0.04) 8px,
+        rgba(176, 138, 60, 0.04) 16px
+      ),
+      var(--paper-shade);
+    position: relative;
+  }
+  .patron-note::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 2px;
+    background: linear-gradient(90deg,
+      var(--gold-deep) 0%,
+      var(--gold) 30%,
+      var(--accent) 50%,
+      var(--gold) 70%,
+      var(--gold-deep) 100%);
+  }
+  .patron-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--gold-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+  .patron-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+  .patron-signature {
+    margin-top: 0.85rem;
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    color: var(--ink-soft);
+  }
+  .patron-signature .sig-name {
+    font-style: italic;
+    color: var(--ink);
+  }
+  .patron-signature .sig-arabic {
+    font-family: "Amiri", serif;
+    font-style: normal;
+    font-size: 1.05rem;
+    color: var(--accent-deep);
+    margin-left: 0.4em;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+
+  /* ============ FOOT ============ */
+  .document-foot {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .foot-seal {
+    width: 38px; height: 38px;
+    color: var(--accent-deep);
+    opacity: 0.75;
+  }
+  .foot-text {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    flex: 1;
+  }
+  .foot-text .arabic {
+    font-family: "Amiri", "Reem Kufi", serif;
+    letter-spacing: 0;
+    color: var(--accent-deep);
+    margin: 0 0.4em;
+    font-size: 0.95rem;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 760px) {
+    body { padding: 1rem 0.4rem 2rem; }
+    .document { padding: 2.25rem 1.5rem 2.75rem; }
+    h1.character-name { font-size: 2.3rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1rem; }
+    .cartouche { width: 80px; height: 80px; justify-self: start; }
+    .identity-band { grid-template-columns: 1fr; }
+    .portrait-plate { max-width: 240px; }
+    .abilities { grid-template-columns: repeat(3, 1fr); }
+    .combat-stats { grid-template-columns: repeat(2, 1fr); }
+    .personality-grid { grid-template-columns: 1fr; }
+    .journey-grid { grid-template-columns: 1fr; }
+    .vine-margin { display: none; }
+    .skills-table .source { display: none; }
+    .covert-mark { display: none; }
+  }
+
+  @media (max-width: 460px) {
+    .abilities { grid-template-columns: repeat(2, 1fr); }
+    .identity-row { grid-template-columns: 1fr; gap: 0.1rem; }
+    .identity-label { font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Inline SVG definitions -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Section ornament: a single falcon wing with a small sun at the joint -->
+    <symbol id="temir-ornament" viewBox="0 0 30 30">
+      <g fill="none" stroke="currentColor" stroke-width="0.7">
+        <!-- Sun-disk at the wing joint -->
+        <circle cx="9" cy="15" r="3" fill="currentColor" fill-opacity="0.18"/>
+        <circle cx="9" cy="15" r="3"/>
+        <!-- Wing feathers fanning right -->
+        <path d="M 11 14 Q 18 11 26 12" stroke-width="0.8"/>
+        <path d="M 11 15 Q 19 14 27 15" stroke-width="0.8"/>
+        <path d="M 11 16 Q 18 18 26 19" stroke-width="0.8"/>
+        <!-- Short feather strokes -->
+        <line x1="18" y1="12.5" x2="20" y2="13.5" stroke-width="0.5"/>
+        <line x1="22" y1="12.5" x2="24" y2="13.5" stroke-width="0.5"/>
+        <line x1="18" y1="17.5" x2="20" y2="16.5" stroke-width="0.5"/>
+        <line x1="22" y1="17.5" x2="24" y2="16.5" stroke-width="0.5"/>
+        <!-- Sun-rays from the joint -->
+        <line x1="9" y1="9" x2="9" y2="6" stroke-width="0.4"/>
+        <line x1="9" y1="21" x2="9" y2="24" stroke-width="0.4"/>
+        <line x1="3" y1="15" x2="6" y2="15" stroke-width="0.4"/>
+      </g>
+    </symbol>
+
+    <!-- Foot seal: a small falcon-head in profile within a circle -->
+    <symbol id="temir-foot-seal" viewBox="0 0 40 40">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <circle cx="20" cy="20" r="17"/>
+        <circle cx="20" cy="20" r="13" stroke-dasharray="1 2"/>
+        <!-- Falcon head profile, beak pointing right -->
+        <g transform="translate(20 21)">
+          <!-- Head curve -->
+          <path d="M -6 -4 Q -7 0 -5 4 L 2 4 Q 5 2 6 -1 L 4 -1 L 7 -3 L 4 -3 Q 2 -5 -2 -5 Z" fill="currentColor" fill-opacity="0.65" stroke-width="0.8"/>
+          <!-- Eye -->
+          <circle cx="-2" cy="-1.5" r="0.7" fill="var(--paper)" stroke="none"/>
+        </g>
+      </g>
+    </symbol>
+
+    <!-- Temir's cartouche: a falcon in mid-stoop against a sun-disk -->
+    <symbol id="cartouche-temir" viewBox="0 0 110 110">
+      <g fill="none" stroke="currentColor" stroke-width="1.1">
+        <!-- Outer ring -->
+        <circle cx="55" cy="55" r="50"/>
+        <!-- Inner dashed ring -->
+        <circle cx="55" cy="55" r="42" stroke-width="0.7" stroke-dasharray="2 3"/>
+        <!-- Great sun-disk in gold (gold-rendered via secondary group below) -->
+        <circle cx="55" cy="55" r="30" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="0.9"/>
+        <!-- Sun-rays radiating -->
+        <g stroke-width="0.5" opacity="0.55">
+          <line x1="55" y1="20" x2="55" y2="14"/>
+          <line x1="55" y1="96" x2="55" y2="90"/>
+          <line x1="20" y1="55" x2="14" y2="55"/>
+          <line x1="96" y1="55" x2="90" y2="55"/>
+          <line x1="30" y1="30" x2="26" y2="26"/>
+          <line x1="80" y1="30" x2="84" y2="26"/>
+          <line x1="30" y1="80" x2="26" y2="84"/>
+          <line x1="80" y1="80" x2="84" y2="84"/>
+        </g>
+
+        <!-- Falcon in stoop: wings folded, body diving toward lower-right -->
+        <g transform="translate(55 55)" fill="currentColor" fill-opacity="0.78" stroke="currentColor" stroke-width="0.6">
+          <!-- Body: elongated teardrop, angled -->
+          <path d="M -14 -14 Q -4 -10 4 0 Q 6 8 0 14 Q -8 14 -14 8 Q -18 -2 -14 -14 Z"/>
+          <!-- Folded right wing (back over body) -->
+          <path d="M -10 -10 Q -2 -16 8 -14 Q 12 -8 8 -2 Q 0 -4 -8 -8 Z" fill-opacity="0.6"/>
+          <!-- Folded left wing tip -->
+          <path d="M -14 -12 Q -22 -16 -24 -10 Q -22 -4 -14 -6 Z" fill-opacity="0.55"/>
+          <!-- Hooked beak -->
+          <path d="M -14 -14 L -18 -16 L -14 -17 L -12 -15 Z" fill-opacity="0.85" stroke-width="0.4"/>
+          <!-- Eye -->
+          <circle cx="-13" cy="-13" r="0.9" fill="var(--paper)" stroke="none"/>
+          <!-- Tail feathers (short, trailing) -->
+          <path d="M -2 12 L -4 18 L 2 16 L 4 12 Z" fill-opacity="0.6"/>
+          <!-- Talons -->
+          <line x1="-4" y1="14" x2="-6" y2="18" stroke-width="0.5"/>
+          <line x1="0" y1="14" x2="-2" y2="19" stroke-width="0.5"/>
+          <line x1="2" y1="14" x2="2" y2="19" stroke-width="0.5"/>
+        </g>
+
+        <!-- Tengri-glyph at top: a small spiral suggesting the Eternal Blue -->
+        <g transform="translate(55 12)" stroke-width="0.7">
+          <circle r="3" fill="currentColor" fill-opacity="0.4"/>
+          <path d="M -1.5 0 A 1.5 1.5 0 1 1 1.5 0 A 0.7 0.7 0 1 0 0 0" fill="none" stroke-width="0.5"/>
+        </g>
+      </g>
+    </symbol>
+
+    <!-- Covert mark: great eagle/falcon on a perch with two flanking sky-disks -->
+    <symbol id="temir-covert-mark" viewBox="0 0 96 96">
+      <g fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="48" cy="48" r="44"/>
+        <circle cx="48" cy="48" r="36" stroke-dasharray="3 4"/>
+        <!-- Two flanking sky-disks -->
+        <circle cx="20" cy="48" r="9" stroke-width="0.9" opacity="0.6"/>
+        <circle cx="76" cy="48" r="9" stroke-width="0.9" opacity="0.6"/>
+        <!-- Central perch (horizontal bar) -->
+        <line x1="36" y1="62" x2="60" y2="62" stroke-width="1.3"/>
+        <!-- Perched falcon -->
+        <g transform="translate(48 50)" stroke-width="1">
+          <!-- Body -->
+          <path d="M -7 -4 Q -10 4 -6 12 L 6 12 Q 10 4 7 -4 Q 0 -8 -7 -4 Z" fill="currentColor" fill-opacity="0.35"/>
+          <!-- Folded wings (drawn as shoulders) -->
+          <path d="M -10 -2 Q -12 4 -10 8" stroke-width="1.1"/>
+          <path d="M 10 -2 Q 12 4 10 8" stroke-width="1.1"/>
+          <!-- Head -->
+          <circle cx="0" cy="-6" r="3" fill="currentColor" fill-opacity="0.5" stroke-width="0.9"/>
+          <!-- Beak -->
+          <path d="M -1 -5 L -4 -5 L -1 -4 Z" stroke-width="0.7"/>
+        </g>
+        <!-- Talons gripping perch -->
+        <line x1="44" y1="62" x2="44" y2="66" stroke-width="0.9"/>
+        <line x1="48" y1="62" x2="48" y2="66" stroke-width="0.9"/>
+        <line x1="52" y1="62" x2="52" y2="66" stroke-width="0.9"/>
+      </g>
+    </symbol>
+
+    <!-- Vine pattern: column of small falcons in flight, alternating direction -->
+    <pattern id="vinePattern" width="26" height="120" patternUnits="userSpaceOnUse">
+      <g fill="currentColor" stroke="currentColor" stroke-width="0.5">
+        <!-- Faint vertical stem -->
+        <line x1="13" y1="0" x2="13" y2="120" stroke-width="0.3" fill="none"/>
+        <!-- Falcon 1: flying right -->
+        <g transform="translate(13 15)" fill-opacity="0.7">
+          <path d="M -6 0 Q -2 -3 0 0 Q -2 3 -6 0 Z"/>
+          <path d="M 0 -1 Q 4 -2 6 0 Q 4 2 0 1 Z"/>
+        </g>
+        <!-- Falcon 2: flying left -->
+        <g transform="translate(13 45) scale(-1 1)" fill-opacity="0.7">
+          <path d="M -6 0 Q -2 -3 0 0 Q -2 3 -6 0 Z"/>
+          <path d="M 0 -1 Q 4 -2 6 0 Q 4 2 0 1 Z"/>
+        </g>
+        <!-- Falcon 3: flying right -->
+        <g transform="translate(13 75)" fill-opacity="0.7">
+          <path d="M -6 0 Q -2 -3 0 0 Q -2 3 -6 0 Z"/>
+          <path d="M 0 -1 Q 4 -2 6 0 Q 4 2 0 1 Z"/>
+        </g>
+        <!-- Falcon 4: flying left -->
+        <g transform="translate(13 105) scale(-1 1)" fill-opacity="0.7">
+          <path d="M -6 0 Q -2 -3 0 0 Q -2 3 -6 0 Z"/>
+          <path d="M 0 -1 Q 4 -2 6 0 Q 4 2 0 1 Z"/>
+        </g>
+      </g>
+    </pattern>
+  </defs>
+</svg>
+
+<article class="document">
+
+  <svg class="vine-margin" preserveAspectRatio="none" aria-hidden="true" style="width:26px; height:100%;">
+    <rect width="100%" height="100%" fill="url(#vinePattern)"/>
+  </svg>
+
+  <!-- Sky-mark watermark -->
+  <svg class="covert-mark" aria-hidden="true"><use href="#temir-covert-mark"/></svg>
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="masthead-eyebrow">
+        <span class="arabic">دیوان الطریق</span>
+        <span class="bureau-name">Dīwān al-Ṭarīq</span> &middot; Bureau of the Roads &middot; <span class="dossier-no">Dossier · Druid</span>
+      </div>
+      <h1 class="character-name">Temir of the Skyborn</h1>
+      <p class="character-subtitle">Shaman of Kök-Tengri &middot; The Iron of the Blue Sky</p>
+    </div>
+    <svg class="cartouche" aria-hidden="true" style="color: var(--falcon-deep);">
+      <use href="#cartouche-temir"/>
+    </svg>
+  </header>
+
+  <!-- ============ IDENTITY + PORTRAIT ============ -->
+  <section class="identity-band">
+    <div class="identity-block">
+      <div class="identity-row">
+        <span class="identity-label">Class &amp; Level</span>
+        <span class="identity-value">Druid 3 &middot; Circle of the Eternal Sky</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Race</span>
+        <span class="identity-value">Human (Standard)</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Background</span>
+        <span class="identity-value">Wanderer <em>— Empires of the Silk Road</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Age</span>
+        <span class="identity-value">38</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Heritage</span>
+        <span class="identity-value">Mongolian / Turkic steppe nomad <em>— birth-clan cast out from a settled khanate; raised by qamata shamans of a neighboring clan from age eleven</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Faith</span>
+        <span class="identity-value">Animistic Tengrism <em>— Kök-Tengri (Eternal Blue Sky), Umay (mother-earth); acknowledges Erlik of the black hells without worship</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Alignment</span>
+        <span class="identity-value">Neutral Good</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Languages</span>
+        <span class="identity-value">Turkish (Common of the steppe), Mongolian (clan tongue), Druidic
+          <span class="surname-note">Druidic is the secret language of his order; he may hide messages in plain sight in it.</span>
+        </span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Byname</span>
+        <span class="identity-value"><em>Kök-Tengri — "of the Blue Sky"</em>
+          <span class="surname-note">"Temir" means iron in Turkic and Mongolian. "Kök-Tengri" is the patron-name of his shamanic circle, not a family name — his birth-clan is dead or vanished, and he no longer carries their name.</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="portrait-plate">
+      <div class="portrait-frame empty">
+        <div class="empty-monogram">ت</div>
+        <div class="empty-note">Portrait pending</div>
+      </div>
+      <div class="portrait-caption">
+        <strong>Temir of the Skyborn</strong><br>
+        Mongolian / Turkic &middot; Aged Thirty-Eight
+      </div>
+      <div class="portrait-aliases">he does not interrupt the spirits, or anyone else</div>
+    </div>
+  </section>
+
+  <!-- ============ BIO ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#temir-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">On the Subject</h2>
+    </div>
+    <div class="bio">
+      <p>Temir was born to a family the settled lords called criminals — raiders, horse-thieves, or simply nomads who had stopped paying the wrong khanate its dues. The line is thin out there and was thinner for him. He grew up wretched, the fourth of seven children. They were six siblings to him; he is the only one whose story the chronicle has so far followed.</p>
+      <p>The shamans of a neighboring clan recognized something in him — the <em>qamata</em> came and took him at the age of eleven, and he grew up under their drum and incense. They taught him to walk into the Spirit Walk and back, to read smoke, to call ancestors by name, and to fear and respect Erlik's hells beneath the world. He came up into his shaman's authority quietly. His birth clan, by then, were either dead or vanished. He has not asked which.</p>
+      <p>He bridges the living and the spirit world for nomadic kin along the Silk Road's northern reaches, offering visions and ancestral guidance. He carries a small ritual drum, a talisman of the Skyborn carved with the symbol of the Eternal Blue, and the bones of a knucklebones set he won years ago in a long winter's gambling. He has a secret. He has not told it to anyone yet.</p>
+    </div>
+  </section>
+
+  <!-- ============ ABILITY SCORES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#temir-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Faculties &amp; Saving Throws</h2>
+      <p class="section-subtitle">Rolled block #5: 7, 10, 11, 13, 14, 16 &middot; Human +1 to all six &middot; Focused Caster: +1 Wis</p>
+    </div>
+    <div class="abilities">
+      <div class="ability-card">
+        <div class="ability-name">Strength</div>
+        <div class="ability-score">8</div>
+        <div class="ability-mod">−1</div>
+        <div class="ability-save">Save <span class="save-val">−1</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Dexterity</div>
+        <div class="ability-score">14</div>
+        <div class="ability-mod">+2</div>
+        <div class="ability-save">Save <span class="save-val">+2</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Constitution</div>
+        <div class="ability-score">15</div>
+        <div class="ability-mod">+2</div>
+        <div class="ability-save">Save <span class="save-val">+2</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Intelligence</div>
+        <div class="ability-score">12</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+3</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Wisdom</div>
+        <div class="ability-score">18</div>
+        <div class="ability-mod">+4</div>
+        <div class="ability-save">Save <span class="save-val">+6</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Charisma</div>
+        <div class="ability-score">11</div>
+        <div class="ability-mod">+0</div>
+        <div class="ability-save">Save <span class="save-val">+0</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMBAT STATS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#temir-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Bearing on the Route</h2>
+    </div>
+    <div class="combat-stats">
+      <div class="stat-cell">
+        <div class="stat-cell-label">Proficiency</div>
+        <div class="stat-cell-value">+2</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Armour Class</div>
+        <div class="stat-cell-value">14 <small>hide armour</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Initiative</div>
+        <div class="stat-cell-value">+2</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Speed</div>
+        <div class="stat-cell-value">30 <small>ft</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Points</div>
+        <div class="stat-cell-value">24</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Dice</div>
+        <div class="stat-cell-value">3d8</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Passive Perception</div>
+        <div class="stat-cell-value">14</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Spell Save DC</div>
+        <div class="stat-cell-value">14 <small>+6 atk &middot; Wis</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#temir-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <table class="skills-table">
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th class="bonus" style="text-align:center;">Bonus</th>
+          <th class="source">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Medicine</td>         <td class="bonus">+6</td> <td class="source">Wanderer</td></tr>
+        <tr><td>Survival</td>         <td class="bonus">+6</td> <td class="source">Wanderer</td></tr>
+        <tr><td>Animal Handling</td>  <td class="bonus">+6</td> <td class="source">Druid</td></tr>
+        <tr><td>Nature</td>           <td class="bonus">+3</td> <td class="source">Druid</td></tr>
+        <tr><td>Insight</td>          <td class="bonus">+6</td> <td class="source">Oracle (Cold Reading)</td></tr>
+      </tbody>
+    </table>
+    <div class="skills-note">
+      Tool proficiencies: <strong>Herbalism Kit</strong> (Wanderer); <strong>Igil</strong> (Past Education grant — Turkic/Mongolian horsehead fiddle); <strong>Knucklebones</strong> (gaming set, Life Event 15 grant).
+    </div>
+  </section>
+
+  <!-- ============ CLASS FEATURES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#temir-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Class Features</h2>
+    </div>
+
+    <div class="features-cluster-title">Druid — Base</div>
+
+    <div class="feature">
+      <div class="feature-title">Spellcasting</div>
+      <div class="feature-meta">Level 1 &middot; Wis-based</div>
+      <div class="feature-body">
+        <p>Wisdom is his spellcasting ability. <strong>Spell save DC 14 &middot; Spell attack +6</strong>. Prepares spells equal to Wis mod + druid level = <strong>7 spells</strong> per day, changeable on a long rest. Plus subclass spells (always prepared, no count). Spellcasting focus: a druidic talisman — yew sprig wrapped in horsehair.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Druidic</div>
+      <div class="feature-meta">Level 1 &middot; Secret language</div>
+      <div class="feature-body">
+        <p>He knows the secret language of druids. He may hide messages in plain sight in Druidic as a passive skill.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Wild Shape</div>
+      <div class="feature-meta">Level 2 &middot; Action · 2 uses/short rest</div>
+      <div class="feature-body">
+        <p>As an action, magically assume the shape of a beast he has seen before. At L3 limits: max CR 1/4, no flying speed, no swimming speed. Duration <strong>1 hour</strong> (half druid level in hours). Revert as bonus action or when reduced to 0 HP.</p>
+        <p><em>Steppe-appropriate picks at L3: wolf (CR 1/4), mastiff.</em></p>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">Circle of the Eternal Sky — Empires of the Silk Road</div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Circle Spells</div>
+      <div class="feature-meta">Level 3 · Always prepared</div>
+      <div class="feature-body">
+        <ul class="spell-pills">
+          <li>Prayer of Healing <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L3</span></li>
+          <li>Lesser Restoration <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">L3</span></li>
+        </ul>
+        <p style="font-size:0.92rem;font-style:italic;color:var(--ink-faint);margin-top:0.8em;">These are always prepared and do not count against his 7-spell preparation limit.</p>
+      </div>
+    </div>
+
+    <div class="feature subclass">
+      <div class="feature-title">The Spirit Walk</div>
+      <div class="feature-meta">Level 2 · Spend a Wild Shape · 10 min</div>
+      <div class="feature-body">
+        <p>As an action, expend a Wild Shape use to enter the Spirit Walk instead of a beast form. He takes an elemental-spirit shape; for 10 minutes (dismissable as an action) he can see and speak with spirits and detect undead within <strong>120 ft.</strong> (not blocked by total cover).</p>
+        <p>Near a bonfire, he may ask the <em>blue sky</em> or the <em>black hell</em> a yes/no question about future or past. The blue sky demands a spell slot; the black hell demands 5 piercing self-damage (or another's blood). Answers depend on the entity's knowledge.</p>
+        <p>Alternatively, reach out for <strong>healing or harming powers</strong>:</p>
+        <ul>
+          <li><em>Blue sky:</em> bonus action touch up to 3 creatures, heal <strong>1d6 + 4</strong> each (for 8 hours).</li>
+          <li><em>Black hell:</em> action mark up to 3 creatures; Wis save DC 14 or take <strong>2d6 psychic</strong> (half on save; for 1 hour).</li>
+        </ul>
+        <p>He may also call a deceased spirit by real name and ask one question. Wis save DC 13; on success, three questions. Spirits are not compelled to truth and are typically cryptic.</p>
+      </div>
+    </div>
+
+    <div class="feature subclass">
+      <div class="feature-title">The Forefathers</div>
+      <div class="feature-meta">Level 2 · 2 uses/long rest (= PB)</div>
+      <div class="feature-body">
+        <p>When a creature within 60 ft. he can see takes damage, he may use his reaction to roll <strong>1d6</strong> and reduce the damage by that amount. Excess reduction becomes temporary HP for the target.</p>
+        <div class="dice-callout">
+          <span class="dice-callout-label">Forefather Ward</span>
+          <span class="dice-callout-dice">1d6</span>
+          <span style="color:var(--ink-soft);font-style:italic;font-size:0.95rem;">damage reduction / excess as temp HP</span>
+        </div>
+        <p>When a creature dies within 60 ft. in the past hour, he may enter a 1-minute trance to guide its spirit. Wis save DC 12: fail and he takes 2d6 psychic; succeed and the creature cannot be raised as undead and he gains 2d4 temp HP.</p>
+        <p>Alternatively, when a creature within 60 ft. rolls a death save, he may use his reaction to grant advantage on the roll.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPELLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#temir-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Spells</h2>
+      <p class="section-subtitle">Spell save DC 14 &middot; Spell attack +6 &middot; Slots: 1st × 4, 2nd × 2</p>
+    </div>
+
+    <div class="features-cluster-title">Cantrips (2)</div>
+    <div class="feature">
+      <div class="feature-body">
+        <ul class="spell-pills">
+          <li>Druidcraft</li>
+          <li>Guidance</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">Prepared Spells (7)</div>
+    <div class="feature">
+      <div class="feature-body">
+        <ul class="spell-pills">
+          <li>Cure Wounds <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">1st</span></li>
+          <li>Entangle <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">1st</span></li>
+          <li>Goodberry <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">1st</span></li>
+          <li>Healing Word <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">1st</span></li>
+          <li>Moonbeam <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">2nd</span></li>
+          <li>Hold Person <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">2nd</span></li>
+          <li>Pass Without Trace <span style="color:var(--ink-faint);font-style:normal;font-size:0.85em;">2nd</span></li>
+        </ul>
+        <p style="font-size:0.92rem;font-style:italic;color:var(--ink-faint);margin-top:0.8em;"><em>Moonbeam</em> is reskinned narratively as <strong>Eternal Sky's Light</strong> — a beam of starlight from above.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEAT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#temir-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Feat</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Focused Caster</div>
+      <div class="feature-meta">Level 1 · Empires of the Silk Road</div>
+      <div class="feature-body">
+        <p>Years of meditation in the wind, the snow, and the bonfire ring trained him to hold a vision through pain.</p>
+        <ul>
+          <li><strong>+1 Wisdom</strong> (his spellcasting ability) → final <strong>Wis 18</strong>.</li>
+          <li>When he loses concentration due to taking damage and fails the Constitution save, his spell remains in effect until the end of his next turn. <em>Once per short or long rest.</em></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BACKGROUND ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#temir-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Background — Wanderer</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Mystery of the Lands</div>
+      <div class="feature-body">
+        <p>Temir knows the surrounding lands, towns, cities, and their cultures, religions, myths, and folktales. Most foreign places welcome him as a traveler and hermit rather than an outsider.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ YOUR JOURNEY (LIFEPATH) ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#temir-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Your Journey</h2>
+      <p class="section-subtitle">Lifepath &middot; rolled and chosen entries from the Silk Road book</p>
+    </div>
+
+    <div class="journey-grid">
+      <div class="journey-card">
+        <div class="jc-label">Birthplace</div>
+        <div class="jc-value">Under the stars — born on the open steppe to a clan in motion.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Family</div>
+        <div class="jc-value">Both parents (rolled 82) — he had a full birth-family, even if they were outlaws.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Siblings</div>
+        <div class="jc-value"><strong>Six siblings.</strong> A large brood; he is the only one whose path the chronicle has continued to follow.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Family Occupation</div>
+        <div class="jc-value"><strong>Criminal.</strong> His parents were on the wrong side of a settled khanate's law — raiders, horse-thieves, or outlaws.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Lifestyle</div>
+        <div class="jc-value"><strong>Wretched.</strong> <em>Starts with no starting gold but with 1 point of Inspiration that lasts until used.</em></div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Strings to Arcanum</div>
+        <div class="jc-value">His community has experienced the supernatural firsthand. Steppe shamanism is widely practiced and accepted; spirits, omens, and the Eternal Sky are part of daily life.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Past Education</div>
+        <div class="jc-value">Trained as a <em>qamata</em> (shaman) by the elder shamans of a neighboring clan, who took him in at age eleven. Oral tradition, drum-and-fire training. <em>Grants the Igil (Turkic horsehead fiddle).</em></div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Path to the Sky</div>
+        <div class="jc-value">He was chosen — the elders saw a sign in him as a child. He did not choose. He grew into it.</div>
+      </div>
+    </div>
+
+    <div class="journey-events">
+      <div class="journey-event">
+        <div class="journey-event-roll">Event I &middot; d20 = 15</div>
+        <h4 class="journey-event-title">Time at the gaming tables.</h4>
+        <div class="journey-event-body">
+          <p>During a long winter at a caravanserai he played a lot of knucklebones and other gambling games. <em>Grants gaming-set proficiency: Knucklebones.</em></p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event II &middot; d20 = 12</div>
+        <h4 class="journey-event-title">Fell in love.</h4>
+        <div class="journey-event-body">
+          <p>A partner, somewhere — a clan-mate, a fellow shaman, a stranger met at a sacred mountain. <em>Open in play. The chronicle does not name them and Temir does not speak of them often.</em></p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event III &middot; Fortune · d20 = 2 → d10 = 4</div>
+        <h4 class="journey-event-title">Found a pouch.</h4>
+        <div class="journey-event-body">
+          <p>Once found 5 gp and 10 sp in an abandoned camp or on a frozen body. Spent long ago; the memory remains.</p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event IV &middot; d20 = 20</div>
+        <h4 class="journey-event-title">He has a secret. A grim one.</h4>
+        <div class="journey-event-body">
+          <p>Told to the GM only. <em>It is the kind of secret that has not yet found the right ear, and Temir is not yet sure whom it will eventually find.</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROFESSION ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#temir-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Profession</h2>
+      <p class="section-subtitle">Silk Road PEX system &middot; Apprentice rank</p>
+    </div>
+    <div class="profession-block">
+      <div class="profession-head">
+        <div class="profession-name">Oracle</div>
+        <div class="profession-rank">Apprentice · Rank 1 <span class="pex">PEX 0</span></div>
+      </div>
+      <p class="profession-baseline">
+        <strong>Cold Reading</strong> (free): Proficiency in Insight (reflected in his skills table). He may use Insight for fortune-telling checks; the GM may permit Intelligence or Wisdom depending on his method. <strong>Basic Astrology</strong> (free): by learning a person's birthday and birth hour, he can determine their star-signs via an Int (Nature) check (DC 10 with both, DC 15 without). The GM provides personality-trait insights linked to the signs.
+      </p>
+      <p class="profession-available">
+        Yakub of the Mystic Order of Samarkand is also an apprentice Oracle. The two share a profession but practice different traditions — Yakub reads chaos through arcane formulas; Temir reads spirits through drum, fire, and the Spirit Walk. Their methods diverge sharply even where the profession's mechanics overlap.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ EQUIPMENT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#temir-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Equipment</h2>
+    </div>
+    <div class="equipment-grid">
+      <div class="equip-block">
+        <div class="equip-block-title">Weapons</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Quarterstaff</span> &mdash; <span class="item-detail">a length of ash bound with horsehair; his shaman's walking-staff. 1d6 bludgeoning, versatile 1d8; <strong>+1 to hit / 1d6−1</strong> (or 1d8−1 two-handed).</span></li>
+          <li><span class="item-name">Sling</span> &mdash; <span class="item-detail">steppe-folk weapon, easy to make on the road. 1d4 bludgeoning, ammunition 30/120; <strong>+4 to hit / 1d4+2</strong>.</span></li>
+          <li><span class="item-name">Hanchar</span> &mdash; <span class="item-detail">Silk Road dagger; 1d4 slashing, finesse, light, handy; <strong>+4 to hit / 1d4+2</strong>.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Armour</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Hide Armour</span> &mdash; <span class="item-detail">treated hides with bone toggles; AC 12 + Dex (cap +2); non-metal — druid-legal. <strong>Final AC 14.</strong></span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Spellcasting Focus</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Talisman of the Skyborn</span> &mdash; <span class="item-detail">a flat disc of bone carved with the spiral of the Eternal Blue, hung from a horsehair cord.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Personal Items</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Ritual drum</span> &mdash; <span class="item-detail">a flat hand-drum, painted with the constellations of the steppe sky.</span></li>
+          <li><span class="item-name">Old prayer book of his teachers</span> &mdash; <span class="item-detail">in Turkish — half memorized, half illegible.</span></li>
+          <li><span class="item-name">Traveler's clothes</span> &mdash; <span class="item-detail">felt boots, layered wool, sheepskin coat.</span></li>
+          <li><span class="item-name">Herbalism kit</span> &mdash; <span class="item-detail">Wanderer grant.</span></li>
+          <li><span class="item-name">Knucklebones set</span> &mdash; <span class="item-detail">five sheep-bones, polished smooth from use.</span></li>
+          <li><span class="item-name">Igil</span> &mdash; <span class="item-detail">a horsehead fiddle, wrapped in oiled cloth.</span></li>
+          <li><span class="item-name">Belt pouch</span> &mdash; <span class="item-detail">empty — Wretched lifestyle.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Available, Not Currently Carried</div>
+        <ul class="equip-list">
+          <li><span class="item-name">A small tent</span> &mdash; <span class="item-detail">at the camp of whatever clan he is currently teaching. Stays in one place for as long as the clan does — which is to say, never very long.</span></li>
+        </ul>
+      </div>
+
+      <div class="money-line">
+        Carrying <span class="amount">0 gp</span> &middot; Starts with 1 Inspiration
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERSONALITY ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#temir-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Personality</h2>
+    </div>
+    <div class="personality-grid">
+      <div class="personality-card">
+        <div class="personality-label">Trait</div>
+        <p class="personality-text">"I do not interrupt the spirits. I do not interrupt people, either. They will speak when ready."</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Ideal <span class="alignment-tag">— Harmony · Neutral</span></div>
+        <p class="personality-text">"The Sky moves above, the Earth holds below, and we walk between. Disturb neither without need."</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Bond</div>
+        <p class="personality-text">"The <em>qamata</em> who took me in had no children of his own. I am his memory in the world. While I breathe his teaching does not die."</p>
+      </div>
+      <div class="personality-card flaw">
+        <div class="personality-label">Flaw</div>
+        <p class="personality-text">"I carry a secret that should not be carried alone. I do not yet know whom to tell."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONNECTIONS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#temir-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Connections</h2>
+    </div>
+    <ul class="connections-list">
+      <li><span class="conn-name">Aymara Flameshaper</span> — He knows of her clan; the qamata who raised him traded with her clan's elders in the seasonal markets every other autumn for a stretch in his thirties. He has not met Aymara herself, but he has heard her clan's name spoken in the same breath as <em>Djinnbound</em> — the steppe knows that some clans practice the binding ritual, and the qamata spoke of Aymara's clan as one of the older lines that still does. If they meet, Temir will recognize the weight on her shoulder before she has explained anything. He will not ask. He will wait, and watch, and see if the djinn has anything to say to him on its own.</li>
+      <li><span class="conn-name">Yakub ibn Mansur al-Samarqandi</span> — They have not met, but the Mystic Order of Samarkand has, on three occasions Temir knows of, sent a brother of the order to consult with steppe shamans on questions the Order's library could not answer. Temir attended one of these consultations as a translator for his master, four years ago. The brother who came was not Yakub. The order Yakub belongs to and the shaman-tradition Temir was trained in have a quiet professional respect for each other — neither claims to know what the other knows; both acknowledge the seam where their cosmologies meet. <em>If Yakub and Temir end up in the same room, they will recognize each other inside ten words.</em></li>
+    </ul>
+  </section>
+
+  <!-- ============ PATRON'S NOTE ============ -->
+  <section class="patron-note">
+    <div class="patron-label">From the Vizier's Hand</div>
+    <p class="patron-text">He speaks for spirits and ancestors with a stillness most men cannot manage even for themselves; on the steppe routes where ghosts outnumber witnesses, his counsel is worth more than an armed escort.</p>
+    <div class="patron-signature">
+      &mdash; <span class="sig-name">Rashīd al-Dīn Hamadānī</span><span class="sig-arabic">رشید الدین</span>
+    </div>
+  </section>
+
+  <!-- ============ FOOT ============ -->
+  <footer class="document-foot">
+    <svg class="foot-seal" aria-hidden="true"><use href="#temir-foot-seal"/></svg>
+    <div class="foot-text">
+      Compiled at the <span class="arabic">دیوان الطریق</span> &middot; Bureau of the Roads &middot; from Cathay to Constantinople
+    </div>
+    <svg class="foot-seal" aria-hidden="true"><use href="#temir-foot-seal"/></svg>
+  </footer>
+
+</article>
+
+</body>
+</html>

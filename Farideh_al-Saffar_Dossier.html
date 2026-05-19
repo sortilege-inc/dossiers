@@ -1,0 +1,1885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Farideh al-Saffar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Reem+Kufi:wght@400;500;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Farideh — Brass-worker · saffron + copper + linen-cream */
+    --ground:       #28200c;
+    --ground-deep:  #161108;
+    --paper:        #f0e2b8;
+    --paper-shade:  #e2d3a4;
+    --paper-edge:   #c4b482;
+    --ink:          #1a1408;
+    --ink-soft:     #2e2412;
+    --ink-faint:    #5a4c24;
+    --accent:       #9c6e1a;        /* deep saffron */
+    --accent-deep:  #654313;
+    --accent-pale:  #c89a3a;
+    --copper:       #b06434;
+    --copper-deep:  #6e3e1a;
+    --saffron:      #c8932a;
+    --ochre:        #c89a3a;        /* alias for shared component styles */
+    --ochre-deep:   #9c6e1a;
+    --rose:         #b06434;        /* alias — copper reuse for flaw card */
+    --rose-deep:    #6e3e1a;
+    --gold:         #b08c3a;
+    --gold-deep:    #7a5e24;
+    --rule:         #b8a87a;
+    --rule-soft:    #cfbe96;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 12%, rgba(200, 147, 42, 0.24) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 88%, rgba(22, 17, 8, 0.72) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(40, 32, 12, 0.55) 0%, transparent 80%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  /* ============ DOCUMENT FOLIO ============ */
+  .document {
+    max-width: 920px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 3.75rem 4.25rem 4.5rem;
+    position: relative;
+    box-shadow:
+      0 1px 2px rgba(22, 17, 8, 0.5),
+      0 14px 56px rgba(22, 17, 8, 0.7),
+      inset 0 0 0 1px rgba(184, 168, 122, 0.5);
+    background-image:
+      radial-gradient(ellipse at 0% 0%, rgba(200, 147, 42, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 100%, rgba(176, 100, 52, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(110, 90, 36, 0.05) 100%);
+  }
+
+  /* Top folio band — saffron / copper / gold */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+      var(--ground-deep) 0%,
+      var(--copper-deep) 18%,
+      var(--accent-deep) 38%,
+      var(--saffron) 50%,
+      var(--accent-deep) 62%,
+      var(--copper-deep) 82%,
+      var(--ground-deep) 100%);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--accent-deep) 20%,
+      var(--saffron) 50%,
+      var(--accent-deep) 80%,
+      transparent 100%);
+    opacity: 0.75;
+  }
+
+  /* Left-margin pattern */
+  .vine-margin {
+    position: absolute;
+    top: 5px; bottom: 3px; left: 0;
+    width: 26px;
+    opacity: 0.22;
+    pointer-events: none;
+    color: var(--copper-deep);
+  }
+
+  /* ============ COVERT / BRASS-WORKBENCH MARK ============ */
+  .covert-mark {
+    position: absolute;
+    top: 22px;
+    right: 32px;
+    width: 96px;
+    height: 96px;
+    opacity: 0.09;
+    pointer-events: none;
+    color: var(--accent-deep);
+  }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2rem;
+  }
+  .masthead-left { min-width: 0; }
+  .masthead-eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.38em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .masthead-eyebrow .dossier-no {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .masthead-eyebrow .arabic {
+    font-family: "Amiri", "Reem Kufi", serif;
+    letter-spacing: 0;
+    font-size: 1.05rem;
+    margin-right: 0.55em;
+    color: var(--accent-deep);
+    font-weight: 400;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+  .masthead-eyebrow .bureau-name {
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.35rem;
+    line-height: 1;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+  .character-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--accent-deep);
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .cartouche {
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+  }
+
+  /* ============ IDENTITY + PORTRAIT BAND ============ */
+  .identity-band {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 2.25rem;
+    margin-bottom: 2.5rem;
+    align-items: start;
+  }
+  .identity-block { min-width: 0; }
+  .identity-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0.4rem 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    align-items: baseline;
+  }
+  .identity-row:last-child { border-bottom: none; }
+  .identity-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .identity-value {
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+  }
+  .identity-value em {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  .surname-note {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    display: block;
+    margin-top: 0.15rem;
+  }
+
+  /* Portrait plate */
+  .portrait-plate { position: relative; }
+  .portrait-frame {
+    border: 1px solid var(--accent-deep);
+    padding: 6px;
+    background: var(--paper-shade);
+    box-shadow:
+      inset 0 0 0 1px var(--saffron),
+      0 2px 8px rgba(22, 17, 8, 0.3);
+    position: relative;
+  }
+  .portrait-frame::before,
+  .portrait-frame::after {
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--accent-deep);
+  }
+  .portrait-frame::before {
+    top: -4px; left: -4px;
+    border-right: none; border-bottom: none;
+  }
+  .portrait-frame::after {
+    bottom: -4px; right: -4px;
+    border-left: none; border-top: none;
+  }
+  .portrait-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: sepia(0.08) saturate(0.95) brightness(0.98);
+  }
+  .portrait-frame.empty {
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 12px,
+        rgba(176, 100, 52, 0.05) 12px,
+        rgba(176, 100, 52, 0.05) 24px
+      ),
+      var(--paper-shade);
+  }
+  .portrait-frame.empty .empty-monogram {
+    font-family: "Amiri", "Reem Kufi", serif;
+    font-size: 4rem;
+    color: var(--accent-deep);
+    opacity: 0.35;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    direction: rtl;
+  }
+  .portrait-frame.empty .empty-note {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .portrait-caption {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 0.7rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .portrait-caption strong {
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+  }
+  .portrait-aliases {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--accent-deep);
+    text-align: center;
+    margin-top: 0.4rem;
+  }
+
+  /* ============ SECTION ORNAMENTS ============ */
+  .section { margin-top: 2.5rem; }
+  .section-head {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    justify-content: center;
+    margin-bottom: 0.7rem;
+  }
+  .section-rule-line {
+    flex: 1;
+    max-width: 180px;
+    height: 1px;
+    background: var(--rule);
+  }
+  .section-ornament {
+    width: 30px; height: 30px;
+    color: var(--accent-deep);
+    flex-shrink: 0;
+  }
+  h2.section-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.55rem;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  .section-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-faint);
+    margin: 0.25rem 0 0;
+  }
+
+  /* ============ BIO ============ */
+  .bio {
+    font-family: "EB Garamond", serif;
+    font-size: 1.08rem;
+    line-height: 1.72;
+    color: var(--ink-soft);
+    text-align: justify;
+    hyphens: auto;
+  }
+  .bio p { margin: 0 0 1em; }
+  .bio p:last-child { margin-bottom: 0; }
+  .bio p:first-child::first-letter {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.1em 0.12em 0 0;
+    color: var(--accent-deep);
+  }
+
+  /* ============ ABILITY SCORES ============ */
+  .abilities {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+  }
+  .ability-card {
+    border: 1px solid var(--rule);
+    background: var(--paper-shade);
+    padding: 0.85rem 0.4rem 0.7rem;
+    text-align: center;
+    position: relative;
+  }
+  .ability-card::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 8px; right: 8px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .ability-card.saveprof::before {
+    background: var(--copper-deep);
+    height: 3px;
+  }
+  .ability-name {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .ability-score {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.05;
+    margin: 0.15rem 0 0.05rem;
+  }
+  .ability-mod {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem;
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+  .ability-save {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+    padding-top: 0.35rem;
+    border-top: 1px dotted var(--rule-soft);
+  }
+  .ability-save .save-val {
+    font-family: "EB Garamond", serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    font-weight: 500;
+    margin-left: 0.2em;
+  }
+  .ability-card.saveprof .ability-save .save-val {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+
+  /* ============ COMBAT STATS ============ */
+  .combat-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  .stat-cell {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 0.7rem 0.65rem;
+  }
+  .stat-cell-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .stat-cell-value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-top: 0.15rem;
+  }
+  .stat-cell-value small {
+    font-family: "EB Garamond", serif;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-left: 0.3em;
+  }
+
+  /* ============ SKILLS ============ */
+  .skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
+  }
+  .skills-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .skills-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: baseline;
+  }
+  .skills-table tr:last-child td { border-bottom: none; }
+  .skills-table .bonus {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    color: var(--ink);
+    width: 70px;
+    text-align: center;
+  }
+  .skills-table .bonus.expertise {
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .skills-table .source {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+  .skills-note {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    padding: 0.65rem 0.85rem;
+    background: var(--paper-shade);
+    border-left: 3px solid var(--accent);
+    margin-top: 0.8rem;
+  }
+
+  /* ============ FEATURE BLOCKS ============ */
+  .feature {
+    margin: 0 0 1.1rem;
+    padding: 0.85rem 1rem;
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+  }
+  .feature.subclass {
+    border-left-color: var(--copper-deep);
+  }
+  .feature-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    color: var(--ink);
+    margin: 0 0 0.3rem;
+    letter-spacing: 0.01em;
+  }
+  .feature-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .feature-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .feature-body p { margin: 0 0 0.55em; }
+  .feature-body p:last-child { margin-bottom: 0; }
+  .feature-body ul {
+    margin: 0.4em 0 0.2em;
+    padding-left: 1.4em;
+  }
+  .feature-body ul li {
+    padding: 0.15em 0;
+  }
+  .feature-body strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .feature-body em {
+    color: var(--accent-deep);
+  }
+
+  .features-cluster-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .features-cluster-title:first-child { margin-top: 0; }
+
+  .spell-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    padding: 0;
+    margin: 0.5em 0 0;
+    list-style: none;
+  }
+  .spell-pills li {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 0.97rem;
+    color: var(--ink);
+    padding: 0.15rem 0.7rem;
+    background: var(--paper);
+    border: 1px solid var(--saffron);
+    border-left-width: 3px;
+    border-left-color: var(--copper-deep);
+  }
+
+  .dice-callout {
+    margin: 0.5em 0;
+    padding: 0.55rem 0.85rem;
+    background: var(--paper);
+    border: 1px solid var(--copper-deep);
+    border-left: 3px solid var(--accent);
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    font-size: 0.97rem;
+  }
+  .dice-callout-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .dice-callout-dice {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    color: var(--accent-deep);
+    font-size: 1.15rem;
+  }
+
+  /* ============ ELIXIR TABLE — Farideh-specific ============ */
+  .elixir-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "EB Garamond", serif;
+    font-size: 0.96rem;
+    margin: 0.5em 0 0.2em;
+  }
+  .elixir-table th {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+    padding: 0.45rem 0.55rem;
+    border-bottom: 1px solid var(--accent-deep);
+  }
+  .elixir-table td {
+    padding: 0.55rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    vertical-align: top;
+  }
+  .elixir-table td:first-child {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    color: var(--accent-deep);
+    width: 30%;
+  }
+  .elixir-table td.cost {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    width: 22%;
+  }
+  .elixir-table td.charges {
+    text-align: center;
+    width: 8%;
+    font-weight: 600;
+  }
+
+  /* ============ JOURNEY (LIFEPATH) ============ */
+  .journey-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .journey-card {
+    border-left: 3px solid var(--accent);
+    background: var(--paper-shade);
+    padding: 0.85rem 1rem;
+  }
+  .journey-card.event {
+    border-left-color: var(--copper-deep);
+  }
+  .journey-card .jc-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .journey-card.event .jc-label { color: var(--copper-deep); }
+  .journey-card .jc-value {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .journey-card .jc-value em { color: var(--ink-soft); font-style: italic; }
+  .journey-events {
+    margin-top: 1rem;
+  }
+  .journey-event {
+    margin: 0 0 0.8rem;
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+    border: 1px solid var(--rule-soft);
+    border-top: 2px solid var(--saffron);
+  }
+  .journey-event-roll {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .journey-event-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin: 0 0 0.35rem;
+  }
+  .journey-event-body {
+    font-family: "EB Garamond", serif;
+    font-size: 0.97rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ============ PROFESSION ============ */
+  .profession-block {
+    margin-top: 1rem;
+    padding: 1rem 1.2rem;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0,
+        transparent 24px,
+        rgba(200, 147, 42, 0.05) 24px,
+        rgba(200, 147, 42, 0.05) 48px
+      ),
+      var(--paper);
+    border: 1px solid var(--saffron);
+  }
+  .profession-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule-soft);
+    margin-bottom: 0.75rem;
+  }
+  .profession-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.12rem;
+    color: var(--ink);
+  }
+  .profession-rank {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    color: var(--copper-deep);
+    text-transform: uppercase;
+  }
+  .profession-rank .pex {
+    color: var(--ink-faint);
+    margin-left: 0.5em;
+  }
+  .profession-baseline {
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .profession-baseline strong { color: var(--ink); }
+  .profession-available {
+    margin-top: 0.85rem;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-faint);
+  }
+
+  /* ============ EQUIPMENT ============ */
+  .equipment-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .equip-block {
+    border: 1px solid var(--rule-soft);
+    padding: 0.85rem 1rem;
+    background: var(--paper);
+  }
+  .equip-block-title {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin: 0 0 0.55rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .equip-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .equip-list li {
+    padding: 0.35rem 0;
+    font-family: "EB Garamond", serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    border-bottom: 1px dotted var(--rule-soft);
+  }
+  .equip-list li:last-child { border-bottom: none; }
+  .equip-list .item-name { font-weight: 500; }
+  .equip-list .item-detail {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-style: italic;
+  }
+  .money-line {
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    padding: 0.85rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .money-line .amount {
+    font-family: "Cormorant Garamond", serif;
+    font-style: normal;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--copper-deep);
+    letter-spacing: 0.05em;
+    margin: 0 0.3em;
+  }
+
+  /* ============ PERSONALITY ============ */
+  .personality-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+  .personality-card {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--paper-shade);
+    border-top: 2px solid var(--accent);
+    position: relative;
+  }
+  .personality-card.flaw {
+    border-top-color: var(--rose);
+  }
+  .personality-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .personality-card.flaw .personality-label { color: var(--rose-deep); }
+  .personality-label .alignment-tag {
+    color: var(--ink-faint);
+    font-weight: 400;
+    margin-left: 0.4em;
+  }
+  .personality-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ============ CONNECTIONS ============ */
+  .connections-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .connections-list li {
+    padding: 0.85rem 0 0.85rem 1.5rem;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-family: "EB Garamond", serif;
+    font-size: 1.02rem;
+    color: var(--ink);
+    line-height: 1.6;
+    position: relative;
+  }
+  .connections-list li:last-child { border-bottom: none; }
+  .connections-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 1.3em;
+    width: 8px; height: 8px;
+    border: 1px solid var(--accent);
+    transform: rotate(45deg);
+    background: var(--paper);
+  }
+  .connections-list .conn-name {
+    font-weight: 500;
+    color: var(--accent-deep);
+  }
+
+  /* ============ PATRON'S NOTE ============ */
+  .patron-note {
+    margin: 2.75rem 0 0;
+    padding: 1.5rem 1.75rem 1.65rem;
+    border: 1px solid var(--copper-deep);
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 8px,
+        rgba(200, 147, 42, 0.05) 8px,
+        rgba(200, 147, 42, 0.05) 16px
+      ),
+      var(--paper-shade);
+    position: relative;
+  }
+  .patron-note::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 2px;
+    background: linear-gradient(90deg,
+      var(--gold-deep) 0%,
+      var(--gold) 30%,
+      var(--saffron) 50%,
+      var(--gold) 70%,
+      var(--gold-deep) 100%);
+  }
+  .patron-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--copper-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+  .patron-text {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+  .patron-signature {
+    margin-top: 0.85rem;
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    color: var(--ink-soft);
+  }
+  .patron-signature .sig-name {
+    font-style: italic;
+    color: var(--ink);
+  }
+  .patron-signature .sig-arabic {
+    font-family: "Amiri", serif;
+    font-style: normal;
+    font-size: 1.05rem;
+    color: var(--accent-deep);
+    margin-left: 0.4em;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+
+  /* ============ FOOT ============ */
+  .document-foot {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .foot-seal {
+    width: 38px; height: 38px;
+    color: var(--accent-deep);
+    opacity: 0.75;
+  }
+  .foot-text {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    flex: 1;
+  }
+  .foot-text .arabic {
+    font-family: "Amiri", "Reem Kufi", serif;
+    letter-spacing: 0;
+    color: var(--accent-deep);
+    margin: 0 0.4em;
+    font-size: 0.95rem;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 760px) {
+    body { padding: 1rem 0.4rem 2rem; }
+    .document { padding: 2.25rem 1.5rem 2.75rem; }
+    h1.character-name { font-size: 2.3rem; }
+    .masthead { grid-template-columns: 1fr; gap: 1rem; }
+    .cartouche { width: 80px; height: 80px; justify-self: start; }
+    .identity-band { grid-template-columns: 1fr; }
+    .portrait-plate { max-width: 240px; }
+    .abilities { grid-template-columns: repeat(3, 1fr); }
+    .combat-stats { grid-template-columns: repeat(2, 1fr); }
+    .personality-grid { grid-template-columns: 1fr; }
+    .journey-grid { grid-template-columns: 1fr; }
+    .vine-margin { display: none; }
+    .skills-table .source { display: none; }
+    .covert-mark { display: none; }
+  }
+
+  @media (max-width: 460px) {
+    .abilities { grid-template-columns: repeat(2, 1fr); }
+    .identity-row { grid-template-columns: 1fr; gap: 0.1rem; }
+    .identity-label { font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Inline SVG definitions -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Section ornament: small brass bowl with hammer-strike marks on the rim -->
+    <symbol id="farideh-ornament" viewBox="0 0 30 30">
+      <g fill="none" stroke="currentColor" stroke-width="0.8">
+        <!-- Bowl (cross-section) -->
+        <path d="M 6 12 Q 15 22 24 12" fill="currentColor" fill-opacity="0.25"/>
+        <!-- Bowl rim -->
+        <line x1="5" y1="12" x2="25" y2="12" stroke-width="1.1"/>
+        <!-- Hammer-strike marks across the rim -->
+        <g fill="currentColor" stroke="none">
+          <circle cx="8.5" cy="11" r="0.6"/>
+          <circle cx="12" cy="11" r="0.6"/>
+          <circle cx="15" cy="11" r="0.6"/>
+          <circle cx="18" cy="11" r="0.6"/>
+          <circle cx="21.5" cy="11" r="0.6"/>
+        </g>
+        <!-- Small base support -->
+        <line x1="11" y1="20" x2="19" y2="20" stroke-width="0.7"/>
+      </g>
+    </symbol>
+
+    <!-- Foot seal: small brass bowl in a roundel -->
+    <symbol id="foot-seal-farideh" viewBox="0 0 40 40">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <circle cx="20" cy="20" r="17"/>
+        <circle cx="20" cy="20" r="13" stroke-dasharray="1 2"/>
+        <!-- Bowl cross-section -->
+        <path d="M 10 17 Q 20 28 30 17" fill="currentColor" fill-opacity="0.5" stroke-width="1.1"/>
+        <line x1="9" y1="17" x2="31" y2="17" stroke-width="1.1"/>
+        <!-- Hammer marks -->
+        <g fill="currentColor" stroke="none">
+          <circle cx="14" cy="15.5" r="0.6"/>
+          <circle cx="20" cy="15.5" r="0.6"/>
+          <circle cx="26" cy="15.5" r="0.6"/>
+        </g>
+      </g>
+    </symbol>
+
+    <!-- Farideh's cartouche: brass bowl in cross-section with hammer-strike radial marks; alchemist's retort above -->
+    <symbol id="cartouche-farideh" viewBox="0 0 110 110">
+      <g fill="none" stroke="currentColor" stroke-width="1.1">
+        <!-- Outer ring -->
+        <circle cx="55" cy="55" r="50"/>
+        <!-- Inner dashed ring -->
+        <circle cx="55" cy="55" r="42" stroke-width="0.7" stroke-dasharray="2 3"/>
+
+        <!-- Decorative dots (saffron crocus suggestion) around outer ring -->
+        <g fill="currentColor" stroke="none">
+          <circle cx="55" cy="9" r="0.9"/>
+          <circle cx="82" cy="20" r="0.7"/>
+          <circle cx="100" cy="55" r="0.9"/>
+          <circle cx="82" cy="90" r="0.7"/>
+          <circle cx="55" cy="100" r="0.9"/>
+          <circle cx="28" cy="90" r="0.7"/>
+          <circle cx="10" cy="55" r="0.9"/>
+          <circle cx="28" cy="20" r="0.7"/>
+        </g>
+
+        <!-- Alchemist's retort above -->
+        <g stroke="currentColor" stroke-width="0.9" fill="currentColor" fill-opacity="0.4">
+          <!-- Retort bulb -->
+          <ellipse cx="46" cy="34" rx="7.5" ry="6.5"/>
+          <!-- Retort neck (curving up and right) -->
+          <path d="M 53 34 Q 64 30 70 22" stroke-width="1" fill="none"/>
+          <!-- Tiny drip -->
+          <circle cx="71" cy="22" r="0.9" fill="currentColor"/>
+        </g>
+
+        <!-- Brass bowl in cross-section (centered, lower-middle) -->
+        <g>
+          <!-- Bowl interior (filled, with radial gradient suggestion) -->
+          <path d="M 25 58 Q 55 92 85 58 Z" fill="currentColor" fill-opacity="0.42" stroke="currentColor" stroke-width="1.2"/>
+          <!-- Bowl rim -->
+          <line x1="23" y1="58" x2="87" y2="58" stroke="currentColor" stroke-width="1.4"/>
+
+          <!-- Hammer-strike radial marks across the bowl's curved surface -->
+          <g stroke="currentColor" stroke-width="0.5" fill="none">
+            <path d="M 30 60 Q 32 68 34 75"/>
+            <path d="M 38 60 Q 40 70 42 80"/>
+            <path d="M 46 60 Q 47 71 48 82"/>
+            <path d="M 55 60 L 55 84"/>
+            <path d="M 64 60 Q 63 71 62 82"/>
+            <path d="M 72 60 Q 70 70 68 80"/>
+            <path d="M 80 60 Q 78 68 76 75"/>
+          </g>
+
+          <!-- Dot row along the rim (hammer marks) -->
+          <g fill="currentColor" stroke="none">
+            <circle cx="30" cy="56" r="0.7"/>
+            <circle cx="38" cy="55" r="0.7"/>
+            <circle cx="46" cy="55" r="0.7"/>
+            <circle cx="55" cy="55" r="0.7"/>
+            <circle cx="64" cy="55" r="0.7"/>
+            <circle cx="72" cy="55" r="0.7"/>
+            <circle cx="80" cy="56" r="0.7"/>
+          </g>
+
+          <!-- Small base supports -->
+          <line x1="44" y1="92" x2="66" y2="92" stroke-width="1"/>
+        </g>
+
+        <!-- Central inscription dot on the rim -->
+        <circle cx="55" cy="55" r="2.4" fill="var(--paper)" stroke="currentColor" stroke-width="0.7"/>
+      </g>
+    </symbol>
+
+    <!-- Covert mark: brass workbench-roundel with three crossed tools (hammer, tongs, calipers) -->
+    <symbol id="covert-mark-farideh" viewBox="0 0 96 96">
+      <g fill="none" stroke="currentColor" stroke-width="1.4">
+        <!-- Outer ring -->
+        <circle cx="48" cy="48" r="44"/>
+        <circle cx="48" cy="48" r="36" stroke-dasharray="3 4"/>
+        <circle cx="48" cy="48" r="28"/>
+        <!-- Hammer (vertical) -->
+        <g stroke="currentColor" stroke-width="1.5" fill="currentColor" fill-opacity="0.4">
+          <rect x="46" y="20" width="4" height="32" rx="0.7"/>
+          <rect x="40" y="18" width="16" height="6" rx="0.8"/>
+        </g>
+        <!-- Tongs (diagonal, upper-left to lower-right) -->
+        <g stroke="currentColor" stroke-width="1.3" fill="none">
+          <path d="M 22 22 L 48 48 L 44 56"/>
+          <path d="M 22 30 L 44 48"/>
+        </g>
+        <!-- Calipers (diagonal, upper-right to lower-left) -->
+        <g stroke="currentColor" stroke-width="1.3" fill="none">
+          <path d="M 74 22 L 48 48 L 52 56"/>
+          <path d="M 74 30 L 52 48"/>
+          <circle cx="48" cy="48" r="1.5" fill="currentColor"/>
+        </g>
+      </g>
+    </symbol>
+
+    <!-- Vine pattern: repeating column of brass-bowl silhouettes alternating with retorts -->
+    <pattern id="vinePatternFarideh" width="26" height="120" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="currentColor" stroke-width="0.7">
+        <!-- Stem -->
+        <line x1="13" y1="0" x2="13" y2="120" stroke-width="0.4"/>
+        <!-- Bowl at top -->
+        <g transform="translate(13 12)">
+          <path d="M -5 -2 Q 0 6 5 -2 Z" fill="currentColor" fill-opacity="0.3" stroke="currentColor" stroke-width="0.6"/>
+          <line x1="-5" y1="-2" x2="5" y2="-2" stroke-width="0.7"/>
+        </g>
+        <!-- Retort -->
+        <g transform="translate(13 38)">
+          <ellipse cx="-2" cy="0" rx="3" ry="2.5" fill="currentColor" fill-opacity="0.3" stroke="currentColor" stroke-width="0.6"/>
+          <path d="M 1 0 Q 4 -1 5 -3" stroke-width="0.6" fill="none"/>
+        </g>
+        <!-- Bowl middle -->
+        <g transform="translate(13 65)">
+          <path d="M -5 -2 Q 0 6 5 -2 Z" fill="currentColor" fill-opacity="0.3" stroke="currentColor" stroke-width="0.6"/>
+          <line x1="-5" y1="-2" x2="5" y2="-2" stroke-width="0.7"/>
+        </g>
+        <!-- Retort -->
+        <g transform="translate(13 92)">
+          <ellipse cx="-2" cy="0" rx="3" ry="2.5" fill="currentColor" fill-opacity="0.3" stroke="currentColor" stroke-width="0.6"/>
+          <path d="M 1 0 Q 4 -1 5 -3" stroke-width="0.6" fill="none"/>
+        </g>
+        <!-- Bowl lower -->
+        <g transform="translate(13 116)">
+          <path d="M -5 -2 Q 0 6 5 -2 Z" fill="currentColor" fill-opacity="0.3" stroke="currentColor" stroke-width="0.6"/>
+          <line x1="-5" y1="-2" x2="5" y2="-2" stroke-width="0.7"/>
+        </g>
+      </g>
+    </pattern>
+  </defs>
+</svg>
+
+<article class="document">
+
+  <svg class="vine-margin" preserveAspectRatio="none" aria-hidden="true" style="width:26px; height:100%;">
+    <rect width="100%" height="100%" fill="url(#vinePatternFarideh)"/>
+  </svg>
+
+  <!-- Brass-workbench mark watermark -->
+  <svg class="covert-mark" aria-hidden="true"><use href="#covert-mark-farideh"/></svg>
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="masthead-eyebrow">
+        <span class="arabic">دیوان الطریق</span>
+        <span class="bureau-name">Dīwān al-Ṭarīq</span> &middot; Bureau of the Roads &middot; <span class="dossier-no">Dossier · Bard</span>
+      </div>
+      <h1 class="character-name">Farideh al-Saffar</h1>
+      <p class="character-subtitle">Perfumer of Baghdad &middot; The Coppersmith's Granddaughter</p>
+    </div>
+    <svg class="cartouche" aria-hidden="true" style="color: var(--accent-deep);">
+      <use href="#cartouche-farideh"/>
+    </svg>
+  </header>
+
+  <!-- ============ IDENTITY + PORTRAIT ============ -->
+  <section class="identity-band">
+    <div class="identity-block">
+      <div class="identity-row">
+        <span class="identity-label">Class &amp; Level</span>
+        <span class="identity-value">Bard 3 &middot; College of Scent</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Race</span>
+        <span class="identity-value">Human (Standard)</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Background</span>
+        <span class="identity-value">Guild Artisan (Perfumery) <em>— SRD</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Age</span>
+        <span class="identity-value">26</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Heritage</span>
+        <span class="identity-value">Arab &middot; Baghdad merchant-class <em>(grandfather coppersmith; father pivoted into perfumes)</em></span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Faith</span>
+        <span class="identity-value">Sunni Islam</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Alignment</span>
+        <span class="identity-value">Neutral Good</span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Languages</span>
+        <span class="identity-value">Arabic (Common of the Caliphate), Persian, Turkish, Greek
+          <span class="surname-note">Greek learned at her madrasa — she reads Galen and Dioscorides in the original, useful for the pharmacology of scent and for trade westward into Byzantium.</span>
+        </span>
+      </div>
+      <div class="identity-row">
+        <span class="identity-label">Byname</span>
+        <span class="identity-value"><em>al-Saffar — "the coppersmith"</em>
+          <span class="surname-note">An occupational byname inherited from her grandfather's trade. Her father moved the family business up into perfumes and luxury oils; she inherited and improved on the trade. The name is older than what she does, but she keeps it.</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="portrait-plate">
+      <div class="portrait-frame empty">
+        <div class="empty-monogram">ف</div>
+        <div class="empty-note">Portrait pending</div>
+      </div>
+      <div class="portrait-caption">
+        <strong>Farideh al-Saffar</strong><br>
+        Arab / Baghdad &middot; Aged Twenty-Six
+      </div>
+      <div class="portrait-aliases">she reads strangers by their scent before she greets them</div>
+    </div>
+  </section>
+
+  <!-- ============ BIO ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#farideh-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">On the Subject</h2>
+    </div>
+    <div class="bio">
+      <p>Farideh was born into a Baghdad merchant family — her grandfather worked copper, her father moved up into perfumes and luxury oils, and Farideh inherited the trade and improved on it. She studied at one of the city's madrasas, where she picked up Turkish and learned the chemistry of scent-extraction from a teacher who had once worked in the Caliph's own gardens. Her family business included river-trade up and down the Tigris, and as a young woman she spent months on her family's barges learning the routes between Baghdad and Basra.</p>
+      <p>What sets Farideh apart from the dozen other perfumer-merchants in the bazaars is that her elixirs <em>work</em> — really work. She enchants them. She does not call this magic; she calls it skill. The arcane circles of Baghdad are wider awake than the bazaars know, and she had access through her madrasa years to enough fragments and rumors that she put it together herself. Her customers don't ask why their love-spell perfume actually attracts attention, or why the courtesan's revealing-scent really does break a mirage. They just pay handsomely and ask for more.</p>
+      <p>She travels the Silk Road now, trading rare perfumes and using her arcane scents to enthrall and heal. Her skills make her a prized guest at courts and bazaars.</p>
+    </div>
+  </section>
+
+  <!-- ============ ABILITY SCORES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#farideh-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Faculties &amp; Saving Throws</h2>
+      <p class="section-subtitle">Rolled array 12, 13, 13, 15, 16, 18 &middot; Human +1 to all six &middot; Trader feat +1 Cha</p>
+    </div>
+    <div class="abilities">
+      <div class="ability-card">
+        <div class="ability-name">Strength</div>
+        <div class="ability-score">13</div>
+        <div class="ability-mod">+1</div>
+        <div class="ability-save">Save <span class="save-val">+1</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Dexterity</div>
+        <div class="ability-score">17</div>
+        <div class="ability-mod">+3</div>
+        <div class="ability-save">Save <span class="save-val">+5</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Constitution</div>
+        <div class="ability-score">16</div>
+        <div class="ability-mod">+3</div>
+        <div class="ability-save">Save <span class="save-val">+3</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Intelligence</div>
+        <div class="ability-score">14</div>
+        <div class="ability-mod">+2</div>
+        <div class="ability-save">Save <span class="save-val">+2</span></div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Wisdom</div>
+        <div class="ability-score">14</div>
+        <div class="ability-mod">+2</div>
+        <div class="ability-save">Save <span class="save-val">+2</span></div>
+      </div>
+      <div class="ability-card saveprof">
+        <div class="ability-name">Charisma</div>
+        <div class="ability-score">20</div>
+        <div class="ability-mod">+5</div>
+        <div class="ability-save">Save <span class="save-val">+7</span></div>
+      </div>
+    </div>
+    <div class="skills-note">
+      <strong>Cha 20 at L3.</strong> Standard Human +1 and the Trader feat's +1 push her spellcasting modifier to its tier-1 ceiling — <strong>spell save DC 15</strong>, the highest of any character in her cohort.
+    </div>
+  </section>
+
+  <!-- ============ COMBAT STATS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#farideh-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Bearing on the Route</h2>
+    </div>
+    <div class="combat-stats">
+      <div class="stat-cell">
+        <div class="stat-cell-label">Proficiency</div>
+        <div class="stat-cell-value">+2</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Armour Class</div>
+        <div class="stat-cell-value">15 <small>studded leather + Dex</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Initiative</div>
+        <div class="stat-cell-value">+3</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Speed</div>
+        <div class="stat-cell-value">30 <small>ft</small></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Points</div>
+        <div class="stat-cell-value">27</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Hit Dice</div>
+        <div class="stat-cell-value">3d8</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Passive Perception</div>
+        <div class="stat-cell-value">12</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell-label">Spell Save DC</div>
+        <div class="stat-cell-value">15 <small>+7 atk &middot; Cha</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#farideh-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <table class="skills-table">
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th class="bonus" style="text-align:center;">Bonus</th>
+          <th class="source">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Deception</td>   <td class="bonus">+7</td>            <td class="source">Bard</td></tr>
+        <tr><td>Persuasion</td>  <td class="bonus expertise">+9</td>  <td class="source">Guild Artisan + <strong>Expertise</strong></td></tr>
+        <tr><td>History</td>     <td class="bonus">+4</td>            <td class="source">Bard</td></tr>
+        <tr><td>Performance</td> <td class="bonus expertise">+9</td>  <td class="source">Bard + <strong>Expertise</strong></td></tr>
+        <tr><td>Insight</td>     <td class="bonus">+4</td>            <td class="source">Guild Artisan</td></tr>
+      </tbody>
+    </table>
+    <div class="skills-note">
+      <strong>Expertise</strong> (Bard L3) doubles PB on Persuasion and Performance — bonuses already reflected above. <strong>Jack of All Trades</strong> (Bard L2) adds <strong>+1</strong> to any ability check not already proficient. Tool proficiencies: <strong>Perfumer's supplies</strong> (Guild Artisan); <strong>Lyre, Lute, Tanbur</strong> (Bard musical instruments — period-appropriate stringed instruments of the Islamic world); <strong>Sea Vehicles</strong> (Your Journey — Life Event II: Tigris barges between Baghdad and Basra).
+    </div>
+  </section>
+
+  <!-- ============ CLASS FEATURES ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#farideh-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Class Features</h2>
+    </div>
+
+    <div class="features-cluster-title">Bard — Base</div>
+
+    <div class="feature">
+      <div class="feature-title">Spellcasting</div>
+      <div class="feature-meta">Level 1 &middot; Cha-based</div>
+      <div class="feature-body">
+        <p>Charisma is her spellcasting ability. <strong>Spell save DC 15 &middot; Spell attack +7</strong>. Uses an instrument or arcane focus. <strong>Spell slots: 4 × 1st · 2 × 2nd.</strong></p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Bardic Inspiration</div>
+      <div class="feature-meta">Level 1 &middot; bonus action · 60 ft</div>
+      <div class="feature-body">
+        <p>One creature within 60 ft. (other than herself) gains a Bardic Inspiration die (<strong>d6</strong> at L3); they may add it to one ability check, attack roll, or saving throw made within the next 10 minutes. Uses per long rest: <strong>5</strong> (= Cha mod). Recovers on long rest until L5.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Jack of All Trades</div>
+      <div class="feature-meta">Level 2</div>
+      <div class="feature-body">
+        <p>Adds half her PB (rounded down: <strong>+1</strong>) to any ability check that doesn't already include her proficiency bonus.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Song of Rest</div>
+      <div class="feature-meta">Level 2 &middot; short rest</div>
+      <div class="feature-body">
+        <p>During a short rest, any allies who hear her performance and spend Hit Dice regain an extra <strong>d6</strong> per Hit Die spent.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Expertise</div>
+      <div class="feature-meta">Level 3</div>
+      <div class="feature-body">
+        <p>Doubles PB on two skill proficiencies. Chosen: <strong>Persuasion</strong> and <strong>Performance</strong> — both at <strong>+9</strong>.</p>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">College of Scent — Empires of the Silk Road</div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Mesmerizing Aroma</div>
+      <div class="feature-meta">Level 3 · Subclass core</div>
+      <div class="feature-body">
+        <p>She can spend 1 hour and the listed resources (gp + spell slot) to create elixirs. Elixirs are used as a <strong>bonus action</strong>, target within 5 ft. She may possess <strong>up to 3 elixirs at a time</strong>; making a fourth causes the oldest to lose its magic unless she spends a Bardic Inspiration die. Others can carry her elixirs but must treat them as normal objects (no bonus-action use).</p>
+
+        <table class="elixir-table">
+          <thead>
+            <tr>
+              <th>Currently Prepared</th>
+              <th>Cost to Make</th>
+              <th style="text-align:center;">Chgs</th>
+              <th>Effect</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>The Enduring Ivy</td>
+              <td class="cost">25 gp + 1st-level slot</td>
+              <td class="charges">2</td>
+              <td>Grants target 1d6 temporary HP.</td>
+            </tr>
+            <tr>
+              <td>The Rose of Qaf</td>
+              <td class="cost">50 gp + 2nd-level slot</td>
+              <td class="charges">2</td>
+              <td>Con save vs DC 15 or charmed by her for 1 hour or until damaged. Target doesn't know it's charmed.</td>
+            </tr>
+            <tr>
+              <td>The Miragebane</td>
+              <td class="cost">50 gp + 2nd-level slot</td>
+              <td class="charges">3</td>
+              <td>Con save vs DC 15 or shapechanger reveals true form; reveals if creature is non-native to this plane; prevents target from turning invisible or shapechanging for 10 minutes.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="feature subclass">
+      <div class="feature-title">Heightened Senses</div>
+      <div class="feature-meta">Level 3 · Subclass</div>
+      <div class="feature-body">
+        <ul>
+          <li>She can identify a humanoid's specific scent and never forget it.</li>
+          <li>She learns <em>detect poison and disease</em> as a bonus bard spell; it does not count against her spells known. She may cast it without components or slot <strong>once per long rest</strong> (as if smelling the air), or normally with a slot + Bardic Inspiration die.</li>
+          <li>As a bonus action, by spending a Bardic Inspiration die she focuses her sense of smell for <strong>10 minutes</strong>: <strong>advantage on Perception checks relying on smell</strong>, and <strong>advantage on Insight checks to detect lies within 30 ft.</strong></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPELLS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#farideh-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Spells</h2>
+      <p class="section-subtitle">Cha &middot; DC 15 &middot; Atk +7 &middot; 4 × 1st, 2 × 2nd</p>
+    </div>
+
+    <div class="features-cluster-title">Cantrips Known (2)</div>
+
+    <div class="feature">
+      <div class="feature-title">Vicious Mockery &middot; Minor Illusion</div>
+      <div class="feature-body">
+        <p><em>Vicious Mockery</em> — 1d4 psychic, target with disadvantage on next attack roll. 60 ft, Wis save.<br>
+        <em>Minor Illusion</em> — Sound or image, 1 minute, 5-ft. cube.</p>
+      </div>
+    </div>
+
+    <div class="features-cluster-title">Spells Known (6)</div>
+
+    <div class="feature">
+      <div class="feature-title">Healing Word &middot; Charm Person &middot; Disguise Self &middot; Sleep</div>
+      <div class="feature-meta">1st level</div>
+      <div class="feature-body">
+        <ul>
+          <li><em>Healing Word</em> — bonus-action heal, 60 ft, 1d4+5.</li>
+          <li><em>Charm Person</em> — Wis save, 1 hour. Conversational handle.</li>
+          <li><em>Disguise Self</em> — 1 hour illusion; fits perfumer-courtesan flavor.</li>
+          <li><em>Sleep</em> — 5d8 HP-pool falls unconscious. Narratively a "sleeping draught" disguised as one of her perfumes.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Suggestion &middot; Detect Thoughts</div>
+      <div class="feature-meta">2nd level &middot; both concentration</div>
+      <div class="feature-body">
+        <ul>
+          <li><em>Suggestion</em> — Wis save, 8 hours. Her court-and-bazaar workhorse.</li>
+          <li><em>Detect Thoughts</em> — Wis save, 1 minute concentration. A perfumer who "reads" customers; pairs flavorfully with Heightened Senses' lie-detection bonus.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-title">Detect Poison and Disease</div>
+      <div class="feature-meta">Subclass-granted &middot; does not count against spells known</div>
+      <div class="feature-body">
+        <p>From College of Scent — free, 1/day no slot, or normal with a slot + bardic die.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEAT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#farideh-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Feat</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Trader</div>
+      <div class="feature-meta">Level 1 · Granted feat &middot; Empires of the Silk Road</div>
+      <div class="feature-body">
+        <ul>
+          <li><strong>+1 Charisma</strong> → final <strong>Cha 20</strong>.</li>
+          <li>She always knows the approximate value of an item; she is impossible to scam.</li>
+          <li><strong>Advantage</strong> on Persuasion and Deception checks when bargaining for the price of any item or service — buyer or seller.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BACKGROUND ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#farideh-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Background — Guild Artisan (Perfumery)</h2>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Guild Membership</div>
+      <div class="feature-body">
+        <p>She has fellow members of the <strong>Perfumers' Guild of Baghdad</strong> and affiliates in major Silk Road cities. They will provide her lodging, food, and intelligence on local markets. Her Guild membership is a form of formal identification.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Specialty &middot; Perfumer</div>
+      <div class="feature-body">
+        <p>She makes her living blending and selling scents, both mundane and — privately — arcane. Her customers do not always know the difference.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ YOUR JOURNEY (LIFEPATH) ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#farideh-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Your Journey</h2>
+      <p class="section-subtitle">Lifepath &middot; rolled and chosen entries from the Silk Road book</p>
+    </div>
+
+    <div class="journey-grid">
+      <div class="journey-card">
+        <div class="jc-label">Birthplace</div>
+        <div class="jc-value">Her family house in <strong>Baghdad</strong> — the perfumer-merchant compound in one of the city's prosperous quarters.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Family</div>
+        <div class="jc-value">Both mother and father alive — an intact merchant household.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Siblings</div>
+        <div class="jc-value">One sibling — a brother who still works the family's river-boat between Baghdad and Basra.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Lifestyle</div>
+        <div class="jc-value"><strong>Wealthy.</strong> A working merchant household with real Baghdad prosperity. <em>Grants +15 gp starting bonus.</em></div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Strings to Arcanum</div>
+        <div class="jc-value">Her community knows there are things beyond the veil of mortal eyes — Baghdad scholars and Sufis quietly practice. Most ordinary folk don't see it; the educated upper classes know.</div>
+      </div>
+      <div class="journey-card">
+        <div class="jc-label">Past Education</div>
+        <div class="jc-value"><strong>Madrasa</strong> (Option 4) — exposure to Turkish (still in use), to chemistry and natural philosophy, and to whispered hints from one teacher who had worked in the Caliph's own garden. <em>Grants the Greek language.</em></div>
+      </div>
+    </div>
+
+    <div class="journey-events">
+      <div class="journey-event">
+        <div class="journey-event-roll">Event I &middot; d20 = 5</div>
+        <h4 class="journey-event-title">Met an important figure — friendly attitude.</h4>
+        <div class="journey-event-body">
+          <p>Somewhere in her travels — perhaps a Baghdad poet, an emir at a Samarkand court, a Sufi sect leader who admired her perfumes — she earned the goodwill of someone with real social weight. <em>GM-assigned, not yet named.</em></p>
+        </div>
+      </div>
+      <div class="journey-event">
+        <div class="journey-event-roll">Event II &middot; d20 = 16</div>
+        <h4 class="journey-event-title">Worked on a ship — gains Sea Vehicles proficiency.</h4>
+        <div class="journey-event-body">
+          <p>As a young woman she spent months on her family's Tigris river-barges, learning the routes between Baghdad and Basra. She can sail, navigate by water, and is comfortable on deck.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROFESSION ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#farideh-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Profession</h2>
+      <p class="section-subtitle">Silk Road PEX system &middot; Apprentice rank</p>
+    </div>
+    <div class="profession-block">
+      <div class="profession-head">
+        <div class="profession-name">Merchant</div>
+        <div class="profession-rank">Apprentice · Rank 1 <span class="pex">PEX 0</span></div>
+      </div>
+      <p class="profession-baseline">
+        <strong>The Right Price</strong> (apprentice ability) — When she attempts to determine the price of an object using Insight or an appropriate tool (perfumer's supplies, for example), she has <strong>advantage</strong> on the roll.<br>
+        <strong>Charisma Floor</strong> (apprentice baseline) — Any Charisma-based ability check cannot roll lower than <strong>7</strong>. Treat any Cha-check die result below 7 as 7. At her Cha 20 / +5 mod, her effective Cha-check floor is <strong>12</strong>.
+      </p>
+      <p class="profession-available">
+        The Merchant track is her family's inheritance and her natural lane. Higher-rank PEX purchases — <em>Mark of Quality</em>, <em>Master of the Bazaar</em>, <em>Open Doors</em> — all fit her trajectory but cost PEX she has not yet earned. She is at the formal beginning of a trade her household has practiced for two generations.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ EQUIPMENT ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#farideh-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Equipment</h2>
+    </div>
+    <div class="equipment-grid">
+      <div class="equip-block">
+        <div class="equip-block-title">Weapons</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Rapier</span> &mdash; <span class="item-detail">1d8 piercing; finesse; <strong>+5 to hit / 1d8+3</strong>. Elegant, court-appropriate sidearm.</span></li>
+          <li><span class="item-name">Hanchar</span> &mdash; <span class="item-detail">Silk Road dagger; 1d4 slashing, finesse, light, handy (may deal piercing); <strong>+5 to hit / 1d4+3</strong>.</span></li>
+          <li><span class="item-name">Shortbow</span> &mdash; <span class="item-detail">1d6 piercing; ammunition 80/320, two-handed; <strong>+5 to hit / 1d6+3</strong>. With 20 arrows.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Armour</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Studded Leather</span> &mdash; <span class="item-detail">light armor; AC 12 + Dex; takes full Dex modifier; no Stealth disadvantage. <strong>Final AC 15.</strong></span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Spellcasting Focus &amp; Instruments</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Lyre</span> &mdash; <span class="item-detail">primary; she casts most spells with it.</span></li>
+          <li><span class="item-name">Tanbur</span> &mdash; <span class="item-detail">long-necked period stringed instrument of the Islamic world.</span></li>
+          <li><span class="item-name">Lute</span> &mdash; <span class="item-detail">carried for variety of repertoire.</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Personal Items</div>
+        <ul class="equip-list">
+          <li><span class="item-name">Elixir toolkit</span> &mdash; <span class="item-detail">perfumer's supplies, vials, alembics, herb cuttings, distillation equipment.</span></li>
+          <li><span class="item-name">Carved cedar chest</span> &mdash; <span class="item-detail">holds her current three prepared elixirs.</span></li>
+          <li><span class="item-name">Set of fine clothes</span> &mdash; <span class="item-detail">Baghdad court-class, suitable for performance at court or in a wealthy patron's bazaar-stall.</span></li>
+          <li><span class="item-name">Letter of introduction</span> &mdash; <span class="item-detail">from her Perfumers' Guild.</span></li>
+          <li><span class="item-name">Favored scented oil</span> &mdash; <span class="item-detail">rose-of-Qaf base, for personal use.</span></li>
+          <li><span class="item-name">Scribe's small kit</span> &mdash; <span class="item-detail">ink, quill, paper; for noting recipes and customers.</span></li>
+          <li><span class="item-name">Belt pouch</span></li>
+        </ul>
+      </div>
+
+      <div class="equip-block">
+        <div class="equip-block-title">Property — Available, Not Currently Carried</div>
+        <ul class="equip-list">
+          <li><span class="item-name">A share in the family's Baghdad warehouse and a small river-boat</span> &mdash; <span class="item-detail">used by her brother; she returns to Baghdad rarely.</span></li>
+        </ul>
+      </div>
+
+      <div class="money-line">
+        Carrying <span class="amount">30 gp</span>
+        <span style="font-style:italic;color:var(--ink-faint);font-size:0.7rem;letter-spacing:0.18em;">(Guild Artisan 15 gp + Wealthy lifestyle bonus 15 gp)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERSONALITY ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#farideh-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Personality</h2>
+    </div>
+    <div class="personality-grid">
+      <div class="personality-card">
+        <div class="personality-label">Trait</div>
+        <p class="personality-text">"Every scent tells a story. Sit a moment — let me read yours."</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Ideal <span class="alignment-tag">— Connection · Neutral Good</span></div>
+        <p class="personality-text">"Every market is a meeting of strangers. My work is what makes them friends — or at least keeps them civil."</p>
+      </div>
+      <div class="personality-card">
+        <div class="personality-label">Bond</div>
+        <p class="personality-text">"My madrasa teacher gave me my first real recipe. She also gave me my first warning. Both still hold."</p>
+      </div>
+      <div class="personality-card flaw">
+        <div class="personality-label">Flaw</div>
+        <p class="personality-text">"I trust my own nose more than any other source — including, sometimes, when it's wrong."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONNECTIONS ============ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-rule">
+        <span class="section-rule-line"></span>
+        <svg class="section-ornament" aria-hidden="true"><use href="#farideh-ornament"/></svg>
+        <span class="section-rule-line"></span>
+      </div>
+      <h2 class="section-title">Connections</h2>
+    </div>
+    <ul class="connections-list">
+      <li><span class="conn-name">Nazim ibn Yusuf</span> — She met him at the House of Wisdom in Baghdad when she was nineteen and still her father's apprentice, sent across town to fetch a sealed manuscript on rose-distillation that her madrasa teacher had borrowed and forgotten to return. Nazim was in the next reading-stall, copying a fragment of Old Turkic onto vellum with a stylus she remembers because it smelled, faintly, of bone. He looked up when she sat down, nodded, and went back to his work. She left the next morning with the manuscript and the smell of his ink, and did not see him again for six years. She remembers him as the soft-spoken Turkic scholar who did not look down on a perfumer for being a perfumer. She is fairly sure he doesn't remember her at all.</li>
+      <li><span class="conn-name">Aymara Flameshaper</span> — From Farideh's side: the caravan-guard with the greataxe and the strange unfocused gaze who did not flinch from her wares the way most steppe-folk did, who took her rose-of-Qaf and held it as if she were holding a small living thing. Farideh paid attention. She does not pay attention to many caravan-guards. The vial she gave Aymara was not the cheapest one in her chest. She has not asked Aymara why, and she has not asked herself why, either.</li>
+    </ul>
+  </section>
+
+  <!-- ============ PATRON'S NOTE ============ -->
+  <section class="patron-note">
+    <div class="patron-label">From the Vizier's Hand</div>
+    <p class="patron-text">She reads a room by its scent before she reads it by its faces, and I have never known her to read either wrong: place her near any negotiation in which I would otherwise be lied to.</p>
+    <div class="patron-signature">
+      &mdash; <span class="sig-name">Rashīd al-Dīn Hamadānī</span><span class="sig-arabic">رشید الدین</span>
+    </div>
+  </section>
+
+  <!-- ============ FOOT ============ -->
+  <footer class="document-foot">
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal-farideh"/></svg>
+    <div class="foot-text">
+      Compiled at the <span class="arabic">دیوان الطریق</span> &middot; Bureau of the Roads &middot; from Cathay to Constantinople
+    </div>
+    <svg class="foot-seal" aria-hidden="true"><use href="#foot-seal-farideh"/></svg>
+  </footer>
+
+</article>
+
+</body>
+</html>
