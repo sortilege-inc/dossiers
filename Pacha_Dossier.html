@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Farmer's Ledger — Pacha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+SC:wght@500;600&family=Caveat:wght@400;500;600&family=IM+Fell+DW+Pica:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Homespun green palette — field, moss, wheat, slate, linen */
+    --linen: #efe9d7;
+    --linen-deep: #e2dac1;
+    --linen-shade: #d5cba9;
+    --paper-mark: #ccc09c;
+
+    --ink: #1d231a;
+    --ink-soft: #3d4738;
+    --ink-faint: #6b7560;
+    --ink-dim: #8b9282;
+
+    --field: #2f5d34;          /* deep furrow green */
+    --field-deep: #1e3f22;     /* shadow under hedge */
+    --moss: #5a7d3c;           /* sun-warmed leaf */
+    --moss-pale: #8aa667;      /* young shoot */
+    --wheat: #b8a35e;          /* dry stem */
+    --wheat-pale: #d4c389;     /* late summer */
+    --slate: #4d564e;          /* stone wall */
+    --rust: #8b4a2b;            /* old iron tool */
+    --rust-soft: #b86d44;
+    --cream: #f7f1de;          /* lambswool */
+
+    --rule: #b8ad8a;
+    --rule-soft: #d0c8a8;
+    --rule-deep: #7e7556;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--linen-shade);
+    color: var(--ink);
+    font-family: "Cormorant Garamond", "EB Garamond", Georgia, serif;
+    font-size: 16.5px;
+    line-height: 1.62;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 12% 8%, rgba(47, 93, 52, 0.10) 0%, transparent 55%),
+      radial-gradient(ellipse at 88% 95%, rgba(90, 125, 60, 0.10) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(184, 163, 94, 0.05) 0%, transparent 65%);
+    min-height: 100vh;
+    padding: 2rem 1rem 3.5rem;
+  }
+  /* paper grain */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    opacity: 0.55;
+  }
+
+  .document {
+    max-width: 1020px;
+    margin: 0 auto;
+    background: var(--linen);
+    border: 1px solid var(--rule-deep);
+    box-shadow:
+      0 0 0 1px var(--linen),
+      0 0 0 6px var(--linen-deep),
+      0 0 0 7px var(--rule-deep),
+      0 22px 60px rgba(30, 63, 34, 0.20);
+    position: relative;
+  }
+  /* twin top/bottom rules in green */
+  .document::before, .document::after {
+    content: '';
+    position: absolute; left: 0; right: 0;
+    height: 6px;
+    background:
+      linear-gradient(90deg,
+        transparent 0%,
+        var(--field) 8%,
+        var(--moss) 30%,
+        var(--wheat) 50%,
+        var(--moss) 70%,
+        var(--field) 92%,
+        transparent 100%);
+  }
+  .document::before { top: 0; }
+  .document::after  { bottom: 0; }
+
+  .doc-inner { padding: 2.6rem 3rem 3.4rem; }
+
+  /* HEADER */
+  header.document-header {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 2rem;
+    margin-bottom: 2.2rem;
+    position: relative;
+  }
+  .filing-bar {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.6rem;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem; letter-spacing: 0.32em;
+    color: var(--field-deep);
+    text-transform: uppercase;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.45rem 0.2rem;
+    margin-bottom: 1.7rem;
+  }
+  .filing-bar .fl { color: var(--field); }
+  .filing-bar .fr { color: var(--rust); font-style: italic; letter-spacing: 0.18em; text-transform: none; font-family: "Caveat", cursive; font-size: 1.15rem; }
+
+  .eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem; letter-spacing: 0.36em;
+    color: var(--field);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .eyebrow .sep { color: var(--rule-deep); margin: 0 0.5em; }
+
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 4.2rem;
+    line-height: 0.96;
+    margin: 0 0 0.3rem;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+  h1.character-name .sub {
+    display: block;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.22em;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    color: var(--field);
+    margin-top: 0.55rem;
+    text-transform: uppercase;
+  }
+
+  .tagline {
+    font-style: italic;
+    font-size: 1.12rem;
+    color: var(--ink-soft);
+    margin: 0.9rem 0 1.3rem;
+    max-width: 60ch;
+  }
+  .tagline::before { content: '“'; font-family: "Cormorant Garamond", serif; font-size: 2rem; color: var(--moss); margin-right: 0.15rem; vertical-align: -0.4rem; line-height: 0; }
+  .tagline::after  { content: '”'; font-family: "Cormorant Garamond", serif; font-size: 2rem; color: var(--moss); margin-left: 0.1rem; vertical-align: -0.4rem; line-height: 0; }
+
+  .vitals-row {
+    display: flex; flex-wrap: wrap; gap: 0;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.75rem; letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--rule);
+    padding-top: 0.7rem;
+    margin-top: 1rem;
+  }
+  .vitals-row .v {
+    border-left: 1px solid var(--rule);
+    padding: 0.2rem 0.95rem;
+    white-space: nowrap;
+  }
+  .vitals-row .v:first-child { border-left: none; padding-left: 0; }
+  .vitals-row .v strong { color: var(--field); font-weight: 600; margin-left: 0.35em; letter-spacing: 0.1em; }
+  .vitals-row .v.warm strong { color: var(--rust); }
+
+  /* TOC */
+  nav.toc {
+    background: rgba(184, 163, 94, 0.10);
+    border: 1px solid var(--rule);
+    border-top: 2px solid var(--moss);
+    padding: 1.1rem 1.5rem 1.2rem;
+    margin-bottom: 2.5rem;
+    columns: 2; column-gap: 2rem;
+  }
+  nav.toc .toc-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem; letter-spacing: 0.32em;
+    color: var(--field);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    column-span: all;
+    font-weight: 600;
+  }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+  nav.toc li { counter-increment: toc; font-size: 0.96rem; margin-bottom: 0.28rem; break-inside: avoid; }
+  nav.toc li::before {
+    content: counter(toc, upper-roman) ". ";
+    color: var(--moss);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.8em;
+    margin-right: 0.45rem;
+    letter-spacing: 0.05em;
+  }
+  nav.toc a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted transparent; transition: color 0.15s, border-color 0.15s; }
+  nav.toc a:hover { color: var(--field); border-bottom-color: var(--moss); }
+
+  /* SECTIONS */
+  section { margin-bottom: 2.8rem; }
+  h2.section-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.55rem;
+    color: var(--field);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.4rem;
+    margin: 0 0 1.3rem;
+    letter-spacing: 0.01em;
+  }
+  h2.section-title .num {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.65em;
+    letter-spacing: 0.28em;
+    color: var(--moss);
+    margin-right: 0.7rem;
+  }
+  h2.section-title::after {
+    content: '';
+    display: block;
+    width: 48px; height: 2px;
+    background: var(--moss);
+    margin-top: 0.35rem;
+  }
+  h3.subhead {
+    font-family: "Cormorant SC", serif;
+    font-weight: 600;
+    font-size: 0.92rem;
+    letter-spacing: 0.18em;
+    color: var(--field);
+    text-transform: uppercase;
+    margin: 1.6rem 0 0.55rem;
+  }
+  h4.entry-label {
+    font-family: "Cormorant SC", serif;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.26em;
+    color: var(--moss);
+    text-transform: uppercase;
+    margin: 1.3rem 0 0.45rem;
+  }
+  p { margin: 0 0 0.95rem; }
+  em { color: var(--ink-soft); font-style: italic; }
+  strong { color: var(--field); font-weight: 600; }
+
+  .drop-cap::first-letter {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 3.6rem;
+    line-height: 0.82;
+    float: left;
+    padding: 0.25rem 0.55rem 0 0;
+    color: var(--field);
+    font-weight: 500;
+  }
+
+  /* STAT GRID */
+  .stat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin: 1rem 0 1.4rem; }
+  .stat-cell {
+    text-align: center;
+    padding: 0.85rem 0.5rem;
+    border: 1px solid var(--rule);
+    background: var(--cream);
+    position: relative;
+  }
+  .stat-cell::before {
+    content: ''; position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+    width: 30px; height: 3px;
+    background: var(--rule);
+  }
+  .stat-cell.high::before { background: var(--moss); }
+  .stat-cell.neutral::before { background: var(--wheat); }
+  .stat-cell.peak::before { background: var(--field); height: 4px; }
+  .stat-cell .label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .stat-cell .value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2.4rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .stat-cell.peak .value { color: var(--field); }
+  .stat-cell.high .value { color: var(--moss); }
+  .stat-cell .gloss {
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    margin-top: 0.35rem;
+  }
+
+  /* STATUS / RESOURCE CELLS */
+  .status-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 1rem 0 1.4rem; }
+  .status-cell {
+    border: 1px solid var(--rule);
+    background: var(--cream);
+    padding: 0.85rem 0.95rem;
+    position: relative;
+  }
+  .status-cell .label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem; letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .status-cell .value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.85rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .status-cell .value .sub { font-size: 0.55em; color: var(--ink-faint); font-weight: 400; }
+  .status-cell .note { font-style: italic; font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.4rem; }
+  .status-cell.primary { border-color: var(--field); background: linear-gradient(135deg, rgba(47, 93, 52, 0.10) 0%, var(--cream) 65%); }
+  .status-cell.primary .value { color: var(--field); }
+  .status-cell.moss { border-color: var(--moss); background: linear-gradient(135deg, rgba(90, 125, 60, 0.10) 0%, var(--cream) 65%); }
+  .status-cell.moss .value { color: var(--moss); }
+  .status-cell.wheat { border-color: var(--wheat); background: linear-gradient(135deg, rgba(184, 163, 94, 0.13) 0%, var(--cream) 65%); }
+
+  /* TABLE */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.4rem;
+    font-size: 0.98rem;
+  }
+  table.dossier-table th {
+    text-align: left;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    color: var(--field);
+    text-transform: uppercase;
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1.5px solid var(--field);
+    background: rgba(90, 125, 60, 0.06);
+  }
+  table.dossier-table td {
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top;
+  }
+  table.dossier-table td:first-child {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.07em;
+    color: var(--field-deep);
+    white-space: nowrap;
+    padding-right: 1.4rem;
+    font-weight: 600;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+
+  /* ABILITY BLOCKS */
+  .ability-block {
+    border: 1px solid var(--rule);
+    background: var(--cream);
+    padding: 1rem 1.25rem;
+    margin: 0.85rem 0;
+    position: relative;
+  }
+  .ability-block::before {
+    content: '';
+    position: absolute; top: 0; bottom: 0; left: 0;
+    width: 4px;
+    background: var(--moss);
+  }
+  .ability-block.signature::before { background: var(--field); width: 5px; }
+  .ability-block.core::before { background: var(--rust); }
+  .ability-block.triggered::before { background: var(--wheat); }
+  .ability-block.maneuver::before { background: var(--moss-pale); }
+
+  .ability-name {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--field);
+    margin-bottom: 0.1rem;
+    letter-spacing: 0.01em;
+  }
+  .ability-block.signature .ability-name { color: var(--field-deep); }
+  .ability-block.core .ability-name { color: var(--rust); }
+  .ability-flavor {
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin-bottom: 0.55rem;
+  }
+  .ability-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+    display: flex; flex-wrap: wrap; gap: 0.3rem 1.2rem;
+  }
+  .ability-meta .action { color: var(--field); }
+  .ability-meta .target { color: var(--rust); }
+  .ability-desc { font-size: 0.95rem; color: var(--ink); margin-bottom: 0.4rem; }
+
+  /* Power roll tiers */
+  .tier-roll {
+    margin-top: 0.6rem;
+    padding-top: 0.55rem;
+    border-top: 1px dotted var(--rule);
+    font-size: 0.92rem;
+  }
+  .tier-roll .roll-label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--field);
+    text-transform: uppercase;
+    margin-right: 0.5em;
+  }
+  .tier-row { display: grid; grid-template-columns: 70px 1fr; gap: 0.5rem 0.9rem; margin-top: 0.3rem; align-items: baseline; }
+  .tier-row .tier-tag {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    background: var(--linen-deep);
+    border: 1px solid var(--rule);
+    padding: 0.1rem 0.45rem;
+    text-align: center;
+    color: var(--ink-soft);
+  }
+  .tier-row .tier-tag.t1 { color: var(--rust); border-color: var(--rust); }
+  .tier-row .tier-tag.t2 { color: var(--moss); border-color: var(--moss); }
+  .tier-row .tier-tag.t3 { color: var(--field); border-color: var(--field); background: rgba(47, 93, 52, 0.10); font-weight: 600; }
+  .tier-row .tier-body { font-size: 0.94rem; }
+
+  /* DISCIPLINE / RESOURCE PANEL */
+  .resource-panel {
+    border: 1px solid var(--field);
+    background: linear-gradient(135deg, rgba(47, 93, 52, 0.08) 0%, var(--cream) 70%);
+    padding: 1.1rem 1.4rem 1.3rem;
+    margin: 1rem 0 1.5rem;
+    position: relative;
+  }
+  .resource-panel::before {
+    content: 'DISCIPLINE';
+    position: absolute;
+    top: -0.7rem;
+    left: 1.1rem;
+    background: var(--linen);
+    padding: 0 0.55rem;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    color: var(--field);
+    font-weight: 600;
+  }
+  .discipline-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; font-size: 0.95rem; }
+  .discipline-table th, .discipline-table td { text-align: left; padding: 0.35rem 0.6rem; }
+  .discipline-table th { font-family: "Cormorant SC", serif; font-size: 0.72rem; letter-spacing: 0.18em; color: var(--field); border-bottom: 1px solid var(--rule); }
+  .discipline-table td:first-child {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    color: var(--field-deep);
+    font-size: 1.05rem;
+    text-align: center;
+    width: 60px;
+  }
+
+  /* CALLOUTS */
+  .callout {
+    border: 1px solid var(--moss);
+    border-left: 4px solid var(--moss);
+    padding: 0.9rem 1.25rem;
+    margin: 1.4rem 0;
+    background: linear-gradient(135deg, rgba(90, 125, 60, 0.07) 0%, transparent 80%);
+  }
+  .callout .label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    color: var(--field);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout.wheat { border-color: var(--wheat); border-left-color: var(--rust); background: linear-gradient(135deg, rgba(184, 163, 94, 0.12) 0%, transparent 80%); }
+  .callout.wheat .label { color: var(--rust); }
+  .callout.unwritten {
+    border-color: var(--rule-deep);
+    border-left-color: var(--ink-faint);
+    border-style: dashed;
+    background: rgba(204, 192, 156, 0.20);
+  }
+  .callout.unwritten .label { color: var(--ink-faint); }
+
+  /* SKILLS */
+  .skill-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.2rem 1.6rem;
+    margin: 0.7rem 0 1.2rem;
+  }
+  .skill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px dotted var(--rule);
+    padding: 0.25rem 0;
+  }
+  .skill-row .name { font-size: 0.98rem; color: var(--ink); }
+  .skill-row .source {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .skill-row.starred .name { color: var(--field); font-weight: 600; }
+  .skill-row.starred .name::after {
+    content: ' ✦';
+    color: var(--moss);
+    font-size: 0.9em;
+  }
+
+  /* HAND ANNOTATIONS */
+  .hand-note {
+    font-family: "Caveat", cursive;
+    font-size: 1.15rem;
+    color: var(--rust);
+    line-height: 1.3;
+  }
+
+  /* TRAITS LIST */
+  .trait-list { margin: 0; padding: 0; list-style: none; }
+  .trait-list li {
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .trait-list li:last-child { border-bottom: none; }
+  .trait-list .trait-name {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--field);
+    margin-bottom: 0.2rem;
+    display: block;
+  }
+  .trait-list .trait-desc { font-size: 0.95rem; color: var(--ink-soft); }
+
+  /* TWO-COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.8rem; margin: 1rem 0; }
+
+  /* COLOPHON */
+  footer.colophon {
+    margin-top: 3.5rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.26em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  footer.colophon .accent { color: var(--field); }
+  footer.colophon .accent2 { color: var(--rust); }
+  footer.colophon .mark {
+    display: inline-block;
+    margin: 0 0.5em;
+    color: var(--moss);
+  }
+
+  /* Decorative leaf marker */
+  .leaf-rule {
+    text-align: center;
+    margin: 1.4rem 0;
+    color: var(--moss);
+    letter-spacing: 0.6em;
+    font-size: 0.9rem;
+  }
+
+  /* Wave-line motif for kinetic/psionic feel (subtle) */
+  .kinetic-mark {
+    display: inline-block;
+    width: 36px; height: 12px;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+  }
+
+  @media (max-width: 760px) {
+    .doc-inner { padding: 1.7rem 1.2rem 2.5rem; }
+    h1.character-name { font-size: 2.6rem; }
+    nav.toc { columns: 1; }
+    .stat-grid { gap: 0.3rem; }
+    .stat-cell { padding: 0.55rem 0.25rem; }
+    .stat-cell .value { font-size: 1.6rem; }
+    .status-grid { grid-template-columns: 1fr 1fr; }
+    .skill-grid { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; gap: 1rem; }
+    .vitals-row { gap: 0.4rem; font-size: 0.7rem; }
+    .vitals-row .v { padding: 0.15rem 0.55rem; border-left: none; border-bottom: 1px dotted var(--rule); width: 100%; }
+    .vitals-row .v:first-child { padding-left: 0; }
+    .tier-row { grid-template-columns: 55px 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+  <div class="doc-inner">
+
+    <!-- HEADER -->
+    <header class="document-header">
+      <div class="filing-bar">
+        <span class="fl">Hearth-side Ledger &middot; Pre-Generated Hero &middot; Draw Steel</span>
+        <span class="fr">WPGRPGCon 2026 &middot; One-Shot</span>
+      </div>
+
+      <div class="eyebrow">A Farmer's Account <span class="sep">·</span> Human Null <span class="sep">·</span> Metakinetic Mastery</div>
+      <h1 class="character-name">
+        Pacha
+        <span class="sub">Human &middot; Null &middot; Metakinetic &middot; Level 1 &middot; Farmer</span>
+      </h1>
+      <p class="tagline">A field-hand whose hands have learned to push back at the world &mdash; quietly, completely, and at a distance.</p>
+
+      <div class="vitals-row">
+        <span class="v">Ancestry: <strong>Human</strong></span>
+        <span class="v">Class: <strong>Null</strong></span>
+        <span class="v">Subclass: <strong>Metakinetic</strong></span>
+        <span class="v">Level: <strong>1</strong></span>
+        <span class="v">Career: <strong>Farmer</strong></span>
+        <span class="v">Wealth: <strong>1</strong></span>
+        <span class="v warm">Renown: <strong>0</strong></span>
+      </div>
+    </header>
+
+    <figure style="float:right;margin:0 0 1.5em 2.5em;max-width:220px;clear:right;">
+      <img src="pasha.png" alt="Pacha portrait" style="width:100%;display:block;border-radius:3px;">
+    </figure>
+
+    <!-- TOC -->
+    <nav class="toc">
+      <div class="toc-label">&mdash; Contents of the Ledger &mdash;</div>
+      <ol>
+        <li><a href="#identity">Who He Is &amp; What He Does</a></li>
+        <li><a href="#stats">Characteristics &amp; Condition</a></li>
+        <li><a href="#discipline">Discipline &mdash; The Heroic Resource</a></li>
+        <li><a href="#mastery">Metakinetic Mastery</a></li>
+        <li><a href="#abilities">Class Abilities</a></li>
+        <li><a href="#nullfield">Null Field</a></li>
+        <li><a href="#freestrikes">Free Strikes</a></li>
+        <li><a href="#human">Human Traits</a></li>
+        <li><a href="#class-features">Null Class Features</a></li>
+        <li><a href="#skills">Skills &amp; Languages</a></li>
+        <li><a href="#kit">Equipment &amp; Kit</a></li>
+        <li><a href="#biography">Biography</a></li>
+      </ol>
+    </nav>
+
+    <!-- I. IDENTITY -->
+    <section id="identity">
+      <h2 class="section-title"><span class="num">I.</span>Who He Is &amp; What He Does</h2>
+      <p class="drop-cap">Pacha is a farmer who learned to push without touching. His class is <strong>Null</strong> &mdash; a psionic discipline that dampens the power of foes through a field of mental quietude. His subclass is <strong>Metakinetic</strong>, which sharpens that quietude into kinetic edges: knockback, slide, and the sudden gathering of momentum where there should be none.</p>
+
+      <p>Mechanically, he is a melee combatant whose body is the weapon. His training (<em>Density Augmentation</em>) has given him +6 Stamina and +1 Stability already folded into his sheet. His <em>Psionic Martial Arts</em> let him substitute Intuition for Might on power rolls involving Knockback or Grab, and let him slide targets instead of pushing them. He moves faster than he should (<em>Null Speed</em>, +2 already included), and an aura around him quietly weakens whatever enemies stand close (<em>Null Field</em>).</p>
+
+      <h3 class="subhead">Cultural Background</h3>
+      <p>Culture: <strong>Secluded &middot; Communal &middot; Labor.</strong> He was raised apart from large settlements, in a tight-knit household, doing the work of his hands. Career: <strong>Farmer.</strong> A life of weather, livestock, and the predictable cycle of seasons &mdash; the very ordinariness of which the sheet now sits in contrast to.</p>
+    </section>
+
+    <!-- II. CHARACTERISTICS -->
+    <section id="stats">
+      <h2 class="section-title"><span class="num">II.</span>Characteristics &amp; Condition</h2>
+
+      <div class="stat-grid">
+        <div class="stat-cell neutral"><div class="label">Might</div><div class="value">+1</div><div class="gloss">Field-hand</div></div>
+        <div class="stat-cell high"><div class="label">Agility</div><div class="value">+2</div><div class="gloss">Quick on his feet</div></div>
+        <div class="stat-cell"><div class="label">Reason</div><div class="value">0</div><div class="gloss">Practical mind</div></div>
+        <div class="stat-cell peak"><div class="label">Intuition</div><div class="value">+2</div><div class="gloss">Reads the moment</div></div>
+        <div class="stat-cell"><div class="label">Presence</div><div class="value">0</div><div class="gloss">Quiet by habit</div></div>
+      </div>
+
+      <p><em>Two peaks at +2 in Agility and Intuition. Intuition is doing dual duty for Pacha: it drives his Null Field potency, and &mdash; through Psionic Martial Arts &mdash; replaces Might on the Knockback and Grab maneuvers he is built around. He is not a thinker or a talker. He moves, he reads the moment, and he pushes.</em></p>
+
+      <div class="status-grid">
+        <div class="status-cell primary">
+          <div class="label">Stamina</div>
+          <div class="value">27<span class="sub"> max</span></div>
+          <div class="note">Winded at 13. Includes +6 from Density Augmentation and +14 from Staying Power (Human trait).</div>
+        </div>
+        <div class="status-cell moss">
+          <div class="label">Recoveries</div>
+          <div class="value">9<span class="sub"> / 9</span></div>
+          <div class="note">Recovery value 9. Includes +2 from Staying Power.</div>
+        </div>
+        <div class="status-cell">
+          <div class="label">Discipline</div>
+          <div class="value">0<span class="sub"> at start</span></div>
+          <div class="note">Heroic Resource. Builds in combat. See § III.</div>
+        </div>
+        <div class="status-cell wheat">
+          <div class="label">Surges</div>
+          <div class="value">0</div>
+          <div class="note">1 surge = damage; 2 surges = potency +1.</div>
+        </div>
+      </div>
+
+      <table class="dossier-table">
+        <thead><tr><th>Stat</th><th>Value &amp; Source</th></tr></thead>
+        <tbody>
+          <tr><td>Size</td><td><strong>1M</strong> &mdash; Medium</td></tr>
+          <tr><td>Speed</td><td><strong>7</strong> &mdash; 5 base + 2 from Null Speed (already included)</td></tr>
+          <tr><td>Stability</td><td><strong>1</strong> &mdash; from Density Augmentation (already included)</td></tr>
+          <tr><td>Disengage</td><td><strong>3</strong></td></tr>
+          <tr><td>Project Points</td><td><strong>120</strong></td></tr>
+          <tr><td>Victories</td><td><strong>0</strong> at session start</td></tr>
+          <tr><td>XP</td><td><strong>&mdash;</strong> (Level 1 pre-gen)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- III. DISCIPLINE -->
+    <section id="discipline">
+      <h2 class="section-title"><span class="num">III.</span>Discipline &mdash; The Heroic Resource</h2>
+      <p>Pacha's Heroic Resource is <strong>Discipline</strong>, the Null's measure of practiced stillness under pressure. The more he holds the field, the more force he has to spend.</p>
+
+      <div class="resource-panel">
+        <p style="margin-bottom: 0.6rem;">At the start of a combat encounter (or other stressful situation tracked in combat rounds, as determined by the Director), he gains Discipline equal to his Victories. At the start of each of his turns during combat, he gains <strong>2</strong> Discipline. Additionally, the first time each combat round that an enemy in the area of his Null Field ability uses a main action, he gains <strong>1</strong> Discipline. The first time each combat round that the Director uses an ability that costs Malice, he gains <strong>1</strong> Discipline.</p>
+        <p style="margin-bottom: 0;">He loses any remaining Discipline at the end of the encounter.</p>
+      </div>
+
+      <div class="callout">
+        <div class="label">◈ Discipline Benefits</div>
+        <p>He gains certain benefits in combat based on the amount of Discipline he has. These benefits last until the end of his turn, even if a benefit would become unavailable to him because of the amount of Discipline he spends during his turn. (See § IV. Metakinetic Mastery.)</p>
+      </div>
+    </section>
+
+    <!-- IV. METAKINETIC MASTERY -->
+    <section id="mastery">
+      <h2 class="section-title"><span class="num">IV.</span>Metakinetic Mastery</h2>
+      <p>The Metakinetic subclass converts Discipline thresholds directly into kinetic effects. The benefits below are passive while the threshold is met.</p>
+
+      <table class="dossier-table">
+        <thead><tr><th>Discipline</th><th>Benefit</th></tr></thead>
+        <tbody>
+          <tr><td>2</td><td>Whenever he uses the Knockback maneuver, the forced movement distance gains a <strong>+2 bonus</strong>.</td></tr>
+          <tr><td>4</td><td>The first time in a combat round that he takes damage or are force moved, he gains <strong>1 surge</strong>, even if he resists the effect.</td></tr>
+          <tr><td>6</td><td>He gains an <strong>edge on the Grab and Knockback maneuvers</strong>.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- V. ABILITIES -->
+    <section id="abilities">
+      <h2 class="section-title"><span class="num">V.</span>Class Abilities</h2>
+
+      <h4 class="entry-label">Signature Abilities &mdash; Free, No Discipline Cost</h4>
+
+      <div class="ability-block signature">
+        <div class="ability-name">Faster than the Eye</div>
+        <div class="ability-flavor">You strike so quickly that your hands become a blur.</div>
+        <div class="ability-meta">
+          <span class="action">Main Action</span>
+          <span>Melee, Psionic, Strike, Weapon</span>
+          <span>Melee 1</span>
+          <span class="target">Two creatures or objects</span>
+        </div>
+        <div class="ability-desc">2d10 + 2 power roll. <em>Effect:</em> You can deal 2 damage to one creature or object adjacent to you.</div>
+        <div class="tier-roll">
+          <div class="tier-row"><div class="tier-tag t1">≤ 11</div><div class="tier-body">4 damage</div></div>
+          <div class="tier-row"><div class="tier-tag t2">12&ndash;16</div><div class="tier-body">5 damage</div></div>
+          <div class="tier-row"><div class="tier-tag t3">17+</div><div class="tier-body">7 damage</div></div>
+        </div>
+      </div>
+
+      <div class="ability-block signature">
+        <div class="ability-name">Inertial Step</div>
+        <div class="ability-flavor">You flit about the battlefield and take an opportunistic strike.</div>
+        <div class="ability-meta">
+          <span class="action">Main Action</span>
+          <span>Melee, Psionic, Strike, Weapon</span>
+          <span>Melee 1</span>
+          <span class="target">One creature or object</span>
+        </div>
+        <div class="ability-desc">2d10 + 2 power roll. <em>Effect:</em> You can shift up to 3 squares before or after you make the strike.</div>
+        <div class="tier-roll">
+          <div class="tier-row"><div class="tier-tag t1">≤ 11</div><div class="tier-body">7 damage</div></div>
+          <div class="tier-row"><div class="tier-tag t2">12&ndash;16</div><div class="tier-body">9 damage</div></div>
+          <div class="tier-row"><div class="tier-tag t3">17+</div><div class="tier-body">12 damage</div></div>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Discipline Abilities</h4>
+
+      <div class="ability-block">
+        <div class="ability-name">Stunning Blow</div>
+        <div class="ability-flavor">You focus your psionic technique into a concussive punch.</div>
+        <div class="ability-meta">
+          <span class="action">Main Action</span>
+          <span>3 Discipline</span>
+          <span>Melee, Psionic, Strike, Weapon</span>
+          <span>Melee 1</span>
+          <span class="target">One creature or object</span>
+        </div>
+        <div class="ability-desc">2d10 + 2 power roll.</div>
+        <div class="tier-roll">
+          <div class="tier-row"><div class="tier-tag t1">≤ 11</div><div class="tier-body">6 damage; <strong>I &lt; 0</strong> dazed and slowed (save ends)</div></div>
+          <div class="tier-row"><div class="tier-tag t2">12&ndash;16</div><div class="tier-body">7 damage; <strong>I &lt; 1</strong> dazed and slowed (save ends)</div></div>
+          <div class="tier-row"><div class="tier-tag t3">17+</div><div class="tier-body">9 damage; <strong>I &lt; 2</strong> dazed and slowed (save ends)</div></div>
+        </div>
+      </div>
+
+      <div class="ability-block">
+        <div class="ability-name">A Squad Unto Myself</div>
+        <div class="ability-flavor">You move so quickly, it seems as though an army assaulted your foes.</div>
+        <div class="ability-meta">
+          <span class="action">Main Action</span>
+          <span>5 Discipline</span>
+          <span>Area, Melee, Psionic</span>
+          <span>2 burst</span>
+          <span class="target">Each enemy in the area</span>
+        </div>
+        <div class="ability-desc">2d10 + 2 power roll. <em>Effect:</em> You can take the Disengage move action as a free maneuver before or after you make this ability.</div>
+        <div class="tier-roll">
+          <div class="tier-row"><div class="tier-tag t1">≤ 11</div><div class="tier-body">6 damage</div></div>
+          <div class="tier-row"><div class="tier-tag t2">12&ndash;16</div><div class="tier-body">9 damage</div></div>
+          <div class="tier-row"><div class="tier-tag t3">17+</div><div class="tier-body">13 damage</div></div>
+        </div>
+      </div>
+
+      <h4 class="entry-label">Triggered Defense</h4>
+
+      <div class="ability-block triggered">
+        <div class="ability-name">Inertial Shield</div>
+        <div class="ability-flavor">You intuit the course of an incoming attack, reducing its effects.</div>
+        <div class="ability-meta">
+          <span class="action">Triggered</span>
+          <span>Psionic</span>
+          <span>Self</span>
+          <span class="target">Self</span>
+        </div>
+        <div class="ability-desc"><strong>Trigger:</strong> You take damage. <em>Effect:</em> You halve the damage and can use the Knockback maneuver. <strong>Spend 1 Discipline:</strong> The potency of one effect associated with the damage is reduced by 1 for you.</div>
+      </div>
+    </section>
+
+    <!-- VI. NULL FIELD -->
+    <section id="nullfield">
+      <h2 class="section-title"><span class="num">VI.</span>Null Field</h2>
+
+      <div class="ability-block maneuver">
+        <div class="ability-name">Null Field</div>
+        <div class="ability-flavor">You project an aura that dampens the power of your foes.</div>
+        <div class="ability-meta">
+          <span class="action">Maneuver</span>
+          <span>Area, Psionic</span>
+          <span>1 aura</span>
+          <span class="target">All enemies</span>
+        </div>
+        <div class="ability-desc"><em>Effect:</em> Each target reduces their potencies by 1.</div>
+        <div class="ability-desc">Once as a free maneuver on each of his turns, he can spend 1 Discipline and give the Null Field one of the following additional effects until the start of his next turn:</div>
+        <ul style="margin: 0.4rem 0 0.5rem 1.2rem;">
+          <li><strong>Gravitic Disruption:</strong> The first time on a turn that a target takes damage, he can slide them up to 2 squares.</li>
+          <li><strong>Inertial Anchor:</strong> Any target who starts their turn in the area can't shift.</li>
+          <li><strong>Synaptic Break:</strong> Whenever he or any ally uses an ability against a target that has a potency effect, the potency is increased by 1.</li>
+        </ul>
+        <div class="ability-desc" style="font-style: italic; color: var(--ink-soft);">This ability remains active even after an encounter ends. It ends only if he is dying or if he willingly ends it (no action required).</div>
+      </div>
+    </section>
+
+    <!-- VII. FREE STRIKES -->
+    <section id="freestrikes">
+      <h2 class="section-title"><span class="num">VII.</span>Free Strikes</h2>
+
+      <div class="two-col">
+        <div class="ability-block">
+          <div class="ability-name">Melee Weapon Free Strike</div>
+          <div class="ability-meta">
+            <span class="action">Main Action</span>
+            <span>Charge, Melee, Strike, Weapon</span>
+            <span>Melee 1</span>
+            <span class="target">One creature or object</span>
+          </div>
+          <div class="ability-desc">2d10 + 2 power roll.</div>
+          <div class="tier-roll">
+            <div class="tier-row"><div class="tier-tag t1">≤ 11</div><div class="tier-body">4 damage</div></div>
+            <div class="tier-row"><div class="tier-tag t2">12&ndash;16</div><div class="tier-body">7 damage</div></div>
+            <div class="tier-row"><div class="tier-tag t3">17+</div><div class="tier-body">9 damage</div></div>
+          </div>
+        </div>
+
+        <div class="ability-block">
+          <div class="ability-name">Ranged Weapon Free Strike</div>
+          <div class="ability-meta">
+            <span class="action">Main Action</span>
+            <span>Ranged, Strike, Weapon</span>
+            <span>Ranged 5</span>
+            <span class="target">One creature or object</span>
+          </div>
+          <div class="ability-desc">2d10 + 2 power roll.</div>
+          <div class="tier-roll">
+            <div class="tier-row"><div class="tier-tag t1">≤ 11</div><div class="tier-body">4 damage</div></div>
+            <div class="tier-row"><div class="tier-tag t2">12&ndash;16</div><div class="tier-body">5 damage</div></div>
+            <div class="tier-row"><div class="tier-tag t3">17+</div><div class="tier-body">8 damage</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIII. HUMAN TRAITS -->
+    <section id="human">
+      <h2 class="section-title"><span class="num">VIII.</span>Human Traits</h2>
+      <ul class="trait-list">
+        <li>
+          <span class="trait-name">Detect the Supernatural</span>
+          <div class="trait-desc">As a maneuver, he opens his awareness to detect supernatural creatures and phenomena. Until the end of his next turn, he knows the location of any supernatural object, or any undead, construct, or creature from another world within 5 squares, even if he doesn't have line of effect to that object or creature. He knows if he's detecting an item or a creature, and he knows the nature of any creature he detects.</div>
+        </li>
+        <li>
+          <span class="trait-name">Perseverance</span>
+          <div class="trait-desc">Giving up is for other people. He gains an edge on tests made using the Endurance skill. Additionally, when he is slowed, his speed is reduced to 3 instead of 2.</div>
+        </li>
+        <li>
+          <span class="trait-name">Staying Power</span>
+          <div class="trait-desc">His human anatomy allows him to fight, run, and stay awake longer than others. Increase his number of Recoveries by 2 (already included).</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- IX. NULL CLASS FEATURES -->
+    <section id="class-features">
+      <h2 class="section-title"><span class="num">IX.</span>Null Class Features</h2>
+      <ul class="trait-list">
+        <li>
+          <span class="trait-name">Density Augmentation</span>
+          <div class="trait-desc">His training has turned his body into the perfect psionic weapon, shaping pathways in his mind that enhance his physical form. He gains a <strong>+6 bonus to Stamina</strong> and a <strong>+1 bonus to stability</strong> (both already included).</div>
+        </li>
+        <li>
+          <span class="trait-name">Null Speed</span>
+          <div class="trait-desc">The flow of psionic power through him allows him to achieve high velocity. He gains a <strong>+2 bonus to his speed</strong> (already included).</div>
+        </li>
+        <li>
+          <span class="trait-name">Psionic Martial Arts</span>
+          <div class="trait-desc">Whenever he uses the Knockback or Grab maneuver, he uses <strong>Intuition instead of Might</strong> for the power roll and for determining if he can target creatures larger than him. Additionally, whenever he uses the Knockback maneuver, he can choose to slide the target instead of pushing them.</div>
+        </li>
+        <li>
+          <span class="trait-name">Monster Whisperer</span>
+          <div class="trait-desc">He can use the Handle Animals skill to interact with nonsapient creatures who are not animals.</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- X. SKILLS & LANGUAGES -->
+    <section id="skills">
+      <h2 class="section-title"><span class="num">X.</span>Skills &amp; Languages</h2>
+
+      <h3 class="subhead">Skills</h3>
+      <div class="skill-grid">
+        <div class="skill-row"><span class="name">Alertness</span><span class="source">selected</span></div>
+        <div class="skill-row"><span class="name">Climb</span><span class="source">selected</span></div>
+        <div class="skill-row"><span class="name">Empathy</span><span class="source">selected</span></div>
+        <div class="skill-row starred"><span class="name">Handle Animals</span><span class="source">career &middot; underlined</span></div>
+        <div class="skill-row"><span class="name">Jump</span><span class="source">selected</span></div>
+        <div class="skill-row"><span class="name">Persuade</span><span class="source">selected</span></div>
+        <div class="skill-row"><span class="name">Psionics</span><span class="source">class</span></div>
+        <div class="skill-row"><span class="name">Read Person</span><span class="source">selected</span></div>
+        <div class="skill-row"><span class="name">Timescape</span><span class="source">selected</span></div>
+      </div>
+
+      <h3 class="subhead">Languages</h3>
+      <p><strong>Caelian</strong> &middot; <strong>Kalliak</strong> &middot; <strong>Vaslorian</strong></p>
+
+      <div class="callout">
+        <div class="label">◈ Note on Handle Animals</div>
+        <p>On the sheet, <em>Handle Animals</em> is underlined &mdash; the only skill marked this way. The Farmer career strongly implies the highlight is professional rather than incidental. Combined with the <em>Monster Whisperer</em> class feature, Pacha can apply that skill to nonsapient non-animal creatures as well.</p>
+      </div>
+    </section>
+
+    <!-- XI. KIT -->
+    <section id="kit">
+      <h2 class="section-title"><span class="num">XI.</span>Equipment &amp; Kit</h2>
+      <p>The Null class fights without arms or armor in the conventional sense. Pacha's body and mind are the weapon &mdash; <em>Density Augmentation</em> furnishes his Stamina and Stability bonuses, and <em>Null Speed</em> his movement bonus. He carries no kit beyond a single annotated piece of gear.</p>
+
+      <table class="dossier-table">
+        <thead><tr><th>Item</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>Gecko Gloves</td><td>The only piece of bonus equipment noted on the sheet. <span class="hand-note">&mdash; in a farmer's hand, a tool for climbing fences and clinging to what does not want to be held.</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- XII. BIOGRAPHY -->
+    <section id="biography">
+      <h2 class="section-title"><span class="num">XII.</span>Biography</h2>
+
+      <div class="callout unwritten">
+        <div class="label">◈ Left Unwritten</div>
+        <p>Pacha's character sheet was prepared as a WPGRPGCon 2026 one-shot pre-gen and does not record an Inciting Incident, complication, age, or written backstory beyond his ancestry, culture, and career. The session has been played; per the player's instruction, this ledger does not record session events. What follows are only the threads the sheet itself sets in tension.</p>
+      </div>
+
+      <h3 class="subhead">What the Sheet Asserts</h3>
+      <ul style="margin-left: 1.2rem;">
+        <li>He is <strong>Human</strong>. He keeps three languages &mdash; Caelian, Kalliak, Vaslorian &mdash; suggesting either travel, study, or a household in which more than one of these was spoken.</li>
+        <li>His culture is <strong>Secluded &middot; Communal &middot; Labor</strong>. He was raised away from large settlements, in a household that worked together, doing manual labor.</li>
+        <li>His career is <strong>Farmer</strong>. The training shows in the underlined Handle Animals skill, and in the Empathy and Read Person skills that round it out &mdash; a man whose work is reading what doesn't speak.</li>
+        <li>And yet: his class is <strong>Null</strong>. Somewhere in or alongside that farming life, he learned to project a field of psionic quietude and to strike faster than the eye can follow. The sheet does not say how.</li>
+      </ul>
+
+      <div class="leaf-rule">❧ &nbsp; ❧ &nbsp; ❧</div>
+
+      <p style="text-align: center; font-style: italic; color: var(--ink-soft); max-width: 50ch; margin: 0 auto;">Whatever brought a farmer to study Metakinetic discipline is a question the convention session answered in its own way, and a question this ledger leaves where the player left it.</p>
+    </section>
+
+    <!-- COLOPHON -->
+    <footer class="colophon">
+      <span class="mark">❧</span>
+      <span>Pacha &mdash; <span class="accent">Human Null</span> &middot; <span class="accent2">Metakinetic Mastery</span></span>
+      <span class="mark">❧</span>
+      <br>
+      <span style="font-family: 'Caveat', cursive; font-size: 1.1rem; letter-spacing: 0.06em; color: var(--rust); text-transform: none;">Hearth-side Ledger &middot; WPGRPGCon 2026 One-Shot</span>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

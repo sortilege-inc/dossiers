@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Dexid, A Scvm of Voidbirth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Special+Elite&family=IM+Fell+English:ital@0;1&family=IM+Fell+DW+Pica:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --void:          #08070a;
+  --void-soft:     #14111a;
+  --void-mid:      #1f1820;
+  --bone:          #ece2c8;
+  --bone-dim:      #c9b890;
+  --bone-faint:    #968670;
+  --bile:          #c6c11a;
+  --bile-deep:     #8a8410;
+  --bile-faint:    rgba(198,193,26,0.18);
+  --rust:          #8a3a1f;
+  --rust-deep:     #5a230f;
+  --rust-faint:    rgba(138,58,31,0.18);
+  --flesh:         #b97a64;
+  --flesh-dim:     #7a4a3a;
+  --ash:           #6a625a;
+  --ash-faint:     #3a342e;
+  --stamp-red:     #a01818;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--void);
+  background-image:
+    radial-gradient(ellipse 50% 35% at 18% 8%, rgba(138,58,31,0.16) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 50% at 88% 92%, rgba(138,58,31,0.12) 0%, transparent 70%),
+    radial-gradient(circle 2px at 23% 18%, rgba(236,226,200,0.10) 0%, transparent 100%),
+    radial-gradient(circle 1px at 67% 41%, rgba(236,226,200,0.08) 0%, transparent 100%),
+    radial-gradient(circle 1.5px at 41% 74%, rgba(236,226,200,0.09) 0%, transparent 100%),
+    radial-gradient(circle 1px at 81% 22%, rgba(236,226,200,0.07) 0%, transparent 100%),
+    radial-gradient(circle 2px at 12% 88%, rgba(236,226,200,0.08) 0%, transparent 100%),
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.4) 3px, rgba(0,0,0,0.4) 4px);
+  min-height: 100vh;
+  padding: 2.5rem 1rem 4rem;
+  font-family: "IM Fell DW Pica", "IM Fell English", Georgia, serif;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--bone);
+}
+
+/* TAPE / GRIME OVERLAY */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(127deg, transparent 0px, transparent 80px, rgba(0,0,0,0.04) 80px, rgba(0,0,0,0.04) 81px),
+    repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(255,255,255,0.012) 2px, rgba(255,255,255,0.012) 3px);
+  z-index: 100;
+  mix-blend-mode: overlay;
+}
+
+.document {
+  max-width: 920px;
+  margin: 0 auto;
+  background: var(--void-soft);
+  background-image:
+    radial-gradient(ellipse 60% 30% at 50% 8%, rgba(138,58,31,0.20) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 25% at 10% 60%, rgba(198,193,26,0.04) 0%, transparent 70%);
+  padding: 3rem 3.2rem 4rem;
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgba(236,226,200,0.10),
+    0 0 0 6px var(--void),
+    0 0 0 7px rgba(236,226,200,0.20),
+    0 30px 90px rgba(0,0,0,0.85);
+}
+
+/* CORNER PUNCHES — like a binder page */
+.document::before,
+.document::after {
+  content: "";
+  position: absolute;
+  left: -28px;
+  width: 22px;
+  height: 22px;
+  background: var(--void);
+  border: 1px solid rgba(236,226,200,0.25);
+  border-radius: 50%;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.9);
+}
+.document::before { top: 80px; }
+.document::after  { top: 320px; }
+
+/* DECAY EDGES */
+.document > .edge-tear {
+  position: absolute;
+  pointer-events: none;
+}
+.edge-tear.t {
+  top: 0; left: 0; right: 0; height: 6px;
+  background:
+    radial-gradient(circle at 12% 100%, var(--void-soft) 30%, transparent 31%),
+    radial-gradient(circle at 28% 100%, var(--void-soft) 25%, transparent 26%),
+    radial-gradient(circle at 48% 100%, var(--void-soft) 35%, transparent 36%),
+    radial-gradient(circle at 72% 100%, var(--void-soft) 22%, transparent 23%),
+    radial-gradient(circle at 91% 100%, var(--void-soft) 28%, transparent 29%);
+}
+
+/* HEADER */
+header.title-block {
+  position: relative;
+  padding-bottom: 1.4rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--bone-faint);
+}
+header.title-block::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--bone-faint);
+  opacity: 0.4;
+}
+
+.eyebrow {
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  color: var(--bile);
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  opacity: 0.85;
+}
+
+h1.character-name {
+  font-family: "UnifrakturCook", "Times New Roman", serif;
+  font-size: 4.2rem;
+  font-weight: 700;
+  line-height: 0.95;
+  margin: 0 0 0.6rem;
+  color: var(--bone);
+  letter-spacing: -0.01em;
+  text-shadow:
+    2px 2px 0 var(--rust-deep),
+    -1px -1px 0 var(--void),
+    0 0 30px rgba(138,58,31,0.4);
+}
+h1.character-name .small {
+  display: block;
+  font-family: "Special Elite", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.20em;
+  margin-top: 0.6rem;
+  color: var(--bone-dim);
+  text-shadow: none;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.epithets {
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  color: var(--bone-dim);
+  font-size: 0.96rem;
+  margin: 0.6rem 0 0;
+  border-left: 2px solid var(--rust);
+  padding-left: 0.9rem;
+}
+
+.vitals-strip {
+  margin-top: 1.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-family: "Special Elite", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+}
+.vitals-strip span {
+  background: var(--void);
+  border: 1px solid var(--bone-faint);
+  padding: 0.35rem 0.7rem;
+  color: var(--bone-dim);
+  text-transform: uppercase;
+}
+.vitals-strip span strong {
+  color: var(--bile);
+  font-weight: 700;
+  margin-left: 0.4em;
+}
+.vitals-strip span.dead strong { color: var(--stamp-red); }
+.vitals-strip span.void strong { color: var(--rust); }
+
+/* DEAD STAMP */
+.stamp-dead {
+  position: absolute;
+  top: 30px;
+  right: -10px;
+  transform: rotate(-8deg);
+  padding: 0.5rem 1rem;
+  border: 3px double var(--stamp-red);
+  font-family: "Special Elite", monospace;
+  font-size: 0.95rem;
+  letter-spacing: 0.4em;
+  color: var(--stamp-red);
+  text-transform: uppercase;
+  background: rgba(8,7,10,0.5);
+  font-weight: bold;
+  opacity: 0.9;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.8);
+  z-index: 5;
+}
+.stamp-dead::before {
+  content: "✠";
+  margin-right: 0.4em;
+}
+
+/* TOC */
+nav.toc {
+  background: var(--void);
+  border: 1px solid var(--bone-faint);
+  padding: 1.2rem 1.6rem;
+  margin-bottom: 2.4rem;
+  position: relative;
+  columns: 2;
+  column-gap: 2rem;
+  font-family: "Special Elite", monospace;
+  font-size: 0.84rem;
+}
+.toc-label {
+  font-family: "UnifrakturCook", serif;
+  font-size: 1.2rem;
+  color: var(--bile);
+  letter-spacing: 0.05em;
+  column-span: all;
+  margin-bottom: 0.6rem;
+  text-align: center;
+  border-bottom: 1px solid var(--bone-faint);
+  padding-bottom: 0.5rem;
+}
+nav.toc ol {
+  margin: 0;
+  padding-left: 1.4rem;
+  list-style: none;
+  counter-reset: tocitem;
+}
+nav.toc ol li {
+  counter-increment: tocitem;
+  margin: 0.25rem 0;
+  position: relative;
+}
+nav.toc ol li::before {
+  content: counter(tocitem, upper-roman) ".";
+  color: var(--bile-deep);
+  position: absolute;
+  left: -1.4rem;
+  width: 1.3rem;
+  font-style: italic;
+}
+nav.toc a {
+  color: var(--bone-dim);
+  text-decoration: none;
+  border-bottom: 1px dotted transparent;
+  transition: all 0.2s;
+}
+nav.toc a:hover {
+  color: var(--bile);
+  border-bottom-color: var(--rust);
+}
+
+/* SECTIONS */
+section {
+  margin-bottom: 2.6rem;
+}
+
+h2.section-title {
+  font-family: "UnifrakturCook", serif;
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin: 2rem 0 1.2rem;
+  color: var(--bone);
+  letter-spacing: -0.01em;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--bone-faint);
+  text-shadow: 1px 1px 0 var(--rust-deep);
+}
+h2.section-title .sec-num {
+  display: inline-block;
+  margin-right: 0.5rem;
+  color: var(--rust);
+  font-style: italic;
+  font-size: 0.65em;
+  vertical-align: middle;
+}
+
+h3.subhead {
+  font-family: "UnifrakturCook", serif;
+  font-size: 1.35rem;
+  color: var(--bile);
+  margin: 1.6rem 0 0.7rem;
+  letter-spacing: 0.02em;
+}
+
+h4.entry-label {
+  font-family: "Special Elite", monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin: 1.2rem 0 0.5rem;
+}
+
+p { margin: 0.6rem 0; color: var(--bone); }
+p.source-note {
+  font-style: italic;
+  color: var(--bone-faint);
+  font-size: 0.85rem;
+}
+
+/* DROP CAP */
+.drop-cap::first-letter {
+  font-family: "UnifrakturCook", serif;
+  font-size: 3.6rem;
+  float: left;
+  line-height: 0.85;
+  padding: 0.2rem 0.6rem 0 0;
+  color: var(--bile);
+  text-shadow: 2px 2px 0 var(--rust-deep);
+}
+
+/* STAT GRID */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.6rem;
+  margin: 1rem 0;
+}
+.stat-cell {
+  background: var(--void);
+  border: 1px solid var(--bone-faint);
+  padding: 0.9rem 0.5rem 0.7rem;
+  text-align: center;
+  position: relative;
+}
+.stat-cell .value {
+  font-family: "UnifrakturCook", serif;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--bile);
+  text-shadow: 2px 2px 0 var(--rust-deep);
+}
+.stat-cell .label {
+  font-family: "Special Elite", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+  margin-top: 0.4rem;
+}
+.stat-cell.dead .value { color: var(--stamp-red); }
+.stat-cell.void .value { color: var(--rust); }
+
+/* HP / VC BIG BOX */
+.vital-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0.6rem;
+  margin: 1rem 0 1.4rem;
+}
+.vital-cell {
+  background: var(--void);
+  border: 1px solid var(--bone-faint);
+  padding: 1rem 1rem 0.9rem;
+  position: relative;
+}
+.vital-cell .vital-label {
+  font-family: "Special Elite", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 0.4rem;
+}
+.vital-cell .vital-line {
+  font-family: "UnifrakturCook", serif;
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--bone);
+}
+.vital-cell.hp .vital-line .current {
+  color: var(--stamp-red);
+  text-shadow: 1px 1px 0 var(--rust-deep);
+}
+.vital-cell.hp .vital-line .slash,
+.vital-cell.hp .vital-line .max {
+  color: var(--bone-dim);
+  font-size: 0.7em;
+}
+.vital-cell.vc .vital-line {
+  color: var(--rust);
+  text-align: center;
+}
+.vital-cell .sub {
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  font-size: 0.82rem;
+  color: var(--bone-faint);
+  margin-top: 0.4rem;
+}
+
+/* TABLES */
+table.dossier-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-family: "IM Fell English", serif;
+}
+table.dossier-table td {
+  padding: 0.55rem 0.8rem;
+  border-bottom: 1px solid var(--ash-faint);
+  vertical-align: top;
+}
+table.dossier-table td:first-child {
+  font-family: "Special Elite", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+  width: 30%;
+  background: rgba(8,7,10,0.4);
+}
+table.dossier-table td:last-child {
+  color: var(--bone);
+}
+
+/* CALLOUTS */
+.callout {
+  background: var(--void);
+  border: 1px solid var(--bone-faint);
+  border-left: 4px solid var(--rust);
+  padding: 1rem 1.2rem;
+  margin: 1rem 0;
+  font-family: "IM Fell English", serif;
+}
+.callout.bile { border-left-color: var(--bile-deep); }
+.callout.stamp { border-left-color: var(--stamp-red); }
+.callout .cb-label {
+  font-family: "Special Elite", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 0.4rem;
+}
+.callout.bile .cb-label { color: var(--bile-deep); }
+.callout.stamp .cb-label { color: var(--stamp-red); }
+.callout p:last-child { margin-bottom: 0; }
+.callout p:first-of-type { margin-top: 0; }
+
+/* CARDS — for powers, weapons, equipment */
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0.8rem 0;
+}
+.card {
+  background: var(--void);
+  border: 1px solid var(--bone-faint);
+  padding: 0.75rem 1rem;
+  position: relative;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.card-name {
+  font-family: "UnifrakturCook", serif;
+  font-size: 1.25rem;
+  color: var(--bone);
+}
+.card-tag {
+  font-family: "Special Elite", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bile);
+  border: 1px solid var(--bile-deep);
+  padding: 0.15rem 0.4rem;
+  background: var(--bile-faint);
+}
+.card-tag.rust {
+  color: var(--rust);
+  border-color: var(--rust);
+  background: var(--rust-faint);
+}
+.card-tag.dead {
+  color: var(--stamp-red);
+  border-color: var(--stamp-red);
+  background: rgba(160,24,24,0.12);
+}
+.card-sub {
+  font-family: "Special Elite", monospace;
+  font-size: 0.74rem;
+  color: var(--bone-faint);
+  margin-top: 0.3rem;
+  letter-spacing: 0.04em;
+}
+.card-body {
+  font-family: "IM Fell English", serif;
+  margin-top: 0.5rem;
+  color: var(--bone);
+}
+.card-body p { margin: 0.3rem 0; }
+.card.struck .card-name {
+  text-decoration: line-through;
+  color: var(--bone-faint);
+}
+.card.struck .card-body {
+  color: var(--bone-faint);
+  font-style: italic;
+}
+
+/* TWO COL */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem;
+  margin: 1rem 0;
+}
+
+/* OMENS PIPS */
+.omens-display {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.6rem 0;
+}
+.omen-pip {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--void);
+  border: 2px solid var(--bile);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "UnifrakturCook", serif;
+  font-size: 1.4rem;
+  color: var(--bile);
+  text-shadow: 1px 1px 0 var(--rust-deep);
+}
+.omen-pip.spent {
+  background: var(--void);
+  border-color: var(--ash);
+  color: var(--ash);
+  text-shadow: none;
+}
+.omens-display .meta {
+  font-family: "Special Elite", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--bone-faint);
+  text-transform: uppercase;
+  margin-left: 0.6rem;
+}
+
+/* MAXIM / QUOTE */
+blockquote.maxim {
+  border: none;
+  border-left: 3px solid var(--bile);
+  background: rgba(198,193,26,0.04);
+  margin: 1rem 0;
+  padding: 0.8rem 1.2rem;
+  font-style: italic;
+  font-family: "IM Fell English", serif;
+  font-size: 1.05rem;
+  color: var(--bone);
+}
+blockquote.maxim .attribution {
+  display: block;
+  margin-top: 0.5rem;
+  font-style: normal;
+  font-family: "Special Elite", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+/* CHRONICLE / TIMELINE */
+.timeline {
+  position: relative;
+  margin: 1rem 0;
+  padding-left: 1.8rem;
+  border-left: 1px solid var(--bone-faint);
+}
+.timeline-entry {
+  position: relative;
+  padding: 0.4rem 0 1.4rem 0;
+}
+.timeline-entry::before {
+  content: "✠";
+  position: absolute;
+  left: -2.15rem;
+  top: 0.3rem;
+  width: 1rem;
+  height: 1rem;
+  background: var(--void);
+  color: var(--rust);
+  font-size: 1.1rem;
+  line-height: 1;
+  text-align: center;
+}
+.timeline-entry.death::before {
+  content: "☠";
+  color: var(--stamp-red);
+  font-size: 1.4rem;
+  top: 0.1rem;
+}
+.timeline-title {
+  font-family: "UnifrakturCook", serif;
+  font-size: 1.4rem;
+  color: var(--bone);
+  margin: 0 0 0.3rem;
+}
+.timeline-title.death { color: var(--stamp-red); }
+.timeline-meta {
+  font-family: "Special Elite", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+  margin-bottom: 0.4rem;
+}
+.timeline-body {
+  font-family: "IM Fell English", serif;
+}
+.timeline-body p { margin: 0.4rem 0; }
+
+/* MUTATIONS CARDS */
+.mutation-card {
+  background: var(--void);
+  border: 1px solid var(--rust);
+  border-left: 4px solid var(--rust);
+  padding: 0.9rem 1.1rem;
+  margin: 0.6rem 0;
+  position: relative;
+  overflow: hidden;
+}
+.mutation-card::before {
+  content: "";
+  position: absolute;
+  top: -10px; right: -10px;
+  width: 60px; height: 60px;
+  background: radial-gradient(circle, rgba(138,58,31,0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+.mutation-name {
+  font-family: "UnifrakturCook", serif;
+  font-size: 1.3rem;
+  color: var(--flesh);
+  margin-bottom: 0.3rem;
+}
+.mutation-body {
+  font-family: "IM Fell English", serif;
+  font-size: 0.95rem;
+}
+.mutation-body p { margin: 0.3rem 0; }
+
+/* FOOTER */
+footer.colophon {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--bone-faint);
+  text-align: center;
+  font-family: "Special Elite", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.32em;
+  color: var(--bone-faint);
+  text-transform: uppercase;
+}
+footer.colophon::before {
+  content: "✠";
+  display: block;
+  color: var(--rust);
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+  letter-spacing: normal;
+}
+footer.colophon .small {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: var(--ash);
+}
+
+/* UNRECORDED MARKER */
+.unrecorded {
+  font-family: "Special Elite", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+  font-style: italic;
+  background: rgba(8,7,10,0.4);
+  padding: 0.1rem 0.4rem;
+  border: 1px dashed var(--ash);
+}
+
+/* MOBILE */
+@media (max-width: 700px) {
+  body { padding: 1rem 0.4rem; }
+  .document { padding: 2rem 1.2rem 3rem; }
+  .document::before, .document::after { display: none; }
+  h1.character-name { font-size: 2.6rem; }
+  h2.section-title { font-size: 1.4rem; }
+  .stamp-dead { font-size: 0.7rem; padding: 0.3rem 0.6rem; right: -4px; top: 16px; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .vital-grid { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+  nav.toc { columns: 1; }
+}
+
+@media print {
+  body { background: white; color: black; padding: 0; }
+  .document { box-shadow: none; padding: 1in; max-width: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="document">
+  <span class="edge-tear t"></span>
+
+  <div class="stamp-dead">Deceased</div>
+
+  <header class="title-block">
+    <div class="eyebrow">Scvm Dossier &nbsp;·&nbsp; A One-Shot Doomed Soul &nbsp;·&nbsp; Voidbirth (Mörk Borg–Compatible)</div>
+    <h1 class="character-name">
+      Dexid
+      <span class="small">Classless · Doomed · Drowned in fetid sludge</span>
+    </h1>
+    <p class="epithets">a scvm of no calling · briefly the holder of a scroll called the Lament of Eternity · the one who jumped into a worm</p>
+    <div class="vitals-strip">
+      <span>Class <strong>None</strong></span>
+      <span class="dead">HP <strong>0 / 5</strong></span>
+      <span class="void">VC <strong>5</strong></span>
+      <span>Omens <strong>2</strong></span>
+      <span>Silver <strong>—</strong></span>
+      <span class="dead">Status <strong>Deceased</strong></span>
+    </div>
+  </header>
+
+  <figure style="float:right;margin:0 0 1.5em 2.5em;max-width:220px;clear:right;">
+    <img src="dexid.png" alt="Dexid portrait" style="width:100%;display:block;border-radius:3px;">
+  </figure>
+
+  <nav class="toc">
+    <div class="toc-label">Contents</div>
+    <ol>
+      <li><a href="#identity">Identity</a></li>
+      <li><a href="#stats">Attributes &amp; Vitals</a></li>
+      <li><a href="#powers">Powers</a></li>
+      <li><a href="#mutations">Void Mutations</a></li>
+      <li><a href="#weapons">Weapons &amp; Armour</a></li>
+      <li><a href="#equipment">Equipment</a></li>
+      <li><a href="#omens">Omens &amp; Whispers</a></li>
+      <li><a href="#chronicle">Chronicle of Play</a></li>
+    </ol>
+  </nav>
+
+  <!-- I. IDENTITY -->
+  <section id="identity">
+    <h2 class="section-title"><span class="sec-num">I.</span> Identity</h2>
+    <p class="drop-cap">Dexid was a classless scvm — no priesthood, no guild, no calling beyond whatever the dying world saw fit to offer in the way of bones and broken tools. The sheet does not record a description, a backstory, or a home. The character was rolled to be played, played for a session, and lost in a dungeon that killed six of the seven souls that entered it. What follows is the residue.</p>
+
+    <table class="dossier-table">
+      <tbody>
+        <tr><td>Name</td><td>Dexid</td></tr>
+        <tr><td>System</td><td>Voidbirth — a Mörk Borg–compatible adventure of cosmic horror and inevitable transformation</td></tr>
+        <tr><td>Class</td><td>None (classless scvm)</td></tr>
+        <tr><td>Description</td><td><span class="unrecorded">Unrecorded on sheet</span></td></tr>
+        <tr><td>Status</td><td>Deceased — drowned in a fetid sludge soup while attempting to lift a fallen companion out of it</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- II. STATS -->
+  <section id="stats">
+    <h2 class="section-title"><span class="sec-num">II.</span> Attributes &amp; Vitals</h2>
+
+    <h3 class="subhead">Ability Scores</h3>
+    <div class="stat-grid">
+      <div class="stat-cell"><div class="value">+1</div><div class="label">Strength</div></div>
+      <div class="stat-cell"><div class="value">+2</div><div class="label">Agility</div></div>
+      <div class="stat-cell"><div class="value">+0</div><div class="label">Presence</div></div>
+      <div class="stat-cell"><div class="value">+2</div><div class="label">Toughness</div></div>
+    </div>
+
+    <h3 class="subhead">Hit Points &amp; Corruption</h3>
+    <div class="vital-grid">
+      <div class="vital-cell hp">
+        <div class="vital-label">Hit Points</div>
+        <div class="vital-line">
+          <span class="current">0</span><span class="slash"> / </span><span class="max">5</span>
+        </div>
+        <div class="sub">Final state at session's end. Toughness +2; HP was rolled at character creation per Mörk Borg standard (Toughness + d8). Maximum 5 recorded on the sheet.</div>
+      </div>
+      <div class="vital-cell vc">
+        <div class="vital-label">Void Corruption</div>
+        <div class="vital-line">5</div>
+        <div class="sub">A Voidbirth-specific track. Higher VC means deeper entanglement with the Void and an increasing likelihood of mutation.</div>
+      </div>
+    </div>
+
+    <p class="source-note">No carrying-capacity penalty noted (Strength +8 = up to 9 items before −2 DR on Agility/Strength tests; on the sheet, the equipment list runs five lines).</p>
+  </section>
+
+  <!-- III. POWERS -->
+  <section id="powers">
+    <h2 class="section-title"><span class="sec-num">III.</span> Powers</h2>
+
+    <p>Dexid had one named Power. The sheet lists it twice in two different ways — the formal name and the shorthand by which the character actually used it in play.</p>
+
+    <div class="card-list">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name">Lament of Eternity</span>
+          <span class="card-tag">Scroll · 1/day</span>
+        </div>
+        <div class="card-sub">Also written on the sheet as "Time Slip" — same Power, shortened</div>
+        <div class="card-body">
+          <p>A scroll Dexid found. When the bearer crossed a threshold, they could chant the Lament and receive visions — from the future, from the past, or from the present — and <strong>potentially be transported somewhere else they had already been</strong>.</p>
+          <p>The transport was not guaranteed. The visions came regardless of whether the relocation did.</p>
+        </div>
+      </div>
+    </div>
+
+    <h4 class="entry-label">Powers Per Day</h4>
+    <p>Presence + d4. Presence is 0, so up to <strong>1–4 uses per day</strong>, capped at <strong>4</strong> as marked on the sheet (the circled "4" beside <em>PRESENCE+d4 times per day</em>).</p>
+
+    <p class="source-note">The sheet lists two further blank Power lines. Nothing was written on them. Dexid never gained another Power.</p>
+  </section>
+
+  <!-- IV. MUTATIONS -->
+  <section id="mutations">
+    <h2 class="section-title"><span class="sec-num">IV.</span> Void Mutations</h2>
+
+    <p>Two mutations were inscribed in the Void Mutations box on the sheet. The sheet's annotations are terse; the mechanical detail recorded below is what is legible. Where the rules-text is incomplete, the file marks it.</p>
+
+    <div class="mutation-card">
+      <div class="mutation-name">Toxic Glands</div>
+      <div class="mutation-body">
+        <p>The sheet reads "Toxic glands — d6 dmg, d4 / 14" or similar. The exact mechanic is not fully transcribed; the recoverable shape is a damage die (d6) and a second die (d4) — likely a duration or save threshold against a target number near 14.</p>
+        <p><span class="unrecorded">Full rules-text not fully recorded on sheet</span></p>
+      </div>
+    </div>
+
+    <div class="mutation-card">
+      <div class="mutation-name">Extra Limbs</div>
+      <div class="mutation-body">
+        <p>Confirmed mutation. Mechanical effect not detailed on the sheet beyond the entry itself.</p>
+        <p><span class="unrecorded">Full rules-text not recorded on sheet</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- V. WEAPONS & ARMOUR -->
+  <section id="weapons">
+    <h2 class="section-title"><span class="sec-num">V.</span> Weapons &amp; Armour</h2>
+
+    <h3 class="subhead">Weapons</h3>
+    <div class="card-list">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name">Femur</span>
+          <span class="card-tag rust">d4 · Improvised</span>
+        </div>
+        <div class="card-sub">A thigh-bone. The Mörk Borg of weapons.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name">Crowbar</span>
+          <span class="card-tag rust">d4 · Bludgeon</span>
+        </div>
+        <div class="card-sub">Door-opener, lid-prier, skull-cracker.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name">Zweihänder</span>
+          <span class="card-tag">d10 · Two-Handed</span>
+        </div>
+        <div class="card-sub">Recorded in the Equipment list rather than the Weapon slot — the biggest implement Dexid carried.</div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Armour</h3>
+    <div class="callout">
+      <div class="cb-label">Light Leather</div>
+      <p><strong>−d2 to incoming damage.</strong> The lightest tier on the Mörk Borg armour track; no penalty to Agility-related tests. Dexid wore nothing heavier.</p>
+    </div>
+  </section>
+
+  <!-- VI. EQUIPMENT -->
+  <section id="equipment">
+    <h2 class="section-title"><span class="sec-num">VI.</span> Equipment</h2>
+
+    <p class="source-note">Carrying capacity: Strength +8 items, or take −2 DR on Agility/Strength tests. The list below reflects the sheet at the time of death, including struck-through entries.</p>
+
+    <div class="card-list">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name">Sack</span>
+          <span class="card-tag">10 slots</span>
+        </div>
+      </div>
+
+      <div class="card struck">
+        <div class="card-header">
+          <span class="card-name">Thigh-bone weapon</span>
+          <span class="card-tag dead">Given away</span>
+        </div>
+        <div class="card-body">
+          <p>Crossed out on the sheet. Dexid handed it to another player.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name">Sharp needle</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name">Femur</span>
+          <span class="card-tag rust">d4</span>
+        </div>
+        <div class="card-sub">Also tracked as Weapon 1. The same femur.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-name">Zweihänder</span>
+          <span class="card-tag">d10</span>
+        </div>
+        <div class="card-sub">Also tracked among weapons.</div>
+      </div>
+    </div>
+
+    <h4 class="entry-label">Silver</h4>
+    <p>None. The field is empty.</p>
+  </section>
+
+  <!-- VII. OMENS & WHISPERS -->
+  <section id="omens">
+    <h2 class="section-title"><span class="sec-num">VII.</span> Omens &amp; Whispers</h2>
+
+    <h3 class="subhead">Omens</h3>
+    <p>Mörk Borg's Omens are unspent fate — each may be expended to re-roll a check, ignore a critical fumble, lessen damage by d4, or remove a critical hit (DR+4 / NO CRIT/FUMBLE / MAX DMG, per the sheet's marginal reminder).</p>
+    <div class="omens-display">
+      <span class="omen-pip">✠</span>
+      <span class="omen-pip">✠</span>
+      <span class="meta">2 Omens</span>
+    </div>
+
+    <h3 class="subhead">Void Whispers</h3>
+    <p>The Voidbirth-specific track at the bottom of the sheet.</p>
+    <div class="callout bile">
+      <div class="cb-label">Status</div>
+      <p>Not tracked at time of death — the pips were left blank or unmarked. <span class="unrecorded">No value recorded</span></p>
+    </div>
+  </section>
+
+  <!-- VIII. CHRONICLE -->
+  <section id="chronicle">
+    <h2 class="section-title"><span class="sec-num">VIII.</span> Chronicle of Play</h2>
+
+    <p style="font-style:italic; color:var(--bone-faint); font-size:0.92rem;">A short life. One dungeon. Two standout moments — one heroic, one fatal.</p>
+
+    <div class="timeline">
+
+      <div class="timeline-entry">
+        <div class="timeline-meta">Sometime mid-session — the find</div>
+        <div class="timeline-title">The Scroll Called the Lament of Eternity</div>
+        <div class="timeline-body">
+          <p>Dexid found a scroll. The chant on it was called something like <em>the Lament of Eternity</em> — on the sheet, the player shortened it to <em>Time Slip</em>. The mechanic, as remembered: when crossed a threshold, the bearer could chant the Lament and receive a vision — from the future, the past, or the present — and <em>potentially</em> be transported somewhere they had already been.</p>
+          <p>The emphasis on the word <em>potentially</em> would matter later.</p>
+        </div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="timeline-meta">The standout moment</div>
+        <div class="timeline-title">Into the Worm</div>
+        <div class="timeline-body">
+          <p>The party fought a massive worm. In a clutch moment, Dexid <strong>jumped into its mouth</strong> and used the time-slip scroll, hoping to teleport out.</p>
+          <p>It didn't move them anywhere. The chant fired, the vision came, but Dexid stayed exactly where they were — which was inside the worm's belly. Because they were inside, the worm's armour didn't apply. Dexid spent the next stretch of the encounter <strong>dealing extensive damage from the inside before eventually cutting their way out</strong>.</p>
+          <p>The Lament did not save them. It put them in a position to kill the worm anyway.</p>
+        </div>
+      </div>
+
+      <div class="timeline-entry death">
+        <div class="timeline-meta">Sometime after — the bridge</div>
+        <div class="timeline-title death">Death in the Sludge Soup</div>
+        <div class="timeline-body">
+          <p>Later in the same dungeon, a rickety bridge. A companion fell off it, into a horrid fetid sludge soup beneath.</p>
+          <p>Dexid <strong>tried to lift them out</strong>. The attempt failed, the footing failed, the bridge failed, and Dexid fell in too. The sludge took them. HP went to 0. There was no Lament for this — no threshold to cross, no scroll for being pulled under.</p>
+          <blockquote class="maxim">
+            Killed not by the worm. Not by the dungeon's worst monster. Killed reaching for someone falling.
+            <span class="attribution">// the actual cause of death</span>
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="timeline-meta">Aftermath</div>
+        <div class="timeline-title">The Body Count</div>
+        <div class="timeline-body">
+          <p>Of <strong>seven characters</strong> who entered the dungeon, <strong>one survived</strong>. That survivor walked out at <strong>1 HP</strong>.</p>
+          <p>Dexid was one of the six who did not.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout stamp" style="margin-top:1.6rem;">
+      <div class="cb-label">In Memoriam</div>
+      <p>Dexid carried a femur, a crowbar, a zweihänder, a sharp needle, a sack, and a scroll that mostly didn't work. They jumped down a worm's throat on purpose, and they died trying to save someone from drowning. That is, in the bookkeeping of a dying world, not the worst ledger to leave behind.</p>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    Scvm Dossier · Voidbirth (Mörk Borg–Compatible) · Compiled Posthumously
+    <span class="small">No crit / fumble · DR+4 · max damage · the omens, spent or unspent, do not bring anyone back</span>
+  </footer>
+
+</div>
+
+</body>
+</html>

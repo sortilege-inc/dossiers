@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Field Dossier — Cain</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=IM+Fell+English:ital@0;1&family=IM+Fell+DW+Pica+SC&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0807;
+    --bg-deep: #060403;
+    --panel: #15100d;
+    --rule: #3a2418;
+    --rule-soft: #221610;
+
+    --text: #ddcdb4;
+    --text-soft: #b69d80;
+    --text-faint: #7a6850;
+    --text-dim: #4a3e30;
+
+    /* Cain: wrath-crimson primary, draconic-bronze secondary, sanctified-amber accent, scorched-ash deep */
+    --crimson: #8e1a14;
+    --crimson-bright: #c8281c;
+    --crimson-pale: #d86050;
+    --crimson-deep: #5a1008;
+
+    --bronze: #8a5a28;
+    --bronze-bright: #b07a36;
+    --bronze-pale: #c89858;
+    --bronze-deep: #5a3818;
+
+    --amber: #c8800a;
+    --amber-bright: #e8a020;
+    --amber-pale: #f0c060;
+
+    --ash: #4a3e30;
+    --ivory: #ece0c4;
+    --bone: #d8c8a8;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:var(--bg-deep); color:var(--text); font-family:'IM Fell English', Georgia, serif; font-size:15px; line-height:1.65; }
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 8%, rgba(142,26,20,0.10) 0%, transparent 45%),
+      radial-gradient(ellipse at 82% 92%, rgba(138,90,40,0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 55%, rgba(200,128,10,0.04) 0%, transparent 60%);
+    min-height: 100vh; padding: 2.5rem 1rem;
+  }
+  /* parchment grain + scorch */
+  body::before { content:''; position:fixed; top:0; left:0; right:0; bottom:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E"); pointer-events:none; z-index:1000; opacity:0.55; mix-blend-mode:overlay; }
+  /* vignette */
+  body::after { content:''; position:fixed; top:0; left:0; right:0; bottom:0; background:radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.55) 100%); pointer-events:none; z-index:999; }
+
+  .document { max-width:960px; margin:0 auto; background:var(--bg); padding:0; position:relative; border:1px solid var(--bronze-deep); box-shadow:0 0 0 3px var(--bg-deep),0 0 0 4px var(--bronze-deep),0 0 80px rgba(142,26,20,0.12),inset 0 0 80px rgba(0,0,0,0.55); }
+  .document::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,transparent 0%,var(--bronze-deep) 5%,var(--bronze-bright) 25%,var(--crimson-bright) 50%,var(--bronze-bright) 75%,var(--bronze-deep) 95%,transparent 100%); }
+  .document::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:linear-gradient(90deg,transparent 0%,var(--crimson) 15%,var(--bronze-bright) 50%,var(--crimson) 85%,transparent 100%); }
+  .doc-inner { padding: 3rem 3.5rem 4rem; }
+
+  .document-header { border-bottom:1px solid var(--bronze-deep); padding-bottom:2.5rem; margin-bottom:2.5rem; }
+  .filing-bar { display:flex; justify-content:space-between; align-items:center; font-family:'IM Fell DW Pica SC',serif; font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--text-faint); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:0.4rem 0.7rem; margin-bottom:1.8rem; background:linear-gradient(90deg,rgba(142,26,20,0.06) 0%,transparent 40%,transparent 60%,rgba(138,90,40,0.05) 100%); }
+  .filing-bar .fl { color:var(--crimson-bright); }
+  .filing-bar .fr { color:var(--bronze-bright); }
+  .filing-bar .seal { display:inline-block; width:8px; height:8px; background:var(--crimson-bright); border-radius:50%; margin-right:0.55rem; box-shadow:0 0 8px var(--crimson); vertical-align:middle; }
+
+  .hero { display:grid; grid-template-columns:auto 1fr; gap:2.5rem; align-items:start; }
+  .sigil { width:180px; height:240px; flex-shrink:0; position:relative; background:linear-gradient(180deg,var(--panel) 0%,var(--bg) 100%); border:1px solid var(--bronze-deep); display:flex; align-items:center; justify-content:center; }
+  .sigil::before { content:''; position:absolute; top:-4px; left:-4px; right:-4px; bottom:-4px; border:1px solid var(--bronze); pointer-events:none; }
+  .sigil::after { content:''; position:absolute; top:-8px; left:-8px; width:18px; height:18px; border-top:2px solid var(--crimson-bright); border-left:2px solid var(--crimson-bright); }
+  .sigil-br { position:absolute; bottom:-8px; right:-8px; width:18px; height:18px; border-bottom:2px solid var(--bronze-bright); border-right:2px solid var(--bronze-bright); }
+  .sigil svg { width:75%; height:75%; opacity:0.85; }
+
+  .eyebrow { font-family:'IM Fell DW Pica SC',serif; font-size:0.78rem; letter-spacing:0.32em; color:var(--bronze-bright); text-transform:uppercase; margin-bottom:0.4rem; }
+  .eyebrow .sep { color:var(--rule); margin:0 0.6em; }
+  h1.character-name { font-family:'Cinzel',serif; font-weight:900; font-size:4rem; line-height:0.95; letter-spacing:0.05em; text-transform:uppercase; margin:0.3rem 0; color:var(--ivory); text-shadow:0 0 25px rgba(142,26,20,0.4),0 2px 0 #000; }
+  h1.character-name .epithet { display:block; font-size:0.28em; font-weight:500; color:var(--crimson-pale); letter-spacing:0.28em; margin-top:0.6rem; font-family:'IM Fell DW Pica SC',serif; }
+  .tagline { font-family:'IM Fell English',serif; font-style:italic; font-size:1.1rem; color:var(--text-soft); margin:0.9rem 0 1.2rem; max-width:55ch; line-height:1.5; }
+  .vitals-row { display:flex; flex-wrap:wrap; gap:0; font-family:'IM Fell DW Pica SC',serif; font-size:0.72rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--text-soft); border-top:1px solid var(--rule); padding-top:0.8rem; margin-top:1rem; }
+  .vitals-row .v { border-left:1px solid var(--rule); padding:0.15rem 1rem; white-space:nowrap; }
+  .vitals-row .v:first-child { border-left:none; padding-left:0; }
+  .vitals-row .v strong { color:var(--bronze-pale); font-weight:600; margin-left:0.4em; }
+  .vitals-row .v.hot strong { color:var(--crimson-bright); }
+
+  nav.toc { border:1px solid var(--rule); padding:1.2rem 1.5rem; margin-bottom:2.5rem; background:var(--panel); position:relative; columns:2; column-gap:2rem; }
+  nav.toc::before { content:''; position:absolute; top:-1px; left:40px; height:1px; width:60px; background:var(--crimson-bright); box-shadow:0 0 6px var(--crimson-bright); }
+  nav.toc .toc-label { font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:0.32em; color:var(--crimson-bright); text-transform:uppercase; margin-bottom:0.8rem; column-span:all; font-weight:700; }
+  nav.toc ol { list-style:none; margin:0; padding:0; counter-reset:toc; font-family:'IM Fell English',serif; }
+  nav.toc ol li { counter-increment:toc; font-size:0.96rem; margin-bottom:0.32rem; break-inside:avoid; }
+  nav.toc ol li::before { content:counter(toc,upper-roman) ". "; color:var(--bronze-bright); font-family:'Cinzel',serif; font-weight:700; font-size:0.78em; margin-right:0.55rem; letter-spacing:0.05em; }
+  nav.toc a { color:var(--text); text-decoration:none; transition:color 0.15s; }
+  nav.toc a:hover { color:var(--crimson-bright); }
+
+  section { margin-bottom: 3rem; }
+  h2.section-title { font-family:'Cinzel',serif; font-weight:700; font-size:0.92rem; letter-spacing:0.32em; color:var(--crimson-bright); text-transform:uppercase; border-bottom:1px solid var(--rule); padding-bottom:0.55rem; margin:0 0 1.5rem; position:relative; text-shadow:0 0 14px rgba(142,26,20,0.4); }
+  h2.section-title::before { content:'✠'; color:var(--bronze-bright); margin-right:0.8rem; font-size:0.95em; text-shadow:0 0 6px var(--bronze); }
+  h2.section-title::after { content:''; position:absolute; bottom:-1px; left:0; width:70px; height:1px; background:var(--crimson-bright); box-shadow:0 0 6px var(--crimson-bright); }
+  h3.subhead { font-family:'Cinzel',serif; font-weight:500; font-size:0.95rem; letter-spacing:0.1em; color:var(--bronze-pale); margin:1.8rem 0 0.6rem; text-transform:uppercase; }
+  h3.subhead::before { content:'❧ '; color:var(--bronze); font-size:0.9em; }
+  h4.entry-label { font-family:'Cinzel',serif; font-weight:700; font-size:0.72rem; letter-spacing:0.24em; color:var(--crimson-bright); text-transform:uppercase; margin:1.2rem 0 0.45rem; }
+
+  p { margin:0 0 1rem; }
+  ul, ol { margin:0.5rem 0 1rem 1.5rem; padding:0; }
+  li { margin-bottom:0.4rem; }
+  em { color:var(--text-soft); font-style:italic; }
+  strong { color:var(--bronze-pale); font-weight:600; }
+  .holy { color:var(--amber-bright); font-style:italic; }
+  .blood { color:var(--crimson-pale); }
+
+  .drop-cap::first-letter { font-family:'Cinzel',serif; font-size:3.8rem; line-height:0.85; float:left; padding:0.25rem 0.6rem 0 0; color:var(--crimson-bright); font-weight:900; text-shadow:0 0 18px rgba(142,26,20,0.55); }
+
+  .stat-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:0.4rem; margin:1rem 0 1.5rem; }
+  .stat-cell { text-align:center; padding:0.85rem 0.4rem; border:1px solid var(--rule); background:var(--panel); position:relative; }
+  .stat-cell::before { content:''; position:absolute; top:0; left:0; width:8px; height:1px; background:var(--crimson); }
+  .stat-cell::after { content:''; position:absolute; bottom:0; right:0; width:8px; height:1px; background:var(--bronze); }
+  .stat-cell .label { font-family:'IM Fell DW Pica SC',serif; font-size:0.7rem; letter-spacing:0.22em; color:var(--text-faint); text-transform:uppercase; margin-bottom:0.3rem; }
+  .stat-cell .value { font-family:'Cinzel',serif; font-size:2rem; font-weight:900; color:var(--text); line-height:1; }
+  .stat-cell.high .value { color:var(--crimson-bright); text-shadow:0 0 10px rgba(200,40,28,0.5); }
+  .stat-cell.neg .value { color:var(--ash); }
+  .stat-cell .gloss { font-family:'IM Fell English',serif; font-style:italic; font-size:0.78rem; color:var(--text-faint); margin-top:0.3rem; line-height:1.2; }
+
+  .status-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.8rem; margin:1rem 0 1.5rem; }
+  .status-cell { border:1px solid var(--rule); padding:0.95rem; background:var(--panel); }
+  .status-cell .label { font-family:'IM Fell DW Pica SC',serif; font-size:0.7rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--text-faint); margin-bottom:0.4rem; }
+  .status-cell .value { font-family:'Cinzel',serif; font-size:1.9rem; font-weight:900; color:var(--text); line-height:1; }
+  .status-cell .value .sub { font-size:0.55em; color:var(--text-faint); font-weight:400; }
+  .status-cell .note { font-style:italic; font-size:0.85rem; color:var(--text-soft); margin-top:0.45rem; }
+  .status-cell.primary { border-color:var(--bronze-deep); background:linear-gradient(135deg,rgba(138,90,40,0.10) 0%,var(--panel) 60%); }
+  .status-cell.primary .value { color:var(--bronze-pale); }
+  .status-cell.wrath { border-color:var(--crimson); background:linear-gradient(135deg,rgba(142,26,20,0.12) 0%,var(--panel) 60%); }
+  .status-cell.wrath .value { color:var(--crimson-bright); }
+  .bar { height:4px; background:var(--bg-deep); border:1px solid var(--rule); margin-top:0.55rem; }
+  .bar .fill { height:100%; }
+  .bar.bronze .fill { background:linear-gradient(90deg,var(--bronze-deep) 0%,var(--bronze-bright) 100%); box-shadow:0 0 5px var(--bronze); }
+  .bar.crimson .fill { background:linear-gradient(90deg,var(--crimson-deep) 0%,var(--crimson-bright) 100%); box-shadow:0 0 5px var(--crimson); }
+  .bar.amber .fill { background:linear-gradient(90deg,var(--bronze-deep) 0%,var(--amber-bright) 100%); box-shadow:0 0 5px var(--amber); }
+
+  table.dossier-table { width:100%; border-collapse:collapse; margin:1rem 0 1.5rem; font-size:0.95rem; }
+  table.dossier-table th { text-align:left; font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:0.2em; color:var(--crimson-bright); text-transform:uppercase; padding:0.55rem 0.75rem; border-bottom:1px solid var(--crimson-deep); background:rgba(142,26,20,0.05); font-weight:700; }
+  table.dossier-table td { padding:0.6rem 0.75rem; border-bottom:1px solid var(--rule-soft); vertical-align:top; }
+  table.dossier-table td:first-child { font-family:'IM Fell DW Pica SC',serif; font-size:0.84rem; letter-spacing:0.04em; color:var(--bronze-pale); white-space:nowrap; padding-right:1.5rem; }
+  table.dossier-table tr:last-child td { border-bottom:none; }
+
+  .skill-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:0.25rem 1.5rem; margin:0.8rem 0 1.2rem; }
+  .skill-row { display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px dotted var(--rule-soft); padding:0.22rem 0; }
+  .skill-row .name { font-size:0.95rem; color:var(--text); }
+  .skill-row .val { font-family:'IM Fell DW Pica SC',serif; font-size:0.82rem; color:var(--text-soft); margin-left:0.8rem; letter-spacing:0.05em; }
+  .skill-row.sig .name { color:var(--bronze-pale); }
+  .skill-row.sig .val { color:var(--bronze-bright); }
+
+  .ability-block { border:1px solid var(--rule); padding:1rem 1.25rem; margin:0.8rem 0; background:var(--panel); position:relative; }
+  .ability-block::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--bronze); }
+  .ability-block.signature::before { background:var(--bronze-bright); box-shadow:0 0 6px var(--bronze); }
+  .ability-block.fire::before { background:var(--crimson-bright); box-shadow:0 0 6px var(--crimson); }
+  .ability-block.holy::before { background:var(--amber-bright); box-shadow:0 0 6px var(--amber); }
+  .ability-block.shield::before { background:var(--ash); }
+  .ability-block .ability-name { font-family:'Cinzel',serif; font-size:0.85rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--bronze-bright); margin-bottom:0.25rem; }
+  .ability-block.signature .ability-name { color:var(--bronze-pale); }
+  .ability-block.fire .ability-name { color:var(--crimson-bright); }
+  .ability-block.holy .ability-name { color:var(--amber-bright); }
+  .ability-block .ability-meta { font-family:'IM Fell DW Pica SC',serif; font-size:0.75rem; color:var(--text-faint); letter-spacing:0.1em; margin-bottom:0.5rem; }
+  .ability-block .ability-desc { font-size:0.94rem; color:var(--text); margin-bottom:0.4rem; }
+  .ability-block .ability-desc:last-child { margin-bottom:0; }
+  .ability-block .tier-roll { font-family:'IM Fell English',serif; font-size:0.88rem; color:var(--text-soft); margin-top:0.6rem; padding-top:0.55rem; border-top:1px dotted var(--rule); }
+  .ability-block .tier-roll .tier-label { color:var(--crimson-bright); font-family:'Cinzel',serif; font-size:0.74rem; letter-spacing:0.15em; text-transform:uppercase; margin-right:0.55em; font-weight:700; }
+  .ability-block .tier-roll .t { display:inline-block; padding:0.05rem 0.45rem; border:1px solid var(--rule); margin-right:0.4rem; color:var(--bronze-pale); font-size:0.82rem; font-family:'IM Fell DW Pica SC',serif; }
+
+  .wrath-resource { border:1px solid var(--crimson); background:linear-gradient(135deg,rgba(142,26,20,0.10) 0%,var(--panel) 60%); padding:1.1rem 1.5rem; margin:1rem 0 1.5rem; position:relative; }
+  .wrath-resource::before { content:'WRATH'; position:absolute; top:-0.7rem; left:1rem; background:var(--bg); padding:0 0.55rem; font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:0.32em; color:var(--crimson-bright); font-weight:700; }
+  .wrath-resource .gain-list { list-style:none; margin:0; padding:0; font-size:0.92rem; }
+  .wrath-resource .gain-list li { margin-bottom:0.45rem; padding-left:1.2rem; position:relative; color:var(--text-soft); }
+  .wrath-resource .gain-list li::before { content:'✠'; position:absolute; left:0; color:var(--crimson-bright); font-weight:700; }
+  .wrath-resource .gain-list li strong { color:var(--amber-bright); }
+
+  .callout { border:1px solid var(--bronze); border-left:4px solid var(--bronze-bright); padding:0.95rem 1.25rem; margin:1.5rem 0; background:linear-gradient(135deg,rgba(138,90,40,0.07) 0%,transparent 80%); }
+  .callout .label { font-family:'Cinzel',serif; font-size:0.74rem; letter-spacing:0.22em; color:var(--bronze-bright); text-transform:uppercase; margin-bottom:0.45rem; font-weight:700; }
+  .callout p:last-child { margin-bottom:0; }
+  .callout.crimson { border-color:var(--crimson); border-left-color:var(--crimson-bright); background:linear-gradient(135deg,rgba(142,26,20,0.10) 0%,transparent 80%); }
+  .callout.crimson .label { color:var(--crimson-bright); }
+  .callout.amber { border-color:var(--amber); border-left-color:var(--amber-bright); background:linear-gradient(135deg,rgba(200,128,10,0.08) 0%,transparent 80%); }
+  .callout.amber .label { color:var(--amber-bright); }
+
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin:1rem 0; }
+
+  .relation { padding:0.95rem 0; border-bottom:1px solid var(--rule); }
+  .relation:last-child { border-bottom:none; }
+  .relation .rel-name { font-family:'Cinzel',serif; font-size:0.95rem; font-weight:700; letter-spacing:0.06em; color:var(--ivory); margin-bottom:0.18rem; }
+  .relation .rel-name .role { font-family:'IM Fell English',serif; font-weight:400; font-style:italic; color:var(--text-faint); font-size:0.92rem; letter-spacing:0; text-transform:none; }
+  .relation .rel-name .marker { font-family:'IM Fell DW Pica SC',serif; font-size:0.68rem; letter-spacing:0.14em; color:var(--bronze-bright); border:1px solid var(--bronze-deep); padding:0.1rem 0.5rem; margin-left:0.6rem; text-transform:uppercase; }
+  .relation .rel-name .marker.ally { color:var(--bronze-pale); border-color:var(--bronze); }
+  .relation .rel-name .marker.kill { color:var(--crimson-bright); border-color:var(--crimson); }
+  .relation .rel-text { font-size:0.95rem; color:var(--text-soft); margin-top:0.35rem; }
+
+  /* combat log: a small bordered narrative block */
+  .battle-log { border:1px solid var(--crimson-deep); background:linear-gradient(180deg,rgba(142,26,20,0.05) 0%,var(--panel) 100%); padding:1.4rem 1.6rem; margin:1.2rem 0 1.5rem; position:relative; }
+  .battle-log::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent 0%,var(--crimson-bright) 50%,transparent 100%); }
+  .battle-log h4 { font-family:'Cinzel',serif; margin:0 0 0.7rem; font-size:0.95rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--crimson-bright); font-weight:700; }
+  .battle-log h4::before { content:'✠ '; color:var(--bronze-bright); }
+  .battle-log p { margin:0 0 0.7rem; font-size:0.96rem; }
+  .battle-log p:last-child { margin-bottom:0; }
+  .battle-log .stamp { font-family:'IM Fell DW Pica SC',serif; font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-faint); margin-bottom:0.5rem; }
+
+  /* tally */
+  .victory-tally { display:inline-block; font-family:'IM Fell DW Pica SC',serif; font-size:0.78rem; letter-spacing:0.2em; color:var(--bronze-bright); }
+  .victory-tally .marks { color:var(--crimson-bright); letter-spacing:0.15em; margin-left:0.3em; }
+
+  footer.colophon { margin-top:4rem; padding-top:2rem; border-top:1px solid var(--rule); text-align:center; font-family:'IM Fell DW Pica SC',serif; font-size:0.74rem; letter-spacing:0.22em; color:var(--text-dim); text-transform:uppercase; }
+  footer.colophon .accent { color:var(--crimson-bright); }
+  footer.colophon .accent2 { color:var(--bronze-bright); }
+  footer.colophon .accent3 { color:var(--amber-bright); }
+
+  @media (max-width: 720px) {
+    .doc-inner { padding: 2rem 1.25rem 3rem; }
+    h1.character-name { font-size: 2.4rem; }
+    .hero { grid-template-columns: 1fr; }
+    .sigil { width: 140px; height: 180px; }
+    .stat-grid { gap: 0.2rem; }
+    .stat-cell { padding: 0.55rem 0.2rem; }
+    .stat-cell .value { font-size: 1.5rem; }
+    .status-grid { grid-template-columns: 1fr; }
+    .skill-grid { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; gap: 1rem; }
+    nav.toc { columns: 1; }
+    .filing-bar { flex-direction:column; align-items:flex-start; gap:0.3rem; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+  <div class="doc-inner">
+
+    <header class="document-header">
+      <div class="filing-bar">
+        <span class="fl"><span class="seal"></span>FOLIO &middot; CAIN &middot; CENSOR / EXORCIST &middot; ORDER DOMAIN: WAR</span>
+        <span class="fr">FILED AT BREAKOUT &middot; ONE-SHOT &middot; ANNO I</span>
+      </div>
+      <div class="hero">
+        <div class="sigil">
+          <img src="cain.png" alt="Cain portrait" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div class="sigil-br"></div>
+        </div>
+        <div class="hero-text">
+          <div class="eyebrow">Field Folio <span class="sep">·</span> Disciple of the Order <span class="sep">·</span> Convention Pre-Generated Hero</div>
+          <h1 class="character-name">
+            Cain
+            <span class="epithet">Exorcist of War &middot; The Dragon-Knight Who Walks Out</span>
+          </h1>
+          <p class="tagline">A scaled disciple who left the cloister with the language of judgment in his throat and fire in his lungs. He names a foe and the wrath begins to climb. He does not say <em>repent</em>. He says <em>your allies cannot save you</em>.</p>
+          <div class="vitals-row">
+            <span class="v">Level <strong>1</strong></span>
+            <span class="v">Ancestry <strong>Dragon Knight</strong></span>
+            <span class="v">Career <strong>Disciple</strong></span>
+            <span class="v">Class <strong>Censor</strong></span>
+            <span class="v">Subclass <strong>Exorcist</strong></span>
+            <span class="v hot">Domain <strong>War</strong></span>
+            <span class="v">Wealth <strong>1</strong></span>
+            <span class="v">Renown <strong>0</strong></span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <div class="toc-label">Contents of the Folio</div>
+      <ol>
+        <li><a href="#identity">Identity &amp; Bearing</a></li>
+        <li><a href="#stats">Characteristics &amp; Pools</a></li>
+        <li><a href="#wrath">Wrath &amp; Potency</a></li>
+        <li><a href="#ancestry">Draconian Traits</a></li>
+        <li><a href="#culture">Culture &amp; Career</a></li>
+        <li><a href="#abilities">The Catechism of Force</a></li>
+        <li><a href="#exorcist">Exorcist &amp; War Domain</a></li>
+        <li><a href="#kit">Kit — Shining Armor</a></li>
+        <li><a href="#skills">Skills &amp; Tongues</a></li>
+        <li><a href="#incident">Inciting Incident</a></li>
+        <li><a href="#breakout">The Keep at Breakout</a></li>
+        <li><a href="#relations">Standing Among the Four</a></li>
+      </ol>
+    </nav>
+
+    <!-- I. IDENTITY -->
+    <section id="identity">
+      <h2 class="section-title">I. Identity &amp; Bearing</h2>
+      <p class="drop-cap">Cain is a Dragon Knight of the Disciple career — a scaled humanoid who served a religious institution until a near-death accident broke whatever oath he had been keeping there. He woke remembering nothing of the church or the temple. He left. He kept the prayers; he discarded the building. His class is <strong>Censor</strong>, subclass <strong>Exorcist</strong>, with the <strong>War</strong> domain. He names a target, calls down judgment on it, and proceeds to dismantle that target while purifying fire eats the wound he has opened.</p>
+
+      <p>In bearing: heavy of frame, slow of speech, deliberate in his motions. He prefers a heavy weapon at melee distance to a holy book at preaching distance. He intuits creatures &mdash; demon, humanoid, undead &mdash; the way a butcher intuits joints. His Presence runs as high as his Might; what he speaks is mostly judgment, and what he does is mostly violence, and these two activities are, for him, one thing.</p>
+
+      <div class="callout amber">
+        <div class="label">◈ Appearance — Sketch</div>
+        <p>Bronze-scaled and broad-shouldered, with a heavy jaw and the suggestion of horn-ridges along the brow. Wings fold close against his back &mdash; not large enough to fly, ample enough to <em>guard</em>. His breath, when he draws it for the exhalation, glows faint amber behind the teeth. The shining armor over his hide is dented but well-kept; the trappings have been deliberately stripped of any sect insignia he might once have worn.</p>
+      </div>
+    </section>
+
+    <!-- II. CHARACTERISTICS -->
+    <section id="stats">
+      <h2 class="section-title">II. Characteristics &amp; Pools</h2>
+      <div class="stat-grid">
+        <div class="stat-cell high"><div class="label">Might</div><div class="value">+2</div><div class="gloss">Heavy weapon, heavy blow</div></div>
+        <div class="stat-cell"><div class="label">Agility</div><div class="value">+1</div><div class="gloss">Adequate, not deft</div></div>
+        <div class="stat-cell neg"><div class="label">Reason</div><div class="value">&minus;1</div><div class="gloss">Not the scholar</div></div>
+        <div class="stat-cell"><div class="label">Intuition</div><div class="value">+1</div><div class="gloss">Reads creatures, not rooms</div></div>
+        <div class="stat-cell high"><div class="label">Presence</div><div class="value">+2</div><div class="gloss">Judgment-bearer</div></div>
+      </div>
+      <p><em>Two peaks at +2 (Might and Presence); Reason is the only negative. Cain is built to engage at melee distance and to pronounce judgment with authority. He is not the one to decipher the cipher or recall the obscure precedent &mdash; but he can name a creature&rsquo;s nature on sight and bring weight to whatever the table decides.</em></p>
+
+      <div class="status-grid">
+        <div class="status-cell primary"><div class="label">Stamina</div><div class="value">13<span class="sub"> / 33</span></div><div class="bar bronze"><div class="fill" style="width:39%"></div></div><div class="note">After the werewolf. Winded ≤ 16. Dying 0 to &minus;16.</div></div>
+        <div class="status-cell"><div class="label">Recoveries</div><div class="value">12<span class="sub"> / 12</span></div><div class="bar amber"><div class="fill" style="width:100%"></div></div><div class="note">Recovery value 12 (Stamina ÷ 3, rounded down). High pool — the Censor sustains.</div></div>
+        <div class="status-cell wrath"><div class="label">Wrath</div><div class="value">0</div><div class="bar crimson"><div class="fill" style="width:0%"></div></div><div class="note">Heroic resource. Builds turn by turn and on every exchange with the judged.</div></div>
+      </div>
+
+      <table class="dossier-table">
+        <thead><tr><th>Field</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Size</td><td><strong>1M</strong> — Medium</td></tr>
+          <tr><td>Speed</td><td><strong>5</strong></td></tr>
+          <tr><td>Disengage</td><td><strong>1</strong></td></tr>
+          <tr><td>Stability</td><td><strong>1</strong> (+1 from kit = 2 effective)</td></tr>
+          <tr><td>Melee Damage Bonus</td><td><strong>+2 / +2 / +2</strong> across tiers (kit)</td></tr>
+          <tr><td>Surges</td><td><strong>0</strong> — 1 surge = +2 damage; 2 surges = +1 potency</td></tr>
+          <tr><td>Immunity</td><td><strong>Fire 1</strong> (ancestry)</td></tr>
+          <tr><td>Weaknesses</td><td>None</td></tr>
+          <tr><td>Victories</td><td><span class="victory-tally">5 <span class="marks">||||/</span></span> &mdash; from the keep and the hunt</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="subhead">Potency</h3>
+      <table class="dossier-table">
+        <thead><tr><th>Threshold</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Weak</td><td><strong>0</strong></td></tr>
+          <tr><td>Average</td><td><strong>1</strong></td></tr>
+          <tr><td>Strong</td><td><strong>2</strong></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- III. WRATH -->
+    <section id="wrath">
+      <h2 class="section-title">III. Wrath — The Heroic Resource</h2>
+      <p>Wrath is the Censor&rsquo;s measure of righteous escalation. It is not anger. It is the steady accumulation of authority Cain earns by being on the field, in melee, exchanging blows with the creature he has named.</p>
+      <div class="wrath-resource">
+        <ul class="gain-list">
+          <li><strong>+2</strong> &mdash; at the start of each of your turns</li>
+          <li><strong>+1</strong> &mdash; the first time each round a creature judged by you deals damage to you</li>
+          <li><strong>+1</strong> &mdash; the first time each round you deal damage to a creature judged by you</li>
+        </ul>
+      </div>
+
+      <div class="callout crimson">
+        <div class="label">⌖ The Judgment Loop</div>
+        <p>Cain names a target with <strong>Judgment</strong>. From that moment, every exchange between him and the judged is taxed in his favour: free-action damage twice his Presence (4 holy damage) when they take a main action in his line of effect, +1 Wrath when they hit him, +1 Wrath when he hits them. The longer the duel runs, the heavier his abilities become. A judged target that survives the early rounds is feeding the eventual 5-Wrath blow.</p>
+      </div>
+
+      <h3 class="subhead">Spending Hero Tokens</h3>
+      <ul>
+        <li><strong>1 token:</strong> gain 2 surges.</li>
+        <li><strong>1 token:</strong> succeed on a saving throw instead of failing.</li>
+        <li><strong>1 token:</strong> reroll a test and use the new result.</li>
+        <li><strong>2 tokens:</strong> on your turn or when you take damage, regain Stamina equal to your Recovery value (12) without spending a Recovery, before taking the damage.</li>
+      </ul>
+    </section>
+
+    <!-- IV. ANCESTRY -->
+    <section id="ancestry">
+      <h2 class="section-title">IV. Draconian Traits</h2>
+      <p>Cain selected three ancestry features tied to the Dragon Knight stock: <strong>Creature Sense</strong>, <strong>Dragon Breath</strong>, and <strong>Draconian Guard</strong>, along with the <strong>Fire 1</strong> immunity that comes with the scales.</p>
+      <table class="dossier-table">
+        <thead><tr><th>Trait</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>Creature Sense</td><td><em>Maneuver, Self.</em> Cain intuits a creature&rsquo;s keywords. Choose one creature within 10 squares. If it is his level or lower, he learns the keywords in its stat block (Demon, Humanoid, Undead, and so forth).</td></tr>
+          <tr><td>Dragon Breath</td><td><em>Main Action, Magic, Area, 3 cube within 1.</em> A furious exhalation washes over his foes. Cain chooses the damage type each time: acid, cold, corruption, fire, lightning, or poison. Tier damage <strong>2 / 4 / 6</strong> per enemy in the area.</td></tr>
+          <tr><td>Draconian Guard</td><td><em>Triggered Action, Self.</em> When Cain or a creature adjacent to him takes damage from a strike, he swings his wings around to guard. He reduces the damage from the strike by an amount equal to his level (1 at this level).</td></tr>
+          <tr><td>Damage Modifier</td><td>Immunity <strong>Fire 1</strong>.</td></tr>
+        </tbody>
+      </table>
+      <p><em>Creature Sense gave him the demon-knowledge a censor relies on. Dragon Breath is the only ranged AOE on his sheet &mdash; useful when Judgment alone can&rsquo;t reach. Draconian Guard, paired with the Censor&rsquo;s gravitational pull on judged enemies, means he can take a hit meant for an ally and shrug some of it off.</em></p>
+    </section>
+
+    <!-- V. CULTURE & CAREER -->
+    <section id="culture">
+      <h2 class="section-title">V. Culture &amp; Career</h2>
+      <div class="two-col">
+        <div>
+          <h3 class="subhead">Dragon Knight Culture</h3>
+          <table class="dossier-table">
+            <tbody>
+              <tr><td>Culture Language</td><td>Vastariax</td></tr>
+              <tr><td>Environment</td><td><strong>Secluded</strong> — Intimidate</td></tr>
+              <tr><td>Organization</td><td><strong>Bureaucratic</strong> — Lead</td></tr>
+              <tr><td>Upbringing</td><td><strong>Martial</strong> — Alertness</td></tr>
+              <tr><td>Languages</td><td>Caelian, Vastariax</td></tr>
+            </tbody>
+          </table>
+          <p><em>Edge on tests made to recall lore about his culture, and on tests made to influence or interact with people of his culture.</em></p>
+        </div>
+        <div>
+          <h3 class="subhead">Disciple Career</h3>
+          <table class="dossier-table">
+            <tbody>
+              <tr><td>Project Points</td><td>+240</td></tr>
+              <tr><td>Supernatural Perk</td><td><strong>Creature Sense</strong></td></tr>
+              <tr><td>Skill</td><td>Religion</td></tr>
+              <tr><td>Lore Skills</td><td>History, Magic</td></tr>
+            </tbody>
+          </table>
+          <p><em>The Disciple builds toward sacred works in downtime &mdash; consecrations, repaired relics, doctrinal arguments &mdash; even when, like Cain, the disciple has walked away from the institution that taught the craft.</em></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VI. ABILITIES -->
+    <section id="abilities">
+      <h2 class="section-title">VI. The Catechism of Force</h2>
+
+      <h4 class="entry-label">The Naming — Core Maneuver</h4>
+      <div class="ability-block holy">
+        <div class="ability-name">Judgment</div>
+        <div class="ability-meta">Maneuver &middot; Magic, Ranged 10 &middot; One enemy &middot; Free</div>
+        <div class="ability-desc">A prayer outlines the foe in holy energy. The target is judged by Cain until end of encounter, until he uses the ability again, until he willingly ends it (no action), or until another censor judges the target.</div>
+        <div class="ability-desc"><strong>While judged:</strong> whenever the target uses a main action and is within Cain&rsquo;s line of effect, he may use a free triggered action to deal <strong>holy damage equal to twice his Presence score (4)</strong>.</div>
+        <div class="ability-desc"><strong>When the judged is reduced to 0 Stamina,</strong> he may use a free triggered action to apply Judgment to a new target.</div>
+        <div class="ability-desc"><strong>For 1 Wrath</strong> he may take one of the following free triggered actions (one per turn, even if multiple options are triggered the same turn):</div>
+        <ul>
+          <li>When an adjacent judged creature shifts, make a melee free strike against it and its speed becomes 0 until end of current turn, preventing further shifting.</li>
+          <li>When a judged creature within 10 squares makes a power roll, cause them to have a bane on the roll.</li>
+          <li>When a judged creature within 10 squares uses an ability with a potency that targets only one creature, the potency is reduced by 1 for that creature.</li>
+          <li>When you damage a judged creature with a melee ability, the creature is taunted by you until end of its next turn.</li>
+        </ul>
+      </div>
+
+      <h4 class="entry-label">Signature — Selected Class Ability</h4>
+      <div class="ability-block signature">
+        <div class="ability-name">Your Allies Cannot Save You!</div>
+        <div class="ability-meta">Main Action &middot; Magic, Strike, Weapon &middot; Melee 1 &middot; One creature or object &middot; Signature (free)</div>
+        <div class="ability-desc">A magic strike turns the foe&rsquo;s guilt into a burst of holy power. Each enemy adjacent to the target is pushed away from the target up to a number of squares equal to Cain&rsquo;s Presence (2).</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll +2</span>
+          <span class="t">≤11</span>7 holy damage &middot;
+          <span class="t">12&ndash;16</span>9 holy damage &middot;
+          <span class="t">17+</span>12 holy damage
+        </div>
+      </div>
+
+      <h4 class="entry-label">Ancestry Main Action — Area</h4>
+      <div class="ability-block fire">
+        <div class="ability-name">Dragon Breath</div>
+        <div class="ability-meta">Main Action &middot; Magic, Area &middot; 3 cube within 1 &middot; Each enemy in the area</div>
+        <div class="ability-desc">A furious exhalation washes over his foes. Damage type chosen each time (acid, cold, corruption, fire, lightning, or poison).</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll +2</span>
+          <span class="t">≤11</span>2 damage &middot;
+          <span class="t">12&ndash;16</span>4 damage &middot;
+          <span class="t">17+</span>6 damage
+        </div>
+      </div>
+
+      <h4 class="entry-label">Selected Class Ability — Effect</h4>
+      <div class="ability-block">
+        <div class="ability-name">Protective Attack</div>
+        <div class="ability-meta">Main Action &middot; Melee, Strike, Weapon &middot; Melee 1 &middot; One creature</div>
+        <div class="ability-desc">The strength of his assault makes it impossible for the foe to ignore him.</div>
+        <div class="ability-desc"><strong>Effect:</strong> the target is taunted until end of its next turn.</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll +2</span>
+          <span class="t">≤11</span>7 damage &middot;
+          <span class="t">12&ndash;16</span>10 damage &middot;
+          <span class="t">17+</span>13 damage
+        </div>
+      </div>
+
+      <h4 class="entry-label">3-Wrath Heroic Ability</h4>
+      <div class="ability-block">
+        <div class="ability-name">Behold, a Shield of Faith!</div>
+        <div class="ability-meta">Main Action &middot; Melee, Strike, Weapon &middot; Melee 1 &middot; One creature or object &middot; 3 Wrath</div>
+        <div class="ability-desc">A mighty blow turns the foe&rsquo;s vitality into a holy light that envelops Cain and an ally, discouraging enemies who might attack him.</div>
+        <div class="ability-desc"><strong>Effect:</strong> until the start of his next turn, enemies have a bane on ability rolls made against him and each ally adjacent to him.</div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll +2</span>
+          <span class="t">≤11</span>7 holy damage &middot;
+          <span class="t">12&ndash;16</span>10 holy damage &middot;
+          <span class="t">17+</span>13 holy damage
+        </div>
+      </div>
+
+      <h4 class="entry-label">5-Wrath Heroic Ability — The Finisher</h4>
+      <div class="ability-block fire">
+        <div class="ability-name">Purifying Fire</div>
+        <div class="ability-meta">Main Action &middot; Magic, Melee, Ranged, Strike, Weapon &middot; Melee 1 or Ranged 5 &middot; One creature &middot; 5 Wrath</div>
+        <div class="ability-desc"><em>&ldquo;The gods judge, fire cleanses.&rdquo;</em></div>
+        <div class="tier-roll">
+          <span class="tier-label">Power Roll +2</span>
+          <span class="t">≤11</span>9 holy (M) / 7 holy (R); M&lt;2 fire weakness 3 (save ends) &middot;
+          <span class="t">12&ndash;16</span>13 holy (M) / 11 holy (R); M&lt;3 fire weakness 5 (save ends) &middot;
+          <span class="t">17+</span>16 holy (M) / 14 holy (R); M&lt;4 fire weakness 7 (save ends)
+        </div>
+        <div class="ability-desc" style="margin-top:0.6rem;"><strong>Effect:</strong> while the target has fire weakness from this ability, he can choose to have his abilities deal fire damage instead of holy.</div>
+      </div>
+
+      <h4 class="entry-label">Triggered — Class Feature</h4>
+      <div class="ability-block">
+        <div class="ability-name">My Life for Yours</div>
+        <div class="ability-meta">Triggered Action &middot; Magic, Ranged 10 &middot; Self or one ally &middot; Trigger: target starts their turn or takes damage</div>
+        <div class="ability-desc"><strong>Effect:</strong> Cain spends a Recovery; the target regains Stamina equal to his Recovery value (12).</div>
+        <div class="ability-desc"><strong>Spend 1 Wrath:</strong> end one effect on the target that is ended by a saving throw or that ends at the end of their turn, or a prone target can stand up.</div>
+      </div>
+
+      <h4 class="entry-label">Triggered — Ancestry</h4>
+      <div class="ability-block shield">
+        <div class="ability-name">Draconian Guard</div>
+        <div class="ability-meta">Triggered Action &middot; Self &middot; Trigger: you or an adjacent creature takes damage from a strike</div>
+        <div class="ability-desc"><strong>Effect:</strong> reduce the damage from the strike by an amount equal to his level (1).</div>
+      </div>
+
+      <h4 class="entry-label">Free Strikes</h4>
+      <div class="two-col">
+        <div class="ability-block">
+          <div class="ability-name">Melee Free Strike</div>
+          <div class="ability-meta">Free Strike &middot; Charge, Melee, Strike, Weapon &middot; Melee 1 &middot; One creature or object</div>
+          <div class="tier-roll">
+            <span class="tier-label">Power Roll +2</span>
+            <span class="t">≤11</span>6 &middot;
+            <span class="t">12&ndash;16</span>9 &middot;
+            <span class="t">17+</span>11
+          </div>
+        </div>
+        <div class="ability-block">
+          <div class="ability-name">Ranged Free Strike</div>
+          <div class="ability-meta">Free Strike &middot; Ranged, Strike, Weapon &middot; Ranged 5 &middot; One creature or object</div>
+          <div class="tier-roll">
+            <span class="tier-label">Power Roll +2</span>
+            <span class="t">≤11</span>4 &middot;
+            <span class="t">12&ndash;16</span>6 &middot;
+            <span class="t">17+</span>8
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VII. EXORCIST -->
+    <section id="exorcist">
+      <h2 class="section-title">VII. Exorcist &amp; The War Domain</h2>
+      <div class="two-col">
+        <div>
+          <h3 class="subhead">Exorcist — Judgment Order Benefit</h3>
+          <p>The first time on a turn that Cain uses his Judgment ability to judge a creature, he can <strong>teleport a number of squares equal to twice his Presence score (4)</strong>. This movement must take him closer to the judged creature, and he does not need line of effect to his destination.</p>
+          <p><em>He names a creature, and the space between them collapses. The Exorcist closes ground.</em></p>
+        </div>
+        <div>
+          <h3 class="subhead">War Domain — 1st-Level Feature</h3>
+          <p>Cain&rsquo;s domain is <strong>War</strong>. The 1st-level domain feature is <strong>Sanctified Weapon</strong>: as a respite activity, he can bless a weapon. Any creature who wields that weapon gains a <strong>+1 bonus to rolled damage</strong> with abilities that use the weapon. The benefit lasts until he finishes another respite.</p>
+          <p>The domain also grants the <strong>Heal</strong> exploration skill, packaged with the doctrinal pieces a war-priest carries into the field.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIII. KIT -->
+    <section id="kit">
+      <h2 class="section-title">VIII. Kit — Shining Armor</h2>
+      <table class="dossier-table">
+        <thead><tr><th>Field</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Armor</td><td>Heavy Armor (Ward)</td></tr>
+          <tr><td>Weapon</td><td>Medium Weapon (Implement-capable)</td></tr>
+          <tr><td>Speed</td><td>+0</td></tr>
+          <tr><td>Disengage</td><td>+0</td></tr>
+          <tr><td>Stamina Bonus</td><td>+12 <em>(rolled into the 33 above)</em></td></tr>
+          <tr><td>Stability</td><td>+1</td></tr>
+          <tr><td>Melee Distance</td><td>+0</td></tr>
+          <tr><td>Ranged Distance</td><td>+0</td></tr>
+          <tr><td>Melee Damage Bonus</td><td>+2 / +2 / +2 (all tiers)</td></tr>
+          <tr><td>Ranged Damage Bonus</td><td>— / — / —</td></tr>
+        </tbody>
+      </table>
+      <p><em>The Shining Armor kit is exactly what it sounds like: heavy plate, a respectable melee weapon, no compromise toward speed or distance. The kit is for the front rank. Cain is for the front rank.</em></p>
+    </section>
+
+    <!-- IX. SKILLS -->
+    <section id="skills">
+      <h2 class="section-title">IX. Skills &amp; Tongues</h2>
+      <div class="two-col">
+        <div>
+          <h4 class="entry-label">Selected Skills (+2 bonus on tests these apply to)</h4>
+          <div class="skill-grid">
+            <div class="skill-row sig"><span class="name">Heal</span><span class="val">Exploration</span></div>
+            <div class="skill-row sig"><span class="name">Lead</span><span class="val">Interpersonal</span></div>
+            <div class="skill-row sig"><span class="name">Persuade</span><span class="val">Interpersonal</span></div>
+            <div class="skill-row sig"><span class="name">Interrogate</span><span class="val">Interpersonal</span></div>
+            <div class="skill-row sig"><span class="name">Read Person</span><span class="val">Interpersonal</span></div>
+            <div class="skill-row sig"><span class="name">Intimidate</span><span class="val">Interpersonal</span></div>
+            <div class="skill-row sig"><span class="name">Alertness</span><span class="val">Intrigue</span></div>
+            <div class="skill-row sig"><span class="name">Religion</span><span class="val">Lore</span></div>
+            <div class="skill-row sig"><span class="name">History</span><span class="val">Lore</span></div>
+            <div class="skill-row sig"><span class="name">Magic</span><span class="val">Lore</span></div>
+          </div>
+        </div>
+        <div>
+          <h4 class="entry-label">Languages</h4>
+          <div class="skill-grid">
+            <div class="skill-row sig"><span class="name">Caelian</span><span class="val">Common</span></div>
+            <div class="skill-row sig"><span class="name">Vastariax</span><span class="val">Draconian</span></div>
+          </div>
+          <h4 class="entry-label">Wealth &amp; Standing</h4>
+          <div class="skill-grid">
+            <div class="skill-row"><span class="name">Wealth</span><span class="val">1</span></div>
+            <div class="skill-row"><span class="name">Renown</span><span class="val">0</span></div>
+            <div class="skill-row"><span class="name">XP</span><span class="val">0</span></div>
+            <div class="skill-row"><span class="name">Hero Tokens</span><span class="val">0</span></div>
+          </div>
+          <p style="font-size:0.88rem; font-style:italic; color:var(--text-faint); margin-top:0.8rem;">A spread of pressure-skills (Lead, Persuade, Interrogate, Intimidate) backed by the doctrinal lore (Religion, History, Magic) of a man who used to live inside an order. Heal is the only pure caregiving skill on the sheet — and it's there because the War domain put it there.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- X. INCITING INCIDENT -->
+    <section id="incident">
+      <h2 class="section-title">X. Inciting Incident &mdash; Near-Death Experience</h2>
+      <p>From the Disciple career:</p>
+      <blockquote style="border-left:3px solid var(--bronze); padding:0.5rem 1.2rem; margin:1rem 0; color:var(--text-soft); font-style:italic;">
+        While serving at a religious institution, you almost died in an accident. When you woke, you had lost all memory of ever having worked for the church or temple. Though the clergy encouraged you to stay, you left to forge a new path. Your sense of altruism &mdash; whether instilled in you by your past work or a part of who you naturally are &mdash; guides you in your life.
+      </blockquote>
+      <p>The institution is unnamed and the accident undescribed. What remains is what Cain carries: the training, the catechism in his throat, the reflex of judgment. The building he served and the rite he kept &mdash; gone. The altruism &mdash; whether earned or innate, he can&rsquo;t now tell &mdash; is the only thing the accident left intact.</p>
+
+      <div class="callout amber">
+        <div class="label">◈ Complication</div>
+        <p>Cain&rsquo;s complication is <strong>unwritten</strong>. The space remains open on the folio for a hook to be planted by play.</p>
+      </div>
+    </section>
+
+    <!-- XI. BREAKOUT -->
+    <section id="breakout">
+      <h2 class="section-title">XI. The Keep at Breakout &mdash; Folio of One Day</h2>
+      <p>Cain was played as a pre-generated hero at <strong>Breakout Con</strong> in a one-shot built around a fortified keep, an overwhelming goblin army at its walls, and the three leaders behind the assault. The party of four held the keep, then went out after the leaders &mdash; a goblin chieftain, a ghost, and a werewolf. Cain came back with five Victories and most of his blood.</p>
+
+      <div class="battle-log">
+        <div class="stamp">Engagement I &middot; The Walls</div>
+        <h4>The Goblin Army at the Gate</h4>
+        <p>The keep was defended against an army of goblins. Cain held a line. Judgment named whoever pressed hardest at the breach; Wrath built turn after turn; the army crested the wall in numbers, and the four held them.</p>
+      </div>
+
+      <div class="battle-log">
+        <div class="stamp">Engagement II &middot; The Hunt</div>
+        <h4>The Three Leaders</h4>
+        <p>With the keep secured, the four went after the leadership behind the assault. Three quarries: the goblin chieftain, a ghost, and a werewolf. The party split the work. The <strong>conduit</strong> and the <strong>rogue</strong> took the ghost &mdash; theirs to lay; not recorded here in detail. Cain and the <strong>dwarf fury</strong> went after the werewolf.</p>
+      </div>
+
+      <div class="battle-log">
+        <div class="stamp">Engagement III &middot; The Werewolf</div>
+        <h4>Judgment &amp; Purifying Fire</h4>
+        <p>Cain named the werewolf with Judgment. The fury closed and began driving the beast around the field with force-movement. <strong>Purifying Fire</strong> was spent: the werewolf gained fire weakness. From that point onward, every main action the werewolf took within Cain&rsquo;s line of effect triggered <strong>11 damage</strong> &mdash; and as the action economy at this tier permits, the werewolf was burning for that figure <em>twice per round</em>. Whenever the fury hammered the wolf into motion, Cain&rsquo;s Judgment rider closed the lane: shift becomes a free strike, speed zero, the wolf stuck where it had been kicked.</p>
+        <p>The wolf reciprocated with a mechanic the table called <strong>Rage</strong>, an inflicted condition that climbed turn over turn on its target. <span class="blood">Cain&rsquo;s rage stack reached 13.</span> He stayed standing.</p>
+        <p><strong>Cain absorbed over 200 points of damage and never went down.</strong> The Recoveries pool worked the way the Censor design intends it to work. Stamina ended the day at 13 of 33. Five Victories were marked. The werewolf was put down.</p>
+      </div>
+
+      <div class="callout crimson">
+        <div class="label">⌖ What the Folio Records</div>
+        <p>The keep held. The chieftain&rsquo;s name has not been preserved here. The ghost was unmade by the conduit and the rogue. The werewolf was unmade by Cain and the dwarf fury. None of the four fell. Cain went home with five Victories and a Wrath he had not yet learned how to put down.</p>
+      </div>
+    </section>
+
+    <!-- XII. RELATIONS -->
+    <section id="relations">
+      <h2 class="section-title">XII. Standing Among the Four</h2>
+      <p><em>A one-shot table, met at Breakout and parted at Breakout. The four held the keep and unmade three. The names below are functions; the bonds are real for the day they lasted.</em></p>
+
+      <div class="relation">
+        <div class="rel-name">The Dwarf Fury <span class="role">&mdash; Partner in the Werewolf Hunt</span> <span class="marker ally">Co-Killer</span></div>
+        <div class="rel-text">Cain and the fury tag-teamed the werewolf to its end. The fury supplied the force-movement; Cain supplied the judgment and the fire. The combination &mdash; the fury kicking the wolf around the field, Cain&rsquo;s Judgment rider freezing it where the kick landed, Purifying Fire&rsquo;s weakness compounding every main-action trigger &mdash; was the day&rsquo;s defining loop.</div>
+      </div>
+
+      <div class="relation">
+        <div class="rel-name">The Conduit <span class="role">&mdash; Companion on the Hunt</span> <span class="marker ally">Ally</span></div>
+        <div class="rel-text">Took the ghost with the rogue while Cain and the fury took the wolf. Not at Cain&rsquo;s elbow for the duel that mattered most to him &mdash; but the four-way split was what made both kills possible.</div>
+      </div>
+
+      <div class="relation">
+        <div class="rel-name">The Rogue <span class="role">&mdash; Companion on the Hunt</span> <span class="marker ally">Ally</span></div>
+        <div class="rel-text">Paired with the conduit against the ghost. The party of four held a keep against an army and then unmade three leaders without losing a hero; the rogue&rsquo;s contribution to that ledger is not detailed in the folio.</div>
+      </div>
+
+      <div class="relation">
+        <div class="rel-name">The Werewolf <span class="role">&mdash; Quarry of the Hunt</span> <span class="marker kill">Unmade</span></div>
+        <div class="rel-text">Named by Judgment. Marked with fire-weakness via Purifying Fire. Pinned by the Judgment rider whenever it tried to move out of the trap. Source of the inflicted &ldquo;Rage&rdquo; mechanic that climbed to <span class="blood">13</span> on Cain before the fight ended. Cain absorbed over <strong>200</strong> damage in the duel and stayed on his feet. The wolf did not.</div>
+      </div>
+
+      <div class="relation">
+        <div class="rel-name">The Ghost <span class="role">&mdash; Quarry of the Hunt</span> <span class="marker kill">Unmade</span></div>
+        <div class="rel-text">Handled by the conduit and the rogue while Cain was on the wolf. Method not recorded here.</div>
+      </div>
+
+      <div class="relation">
+        <div class="rel-name">The Goblin Chieftain &amp; The Army <span class="role">&mdash; Engagement I</span> <span class="marker kill">Held / Unmade</span></div>
+        <div class="rel-text">The army broke against the walls of the keep. The leadership behind the assault did not survive the day. The folio does not preserve the chieftain&rsquo;s name.</div>
+      </div>
+    </section>
+
+    <footer class="colophon">
+      <div><span class="accent">✠ CAIN &middot; DRAGON KNIGHT &middot; CENSOR / EXORCIST &middot; DOMAIN: WAR ✠</span></div>
+      <div style="margin-top:0.4rem;"><span class="accent2">DISCIPLE WHO WALKED OUT &middot; LVL 1 &middot; ONE-SHOT AT BREAKOUT CON</span></div>
+      <div style="margin-top:0.4rem;">Folio compiled from convention sheet and table memory &middot; Distribution: the four &middot; Director access only</div>
+      <div style="margin-top:0.4rem;"><span class="accent3">STATUS: ONE-SHOT CONCLUDED &middot; FIVE VICTORIES &middot; THREE QUARRIES UNMADE &middot; THE FOUR ALL STANDING</span></div>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

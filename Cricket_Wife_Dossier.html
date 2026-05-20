@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Cricket Wife</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cormorant+SC:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Pale, damp paper — colder than Setsuna's warm vellum */
+    --paper: #ecedea;
+    --paper-deep: #dee0dc;
+    --paper-fold: #c9ccc6;
+
+    /* Ink, but softer — never fully black */
+    --ink: #2a2e2c;
+    --ink-soft: #4f5450;
+    --ink-faint: #828680;
+    --ink-ghost: #b6b9b3;
+
+    /* The accent is mist-blue fading to bone */
+    --mist: #8aa3a8;
+    --mist-deep: #4a6770;
+    --mist-faint: #c4d0d2;
+
+    /* Pale jade-grey, the colour of weathered grave-stone */
+    --jade: #7d8a78;
+    --jade-deep: #4e5a4c;
+
+    /* A muted bronze, for old funerary offerings */
+    --bronze: #8c7548;
+    --bronze-deep: #5e4d2c;
+
+    /* Spectral cold-fire for the yūrei undertone */
+    --pale-flame: #a8b8b0;
+
+    --rule: #b9bdb6;
+    --rule-soft: #cfd3cd;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper-deep);
+    color: var(--ink);
+    font-family: "EB Garamond", "Cormorant Garamond", Georgia, serif;
+    font-size: 16px;
+    line-height: 1.65;
+    font-weight: 400;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 18% 8%,  rgba(74, 103, 112, 0.07) 0%, transparent 55%),
+      radial-gradient(ellipse at 82% 92%, rgba(125, 138, 120, 0.06) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(168, 184, 176, 0.04) 0%, transparent 70%);
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .document {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 4rem 4.5rem 5rem;
+    box-shadow:
+      0 1px 2px rgba(42, 46, 44, 0.06),
+      0 8px 32px rgba(42, 46, 44, 0.12);
+    position: relative;
+    border: 1px solid var(--rule);
+  }
+  /* Top edge: cold-flame band fading bone -> mist -> jade -> mist -> bone */
+  .document::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--mist-faint) 12%,
+      var(--mist-deep) 30%,
+      var(--jade) 50%,
+      var(--mist-deep) 70%,
+      var(--mist-faint) 88%,
+      transparent 100%);
+  }
+  .document::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--rule) 30%, var(--rule) 70%, transparent 100%);
+  }
+
+  /* HEADER */
+  header.title-block {
+    text-align: center;
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 2rem;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+  header.title-block::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 1px;
+    background: var(--mist);
+    margin: 1.2rem auto 0;
+  }
+  .eyebrow {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.42em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  h1.character-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 400;
+    font-size: 3.6rem;
+    line-height: 1.05;
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+  .character-name .given {
+    font-style: italic;
+    color: var(--mist-deep);
+  }
+  .epithets {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    margin: 0.5rem 0 1rem;
+  }
+  .vitals {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-soft);
+  }
+  .vitals span {
+    border-left: 1px solid var(--rule);
+    padding-left: 1.25rem;
+  }
+  .vitals span:first-child { border-left: none; padding-left: 0; }
+
+  /* SECTIONS */
+  section { margin-bottom: 2.75rem; }
+  h2.section-title {
+    font-family: "Cormorant SC", serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.34em;
+    color: var(--jade-deep);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.5rem;
+    margin: 0 0 1.5rem;
+    position: relative;
+  }
+  h2.section-title::before {
+    content: "❀";
+    color: var(--mist);
+    margin-right: 0.65rem;
+    font-style: normal;
+    font-size: 0.8em;
+  }
+  h3.subhead {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+    color: var(--mist-deep);
+    margin: 1.5rem 0 0.5rem;
+    font-style: italic;
+  }
+  h4.entry-label {
+    font-family: "Cormorant SC", serif;
+    font-weight: 500;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 1rem 0 0.25rem;
+  }
+
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0.5rem 0 1rem 1.5rem; padding: 0; }
+  li { margin-bottom: 0.4rem; }
+  em { color: var(--ink-soft); }
+  strong { font-weight: 600; color: var(--ink); }
+
+  /* OPENING SCRIM — the sparse, mysterious character note */
+  .scrim {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.18rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    text-align: center;
+    max-width: 36rem;
+    margin: 0 auto 2.5rem;
+    padding: 0.5rem 1rem;
+    position: relative;
+  }
+  .scrim::before, .scrim::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--mist);
+    margin: 1rem auto;
+  }
+  .scrim p { margin: 0 0 0.75rem; }
+  .scrim p:last-child { margin-bottom: 0; }
+  .scrim .ledger {
+    font-family: "Cormorant SC", serif;
+    font-style: normal;
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+
+  /* TABLES */
+  table.dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  table.dossier-table th {
+    text-align: left;
+    font-family: "Cormorant SC", serif;
+    font-weight: 500;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  table.dossier-table td {
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top;
+  }
+  table.dossier-table td:first-child {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    color: var(--ink);
+    padding-right: 1.25rem;
+  }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+  table.dossier-table td.num {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+    color: var(--ink);
+  }
+
+  /* STAT GRID */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .stat-cell {
+    text-align: center;
+    padding: 0.85rem 0.4rem 0.7rem;
+    border: 1px solid var(--rule);
+    background: rgba(255, 255, 255, 0.45);
+    position: relative;
+  }
+  .stat-cell .label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .stat-cell .mod {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .stat-cell .raw {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+  }
+  .stat-cell.save-prof {
+    background: rgba(125, 138, 120, 0.10);
+    border-color: var(--jade);
+  }
+  .stat-cell.save-prof::after {
+    content: "save";
+    position: absolute;
+    bottom: -0.1rem; left: 50%;
+    transform: translate(-50%, 100%);
+    font-family: "Cormorant SC", serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    color: var(--jade-deep);
+    text-transform: uppercase;
+    background: var(--paper);
+    padding: 0 0.3rem;
+  }
+
+  /* DERIVED STATS ROW */
+  .derived-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .derived-cell {
+    text-align: center;
+    padding: 0.65rem 0.3rem;
+    border: 1px solid var(--rule-soft);
+    background: rgba(255, 255, 255, 0.35);
+  }
+  .derived-cell .label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .derived-cell .value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .derived-cell .sub {
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+    font-style: italic;
+  }
+
+  /* SKILLS GRID — two columns of skills */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 2rem;
+    margin: 1rem 0;
+  }
+  .skill-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.35rem 0;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-size: 0.95rem;
+  }
+  .skill-row .skill-name {
+    color: var(--ink-soft);
+  }
+  .skill-row.prof .skill-name {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .skill-row.prof .skill-name::before {
+    content: "●";
+    color: var(--jade-deep);
+    margin-right: 0.4rem;
+    font-size: 0.7em;
+    vertical-align: middle;
+  }
+  .skill-row:not(.prof) .skill-name::before {
+    content: "○";
+    color: var(--ink-ghost);
+    margin-right: 0.4rem;
+    font-size: 0.7em;
+    vertical-align: middle;
+  }
+  .skill-row .skill-value {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .skill-row .ability {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-left: 0.35rem;
+  }
+
+  /* TWO-COL */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 1rem 0;
+  }
+
+  /* CALLOUT — spectral note */
+  .callout {
+    border: 1px solid var(--mist);
+    border-left: 3px solid var(--mist-deep);
+    padding: 1rem 1.4rem;
+    margin: 1.5rem 0;
+    background: rgba(138, 163, 168, 0.06);
+  }
+  .callout .label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--mist-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout.errata {
+    border-color: var(--bronze);
+    border-left-color: var(--bronze-deep);
+    background: rgba(140, 117, 72, 0.06);
+  }
+  .callout.errata .label { color: var(--bronze-deep); }
+
+  /* FEATURE LIST */
+  .feature {
+    margin-bottom: 1.2rem;
+    padding-left: 0.25rem;
+  }
+  .feature .feat-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--ink);
+    margin-right: 0.4rem;
+  }
+  .feature .feat-source {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-left: 0.3rem;
+    vertical-align: 0.1em;
+  }
+  .feature .feat-body {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    margin-top: 0.15rem;
+  }
+
+  /* YIN/YANG TRACK — visual */
+  .yy-track {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.35rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .yy-cell {
+    text-align: center;
+    padding: 0.55rem 0.2rem;
+    border: 1px solid var(--rule-soft);
+    background: rgba(255, 255, 255, 0.4);
+    font-size: 0.82rem;
+  }
+  .yy-cell .state {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .yy-cell .yy-vals {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    color: var(--ink);
+    font-size: 1rem;
+  }
+  .yy-cell .yy-vals .yin  { color: var(--mist-deep); }
+  .yy-cell .yy-vals .yang { color: var(--bronze-deep); }
+  .yy-cell.resting {
+    background: rgba(125, 138, 120, 0.16);
+    border-color: var(--jade);
+  }
+  .yy-cell.resting::after {
+    content: "resting";
+    display: block;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.14em;
+    color: var(--jade-deep);
+    text-transform: uppercase;
+    margin-top: 0.2rem;
+  }
+
+  /* FOOTER */
+  footer.colophon {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  footer.colophon::before {
+    content: "❀";
+    display: block;
+    color: var(--mist);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    letter-spacing: normal;
+  }
+
+  /* PRINT */
+  @media print {
+    body { background: white; padding: 0; }
+    .document { box-shadow: none; padding: 1in; max-width: none; border: none; }
+  }
+
+  /* MOBILE */
+  @media (max-width: 700px) {
+    body { padding: 1rem 0.5rem; }
+    .document { padding: 2rem 1.5rem 3rem; }
+    h1.character-name { font-size: 2.5rem; }
+    .two-col { grid-template-columns: 1fr; gap: 0; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .derived-grid { grid-template-columns: repeat(3, 1fr); }
+    .skills-grid { grid-template-columns: 1fr; gap: 0; }
+    .yy-track { grid-template-columns: repeat(7, 1fr); gap: 0.15rem; font-size: 0.7rem; }
+    .yy-cell { padding: 0.35rem 0.1rem; }
+    .vitals { gap: 0.75rem; font-size: 0.7rem; }
+    .vitals span { border-left: none; padding-left: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+
+  <header class="title-block">
+    <div class="eyebrow">Adventures in Rokugan &middot; Spectral Yokai</div>
+    <h1 class="character-name"><span class="given">Cricket</span> Wife</h1>
+    <p class="epithets">Pilgrim of the Cosmic Path of Justice &mdash; a spirit who would not be reincarnated</p>
+    <div class="vitals">
+      <span>Pilgrim 7</span>
+      <span>AC 16</span>
+      <span>HP 65</span>
+      <span>Hit Dice 11d8</span>
+      <span>Prof +3</span>
+    </div>
+  </header>
+
+  <figure style="float:right;margin:0 0 1.5em 2.5em;max-width:220px;clear:right;">
+    <img src="cricket_wife.png" alt="Cricket Wife portrait" style="width:100%;display:block;border-radius:3px;">
+  </figure>
+
+  <div class="scrim">
+    <p>The name is not the one she was born with. It is the name she answers to now.</p>
+    <p>She walks barefoot a finger's-breadth above the road, fades into mist when struck, and remembers, when she remembers anything at all, that she has been wronged.</p>
+    <div class="ledger">Status &middot; Lingering &middot; Anchor Pending</div>
+  </div>
+
+  <!-- ========================== -->
+  <!-- I. THE LEDGER              -->
+  <!-- ========================== -->
+  <section id="ledger">
+    <h2 class="section-title">The Ledger</h2>
+    <table class="dossier-table">
+      <tbody>
+        <tr><td>Character Name</td><td>Cricket Wife</td></tr>
+        <tr><td>Species</td><td>Spectral Yokai (Specter)</td></tr>
+        <tr><td>Class &amp; Level</td><td>Pilgrim 7</td></tr>
+        <tr><td>Cosmic Path</td><td>Path of Justice <em>&mdash; recorded in the alignment slot on the sheet</em></td></tr>
+        <tr><td>Clan</td><td><em>none recorded</em></td></tr>
+        <tr><td>Background</td><td><em>not yet assigned</em></td></tr>
+        <tr><td>Experience Points</td><td><em>&mdash;</em></td></tr>
+        <tr><td>Player</td><td>Jordan</td></tr>
+        <tr><td>System</td><td>Adventures in Rokugan (Edge Studios)</td></tr>
+        <tr><td>Campaign</td><td>Unplayed &mdash; built for a one-shot that did not run</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ========================== -->
+  <!-- II. THE BODY               -->
+  <!-- ========================== -->
+  <section id="body">
+    <h2 class="section-title">Abilities &amp; Saves</h2>
+
+    <div class="stat-grid">
+      <div class="stat-cell"><div class="label">Strength</div><div class="mod">+0</div><div class="raw">11</div></div>
+      <div class="stat-cell"><div class="label">Dexterity</div><div class="mod">+2</div><div class="raw">14</div></div>
+      <div class="stat-cell save-prof"><div class="label">Constitution</div><div class="mod">+4</div><div class="raw">18</div></div>
+      <div class="stat-cell save-prof"><div class="label">Intelligence</div><div class="mod">+2</div><div class="raw">14</div></div>
+      <div class="stat-cell"><div class="label">Wisdom</div><div class="mod">+2</div><div class="raw">14</div></div>
+      <div class="stat-cell"><div class="label">Charisma</div><div class="mod">+3</div><div class="raw">16</div></div>
+    </div>
+
+    <h3 class="subhead">Saving Throws</h3>
+    <table class="dossier-table">
+      <thead>
+        <tr><th>Save</th><th>Modifier</th><th>Proficient</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Strength</td><td class="num">+0</td><td>&mdash;</td></tr>
+        <tr><td>Dexterity</td><td class="num">+2</td><td>&mdash;</td></tr>
+        <tr><td>Constitution</td><td class="num">+7</td><td>● Pilgrim class</td></tr>
+        <tr><td>Intelligence</td><td class="num">+5</td><td>● <em>as recorded on the sheet</em></td></tr>
+        <tr><td>Wisdom</td><td class="num">+2</td><td>&mdash; <em>not marked, despite class grant</em></td></tr>
+        <tr><td>Charisma</td><td class="num">+3</td><td>&mdash;</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout errata">
+      <div class="label">Sheet Note &middot; Save Proficiencies</div>
+      <p>The Pilgrim class grants <em>Constitution</em> and <em>Wisdom</em> saving throw proficiency. The sheet as written has <em>Constitution</em> and <em>Intelligence</em> filled, with Wisdom unmarked. This dossier records the sheet faithfully; the swap should be corrected before play, restoring Wisdom proficiency (Wis save would become +5, Int save +2).</p>
+    </div>
+
+    <h3 class="subhead">Derived Statistics</h3>
+    <div class="derived-grid">
+      <div class="derived-cell"><div class="label">AC</div><div class="value">16</div><div class="sub">10 + Dex + Con, unarmored</div></div>
+      <div class="derived-cell"><div class="label">Initiative</div><div class="value">+2</div><div class="sub">Dex</div></div>
+      <div class="derived-cell"><div class="label">Speed</div><div class="value">30 ft</div><div class="sub">10 ft fly when dispersed</div></div>
+      <div class="derived-cell"><div class="label">Hit Points</div><div class="value">65 / 65</div><div class="sub">Temp HP &mdash;</div></div>
+      <div class="derived-cell"><div class="label">Hit Dice</div><div class="value">11d8</div><div class="sub">7 class + 4 Cultivated</div></div>
+      <div class="derived-cell"><div class="label">Passive Perception</div><div class="value">15</div><div class="sub">10 + 5 (proficient)</div></div>
+    </div>
+
+    <p style="font-size: 0.92rem; color: var(--ink-soft); margin-top: 0.5rem;"><em>Unarmored Defense (Strength of Body and Spirit):</em> AC equals 10 + Dexterity + Constitution while wearing no armor and wielding no shield. The Pilgrim's Constitution modifier substitutes for Strength on unarmed attack and damage rolls, and unarmed strikes deal 1d4 in place of normal unarmed damage.</p>
+  </section>
+
+  <!-- ========================== -->
+  <!-- III. SKILLS                -->
+  <!-- ========================== -->
+  <section id="skills">
+    <h2 class="section-title">Skills &amp; Proficiencies</h2>
+
+    <div class="skills-grid">
+      <div class="skill-row"><span class="skill-name">Acrobatics<span class="ability">Dex</span></span><span class="skill-value">+2</span></div>
+      <div class="skill-row"><span class="skill-name">Animal Handling<span class="ability">Wis</span></span><span class="skill-value">+2</span></div>
+      <div class="skill-row"><span class="skill-name">Arcana<span class="ability">Int</span></span><span class="skill-value">+2</span></div>
+      <div class="skill-row"><span class="skill-name">Athletics<span class="ability">Str</span></span><span class="skill-value">+0</span></div>
+      <div class="skill-row prof"><span class="skill-name">Deception<span class="ability">Cha</span></span><span class="skill-value">+6</span></div>
+      <div class="skill-row"><span class="skill-name">History<span class="ability">Int</span></span><span class="skill-value">+2</span></div>
+      <div class="skill-row prof"><span class="skill-name">Insight<span class="ability">Wis</span></span><span class="skill-value">+5</span></div>
+      <div class="skill-row"><span class="skill-name">Intimidation<span class="ability">Cha</span></span><span class="skill-value">+3</span></div>
+      <div class="skill-row"><span class="skill-name">Investigation<span class="ability">Int</span></span><span class="skill-value">+2</span></div>
+      <div class="skill-row prof"><span class="skill-name">Medicine<span class="ability">Wis</span></span><span class="skill-value">+5</span></div>
+      <div class="skill-row"><span class="skill-name">Nature<span class="ability">Int</span></span><span class="skill-value">+2</span></div>
+      <div class="skill-row prof"><span class="skill-name">Perception<span class="ability">Wis</span></span><span class="skill-value">+5</span></div>
+      <div class="skill-row"><span class="skill-name">Performance<span class="ability">Cha</span></span><span class="skill-value">+3</span></div>
+      <div class="skill-row"><span class="skill-name">Persuasion<span class="ability">Cha</span></span><span class="skill-value">+3</span></div>
+      <div class="skill-row"><span class="skill-name">Religion<span class="ability">Int</span></span><span class="skill-value">+2</span></div>
+      <div class="skill-row"><span class="skill-name">Sleight of Hand<span class="ability">Dex</span></span><span class="skill-value">+2</span></div>
+      <div class="skill-row"><span class="skill-name">Stealth<span class="ability">Dex</span></span><span class="skill-value">+2</span></div>
+      <div class="skill-row"><span class="skill-name">Survival<span class="ability">Wis</span></span><span class="skill-value">+2</span></div>
+    </div>
+
+    <h3 class="subhead">Other Proficiencies &amp; Languages</h3>
+    <table class="dossier-table">
+      <tbody>
+        <tr><td>Armor</td><td><em>none</em></td></tr>
+        <tr><td>Weapons</td><td>Simple weapons</td></tr>
+        <tr><td>Tools</td><td>Calligrapher's tools</td></tr>
+        <tr><td>Instrument</td><td>Guqin <em>(seven-string zither)</em></td></tr>
+        <tr><td>Languages</td><td>Three languages, unassigned</td></tr>
+        <tr><td>Inspiration</td><td>0</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ========================== -->
+  <!-- IV. EQUIPMENT              -->
+  <!-- ========================== -->
+  <section id="equipment">
+    <h2 class="section-title">Equipment</h2>
+    <p>What she carries with her into the world is what she carried out of it. She has not needed more.</p>
+    <ul>
+      <li>Unremarkable garb</li>
+      <li>Staff</li>
+      <li>Dagger</li>
+      <li>Guqin</li>
+      <li>5 copper</li>
+    </ul>
+    <p style="font-size: 0.9rem; color: var(--ink-faint);"><em>Note: when she disperses (Ghostly Dispersal), all carried items fade with her and return when she reincorporates.</em></p>
+  </section>
+
+  <!-- ========================== -->
+  <!-- V. ATTACKS                 -->
+  <!-- ========================== -->
+  <section id="attacks">
+    <h2 class="section-title">Attacks</h2>
+    <table class="dossier-table">
+      <thead>
+        <tr><th>Name</th><th style="text-align:center;">Attack</th><th style="text-align:center;">Damage</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Unarmed Strike</td><td class="num">+7</td><td class="num">1d4</td><td>Constitution to hit &amp; damage (Strength of Body &amp; Spirit); d4 in place of normal unarmed</td></tr>
+        <tr><td>Staff</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td>Simple weapon; carried but not stated on sheet</td></tr>
+        <tr><td>Dagger</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td>Simple weapon; carried but not stated on sheet</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size: 0.9rem; color: var(--ink-soft);">Both the staff and the dagger qualify as simple weapons; either may be wielded using the Pilgrim's Constitution modifier in place of Strength under <em>Strength of Body and Spirit</em>. Only the unarmed line is filled in on the sheet, suggesting that fists are her intended idiom.</p>
+  </section>
+
+  <!-- ========================== -->
+  <!-- VI. SPECTER TRAITS         -->
+  <!-- ========================== -->
+  <section id="specter">
+    <h2 class="section-title">Specter &mdash; Species Traits</h2>
+    <p>Cricket Wife is a spirit who chose not to pass on. Her body is provisional. Most of the time she walks the world as the dead sometimes do &mdash; convincingly human, save for the small giveaways: a long pause between breaths; feet that do not quite touch ground; a faint trail of pale flame in a strong wind.</p>
+
+    <div class="feature">
+      <span class="feat-name">Ghostly Dispersal</span><span class="feat-source">Specter</span>
+      <div class="feat-body">As a reaction to being hit by an attack, she may spend her reaction to disperse: she becomes resistant to the triggering damage and fades into mist and pale motes of flame, taking all her items with her. She may also disperse as an action. While dispersed, her creature type is undead, she is invisible, she has immunity to all non-psychic damage and all conditions, and she gains a flying speed of 10 ft. She perceives the world through a supernatural haze (disadvantage on Perception checks; GM may withhold details). She still occupies her previous position but cannot be perceived by mundane senses; truesight or comparable abilities can see her, and the spiritually attuned can feel her presence (DC 14 Intelligence (Religion) check). She can move through solid objects of 1 inch or thinner not warded against the passing of spirits, but if she ends a turn inside such an object she suffers 1d6 psychic damage. While dispersed she cannot attack, perform invocations, or take any action other than to reincorporate. Once she has dispersed and reincorporated, she cannot disperse again until she completes a short rest.</div>
+    </div>
+
+    <div class="feature">
+      <span class="feat-name">Pull of the Afterlife</span><span class="feat-source">Specter</span>
+      <div class="feat-body">Being dispersed pulls her closer to the afterlife. At the end of each of her turns if she began the turn dispersed, she must spend her action to reincorporate or suffer 1d6 psychic damage, plus 1d6 additional psychic damage per round delayed beyond the first. If dispersed outside a combat encounter, she suffers this increasing damage every minute instead. If her hit points are reduced to 0 in this way, she counts as being killed &mdash; see <em>Queue of the Dead</em>.</div>
+    </div>
+
+    <div class="feature">
+      <span class="feat-name">Queue of the Dead</span><span class="feat-source">Specter</span>
+      <div class="feat-body">She is not alive, so she cannot die in the traditional sense. If she is killed (in any manner), she vanishes back to the Realm of Waiting, leaving only her items behind. There she must wait either until her soul is judged and processed (hundreds of years) or until she gets another chance to escape (also hundreds of years). Barring exceptional circumstances, being killed removes her from the campaign just as it would any other PC.</div>
+    </div>
+
+    <div class="feature">
+      <span class="feat-name">Spiritual Anchor</span><span class="feat-source">Specter</span>
+      <div class="feat-body">During a long rest, she can form a spiritual bond with one willing living creature (typically another PC, provided they are not also a mazoku or specter), designating them as her spiritual anchor. Within 30 ft of her anchor, she can ignore the increasing damage of <em>Pull of the Afterlife</em>. While she is dispersed and invisible, her spiritual anchor can perceive her. She may have only one spiritual anchor at a time. <strong>Anchor:</strong> <em>unassigned &mdash; awaits a companion.</em></div>
+    </div>
+
+    <div class="feature">
+      <span class="feat-name">Watchful Presence</span><span class="feat-source">Specter</span>
+      <div class="feat-body">While within 30 ft of her spiritual anchor, she can choose to disperse and remain dispersed during a long rest. Instead of sleeping, she remains conscious, watching over her allies; she can wake her anchor or return to her physical form at will. As long as her anchor completes that long rest, she counts as completing one too.</div>
+    </div>
+  </section>
+
+  <!-- ========================== -->
+  <!-- VII. PILGRIM FEATURES      -->
+  <!-- ========================== -->
+  <section id="pilgrim">
+    <h2 class="section-title">Pilgrim &mdash; Class Features</h2>
+    <p>She did not seek Enlightenment. Enlightenment found a woman who refused to move on, and offered her a discipline by which to remain.</p>
+
+    <div class="feature">
+      <span class="feat-name">Cultivated Potential</span><span class="feat-source">Pilgrim 1</span>
+      <div class="feat-body">She has additional d8 Hit Dice that do not increase her maximum hit points but can be used normally on short rests, or spent by effects that require Hit Dice. At 7th level her bonus is <strong>4 dice</strong>, giving her <strong>11d8 total</strong>.</div>
+    </div>
+
+    <div class="feature">
+      <span class="feat-name">Strength of Body and Spirit</span><span class="feat-source">Pilgrim 1</span>
+      <div class="feat-body">While unarmored and wielding no shield, her AC equals 10 + Dex + Con. She is proficient with unarmed strikes and may use her Constitution modifier for unarmed attack and damage rolls in place of Strength. Her unarmed strikes deal 1d4 instead of normal unarmed damage. <em>(On the sheet she records this trait as &ldquo;Strength in Body &amp; Mind.&rdquo;)</em></div>
+    </div>
+
+    <div class="feature">
+      <span class="feat-name">Yin and Yang</span><span class="feat-source">Pilgrim 2</span>
+      <div class="feat-body">A unique resource meter, the Yin-Yang Balance Track, runs from Yang Apex (4/0) through Balanced (2/2) to Yin Apex (0/4). Her resting position is set by her cosmic path. Externalizations and other features push her energy along this track. She cannot benefit from these bonuses while armored.</div>
+    </div>
+
+    <div class="yy-track">
+      <div class="yy-cell"><div class="state">Yang Apex</div><div class="yy-vals"><span class="yang">4</span>/<span class="yin">0</span></div></div>
+      <div class="yy-cell"><div class="state">Yang Rising</div><div class="yy-vals"><span class="yang">3</span>/<span class="yin">1</span></div></div>
+      <div class="yy-cell"><div class="state">Balanced</div><div class="yy-vals"><span class="yang">2</span>/<span class="yin">2</span></div></div>
+      <div class="yy-cell resting"><div class="state">Balanced &middot; Justice</div><div class="yy-vals"><span class="yang">2</span>/<span class="yin">2</span></div></div>
+      <div class="yy-cell"><div class="state">Balanced</div><div class="yy-vals"><span class="yang">2</span>/<span class="yin">2</span></div></div>
+      <div class="yy-cell"><div class="state">Yin Flowing</div><div class="yy-vals"><span class="yang">1</span>/<span class="yin">3</span></div></div>
+      <div class="yy-cell"><div class="state">Yin Apex</div><div class="yy-vals"><span class="yang">0</span>/<span class="yin">4</span></div></div>
+    </div>
+
+    <p style="font-size: 0.9rem; color: var(--ink-soft); margin-top: -0.5rem;">Resting position is the centered Path of Justice Balanced state &mdash; +2 to passive Perception (already reflected above). Out of combat she may adjust her Yin and Yang state freely.</p>
+
+    <div class="feature">
+      <span class="feat-name">Externalizations</span><span class="feat-source">Pilgrim 2</span>
+      <div class="feat-body">She can focus her energy through powerful techniques that resonate her inner energy with the elements of the world. Using an externalization shifts her energy toward the opposite pole to balance the change made.<br><strong>Attack modifier:</strong> +3 (prof) + +2 (Con) = <strong>+5</strong>.<br><strong>Save DC:</strong> 8 + 3 (prof) + 2 (Int, Path of Justice modifier) = <strong>13</strong>.</div>
+    </div>
+
+    <div class="feature">
+      <span class="feat-name">Battle Meditation</span><span class="feat-source">Pilgrim 2</span>
+      <div class="feat-body">Bonus action: move one step in either direction along the Yin-Yang track.</div>
+    </div>
+
+    <div class="feature">
+      <span class="feat-name">Boundless Vitality</span><span class="feat-source">Pilgrim 5</span>
+      <div class="feat-body">She suffers the effects of exhaustion as though she had one fewer level of exhaustion than she actually has. If she would have two levels she suffers only one; one level, none. After a long rest, her exhaustion decreases by two instead of one.</div>
+    </div>
+
+    <div class="feature">
+      <span class="feat-name">Well of Strength</span><span class="feat-source">Pilgrim 5</span>
+      <div class="feat-body">On her turn she may spend her full movement and gain one level of exhaustion to recover up to two of her expended Hit Dice. <em>(At 10th level this rises to four dice, at 18th to six.)</em></div>
+    </div>
+
+    <div class="feature">
+      <span class="feat-name">Forms of Enlightenment</span><span class="feat-source">Pilgrim 7</span>
+      <div class="feat-body">As a bonus action she can enter a form of enlightenment, provided she meets its Yin/Yang requirements. She can only enter one form at a time; activating one ends any other. At the start of her turn she can choose to exit her current form. The four forms are <strong>Air</strong>, <strong>Earth</strong>, <strong>Fire</strong>, <strong>Water</strong>, and <strong>Void</strong> (Void requires Balanced or Centered state and turns each unarmed strike or externalization into a tool that can sap a focus point, favor, intrigue die, spell slot, or class resource from the foe). Each form ties to a state, modifies movement or saving throws, and shifts her energy at end of turn.</div>
+    </div>
+  </section>
+
+  <!-- ========================== -->
+  <!-- VIII. PATH OF JUSTICE      -->
+  <!-- ========================== -->
+  <section id="path">
+    <h2 class="section-title">Path of Justice &mdash; Cosmic Path</h2>
+    <p><em>Those who follow the Path of Justice see a world full of injustice, needless cruelty, and the failure of ideals. Instead of despairing, pilgrims who walk this path seek to channel their inner energy not just to align with the world, but to change it. They often seek to meet tyranny and evil with force, striking down those who trample upon the lives of others.</em></p>
+
+    <div class="feature">
+      <span class="feat-name">Yang Alignment</span><span class="feat-source">Path 2</span>
+      <div class="feat-body">Her innate energy shifts towards Yang. Her resting energy position moves closer to the Yang apex of the Balanced track. When her energy is at the Yang apex, her Yang value is <strong>5</strong> instead of 4.</div>
+    </div>
+
+    <div class="feature">
+      <span class="feat-name">Philosopher's Arsenal</span><span class="feat-source">Path 2</span>
+      <div class="feat-body">She becomes skilled in externalizations that overwhelm foes with direct power. Her cosmic path ability modifier is <strong>Intelligence</strong>, which sets her externalization save DC. She learns the <em>Consuming Strike</em> and <em>Storm of Fists</em> externalizations, and as she levels she gains the ability to perform additional path-specific externalizations using SRD spell rules at the costs given on Table 2-11.</div>
+    </div>
+
+    <div class="feature">
+      <span class="feat-name">Consuming Strike</span><span class="feat-source">Externalization</span>
+      <div class="feat-body"><em>Activation:</em> 1 action. <em>Range:</em> touch. She makes an unarmed attack against a creature within range. On a hit she may spend and roll a number of Hit Dice up to her Yang value to make that strike deal bonus radiant damage equal to <strong>three times the result of the highest rolled Hit Die</strong>. <em>Energy shift:</em> toward the Yin apex on every Hit Die result of 5 or higher.</div>
+    </div>
+
+    <div class="feature">
+      <span class="feat-name">Storm of Fists</span><span class="feat-source">Externalization</span>
+      <div class="feat-body"><em>Activation:</em> 1 action. <em>Range:</em> Self, line of 5 ft &times; Constitution modifier &mdash; for her, a <strong>20-foot line</strong>. She makes many unarmed attacks against creatures in range, spending and rolling Hit Dice up to her Yang value. Each Hit Die result may be added to the attack <em>or</em> damage roll for each attack (each die assigned to only one roll). <em>Energy shift:</em> toward the Yin apex on every result of 5 or higher; her walking speed also increases by 5 ft until end of turn.</div>
+    </div>
+
+    <div class="feature">
+      <span class="feat-name">Blazing Strikes</span><span class="feat-source">Path 3</span>
+      <div class="feat-body">Her strikes overflow with brilliant energy. When she makes an unarmed attack she can have it deal an additional <strong>1d4 radiant damage</strong>. <em>(At 12th level this rises to 1d6.)</em></div>
+    </div>
+
+    <div class="feature">
+      <span class="feat-name">Forceful Defense</span><span class="feat-source">Path 6</span>
+      <div class="feat-body">She is especially adept at counterattacking. When a creature within 5 ft hits her, she may use her reaction to spend and roll one Hit Die; if its result is 5 or higher she moves one step toward the Yin apex. She reduces the damage she takes by the result of the Hit Die. She may then make an unarmed attack against the creature that damaged her; on a hit she deals bonus radiant damage equal to the result of the Hit Die.</div>
+    </div>
+
+    <h3 class="subhead">Available Path of Justice Externalizations (SRD)</h3>
+    <p style="font-size: 0.92rem;">At her current level she has access to additional Path of Justice externalizations <em>(from Table 2-11)</em> as her Yang value permits. The ones whose <em>pilgrim level required</em> is &le; 7 are:</p>
+    <table class="dossier-table">
+      <thead><tr><th>Spell</th><th>Yin/Yang Required</th><th style="text-align:center;">Hit Dice Cost</th><th>Energy Shift</th></tr></thead>
+      <tbody>
+        <tr><td>Continual Flame</td><td>Yang 2+</td><td class="num">1</td><td>Toward Yin apex</td></tr>
+        <tr><td>Hold Person</td><td>Yang 3+</td><td class="num">2</td><td>Toward Yin apex</td></tr>
+        <tr><td>Zone of Truth</td><td>Yang 3+</td><td class="num">2</td><td>Toward Yin apex</td></tr>
+        <tr><td>Counterspell</td><td>Yang 4+</td><td class="num">3</td><td>Toward Yin apex</td></tr>
+        <tr><td>Daylight</td><td>Yang 3+</td><td class="num">3</td><td>Toward Yin apex</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size: 0.88rem; color: var(--ink-faint);">For each die that results in a 5 or higher in performing one of these externalizations, her energy shifts one step in the listed direction.</p>
+  </section>
+
+  <!-- ========================== -->
+  <!-- IX. HAUNTING PHENOMENA     -->
+  <!-- ========================== -->
+  <section id="haunting">
+    <h2 class="section-title">Haunting Phenomena</h2>
+    <p><em>Prerequisite: Specter species.</em></p>
+    <div class="feature">
+      <span class="feat-name">Haunting Phenomena</span><span class="feat-source">Feat</span>
+      <div class="feat-body">She has become capable of manifesting chilling phenomena in her environment. Two benefits:
+        <ul>
+          <li>Her Charisma score increases by 1, to a maximum of 20. <em>(Already reflected: Cha 16 is post-feat.)</em></li>
+          <li>She gains the ability to cast <em>message</em> and <em>prestidigitation</em> from the SRD at will. She can do this even while she is dispersed under <em>Ghostly Dispersal</em>.</li>
+        </ul>
+        These are her uncanny tells: a whisper at the ear of someone who is alone; a candle that gutters in a windless room; a name written in the condensation on the inside of a window.
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== -->
+  <!-- X. SHEET RECONCILIATION    -->
+  <!-- ========================== -->
+  <section id="reconciliation">
+    <h2 class="section-title">Sheet Reconciliation</h2>
+    <p>A reading of the sheet against the source material yields the following notes &mdash; recorded here so that nothing is silently corrected:</p>
+    <ul>
+      <li><strong>Hit Dice 11d8.</strong> Not a typo. <em>Cultivated Potential</em> grants 4 bonus d8 at level 7, on top of 7 d8 from class levels.</li>
+      <li><strong>Save proficiencies.</strong> Sheet shows Con + Int; class grants Con + Wis. Likely a marking slip on the saves list. See errata above.</li>
+      <li><strong>Strength in Body &amp; Mind.</strong> Player's phrasing for <em>Strength of Body and Spirit</em>.</li>
+      <li><strong>Form of Enlightenment.</strong> Singular on the sheet; book grants access to all five forms (Air, Earth, Fire, Water, Void) from level 7 &mdash; she chooses which to enter as a bonus action.</li>
+      <li><strong>Cosmic Path written in the alignment slot.</strong> &ldquo;Cosmic Path of Justice&rdquo; corresponds to the Pilgrim's Cosmic Path: Path of Justice. The alignment field is otherwise unused; AiR sheets often repurpose it.</li>
+      <li><strong>Clan blank.</strong> Specters do not typically maintain clan affiliation; the sheet is left empty.</li>
+      <li><strong>Background.</strong> Not assigned on the sheet; languages noted only as &ldquo;3 languages.&rdquo; Per the Specter rules, Language comes from the chosen Background.</li>
+      <li><strong>Guqin.</strong> Listed both in equipment and in the Other Proficiencies block &mdash; she carries it and is proficient with it.</li>
+    </ul>
+  </section>
+
+  <!-- ========================== -->
+  <!-- XI. PROVENANCE             -->
+  <!-- ========================== -->
+  <section id="provenance">
+    <h2 class="section-title">Provenance</h2>
+    <p>Cricket Wife was built for a one-shot that never ran. The sheet is preserved as written; no play has occurred. Her spiritual anchor was never assigned, her background never chosen, her languages never named &mdash; the parts of her that the table would have filled in remain blank, waiting for a session that did not come.</p>
+    <div class="callout">
+      <div class="label">If the dossier ever wakes</div>
+      <p>The mechanical chassis is complete enough to play tomorrow. Anchor a living companion. Pick a background and the two languages it grants alongside Common. Mark Wisdom proficient and Intelligence not. Then she steps into the road, a finger's-breadth above it, the guqin slung at her back, the staff in her hand, the dagger in her sleeve.</p>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    Cricket Wife &middot; Pilgrim of the Cosmic Path of Justice &middot; Adventures in Rokugan
+  </footer>
+
+</div>
+</body>
+</html>

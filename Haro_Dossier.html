@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Haro, Clever Nano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Orbitron:wght@400;500;600;700&family=Cinzel:wght@400;500;600&family=Major+Mono+Display&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* ─────── Numenera palette — Ninth-World science-fantasy ─────── */
+    --void: #07090f;            /* deep starless black */
+    --void-soft: #0d111c;       /* paper-equivalent (almost-black) */
+    --void-edge: #161c2e;       /* card surfaces */
+    --indigo-deep: #1a2545;
+    --indigo: #2c3e7d;
+    --indigo-pale: #4b6bb8;
+    --cyan: #2dd4e0;            /* the numenera glow */
+    --cyan-bright: #6df0fa;
+    --cyan-deep: #0d8a93;
+    --teal: #1d8a8a;
+    --copper: #b87333;          /* oxidised metal */
+    --copper-bright: #d49355;
+    --copper-deep: #7a4818;
+    --verdigris: #4a9080;       /* old corroded brass */
+    --crimson: #c4332e;         /* ritual / blood / warning */
+    --crimson-deep: #7a1814;
+    --bone: #d8d2c0;            /* parchment-on-dark */
+    --bone-soft: #a8a294;
+    --bone-faint: #6e6a5d;
+    --rule: #2a3553;
+    --rule-soft: #1e2740;
+    --glow: 0 0 12px rgba(45, 212, 224, 0.35);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--void);
+    color: var(--bone);
+    font-family: "EB Garamond", "Cormorant Garamond", Georgia, serif;
+    font-size: 16px; line-height: 1.65; font-weight: 400;
+  }
+  body {
+    /* faint starfield + nebular drift */
+    background-image:
+      radial-gradient(1px 1px at 12% 18%, rgba(216, 210, 192, 0.4) 50%, transparent 100%),
+      radial-gradient(1px 1px at 78% 32%, rgba(45, 212, 224, 0.5) 50%, transparent 100%),
+      radial-gradient(1px 1px at 34% 71%, rgba(216, 210, 192, 0.3) 50%, transparent 100%),
+      radial-gradient(1px 1px at 88% 84%, rgba(184, 115, 51, 0.4) 50%, transparent 100%),
+      radial-gradient(1px 1px at 22% 55%, rgba(216, 210, 192, 0.35) 50%, transparent 100%),
+      radial-gradient(1px 1px at 65% 12%, rgba(45, 212, 224, 0.3) 50%, transparent 100%),
+      radial-gradient(ellipse at 15% 8%, rgba(44, 62, 125, 0.35) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 92%, rgba(196, 51, 46, 0.18) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(45, 212, 224, 0.06) 0%, transparent 70%);
+    min-height: 100vh; padding: 2rem 1rem;
+  }
+
+  .document {
+    max-width: 980px; margin: 0 auto;
+    background: var(--void-soft);
+    padding: 0;
+    box-shadow:
+      0 0 0 1px var(--rule),
+      0 0 60px rgba(45, 212, 224, 0.08),
+      0 12px 48px rgba(0, 0, 0, 0.7);
+    position: relative;
+  }
+  /* circuit-trace top border */
+  .document::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--copper) 8%,
+      var(--cyan) 22%, var(--cyan-bright) 30%, var(--cyan) 38%,
+      var(--copper) 50%,
+      var(--cyan) 62%, var(--cyan-bright) 70%, var(--cyan) 78%,
+      var(--copper) 92%,
+      transparent 100%);
+    box-shadow: 0 0 10px rgba(45, 212, 224, 0.5);
+  }
+  .document::after {
+    content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg,
+      transparent 0%, var(--copper-deep) 20%, var(--cyan-deep) 50%, var(--copper-deep) 80%, transparent 100%);
+  }
+
+  .document-inner { padding: 3.5rem 4rem 4rem; position: relative; }
+
+  /* corner glyph markers */
+  .document-inner::before, .document-inner::after {
+    content: ""; position: absolute; width: 22px; height: 22px;
+    border: 1px solid var(--cyan-deep);
+  }
+  .document-inner::before {
+    top: 1.5rem; left: 1.5rem;
+    border-right: none; border-bottom: none;
+  }
+  .document-inner::after {
+    bottom: 1.5rem; right: 1.5rem;
+    border-left: none; border-top: none;
+  }
+
+  /* ─────────── MASTHEAD ─────────── */
+  header.title-block {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 2.5rem;
+    align-items: center;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 2.25rem; margin-bottom: 2.75rem;
+  }
+
+  .masthead-text { text-align: left; }
+
+  .eyebrow {
+    font-family: "Major Mono Display", "Orbitron", monospace;
+    font-size: 0.72rem; letter-spacing: 0.45em;
+    color: var(--cyan); text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    text-shadow: 0 0 8px rgba(45, 212, 224, 0.4);
+  }
+  .eyebrow .sep { color: var(--copper); margin: 0 0.55rem; }
+
+  h1.character-name {
+    font-family: "Cinzel", "Cormorant Garamond", serif; font-weight: 500;
+    font-size: 4rem; line-height: 1; margin: 0 0 0.5rem;
+    letter-spacing: 0.06em; color: var(--bone);
+    text-shadow: 0 0 18px rgba(45, 212, 224, 0.25);
+  }
+
+  /* The IS A / WHO sentence — Numenera's central conceit */
+  .character-sentence {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem; line-height: 1.75;
+    color: var(--bone-soft);
+    margin: 1.25rem 0 0;
+    max-width: 520px;
+  }
+  .character-sentence .pivot {
+    font-family: "Orbitron", "Cinzel", sans-serif;
+    font-size: 0.65rem; letter-spacing: 0.35em;
+    color: var(--copper-bright); text-transform: uppercase;
+    margin: 0 0.45rem; font-weight: 500;
+  }
+  .character-sentence .descriptor { color: var(--cyan-bright); font-weight: 500; }
+  .character-sentence .type { color: var(--crimson); font-weight: 500; letter-spacing: 0.02em; }
+  .character-sentence .focus {
+    font-style: italic; color: var(--cyan); font-weight: 400;
+  }
+
+  /* ─────────── PORTRAIT FRAME ─────────── */
+  .portrait-frame {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    border: 1px solid var(--cyan-deep);
+    background:
+      linear-gradient(135deg, rgba(45, 212, 224, 0.08) 0%, rgba(184, 115, 51, 0.06) 100%),
+      var(--void-edge);
+    box-shadow:
+      inset 0 0 0 1px var(--void),
+      inset 0 0 24px rgba(0, 0, 0, 0.6),
+      0 0 18px rgba(45, 212, 224, 0.15);
+    overflow: hidden;
+  }
+  .portrait-frame::before, .portrait-frame::after {
+    content: ""; position: absolute; width: 18px; height: 18px;
+    border: 1px solid var(--cyan); z-index: 2;
+  }
+  .portrait-frame::before {
+    top: 6px; left: 6px;
+    border-right: none; border-bottom: none;
+  }
+  .portrait-frame::after {
+    bottom: 6px; right: 6px;
+    border-left: none; border-top: none;
+  }
+  .portrait-frame img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .portrait-placeholder {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 1rem;
+  }
+  .portrait-placeholder .glyph {
+    font-family: "Major Mono Display", monospace;
+    font-size: 2.6rem;
+    color: var(--cyan-deep);
+    margin-bottom: 0.6rem;
+    text-shadow: 0 0 12px rgba(45, 212, 224, 0.4);
+    letter-spacing: 0.15em;
+  }
+  .portrait-placeholder .label {
+    font-family: "Major Mono Display", monospace;
+    font-size: 0.6rem; letter-spacing: 0.32em;
+    color: var(--bone-faint); text-transform: uppercase;
+  }
+  .portrait-caption {
+    margin-top: 0.6rem;
+    font-family: "Major Mono Display", monospace;
+    font-size: 0.58rem; letter-spacing: 0.28em;
+    color: var(--bone-faint); text-transform: uppercase;
+    text-align: center;
+  }
+
+  .vitals {
+    display: flex; justify-content: flex-start; gap: 1.5rem;
+    margin-top: 1.5rem; flex-wrap: wrap;
+    font-family: "Orbitron", monospace; font-size: 0.66rem;
+    letter-spacing: 0.28em; color: var(--bone-soft); text-transform: uppercase;
+  }
+  .vitals span { border-left: 1px solid var(--rule); padding-left: 1.25rem; }
+  .vitals span:first-child { border-left: none; padding-left: 0; }
+  .vitals .v-label { color: var(--bone-faint); margin-right: 0.5rem; }
+  .vitals .v-value { color: var(--cyan-bright); font-weight: 600; }
+
+  /* ─────────── SECTIONS ─────────── */
+  section { margin-bottom: 2.75rem; }
+
+  h2.section-title {
+    font-family: "Orbitron", "Cinzel", sans-serif; font-weight: 500;
+    font-size: 0.78rem; letter-spacing: 0.42em;
+    color: var(--cyan); text-transform: uppercase;
+    padding-bottom: 0.65rem;
+    margin: 0 0 1.5rem; position: relative;
+    border-bottom: 1px solid var(--rule);
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  h2.section-title::before {
+    content: ""; display: inline-block;
+    width: 10px; height: 10px;
+    background: var(--cyan);
+    box-shadow: 0 0 10px var(--cyan), 0 0 4px var(--cyan-bright);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+  h2.section-title::after {
+    content: ""; position: absolute; bottom: -1px; left: 0;
+    width: 80px; height: 1px; background: var(--cyan);
+    box-shadow: 0 0 6px var(--cyan);
+  }
+
+  h3.subhead {
+    font-family: "Cinzel", "Cormorant Garamond", serif; font-weight: 500;
+    font-size: 1.05rem; color: var(--copper-bright);
+    margin: 1.5rem 0 0.5rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  p { margin: 0 0 1rem; }
+  p:last-child { margin-bottom: 0; }
+  em.flavor { color: var(--bone-soft); }
+
+  /* ─────────── POOLS — central mechanical organ ─────────── */
+  .pools-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1rem; margin-bottom: 1.25rem;
+  }
+  .pool {
+    border: 1px solid var(--rule);
+    padding: 1.25rem 1rem 1rem;
+    text-align: center; position: relative;
+    background:
+      linear-gradient(180deg, rgba(45, 212, 224, 0.05) 0%, transparent 60%),
+      var(--void-edge);
+  }
+  .pool::before {
+    content: ""; position: absolute; top: -1px; left: 50%;
+    transform: translateX(-50%);
+    width: 50%; height: 2px;
+    background: var(--cyan);
+    box-shadow: 0 0 8px var(--cyan);
+  }
+  .pool-label {
+    font-family: "Orbitron", sans-serif; font-size: 0.7rem;
+    letter-spacing: 0.36em; color: var(--cyan);
+    text-transform: uppercase; margin-bottom: 0.7rem; font-weight: 500;
+  }
+  .pool-value {
+    font-family: "Orbitron", "Cinzel", sans-serif; font-weight: 600;
+    font-size: 2.8rem; color: var(--bone); line-height: 1;
+    margin-bottom: 0.4rem;
+    text-shadow: 0 0 14px rgba(45, 212, 224, 0.4);
+  }
+  .pool-edge {
+    font-family: "Orbitron", sans-serif; font-size: 0.65rem;
+    letter-spacing: 0.22em; color: var(--bone-faint);
+    text-transform: uppercase;
+  }
+  .pool-edge .edge-val {
+    color: var(--copper-bright); font-weight: 600;
+    font-size: 0.85rem; margin-left: 0.3rem;
+  }
+
+  /* ─────────── RECOVERY ─────────── */
+  .recovery-row {
+    display: grid; grid-template-columns: auto 1fr; gap: 1.5rem;
+    align-items: center;
+    padding: 1.1rem 1.4rem;
+    border: 1px solid var(--rule);
+    background: var(--void-edge);
+    position: relative;
+  }
+  .recovery-row::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 2px; background: var(--copper);
+    box-shadow: 0 0 6px var(--copper);
+  }
+  .recovery-roll {
+    font-family: "Orbitron", sans-serif; font-weight: 500;
+    font-size: 1.4rem; color: var(--bone);
+    border-right: 1px solid var(--rule); padding-right: 1.5rem;
+  }
+  .recovery-roll .small {
+    display: block; font-family: "Orbitron", sans-serif;
+    font-size: 0.6rem; letter-spacing: 0.32em;
+    color: var(--bone-faint); text-transform: uppercase;
+    margin-bottom: 0.3rem; font-weight: 400;
+  }
+  .recovery-steps {
+    display: flex; gap: 0.75rem; flex-wrap: wrap;
+  }
+  .recovery-step {
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--rule);
+    background: rgba(45, 212, 224, 0.04);
+    color: var(--bone-soft);
+    font-family: "Orbitron", sans-serif;
+    font-size: 0.66rem; letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  /* ─────────── COMBAT ─────────── */
+  .combat-grid {
+    display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;
+  }
+  .attack-block, .armor-block {
+    border: 1px solid var(--rule);
+    padding: 1.1rem 1.25rem;
+    background: var(--void-edge);
+    position: relative;
+  }
+  .attack-block::before {
+    content: ""; position: absolute; top: 0; left: 0; bottom: 0;
+    width: 2px; background: var(--crimson);
+    box-shadow: 0 0 6px var(--crimson);
+  }
+  .attack-name {
+    font-family: "Cinzel", serif; font-weight: 500;
+    font-size: 1.2rem; color: var(--bone);
+    margin-bottom: 0.5rem; letter-spacing: 0.06em;
+  }
+  .attack-meta, .armor-meta {
+    display: flex; gap: 1.75rem; font-family: "Orbitron", sans-serif;
+    font-size: 0.78rem; color: var(--bone-soft); letter-spacing: 0.04em;
+  }
+  .attack-meta .m-label, .armor-meta .m-label {
+    font-family: "Orbitron", sans-serif; font-size: 0.6rem;
+    letter-spacing: 0.28em; color: var(--bone-faint);
+    text-transform: uppercase; margin-right: 0.45rem;
+  }
+  .attack-meta .m-value, .armor-meta .m-value { color: var(--cyan-bright); font-weight: 500; }
+  .armor-block { text-align: center; }
+  .armor-block::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: var(--copper);
+    box-shadow: 0 0 6px var(--copper);
+  }
+  .armor-label {
+    font-family: "Orbitron", sans-serif; font-size: 0.66rem;
+    letter-spacing: 0.34em; color: var(--bone-faint);
+    text-transform: uppercase;
+  }
+  .armor-value {
+    font-family: "Orbitron", sans-serif; font-weight: 600;
+    font-size: 2.4rem; color: var(--copper-bright); line-height: 1;
+    margin: 0.4rem 0 0.4rem;
+    text-shadow: 0 0 12px rgba(212, 147, 85, 0.4);
+  }
+
+  /* ─────────── ABILITIES / SKILLS ─────────── */
+  ul.ability-list, ul.skill-list, ul.equipment-list {
+    list-style: none; padding: 0; margin: 0;
+  }
+  ul.ability-list li {
+    padding: 0.75rem 0 0.75rem 1.5rem;
+    border-bottom: 1px solid var(--rule-soft);
+    position: relative;
+  }
+  ul.ability-list li:last-child { border-bottom: none; }
+  ul.ability-list li::before {
+    content: "◈"; position: absolute; left: 0; top: 0.7rem;
+    color: var(--cyan); font-size: 0.85rem;
+    text-shadow: 0 0 6px var(--cyan);
+  }
+  .ability-name {
+    font-family: "Cinzel", serif; font-weight: 500;
+    color: var(--bone); font-size: 1.02rem;
+    margin-right: 0.5rem; letter-spacing: 0.04em;
+  }
+  .ability-cost {
+    font-family: "Orbitron", sans-serif; font-size: 0.62rem;
+    letter-spacing: 0.22em; color: var(--copper-bright);
+    text-transform: uppercase;
+    padding: 0.1rem 0.45rem;
+    border: 1px solid var(--copper-deep);
+    background: rgba(184, 115, 51, 0.08);
+    border-radius: 1px;
+  }
+  .ability-desc {
+    display: block; margin-top: 0.3rem;
+    font-size: 0.96rem; color: var(--bone-soft);
+  }
+
+  ul.skill-list li {
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    border-bottom: 1px solid var(--rule-soft);
+    position: relative;
+    color: var(--bone-soft);
+  }
+  ul.skill-list li:last-child { border-bottom: none; }
+  ul.skill-list li::before {
+    content: "▸"; position: absolute; left: 0.2rem; top: 0.55rem;
+    color: var(--cyan); font-size: 0.85rem;
+  }
+  ul.skill-list.inability li { color: var(--bone-soft); }
+  ul.skill-list.inability li::before { content: "▸"; color: var(--crimson); }
+  ul.skill-list em { color: var(--crimson); font-style: italic; }
+
+  ul.equipment-list li {
+    padding: 0.45rem 0 0.45rem 1.25rem; position: relative;
+    color: var(--bone-soft);
+  }
+  ul.equipment-list li::before {
+    content: "·"; position: absolute; left: 0.35rem; top: 0.35rem;
+    color: var(--copper); font-size: 1.4rem;
+  }
+
+  /* ─────────── CYPHERS — the Numenera centerpiece ─────────── */
+  .cypher-limit-banner {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.7rem 1.1rem; margin-bottom: 1rem;
+    border: 1px solid var(--rule);
+    background: linear-gradient(90deg, rgba(184, 115, 51, 0.08), rgba(45, 212, 224, 0.05));
+    font-family: "Orbitron", sans-serif; font-size: 0.7rem;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--bone-soft);
+  }
+  .cypher-limit-banner .limit-value {
+    color: var(--crimson); font-weight: 600;
+  }
+  .cypher-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem;
+  }
+  .cypher {
+    border: 1px solid var(--cyan-deep);
+    background:
+      linear-gradient(135deg, rgba(45, 212, 224, 0.08) 0%, rgba(13, 17, 28, 0.95) 60%),
+      var(--void-edge);
+    padding: 0.85rem 1rem; position: relative;
+    overflow: hidden;
+  }
+  .cypher::before, .cypher::after {
+    content: ""; position: absolute; width: 16px; height: 16px;
+    border: 1px solid var(--cyan);
+  }
+  .cypher::before {
+    top: 4px; left: 4px;
+    border-right: none; border-bottom: none;
+  }
+  .cypher::after {
+    bottom: 4px; right: 4px;
+    border-left: none; border-top: none;
+  }
+  .cypher-name {
+    font-family: "Cinzel", serif; font-weight: 500;
+    font-size: 1.05rem; color: var(--cyan-bright);
+    letter-spacing: 0.05em; margin-bottom: 0.25rem;
+    text-shadow: 0 0 8px rgba(45, 212, 224, 0.3);
+  }
+  .cypher-level {
+    font-family: "Orbitron", sans-serif; font-size: 0.6rem;
+    letter-spacing: 0.24em; color: var(--bone-faint);
+    text-transform: uppercase;
+  }
+  .cypher-status {
+    font-family: "Orbitron", sans-serif; font-size: 0.58rem;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    margin-top: 0.35rem; padding-top: 0.35rem;
+    border-top: 1px dashed var(--rule);
+  }
+  .cypher.expended { opacity: 0.5; border-color: var(--crimson-deep); }
+  .cypher.expended::before, .cypher.expended::after { border-color: var(--crimson); }
+  .cypher.expended .cypher-name {
+    color: var(--bone-soft);
+    text-decoration: line-through;
+    text-decoration-color: var(--crimson);
+    text-shadow: none;
+  }
+  .cypher.expended .cypher-status { color: var(--crimson); }
+  .cypher.gifted { border-color: var(--copper-deep); opacity: 0.65; }
+  .cypher.gifted::before, .cypher.gifted::after { border-color: var(--copper); }
+  .cypher.gifted .cypher-name { color: var(--copper-bright); text-shadow: none; }
+  .cypher.gifted .cypher-status { color: var(--copper-bright); }
+  .cypher.destroyed { border-color: var(--bone-faint); opacity: 0.5; }
+  .cypher.destroyed::before, .cypher.destroyed::after { border-color: var(--bone-faint); }
+  .cypher.destroyed .cypher-name { color: var(--bone-faint); text-shadow: none; }
+  .cypher.destroyed .cypher-status { color: var(--bone-faint); }
+
+  /* ─────────── ODDITIES ─────────── */
+  .oddity {
+    border: 1px dashed var(--verdigris);
+    padding: 0.95rem 1.1rem; margin-bottom: 0.7rem;
+    background: rgba(74, 144, 128, 0.06);
+    position: relative;
+  }
+  .oddity::before {
+    content: "◌"; position: absolute; top: 0.6rem; right: 0.8rem;
+    color: var(--verdigris); font-size: 1.1rem;
+  }
+  .oddity-name {
+    font-family: "Cinzel", serif; font-weight: 500;
+    color: var(--verdigris); font-size: 1.05rem;
+    margin-bottom: 0.3rem; letter-spacing: 0.04em;
+  }
+  .oddity-desc { font-size: 0.96rem; color: var(--bone-soft); }
+
+  /* ─────────── SHINS ─────────── */
+  .shins-bar {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    padding: 0.6rem 1.2rem; margin-top: 0.6rem;
+    border: 1px solid var(--copper);
+    background: linear-gradient(90deg, rgba(184, 115, 51, 0.12), rgba(184, 115, 51, 0.04));
+    font-family: "Orbitron", sans-serif;
+    color: var(--copper-bright);
+  }
+  .shins-bar .label {
+    font-size: 0.62rem; letter-spacing: 0.32em;
+    color: var(--bone-faint); text-transform: uppercase;
+  }
+  .shins-bar .amount { font-size: 1.15rem; font-weight: 600; letter-spacing: 0.04em; }
+
+  /* ─────────── PARTY ─────────── */
+  .party-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .companion {
+    border: 1px solid var(--rule);
+    border-top: 2px solid var(--cyan);
+    padding: 0.95rem 1rem;
+    background: var(--void-edge);
+    position: relative;
+  }
+  .companion-name {
+    font-family: "Cinzel", serif; font-weight: 500;
+    font-size: 1.2rem; color: var(--bone);
+    margin-bottom: 0.2rem; letter-spacing: 0.04em;
+  }
+  .companion-type {
+    font-family: "Orbitron", sans-serif; font-size: 0.62rem;
+    letter-spacing: 0.32em; color: var(--cyan);
+    text-transform: uppercase;
+  }
+  .party-note {
+    padding: 1rem 1.25rem;
+    background: rgba(45, 212, 224, 0.04);
+    border-left: 2px solid var(--cyan-deep);
+    font-style: italic; color: var(--bone-soft);
+    font-size: 0.98rem;
+  }
+  .party-note + .party-note { margin-top: 0.7rem; }
+
+  /* ─────────── BACKGROUND BLOCKS ─────────── */
+  .background-blocks {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+  }
+  .background-block {
+    padding: 1.1rem 1.3rem;
+    background: var(--void-edge);
+    border: 1px solid var(--rule);
+    border-left: 2px solid var(--copper);
+    position: relative;
+  }
+  .background-block h4 {
+    font-family: "Orbitron", sans-serif; font-size: 0.68rem;
+    letter-spacing: 0.34em; color: var(--copper-bright);
+    text-transform: uppercase; margin: 0 0 0.7rem; font-weight: 500;
+  }
+  .background-block p { font-size: 0.98rem; color: var(--bone-soft); }
+
+  /* ─────────── CHRONICLE ─────────── */
+  .chronicle-intro {
+    padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+    background: rgba(196, 51, 46, 0.04);
+    border: 1px solid var(--rule);
+    border-top: 2px solid var(--crimson);
+    font-style: italic; color: var(--bone-soft);
+  }
+  .chronicle-entry {
+    border-left: 2px solid var(--cyan-deep);
+    padding: 0.25rem 0 0.25rem 1.4rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .chronicle-entry::before {
+    content: "◈"; position: absolute; left: -8px; top: 0;
+    background: var(--void-soft); padding: 0 4px;
+    color: var(--cyan); font-size: 0.85rem;
+    text-shadow: 0 0 6px var(--cyan);
+  }
+  .chronicle-entry:last-child { margin-bottom: 0; }
+  .chronicle-title {
+    font-family: "Cinzel", serif; font-weight: 500;
+    font-size: 1.3rem; color: var(--cyan-bright);
+    margin-bottom: 0.45rem;
+    letter-spacing: 0.03em;
+    text-shadow: 0 0 10px rgba(45, 212, 224, 0.25);
+  }
+  .chronicle-body { color: var(--bone-soft); }
+  .chronicle-body em { color: var(--copper-bright); font-style: italic; }
+
+  /* ─────────── FOOTER ─────────── */
+  footer.colophon {
+    margin-top: 3rem; padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    font-family: "Orbitron", sans-serif;
+    font-size: 0.65rem; letter-spacing: 0.32em;
+    color: var(--bone-faint); text-transform: uppercase;
+  }
+  footer.colophon .ornament { color: var(--cyan); margin: 0 0.6rem; text-shadow: 0 0 6px var(--cyan); }
+  footer.colophon .nav-back {
+    display: inline-block; margin-top: 1rem;
+    color: var(--cyan); text-decoration: none;
+    letter-spacing: 0.28em; font-size: 0.66rem;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.2rem;
+    transition: color 0.15s, border-color 0.15s, text-shadow 0.15s;
+  }
+  footer.colophon .nav-back:hover {
+    color: var(--cyan-bright); border-color: var(--cyan);
+    text-shadow: 0 0 6px var(--cyan);
+  }
+
+  /* ─────────── RESPONSIVE ─────────── */
+  @media (max-width: 720px) {
+    .document-inner { padding: 2rem 1.25rem 2.5rem; }
+    header.title-block { grid-template-columns: 1fr; gap: 1.75rem; }
+    .portrait-frame { max-width: 220px; margin: 0 auto; }
+    h1.character-name { font-size: 2.5rem; }
+    .pools-grid { grid-template-columns: 1fr; }
+    .combat-grid { grid-template-columns: 1fr; }
+    .cypher-grid { grid-template-columns: 1fr; }
+    .party-grid { grid-template-columns: 1fr; }
+    .background-blocks { grid-template-columns: 1fr; }
+    .recovery-row { grid-template-columns: 1fr; }
+    .recovery-roll { border-right: none; border-bottom: 1px solid var(--rule); padding-right: 0; padding-bottom: 0.85rem; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+<div class="document-inner">
+
+  <header class="title-block">
+    <div class="masthead-text">
+      <div class="eyebrow">
+        Player Character <span class="sep">◈</span> Numenera <span class="sep">◈</span> Ninth World
+      </div>
+      <h1 class="character-name">Haro</h1>
+      <div class="character-sentence">
+        <span class="descriptor">Clever</span>
+        <span class="pivot">Nano</span>
+        <span class="type">Mind&nbsp;Over&nbsp;Matter</span>
+        <br>
+        <span class="pivot">Who</span>
+        <span class="focus">learned&nbsp;nano&#8209;sorcery in the temple of an obscure god</span>
+      </div>
+      <div class="vitals">
+        <span><span class="v-label">Tier</span><span class="v-value">1</span></span>
+        <span><span class="v-label">Effort</span><span class="v-value">1</span></span>
+        <span><span class="v-label">XP</span><span class="v-value">0</span></span>
+        <span><span class="v-label">Cypher Limit</span><span class="v-value">3</span></span>
+      </div>
+    </div>
+
+    <div>
+      <div class="portrait-frame">
+        <img src="haro.png" alt="Haro portrait">
+      </div>
+      <div class="portrait-caption">Character Illustration</div>
+    </div>
+  </header>
+
+  <!-- ─────────── POOLS / EDGE ─────────── -->
+  <section>
+    <h2 class="section-title">Pools &amp; Edge</h2>
+    <div class="pools-grid">
+      <div class="pool">
+        <div class="pool-label">Might</div>
+        <div class="pool-value">8</div>
+        <div class="pool-edge">Edge<span class="edge-val">0</span></div>
+      </div>
+      <div class="pool">
+        <div class="pool-label">Speed</div>
+        <div class="pool-value">11</div>
+        <div class="pool-edge">Edge<span class="edge-val">0</span></div>
+      </div>
+      <div class="pool">
+        <div class="pool-label">Intellect</div>
+        <div class="pool-value">17</div>
+        <div class="pool-edge">Edge<span class="edge-val">1</span></div>
+      </div>
+    </div>
+
+    <div class="recovery-row">
+      <div class="recovery-roll">
+        <span class="small">Recovery Roll</span>
+        1d6 + 1
+      </div>
+      <div class="recovery-steps">
+        <span class="recovery-step">1 action</span>
+        <span class="recovery-step">10 minutes</span>
+        <span class="recovery-step">1 hour</span>
+        <span class="recovery-step">10 hours</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── COMBAT ─────────── -->
+  <section>
+    <h2 class="section-title">Combat</h2>
+    <div class="combat-grid">
+      <div class="attack-block">
+        <div class="attack-name">Dagger</div>
+        <div class="attack-meta">
+          <span><span class="m-label">Class</span><span class="m-value">Light</span></span>
+          <span><span class="m-label">Mod</span><span class="m-value">&minus;1</span></span>
+          <span><span class="m-label">Dmg</span><span class="m-value">2</span></span>
+        </div>
+      </div>
+      <div class="armor-block">
+        <div class="armor-label">Armor</div>
+        <div class="armor-value">1</div>
+        <div class="armor-label" style="font-size: 0.58rem; letter-spacing: 0.26em;">Speed Cost 0</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── SPECIAL ABILITIES ─────────── -->
+  <section>
+    <h2 class="section-title">Special Abilities</h2>
+    <ul class="ability-list">
+      <li>
+        <span class="ability-name">Mental Esoteries</span>
+        <span class="ability-desc">Practitioner of the nano discipline &mdash; bends thought, matter, and the residue of prior worlds.</span>
+      </li>
+      <li>
+        <span class="ability-name">Practiced With Light Weapons</span>
+        <span class="ability-desc">No penalty with light arms. Inability with medium and heavy weapons.</span>
+      </li>
+      <li>
+        <span class="ability-name">Onslaught</span>
+        <span class="ability-cost">1 Intellect</span>
+        <span class="ability-desc">A focused strike of force or mind, blasting a target at short range.</span>
+      </li>
+      <li>
+        <span class="ability-name">Scan</span>
+        <span class="ability-cost">2 Intellect</span>
+        <span class="ability-desc">Sweep short range with the senses; identify materials, structures, and life within.</span>
+      </li>
+      <li>
+        <span class="ability-name">Deflect Attacks</span>
+        <span class="ability-cost">1 Intellect</span>
+        <span class="ability-desc">Telekinetic interference: turn an incoming blow aside before it lands.</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ─────────── SKILLS ─────────── -->
+  <section>
+    <h2 class="section-title">Skills &amp; Training</h2>
+    <h3 class="subhead">Trained</h3>
+    <ul class="skill-list">
+      <li>All tasks involving danger &mdash; identifying or assessing danger, lies, quality, importance, function, or power.</li>
+      <li>Numenera.</li>
+      <li>Understanding and identifying numenera.</li>
+      <li>All interactions involving lies or trickery.</li>
+      <li>Defense against mental effects.</li>
+    </ul>
+
+    <h3 class="subhead" style="color: var(--crimson);">Inability</h3>
+    <ul class="skill-list inability">
+      <li>Any task involving lore and knowledge <em>not</em> related to the numenera.</li>
+    </ul>
+  </section>
+
+  <!-- ─────────── CYPHERS ─────────── -->
+  <section>
+    <h2 class="section-title">Cyphers</h2>
+    <div class="cypher-limit-banner">
+      <span>Cypher Limit</span>
+      <span class="limit-value">3 Carried</span>
+    </div>
+    <div class="cypher-grid">
+      <div class="cypher expended">
+        <div class="cypher-name">Sheen</div>
+        <div class="cypher-level">Level 6 &middot; p.&nbsp;294</div>
+        <div class="cypher-status">Expended</div>
+      </div>
+      <div class="cypher expended">
+        <div class="cypher-name">Catseye</div>
+        <div class="cypher-level">Level 4 &middot; p.&nbsp;282</div>
+        <div class="cypher-status">Expended</div>
+      </div>
+      <div class="cypher expended">
+        <div class="cypher-name">Magnetic Master</div>
+        <div class="cypher-level">Acquired in play</div>
+        <div class="cypher-status">Expended</div>
+      </div>
+      <div class="cypher">
+        <div class="cypher-name">Spawn Detonation</div>
+        <div class="cypher-level">Cell disruption</div>
+      </div>
+      <div class="cypher">
+        <div class="cypher-name">Instant Shelter</div>
+        <div class="cypher-level">Acquired in play</div>
+      </div>
+      <div class="cypher">
+        <div class="cypher-name">Rejuvenator</div>
+        <div class="cypher-level">Restores Might</div>
+      </div>
+      <div class="cypher destroyed">
+        <div class="cypher-name">Invented Servant</div>
+        <div class="cypher-level">Lost in the field</div>
+        <div class="cypher-status">Destroyed</div>
+      </div>
+      <div class="cypher gifted">
+        <div class="cypher-name">"Safer" Glove</div>
+        <div class="cypher-level">Metal control</div>
+        <div class="cypher-status">Gifted</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── EQUIPMENT ─────────── -->
+  <section>
+    <h2 class="section-title">Possessions</h2>
+    <div class="background-blocks">
+      <div>
+        <h3 class="subhead">Equipment</h3>
+        <ul class="equipment-list">
+          <li>Clothing</li>
+          <li>A book of the numenera</li>
+          <li>A pack of light tools</li>
+          <li>Dagger (light)</li>
+        </ul>
+        <div class="shins-bar">
+          <span class="label">Shins</span>
+          <span class="amount">14</span>
+        </div>
+      </div>
+      <div>
+        <h3 class="subhead">Oddities</h3>
+        <div class="oddity">
+          <div class="oddity-name">Programmable Tattoos</div>
+          <div class="oddity-desc">If Haro concentrates for an hour on how he would like them to appear, the tattoos covering his body rearrange themselves to match.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── BACKGROUND ─────────── -->
+  <section>
+    <h2 class="section-title">Background</h2>
+    <div class="background-blocks">
+      <div class="background-block">
+        <h4>Origin</h4>
+        <p>Haro learned nano-sorcery in the temple of an obscure, unnamed god. Its priests and worshippers, although small in number, respect and admire his talents and potential.</p>
+      </div>
+      <div class="background-block">
+        <h4>Initial Link to the Adventure</h4>
+        <p>He suspects that the other PCs won't succeed without him.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── PARTY ─────────── -->
+  <section>
+    <h2 class="section-title">Companions</h2>
+    <div class="party-grid">
+      <div class="companion">
+        <div class="companion-name">Karner</div>
+        <div class="companion-type">Glaive</div>
+      </div>
+      <div class="companion">
+        <div class="companion-name">Etolas</div>
+        <div class="companion-type">Nano</div>
+      </div>
+      <div class="companion">
+        <div class="companion-name">Crail</div>
+        <div class="companion-type">Jack</div>
+      </div>
+    </div>
+    <div class="party-note">
+      Etolas can cause Haro's telekinetic powers to act oddly. Every once in a while, if he stands directly next to Haro, the powers are cancelled outright &mdash; though at other times they seem to improve.
+    </div>
+    <div class="party-note">
+      Karner seems like he's got something to prove. Haro suspects he may have accidentally insulted him, once, in his flowery ways.
+    </div>
+  </section>
+
+  <!-- ─────────── CHRONICLE ─────────── -->
+  <section>
+    <h2 class="section-title">Chronicle &mdash; WPGRPGCON 2026</h2>
+    <div class="chronicle-intro">
+      A one-shot. An entire herd had vanished overnight. The party traced the disappearance to a hovering pyramid, and went inside.
+    </div>
+
+    <div class="chronicle-entry">
+      <div class="chronicle-title">The Bubble Servant</div>
+      <div class="chronicle-body">
+        Haro activated an <em>Invented Servant</em> cypher and described the conjured thing into being: a beach-ball-sized body with smaller balls for a head and limbs &mdash; a kind of bubble boy. He sent it ahead to test whether things were safe to interact with. It worked well, for a while. Then tendrils caught it, and tore it apart. Haro was sad to see it go.
+      </div>
+    </div>
+
+    <div class="chronicle-entry">
+      <div class="chronicle-title">The Pressure Grenade &amp; The Plasma Sword</div>
+      <div class="chronicle-body">
+        Cornered by armed enemies across a long table, Haro threw a pressure grenade to the far end of the room and dove under the table for cover. The blast swept everything from the tabletop onto the floor in front of him &mdash; including, by luck, a glove cypher called a <em>safer</em>, which let its wearer control nearby metal. Haro slipped it on, reached out with it, and tore the metal plasma sword out of the lead enemy's hand. He turned the blade on its owner. The last one standing surrendered. The glove was given away after the fight.
+      </div>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    Numenera <span class="ornament">◈</span> Ninth World <span class="ornament">◈</span> One-Shot at WPGRPGCON 2026
+    <br>
+    <a class="nav-back" href="index.html">&larr; Return to the Dossiers</a>
+  </footer>
+
+</div>
+</div>
+</body>
+</html>

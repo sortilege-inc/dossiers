@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADVENTURER FILE // MARIAH REDWING</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Zen+Dots&family=Shippori+Antique+B1:wght@400;500&family=Anton&family=Rampart+One&family=DotGothic16&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* HOT palette — Persona-coded */
+    --bg: #1a0b1f;
+    --bg-deep: #0a0410;
+    --panel: #2a0f3a;
+    --panel-deep: #1d0a2a;
+
+    /* Mariah signature */
+    --hair: #5c7ec4;          /* periwinkle */
+    --hair-bright: #8aaeff;
+    --hair-deep: #2c4a8a;
+    --skin: #b88fd6;           /* tenebrate violet, bright */
+    --skin-deep: #6a3f9a;
+    --scarf: #f5b840;          /* mustard-gold */
+    --scarf-bright: #ffd060;
+    --antler: #c87a3a;
+
+    /* Dissonance — hot magenta & blood-bloom */
+    --hot: #ff2d8e;
+    --hot-bright: #ff5fa8;
+    --blood: #c4002e;
+    --blood-deep: #6a0018;
+    --dark-bloom: #4a1a5a;
+
+    /* HUD accents */
+    --cyan: #00e7ff;
+    --acid: #d4ff3a;
+    --ink-white: #fff5e1;
+    --ink-cream: #f5e8c8;
+    --ink-shade: #c8b890;
+
+    /* Screentone */
+    --tone: rgba(255,255,255,0.04);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg-deep);
+    color: var(--ink-white);
+    font-family: "Shippori Antique B1", "Helvetica Neue", sans-serif;
+    font-size: 15px;
+    line-height: 1.45;
+    overflow-x: hidden;
+  }
+
+  /* ============ MASTER BACKDROP ============ */
+  body {
+    background:
+      /* speedlines radiating from upper-left */
+      repeating-conic-gradient(from 0deg at 12% 18%,
+        transparent 0deg, transparent 2deg,
+        rgba(255,45,142,0.04) 2deg, rgba(255,45,142,0.04) 2.3deg,
+        transparent 2.3deg, transparent 5deg),
+      /* screentone dots */
+      radial-gradient(circle at 25% 25%, rgba(245,184,64,0.06) 1px, transparent 1.5px) 0 0 / 8px 8px,
+      radial-gradient(circle at 75% 75%, rgba(92,126,196,0.05) 1px, transparent 1.5px) 4px 4px / 8px 8px,
+      /* moody base */
+      linear-gradient(135deg, var(--bg-deep) 0%, var(--bg) 40%, var(--dark-bloom) 100%);
+    min-height: 100vh;
+    padding: 1.5rem 1rem 4rem;
+    position: relative;
+  }
+  body::before {
+    /* big diagonal stripe across the page */
+    content: "";
+    position: fixed;
+    top: -10%; left: -10%; right: -10%; bottom: -10%;
+    background:
+      repeating-linear-gradient(118deg,
+        transparent 0px, transparent 60px,
+        rgba(255,45,142,0.025) 60px, rgba(255,45,142,0.025) 61px,
+        transparent 61px, transparent 200px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .document {
+    max-width: 980px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ============ MAIN TITLE BAR ============ */
+  .title-bar {
+    background: linear-gradient(95deg, var(--bg-deep) 0%, var(--dark-bloom) 40%, var(--hot) 100%);
+    padding: 0;
+    margin-bottom: 1.5rem;
+    border: 3px solid var(--ink-white);
+    box-shadow:
+      6px 6px 0 var(--hot),
+      6px 6px 0 3px var(--ink-white),
+      0 0 40px rgba(255,45,142,0.4);
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%);
+  }
+  .title-bar::before {
+    /* diagonal screentone overlay */
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(135deg,
+        transparent 0px, transparent 4px,
+        rgba(0,0,0,0.15) 4px, rgba(0,0,0,0.15) 5px);
+    pointer-events: none;
+  }
+  .title-bar::after {
+    /* Mariah-blue corner slash */
+    content: "";
+    position: absolute;
+    top: -50%; right: -10%;
+    width: 50%; height: 200%;
+    background: linear-gradient(transparent, var(--hair-deep), transparent);
+    transform: rotate(15deg);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .title-inner {
+    padding: 1.6rem 2rem 1.4rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .eyebrow-row {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: "Zen Dots", monospace;
+    font-size: 0.7rem;
+    color: var(--scarf-bright);
+    letter-spacing: 0.2em;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .eyebrow-row .tag {
+    background: var(--ink-white);
+    color: var(--bg-deep);
+    padding: 0.2rem 0.6rem 0.15rem;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+  }
+  .eyebrow-row .tag.hot { background: var(--hot); color: var(--ink-white); }
+  .eyebrow-row .tag.cyan { background: var(--cyan); color: var(--bg-deep); }
+  .eyebrow-row .blink { animation: blink 1.4s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: 0.3; } }
+
+  h1.character-name {
+    font-family: "Anton", "Bebas Neue", sans-serif;
+    font-size: 5.5rem;
+    line-height: 0.85;
+    letter-spacing: -0.01em;
+    color: var(--ink-white);
+    text-transform: uppercase;
+    margin: 0;
+    text-shadow:
+      3px 3px 0 var(--hot),
+      6px 6px 0 var(--hair-deep),
+      9px 9px 0 var(--bg-deep);
+  }
+  h1.character-name .given { color: var(--scarf-bright); }
+  h1.character-name .family { color: var(--ink-white); }
+
+  .epithet {
+    font-family: "Rampart One", "Anton", sans-serif;
+    font-size: 1.4rem;
+    color: var(--ink-white);
+    margin-top: 0.4rem;
+    letter-spacing: 0.05em;
+    text-shadow: 2px 2px 0 var(--hot), 3px 3px 0 var(--bg-deep);
+  }
+  .epithet .glow {
+    color: var(--scarf-bright);
+    text-shadow: 0 0 10px var(--scarf), 2px 2px 0 var(--blood-deep);
+  }
+
+  /* ============ TOP HUD ROW (vitals) ============ */
+  .hud-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.6rem;
+    margin-top: 1.2rem;
+  }
+  .hud-cell {
+    background: rgba(0,0,0,0.5);
+    border: 2px solid var(--ink-white);
+    padding: 0.5rem 0.8rem;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+  }
+  .hud-cell .lbl {
+    font-family: "Zen Dots", monospace;
+    font-size: 0.6rem;
+    color: var(--cyan);
+    letter-spacing: 0.18em;
+  }
+  .hud-cell .val {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 1.6rem;
+    color: var(--ink-white);
+    line-height: 1;
+    letter-spacing: 0.05em;
+  }
+  .hud-cell.dark { background: rgba(74,26,90,0.8); }
+  .hud-cell.dark .val { color: var(--hot-bright); }
+
+  /* ============ LAYOUT GRID ============ */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ============ PORTRAIT (left rail) ============ */
+  .portrait-stack { display: flex; flex-direction: column; gap: 1rem; }
+
+  .portrait-frame {
+    aspect-ratio: 3/4;
+    background:
+      linear-gradient(135deg, var(--hair-deep) 0%, var(--dark-bloom) 50%, var(--skin-deep) 100%);
+    border: 3px solid var(--ink-white);
+    box-shadow:
+      5px 5px 0 var(--scarf),
+      5px 5px 0 3px var(--ink-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--ink-cream);
+    font-family: "DotGothic16", monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    padding: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .portrait-frame::before {
+    /* big diagonal "NO SIGNAL" sweep */
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(120deg,
+        transparent 0, transparent 12px,
+        rgba(255,45,142,0.15) 12px, rgba(255,45,142,0.15) 14px),
+      repeating-linear-gradient(0deg,
+        transparent 0, transparent 3px,
+        rgba(0,0,0,0.15) 3px, rgba(0,0,0,0.15) 4px);
+    pointer-events: none;
+  }
+  .portrait-frame::after {
+    content: "NO_SIGNAL";
+    position: absolute;
+    top: 0.6rem; left: 0.6rem;
+    font-family: "Zen Dots", monospace;
+    font-size: 0.55rem;
+    color: var(--hot-bright);
+    letter-spacing: 0.18em;
+    background: rgba(0,0,0,0.7);
+    padding: 0.15rem 0.4rem;
+    border: 1px solid var(--hot-bright);
+  }
+  .portrait-frame .placeholder-txt {
+    background: rgba(0,0,0,0.65);
+    padding: 0.6rem 1rem;
+    border: 1px dashed var(--ink-cream);
+    z-index: 1;
+  }
+
+  /* ID card under portrait */
+  .id-card {
+    background: var(--panel);
+    border: 2px solid var(--ink-white);
+    padding: 0.9rem 1rem;
+    box-shadow: 4px 4px 0 var(--hair);
+  }
+  .id-card h3 {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 0.85rem;
+    color: var(--scarf-bright);
+    letter-spacing: 0.2em;
+    margin-bottom: 0.6rem;
+    border-bottom: 1px dashed var(--ink-shade);
+    padding-bottom: 0.3rem;
+  }
+  .id-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.25rem 0;
+    font-size: 0.82rem;
+    border-bottom: 1px dotted rgba(255,255,255,0.1);
+  }
+  .id-row:last-child { border-bottom: none; }
+  .id-row .k {
+    font-family: "Zen Dots", monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    flex-shrink: 0;
+    padding-top: 0.18rem;
+  }
+  .id-row .v {
+    color: var(--ink-white);
+    text-align: right;
+    font-weight: 500;
+  }
+
+  /* ============ RIGHT COLUMN ============ */
+  .right-col { display: flex; flex-direction: column; gap: 1.2rem; }
+
+  /* Big stat block: Combat values */
+  .combat-block {
+    background: var(--panel-deep);
+    border: 3px solid var(--ink-white);
+    padding: 1.2rem;
+    position: relative;
+    box-shadow: 5px 5px 0 var(--hot);
+  }
+  .combat-block::before {
+    /* corner accent */
+    content: "";
+    position: absolute;
+    top: -3px; left: -3px;
+    width: 30px; height: 30px;
+    border-top: 5px solid var(--scarf);
+    border-left: 5px solid var(--scarf);
+  }
+  .combat-block::after {
+    content: "";
+    position: absolute;
+    bottom: -3px; right: -3px;
+    width: 30px; height: 30px;
+    border-bottom: 5px solid var(--cyan);
+    border-right: 5px solid var(--cyan);
+  }
+
+  .block-title {
+    font-family: "Anton", sans-serif;
+    font-size: 1.6rem;
+    color: var(--ink-white);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.9rem;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .block-title::before {
+    content: "▶";
+    color: var(--hot);
+    font-size: 1rem;
+  }
+  .block-title .jp {
+    font-family: "DotGothic16", monospace;
+    font-size: 0.7rem;
+    color: var(--cyan);
+    letter-spacing: 0.1em;
+    margin-left: auto;
+  }
+
+  .cv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+  .cv-cell {
+    background: rgba(0,0,0,0.45);
+    border: 2px solid var(--ink-white);
+    padding: 0.7rem 0.9rem;
+    position: relative;
+  }
+  .cv-cell .lbl {
+    font-family: "Zen Dots", monospace;
+    font-size: 0.6rem;
+    color: var(--scarf-bright);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.2rem;
+  }
+  .cv-cell .num {
+    font-family: "Anton", sans-serif;
+    font-size: 3rem;
+    line-height: 0.9;
+    color: var(--ink-white);
+    text-shadow: 2px 2px 0 var(--hot);
+  }
+  .cv-cell.def .num { color: var(--cyan); text-shadow: 2px 2px 0 var(--hair-deep); }
+  .cv-cell.spd .num { color: var(--acid); text-shadow: 2px 2px 0 var(--blood-deep); font-size: 2.2rem; }
+  .cv-cell.hearts .num { color: var(--hot-bright); text-shadow: 2px 2px 0 var(--blood-deep); }
+  .cv-cell.atk .num { color: var(--scarf-bright); text-shadow: 2px 2px 0 var(--blood-deep); }
+  .cv-cell .sub {
+    font-size: 0.7rem;
+    color: var(--ink-shade);
+    margin-top: 0.3rem;
+    line-height: 1.3;
+    font-style: italic;
+  }
+
+  /* ============ ATTITUDES BAR ============ */
+  .attitudes {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .att {
+    background: linear-gradient(180deg, var(--hot) 0%, var(--blood-deep) 100%);
+    border: 2px solid var(--ink-white);
+    padding: 0.5rem 0.3rem 0.6rem;
+    text-align: center;
+    position: relative;
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+  }
+  .att .name {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 0.75rem;
+    color: var(--ink-white);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.15rem;
+    text-shadow: 1px 1px 0 var(--blood-deep);
+  }
+  .att .num {
+    font-family: "Anton", sans-serif;
+    font-size: 2.2rem;
+    color: var(--ink-white);
+    line-height: 0.9;
+    text-shadow: 2px 2px 0 var(--bg-deep);
+  }
+  .att .traits {
+    font-size: 0.6rem;
+    color: var(--ink-cream);
+    margin-top: 0.35rem;
+    font-style: italic;
+    line-height: 1.2;
+  }
+  .att.cyan { background: linear-gradient(180deg, var(--cyan) 0%, var(--hair-deep) 100%); }
+  .att.acid { background: linear-gradient(180deg, var(--acid) 0%, #5a6a18 100%); }
+  .att.acid .name, .att.acid .num { color: var(--bg-deep); text-shadow: 1px 1px 0 rgba(255,255,255,0.3); }
+  .att.acid .traits { color: var(--bg-deep); }
+  .att.gold { background: linear-gradient(180deg, var(--scarf-bright) 0%, var(--blood-deep) 100%); }
+  .att.purple { background: linear-gradient(180deg, var(--skin) 0%, var(--dark-bloom) 100%); }
+
+  /* ============ SECTION PANELS ============ */
+  .panel {
+    background: var(--panel);
+    border: 3px solid var(--ink-white);
+    padding: 1.2rem 1.3rem;
+    margin-bottom: 1.2rem;
+    position: relative;
+    box-shadow: 5px 5px 0 var(--hair-deep);
+  }
+  .panel.hot { box-shadow: 5px 5px 0 var(--hot); }
+  .panel.gold { box-shadow: 5px 5px 0 var(--scarf); }
+  .panel.dark {
+    background: linear-gradient(135deg, var(--blood-deep) 0%, var(--bg-deep) 60%, var(--dark-bloom) 100%);
+    box-shadow: 5px 5px 0 var(--hot);
+  }
+  .panel::before {
+    content: "";
+    position: absolute;
+    top: -3px; left: 20px;
+    width: 60px; height: 6px;
+    background: var(--scarf-bright);
+  }
+
+  /* ============ QUIRK CALLOUT ============ */
+  .quirk-callout {
+    background: linear-gradient(95deg, var(--hot) 0%, var(--blood) 100%);
+    border: 2px solid var(--ink-white);
+    padding: 0.9rem 1.2rem;
+    color: var(--ink-white);
+    margin-bottom: 1.2rem;
+    position: relative;
+    box-shadow: 4px 4px 0 var(--bg-deep);
+    transform: rotate(-0.5deg);
+  }
+  .quirk-callout::before {
+    content: "!";
+    position: absolute;
+    top: -15px; left: -15px;
+    width: 35px; height: 35px;
+    background: var(--scarf-bright);
+    border: 2px solid var(--ink-white);
+    color: var(--bg-deep);
+    font-family: "Anton", sans-serif;
+    font-size: 1.6rem;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 2px 2px 0 var(--bg-deep);
+  }
+  .quirk-callout .qname {
+    font-family: "Anton", sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+    text-shadow: 2px 2px 0 var(--blood-deep);
+  }
+  .quirk-callout .qtext {
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  /* ============ ABILITIES ============ */
+  .ability {
+    background: rgba(0,0,0,0.35);
+    border-left: 4px solid var(--scarf);
+    padding: 0.8rem 1rem 0.9rem 1.1rem;
+    margin-bottom: 0.7rem;
+    position: relative;
+  }
+  .ability::before {
+    content: "✦";
+    position: absolute;
+    left: -10px; top: 0.6rem;
+    background: var(--bg-deep);
+    color: var(--scarf-bright);
+    width: 16px; height: 16px;
+    text-align: center;
+    line-height: 16px;
+    font-size: 0.7rem;
+    border: 1px solid var(--scarf);
+  }
+  .ability h3 {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 1.25rem;
+    color: var(--scarf-bright);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .ability h3 .type {
+    font-family: "Zen Dots", monospace;
+    font-size: 0.55rem;
+    color: var(--cyan);
+    letter-spacing: 0.15em;
+    margin-left: auto;
+  }
+  .ability p {
+    font-size: 0.88rem;
+    color: var(--ink-cream);
+    line-height: 1.5;
+  }
+  .ability .stats {
+    font-family: "Zen Dots", monospace;
+    font-size: 0.6rem;
+    color: var(--hair-bright);
+    letter-spacing: 0.12em;
+    margin-top: 0.4rem;
+    text-transform: uppercase;
+  }
+
+  .ability.dark {
+    background: linear-gradient(90deg, rgba(255,45,142,0.15), rgba(0,0,0,0.35));
+    border-left-color: var(--hot);
+  }
+  .ability.dark::before {
+    content: "✶";
+    color: var(--hot-bright);
+    border-color: var(--hot);
+  }
+  .ability.dark h3 { color: var(--hot-bright); }
+
+  /* ============ INVENTORY ============ */
+  .inv-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+  .inv-slot {
+    display: grid;
+    grid-template-columns: 50px 1fr auto;
+    align-items: center;
+    gap: 0.8rem;
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 0.55rem 0.8rem;
+    transition: border-color 0.2s;
+  }
+  .inv-slot:hover { border-color: var(--scarf-bright); }
+  .inv-slot .slot-n {
+    font-family: "Anton", sans-serif;
+    font-size: 1.8rem;
+    color: var(--scarf-bright);
+    text-align: center;
+    line-height: 1;
+    text-shadow: 2px 2px 0 var(--bg-deep);
+  }
+  .inv-slot .item {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 1.1rem;
+    color: var(--ink-white);
+    letter-spacing: 0.05em;
+  }
+  .inv-slot .item .note {
+    display: block;
+    font-family: "Shippori Antique B1", sans-serif;
+    font-size: 0.78rem;
+    color: var(--ink-shade);
+    letter-spacing: 0;
+    font-style: italic;
+    margin-top: 0.1rem;
+  }
+  .inv-slot .tag-tiny {
+    font-family: "Zen Dots", monospace;
+    font-size: 0.55rem;
+    background: var(--hair);
+    color: var(--ink-white);
+    padding: 0.2rem 0.5rem 0.15rem;
+    letter-spacing: 0.12em;
+  }
+  .inv-slot .tag-tiny.gold { background: var(--scarf); color: var(--bg-deep); }
+  .inv-slot .tag-tiny.hot { background: var(--hot); }
+
+  /* ============ MOUNT ============ */
+  .mount {
+    background:
+      linear-gradient(135deg, var(--panel-deep) 0%, var(--dark-bloom) 100%);
+    border: 3px dashed var(--scarf-bright);
+    padding: 1.2rem 1.3rem;
+    position: relative;
+    box-shadow: 5px 5px 0 var(--hair);
+  }
+  .mount::before {
+    content: "♥ COMPANION";
+    position: absolute;
+    top: -12px; left: 1rem;
+    background: var(--scarf-bright);
+    color: var(--bg-deep);
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 0.85rem;
+    padding: 0.2rem 0.7rem 0.15rem;
+    letter-spacing: 0.18em;
+    border: 2px solid var(--ink-white);
+  }
+  .mount-name {
+    font-family: "Anton", sans-serif;
+    font-size: 2.4rem;
+    color: var(--ink-white);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 0.95;
+    text-shadow: 3px 3px 0 var(--hot), 5px 5px 0 var(--bg-deep);
+    margin-top: 0.4rem;
+  }
+  .mount-species {
+    font-family: "DotGothic16", monospace;
+    font-size: 0.8rem;
+    color: var(--cyan);
+    letter-spacing: 0.15em;
+    margin-top: 0.3rem;
+  }
+  .mount-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+  }
+  .mount-stat {
+    background: rgba(0,0,0,0.5);
+    border: 1px solid var(--ink-white);
+    padding: 0.4rem 0.6rem;
+    text-align: center;
+  }
+  .mount-stat .k {
+    font-family: "Zen Dots", monospace;
+    font-size: 0.55rem;
+    color: var(--cyan);
+    letter-spacing: 0.15em;
+  }
+  .mount-stat .v {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 1.4rem;
+    color: var(--ink-white);
+    line-height: 1;
+    margin-top: 0.15rem;
+  }
+  .mount-note {
+    font-size: 0.78rem;
+    color: var(--ink-shade);
+    font-style: italic;
+    margin-top: 0.6rem;
+  }
+
+  /* ============ ALLEGIANCE + WEALTH ROW ============ */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 1.2rem;
+  }
+
+  .allegiance {
+    background:
+      radial-gradient(circle at 70% 30%, var(--hot) 0%, transparent 40%),
+      linear-gradient(135deg, var(--bg-deep) 0%, var(--dark-bloom) 60%, var(--blood-deep) 100%);
+    border: 3px solid var(--hot);
+    padding: 1.3rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 0 30px rgba(255,45,142,0.4),
+      5px 5px 0 var(--bg-deep);
+  }
+  .allegiance::before {
+    /* huge background skull/sigil */
+    content: "✶";
+    position: absolute;
+    top: -30px; right: -20px;
+    font-size: 12rem;
+    color: rgba(255,45,142,0.15);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .allegiance .lbl {
+    font-family: "Zen Dots", monospace;
+    font-size: 0.65rem;
+    color: var(--scarf-bright);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+  .allegiance .name {
+    font-family: "Anton", sans-serif;
+    font-size: 3rem;
+    color: var(--ink-white);
+    line-height: 0.95;
+    margin: 0.3rem 0;
+    text-shadow: 3px 3px 0 var(--blood-deep), 5px 5px 0 var(--bg-deep);
+  }
+  .allegiance .name em {
+    font-style: italic;
+    color: var(--hot-bright);
+  }
+  .allegiance .gifts {
+    margin-top: 0.6rem;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 1rem;
+    color: var(--ink-cream);
+    letter-spacing: 0.12em;
+  }
+  .allegiance .gifts span {
+    background: var(--scarf-bright);
+    color: var(--bg-deep);
+    padding: 0.15rem 0.5rem;
+    margin: 0 0.2rem;
+  }
+
+  .wealth-rank {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .rank-bar {
+    background: var(--panel);
+    border: 2px solid var(--ink-white);
+    padding: 0.8rem 1rem;
+    box-shadow: 4px 4px 0 var(--scarf);
+  }
+  .rank-bar .lbl {
+    font-family: "Zen Dots", monospace;
+    font-size: 0.6rem;
+    color: var(--cyan);
+    letter-spacing: 0.2em;
+  }
+  .rank-bar .vals {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    margin-top: 0.2rem;
+  }
+  .rank-bar .big {
+    font-family: "Anton", sans-serif;
+    font-size: 2.4rem;
+    color: var(--scarf-bright);
+    line-height: 1;
+    text-shadow: 2px 2px 0 var(--bg-deep);
+  }
+  .rank-bar .xp {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 1rem;
+    color: var(--ink-cream);
+    letter-spacing: 0.1em;
+  }
+
+  .coins-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+  .coin-cell {
+    background: var(--panel);
+    border: 2px solid var(--ink-white);
+    padding: 0.6rem 0.4rem;
+    text-align: center;
+    box-shadow: 3px 3px 0 var(--hair-deep);
+  }
+  .coin-cell .lbl {
+    font-family: "Zen Dots", monospace;
+    font-size: 0.55rem;
+    color: var(--cyan);
+    letter-spacing: 0.15em;
+  }
+  .coin-cell .v {
+    font-family: "Anton", sans-serif;
+    font-size: 1.8rem;
+    color: var(--ink-white);
+    line-height: 1;
+    margin-top: 0.15rem;
+  }
+  .coin-cell.coins .v { color: var(--scarf-bright); }
+
+  /* ============ APPEARANCE ============ */
+  .appearance-panel {
+    background: linear-gradient(180deg, var(--panel) 0%, var(--panel-deep) 100%);
+    border: 3px solid var(--ink-white);
+    padding: 1.4rem 1.5rem;
+    position: relative;
+    box-shadow: 5px 5px 0 var(--hot);
+  }
+  .appearance-panel::before {
+    content: "";
+    position: absolute;
+    top: -3px; right: 20px;
+    width: 100px; height: 6px;
+    background: var(--hot);
+  }
+  .appearance-panel p {
+    font-size: 0.95rem;
+    color: var(--ink-cream);
+    line-height: 1.7;
+    margin-bottom: 0.8rem;
+  }
+  .appearance-panel p:last-child { margin-bottom: 0; }
+  .appearance-panel em {
+    color: var(--scarf-bright);
+    font-style: italic;
+    font-weight: 500;
+  }
+  .appearance-panel strong {
+    color: var(--hot-bright);
+    font-weight: 500;
+  }
+
+  /* ============ FOOTER ============ */
+  footer.colophon {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    border-top: 2px dashed var(--ink-shade);
+    font-family: "Zen Dots", monospace;
+    font-size: 0.6rem;
+    color: var(--ink-shade);
+    letter-spacing: 0.2em;
+  }
+  footer.colophon .pip { color: var(--hot-bright); margin: 0 0.6rem; }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 760px) {
+    .main-grid { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    .hud-row { grid-template-columns: repeat(2, 1fr); }
+    .attitudes { grid-template-columns: repeat(2, 1fr); }
+    .cv-grid { grid-template-columns: 1fr; }
+    .mount-stats { grid-template-columns: 1fr; }
+    h1.character-name { font-size: 3.2rem; }
+    .epithet { font-size: 1rem; }
+    .portrait-frame { max-width: 280px; margin: 0 auto; }
+    .title-inner { padding: 1.2rem 1.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<article class="document">
+
+  <!-- ============ TITLE BAR ============ -->
+  <div class="title-bar">
+    <div class="title-inner">
+      <div class="eyebrow-row">
+        <span class="tag">FILE 002</span>
+        <span class="tag hot">ADVENTURER</span>
+        <span class="tag cyan">BREAK!! β0.9</span>
+        <span class="blink">▶ STATUS: ERRANT</span>
+      </div>
+      <h1 class="character-name">
+        <span class="given">MARIAH</span> <span class="family">REDWING</span>
+      </h1>
+      <div class="epithet">
+        ✶ <span class="glow">MURDER PRINCESS</span> of the Antlered Court ✶
+      </div>
+
+      <div class="hud-row">
+        <div class="hud-cell"><div class="lbl">RANK</div><div class="val">02</div></div>
+        <div class="hud-cell"><div class="lbl">XP/NEXT</div><div class="val">06</div></div>
+        <div class="hud-cell"><div class="lbl">HEARTS</div><div class="val">♥♥♥</div></div>
+        <div class="hud-cell dark"><div class="lbl">ALLEGIANCE</div><div class="val">DARK</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MAIN GRID ============ -->
+  <div class="main-grid">
+
+    <!-- LEFT: portrait + ID -->
+    <div class="portrait-stack">
+      <div class="portrait-frame">
+        <img src="mariah.png" alt="Mariah Redwing portrait" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+
+      <div class="id-card">
+        <h3>▌ ID / 識別</h3>
+        <div class="id-row"><span class="k">CALLING</span><span class="v">Murder Princess</span></div>
+        <div class="id-row"><span class="k">SPECIES</span><span class="v">Tenebrate</span></div>
+        <div class="id-row"><span class="k">HOMELAND</span><span class="v">Wishful Dark</span></div>
+        <div class="id-row"><span class="k">HISTORY</span><span class="v">Knight Errant</span></div>
+        <div class="id-row"><span class="k">LANGUAGES</span><span class="v">Low Speech<br>Dark Tongue</span></div>
+        <div class="id-row"><span class="k">PLAYER</span><span class="v">Jordan</span></div>
+      </div>
+
+      <div class="id-card" style="box-shadow: 4px 4px 0 var(--hot);">
+        <h3 style="color: var(--hot-bright);">▌ PURVIEWS &nbsp;<span style="background: var(--scarf-bright); color: var(--bg-deep); padding: 0.1rem 0.4rem; font-size: 0.7rem;">+2</span></h3>
+        <p style="font-size: 0.85rem; color: var(--ink-cream); font-style: italic; line-height: 1.5;">
+          Forthright communication, knowledge of vanquished evils, finding your courage.
+        </p>
+      </div>
+    </div>
+
+    <!-- RIGHT: stats -->
+    <div class="right-col">
+
+      <!-- Combat Values -->
+      <div class="combat-block">
+        <div class="block-title">Combat Values <span class="jp">戦闘値</span></div>
+        <div class="cv-grid">
+          <div class="cv-cell def">
+            <div class="lbl">▌ DEFENSE RATING</div>
+            <div class="num">15</div>
+            <div class="sub">base 10 · +4 armor, +1 shield (when not using 2-handed weapon), +1 cautious</div>
+          </div>
+          <div class="cv-cell spd">
+            <div class="lbl">▌ SPEED RATING</div>
+            <div class="num">V. FAST</div>
+            <div class="sub">decides how many Areas can move · 2 Areas</div>
+          </div>
+          <div class="cv-cell hearts">
+            <div class="lbl">▌ HEARTS TOTAL</div>
+            <div class="num">3</div>
+            <div class="sub">protecting me from injury</div>
+          </div>
+          <div class="cv-cell atk">
+            <div class="lbl">▌ ATTACK BONUS</div>
+            <div class="num">+2</div>
+            <div class="sub">add to my attack rolls</div>
+          </div>
+        </div>
+
+        <div class="attitudes">
+          <div class="att gold">
+            <div class="name">MIGHT</div>
+            <div class="num">8</div>
+            <div class="traits">smash<br>crush<br>lift</div>
+          </div>
+          <div class="att cyan">
+            <div class="name">DEFTNESS</div>
+            <div class="num">7</div>
+            <div class="traits">dodge<br>sneak<br>leap</div>
+          </div>
+          <div class="att">
+            <div class="name">GRIT</div>
+            <div class="num">11</div>
+            <div class="traits">cling<br>persist<br>press on</div>
+          </div>
+          <div class="att acid">
+            <div class="name">INSIGHT</div>
+            <div class="num">7</div>
+            <div class="traits">notice<br>know<br>remember</div>
+          </div>
+          <div class="att purple">
+            <div class="name">AURA</div>
+            <div class="num">9</div>
+            <div class="traits">persuade<br>inspire<br>terrify</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quirk -->
+      <div class="quirk-callout">
+        <div class="qname">⚠ Quirk // Past Injury</div>
+        <div class="qtext">+1 Def due to caution — benefit is <strong>lost if unaware of attack</strong>. −1 to Insight due to blow to the head.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ ABILITIES ============ -->
+  <div class="panel hot">
+    <div class="block-title">Abilities <span class="jp">スキル</span></div>
+
+    <div class="ability">
+      <h3>Wrath's Blade <span class="type">2H GUN · MECH MISSILE · RNG 2</span></h3>
+      <p>You call a Goblin Belcher into being through force of will. Takes a Turn to form, with 4 units of ammo; fire next turn. Made of Shade Iron, load takes 1 Action.</p>
+      <p class="stats">+2 ATK · +1 H FOR ROLLS 18+</p>
+    </div>
+
+    <div class="ability">
+      <h3>Withering Glare <span class="type">FOCUS · 1 FOE</span></h3>
+      <p>Stare at a single foe at the beginning of your Turn. They immediately lose 1 Heart. If they drop to 0 H, they flee or surrender.</p>
+    </div>
+
+    <div class="ability">
+      <h3>Tenacity <span class="type">REROLL · COSTS 1 ♥</span></h3>
+      <p>During a fight you may spend 1 Heart to reroll any Attacks, Stunts, Might or Grit checks or contests, taking the new result. If you are at 0 H, you must take an injury.</p>
+    </div>
+
+    <div class="ability">
+      <h3>Shadow Sight <span class="type">PASSIVE</span></h3>
+      <p>You see well in the dark and are immune to the Obscured battlefield condition.</p>
+    </div>
+
+    <div class="ability dark">
+      <h3>Dark Gift — Horns or Antlers <span class="type">TENEBRATE MARK</span></h3>
+      <p>The brand of her people, worn aloft. Tall. Unrepentant.</p>
+    </div>
+
+    <div class="ability dark">
+      <h3>✶ Wrath Bolt <span class="type">DARK · RNG 1 / ENVELOP</span></h3>
+      <p>You fill your hand with dark, crackling energy. You can fire Wrath Bolts at an enemy up to 1 Battlefield area away (as Thrown Weapon) which does 1 Heart of Dark damage on a successful attack, or envelop your Wrath's Blade with this energy to deal Dark damage instead of Mundane damage.</p>
+    </div>
+  </div>
+
+  <!-- ============ INVENTORY ============ -->
+  <div class="panel gold">
+    <div class="block-title">Inventory <span class="jp">所持品 · 5/10 SLOTS</span></div>
+
+    <div class="inv-grid">
+      <div class="inv-slot">
+        <div class="slot-n">01</div>
+        <div class="item">Medium Armor <span class="note">questing plate</span></div>
+        <div class="tag-tiny">+4 DEF</div>
+      </div>
+      <div class="inv-slot">
+        <div class="slot-n">02</div>
+        <div class="item">Standard Shield <span class="note">heraldic</span></div>
+        <div class="tag-tiny">+1 DEF</div>
+      </div>
+      <div class="inv-slot">
+        <div class="slot-n">03</div>
+        <div class="item">Holy Icon, Sacred Chain <span class="note">use to ward off Asura</span></div>
+        <div class="tag-tiny gold">SACRED</div>
+      </div>
+      <div class="inv-slot">
+        <div class="slot-n">04</div>
+        <div class="item">Standard Sword <span class="note">+1 H for attack rolls 20+</span></div>
+        <div class="tag-tiny hot">BLADE</div>
+      </div>
+      <div class="inv-slot">
+        <div class="slot-n">05</div>
+        <div class="item">Useful Beak <span class="note">hold something · produces 1 egg/ration per day · 12 slots w/ harness</span></div>
+        <div class="tag-tiny gold">UTILITY</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MOUNT ============ -->
+  <div class="mount">
+    <div class="mount-name">SNOOT-SNOOT</div>
+    <div class="mount-species">▶ MOKKO-DO · companion creature</div>
+    <div class="mount-stats">
+      <div class="mount-stat"><div class="k">ATK</div><div class="v">3 ♥</div></div>
+      <div class="mount-stat"><div class="k">DEF</div><div class="v">11</div></div>
+      <div class="mount-stat"><div class="k">SPD</div><div class="v">FAST</div></div>
+    </div>
+    <div class="mount-note">▌ Requires an Aura Allegiance points (Dark or Bright) contest.</div>
+  </div>
+
+  <!-- ============ ALLEGIANCE + WEALTH ============ -->
+  <div class="two-col">
+    <div class="allegiance">
+      <div class="lbl">▌ SWORN TO</div>
+      <div class="name">THE <em>DARK</em></div>
+      <div class="gifts">GIFTS <span>2</span> · BRIGHT PTS <span style="background:var(--ink-white);">0</span></div>
+    </div>
+
+    <div class="wealth-rank">
+      <div class="rank-bar">
+        <div class="lbl">▌ RANK / EXPERIENCE</div>
+        <div class="vals">
+          <span class="big">02</span>
+          <span class="xp">XP <strong style="color:var(--scarf-bright);">6</strong> / next rank</span>
+        </div>
+      </div>
+      <div class="coins-row">
+        <div class="coin-cell"><div class="lbl">STONES</div><div class="v">—</div></div>
+        <div class="coin-cell coins"><div class="lbl">COINS</div><div class="v">2</div></div>
+        <div class="coin-cell"><div class="lbl">GEMS</div><div class="v">—</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ APPEARANCE ============ -->
+  <div class="appearance-panel" style="margin-top: 1.2rem;">
+    <div class="block-title">Physical Appearance <span class="jp">外見</span></div>
+    <p>A small <em>Tenebrate</em> girl with violet skin and bright, dark-pupiled eyes set in a soft, picture-book face. Her hair is short and periwinkle-blue, cut just past the jaw, pointed ears showing through. A great pair of warm-brown antlers branches above her head — her <strong>Dark Gift</strong>, sized for someone three times her height, worn without apology.</p>
+    <p>She wears questing plate of dull steel over a tunic of deep teal, with a long mustard-gold scarf wound at her throat and trailing behind her like a banner. A round wooden shield rides at her back. The armor is fitted but heavy; she stands with feet planted, knees bent, in the brace of someone used to recoil.</p>
+    <p>In her hands, the dissonance: a <em>Goblin Belcher</em> of riveted iron and stained wood, its muzzle hammered into the leering, fanged maw of a goblin's head. The barrel is taller than her torso. She smiles softly while holding it, the way a child might smile while holding a favourite toy.</p>
+  </div>
+
+  <footer class="colophon">
+    BREAK!! RPG β0.9 <span class="pip">✦</span> © REYNALDO MADRIÑÁN &amp; CARLO TARTAGLIA 2023 <span class="pip">✦</span> PLAYER: JORDAN <span class="pip">✦</span> ▶ END OF FILE
+  </footer>
+
+</article>
+
+</body>
+</html>

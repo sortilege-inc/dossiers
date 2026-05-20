@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier — Dame Eleanor d'Agen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --vellum: #f1ecdb;
+    --vellum-dark: #e2dabd;
+    --iron: #1c1814;
+    --iron-soft: #3d352a;
+    --iron-faint: #6e6354;
+    --azure: #3a6c95;
+    --azure-deep: #244a6c;
+    --azure-bright: #5c8ab1;
+    --water: #6fa3c0;
+    --argent: #b4bdc8;
+    --argent-deep: #7c8794;
+    --wyvern: #4a6a3f;
+    --wyvern-deep: #2c4221;
+    --gilt: #a88a3f;
+    --gilt-deep: #7a6228;
+    --rose: #8b3a3a;
+    --rule: #b8ac86;
+    --rule-soft: #c9bf9b;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--vellum-dark);
+    color: var(--iron);
+    font-family: "IM Fell English", "Cormorant Garamond", Georgia, serif;
+    font-size: 17px; line-height: 1.65; font-weight: 400;
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 15% 8%, rgba(58, 108, 149, 0.06) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 92%, rgba(74, 106, 63, 0.05) 0%, transparent 55%);
+    min-height: 100vh; padding: 2rem 1rem;
+  }
+  .document {
+    max-width: 880px; margin: 0 auto;
+    background: var(--vellum);
+    padding: 4rem 4.5rem 5rem;
+    box-shadow: 0 1px 2px rgba(28,24,20,.10), 0 8px 32px rgba(28,24,20,.14);
+    position: relative; border: 1px solid var(--rule);
+  }
+  .document::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--azure-deep) 0%, var(--azure) 20%, var(--argent) 40%, var(--vellum-dark) 50%, var(--argent) 60%, var(--azure) 80%, var(--azure-deep) 100%);
+  }
+  .document::after {
+    content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--rule) 20%, var(--gilt) 50%, var(--rule) 80%, transparent 100%);
+  }
+  header.title-block { text-align: center; border-bottom: 2px solid var(--iron); padding-bottom: 2rem; margin-bottom: 3rem; position: relative; }
+  header.title-block::after { content: "✦"; display: block; color: var(--azure); font-size: 1rem; margin: 1rem auto 0; letter-spacing: 1em; padding-left: 1em; }
+  .eyebrow { font-family: "IM Fell English SC", serif; font-size: 0.78rem; letter-spacing: 0.4em; color: var(--iron-faint); text-transform: uppercase; margin-bottom: 1.5rem; }
+  h1.character-name { font-family: "IM Fell English", serif; font-weight: 400; font-size: 3.4rem; line-height: 1.05; margin: 0 0 0.5rem; letter-spacing: 0.01em; color: var(--iron); }
+  .character-name .given { font-style: italic; color: var(--azure-deep); }
+  .character-name .small { font-size: 0.45em; color: var(--iron-faint); font-style: italic; display: block; margin-top: 0.5rem; letter-spacing: 0.04em; }
+  .epithets { font-family: "IM Fell English", serif; font-style: italic; font-size: 1.05rem; color: var(--iron-soft); margin: 0.8rem 0 1rem; }
+  .vitals { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap; font-family: "IM Fell English SC", serif; font-size: 0.78rem; letter-spacing: 0.18em; color: var(--iron-soft); }
+  .vitals span { border-left: 1px solid var(--rule); padding-left: 1.25rem; }
+  .vitals span:first-child { border-left: none; padding-left: 0; }
+
+  /* Blazon — checky azure and argent */
+  .blazon { width: 110px; height: 130px; margin: 0 auto 1.5rem; display: block; }
+
+  section { margin-bottom: 3rem; }
+  h2.section-title { font-family: "IM Fell English SC", serif; font-weight: 400; font-size: 1rem; letter-spacing: 0.3em; color: var(--azure-deep); text-transform: uppercase; border-bottom: 1px solid var(--rule); padding-bottom: 0.5rem; margin: 0 0 1.5rem; position: relative; }
+  h2.section-title::before { content: "✦"; color: var(--gilt); margin-right: 0.7rem; font-size: 0.85em; }
+  h3.subhead { font-family: "IM Fell English", serif; font-weight: 400; font-size: 1.35rem; color: var(--wyvern-deep); margin: 1.6rem 0 0.5rem; font-style: italic; }
+  h4.entry-label { font-family: "IM Fell English SC", serif; font-weight: 400; font-size: 0.8rem; letter-spacing: 0.2em; color: var(--iron); text-transform: uppercase; margin: 1rem 0 0.25rem; }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0.5rem 0 1rem 1.5rem; padding: 0; }
+  li { margin-bottom: 0.4rem; }
+  em { color: var(--iron-soft); }
+  strong { font-weight: 600; color: var(--iron); }
+  .drop-cap::first-letter { font-family: "IM Fell English", serif; font-size: 3.4rem; line-height: 0.85; float: left; padding: 0.3rem 0.6rem 0 0; color: var(--azure-deep); font-weight: 400; }
+
+  table.dossier-table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.96rem; }
+  table.dossier-table th { text-align: left; font-family: "IM Fell English SC", serif; font-weight: 400; font-size: 0.74rem; letter-spacing: 0.18em; color: var(--iron-faint); text-transform: uppercase; padding: 0.5rem 0.75rem; border-bottom: 1.5px solid var(--iron); }
+  table.dossier-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  table.dossier-table td:first-child { font-family: "IM Fell English", serif; font-weight: 500; color: var(--iron); padding-right: 1.5rem; }
+  table.dossier-table tr:last-child td { border-bottom: none; }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin: 1rem 0; }
+  .stat-cell { text-align: center; padding: 0.8rem 0.5rem; border: 1px solid var(--rule); background: rgba(255,255,255,.35); }
+  .stat-cell .label { font-family: "IM Fell English SC", serif; font-size: 0.72rem; letter-spacing: 0.15em; color: var(--iron-faint); text-transform: uppercase; margin-bottom: 0.25rem; }
+  .stat-cell .value { font-family: "IM Fell English", serif; font-size: 1.8rem; font-weight: 500; color: var(--iron); line-height: 1; }
+  .stat-cell .gloss { font-family: "IM Fell English", serif; font-style: italic; font-size: 0.78rem; color: var(--iron-faint); margin-top: 0.3rem; }
+
+  .derived-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin: 0.5rem 0 1.5rem; font-size: 0.92rem; }
+  .derived-cell { border: 1px dotted var(--rule); padding: 0.55rem 0.7rem; background: rgba(255,255,255,.25); }
+  .derived-cell .label { font-family: "IM Fell English SC", serif; font-size: 0.68rem; letter-spacing: 0.14em; color: var(--iron-faint); text-transform: uppercase; }
+  .derived-cell .value { font-family: "IM Fell English", serif; font-weight: 500; color: var(--iron); }
+
+  .social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0 1.5rem; }
+  .social-cell { border: 1px solid var(--rule); padding: 1rem; background: rgba(255,255,255,.35); }
+  .social-cell .label { font-family: "IM Fell English SC", serif; font-size: 0.74rem; letter-spacing: 0.2em; color: var(--iron-faint); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .social-cell .value { font-family: "IM Fell English", serif; font-size: 2.1rem; color: var(--azure-deep); font-weight: 500; line-height: 1; }
+  .social-cell .delta { font-family: "IM Fell English", serif; font-style: italic; font-size: 0.88rem; color: var(--iron-faint); margin-top: 0.3rem; }
+  .social-cell.glory { border-color: var(--gilt); background: rgba(168,138,63,.08); }
+  .social-cell.glory .value { color: var(--gilt-deep); }
+  .social-cell.honour { border-color: var(--rose); background: rgba(139,58,58,.05); }
+  .social-cell.honour .value { color: var(--rose); }
+
+  .trait-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.95rem; }
+  .trait-table td { padding: 0.35rem 0.5rem; border-bottom: 1px dotted var(--rule-soft); }
+  .trait-table tr:last-child td { border-bottom: none; }
+  .trait-table .virtue, .trait-table .vice { font-family: "IM Fell English", serif; width: 28%; }
+  .trait-table .virtue { text-align: right; padding-right: 0.8rem; }
+  .trait-table .vice { color: var(--iron-faint); padding-left: 0.8rem; }
+  .trait-table .vnum { font-family: "IM Fell English", serif; text-align: center; width: 3rem; font-weight: 500; color: var(--iron); }
+  .trait-table .dominant .virtue { color: var(--azure-deep); font-weight: 500; }
+  .trait-table .dominant .vnum.high { color: var(--azure-deep); }
+  .trait-table .religious .virtue::after { content: "  †"; color: var(--gilt); font-size: 0.85em; }
+  .trait-table .balanced .virtue, .trait-table .balanced .vice { color: var(--iron-faint); font-style: italic; }
+
+  .skill-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.4rem 1.5rem; margin: 1rem 0; }
+  .skill-row { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dotted var(--rule-soft); padding: 0.2rem 0; }
+  .skill-row .name { font-family: "IM Fell English", serif; color: var(--iron); }
+  .skill-row .val { font-family: "IM Fell English", serif; font-weight: 500; color: var(--iron); margin-left: 1rem; }
+  .skill-row.high .name { color: var(--azure-deep); font-weight: 500; }
+  .skill-row.high .val { color: var(--azure-deep); }
+
+  .callout { border: 1px solid var(--azure); border-left: 4px solid var(--azure-deep); padding: 1rem 1.5rem; margin: 1.5rem 0; background: rgba(58,108,149,.06); }
+  .callout .label { font-family: "IM Fell English SC", serif; font-size: 0.74rem; letter-spacing: 0.2em; color: var(--azure-deep); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout.wyvern { border-color: var(--wyvern); border-left-color: var(--wyvern-deep); background: rgba(74,106,63,.06); }
+  .callout.wyvern .label { color: var(--wyvern-deep); }
+  .callout.gilt { border-color: var(--gilt); border-left-color: var(--gilt-deep); background: rgba(168,138,63,.08); }
+  .callout.gilt .label { color: var(--gilt-deep); }
+
+  .relations-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
+  .relation { padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+  .relation:last-child { border-bottom: none; }
+  .relation .name { font-family: "IM Fell English", serif; font-weight: 500; font-size: 1.12rem; color: var(--iron); margin-bottom: 0.15rem; }
+  .relation .name .role { font-style: italic; color: var(--iron-soft); font-size: 0.95rem; font-weight: 400; }
+  .relation .name .marker { font-family: "IM Fell English SC", serif; font-size: 0.72rem; letter-spacing: 0.15em; color: var(--gilt-deep); margin-left: 0.6rem; }
+  .relation .text { font-size: 0.96rem; color: var(--iron-soft); margin-top: 0.3rem; }
+
+  .horse-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0 1.5rem; }
+  .horse-card { border: 1px solid var(--rule); padding: 1rem; background: rgba(255,255,255,.3); }
+  .horse-card .horse-name { font-family: "IM Fell English", serif; font-weight: 500; font-size: 1.1rem; color: var(--iron); }
+  .horse-card .horse-type { font-family: "IM Fell English SC", serif; font-size: 0.7rem; letter-spacing: 0.16em; color: var(--iron-faint); text-transform: uppercase; margin: 0.2rem 0 0.6rem; }
+  .horse-card .horse-stats { font-size: 0.86rem; color: var(--iron-soft); line-height: 1.5; }
+  .horse-card .horse-stats strong { color: var(--iron); }
+
+  .timeline { border-left: 2px solid var(--gilt); padding-left: 1.5rem; margin: 1rem 0 1rem 0.5rem; }
+  .timeline-entry { margin-bottom: 1.5rem; position: relative; }
+  .timeline-entry::before { content: ""; position: absolute; left: -1.85rem; top: 0.5rem; width: 9px; height: 9px; border-radius: 50%; background: var(--vellum); border: 2px solid var(--gilt); }
+  .timeline-entry.chronicle::before { background: var(--azure); border-color: var(--azure-deep); }
+  .timeline-entry .when { font-family: "IM Fell English SC", serif; font-size: 0.74rem; letter-spacing: 0.18em; color: var(--iron-faint); text-transform: uppercase; margin-bottom: 0.25rem; }
+  .timeline-entry .what { font-family: "IM Fell English", serif; font-weight: 500; font-size: 1.08rem; color: var(--iron); margin-bottom: 0.25rem; }
+  .timeline-entry .detail { font-size: 0.95rem; color: var(--iron-soft); }
+
+  nav.toc { border: 1px solid var(--rule); padding: 1.25rem 1.5rem; margin-bottom: 3rem; background: rgba(255,255,255,.35); columns: 2; column-gap: 2rem; }
+  nav.toc .toc-label { font-family: "IM Fell English SC", serif; font-size: 0.72rem; letter-spacing: 0.25em; color: var(--iron-faint); text-transform: uppercase; margin-bottom: 0.6rem; column-span: all; }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; font-family: "IM Fell English", serif; }
+  nav.toc ol li { counter-increment: toc; font-size: 0.96rem; margin-bottom: 0.3rem; break-inside: avoid; }
+  nav.toc ol li::before { content: counter(toc, upper-roman) ". "; color: var(--gilt-deep); font-style: italic; margin-right: 0.3rem; }
+  nav.toc a { color: var(--iron); text-decoration: none; border-bottom: 1px dotted transparent; }
+  nav.toc a:hover { border-bottom-color: var(--azure); }
+
+  blockquote.commission { border-left: 3px solid var(--azure); padding: 0.6rem 1.2rem; margin: 1.2rem 1rem; font-style: italic; color: var(--iron-soft); background: rgba(58,108,149,.04); }
+  blockquote.commission::before { content: "“"; color: var(--azure); font-size: 1.5em; font-style: normal; margin-right: 0.15em; vertical-align: -0.2em; }
+  blockquote.commission::after { content: "”"; color: var(--azure); font-size: 1.5em; font-style: normal; margin-left: 0.15em; vertical-align: -0.2em; }
+
+  footer.colophon { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--rule); text-align: center; font-family: "IM Fell English SC", serif; font-size: 0.72rem; letter-spacing: 0.25em; color: var(--iron-faint); text-transform: uppercase; }
+
+  @media (max-width: 700px) {
+    body { padding: 1rem 0.5rem; }
+    .document { padding: 2rem 1.5rem 3rem; }
+    h1.character-name { font-size: 2.4rem; }
+    .stat-grid { gap: 0.25rem; }
+    .stat-cell { padding: 0.5rem 0.25rem; }
+    .stat-cell .value { font-size: 1.3rem; }
+    .derived-grid { grid-template-columns: repeat(2, 1fr); }
+    .social-grid { grid-template-columns: 1fr; }
+    .skill-grid { grid-template-columns: 1fr; }
+    .horse-grid { grid-template-columns: 1fr; }
+    nav.toc { columns: 1; }
+    .vitals { gap: 0.75rem; font-size: 0.7rem; }
+    .vitals span { border-left: none; padding-left: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="document">
+
+  <header class="title-block">
+    <div class="eyebrow">Knight Errant Dossier · Aquitaine · The Year of Our Lord 512</div>
+
+    <!-- Blazon: checky azure and argent -->
+    <svg class="blazon" viewBox="0 0 110 130" xmlns="http://www.w3.org/2000/svg" aria-label="Checky azure and argent">
+      <defs>
+        <clipPath id="shieldClip">
+          <path d="M 8 8 L 102 8 L 102 60 Q 102 95 55 122 Q 8 95 8 60 Z" />
+        </clipPath>
+      </defs>
+      <!-- field -->
+      <rect x="8" y="8" width="94" height="120" fill="#e8e2cf" clip-path="url(#shieldClip)"/>
+      <!-- checky pattern: 6 columns x 8 rows -->
+      <g clip-path="url(#shieldClip)">
+        <!-- row 1 -->
+        <rect x="8"   y="8"   width="15.67" height="15" fill="#3a6c95"/>
+        <rect x="39.33" y="8" width="15.67" height="15" fill="#3a6c95"/>
+        <rect x="70.66" y="8" width="15.67" height="15" fill="#3a6c95"/>
+        <!-- row 2 -->
+        <rect x="23.67" y="23" width="15.67" height="15" fill="#3a6c95"/>
+        <rect x="55"    y="23" width="15.67" height="15" fill="#3a6c95"/>
+        <rect x="86.33" y="23" width="15.67" height="15" fill="#3a6c95"/>
+        <!-- row 3 -->
+        <rect x="8"   y="38" width="15.67" height="15" fill="#3a6c95"/>
+        <rect x="39.33" y="38" width="15.67" height="15" fill="#3a6c95"/>
+        <rect x="70.66" y="38" width="15.67" height="15" fill="#3a6c95"/>
+        <!-- row 4 -->
+        <rect x="23.67" y="53" width="15.67" height="15" fill="#3a6c95"/>
+        <rect x="55"    y="53" width="15.67" height="15" fill="#3a6c95"/>
+        <rect x="86.33" y="53" width="15.67" height="15" fill="#3a6c95"/>
+        <!-- row 5 -->
+        <rect x="8"   y="68" width="15.67" height="15" fill="#3a6c95"/>
+        <rect x="39.33" y="68" width="15.67" height="15" fill="#3a6c95"/>
+        <rect x="70.66" y="68" width="15.67" height="15" fill="#3a6c95"/>
+        <!-- row 6 -->
+        <rect x="23.67" y="83" width="15.67" height="15" fill="#3a6c95"/>
+        <rect x="55"    y="83" width="15.67" height="15" fill="#3a6c95"/>
+        <rect x="86.33" y="83" width="15.67" height="15" fill="#3a6c95"/>
+        <!-- row 7 -->
+        <rect x="8"   y="98" width="15.67" height="15" fill="#3a6c95"/>
+        <rect x="39.33" y="98" width="15.67" height="15" fill="#3a6c95"/>
+        <rect x="70.66" y="98" width="15.67" height="15" fill="#3a6c95"/>
+        <!-- row 8 -->
+        <rect x="23.67" y="113" width="15.67" height="15" fill="#3a6c95"/>
+        <rect x="55"    y="113" width="15.67" height="15" fill="#3a6c95"/>
+        <rect x="86.33" y="113" width="15.67" height="15" fill="#3a6c95"/>
+      </g>
+      <!-- shield outline -->
+      <path d="M 8 8 L 102 8 L 102 60 Q 102 95 55 122 Q 8 95 8 60 Z" fill="none" stroke="#1c1814" stroke-width="2"/>
+    </svg>
+
+    <h1 class="character-name">
+      Dame <span class="given">Eleanor</span> d'Agen
+      <span class="small">checky azure and argent &mdash; sent by the Lady of the Lake &mdash; <em>bring good unto the land</em></span>
+    </h1>
+    <p class="epithets">errant knight · Aquitanian Christian · sworn to Lady Nineve · she with the glowing skin and sky-blue eyes</p>
+    <div class="vitals">
+      <span>Aquitaine</span>
+      <span>Christian</span>
+      <span>Age 22 · Heir</span>
+      <span>Glory 2,000</span>
+      <span>Honour 15</span>
+    </div>
+  </header>
+
+  <figure style="float:right;margin:0 0 1.5em 2.5em;max-width:220px;clear:right;">
+    <img src="dame_eleanor.png" alt="Dame Eleanor d'Agen portrait" style="width:100%;display:block;border-radius:3px;">
+  </figure>
+
+  <nav class="toc">
+    <div class="toc-label">Contents</div>
+    <ol>
+      <li><a href="#identity">Identity &amp; Station</a></li>
+      <li><a href="#mechanical">Mechanical Profile</a></li>
+      <li><a href="#interior">Interior Architecture</a></li>
+      <li><a href="#household">Household, Horses &amp; Heraldry</a></li>
+      <li><a href="#timeline">Life Timeline</a></li>
+      <li><a href="#chronicle">Chronicle of the Nucker</a></li>
+      <li><a href="#road">On the Road Ahead</a></li>
+    </ol>
+  </nav>
+
+  <section id="identity">
+    <h2 class="section-title">I. Identity &amp; Station</h2>
+
+    <p class="drop-cap">Dame Eleanor d'Agen is a knight errant of Aquitaine, two-and-twenty, sworn in homage to Lady Nineve of the Lake. She is, by the unusual office her liege has set upon her, set loose upon the world with the simple commission to <em>bring good unto the land</em>. She rides without asking coin or patronage, suffers from the poor equipment that follows such a vow, and musters in its place more passion and determination than most knights of her age. She is the heir of her father, Sir Edern; her mother, Lady Elaine, lives. She is a Christian after the Aquitanian fashion, devout but not severe. She has thirteen-hundred Glory of her own earning to her name, on top of seven hundred inherited.</p>
+
+    <blockquote class="commission">Set loose upon the world with the simple mission to bring good unto the land by her liege, the Lady of the Lake, Dame Eleanor seeks to aid whomever she can. Without asking for coin or patronage, Dame Eleanor suffers from poor equipment but is able to muster more passion and determination than most other knights. She travels along the road trying to fulfill her mission.</blockquote>
+
+    <h4 class="entry-label">Distinctive Features</h4>
+    <p>Glowing skin. Sky-blue eyes. A lithe frame. She is APP 16 &mdash; striking &mdash; and the glow is the sort of thing that does not entirely belong to mortal Aquitaine. The eyes are the colour of the lake at noon. Whether this is a blessing of her liege, the natural inheritance of an Aquitanian Christian of unusual piety, or something the Lady has given her without comment, is not the sort of question that has ever been answered out loud.</p>
+
+    <h4 class="entry-label">Arms</h4>
+    <p>Checky azure and argent. A clean, bold field, more becoming a great lord's banner than the small means of a knight errant. Flanked, on the proper escutcheon, by two wyverns vert &mdash; the Aquitanian supporters.</p>
+
+    <h4 class="entry-label">Manner of Presence</h4>
+    <p>She is determined in a way that registers, on most knights' instruments, as a kind of reproach. She does not lecture. She does not need to. She is Energetic 16 and Temperate 16 &mdash; she neither tires of doing the work nor overshoots into excess &mdash; and she is Valorous 15, which the people who travel with her notice before her glowing skin. She is Courteous and well-spoken, and she sings: Singing 13 is her best non-combat skill outside First Aid.</p>
+  </section>
+
+  <section id="mechanical">
+    <h2 class="section-title">II. Mechanical Profile</h2>
+
+    <h3 class="subhead">Characteristics</h3>
+    <div class="stat-grid">
+      <div class="stat-cell"><div class="label">SIZ</div><div class="value">13</div><div class="gloss">tall enough</div></div>
+      <div class="stat-cell"><div class="label">DEX</div><div class="value">12</div><div class="gloss">quick</div></div>
+      <div class="stat-cell"><div class="label">STR</div><div class="value">14</div><div class="gloss">strong</div></div>
+      <div class="stat-cell"><div class="label">CON</div><div class="value">10</div><div class="gloss">ordinary</div></div>
+      <div class="stat-cell"><div class="label">APP</div><div class="value">16</div><div class="gloss">striking</div></div>
+    </div>
+
+    <div class="derived-grid">
+      <div class="derived-cell"><div class="label">Knockdown</div><div class="value">13</div></div>
+      <div class="derived-cell"><div class="label">Weapon Dmg</div><div class="value">5d6</div></div>
+      <div class="derived-cell"><div class="label">Brawling Dmg</div><div class="value">5</div></div>
+      <div class="derived-cell"><div class="label">Movement</div><div class="value">18</div></div>
+      <div class="derived-cell"><div class="label">Major Wound</div><div class="value">10</div></div>
+      <div class="derived-cell"><div class="label">Healing Rate</div><div class="value">2</div></div>
+      <div class="derived-cell"><div class="label">Total Hit Points</div><div class="value">23</div></div>
+      <div class="derived-cell"><div class="label">Unconscious</div><div class="value">6</div></div>
+    </div>
+
+    <p><em>Current HP 23. No wounds carried. Heir to her father's line.</em></p>
+
+    <h3 class="subhead">Glory, Honour &amp; the Standing Boon</h3>
+    <div class="social-grid">
+      <div class="social-cell glory">
+        <div class="label">Glory</div>
+        <div class="value">2,000</div>
+        <div class="delta">1,850 entering 512, +150 by year's end</div>
+      </div>
+      <div class="social-cell honour">
+        <div class="label">Honour</div>
+        <div class="value">15</div>
+        <div class="delta">solid, not yet famed</div>
+      </div>
+      <div class="social-cell">
+        <div class="label">Homage</div>
+        <div class="value">16</div>
+        <div class="delta">Lady Nineve of the Lake</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="label">Chivalric Orders from Her Lady</div>
+      <p>Set upon the world by Lady Nineve to do good, Dame Eleanor may invoke her <strong>Chivalry</strong> passion for the purposes of Inspiration <em>without needing to attain the Chivalric Knight ideal</em>. This is the standing boon of her commission and the single mechanical fact that distinguishes her from any other Aquitanian knight of her means.</p>
+    </div>
+
+    <h3 class="subhead">Passions</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Passion</th><th>Value</th><th>Court</th></tr></thead>
+      <tr><td>Homage &mdash; Lady Nineve</td><td>16</td><td>Fidelitas</td></tr>
+      <tr><td>Chivalry</td><td>13</td><td>Civilitas</td></tr>
+      <tr><td>Hospitality</td><td>12</td><td>Civilitas</td></tr>
+      <tr><td>Duty &mdash; Peasants</td><td>12</td><td>Fidelitas</td></tr>
+      <tr><td>Love &mdash; Family</td><td>10</td><td>Fervor</td></tr>
+      <tr><td>Station</td><td>8</td><td>Civilitas</td></tr>
+      <tr><td>Devotion &mdash; Deity</td><td>8</td><td>Adoratio</td></tr>
+      <tr><td>Fidelitas (court total)</td><td>28</td><td>strongest court</td></tr>
+      <tr><td>Civilitas (court total)</td><td>33</td><td>strongest civic identity</td></tr>
+      <tr><td>Fervor (court total)</td><td>10</td><td></td></tr>
+      <tr><td>Adoratio (court total)</td><td>8</td><td></td></tr>
+    </table>
+
+    <p><em>Note: she has no Fealty entered. Her one feudal tie is the homage she has given Lady Nineve, and the Duty (Peasants) that follows from it. She owes service to no other lord.</em></p>
+
+    <h3 class="subhead">Traits</h3>
+    <p><em>Christian religious virtues marked &dagger;. Five traits are balanced 10/10 &mdash; the open ground on which she will be tested.</em></p>
+
+    <table class="trait-table">
+      <tr class="balanced religious"><td class="virtue">Chaste</td><td class="vnum">12</td><td class="vnum">8</td><td class="vice">Lustful</td></tr>
+      <tr class="dominant"><td class="virtue">Energetic</td><td class="vnum high">16</td><td class="vnum">4</td><td class="vice">Lazy</td></tr>
+      <tr class="balanced religious"><td class="virtue">Forgiving</td><td class="vnum">10</td><td class="vnum">10</td><td class="vice">Vengeful</td></tr>
+      <tr><td class="virtue">Generous</td><td class="vnum">12</td><td class="vnum">8</td><td class="vice">Selfish</td></tr>
+      <tr class="balanced"><td class="virtue">Honest</td><td class="vnum">10</td><td class="vnum">10</td><td class="vice">Deceitful</td></tr>
+      <tr><td class="virtue">Just</td><td class="vnum">12</td><td class="vnum">8</td><td class="vice">Arbitrary</td></tr>
+      <tr class="religious"><td class="virtue">Merciful</td><td class="vnum">13</td><td class="vnum">7</td><td class="vice">Cruel</td></tr>
+      <tr class="balanced religious"><td class="virtue">Modest</td><td class="vnum">10</td><td class="vnum">10</td><td class="vice">Proud</td></tr>
+      <tr class="balanced"><td class="virtue">Prudent</td><td class="vnum">10</td><td class="vnum">10</td><td class="vice">Reckless</td></tr>
+      <tr class="religious"><td class="virtue">Spiritual</td><td class="vnum">13</td><td class="vnum">7</td><td class="vice">Worldly</td></tr>
+      <tr class="dominant religious"><td class="virtue">Temperate</td><td class="vnum high">16</td><td class="vnum">4</td><td class="vice">Indulgent</td></tr>
+      <tr class="balanced"><td class="virtue">Trusting</td><td class="vnum">10</td><td class="vnum">10</td><td class="vice">Suspicious</td></tr>
+      <tr class="dominant"><td class="virtue">Valorous</td><td class="vnum high">15</td><td class="vnum">5</td><td class="vice">Cowardly</td></tr>
+    </table>
+
+    <h4 class="entry-label">Directed Traits</h4>
+    <p>Generous (Service) +6 &mdash; the lived edge of her commission. When the work in front of her is service to someone who needs it, she gives without counting.</p>
+
+    <h3 class="subhead">Notable Skills</h3>
+
+    <h4 class="entry-label">Exceptional &mdash; 13 and above</h4>
+    <div class="skill-grid">
+      <div class="skill-row high"><span class="name">First Aid</span><span class="val">15</span></div>
+      <div class="skill-row high"><span class="name">Singing</span><span class="val">13</span></div>
+    </div>
+
+    <h4 class="entry-label">Strong &mdash; 10 to 12</h4>
+    <div class="skill-grid">
+      <div class="skill-row"><span class="name">Courtesy</span><span class="val">11</span></div>
+      <div class="skill-row"><span class="name">Folklore</span><span class="val">11</span></div>
+      <div class="skill-row"><span class="name">Awareness</span><span class="val">10</span></div>
+      <div class="skill-row"><span class="name">Hunting</span><span class="val">10</span></div>
+    </div>
+
+    <h4 class="entry-label">Mid-range &mdash; 6 to 8</h4>
+    <div class="skill-grid">
+      <div class="skill-row"><span class="name">Flirting</span><span class="val">8</span></div>
+      <div class="skill-row"><span class="name">Intrigue</span><span class="val">8</span></div>
+      <div class="skill-row"><span class="name">Literacy</span><span class="val">8</span></div>
+      <div class="skill-row"><span class="name">Orate</span><span class="val">8</span></div>
+      <div class="skill-row"><span class="name">Religion (Christian)</span><span class="val">8</span></div>
+      <div class="skill-row"><span class="name">Compose</span><span class="val">6</span></div>
+      <div class="skill-row"><span class="name">Dancing</span><span class="val">6</span></div>
+      <div class="skill-row"><span class="name">Play Instrument</span><span class="val">6</span></div>
+    </div>
+
+    <h4 class="entry-label">Baseline &mdash; 5 and below</h4>
+    <div class="skill-grid">
+      <div class="skill-row"><span class="name">Falconry</span><span class="val">5</span></div>
+      <div class="skill-row"><span class="name">Fashion</span><span class="val">5</span></div>
+      <div class="skill-row"><span class="name">Gaming</span><span class="val">5</span></div>
+      <div class="skill-row"><span class="name">Recognize</span><span class="val">5</span></div>
+      <div class="skill-row"><span class="name">Stewardship</span><span class="val">5</span></div>
+      <div class="skill-row"><span class="name">Chirurgery</span><span class="val">0</span></div>
+      <div class="skill-row"><span class="name">Industry</span><span class="val">0</span></div>
+    </div>
+
+    <h3 class="subhead">Combat</h3>
+
+    <h4 class="entry-label">Trained &mdash; 15</h4>
+    <div class="skill-grid">
+      <div class="skill-row high"><span class="name">Sword</span><span class="val">15</span></div>
+      <div class="skill-row high"><span class="name">Charge (lance, mounted)</span><span class="val">15</span></div>
+      <div class="skill-row high"><span class="name">Horsemanship</span><span class="val">15</span></div>
+    </div>
+
+    <h4 class="entry-label">Adequate</h4>
+    <div class="skill-grid">
+      <div class="skill-row"><span class="name">Brawling</span><span class="val">10</span></div>
+      <div class="skill-row"><span class="name">Spear</span><span class="val">6</span></div>
+      <div class="skill-row"><span class="name">Hafted</span><span class="val">6</span></div>
+      <div class="skill-row"><span class="name">2H Hafted</span><span class="val">6</span></div>
+      <div class="skill-row"><span class="name">Bow</span><span class="val">6</span></div>
+      <div class="skill-row"><span class="name">Crossbow</span><span class="val">6</span></div>
+      <div class="skill-row"><span class="name">Thrown Weapon</span><span class="val">6</span></div>
+      <div class="skill-row"><span class="name">Battle</span><span class="val">5</span></div>
+    </div>
+
+    <h3 class="subhead">Attacks &amp; Arms</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Weapon</th><th>Skill</th><th>Damage</th><th>Notes</th></tr></thead>
+      <tr><td>Arming Sword</td><td>15</td><td>6d6</td><td><em>blessed by a priest during the errantry; the elevated damage holds for its duration</em></td></tr>
+      <tr><td>Lance (Charge)</td><td>15</td><td>per Horse</td><td>mounted, in the lists or in the field</td></tr>
+      <tr><td>Dagger</td><td>10</td><td>2d6+5</td><td>at the belt; useful in close work</td></tr>
+      <tr><td>Spear</td><td>6</td><td>5d6</td><td>functional, not her instrument</td></tr>
+    </table>
+
+    <h3 class="subhead">Armour</h3>
+    <table class="dossier-table">
+      <thead><tr><th>Piece</th><th>Form</th><th>Notes</th></tr></thead>
+      <tr><td>Mail / Plate</td><td>Hauberk</td><td>the principal protection of her station</td></tr>
+      <tr><td>Textile</td><td>Aketon</td><td>worn beneath the mail</td></tr>
+      <tr><td>Helm</td><td>Open helm</td><td>face uncovered; the glow shows</td></tr>
+      <tr><td>Shield</td><td>Kite shield, checky azure and argent</td><td>+6 protection</td></tr>
+      <tr><td>Total Armour Protection</td><td>9 + 6</td><td>15 with shield engaged</td></tr>
+    </table>
+
+    <p><em>The poor equipment her commission imposes is felt here. The hauberk, the aketon, and the open helm are her means; she has no closed helm and no surcoat suited to a knight of her actual Glory.</em></p>
+
+    <div class="callout gilt">
+      <div class="label">Three Observations on the Sheet</div>
+      <p><strong>The whole bench of her traits is 10/10.</strong> Forgiving/Vengeful, Honest/Deceitful, Modest/Proud, Prudent/Reckless, Trusting/Suspicious. Five of her thirteen traits are exactly balanced. This is the open ground on which the errantry will test her &mdash; she has not yet been pushed in any of these directions, and play moves the needle.</p>
+      <p><strong>Her three peaks are Temperate 16, Energetic 16, Valorous 15.</strong> She is the woman who does the work, who does not overshoot, and who is not afraid. These are her "Famous" traits on the handout her player carries.</p>
+      <p><strong>First Aid 15 is the second-loudest number on her sheet.</strong> After Sword, Charge, and Horsemanship, it is her best skill. She is, before she is a sword, someone who can keep another body alive on the road. This will matter.</p>
+    </div>
+  </section>
+
+  <section id="interior">
+    <h2 class="section-title">III. Interior Architecture</h2>
+
+    <p>The structural fact of Dame Eleanor's interior is the <em>commission</em>. She has been given a piece of work by a being who is more than a feudal lord, and she carries it across an Aquitaine that is not arranged around her doing it.</p>
+
+    <h3 class="subhead">The Commission</h3>
+    <p>Lady Nineve of the Lake has set her loose upon the world to <em>bring good unto the land</em>. The phrasing is deliberate &mdash; not <em>upon her lord's lands</em>, not <em>upon Christian land</em>, but <em>the land</em>, undivided. The vow forbids her to ask for coin or patronage; the equipment that follows is the equipment that follows. She carries it without complaint. Her Homage to Lady Nineve is her highest Fidelitas value (16), and her Chivalry (13) is the instrument by which the commission is exercised in any given hour.</p>
+
+    <h3 class="subhead">The Engine</h3>
+    <p>Temperate 16 and Energetic 16, paired. She does not stop. She does not overdo. Most knights of her age fail on one of those two axes; she fails on neither. Add Valorous 15, and what she is, mechanically, is a person who shows up and keeps going, and is not afraid when the river hisses. The campaign asks knights to ride into trouble; she rides into it without needing to be talked into it.</p>
+
+    <h3 class="subhead">The Open Ground</h3>
+    <p>Five of her traits are 10/10. The errantry has tested her on Valour (she dove into a fae river), on Energy (she stayed on the bank all night), and on Mercy (she spared no anger when the boy baron took the credit). It has <em>not</em> tested her on Honesty, on Pride, on Trust, or on Vengefulness. The first time she is asked to lie cleanly for a good purpose &mdash; or asked to forgive someone who has cost her something dear &mdash; the dice will set those traits where they want to sit.</p>
+
+    <h3 class="subhead">Civilitas as Her Heaviest Court</h3>
+    <p>Her Civilitas total is 33 (Hospitality 12 + Station 8 + Chivalry 13). She is, in the language the system uses for what kind of knight a knight is, primarily a <em>civic</em> figure: she does courtesy, she does hospitality, she does the chivalric work in front of her. Her Fidelitas total is 28 &mdash; weighty, but only because of the Homage to her one extraordinary lord. Her Adoratio (Devotion 8) is real but not the centre of her gravity. Her Fervor (Love Family 10) is a banked ember, not a current flame.</p>
+
+    <h3 class="subhead">What She Is Not</h3>
+    <p>She is not a zealot &mdash; her Devotion (Deity) is only 8, the lowest of her named passions. She is not a Saxon-hater or a Pagan-baiter; the sheet records no Hate at all. She is not vengeful, not yet &mdash; Forgiving/Vengeful sits at 10/10 and has not been pushed. She is not a child of court; her Fashion is 5, her Intrigue is 8, her Dancing is 6. She is not a strategist; her Battle is 5. What she does, she does on the road.</p>
+  </section>
+
+  <section id="household">
+    <h2 class="section-title">IV. Household, Horses &amp; Heraldry</h2>
+
+    <h3 class="subhead">Family</h3>
+    <div class="relations-grid">
+
+      <div class="relation">
+        <div class="name">Sir Edern <span class="role">&mdash; her father</span><span class="marker">Glory 2,800</span></div>
+        <div class="text">Of Aquitanian stock. A knight of considerable standing in his own right &mdash; his Glory exceeds his daughter's, and at his death she will inherit it as the heir. He is the source of the 700 Glory she carried into knighthood. The specifics of his holdings and his current circumstances are not given on the sheet.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Lady Elaine <span class="role">&mdash; her mother</span><span class="marker">Glory 380</span></div>
+        <div class="text">Aquitanian noblewoman. Glory of her own, after the manner of well-born ladies. The lighter of her two parents on the page; the warmer in practice, by the implication of the daughter's Love (Family) passion.</div>
+      </div>
+
+      <div class="relation">
+        <div class="name">Family Characteristic <span class="role">&mdash; unrecorded</span><span class="marker">blank</span></div>
+        <div class="text">The sheet's Family Characteristic field is empty. Whatever it is &mdash; a gift, a flaw, a secret, an inherited talent &mdash; has not been written down yet. Open for the campaign to discover or assign.</div>
+      </div>
+
+    </div>
+
+    <h3 class="subhead">Liege</h3>
+    <div class="relations-grid">
+      <div class="relation">
+        <div class="name">Lady Nineve of the Lake <span class="role">&mdash; her liege</span><span class="marker">homage 16</span></div>
+        <div class="text">The Lady of the Lake. Not a feudal lord in the ordinary sense; an enchantress and a power, who has taken Eleanor's homage and set her upon her commission. She does not summon Eleanor for service in the field. She set her upon the road, and the road is the service. The standing boon Eleanor carries &mdash; that she may invoke her Chivalry passion for Inspiration without first attaining the Chivalric Knight ideal &mdash; is an expression of this homage. Eleanor's glowing skin and sky-blue eyes are quietly consistent with the patronage, though the sheet does not state cause.</div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Squire</h3>
+    <div class="relations-grid">
+      <div class="relation">
+        <div class="name">Esme <span class="role">&mdash; squire, age 16</span><span class="marker">Skill 14</span></div>
+        <div class="text">Esme is a squire so shy you scarcely believe she can even speak. She is competent (Skill 14) but does not draw attention to herself. She rides Eleanor's spare rouncy and keeps the kit.</div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Horses</h3>
+    <div class="horse-grid">
+      <div class="horse-card">
+        <div class="horse-name">Warhorse <em style="font-weight:400;color:var(--iron-faint);">— unnamed</em></div>
+        <div class="horse-type">Small Charger</div>
+        <div class="horse-stats">
+          <strong>SIZ</strong> 32 · <strong>DEX</strong> 13 · <strong>STR</strong> 30 · <strong>CON</strong> 12<br>
+          <strong>Armour</strong> 4 · <strong>Move</strong> 15<br>
+          <strong>Damage</strong> 3d6 / 5d6<br>
+          <strong>HP</strong> 44
+        </div>
+      </div>
+      <div class="horse-card">
+        <div class="horse-name">Chestnut</div>
+        <div class="horse-type">Small Rouncy &middot; best riding horse</div>
+        <div class="horse-stats">
+          <strong>CON</strong> 18 · <strong>Move</strong> 15<br>
+          <strong>HP</strong> 48<br>
+          her road horse, the one she actually rides
+        </div>
+      </div>
+      <div class="horse-card">
+        <div class="horse-name">Esme's Rouncy <em style="font-weight:400;color:var(--iron-faint);">— unnamed</em></div>
+        <div class="horse-type">Small Rouncy &middot; squire's horse</div>
+        <div class="horse-stats">
+          <strong>Move</strong> 15<br>
+          a lesser version of an ordinary rouncy
+        </div>
+      </div>
+    </div>
+    <p><em>Both rouncies are noted on the sheet as inferior versions of a normal charger and rouncy &mdash; the equipment penalty of the commission.</em></p>
+
+    <h3 class="subhead">Heraldry</h3>
+    <p>Her shield is <strong>checky azure and argent</strong> &mdash; a six-by-eight chequered field of sky-blue and silver, the same colours as the lake her liege keeps and the same colours as her own eyes. Two wyverns vert flank the proper escutcheon as the Aquitanian supporters of her family arms. The blazon is bold and old; it would not be out of place on a banner ten times its bearer's means.</p>
+  </section>
+
+  <section id="timeline">
+    <h2 class="section-title">V. Life Timeline</h2>
+
+    <div class="timeline">
+      <div class="timeline-entry">
+        <div class="when">c. 490 A.D.</div>
+        <div class="what">Born to Sir Edern and Lady Elaine of Aquitaine</div>
+        <div class="detail">Heir to her father's line.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">before play</div>
+        <div class="what">Inherited Glory</div>
+        <div class="detail">700 Glory, from her father's standing.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">before play</div>
+        <div class="what">Knighted</div>
+        <div class="detail">+1,000 Glory. The making of a knight is the loudest single line on her record.</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="when">before play</div>
+        <div class="what">Commissioned by Lady Nineve to the errantry</div>
+        <div class="detail">+150 Glory. She gives her homage and is set loose upon the world to <em>bring good unto the land</em>. The standing boon &mdash; Chivalry-as-Inspiration without the ideal &mdash; dates from this moment. Glory enters 512 at 1,850.</div>
+      </div>
+
+      <div class="timeline-entry chronicle">
+        <div class="when">Year 512</div>
+        <div class="what">Tracking the Nucker</div>
+        <div class="detail">+50 Glory. Eleanor and her companions take the trail of a fae river-serpent, a Nucker, that has carried off the son of a lord. The track crosses onto the lands of a boy baron, to whom they send word by an NPC knight as honour requires.</div>
+      </div>
+
+      <div class="timeline-entry chronicle">
+        <div class="when">Year 512</div>
+        <div class="what">The Return of Maelor</div>
+        <div class="detail">+100 Glory. The boy is brought home alive. The Nucker is dead. Glory closes the year at 2,000.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="chronicle">
+    <h2 class="section-title">VI. Chronicle of the Nucker</h2>
+
+    <p class="drop-cap">Year 512. The mission was the simple shape of Eleanor's commission: a boy named Maelor &mdash; son of a lord &mdash; had been taken into the water by a Nucker, a giant river-serpent of the fae country. Eleanor and a small company of knights took the trail.</p>
+
+    <h3 class="subhead">The Crossing of the Boy Baron's Lands</h3>
+    <p>The track led across the territory of a young baron, hardly out of his minority. Eleanor's company dispatched an NPC knight to the baron's seat with the courtesy a chivalric crossing required &mdash; word that they were upon his lands, and why. The hospitality of the form was kept. The boy baron sent no objection. The company pressed on.</p>
+
+    <h3 class="subhead">The First Attack &amp; the Damming of the Creek</h3>
+    <p>They came upon the Nucker by night and engaged it. The serpent broke and fled into the water, retreating to an underwater cave at the head of a lake. The company would not abandon the boy to whatever lay below. They dammed the creek that fed the lake and held the bank until morning, waiting for the water to drop or for the creature to come out.</p>
+
+    <h3 class="subhead">The Arrival of the Boy Baron</h3>
+    <p>In the morning the boy baron arrived in person. He insisted, with the prerogative of his rank and the eagerness of his age, on taking the creature himself. He was immediately seized and dragged underwater. He was knocked senseless almost in the same motion. The whole posture of the action shifted at once: not a hunt now, but a rescue inside a rescue.</p>
+
+    <h3 class="subhead">Eleanor Beneath the Water</h3>
+    <p>Eleanor shed her armour at the lake's edge &mdash; the hauberk, the aketon, the open helm, all of it &mdash; and went into the water. She swam into the underwater cave and surfaced in the airbubble within. Maelor was there. He was not bound. He was not afraid. He was wondering, when she found him, where his friend the Nucker had got to.</p>
+
+    <div class="callout wyvern">
+      <div class="label">The Boy &amp; the Serpent</div>
+      <p>Maelor's understanding of what had taken him was not what the company on the bank understood. He had not been captured in the way the lord, the baron, or the knights had imagined. He had been kept &mdash; in his own account &mdash; by something he considered a friend. This complication is not resolved on the page. It is held inside Eleanor's memory and not, so far as can be told from the sheet, in any other knight's.</p>
+    </div>
+
+    <h3 class="subhead">The Killing of the Nucker, &amp; the Crediting of It</h3>
+    <p>Eleanor and Maelor emerged from the cave at the moment one of the other knights of the company struck the killing blow upon the Nucker. A second knight, with quick presence of mind, took hold of the unconscious boy baron's sword hand, drove the boy baron's blade into the dying creature, hauled him to shore, and cried out that <em>the baron has killed the Nucker.</em> The baron came to. He was elated to learn this. The fiction was permitted to stand.</p>
+
+    <h3 class="subhead">The Escort Home</h3>
+    <p>The company escorted Maelor back to his family. The boy baron retains, so far as Eleanor knows, the public credit for the kill. Eleanor, the knight who actually went into the water for the boy, has said nothing of the matter to the baron's people. She has held the truth quietly and ridden on.</p>
+
+    <h3 class="subhead">Mechanical Trace</h3>
+    <p>+50 Glory for the Tracking. +100 Glory for the Return. Honour unchanged at 15. No wounds carried. No fame yet attached to the act &mdash; the kill is credited where the company let it be credited &mdash; but Eleanor leaves Year 512 at <strong>Glory 2,000</strong>, and the priest's blessing on her arming sword (6d6 damage) holds for the errantry's duration.</p>
+  </section>
+
+  <section id="road">
+    <h2 class="section-title">VII. On the Road Ahead</h2>
+
+    <h3 class="subhead">What She Carries Forward</h3>
+    <ul>
+      <li><strong>A blessed arming sword</strong>, 6d6, for the duration of the errantry. The priest is not named; the boon is real.</li>
+      <li><strong>A boy whose kidnapping was not what it appeared.</strong> Maelor is home. Whatever he was to the Nucker, and the Nucker to him, is a thread.</li>
+      <li><strong>A boy baron with stolen valour.</strong> The lie was told for the boy baron's face. It can be unsaid. It will not be unsaid by Eleanor unless something forces it.</li>
+      <li><strong>An unbattered sheet.</strong> Five traits at 10/10. No wounds. Twenty-three hit points. Glory 2,000. The errantry is young.</li>
+    </ul>
+
+    <h3 class="subhead">What the Sheet Supports</h3>
+    <ul>
+      <li><strong>Chivalry-as-Inspiration is her best instrument.</strong> She can light it on any righteous act, without the prerequisite. Most knights cannot.</li>
+      <li><strong>First Aid 15.</strong> Anyone she travels with who is wounded has a much better chance of living to see the next morning.</li>
+      <li><strong>The mounted Sword/Charge/Horsemanship trio at 15.</strong> She is a competent armed knight in spite of her poor equipment.</li>
+      <li><strong>Singing 13.</strong> Composing only 6 &mdash; she sings what she has been given to sing, beautifully.</li>
+      <li><strong>Energetic 16, Temperate 16, Valorous 15.</strong> The three traits her player carries as <em>famous</em>. People who meet her on the road will notice these before they notice her glow.</li>
+    </ul>
+
+    <h3 class="subhead">Open Threads</h3>
+    <ul>
+      <li>What is the Family Characteristic? The field is blank.</li>
+      <li>What does Lady Nineve actually expect, and how does Eleanor know when the commission is done?</li>
+      <li>What did the Nucker mean to Maelor, and what will Maelor say about it as he grows?</li>
+      <li>What happens the first time Honesty pulls against the boy baron's stolen credit?</li>
+      <li>What happens the first time Forgiving pulls against Vengeful &mdash; both at 10?</li>
+      <li>What does her glow mean? The sheet records it; it does not explain it.</li>
+    </ul>
+
+    <h3 class="subhead">A Note for the Gamemaster</h3>
+    <p>Do not play her as Galahad. Her Devotion is only 8; her Civilitas is her heaviest court, not her Adoratio. She is a knight of the road, of hospitality, of the chivalric act in front of her &mdash; a worker, not a saint. Her glow is a gift, not a halo. Her poverty is real and felt. Her Temperate 16 means she does not crow, and her Modest 10 means she does not deny it when asked plainly. Press her on the five 10/10 traits before pressing her on the high ones; the open ground is where she becomes herself.</p>
+  </section>
+
+  <footer class="colophon">
+    Dossier compiled · Aquitaine · The Year of Our Lord 512 · Glory 2,000
+  </footer>
+
+</div>
+</body>
+</html>
