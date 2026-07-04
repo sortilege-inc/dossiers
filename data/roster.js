@@ -29,6 +29,7 @@ const characters = [
       eyebrow: 'Ivory Kingdoms Sage',
       subtitle: 'Ivory Kingdoms Sage Tradition',
       system: 'Legend of the Five Rings 5e',
+      setting: 'Rokugan',
       campaign: 'The Bushi Oni',
       role: 'pre-gen',
       sheets: [
@@ -36,7 +37,7 @@ const characters = [
         { vtt: 'foundry', file: 'characters/aarav/sheets/fvtt-Actor-aarav-36-xp-(astradhari)-Rd0ybxfqy3eSxSAQ.json', label: '36 XP — Astradhari' },
         { vtt: 'foundry', file: 'characters/aarav/sheets/fvtt-Actor-aarav-57-xp-(astradhari,-rank-2)-ekaguEV9oUfUZ9E5.json', label: '57 XP — Astradhari, Rank 2' },
       ],
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Adan Adan</span>',
@@ -47,6 +48,7 @@ const characters = [
       eyebrow: 'Gnoll (Kholo) &middot; Witch Gnoll &middot; Oracle of Bones',
       subtitle: 'Circuit Judge of the Mwangi Expanse &mdash; The Slithering &mdash; Deceased',
       system: 'Pathfinder 2e',
+      setting: 'Mwangi Expanse',
       campaign: 'The Slithering',
       role: 'pc',
       campaignStatus: 'past'
@@ -60,6 +62,7 @@ const characters = [
       eyebrow: 'Aeormaton &middot; Duelist',
       subtitle: 'Aeorian Mobile Operations Sentinel &mdash; Pre-Calamity manufacture, Reactivated',
       system: 'D&D 5e',
+      setting: 'Exandria',
       campaign: 'Above All Else, Love',
       role: 'pc',
       featured: true,
@@ -89,10 +92,11 @@ const characters = [
       eyebrow: 'House Bj&ouml;rnaer &middot; Clan Ilfetu &middot; Heartbeast: Gannet',
       subtitle: 'The Gannet &mdash; Newly Gauntleted &mdash; Seeker of the Ilfetu Mysteries',
       system: 'Ars Magica 5e',
+      setting: 'Mythic Europe',
       campaign: 'Solving\'s Mystery',
       role: 'pre-gen',
       sheets: [{ vtt: 'foundry', file: 'characters/astrid-grasula/sheets/fvtt-Actor-astrid-grasula-D0zSIrMd7Iujjiiw.json' }],
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Aurora</span> Adelphi Uluru',
@@ -103,6 +107,7 @@ const characters = [
       eyebrow: 'Moon Elf &middot; Wild Magic Oneiromancer',
       subtitle: 'Druid &middot; Sorcerer &mdash; Wild Magic Oneiromancer',
       system: 'D&D 5e',
+      setting: 'Faerun',
       campaign: 'Lowry Hill East',
       role: 'pc',
       campaignStatus: 'past'
@@ -116,9 +121,10 @@ const characters = [
       eyebrow: 'Rogue &middot; The Crescent City',
       subtitle: 'Yörük Operative of an Unnamed Bureau &mdash; The Secret Service',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'The Crescent City',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Babatunde</span> Ọlayiwọla',
@@ -131,7 +137,7 @@ const characters = [
       system: 'Feng Shui 1e',
       campaign: 'Artifacts of Ingrin',
       role: 'pc',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'past'
     },
     {
       name: '<span class="given">Badriyah</span>',
@@ -142,6 +148,7 @@ const characters = [
       eyebrow: 'Tiefling Warlock &middot; Fiend Pact',
       subtitle: 'The Counsellor Behind the Throne &mdash; The One Who Thought She Was Clever Enough',
       system: 'D&D 5e',
+      setting: 'Faerun',
       campaign: 'Out of the Abyss',
       role: 'pc',
       campaignStatus: 'past'
@@ -170,6 +177,7 @@ const characters = [
       eyebrow: 'Orc &middot; Null &middot; Metakinetic Tradition',
       subtitle: 'Farmer, Retired',
       system: 'Draw Steel',
+      setting: 'Timescape',
       campaign: 'Collateral',
       role: 'pre-gen',
       campaignStatus: 'publication'
@@ -183,6 +191,7 @@ const characters = [
       eyebrow: 'Dwarf &middot; Beastheart &middot; Prowler Subclass',
       subtitle: 'Quit the Work That Hurt People &mdash; Collateral &mdash; &amp; Her Boar',
       system: 'Draw Steel',
+      setting: 'Timescape',
       campaign: 'Collateral',
       role: 'pre-gen',
       campaignStatus: 'publication'
@@ -223,6 +232,7 @@ const characters = [
       eyebrow: 'Vizier of Ughardi &middot; Skai Holt',
       subtitle: 'Servant of the Serref &mdash; Builder of the Lani Span',
       system: 'D&D 5e',
+      setting: 'Skai Holt &amp; Ughardi',
       campaign: 'Skai Holt & Ughardi',
       role: 'pc',
       campaignStatus: 'past'
@@ -236,6 +246,7 @@ const characters = [
       eyebrow: 'Revenant &middot; Elementalist &middot; Void Discipline',
       subtitle: 'Returned, with Unfinished Business',
       system: 'Draw Steel',
+      setting: 'Timescape',
       campaign: 'Collateral',
       role: 'pre-gen',
       campaignStatus: 'publication'
@@ -263,9 +274,10 @@ const characters = [
       eyebrow: 'Bard &middot; The Crescent City',
       subtitle: 'Shadow-Player of Pera &mdash; College of the Shadowactor',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'The Crescent City',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Damrod</span> of the North',
@@ -276,6 +288,7 @@ const characters = [
       eyebrow: 'Rangers of the North &middot; Warden',
       subtitle: 'Ranger of the D&uacute;nedain &middot; Paired with Hallas &middot; Riding East from the Frost Maw',
       system: 'The One Ring 2e',
+      setting: 'Middle Earth',
       campaign: 'The Angle',
       role: 'support',
       campaignStatus: 'hiatus'
@@ -289,6 +302,7 @@ const characters = [
       eyebrow: 'Crane Clan &middot; Doji Bureaucrat School',
       subtitle: 'Personal Advisor to the Imperial Envoy &mdash; Emerald Magistrate &mdash; Famously Successful',
       system: 'Legend of the Five Rings 5e',
+      setting: 'Rokugan',
       campaign: 'The Fragile Peace',
       role: 'pc',
       sheets: [{ vtt: 'foundry', file: 'characters/doji-setsuna/sheets/fvtt-Actor-doji-setsuna-Kl12YzeigyacVJ73.json' }],
@@ -303,6 +317,7 @@ const characters = [
       eyebrow: 'Men of Bree &middot; Treasure Hunter',
       subtitle: 'Of the Silver Lily &middot; Treasure Hunter &middot; Knew Brandor and Orlec',
       system: 'The One Ring 2e',
+      setting: 'Middle Earth',
       campaign: 'The Angle',
       role: 'support',
       campaignStatus: 'hiatus'
@@ -330,6 +345,7 @@ const characters = [
       eyebrow: 'Bardings &middot; Warden',
       subtitle: 'Wanderer Met in Mirkwood &middot; Bearer of the Message to Elenna',
       system: 'The One Ring 2e',
+      setting: 'Middle Earth',
       campaign: 'The Angle',
       role: 'support',
       campaignStatus: 'hiatus'
@@ -343,10 +359,11 @@ const characters = [
       eyebrow: 'House Mercere &middot; Gifted Line &middot; Illegitimate Lineage',
       subtitle: 'Redcap &mdash; Moneylender &mdash; The Listener &mdash; Keeper of Inconvenient Knowledge',
       system: 'Ars Magica 5e',
+      setting: 'Mythic Europe',
       campaign: 'Solving\'s Mystery',
       role: 'pre-gen',
       sheets: [{ vtt: 'foundry', file: 'characters/erasmus-the-hound/sheets/fvtt-Actor-erasmus-the-hound-pcxQ6asMRdo8GlcD.json' }],
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Erin</span>',
@@ -383,6 +400,7 @@ const characters = [
       eyebrow: 'Elves of Lindon &middot; Scholar',
       subtitle: 'Scholar of the Western Shores &middot; Bearer of C&iacute;rdan&#39;s Errand &middot; Bearer of the Adamant Relic',
       system: 'The One Ring 2e',
+      setting: 'Middle Earth',
       campaign: 'The Angle',
       role: 'support',
       campaignStatus: 'hiatus'
@@ -396,6 +414,7 @@ const characters = [
       eyebrow: 'Memonek &middot; Censor (Paragon)',
       subtitle: 'Senior Field Agent &mdash; Primary Combatant &amp; Judicial Authority &mdash; Zenith',
       system: 'Draw Steel',
+      setting: 'Timescape',
       campaign: ['Zenith', 'Collateral'],
       role: 'pre-gen',
       featured: true,
@@ -423,9 +442,10 @@ const characters = [
       eyebrow: 'Cleric &middot; The Crescent City',
       subtitle: 'Greek Orthodox Priest &mdash; Realitymender Domain',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'The Crescent City',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Fatima</span>',
@@ -464,7 +484,7 @@ const characters = [
       system: 'Marvel Multiverse RPG',
       campaign: 'X-FRONT',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Garin</span> of Rohan',
@@ -475,6 +495,7 @@ const characters = [
       eyebrow: 'Riders of Rohan &middot; Edoras',
       subtitle: 'Rider Met on the Plains &middot; Whose Mare Carried Celenneth Home',
       system: 'The One Ring 2e',
+      setting: 'Middle Earth',
       campaign: 'The Angle',
       role: 'support',
       campaignStatus: 'hiatus'
@@ -501,6 +522,7 @@ const characters = [
       eyebrow: 'Hakaan &middot; Talent &middot; Chronopathy Discipline',
       subtitle: 'The Portents Were Honest',
       system: 'Draw Steel',
+      setting: 'Timescape',
       campaign: 'Collateral',
       role: 'pre-gen',
       campaignStatus: 'publication'
@@ -530,7 +552,7 @@ const characters = [
       system: 'Marvel Multiverse RPG',
       campaign: 'X-FRONT',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Hallas</span> of the North',
@@ -541,6 +563,7 @@ const characters = [
       eyebrow: 'Rangers of the North &middot; Champion',
       subtitle: 'Ranger of the D&uacute;nedain &middot; Paired with Damrod &middot; Namesake of Celenneth&#39;s Son',
       system: 'The One Ring 2e',
+      setting: 'Middle Earth',
       campaign: 'The Angle',
       role: 'support',
       campaignStatus: 'hiatus'
@@ -554,9 +577,10 @@ const characters = [
       eyebrow: 'Barbarian &middot; The Crescent City',
       subtitle: 'Street-King of the Lower Quarters &mdash; Urban Vagabond',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'The Crescent City',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">H&eacute;l&egrave;ne</span> &Eacute;lo&iuml;se Bergeron',
@@ -581,9 +605,10 @@ const characters = [
       eyebrow: 'Crab Clan &middot; Hida Defender',
       subtitle: 'Hida Defender',
       system: 'Legend of the Five Rings 5e',
+      setting: 'Rokugan',
       campaign: 'The Bushi Oni',
       role: 'pre-gen',
-      campaignStatus: 'unplayed',
+      campaignStatus: 'publication',
       sheets: [
         { vtt: 'foundry', file: 'characters/hiruma-kaede/sheets/fvtt-Actor-hiruma-kaede-279-xp-(general,-rank-6)-l4VWZnBMThDd2yR6.json',   label: '279 XP · General, Rank 6' },
         { vtt: 'foundry', file: 'characters/hiruma-kaede/sheets/fvtt-Actor-hiruma-kaede-216-xp-(general,-rank-5)-53TxZNvkvH299bkh.json',   label: '216 XP · General, Rank 5' },
@@ -604,9 +629,10 @@ const characters = [
       eyebrow: 'Paladin &middot; The Crescent City',
       subtitle: 'Warden of the Poorer Quarters &mdash; Oath of Silence',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'The Crescent City',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: 'Isawa <span class="given">Yukiko</span>',
@@ -617,9 +643,10 @@ const characters = [
       eyebrow: 'Phoenix Clan &middot; Ishiken',
       subtitle: 'Ishiken Initiate',
       system: 'Legend of the Five Rings 5e',
+      setting: 'Rokugan',
       campaign: 'The Bushi Oni',
       role: 'pre-gen',
-      campaignStatus: 'unplayed',
+      campaignStatus: 'publication',
       sheets: [
         { vtt: 'foundry', file: 'characters/isawa-yukiko/sheets/fvtt-Actor-isawa-yukiko-98-xp-(awakened-soul,-rank-3)-(copy)-tQeesrhaKZHRa5lB.json', label: '98 XP · Awakened Soul, Rank 3' },
         { vtt: 'foundry', file: 'characters/isawa-yukiko/sheets/fvtt-Actor-isawa-yukiko-74-xp-(awakened-soul,-rank-2)-o6nJImFmnkUzcWPZ.json',        label: '74 XP · Awakened Soul, Rank 2' },
@@ -635,6 +662,7 @@ const characters = [
       eyebrow: 'Edgerunner &middot; Rockerboy',
       subtitle: 'Vocalist of Homeschool Dropouts &mdash; Survivor of the Arasaka Ry&#363;jin',
       system: 'Cyberpunk RED',
+      setting: 'Night City',
       campaign: 'Preem Chooms',
       role: 'pc',
       featured: true,
@@ -662,10 +690,11 @@ const characters = [
       eyebrow: 'Reborne Clank &middot; Sorcerer (Primal Origin)',
       subtitle: 'Reborne Clank &mdash; Sorcerer of Primal Origin &mdash; Age of Umbra',
       system: 'Daggerheart',
+      setting: 'Age of Umbra',
       campaign: 'Caul',
       role: 'support',
       sheets: [{ vtt: 'foundry', file: 'characters/kelun/sheets/fvtt-Actor-kelun-keoGnm7saxaQaEQ6.json' }],
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Kemal</span> Balık',
@@ -676,9 +705,10 @@ const characters = [
       eyebrow: 'Fighter &middot; The Crescent City',
       subtitle: 'Çorbacı of the Old Corps &mdash; Janissary',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'The Crescent City',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Khalida</span> bint Tariq',
@@ -689,10 +719,11 @@ const characters = [
       eyebrow: 'House Flambeau &middot; Orator Tradition &middot; True Faith',
       subtitle: 'Maga of Storms &mdash; The Eye of the Hurricane &mdash; Exile Twice Over',
       system: 'Ars Magica 5e',
+      setting: 'Mythic Europe',
       campaign: 'Solving\'s Mystery',
       role: 'pre-gen',
       sheets: [{ vtt: 'foundry', file: 'characters/khalida-bint-tariq/sheets/fvtt-Actor-khalida-bint-muhammad-al-balansi-Mhd0QoRBZ2cYYKXO.json' }],
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Krellen-Jek</span>',
@@ -703,6 +734,7 @@ const characters = [
       eyebrow: 'Kuran&rsquo;zoi &middot; Tactician &middot; Insurgent',
       subtitle: 'Deserter &mdash; Late of an Unnamed Pirate Fleet',
       system: 'Draw Steel',
+      setting: 'Timescape',
       campaign: 'Collateral',
       role: 'pre-gen',
       campaignStatus: 'publication'
@@ -716,9 +748,10 @@ const characters = [
       eyebrow: 'Druid &middot; The Crescent City',
       subtitle: 'Charm-maker of the Spice Market &mdash; Circle of Nazar',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'The Crescent City',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Li Xia</span> (Lily Combes)',
@@ -729,6 +762,7 @@ const characters = [
       eyebrow: 'Case File DG-CA-1952-014',
       subtitle: 'Research Assistant, JPL &mdash; Nashoba, 1952 &mdash; operating as Lily Combes',
       system: 'Delta Green',
+      setting: 'JPL',
       campaign: 'Nazis, Spies & Satanists',
       role: 'pc',
       sheets: [{ vtt: 'foundry', file: 'characters/li-xia-lily-combes/sheets/fvtt-Actor-lily-combes-(li-hsia)-8kchHy9cbOP6UxpJ.json' }],
@@ -743,6 +777,7 @@ const characters = [
       eyebrow: 'Men of Bree &middot; Warden',
       subtitle: 'Bound to Celenneth by the Aegis &middot; Warden &middot; Of Bree-Blood',
       system: 'The One Ring 2e',
+      setting: 'Middle Earth',
       campaign: 'The Angle',
       role: 'support',
       campaignStatus: 'hiatus'
@@ -756,6 +791,7 @@ const characters = [
       eyebrow: 'Human &middot; Troubadour &middot; Auteur',
       subtitle: 'Placed Inside Her Own Character Sheet',
       system: 'Draw Steel',
+      setting: 'Timescape',
       campaign: 'Collateral',
       role: 'pre-gen',
       campaignStatus: 'publication'
@@ -769,6 +805,7 @@ const characters = [
       eyebrow: 'Devil &middot; Fury &middot; Reaver',
       subtitle: 'Former Watch Officer &mdash; Wanted for Homicide',
       system: 'Draw Steel',
+      setting: 'Timescape',
       campaign: 'Collateral',
       role: 'pre-gen',
       campaignStatus: 'publication'
@@ -782,6 +819,7 @@ const characters = [
       eyebrow: 'Polder &middot; Conduit &middot; Domains of Love &amp; War',
       subtitle: 'Proponent of a Sanctuary Not Yet Built',
       system: 'Draw Steel',
+      setting: 'Timescape',
       campaign: 'Collateral',
       role: 'pre-gen',
       campaignStatus: 'publication'
@@ -795,6 +833,7 @@ const characters = [
       eyebrow: 'Halfling Psionicist &middot; Dark Sun',
       subtitle: 'Flesh-Tender &mdash; Wanderer of the Burned Sands',
       system: 'Shadowdark RPG',
+      setting: 'Dark Sun',
       campaign: 'Dark Sun',
       role: 'pc',
       campaignStatus: 'past'
@@ -822,10 +861,11 @@ const characters = [
       eyebrow: 'Ridgeborne Human &middot; Ranger (Beastbound)',
       subtitle: 'Ridgeborne Human &mdash; Ranger with Wivek the Hawk &mdash; Left Ygva a River-Stone',
       system: 'Daggerheart',
+      setting: 'Age of Umbra',
       campaign: 'Caul',
       role: 'support',
       sheets: [{ vtt: 'foundry', file: 'characters/mellan/sheets/fvtt-Actor-mellan-iE5VS53tRptJIzlt.json' }],
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Miele</span>',
@@ -849,9 +889,10 @@ const characters = [
       eyebrow: 'Warlock &middot; The Crescent City',
       subtitle: 'Librarian of the Grand Bazaar &mdash; The Ancient Sage',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'The Crescent City',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: 'Sekondl&oslash;jtnant <span class="given">Morten</span> Bergesen',
@@ -876,9 +917,10 @@ const characters = [
       eyebrow: 'Sorcerer &middot; The Crescent City',
       subtitle: 'Glassblower of the Golden Horn &mdash; Djinn-Possessed Origin',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'The Crescent City',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: 'Nasu <span class="given">Kogo</span>',
@@ -889,6 +931,7 @@ const characters = [
       eyebrow: 'Scorpion Clan &middot; Shosuro Shadowweaver',
       subtitle: 'Shosuro Shadowweaver',
       system: 'Legend of the Five Rings 5e',
+      setting: 'Rokugan',
       campaign: 'The Bushi Oni',
       role: 'pre-gen',
       sheets: [
@@ -897,7 +940,7 @@ const characters = [
         { vtt: 'foundry', file: 'characters/nasu-kogo/sheets/fvtt-Actor-nasu-kogo-33-xp-(interpreter,-rank-2)-JVNV6v1nBOODVBs9.json', label: '33 XP — Interpreter, Rank 2' },
         { vtt: 'foundry', file: 'characters/nasu-kogo/sheets/fvtt-Actor-nasu-kogo-63-xp-(interpreter,-rank-3)-HhUYx9efAco0z2SQ.json', label: '63 XP — Interpreter, Rank 3' },
       ],
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Noel</span> Grainger',
@@ -908,6 +951,7 @@ const characters = [
       eyebrow: 'Gangrel &middot; Neonate',
       subtitle: 'Gangrel Neonate &mdash; Not the Only Dead &mdash; Denver Metro',
       system: 'Vampire: the Masquerade 5e',
+      setting: 'World of Darkness',
       campaign: 'Not the Only Dead',
       role: 'pc',
       featured: true,
@@ -922,6 +966,7 @@ const characters = [
       eyebrow: 'High Elf &middot; Shadow &middot; College of the Harlequin Mask',
       subtitle: 'Aristocrat, Defrocked &mdash; Rehabilitating in Good Faith',
       system: 'Draw Steel',
+      setting: 'Timescape',
       campaign: 'Collateral',
       role: 'pre-gen',
       campaignStatus: 'publication'
@@ -935,6 +980,7 @@ const characters = [
       eyebrow: 'Memonek &middot; Talent (Telekinesis)',
       subtitle: 'Psionic Specialist &mdash; Direct Action &mdash; She Is the Weapon',
       system: 'Draw Steel',
+      setting: 'Timescape',
       campaign: 'Zenith',
       role: 'support',
       campaignStatus: 'publication'
@@ -948,6 +994,7 @@ const characters = [
       eyebrow: 'Lion Clan &middot; Yogo Penitent Order',
       subtitle: 'Born Yogo of the Scorpion &mdash; Adopted into the Hosokawa Lion &mdash; Servant of Ikoma Kenji',
       system: 'Legend of the Five Rings 5e',
+      setting: 'Rokugan',
       campaign: 'City of the Rich Frog',
       role: 'pc',
       campaignStatus: 'hiatus'
@@ -974,6 +1021,7 @@ const characters = [
       eyebrow: 'Cymric &middot; Squire &middot; Salisbury',
       subtitle: 'Son of Sir Geraint &mdash; Squired to Sir Eamon &mdash; The Boy with the Dulcet Voice',
       system: 'Pendragon 6e',
+      setting: 'Arthurian Britain',
       campaign: 'Salisbury',
       role: 'pc',
       featured: true,
@@ -989,6 +1037,7 @@ const characters = [
       eyebrow: 'DragonKnight &middot; Summoner &middot; Circle of Storms',
       subtitle: 'Former Agent &mdash; The Storms Answer Her',
       system: 'Draw Steel',
+      setting: 'Timescape',
       campaign: 'Collateral',
       role: 'pre-gen',
       campaignStatus: 'publication'
@@ -1002,10 +1051,11 @@ const characters = [
       eyebrow: 'House Jerbiton &middot; Mouseion Prometheia &middot; Refugee',
       subtitle: 'The Cartographer &mdash; Refugee of the Second Rome &mdash; Eyes of Gold',
       system: 'Ars Magica 5e',
+      setting: 'Mythic Europe',
       campaign: 'Solving\'s Mystery',
       role: 'pre-gen',
       sheets: [{ vtt: 'foundry', file: 'characters/photios-chrysoloras/sheets/fvtt-Actor-photios-chrysoloras-Z6eijmcqsTcTBU8p.json' }],
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: 'Protocol <span class="given">Keshet</span>',
@@ -1016,6 +1066,7 @@ const characters = [
       eyebrow: 'Memonek &middot; Tactician (Mastermind)',
       subtitle: 'Field Coordinator &mdash; Tactical Planning &amp; Battlefield Control',
       system: 'Draw Steel',
+      setting: 'Timescape',
       campaign: 'Zenith',
       role: 'support',
       campaignStatus: 'publication'
@@ -1060,7 +1111,7 @@ const characters = [
       system: 'Marvel Multiverse RPG',
       campaign: 'X-FRONT',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
 {
       name: '<span class="given">Rhys</span> Tyler Owens',
@@ -1085,9 +1136,10 @@ const characters = [
       eyebrow: 'Wizard &middot; The Crescent City',
       subtitle: 'Astronomer of the Sublime Porte &mdash; Stargazer',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'The Crescent City',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Sam</span> Hornton',
@@ -1138,6 +1190,7 @@ const characters = [
       eyebrow: 'Memonek &middot; Troubadour (Auteur)',
       subtitle: 'Communications &amp; Support &mdash; Debuffer &amp; Morale',
       system: 'Draw Steel',
+      setting: 'Timescape',
       campaign: 'Zenith',
       role: 'support',
       campaignStatus: 'publication'
@@ -1151,9 +1204,10 @@ const characters = [
       eyebrow: 'Warlock &middot; The Crescent City',
       subtitle: 'Mediator of Djinn at the Eyüp Gate &mdash; The Djinnmaster',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'The Crescent City',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Senna</span>',
@@ -1220,10 +1274,11 @@ const characters = [
       eyebrow: 'House Criamon &middot; Outer Mystery of the Enigma',
       subtitle: 'The Wandering Questioner &mdash; Magus of the Lumen Mare &mdash; Founder of Sj&oacute;rseiðr',
       system: 'Ars Magica 5e',
+      setting: 'Mythic Europe',
       campaign: 'Solving\'s Mystery',
       role: 'pre-gen',
       sheets: [{ vtt: 'foundry', file: 'characters/solving-epicurusson/sheets/fvtt-Actor-solving-epicurusson-oQ995pjScYyZgYqe.json' }],
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Stasis</span>',
@@ -1236,7 +1291,7 @@ const characters = [
       system: 'Marvel Multiverse RPG',
       campaign: 'X-FRONT',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Svafnir</span>',
@@ -1262,7 +1317,7 @@ const characters = [
       system: 'Marvel Multiverse RPG',
       campaign: 'X-FRONT',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Tamros</span>',
@@ -1273,10 +1328,11 @@ const characters = [
       eyebrow: 'Ridgeborne Ribbet &middot; Rogue (Nightwalker)',
       subtitle: 'Ridgeborne Ribbet &mdash; Rogue of Midnight &mdash; Bound to Ygva',
       system: 'Daggerheart',
+      setting: 'Age of Umbra',
       campaign: 'Caul',
       role: 'support',
       sheets: [{ vtt: 'foundry', file: 'characters/tamros/sheets/fvtt-Actor-tamros-GHzF740poUZZlH50.json' }],
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Tank</span>',
@@ -1289,7 +1345,7 @@ const characters = [
       system: 'Marvel Multiverse RPG',
       campaign: 'X-FRONT',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Taran</span>',
@@ -1355,6 +1411,7 @@ const characters = [
       eyebrow: 'Squire &middot; Salisbury &middot; A.D. 465',
       subtitle: 'of the Three Oaks &mdash; Daughter of a Slain Knight &mdash; Wolves of Vagon',
       system: 'Pendragon 6e',
+      setting: 'Arthurian Britain',
       campaign: 'Salisbury',
       role: 'support',
       sheets: [{ vtt: 'foundry', file: 'characters/tiphaine-merc-h-riwall/sheets/fvtt-Actor-squire-tiphaine-(jordan)-KRHLSxhiJ2rLmty3.json' }],
@@ -1384,10 +1441,11 @@ const characters = [
       eyebrow: 'House Verditius &middot; Maritime Enchantment &middot; Bergen Shipyards',
       subtitle: 'The Maker &mdash; Maritime Enchanter &mdash; The Right Way or Not at All',
       system: 'Ars Magica 5e',
+      setting: 'Mythic Europe',
       campaign: 'Solving\'s Mystery',
       role: 'pre-gen',
       sheets: [{ vtt: 'foundry', file: 'characters/torsten-fabricatus/sheets/fvtt-Actor-torsten-fabricatus-d305Zh6Hq2K7WLBa.json' }],
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Tulele</span> Einarsvard',
@@ -1412,6 +1470,7 @@ const characters = [
       eyebrow: 'Crane Clan &middot; Daidoji Harrier',
       subtitle: 'Daidoji Harrier',
       system: 'Legend of the Five Rings 5e',
+      setting: 'Rokugan',
       campaign: 'The Bushi Oni',
       role: 'pre-gen',
       sheets: [
@@ -1420,7 +1479,7 @@ const characters = [
         { vtt: 'foundry', file: 'characters/tsume-kunimichi/sheets/fvtt-Actor-tsume-kunimichi-49-xp-(rank-3)-mk4X2a3CKwKeFJbs.json', label: '49 XP — Rank 3' },
         { vtt: 'foundry', file: 'characters/tsume-kunimichi/sheets/fvtt-Actor-tsume-kunimichi-92-xp-(master-saboteur,-rank-3)-MuW0K9mF1N9oJfVy.json', label: '92 XP — Master Saboteur, Rank 3' },
       ],
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Vaetra</span>',
@@ -1431,10 +1490,11 @@ const characters = [
       eyebrow: 'Ridgeborne Giant &middot; Bard (Wordsmith)',
       subtitle: 'Ridgeborne Shargan &mdash; Bard of Grace &mdash; Tried to Keep Ygva from Leaving',
       system: 'Daggerheart',
+      setting: 'Age of Umbra',
       campaign: 'Caul',
       role: 'support',
       sheets: [{ vtt: 'foundry', file: 'characters/vaetra/sheets/fvtt-Actor-vaetra-rbMWcooo8GIPgYfD.json' }],
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Valerian</span> de Castellane',
@@ -1445,6 +1505,7 @@ const characters = [
       eyebrow: 'Qu&aelig;sitor &middot; House Guernicus',
       subtitle: 'Chief Enforcer of the Normandy Tribunal &mdash; The Granite Inquisitor',
       system: 'Ars Magica 5e',
+      setting: 'Mythic Europe',
       campaign: 'Sj&oacute;rseiðr',
       role: 'gm-pc',
       campaignStatus: 'active'
@@ -1472,6 +1533,7 @@ const characters = [
       eyebrow: 'Ridgeborne Giant &middot; Witch (Moon)',
       subtitle: 'Ridgeborne Shargan &mdash; Witch of the Moon &mdash; Domains: Dread &amp; Sage',
       system: 'Daggerheart',
+      setting: 'Age of Umbra',
       campaign: 'Caul',
       role: 'gm-pc',
       sheets: [{ vtt: 'foundry', file: 'characters/ygva/sheets/fvtt-Actor-ygva-PeaTQ7hkCEnIxoKU.json' }],
@@ -1486,9 +1548,10 @@ const characters = [
       eyebrow: 'Monk &middot; The Crescent City',
       subtitle: 'Dervish of the Galata Lodge &mdash; Whirling Dervish',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'The Crescent City',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Zuno</span>',
@@ -1499,6 +1562,7 @@ const characters = [
       eyebrow: 'Forest Gnome &middot; Telepath &middot; House Kath',
       subtitle: 'Majordomo of House Kath &mdash; Forest Gnome Telepath-Bard &mdash; Ptolus',
       system: 'D&D 5e',
+      setting: 'Ptolus',
       campaign: 'Ptolus: Velvet Glove, Iron Fist',
       role: 'gm-pc',
       featured: true,
@@ -1515,9 +1579,10 @@ const characters = [
       eyebrow: 'Returned &middot; Fighter &middot; Wanderer from the Necropolis',
       subtitle: 'A noble of Odunos who died and came back wearing a beaten-gold mask &mdash; honor-bound to debts he can no longer name.',
       system: 'D&D 5e',
+      setting: 'Theros',
       campaign: 'The Fallow Season',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Alesta</span> Centaur-Speaker',
@@ -1528,9 +1593,10 @@ const characters = [
       eyebrow: 'Human &middot; Druid &middot; Druid of Nylea',
       subtitle: 'A Nyxborn fragment of divinity wearing a human shape, born on the spring equinox at dawn and dedicated to Nylea on the same morning &mdash; her laughter causes birds to erupt in song.',
       system: 'D&D 5e',
+      setting: 'Theros',
       campaign: 'The Fallow Season',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Chrythra</span> Thanessa',
@@ -1541,9 +1607,10 @@ const characters = [
       eyebrow: 'Gorgon &middot; Cleric &middot; Apothecary-Priest of Pharika',
       subtitle: 'Golden light at the end of life, softened death &mdash; a Gorgon herbalist who attends births and deaths with equal interest, and is not convinced this fallow season should be averted.',
       system: 'D&D 5e',
+      setting: 'Theros',
       campaign: 'The Fallow Season',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Erytheia</span> of the Umbral Tide',
@@ -1554,9 +1621,10 @@ const characters = [
       eyebrow: 'Human &middot; Warlock &middot; Pact-Bound of Athreos',
       subtitle: 'Sphinx-raised, temple-foundling, white-haired and bright-eyed &mdash; a Celestial-warlock whose light is cold, and whose mercies arrive at the moment of death.',
       system: 'D&D 5e',
+      setting: 'Theros',
       campaign: 'The Fallow Season',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Helena</span> of Akros',
@@ -1567,9 +1635,10 @@ const characters = [
       eyebrow: 'Human &middot; Paladin &middot; Champion of Heliod',
       subtitle: 'A young knight of Heliod, polished sword and polished armor, asking the questions a knight is not supposed to ask.',
       system: 'D&D 5e',
+      setting: 'Theros',
       campaign: 'The Fallow Season',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Ilios</span> Anvilwrought',
@@ -1580,9 +1649,10 @@ const characters = [
       eyebrow: 'Anvilwrought &middot; Artificer &middot; Anvilwrought of Purphoros',
       subtitle: 'Forge-orphaned, forge-rebuilt &mdash; a man of iron sheen and visible joints who has not slept in the mortal sense since the night the forge burned. His art is the only language he and Purphoros still share.',
       system: 'D&D 5e',
+      setting: 'Theros',
       campaign: 'The Fallow Season',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Kragar</span> Stonehorn',
@@ -1593,9 +1663,10 @@ const characters = [
       eyebrow: 'Minotaur &middot; Barbarian &middot; Berserker of Iroas',
       subtitle: 'Named for a great minotaur oracle and bathed in hydra\'s blood as an infant &mdash; the wounds he takes close too quickly to become mortal.',
       system: 'D&D 5e',
+      setting: 'Theros',
       campaign: 'The Fallow Season',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Lyra</span> Hindparts',
@@ -1606,9 +1677,10 @@ const characters = [
       eyebrow: 'Satyr &middot; Bard &middot; Bard of Kruphix\'s Mystery',
       subtitle: 'Charisma and optimism in equal measure &mdash; open and genuine, remarkably cagey about certain topics, and ear-trained for the songs that catch in nobody else.',
       system: 'D&D 5e',
+      setting: 'Theros',
       campaign: 'The Fallow Season',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Maelis</span> of Skola Vale',
@@ -1619,9 +1691,10 @@ const characters = [
       eyebrow: 'Human &middot; Witch &middot; Oracle of Pharika\'s Coven',
       subtitle: 'A recluse-witch in a serpent-haunted valley; Pharika visited her there, and the visions came afterward &mdash; in a language she did not learn but somehow understands.',
       system: 'D&D 5e',
+      setting: 'Theros',
       campaign: 'The Fallow Season',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Miele</span> Nyx-Sighted',
@@ -1632,9 +1705,10 @@ const characters = [
       eyebrow: 'Satyr &middot; Talent &middot; Kruphix\'s Nyx-Sighted',
       subtitle: 'A Satyr who sees Nyx where others see only night &mdash; a psionic Talent destined, she suspects, to uncover the secret of the gods\' power.',
       system: 'D&D 5e',
+      setting: 'Theros',
       campaign: 'The Fallow Season',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Nyklos</span> the Nightshade',
@@ -1645,9 +1719,10 @@ const characters = [
       eyebrow: 'Human &middot; Sorcerer &middot; Erebos\'s Nightshade',
       subtitle: 'Cold to the touch and inside, much the same &mdash; a courtier whose service to Erebos is, in his own telling, a mercy.',
       system: 'D&D 5e',
+      setting: 'Theros',
       campaign: 'The Fallow Season',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Orion</span> Swiftarrow',
@@ -1658,9 +1733,10 @@ const characters = [
       eyebrow: 'Centaur &middot; Ranger &middot; Klothys\'s Outrider',
       subtitle: 'More comfortable around animals than around people, watching over his friends as though they were a litter of newborn pups &mdash; a champion of Heliod once, until Klothys showed him the danger of the Sun-God\'s hubris.',
       system: 'D&D 5e',
+      setting: 'Theros',
       campaign: 'The Fallow Season',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Scorian</span> Klythos',
@@ -1671,9 +1747,10 @@ const characters = [
       eyebrow: 'Oread &middot; Sorcerer &middot; Oread Sorcerer of the Forge',
       subtitle: 'Born the moment Mount Velus erupted &mdash; the chaos inside him is a flame to be tended, not extinguished.',
       system: 'D&D 5e',
+      setting: 'Theros',
       campaign: 'The Fallow Season',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Selene</span> Shadowfoot',
@@ -1684,9 +1761,10 @@ const characters = [
       eyebrow: 'Satyr &middot; Rogue &middot; Phenax\'s Trickster',
       subtitle: 'All wit and silver tongue &mdash; always one step from the big score, always one step ahead of the wrong person she\'s already fleeced.',
       system: 'D&D 5e',
+      setting: 'Theros',
       campaign: 'The Fallow Season',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Skotia</span> Drephina',
@@ -1697,9 +1775,10 @@ const characters = [
       eyebrow: 'Lampad &middot; Rogue &middot; Iconoclast Wanderer',
       subtitle: 'A Lampad nymph who walks the shadowed paths between worlds, and who answers to no god &mdash; though several have noticed her.',
       system: 'D&D 5e',
+      setting: 'Theros',
       campaign: 'The Fallow Season',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Thalassa</span> Wavebinder',
@@ -1710,9 +1789,10 @@ const characters = [
       eyebrow: 'Triton &middot; Wizard &middot; Thassa\'s Evoker',
       subtitle: 'A Triton evoker of the deep, whose interest in the slow secrets of the ocean and the slow turning of the heavens are, to her, two faces of the same study.',
       system: 'D&D 5e',
+      setting: 'Theros',
       campaign: 'The Fallow Season',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Thectra</span> Deepcaller',
@@ -1723,9 +1803,10 @@ const characters = [
       eyebrow: 'Triton &middot; Cleric &middot; Oracle of Keranos',
       subtitle: 'An exiled Triton oracle, branded heretic by Thassa\'s priests for the visions Keranos sends through her chest like lightning.',
       system: 'D&D 5e',
+      setting: 'Theros',
       campaign: 'The Fallow Season',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Xemnon</span> Sunguides',
@@ -1736,9 +1817,10 @@ const characters = [
       eyebrow: 'Leonin &middot; Fighter &middot; Pride of Heliod',
       subtitle: 'The epitome of physical and mental fortitude, with a lionhearted courage and resilience &mdash; and a quiet envy of those who still believe the gods are looking out for them.',
       system: 'D&D 5e',
+      setting: 'Theros',
       campaign: 'The Fallow Season',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Zephyrus</span> of Sitrium',
@@ -1749,9 +1831,10 @@ const characters = [
       eyebrow: 'Human &middot; Monk &middot; Iconoclast of the Open Hand',
       subtitle: 'A famous runner who believes the gods want him dead, and intends to stay one step ahead of them &mdash; physically as much as spiritually.',
       system: 'D&D 5e',
+      setting: 'Theros',
       campaign: 'The Fallow Season',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     // ── Empires of the Silk Road ──────────────────────────────────────────────
     {
@@ -1763,9 +1846,10 @@ const characters = [
       eyebrow: 'Oath of Karma &middot; Manumitted Ghulam of the Sind',
       subtitle: 'he says the names of the executed at sunset; none is a man he should not have executed',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'Empires of the Silk Road',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Arman</span> of the Black Forge',
@@ -1776,9 +1860,10 @@ const characters = [
       eyebrow: 'The Smith of the Dark Furnace &middot; Bargained at the Bellows',
       subtitle: 'the fire that lit him still answers when he calls',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'Empires of the Silk Road',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Aymara</span> Flameshaper',
@@ -1789,9 +1874,10 @@ const characters = [
       eyebrow: 'Djinnbound of the Clan-Flames &middot; Chosen of Al-Ghaib',
       subtitle: 'the djinn rides her shoulder unseen',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'Empires of the Silk Road',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Farideh</span> al-Saffar',
@@ -1802,9 +1888,10 @@ const characters = [
       eyebrow: 'Perfumer of Baghdad &middot; The Coppersmith\'s Granddaughter',
       subtitle: 'she reads strangers by their scent before she greets them',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'Empires of the Silk Road',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Khalid</span> ibn Sinan al-Alamuti',
@@ -1815,9 +1902,10 @@ const characters = [
       eyebrow: 'Hashashin of the Eagle\'s Nest &middot; The Order\'s Quiet Hand',
       subtitle: 'has answered to six names in twenty-four years; <em>Khalid</em> is one of them',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'Empires of the Silk Road',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Nazim</span> ibn Yusuf the Stone-Bound',
@@ -1828,9 +1916,10 @@ const characters = [
       eyebrow: 'the Stone-Bound &middot; Qara Bitigchi of the Kurgan-Stones',
       subtitle: 'he measures a place by what is carved into its oldest stone',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'Empires of the Silk Road',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Orkhan</span> the Grinning Mask',
@@ -1841,9 +1930,10 @@ const characters = [
       eyebrow: 'Cuman Masked Warrior &middot; Tegin of the Yamak, Caravan-Brotherhood Captain',
       subtitle: 'the mask is steel, leering &mdash; the rictus grin he hammered into the face plate by his own hand',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'Empires of the Silk Road',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Safiyya</span> bint Tariq al-Qıpçaq',
@@ -1854,9 +1944,10 @@ const characters = [
       eyebrow: 'Blood of the Forebears &middot; The Cloud-Eyed Seer-Daughter',
       subtitle: 'her eyes go pale, cloud-colored, when the woman in the back of her mind speaks',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'Empires of the Silk Road',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Temir</span> of the Skyborn',
@@ -1867,9 +1958,10 @@ const characters = [
       eyebrow: 'Shaman of Kök-Tengri &middot; The Iron of the Blue Sky',
       subtitle: 'he does not interrupt the spirits, or anyone else',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'Empires of the Silk Road',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Yakub</span> the Riftwalker',
@@ -1880,9 +1972,10 @@ const characters = [
       eyebrow: 'Brother of the Mystic Order of Samarkand &middot; Voice of Eris',
       subtitle: 'discord made him make sense',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'Empires of the Silk Road',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Yasmina</span> al-Khorasani',
@@ -1893,9 +1986,10 @@ const characters = [
       eyebrow: 'Mirage Seeker of the Kara-Kum &middot; The Compass-Lost Guide',
       subtitle: 'she reads the dunes the way others read faces',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'Empires of the Silk Road',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Zerah</span> the Kindler',
@@ -1906,9 +2000,10 @@ const characters = [
       eyebrow: 'Monk of the Fire Sage &middot; Bearer of the Everlasting Ember',
       subtitle: 'he has held a coal in his palm',
       system: 'D&D 5e',
+      setting: 'Historica Arcanum',
       campaign: 'Empires of the Silk Road',
       role: 'pre-gen',
-      campaignStatus: 'unplayed'
+      campaignStatus: 'publication'
     },
 
     // ── Convention & one-shot PCs ──────────────────────────────────────────
@@ -1921,6 +2016,7 @@ const characters = [
       eyebrow: 'Dragon Knight &middot; Censor &middot; Exorcist of War',
       subtitle: 'Level 1 Censor &mdash; Exorcist subclass, War Domain &mdash; Dragon Knight',
       system: 'Draw Steel',
+      setting: 'Timescape',
       campaign: 'Breakout Con 2026',
       role: 'pc',
       campaignStatus: 'one-shot'
@@ -1947,6 +2043,7 @@ const characters = [
       eyebrow: 'Errant Knight &middot; Aquitaine &middot; Sworn to the Lady of the Lake',
       subtitle: 'Checky azure and argent &mdash; sent forth to bring good unto the land',
       system: 'Pendragon 6e',
+      setting: 'Arthurian Britain',
       campaign: 'WPGRPGCON 2026',
       role: 'pc',
       campaignStatus: 'one-shot'
@@ -1986,6 +2083,7 @@ const characters = [
       eyebrow: 'Human &middot; Null &middot; Metakinetic Farmer',
       subtitle: 'Level 1 Null &mdash; Metakinetic subclass &mdash; a farmer who learned to push without touching',
       system: 'Draw Steel',
+      setting: 'Timescape',
       campaign: 'WPGRPGCON 2026',
       role: 'pc',
       campaignStatus: 'one-shot'
@@ -1999,6 +2097,7 @@ const characters = [
       eyebrow: 'Spectral Yokai &middot; Pilgrim 7 &middot; Path of Justice',
       subtitle: 'She walks barefoot a finger\'s breadth above the road',
       system: 'Adventures in Rokugan',
+      setting: 'Rokugan',
       campaign: 'Adventures in Rokugan',
       role: 'pc',
       campaignStatus: 'unplayed'
