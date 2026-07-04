@@ -26,6 +26,7 @@
     --st-past: #8a8478;
     --st-one-shot: #6b8caf;
     --st-unplayed: #9a6a4a;
+    --st-publication: #7a5a8a;
   }
   * { box-sizing: border-box; }
   html, body {
@@ -681,6 +682,7 @@
         <button class="toggle" data-status="past">Past</button>
         <button class="toggle" data-status="one-shot">One-shot</button>
         <button class="toggle" data-status="unplayed">Unplayed</button>
+        <button class="toggle" data-status="publication">Publication</button>
       </div>
       <div class="toggle-group" id="role-toggles">
         <span class="toggle-group-label">Role</span>
@@ -688,6 +690,7 @@
         <button class="toggle" data-role="support">Support</button>
         <button class="toggle" data-role="gm-pc">GM PCs</button>
         <button class="toggle" data-role="pre-gen">Pre-gen</button>
+        <button class="toggle" data-role="solo">Solo PCs</button>
       </div>
       <div class="toggle-group">
         <span class="toggle-group-label">View</span>
@@ -725,13 +728,20 @@
     return a;
   }
 
-  const roster = shuffle(characters);
-  characters.forEach(c => { c._hay = fold([c.plain, c.campaign, c.system, c.setting, c.eyebrow, c.subtitle].filter(Boolean).join(' | ')); });
+  // A character normally belongs to one campaign, but c.campaign may be an
+  // array for characters that belong to more than one (e.g. a Zenith agent
+  // who also appears in Collateral) — they should be grouped/found under
+  // each, not under a synthetic combined name.
+  function campaignList(c) { return Array.isArray(c.campaign) ? c.campaign : [c.campaign]; }
+  function campaignText(c) { return campaignList(c).join(' & '); }
 
-  const STATUS_LABELS = { active: 'Active', hiatus: 'Hiatus', past: 'Past', 'one-shot': 'One-shot', unplayed: 'Unplayed' };
+  const roster = shuffle(characters);
+  characters.forEach(c => { c._hay = fold([c.plain, campaignText(c), c.system, c.setting, c.eyebrow, c.subtitle].filter(Boolean).join(' | ')); });
+
+  const STATUS_LABELS = { active: 'Active', hiatus: 'Hiatus', past: 'Past', 'one-shot': 'One-shot', unplayed: 'Unplayed', publication: 'Publication' };
   const SORTS = {
     name:     (a, b) => fold(a.plain).localeCompare(fold(b.plain)),
-    campaign: (a, b) => fold(a.campaign).localeCompare(fold(b.campaign)) || fold(a.plain).localeCompare(fold(b.plain)),
+    campaign: (a, b) => fold(campaignText(a)).localeCompare(fold(campaignText(b))) || fold(a.plain).localeCompare(fold(b.plain)),
     system:   (a, b) => fold(a.system).localeCompare(fold(b.system)) || fold(a.plain).localeCompare(fold(b.plain)),
     added:    (a, b) => (b.added || '').localeCompare(a.added || '') || fold(a.plain).localeCompare(fold(b.plain)),
   };
@@ -803,7 +813,7 @@
           <h2 class="card-name">${c.name}</h2>
           <p class="card-subtitle">${c.subtitle}</p>
           <div class="card-meta">
-            <div class="meta-row"><span class="meta-label">Campaign</span><span class="meta-value">${c.campaign}</span></div>
+            <div class="meta-row"><span class="meta-label">Campaign</span><span class="meta-value">${campaignText(c)}</span></div>
             ${settingRow}
           </div>
         </div>
@@ -834,8 +844,10 @@
     } else if (viewMode === 'campaign') {
       const groups = new Map();
       for (const c of list) {
-        if (!groups.has(c.campaign)) groups.set(c.campaign, []);
-        groups.get(c.campaign).push(c);
+        for (const camp of campaignList(c)) {
+          if (!groups.has(camp)) groups.set(camp, []);
+          groups.get(camp).push(c);
+        }
       }
       const keys = [...groups.keys()].sort((a, b) => fold(a).localeCompare(fold(b)));
       let html = '';
@@ -1030,7 +1042,7 @@
   // ----- Omnisearch autocomplete -----
   // Suggestion pools: characters by name, campaigns, systems, settings.
   const SUGG_SECTIONS = [
-    { label: 'Campaigns',  items: [...new Set(characters.map(c => c.campaign))] },
+    { label: 'Campaigns',  items: [...new Set(characters.flatMap(campaignList))] },
     { label: 'Systems',    items: [...new Set(characters.map(c => c.system))] },
     { label: 'Settings',   items: [...new Set(characters.map(c => c.setting).filter(Boolean))] },
     { label: 'Characters', items: [...new Set(characters.map(c => c.plain))] },

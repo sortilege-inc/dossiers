@@ -19,8 +19,8 @@ const rosterSrc = fs.readFileSync(path.join(root, 'data/roster.js'), 'utf8');
 const { characters, PRESETS, SYSTEM_LOGOS } = new Function(
   rosterSrc + '; return { characters, PRESETS, SYSTEM_LOGOS };')();
 
-const ROLES = new Set(['pc', 'support', 'gm-pc', 'pre-gen']);
-const STATUSES = new Set(['active', 'hiatus', 'past', 'one-shot', 'unplayed']);
+const ROLES = new Set(['pc', 'support', 'gm-pc', 'pre-gen', 'solo']);
+const STATUSES = new Set(['active', 'hiatus', 'past', 'one-shot', 'unplayed', 'publication']);
 
 const errors = [];
 const warnings = [];

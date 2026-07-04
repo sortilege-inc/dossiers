@@ -10,9 +10,10 @@
 //   subtitle    italic line under the name
 //   system      game system (must match a SYSTEM_LOGOS key for a logo)
 //   setting     campaign setting, if noteworthy (optional; searchable)
-//   campaign    campaign name
-//   role        'pc' | 'support' | 'gm-pc' | 'pre-gen'
-//   campaignStatus  'active' | 'hiatus' | 'past' | 'one-shot' | 'unplayed'
+//   campaign    campaign name, or an array of names for a character that
+//               belongs to more than one campaign (grouped/found under each)
+//   role        'pc' | 'support' | 'gm-pc' | 'pre-gen' | 'solo'
+//   campaignStatus  'active' | 'hiatus' | 'past' | 'one-shot' | 'unplayed' | 'publication'
 //   featured    true to appear in the default Featured view (optional)
 //   added       date the dossier entered the register (YYYY-MM-DD)
 //   sheets      VTT sheet downloads: [{ vtt, file, label? }] (optional)
@@ -171,7 +172,7 @@ const characters = [
       system: 'Draw Steel',
       campaign: 'Collateral',
       role: 'pre-gen',
-      campaignStatus: 'active'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Brenn</span> &amp; Hroga',
@@ -184,7 +185,7 @@ const characters = [
       system: 'Draw Steel',
       campaign: 'Collateral',
       role: 'pre-gen',
-      campaignStatus: 'active'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Celenneth</span> of the D&uacute;nedain',
@@ -209,7 +210,7 @@ const characters = [
       subtitle: 'Paleobotanist &mdash; Children of Fear &mdash; Geological Survey of China',
       system: 'Call of Cthulhu 7e',
       campaign: 'Children of Fear',
-      role: 'pc',
+      role: 'solo',
       sheets: [{ vtt: 'foundry', file: 'characters/ch-ien-po-hsiang/sheets/fvtt-Actor-ch\'ien-po-hsiang-(錢伯驤)-scFwvOKXzBxLTJOj.json' }],
       campaignStatus: 'active'
     },
@@ -237,7 +238,7 @@ const characters = [
       system: 'Draw Steel',
       campaign: 'Collateral',
       role: 'pre-gen',
-      campaignStatus: 'active'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Clifford</span> Joel Howard',
@@ -395,10 +396,10 @@ const characters = [
       eyebrow: 'Memonek &middot; Censor (Paragon)',
       subtitle: 'Senior Field Agent &mdash; Primary Combatant &amp; Judicial Authority &mdash; Zenith',
       system: 'Draw Steel',
-      campaign: 'Zenith &middot; Collateral',
+      campaign: ['Zenith', 'Collateral'],
       role: 'pre-gen',
       featured: true,
-      campaignStatus: 'active'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Faletolu</span> Faletolu',
@@ -502,7 +503,7 @@ const characters = [
       system: 'Draw Steel',
       campaign: 'Collateral',
       role: 'pre-gen',
-      campaignStatus: 'active'
+      campaignStatus: 'publication'
     },
     {
       name: 'Subedar <span class="given">Gurdit</span> Singh Bajwa',
@@ -514,7 +515,7 @@ const characters = [
       subtitle: 'Director of Expedition Security &mdash; Children of Fear &mdash; 15th Ludhiana Sikhs',
       system: 'Call of Cthulhu 7e',
       campaign: 'Children of Fear',
-      role: 'pc',
+      role: 'solo',
       sheets: [{ vtt: 'foundry', file: 'characters/subedar-gurdit-singh-bajwa/sheets/fvtt-Actor-gurdit-singh-bajwa-GsvPUu5ij948GvpR.json' }],
       campaignStatus: 'active'
     },
@@ -567,7 +568,7 @@ const characters = [
       subtitle: 'Sociolinguist &mdash; Children of Fear &mdash; Mus&eacute;e Guimet',
       system: 'Call of Cthulhu 7e',
       campaign: 'Children of Fear',
-      role: 'pc',
+      role: 'solo',
       sheets: [{ vtt: 'foundry', file: 'characters/helene-eloise-bergeron/sheets/fvtt-Actor-helene-eloise-bergeron-gs6e1FO0Phs0L90t.json' }],
       campaignStatus: 'active'
     },
@@ -704,7 +705,7 @@ const characters = [
       system: 'Draw Steel',
       campaign: 'Collateral',
       role: 'pre-gen',
-      campaignStatus: 'active'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Leyla</span> of the Blue Eye',
@@ -757,7 +758,7 @@ const characters = [
       system: 'Draw Steel',
       campaign: 'Collateral',
       role: 'pre-gen',
-      campaignStatus: 'active'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Lucero</span> d&rsquo;Albec',
@@ -770,7 +771,7 @@ const characters = [
       system: 'Draw Steel',
       campaign: 'Collateral',
       role: 'pre-gen',
-      campaignStatus: 'active'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Maike</span> Oostgracht',
@@ -783,7 +784,7 @@ const characters = [
       system: 'Draw Steel',
       campaign: 'Collateral',
       role: 'pre-gen',
-      campaignStatus: 'active'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Malek</span>',
@@ -808,7 +809,7 @@ const characters = [
       subtitle: 'Missionary &amp; Nurse &mdash; Children of Fear &mdash; Designated Marksman',
       system: 'Call of Cthulhu 7e',
       campaign: 'Children of Fear',
-      role: 'pc',
+      role: 'solo',
       sheets: [{ vtt: 'foundry', file: 'characters/marie-halvor-boucher/sheets/fvtt-Actor-marie-halvor-boucher-v6IZJd7bfX8OrLkm.json' }],
       campaignStatus: 'active'
     },
@@ -923,7 +924,7 @@ const characters = [
       system: 'Draw Steel',
       campaign: 'Collateral',
       role: 'pre-gen',
-      campaignStatus: 'active'
+      campaignStatus: 'publication'
     },
     {
       name: 'Operator <span class="given">Azimuth</span>',
@@ -936,7 +937,7 @@ const characters = [
       system: 'Draw Steel',
       campaign: 'Zenith',
       role: 'support',
-      campaignStatus: 'active'
+      campaignStatus: 'publication'
     },
     {
       name: 'Ikoma no Hosokawa <span class="given">Ota</span>',
@@ -990,7 +991,7 @@ const characters = [
       system: 'Draw Steel',
       campaign: 'Collateral',
       role: 'pre-gen',
-      campaignStatus: 'active'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Photios</span> Chrysoloras',
@@ -1017,7 +1018,7 @@ const characters = [
       system: 'Draw Steel',
       campaign: 'Zenith',
       role: 'support',
-      campaignStatus: 'active'
+      campaignStatus: 'publication'
     },
     {
       name: 'Rear Admiral <span class="given">Stephen Kent</span>, USN',
@@ -1139,7 +1140,7 @@ const characters = [
       system: 'Draw Steel',
       campaign: 'Zenith',
       role: 'support',
-      campaignStatus: 'active'
+      campaignStatus: 'publication'
     },
     {
       name: '<span class="given">Selim</span> the Bound',
@@ -2020,7 +2021,7 @@ const characters = [
   const PRESETS = {
     'now-playing':   { statuses: ['active'],   roles: ['pc'],      campaign: '',                system: '' },
     'bushi-oni':     { statuses: ['unplayed'], roles: ['pre-gen'], campaign: 'The Bushi Oni',   system: '' },
-    'collateral':    { statuses: ['active'],   roles: ['pre-gen'], campaign: 'Collateral',      system: '' },
+    'collateral':    { statuses: ['publication'], roles: ['pre-gen'], campaign: 'Collateral',      system: '' },
     'crescent-city': { statuses: ['unplayed'], roles: ['pre-gen'], campaign: 'The Crescent City', system: '' },
     'fallow-season':    { statuses: ['unplayed'], roles: ['pre-gen'], campaign: 'The Fallow Season',        system: 'D&D 5e' },
     'silk-road':        { statuses: ['unplayed'], roles: ['pre-gen'], campaign: 'Empires of the Silk Road', system: 'D&D 5e' },
