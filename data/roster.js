@@ -730,7 +730,6 @@ const characters = [
       system: 'Delta Green',
       campaign: 'Nazis, Spies & Satanists',
       role: 'pc',
-      featured: true,
       sheets: [{ vtt: 'foundry', file: 'characters/li-xia-lily-combes/sheets/fvtt-Actor-lily-combes-(li-hsia)-8kchHy9cbOP6UxpJ.json' }],
       campaignStatus: 'past'
     },
@@ -1369,8 +1368,10 @@ const characters = [
       eyebrow: 'Tzimisce &middot; Koldun &middot; Via Regalis',
       subtitle: 'Dark Ages &mdash; Household of Białowieży &mdash; 1242',
       system: 'Vampire: the Masquerade 5e',
+      setting: 'Dark Ages',
       campaign: 'War of Princes',
       role: 'pc',
+      featured: true,
       campaignStatus: 'active'
     },
     {
