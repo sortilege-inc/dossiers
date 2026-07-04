@@ -21,6 +21,11 @@
     --crimson: #8b3a3a;
     --rule: #c9bfa8;
     --rule-soft: #d8d0bd;
+    --st-active: #5a7a52;
+    --st-hiatus: #a88a4a;
+    --st-past: #8a8478;
+    --st-one-shot: #6b8caf;
+    --st-unplayed: #9a6a4a;
   }
   * { box-sizing: border-box; }
   html, body {
@@ -97,13 +102,14 @@
     margin: 0;
   }
 
-  /* FILTER BAR */
+  /* SEARCH + SORT BAR */
   .filters {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr auto;
     gap: 1.25rem 1.5rem;
+    align-items: end;
     max-width: 760px;
-    margin: 0 auto 2.25rem;
+    margin: 0 auto 1.5rem;
     padding: 1.25rem 1.5rem;
     background: rgba(232, 224, 207, 0.45);
     border: 1px solid var(--rule);
@@ -168,6 +174,30 @@
     visibility: visible;
   }
   .filter .clear-btn:hover { color: var(--crimson); }
+  .sort-wrap {
+    display: flex;
+    flex-direction: column;
+  }
+  .sort-wrap label {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+  .sort-wrap select {
+    font-family: "EB Garamond", serif;
+    font-size: 1.05rem;
+    padding: 0.55rem 0.6rem;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    color: var(--ink);
+    outline: none;
+    cursor: pointer;
+  }
+  .sort-wrap select:focus { border-color: var(--accent-deep); }
 
   .suggestions {
     position: absolute;
@@ -177,12 +207,24 @@
     border: 1px solid var(--rule);
     border-top: 1px solid var(--accent-deep);
     box-shadow: 0 4px 14px rgba(31, 29, 26, 0.12);
-    max-height: 240px;
+    max-height: 320px;
     overflow-y: auto;
     z-index: 10;
     display: none;
   }
   .suggestions.open { display: block; }
+  .sugg-group {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    padding: 0.45rem 0.8rem 0.2rem;
+    border-bottom: 1px solid var(--rule-soft);
+    background: var(--paper-dark);
+    position: sticky;
+    top: 0;
+  }
   .suggestion {
     padding: 0.5rem 0.8rem;
     cursor: pointer;
@@ -250,6 +292,12 @@
     border-color: var(--ink);
     color: var(--paper);
   }
+  .toggle .count {
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    margin-left: 0.3rem;
+  }
+  .toggle.on .count { color: var(--rule); }
   .preset-select {
     font-family: "EB Garamond", serif;
     font-size: 0.92rem;
@@ -378,6 +426,34 @@
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 1.75rem;
   }
+  .group-head {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin: 1.25rem 0 -0.5rem;
+  }
+  .group-head:first-child { margin-top: 0; }
+  .group-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .group-rule {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--rule), transparent);
+  }
+  .group-meta {
+    font-family: "Cormorant SC", serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
   .card {
     background: var(--paper);
     border: 1px solid var(--rule);
@@ -437,6 +513,30 @@
     color: var(--gold-deep);
     opacity: 0.55;
     line-height: 1;
+  }
+  .status-chip {
+    position: absolute;
+    top: 0.55rem;
+    right: 0.55rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.32rem;
+    font-family: "Cormorant SC", serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background: rgba(244, 239, 229, 0.92);
+    border: 1px solid var(--rule);
+    border-radius: 1px;
+    padding: 0.16rem 0.45rem;
+    line-height: 1.3;
+  }
+  .status-chip::before {
+    content: "";
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--chip, var(--ink-faint));
   }
   .card-body {
     padding: 1rem 1.1rem 0.5rem;
@@ -538,21 +638,24 @@
     </header>
 
     <div class="filters">
-      <div class="filter" data-field="system">
-        <label for="filter-system">Game System</label>
+      <div class="filter">
+        <label for="filter-q">Search the Register</label>
         <div class="filter-input-wrap">
-          <input type="text" id="filter-system" autocomplete="off" placeholder="Start typing&hellip;" spellcheck="false">
-          <button type="button" class="clear-btn" aria-label="Clear system filter">&times;</button>
-          <div class="suggestions" id="suggestions-system" role="listbox"></div>
+          <input type="text" id="filter-q" autocomplete="off"
+                 placeholder="Name, campaign, system, setting&hellip; ( / )" spellcheck="false">
+          <button type="button" class="clear-btn" aria-label="Clear search">&times;</button>
+          <div class="suggestions" id="suggestions-q" role="listbox"></div>
         </div>
       </div>
-      <div class="filter" data-field="campaign">
-        <label for="filter-campaign">Campaign</label>
-        <div class="filter-input-wrap">
-          <input type="text" id="filter-campaign" autocomplete="off" placeholder="Start typing&hellip;" spellcheck="false">
-          <button type="button" class="clear-btn" aria-label="Clear campaign filter">&times;</button>
-          <div class="suggestions" id="suggestions-campaign" role="listbox"></div>
-        </div>
+      <div class="sort-wrap">
+        <label for="sort-select">Order</label>
+        <select id="sort-select" aria-label="Sort order">
+          <option value="shuffle">Serendipity</option>
+          <option value="name">Name</option>
+          <option value="campaign">Campaign</option>
+          <option value="system">System</option>
+          <option value="added">Newest</option>
+        </select>
       </div>
     </div>
 
@@ -571,7 +674,7 @@
           <option value="retired">Retired</option>
         </select>
       </div>
-      <div class="toggle-group">
+      <div class="toggle-group" id="status-toggles">
         <span class="toggle-group-label">Status</span>
         <button class="toggle on" data-status="active">Active</button>
         <button class="toggle" data-status="hiatus">Hiatus</button>
@@ -579,12 +682,17 @@
         <button class="toggle" data-status="one-shot">One-shot</button>
         <button class="toggle" data-status="unplayed">Unplayed</button>
       </div>
-      <div class="toggle-group">
+      <div class="toggle-group" id="role-toggles">
         <span class="toggle-group-label">Role</span>
         <button class="toggle on" data-role="pc">PCs</button>
         <button class="toggle" data-role="support">Support</button>
         <button class="toggle" data-role="gm-pc">GM PCs</button>
         <button class="toggle" data-role="pre-gen">Pre-gen</button>
+      </div>
+      <div class="toggle-group">
+        <span class="toggle-group-label">View</span>
+        <button class="toggle on" data-view="grid">Grid</button>
+        <button class="toggle" data-view="campaign">By campaign</button>
       </div>
     </div>
 
@@ -595,1862 +703,19 @@
     <footer class="colophon">Confidential &middot; for the table</footer>
   </div>
 
+<script src="data/roster.js"></script>
 <script>
-  // ----- Character roster -----
-  // Fields: role = 'pc' | 'gm-pc'
-  //         campaignStatus = 'active' | 'past' | 'one-shot' | 'unplayed'
-  const characters = [
-    {
-      name: '<span class="given">Aarav</span>',
-      plain: 'Aarav',
-      file: 'Aarav_Dossier.html',
-      image: 'thumbs/aarav.jpg',
-      eyebrow: 'Ivory Kingdoms Sage',
-      subtitle: 'Ivory Kingdoms Sage Tradition',
-      system: 'Legend of the Five Rings 5e',
-      campaign: 'The Bushi Oni',
-      role: 'pre-gen',
-      sheets: [
-        { vtt: 'foundry', file: 'fvtt-Actor-aarav-0-xp-F5KInxHO1tSvc1KF.json', label: '0 XP' },
-        { vtt: 'foundry', file: 'fvtt-Actor-aarav-36-xp-(astradhari)-Rd0ybxfqy3eSxSAQ.json', label: '36 XP — Astradhari' },
-        { vtt: 'foundry', file: 'fvtt-Actor-aarav-57-xp-(astradhari,-rank-2)-ekaguEV9oUfUZ9E5.json', label: '57 XP — Astradhari, Rank 2' },
-      ],
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Adan Adan</span>',
-      plain: 'Adan Adan',
-      file: 'Adan_Adan_Dossier.html',
-      image: 'thumbs/adan-adan.jpg',
-      eyebrow: 'Gnoll (Kholo) &middot; Witch Gnoll &middot; Oracle of Bones',
-      subtitle: 'Circuit Judge of the Mwangi Expanse &mdash; The Slithering &mdash; Deceased',
-      system: 'Pathfinder 2e',
-      campaign: 'The Slithering',
-      role: 'pc',
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">A.M.O.S.</span>',
-      plain: 'A.M.O.S.',
-      file: 'AMOS_Dossier.html',
-      image: 'thumbs/amos.jpg',
-      eyebrow: 'Aeormaton &middot; Duelist',
-      subtitle: 'Aeorian Mobile Operations Sentinel &mdash; Pre-Calamity manufacture, Reactivated',
-      system: 'D&D 5e',
-      campaign: 'Above All Else, Love',
-      role: 'pc',
-      featured: true,
-      sheets: [{ vtt: 'alchemy', file: 'amos.json' }],
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Antagones</span>',
-      plain: 'Antagones',
-      file: 'Antagones_Dossier.html',
-      image: 'thumbs/antagones.jpg',
-      eyebrow: 'Leonin &middot; Fighter / Paladin',
-      subtitle: 'The Mane of the Arena &mdash; Champion of the Summer Circuit, Three-Season Victor',
-      system: 'D&D 5e',
-      campaign: 'The Blight',
-      role: 'pc',
-      sheets: [{ vtt: 'alchemy', file: 'antagones.json' }],
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Astrid</span> Gr&aacute;sula',
-      plain: 'Astrid Grásula',
-      file: 'Astrid_Grásula_Dossier.html',
-      image: 'thumbs/astrid.jpg',
-      eyebrow: 'House Bj&ouml;rnaer &middot; Clan Ilfetu &middot; Heartbeast: Gannet',
-      subtitle: 'The Gannet &mdash; Newly Gauntleted &mdash; Seeker of the Ilfetu Mysteries',
-      system: 'Ars Magica 5e',
-      campaign: 'Solving\'s Mystery',
-      role: 'pre-gen',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-astrid-grasula-D0zSIrMd7Iujjiiw.json' }],
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Aurora</span> Adelphi Uluru',
-      plain: 'Aurora Adelphi Uluru',
-      file: 'Aurora_Adelphi_Uluru_Dossier.html',
-      image: 'thumbs/aurora.jpg',
-      eyebrow: 'Moon Elf &middot; Wild Magic Oneiromancer',
-      subtitle: 'Druid &middot; Sorcerer &mdash; Wild Magic Oneiromancer',
-      system: 'D&D 5e',
-      campaign: 'Lowry Hill East',
-      role: 'pc',
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Ayla</span> Sürgün',
-      plain: 'Ayla Sürgün',
-      file: 'Ayla_Surgun_Dossier.html',
-      image: 'thumbs/ayla.jpg',
-      eyebrow: 'Rogue &middot; The Crescent City',
-      subtitle: 'Yörük Operative of an Unnamed Bureau &mdash; The Secret Service',
-      system: 'D&D 5e',
-      campaign: 'The Crescent City',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Babatunde</span> Ọlayiwọla',
-      plain: 'Babatunde Ọlayiwọla',
-      file: 'Babatunde_Olayiwola_Dossier.html',
-      image: 'thumbs/babs.jpg',
-      eyebrow: 'Everyday Hero',
-      subtitle: 'Community Cook &mdash; Witch&rsquo;s Husband',
-      system: 'Feng Shui 1e',
-      campaign: 'Artifacts of Ingrin',
-      role: 'pc',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Badriyah</span>',
-      plain: 'Badriyah',
-      file: 'Badriyah_Dossier.html',
-      image: 'thumbs/badriyah.jpg',
-      eyebrow: 'Tiefling Warlock &middot; Fiend Pact',
-      subtitle: 'The Counsellor Behind the Throne &mdash; The One Who Thought She Was Clever Enough',
-      system: 'D&D 5e',
-      campaign: 'Out of the Abyss',
-      role: 'pc',
-      campaignStatus: 'past'
-    },
-    {
-      name: 'Havildar <span class="given">Bhimbahadur</span> Pun',
-      plain: 'Havildar Bhimbahadur Pun',
-      file: 'Bhimbahadur_Pun_Dossier.html',
-      image: 'thumbs/bhim-valet.jpg',
-      eyebrow: 'Ex-Gurkha &middot; 5th Rifles',
-      subtitle: 'London orderly, 1884&ndash;present &mdash; IOM (3rd Class)',
-      system: 'Call of Cthulhu 7e',
-      campaign: 'Masks of Nyarlathotep: Empire of Shadows',
-      role: 'pc',
-      featured: true,
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-bhimbahadur-pun-FGp26wxQk7eOoefm.json' }],
-      campaignStatus: 'active'
-    },
-    {
-      name: '<span class="given">Blaska</span>',
-      plain: 'Blaska',
-      file: 'Blaska_Dossier.html',
-      image: 'thumbs/blaska.jpg',
-      eyebrow: 'Orc &middot; Null &middot; Metakinetic Tradition',
-      subtitle: 'Farmer, Retired',
-      system: 'Draw Steel',
-      campaign: 'Collateral',
-      role: 'pre-gen',
-      campaignStatus: 'active'
-    },
-    {
-      name: '<span class="given">Brenn</span> &amp; Hroga',
-      plain: 'Brenn & Hroga',
-      file: 'Brenn___Hroga_Dossier.html',
-      image: 'thumbs/brenn.jpg',
-      eyebrow: 'Dwarf &middot; Beastheart &middot; Prowler Subclass',
-      subtitle: 'Quit the Work That Hurt People &mdash; Collateral &mdash; &amp; Her Boar',
-      system: 'Draw Steel',
-      campaign: 'Collateral',
-      role: 'pre-gen',
-      campaignStatus: 'active'
-    },
-    {
-      name: '<span class="given">Celenneth</span> of the D&uacute;nedain',
-      plain: 'Celenneth of the Dúnedain',
-      file: 'Celenneth_Dossier.html',
-      image: 'thumbs/celenneth.jpg',
-      eyebrow: 'D&uacute;nedain Ranger &middot; Messenger',
-      subtitle: 'Daughter of the North &mdash; She Who Ran at Nine and Stopped Running at Thirty-Eight',
-      system: 'The One Ring 2e',
-      campaign: 'The Angle',
-      role: 'pc',
-      campaignStatus: 'hiatus'
-    },
-    {
-      name: 'Ch&rsquo;ien <span class="given">Po-hsiang</span>',
-      plain: 'Ch\'ien Po-hsiang',
-      file: 'Chien_Po-hsiang_Dossier.html',
-      image: 'thumbs/chien.jpg',
-      eyebrow: 'Investigator &middot; Scholar &middot; Paleobotanist',
-      subtitle: 'Paleobotanist &mdash; Children of Fear &mdash; Geological Survey of China',
-      system: 'Call of Cthulhu 7e',
-      campaign: 'Children of Fear',
-      role: 'pc',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-ch\'ien-po-hsiang-(錢伯驤)-scFwvOKXzBxLTJOj.json' }],
-      campaignStatus: 'active'
-    },
-    {
-      name: '<span class="given">Cihan</span> Yilan',
-      plain: 'Cihan Yilan',
-      file: 'Cihan_Yilan_Dossier.html',
-      image: 'thumbs/cihan.jpg',
-      eyebrow: 'Vizier of Ughardi &middot; Skai Holt',
-      subtitle: 'Servant of the Serref &mdash; Builder of the Lani Span',
-      system: 'D&D 5e',
-      campaign: 'Skai Holt & Ughardi',
-      role: 'pc',
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Clasiena</span>',
-      plain: 'Clasiena',
-      file: 'Clasiena_Dossier.html',
-      image: 'thumbs/clasiena.jpg',
-      eyebrow: 'Revenant &middot; Elementalist &middot; Void Discipline',
-      subtitle: 'Returned, with Unfinished Business',
-      system: 'Draw Steel',
-      campaign: 'Collateral',
-      role: 'pre-gen',
-      campaignStatus: 'active'
-    },
-    {
-      name: '<span class="given">Clifford</span> Joel Howard',
-      plain: 'Clifford Joel Howard',
-      file: 'Clifford_Joel_Howard_Dossier.html',
-      image: 'thumbs/clifford.jpg',
-      eyebrow: 'Federal Investigator &middot; Division Seven',
-      subtitle: 'Radiance Bureau &mdash; Nashoba posting &mdash; age 27',
-      system: 'Weird of Hali',
-      campaign: 'Nashoba',
-      role: 'pc',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-clifford-joel-howard-BPmiSN9LnukWG1mZ.json' }],
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Damla</span> Sancaktar',
-      plain: 'Damla Sancaktar',
-      file: 'Damla_Sancaktar_Dossier.html',
-      image: 'thumbs/damla.jpg',
-      eyebrow: 'Bard &middot; The Crescent City',
-      subtitle: 'Shadow-Player of Pera &mdash; College of the Shadowactor',
-      system: 'D&D 5e',
-      campaign: 'The Crescent City',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Damrod</span> of the North',
-      plain: 'Damrod of the North',
-      file: 'Damrod_Dossier.html',
-      image: 'thumbs/damrod.jpg',
-      eyebrow: 'Rangers of the North &middot; Warden',
-      subtitle: 'Ranger of the D&uacute;nedain &middot; Paired with Hallas &middot; Riding East from the Frost Maw',
-      system: 'The One Ring 2e',
-      campaign: 'The Angle',
-      role: 'support',
-      campaignStatus: 'hiatus'
-    },
-    {
-      name: 'Doji <span class="given">Setsuna</span>',
-      plain: 'Doji Setsuna',
-      file: 'setsuna_dossier.html',
-      image: 'thumbs/doji_setsuna.jpg',
-      eyebrow: 'Crane Clan &middot; Doji Bureaucrat School',
-      subtitle: 'Personal Advisor to the Imperial Envoy &mdash; Emerald Magistrate &mdash; Famously Successful',
-      system: 'Legend of the Five Rings 5e',
-      campaign: 'The Fragile Peace',
-      role: 'pc',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-doji-setsuna-Kl12YzeigyacVJ73.json' }],
-      campaignStatus: 'active'
-    },
-    {
-      name: '<span class="given">Eira</span> of Bree',
-      plain: 'Eira of Bree',
-      file: 'Eira_Dossier.html',
-      image: 'thumbs/eira.jpg',
-      eyebrow: 'Men of Bree &middot; Treasure Hunter',
-      subtitle: 'Of the Silver Lily &middot; Treasure Hunter &middot; Knew Brandor and Orlec',
-      system: 'The One Ring 2e',
-      campaign: 'The Angle',
-      role: 'support',
-      campaignStatus: 'hiatus'
-    },
-    {
-      name: '<span class="given">Emil</span> / Orestes',
-      plain: 'Emil / Orestes',
-      file: 'Emil_Orestes_Dossier.html',
-      image: 'thumbs/emil.jpg',
-      eyebrow: 'Persona &middot; Paragon &middot; The Dictator',
-      subtitle: 'Metalhead-Turned-VC &mdash; BeggarTok DIE &mdash; The Dictator (d4)',
-      system: 'DIE',
-      campaign: 'BeggarTok DIE',
-      role: 'pc',
-      featured: true,
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Eorlas</span> the Wandering Herbalist',
-      plain: 'Eorlas the Wandering Herbalist',
-      file: 'Eorlas_Dossier.html',
-      image: 'thumbs/eorlas.jpg',
-      eyebrow: 'Bardings &middot; Warden',
-      subtitle: 'Wanderer Met in Mirkwood &middot; Bearer of the Message to Elenna',
-      system: 'The One Ring 2e',
-      campaign: 'The Angle',
-      role: 'support',
-      campaignStatus: 'hiatus'
-    },
-    {
-      name: '<span class="given">Erasmus</span> the Hound',
-      plain: 'Erasmus the Hound',
-      file: 'Erasmus_Dossier.html',
-      image: 'thumbs/erasmus.jpg',
-      eyebrow: 'House Mercere &middot; Gifted Line &middot; Illegitimate Lineage',
-      subtitle: 'Redcap &mdash; Moneylender &mdash; The Listener &mdash; Keeper of Inconvenient Knowledge',
-      system: 'Ars Magica 5e',
-      campaign: 'Solving\'s Mystery',
-      role: 'pre-gen',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-erasmus-the-hound-pcxQ6asMRdo8GlcD.json' }],
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Erin</span>',
-      plain: 'Erin',
-      file: 'Erin_Dossier.html',
-      image: 'thumbs/erin.jpg',
-      eyebrow: 'Connected Galant &middot; Order of the Vance',
-      subtitle: 'Connected Galant &mdash; Under the Invisible Sun &mdash; Order of the Vance',
-      system: 'Invisible Sun',
-      campaign: 'Under the Invisible Sun',
-      role: 'pc',
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Ernest</span> Burgess',
-      plain: 'Ernest Burgess',
-      file: 'Ernest_Burgess_Dossier.html',
-      image: 'thumbs/ernie.jpg',
-      eyebrow: 'Profane Sorcerer &middot; The Kerberos Club',
-      subtitle: 'Second Son of the Earl of Onslow &mdash; Sponsored Member &mdash; London, 1830',
-      system: 'Kerberos Club (FATE)',
-      campaign: 'The Kerberos Club',
-      role: 'pc',
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Eryndil</span> of Lindon',
-      plain: 'Eryndil of Lindon',
-      file: 'Eryndil_Dossier.html',
-      image: 'thumbs/eryndil.jpg',
-      eyebrow: 'Elves of Lindon &middot; Scholar',
-      subtitle: 'Scholar of the Western Shores &middot; Bearer of C&iacute;rdan&#39;s Errand &middot; Bearer of the Adamant Relic',
-      system: 'The One Ring 2e',
-      campaign: 'The Angle',
-      role: 'support',
-      campaignStatus: 'hiatus'
-    },
-    {
-      name: 'Executor <span class="given">Vellpryte</span>',
-      plain: 'Executor Vellpryte',
-      file: 'Executor_Vellpryte_Dossier.html',
-      image: 'thumbs/executor_vellpryte.jpg',
-      eyebrow: 'Memonek &middot; Censor (Paragon)',
-      subtitle: 'Senior Field Agent &mdash; Primary Combatant &amp; Judicial Authority &mdash; Zenith',
-      system: 'Draw Steel',
-      campaign: 'Zenith &middot; Collateral',
-      role: 'pre-gen',
-      featured: true,
-      campaignStatus: 'active'
-    },
-    {
-      name: '<span class="given">Faletolu</span> Faletolu',
-      plain: 'Faletolu Faletolu',
-      file: 'Faletolu_Faletolu_Dossier.html',
-      image: 'thumbs/faletolu.jpg',
-      eyebrow: 'Barbarian &middot; Bard &middot; Soldier',
-      subtitle: 'Six Houses &mdash; Warrior-Skald &mdash; Fearless to a Reckless Extent',
-      system: 'D&D 5e',
-      campaign: 'Homebrew Setting',
-      role: 'pc',
-      campaignStatus: 'past'
-    },
-    {
-      name: 'Father <span class="given">Leonidas</span>',
-      plain: 'Father Leonidas',
-      file: 'Father_Leonidas_Dossier.html',
-      image: 'thumbs/leonidas.jpg',
-      eyebrow: 'Cleric &middot; The Crescent City',
-      subtitle: 'Greek Orthodox Priest &mdash; Realitymender Domain',
-      system: 'D&D 5e',
-      campaign: 'The Crescent City',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Fatima</span>',
-      plain: 'Fatima',
-      file: 'Fatima_Dossier.html',
-      image: 'thumbs/fatima.jpg',
-      eyebrow: 'Ghost',
-      subtitle: 'The Ghost &mdash; Shoalsburg High &mdash; Deceased, But Around',
-      system: 'Monsterhearts 2e',
-      campaign: 'Shoalsburg High',
-      role: 'pc',
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Fenrir</span>',
-      plain: 'Fenrir',
-      file: 'Fenrir_Dossier.html',
-      image: 'thumbs/fenrir.jpg',
-      eyebrow: 'Cleric &middot; One True God &middot; Dolmenwood',
-      subtitle: 'Cleric of the One True God &mdash; Dolmenwood &mdash; Pilgrim into the Cold Dark',
-      system: 'Old School Essentials',
-      campaign: 'Dolmenwood',
-      role: 'pc',
-      campaignStatus: 'one-shot'
-    },
-    {
-      name: '<span class="given">Flare</span>',
-      plain: 'Flare',
-      file: 'Flare_Dossier.html',
-      image: 'thumbs/flare.jpg',
-      eyebrow: 'Mutant &middot; Student',
-      subtitle: 'Taylor Crenshaw &mdash; Age 15 &mdash; Direct Action for Mutant Liberation',
-      system: 'Marvel Multiverse RPG',
-      campaign: 'X-FRONT',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Garin</span> of Rohan',
-      plain: 'Garin of Rohan',
-      file: 'Garin_Dossier.html',
-      image: 'thumbs/garin.jpg',
-      eyebrow: 'Riders of Rohan &middot; Edoras',
-      subtitle: 'Rider Met on the Plains &middot; Whose Mare Carried Celenneth Home',
-      system: 'The One Ring 2e',
-      campaign: 'The Angle',
-      role: 'support',
-      campaignStatus: 'hiatus'
-    },
-    {
-      name: 'The <span class="given">Golden Dervish King</span>',
-      plain: 'The Golden Dervish King',
-      file: 'Golden_Dervish_King_Dossier.html',
-      image: 'thumbs/golden_dervish_king.jpg',
-      eyebrow: 'Wanderer of the Rivers and Lakes &middot; Fire Doctrine Priest',
-      subtitle: 'Fire Doctrine Priest &mdash; Legends of Wulin &mdash; Wulin Initiate',
-      system: 'Legends of Wulin',
-      campaign: 'Legends of Wulin',
-      role: 'pc',
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Gungr</span>',
-      plain: 'Gungr',
-      file: 'Gungr_Dossier.html',
-      image: 'thumbs/gungr.jpg',
-      eyebrow: 'Hakaan &middot; Talent &middot; Chronopathy Discipline',
-      subtitle: 'The Portents Were Honest',
-      system: 'Draw Steel',
-      campaign: 'Collateral',
-      role: 'pre-gen',
-      campaignStatus: 'active'
-    },
-    {
-      name: 'Subedar <span class="given">Gurdit</span> Singh Bajwa',
-      plain: 'Subedar Gurdit Singh Bajwa',
-      file: 'Gurdit_Singh_Bajwa_Dossier.html',
-      image: 'thumbs/gurdit.jpg',
-      eyebrow: 'Investigator &middot; Steadfast &middot; Director of Expedition Security',
-      subtitle: 'Director of Expedition Security &mdash; Children of Fear &mdash; 15th Ludhiana Sikhs',
-      system: 'Call of Cthulhu 7e',
-      campaign: 'Children of Fear',
-      role: 'pc',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-gurdit-singh-bajwa-GsvPUu5ij948GvpR.json' }],
-      campaignStatus: 'active'
-    },
-    {
-      name: '<span class="given">Half-Life</span>',
-      plain: 'Half-Life',
-      file: 'Half-Life_Dossier.html',
-      image: 'thumbs/half-life.jpg',
-      eyebrow: 'Mutant &middot; Criminal &middot; X-FRONT',
-      subtitle: 'Cody Kennedy &mdash; Age 18 &mdash; Direct Action for Mutant Liberation',
-      system: 'Marvel Multiverse RPG',
-      campaign: 'X-FRONT',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Hallas</span> of the North',
-      plain: 'Hallas of the North',
-      file: 'Hallas_Dossier.html',
-      image: 'thumbs/hallas.jpg',
-      eyebrow: 'Rangers of the North &middot; Champion',
-      subtitle: 'Ranger of the D&uacute;nedain &middot; Paired with Damrod &middot; Namesake of Celenneth&#39;s Son',
-      system: 'The One Ring 2e',
-      campaign: 'The Angle',
-      role: 'support',
-      campaignStatus: 'hiatus'
-    },
-    {
-      name: '<span class="given">Hassan</span> Al-Kabir',
-      plain: 'Hassan Al-Kabir',
-      file: 'Hassan_Al-Kabir_Dossier.html',
-      image: 'thumbs/hassan.jpg',
-      eyebrow: 'Barbarian &middot; The Crescent City',
-      subtitle: 'Street-King of the Lower Quarters &mdash; Urban Vagabond',
-      system: 'D&D 5e',
-      campaign: 'The Crescent City',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">H&eacute;l&egrave;ne</span> &Eacute;lo&iuml;se Bergeron',
-      plain: 'Hélène Éloïse Bergeron',
-      file: 'Helene_Bergeron_Dossier.html',
-      image: 'thumbs/helene.jpg',
-      eyebrow: 'Investigator &middot; Seeker &middot; Sociolinguist',
-      subtitle: 'Sociolinguist &mdash; Children of Fear &mdash; Mus&eacute;e Guimet',
-      system: 'Call of Cthulhu 7e',
-      campaign: 'Children of Fear',
-      role: 'pc',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-helene-eloise-bergeron-gs6e1FO0Phs0L90t.json' }],
-      campaignStatus: 'active'
-    },
-    {
-      name: 'Hiruma <span class="given">Kaede</span>',
-      plain: 'Hiruma Kaede',
-      file: 'Hiruma_Kaede_Dossier.html',
-      image: 'thumbs/hiruma-kaede.jpg',
-      eyebrow: 'Crab Clan &middot; Hida Defender',
-      subtitle: 'Hida Defender',
-      system: 'Legend of the Five Rings 5e',
-      campaign: 'The Bushi Oni',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed',
-      sheets: [
-        { vtt: 'foundry', file: 'fvtt-Actor-hiruma-kaede-279-xp-(general,-rank-6)-l4VWZnBMThDd2yR6.json',   label: '279 XP · General, Rank 6' },
-        { vtt: 'foundry', file: 'fvtt-Actor-hiruma-kaede-216-xp-(general,-rank-5)-53TxZNvkvH299bkh.json',   label: '216 XP · General, Rank 5' },
-        { vtt: 'foundry', file: 'fvtt-Actor-hiruma-kaede-165-xp-(gunsō,-rank-5)-1zj26dnVkxVx8cjc.json',  label: '165 XP · Gunsō, Rank 5' },
-        { vtt: 'foundry', file: 'fvtt-Actor-hiruma-kaede-107-xp-(gunsō,-rank-4)-xRpcwXitGcOO6hQP.json',  label: '107 XP · Gunsō, Rank 4' },
-        { vtt: 'foundry', file: 'fvtt-Actor-hiruma-kaede-74-xp-(gunsō,-rank-3)-T8Lx3NypuCOqLcpc.json',   label: '74 XP · Gunsō, Rank 3' },
-        { vtt: 'foundry', file: 'fvtt-Actor-hiruma-kaede-50-xp-(rank-3)-kyq8x7TCCC3lKy6I.json',              label: '50 XP · Rank 3' },
-        { vtt: 'foundry', file: 'fvtt-Actor-hiruma-kaede-21-xp-(rank-2)-qasH08OepZgjiTfv.json',              label: '21 XP · Rank 2' },
-        { vtt: 'foundry', file: 'fvtt-Actor-hiruma-kaede-0-xp-s4k9f0SUcWTel4ci.json',                        label: '0 XP' },
-      ]
-    },
-    {
-      name: '<span class="given">Ibrahim</span> the Silent Sentinel',
-      plain: 'Ibrahim the Silent Sentinel',
-      file: 'Ibrahim_The_Silent_Sentinel_Dossier.html',
-      image: 'thumbs/ibrahim.jpg',
-      eyebrow: 'Paladin &middot; The Crescent City',
-      subtitle: 'Warden of the Poorer Quarters &mdash; Oath of Silence',
-      system: 'D&D 5e',
-      campaign: 'The Crescent City',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: 'Isawa <span class="given">Yukiko</span>',
-      plain: 'Isawa Yukiko',
-      file: 'Isawa_Yukiko_Dossier.html',
-      image: 'thumbs/isawa-yukiko.jpg',
-      eyebrow: 'Phoenix Clan &middot; Ishiken',
-      subtitle: 'Ishiken Initiate',
-      system: 'Legend of the Five Rings 5e',
-      campaign: 'The Bushi Oni',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed',
-      sheets: [
-        { vtt: 'foundry', file: 'fvtt-Actor-isawa-yukiko-98-xp-(awakened-soul,-rank-3)-(copy)-tQeesrhaKZHRa5lB.json', label: '98 XP · Awakened Soul, Rank 3' },
-        { vtt: 'foundry', file: 'fvtt-Actor-isawa-yukiko-74-xp-(awakened-soul,-rank-2)-o6nJImFmnkUzcWPZ.json',        label: '74 XP · Awakened Soul, Rank 2' },
-        { vtt: 'foundry', file: 'fvtt-Actor-isawa-yukiko-44-xp-(awakened-soul)-uddhC4czlnyZAYjJ.json',                label: '44 XP · Awakened Soul' },
-      ]
-    },
-    {
-      name: '<span class="given">Kaia</span> kW',
-      plain: 'Kaia kW',
-      file: 'Kaia_kW_Dossier.html',
-      image: 'thumbs/kaia_kw.jpg',
-      eyebrow: 'Edgerunner &middot; Rockerboy',
-      subtitle: 'Vocalist of Homeschool Dropouts &mdash; Survivor of the Arasaka Ry&#363;jin',
-      system: 'Cyberpunk RED',
-      campaign: 'Preem Chooms',
-      role: 'pc',
-      featured: true,
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Kelly</span>',
-      plain: 'Kelly',
-      file: 'Kelly_Dossier.html',
-      image: 'thumbs/kelly.jpg',
-      eyebrow: 'The Chosen',
-      subtitle: 'She Who Bears the Bone Chain',
-      system: 'Monster of the Week',
-      campaign: 'Oberon\'s Hunt',
-      role: 'pc',
-      campaignStatus: 'one-shot'
-    },
-    {
-      name: '<span class="given">Kelun</span>',
-      plain: 'Kelun',
-      file: 'Kelun_Dossier.html',
-      image: 'thumbs/kelun.jpg',
-      eyebrow: 'Reborne Clank &middot; Sorcerer (Primal Origin)',
-      subtitle: 'Reborne Clank &mdash; Sorcerer of Primal Origin &mdash; Age of Umbra',
-      system: 'Daggerheart',
-      campaign: 'Caul',
-      role: 'support',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-kelun-keoGnm7saxaQaEQ6.json' }],
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Kemal</span> Balık',
-      plain: 'Kemal Balık',
-      file: 'Kemal_The_Sentinel_Balik_Dossier.html',
-      image: 'thumbs/kemal.jpg',
-      eyebrow: 'Fighter &middot; The Crescent City',
-      subtitle: 'Çorbacı of the Old Corps &mdash; Janissary',
-      system: 'D&D 5e',
-      campaign: 'The Crescent City',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Khalida</span> bint Tariq',
-      plain: 'Khalida bint Tariq',
-      file: 'Khalida_Dossier.html',
-      image: 'thumbs/khalida.jpg',
-      eyebrow: 'House Flambeau &middot; Orator Tradition &middot; True Faith',
-      subtitle: 'Maga of Storms &mdash; The Eye of the Hurricane &mdash; Exile Twice Over',
-      system: 'Ars Magica 5e',
-      campaign: 'Solving\'s Mystery',
-      role: 'pre-gen',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-khalida-bint-muhammad-al-balansi-Mhd0QoRBZ2cYYKXO.json' }],
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Krellen-Jek</span>',
-      plain: 'Krellen-Jek',
-      file: 'Krellen-Jek_Dossier.html',
-      image: 'thumbs/krellen-jek.jpg',
-      eyebrow: 'Kuran&rsquo;zoi &middot; Tactician &middot; Insurgent',
-      subtitle: 'Deserter &mdash; Late of an Unnamed Pirate Fleet',
-      system: 'Draw Steel',
-      campaign: 'Collateral',
-      role: 'pre-gen',
-      campaignStatus: 'active'
-    },
-    {
-      name: '<span class="given">Leyla</span> of the Blue Eye',
-      plain: 'Leyla of the Blue Eye',
-      file: 'Leyla_of_the_Blue_Eye_Dossier.html',
-      image: 'thumbs/leyla.jpg',
-      eyebrow: 'Druid &middot; The Crescent City',
-      subtitle: 'Charm-maker of the Spice Market &mdash; Circle of Nazar',
-      system: 'D&D 5e',
-      campaign: 'The Crescent City',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Li Xia</span> (Lily Combes)',
-      plain: 'Li Xia (Lily Combes)',
-      file: 'Li_Xia_Lily_Combes_Dossier.html',
-      image: 'thumbs/Li Xia (Lily).jpg',
-      eyebrow: 'Case File DG-CA-1952-014',
-      subtitle: 'Research Assistant, JPL &mdash; Nashoba, 1952 &mdash; operating as Lily Combes',
-      system: 'Delta Green',
-      campaign: 'Nazis, Spies & Satanists',
-      role: 'pc',
-      featured: true,
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-lily-combes-(li-hsia)-8kchHy9cbOP6UxpJ.json' }],
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Linnea</span> of Bree',
-      plain: 'Linnea of Bree',
-      file: 'Linnea_Dossier.html',
-      image: 'thumbs/linnea.jpg',
-      eyebrow: 'Men of Bree &middot; Warden',
-      subtitle: 'Bound to Celenneth by the Aegis &middot; Warden &middot; Of Bree-Blood',
-      system: 'The One Ring 2e',
-      campaign: 'The Angle',
-      role: 'support',
-      campaignStatus: 'hiatus'
-    },
-    {
-      name: '<span class="given">Lor Un</span>',
-      plain: 'Lor Un',
-      file: 'Lor_Un_Dossier.html',
-      image: 'thumbs/lor-un.jpg',
-      eyebrow: 'Human &middot; Troubadour &middot; Auteur',
-      subtitle: 'Placed Inside Her Own Character Sheet',
-      system: 'Draw Steel',
-      campaign: 'Collateral',
-      role: 'pre-gen',
-      campaignStatus: 'active'
-    },
-    {
-      name: '<span class="given">Lucero</span> d&rsquo;Albec',
-      plain: 'Lucero d\'Albec',
-      file: 'Lucero_d_Albec_Dossier.html',
-      image: 'thumbs/lucero.jpg',
-      eyebrow: 'Devil &middot; Fury &middot; Reaver',
-      subtitle: 'Former Watch Officer &mdash; Wanted for Homicide',
-      system: 'Draw Steel',
-      campaign: 'Collateral',
-      role: 'pre-gen',
-      campaignStatus: 'active'
-    },
-    {
-      name: '<span class="given">Maike</span> Oostgracht',
-      plain: 'Maike Oostgracht',
-      file: 'Maike_Oostgracht_Dossier.html',
-      image: 'thumbs/maike.jpg',
-      eyebrow: 'Polder &middot; Conduit &middot; Domains of Love &amp; War',
-      subtitle: 'Proponent of a Sanctuary Not Yet Built',
-      system: 'Draw Steel',
-      campaign: 'Collateral',
-      role: 'pre-gen',
-      campaignStatus: 'active'
-    },
-    {
-      name: '<span class="given">Malek</span>',
-      plain: 'Malek',
-      file: 'Malek_Dossier.html',
-      image: 'thumbs/malek.jpg',
-      eyebrow: 'Halfling Psionicist &middot; Dark Sun',
-      subtitle: 'Flesh-Tender &mdash; Wanderer of the Burned Sands',
-      system: 'Shadowdark RPG',
-      campaign: 'Dark Sun',
-      role: 'pc',
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Marie</span> Halvor Boucher',
-      plain: 'Marie Halvor Boucher',
-      file: 'Marie_Boucher_Dossier.html',
-      image: 'thumbs/marie.jpg',
-      eyebrow: 'Investigator &middot; Outsider &middot; Missionary &amp; Nurse',
-      subtitle: 'Missionary &amp; Nurse &mdash; Children of Fear &mdash; Designated Marksman',
-      system: 'Call of Cthulhu 7e',
-      campaign: 'Children of Fear',
-      role: 'pc',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-marie-halvor-boucher-v6IZJd7bfX8OrLkm.json' }],
-      campaignStatus: 'active'
-    },
-    {
-      name: '<span class="given">Mellan</span>',
-      plain: 'Mellan',
-      file: 'Mellan_Dossier.html',
-      image: 'thumbs/mellan.jpg',
-      eyebrow: 'Ridgeborne Human &middot; Ranger (Beastbound)',
-      subtitle: 'Ridgeborne Human &mdash; Ranger with Wivek the Hawk &mdash; Left Ygva a River-Stone',
-      system: 'Daggerheart',
-      campaign: 'Caul',
-      role: 'support',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-mellan-iE5VS53tRptJIzlt.json' }],
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Miele</span>',
-      plain: 'Miele',
-      file: 'Miele_Dossier.html',
-      image: 'thumbs/miele.jpg',
-      eyebrow: 'Satyr &middot; Resopath &middot; MCDM Talent',
-      subtitle: 'Teacher of Lost Questions &mdash; Skai Holt &amp; Ughardi &mdash; Unplayed',
-      system: 'D&D 5e',
-      campaign: 'Skai Holt & Ughardi',
-      role: 'pc',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Miriam</span> the Chronicler',
-      plain: 'Miriam the Chronicler',
-      file: 'Miriam_the_Chronicler_Dossier.html',
-      image: 'thumbs/miriam.jpg',
-      eyebrow: 'Warlock &middot; The Crescent City',
-      subtitle: 'Librarian of the Grand Bazaar &mdash; The Ancient Sage',
-      system: 'D&D 5e',
-      campaign: 'The Crescent City',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: 'Sekondl&oslash;jtnant <span class="given">Morten</span> Bergesen',
-      plain: 'Sekondløjtnant Morten Bergesen',
-      file: 'Morten_Bergesen_Dossier.html',
-      image: 'thumbs/morten.jpg',
-      eyebrow: 'Investigator &middot; Officer',
-      subtitle: '[Exempted from Service] &mdash; Archetype: Officer',
-      system: 'Vaesen',
-      campaign: 'The Lost Mountain Saga',
-      role: 'pc',
-      featured: true,
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Nadir</span> the Tormented',
-      plain: 'Nadir the Tormented',
-      file: 'Nadir_the_Tormented_Dossier.html',
-      image: 'thumbs/nadir.jpg',
-      eyebrow: 'Sorcerer &middot; The Crescent City',
-      subtitle: 'Glassblower of the Golden Horn &mdash; Djinn-Possessed Origin',
-      system: 'D&D 5e',
-      campaign: 'The Crescent City',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: 'Nasu <span class="given">Kogo</span>',
-      plain: 'Nasu Kogo',
-      file: 'Nasu_Kogo_Dossier.html',
-      image: 'thumbs/nasu-kogo.jpg',
-      eyebrow: 'Scorpion Clan &middot; Shosuro Shadowweaver',
-      subtitle: 'Shosuro Shadowweaver',
-      system: 'Legend of the Five Rings 5e',
-      campaign: 'The Bushi Oni',
-      role: 'pre-gen',
-      sheets: [
-        { vtt: 'foundry', file: 'fvtt-Actor-nasu-kogo-0-xp-1couuYrLcG6efybt.json', label: '0 XP' },
-        { vtt: 'foundry', file: 'fvtt-Actor-nasu-kogo-20-xp-(rank-2)-yQLM5kLHqFdrhfVd.json', label: '20 XP — Rank 2' },
-        { vtt: 'foundry', file: 'fvtt-Actor-nasu-kogo-33-xp-(interpreter,-rank-2)-JVNV6v1nBOODVBs9.json', label: '33 XP — Interpreter, Rank 2' },
-        { vtt: 'foundry', file: 'fvtt-Actor-nasu-kogo-63-xp-(interpreter,-rank-3)-HhUYx9efAco0z2SQ.json', label: '63 XP — Interpreter, Rank 3' },
-      ],
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Noel</span> Grainger',
-      plain: 'Noel Grainger',
-      file: 'Noel_Grainger_Dossier.html',
-      image: 'thumbs/noel.jpg',
-      eyebrow: 'Gangrel &middot; Neonate',
-      subtitle: 'Gangrel Neonate &mdash; Not the Only Dead &mdash; Denver Metro',
-      system: 'Vampire: the Masquerade 5e',
-      campaign: 'Not the Only Dead',
-      role: 'pc',
-      featured: true,
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Oleansel</span>',
-      plain: 'Oleansel',
-      file: 'Oleansel_Dossier.html',
-      image: 'thumbs/oleansel.jpg',
-      eyebrow: 'High Elf &middot; Shadow &middot; College of the Harlequin Mask',
-      subtitle: 'Aristocrat, Defrocked &mdash; Rehabilitating in Good Faith',
-      system: 'Draw Steel',
-      campaign: 'Collateral',
-      role: 'pre-gen',
-      campaignStatus: 'active'
-    },
-    {
-      name: 'Operator <span class="given">Azimuth</span>',
-      plain: 'Operator Azimuth',
-      file: 'Operator_Azimuth_Dossier.html',
-      image: 'thumbs/operator_azimuth.jpg',
-      eyebrow: 'Memonek &middot; Talent (Telekinesis)',
-      subtitle: 'Psionic Specialist &mdash; Direct Action &mdash; She Is the Weapon',
-      system: 'Draw Steel',
-      campaign: 'Zenith',
-      role: 'support',
-      campaignStatus: 'active'
-    },
-    {
-      name: 'Ikoma no Hosokawa <span class="given">Ota</span>',
-      plain: 'Ikoma no Hosokawa Ota',
-      file: 'Ota_Dossier.html',
-      image: 'thumbs/ota.jpg',
-      eyebrow: 'Lion Clan &middot; Yogo Penitent Order',
-      subtitle: 'Born Yogo of the Scorpion &mdash; Adopted into the Hosokawa Lion &mdash; Servant of Ikoma Kenji',
-      system: 'Legend of the Five Rings 5e',
-      campaign: 'City of the Rich Frog',
-      role: 'pc',
-      campaignStatus: 'hiatus'
-    },
-    {
-      name: '<span class="given">Patience</span> Bataille',
-      plain: 'Patience Bataille',
-      file: 'Patience_Bataille_Dossier.html',
-      image: 'thumbs/patience.jpg',
-      eyebrow: 'A Jane Austen RPG',
-      subtitle: '&ldquo;You can go to India. I am staying on continent.&rdquo;',
-      system: 'Good Society',
-      campaign: 'The Harrington Season',
-      role: 'pc',
-      campaignStatus: 'past'
-    },
-    {
-      name: 'Squire <span class="given">Llwyd</span> &ldquo;Paun&rdquo;',
-      plain: 'Paun',
-      file: 'Paun_Dossier.html',
-      image: 'thumbs/paun.jpg',
-      eyebrow: 'Cymric &middot; Squire &middot; Salisbury',
-      subtitle: 'Son of Sir Geraint &mdash; Squired to Sir Eamon &mdash; The Boy with the Dulcet Voice',
-      system: 'Pendragon 6e',
-      campaign: 'Salisbury',
-      role: 'pc',
-      featured: true,
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-squire-llwyd-\'paun\'-(jordan)-kVl1KjMatqwfZ70w.json' }],
-      campaignStatus: 'active'
-    },
-    {
-      name: '<span class="given">Pelorajax</span>',
-      plain: 'Pelorajax',
-      file: 'Pelorajax_Dossier.html',
-      image: 'thumbs/pelorajax.jpg',
-      eyebrow: 'DragonKnight &middot; Summoner &middot; Circle of Storms',
-      subtitle: 'Former Agent &mdash; The Storms Answer Her',
-      system: 'Draw Steel',
-      campaign: 'Collateral',
-      role: 'pre-gen',
-      campaignStatus: 'active'
-    },
-    {
-      name: '<span class="given">Photios</span> Chrysoloras',
-      plain: 'Photios Chrysoloras',
-      file: 'Photios_Chrysoloras_Dossier.html',
-      image: 'thumbs/photios.jpg',
-      eyebrow: 'House Jerbiton &middot; Mouseion Prometheia &middot; Refugee',
-      subtitle: 'The Cartographer &mdash; Refugee of the Second Rome &mdash; Eyes of Gold',
-      system: 'Ars Magica 5e',
-      campaign: 'Solving\'s Mystery',
-      role: 'pre-gen',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-photios-chrysoloras-Z6eijmcqsTcTBU8p.json' }],
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: 'Protocol <span class="given">Keshet</span>',
-      plain: 'Protocol Keshet',
-      file: 'Protocol_Keshet_Dossier.html',
-      image: 'thumbs/protocol_keshet.jpg',
-      eyebrow: 'Memonek &middot; Tactician (Mastermind)',
-      subtitle: 'Field Coordinator &mdash; Tactical Planning &amp; Battlefield Control',
-      system: 'Draw Steel',
-      campaign: 'Zenith',
-      role: 'support',
-      campaignStatus: 'active'
-    },
-    {
-      name: 'Rear Admiral <span class="given">Stephen Kent</span>, USN',
-      plain: 'Rear Admiral Stephen Kent, USN',
-      file: 'Rear_Admiral_Kent_Dossier.html',
-      image: 'thumbs/kent.jpg',
-      eyebrow: 'Rear Admiral &middot; USN',
-      subtitle: 'Mahan&rsquo;s man &mdash; Widower of a Fortnight',
-      system: 'Call of Cthulhu 7e',
-      campaign: 'Haunted House',
-      role: 'pc',
-      campaignStatus: 'one-shot'
-    },
-    {
-      name: '<span class="given">Rhys</span> ap Cadwgan',
-      plain: 'Rhys ap Cadwgan',
-      file: 'Rhys_ap_Cadwgan_Dossier.html',
-      image: 'thumbs/rhys-ap-cadwgan.jpg',
-      eyebrow: 'Tactician (Vanguard) &middot; Draw Steel &middot; Kingdom of Kaetis',
-      subtitle: 'Knight of Osdon &mdash; Cousin of the Lord',
-      system: 'Draw Steel',
-      campaign: 'Kingdom of Kaetis',
-      role: 'pc',
-      campaignStatus: 'active',
-      sheets: [
-        { vtt: 'forge-steel', file: 'Rhys ap Cadwgan.ds-hero', label: 'Draw Steel' },
-      ]
-    },
-    {
-      name: '<span class="given">Regret</span>',
-      plain: 'Regret',
-      file: 'Regret_Dossier.html',
-      image: 'thumbs/regret.jpg',
-      eyebrow: 'Mutant &middot; Adventurer &middot; X-FRONT',
-      subtitle: 'Mohamed Salem &mdash; Age 16 &mdash; Direct Action for Mutant Liberation',
-      system: 'Marvel Multiverse RPG',
-      campaign: 'X-FRONT',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-{
-      name: '<span class="given">Rhys</span> Tyler Owens',
-      plain: 'Rhys Tyler Owens',
-      file: 'Rhys_Tyler_Owens_Dossier.html',
-      image: 'thumbs/rhys.jpg',
-      eyebrow: 'Black Furies &middot; Theurge &middot; Patron: Gorgon',
-      subtitle: '&ldquo;They were safe from my rage when I lacked power.&rdquo;',
-      system: 'Werewolf: The Apocalypse 5e',
-      campaign: 'Rites of Redemption',
-      role: 'pc',
-      featured: true,
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Salih</span> Celestialwalker',
-      plain: 'Salih Celestialwalker',
-      file: 'Salih_Celestialwalker_Dossier.html',
-      image: 'thumbs/salih.jpg',
-      eyebrow: 'Wizard &middot; The Crescent City',
-      subtitle: 'Astronomer of the Sublime Porte &mdash; Stargazer',
-      system: 'D&D 5e',
-      campaign: 'The Crescent City',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Sam</span> Hornton',
-      plain: 'Sam Hornton',
-      file: 'Sam_Hornton_Dossier.html',
-      image: 'thumbs/sam-hornton.jpg',
-      eyebrow: 'Proprietor &middot; the Saloon Owner &middot; Fallstaff',
-      subtitle: '&ldquo;A deal&rsquo;s a deal.&rdquo; &mdash; The Occident &mdash; Cortex Prime',
-      system: 'Cortex Prime',
-      campaign: 'Fallstaff',
-      role: 'pc',
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Sarru</span>',
-      plain: 'Sarru',
-      file: 'Sarru_Dossier.html',
-      image: 'thumbs/sarru.jpg',
-      eyebrow: 'Ridgeborne Dwarf &middot; Guardian (Stalwart)',
-      subtitle: 'Ridgeborne Dwarf &mdash; Guardian of Blade and Valor &mdash; Childhood Circle of Ygva',
-      system: 'Daggerheart',
-      campaign: 'Caul',
-      role: 'support',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-sarru-O53fmhhROhana4j0.json' }],
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Saturnin Denys</span> Bastien',
-      plain: 'Saturnin Denys Bastien',
-      file: 'Saturnin_Denys_Bastien_Dossier.html',
-      image: 'thumbs/saturnin.jpg',
-      eyebrow: 'Driver &middot; Investigator',
-      subtitle: '&ldquo;The fare is paid first.&rdquo;',
-      system: 'Call of Cthulhu 7e',
-      campaign: 'Knights of the Bantam',
-      role: 'pc',
-      campaignStatus: 'one-shot'
-    },
-    {
-      name: 'Secretary <span class="given">Nomos</span>',
-      plain: 'Secretary Nomos',
-      file: 'Secretary_Nomos_Dossier.html',
-      image: 'thumbs/secretary_nomos.jpg',
-      eyebrow: 'Memonek &middot; Troubadour (Auteur)',
-      subtitle: 'Communications &amp; Support &mdash; Debuffer &amp; Morale',
-      system: 'Draw Steel',
-      campaign: 'Zenith',
-      role: 'support',
-      campaignStatus: 'active'
-    },
-    {
-      name: '<span class="given">Selim</span> the Bound',
-      plain: 'Selim the Bound',
-      file: 'Selim_the_Bound_Dossier.html',
-      image: 'thumbs/selim.jpg',
-      eyebrow: 'Warlock &middot; The Crescent City',
-      subtitle: 'Mediator of Djinn at the Eyüp Gate &mdash; The Djinnmaster',
-      system: 'D&D 5e',
-      campaign: 'The Crescent City',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Senna</span>',
-      plain: 'Senna',
-      file: 'Senna_Dossier.html',
-      image: 'thumbs/senna.jpg',
-      eyebrow: 'Dark Elf (Drow) &middot; Druid 6 / Ranger 3',
-      subtitle: 'Druid 6 / Ranger 3 &mdash; Northridge Campaign &mdash; Soldier of the Underdark',
-      system: 'D&D 5e',
-      campaign: 'Northridge Campaign',
-      role: 'pc',
-      sheets: [{ vtt: 'alchemy', file: 'senna.json' }],
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Shulamith</span> Firehammer',
-      plain: 'Shulamith Firehammer',
-      file: 'Shulamith_Firehammer_Dossier.html',
-      image: 'thumbs/shulamith.jpg',
-      eyebrow: 'Investigator &middot; Suffragist',
-      subtitle: 'Suffragist &mdash; None More Black &mdash; Call of Cthulhu 7th Edition',
-      system: 'Call of Cthulhu 7e',
-      campaign: 'None More Black',
-      role: 'pc',
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Sia</span> / Tuunbaq',
-      plain: 'Sia / Tuunbaq',
-      file: 'Sia_Tuunbaq_Dossier.html',
-      image: 'thumbs/sia.jpg',
-      eyebrow: 'Tiefling &middot; Blood Hunter &middot; Order of the Lycan',
-      subtitle: 'Blood Hunter 9 &mdash; Frost &amp; Fur &mdash; Bear-in-the-Blood',
-      system: 'D&D 5e',
-      campaign: 'Frost & Fur',
-      role: 'pc',
-      featured: true,
-      sheets: [{ vtt: 'alchemy', file: 'siatuunbaq.json' }],
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Skretting</span> Sikasoowukaa',
-      plain: 'Skretting Sikasoowukaa',
-      file: 'Skretting_Sikasoowukaa_Dossier.html',
-      image: 'thumbs/skretting.jpg',
-      eyebrow: 'Variant Human &middot; Cleric / Sorcerer / Monk &middot; Pilgrim of the Open Path',
-      subtitle: 'Cleric 1 / Sorcerer 3 / Monk 6 &mdash; Northridge Campaign &mdash; Kingdom of Greycott',
-      system: 'D&D 5e',
-      campaign: 'Northridge Campaign',
-      role: 'pc',
-      sheets: [{ vtt: 'alchemy', file: 'skretting-sikasoowukaa.json' }],
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Solving</span> Epicurusson',
-      plain: 'Solving Epicurusson',
-      file: 'Solving_Epicurusson_Dossier.html',
-      image: 'thumbs/solving.jpg',
-      eyebrow: 'House Criamon &middot; Outer Mystery of the Enigma',
-      subtitle: 'The Wandering Questioner &mdash; Magus of the Lumen Mare &mdash; Founder of Sj&oacute;rseiðr',
-      system: 'Ars Magica 5e',
-      campaign: 'Solving\'s Mystery',
-      role: 'pre-gen',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-solving-epicurusson-oQ995pjScYyZgYqe.json' }],
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Stasis</span>',
-      plain: 'Stasis',
-      file: 'Stasis_Dossier.html',
-      image: 'thumbs/stasis.jpg',
-      eyebrow: 'Mutant &middot; Student &middot; X-FRONT',
-      subtitle: 'Hermes Montoya &mdash; Age 14 &mdash; Direct Action for Mutant Liberation',
-      system: 'Marvel Multiverse RPG',
-      campaign: 'X-FRONT',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Svafnir</span>',
-      plain: 'Svafnir',
-      file: 'Svafnir_Dossier.html',
-      image: 'thumbs/svafnir.jpg',
-      eyebrow: 'Ulfhe&eth;nar &middot; Skald',
-      subtitle: 'The Hallucinating Skald-Warrior &mdash; Courier of the Eleven Villages',
-      system: 'Fate of the Norns: Ragnarok',
-      campaign: 'Fate of the Norns: Ragnarok',
-      role: 'pc',
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Taboo</span>',
-      plain: 'Taboo',
-      file: 'Taboo_Dossier.html',
-      image: 'thumbs/taboo.jpg',
-      eyebrow: 'Mutant &middot; Adventurer &middot; X-FRONT',
-      subtitle: 'Tabitha Fanning &mdash; Co-founder of X-FRONT &mdash; Age 17',
-      system: 'Marvel Multiverse RPG',
-      campaign: 'X-FRONT',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Tamros</span>',
-      plain: 'Tamros',
-      file: 'Tamros_Dossier.html',
-      image: 'thumbs/tamros.jpg',
-      eyebrow: 'Ridgeborne Ribbet &middot; Rogue (Nightwalker)',
-      subtitle: 'Ridgeborne Ribbet &mdash; Rogue of Midnight &mdash; Bound to Ygva',
-      system: 'Daggerheart',
-      campaign: 'Caul',
-      role: 'support',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-tamros-GHzF740poUZZlH50.json' }],
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Tank</span>',
-      plain: 'Tank',
-      file: 'Tank_Dossier.html',
-      image: 'thumbs/tank.jpg',
-      eyebrow: 'Mutant &middot; Educator &middot; X-FRONT',
-      subtitle: 'Toya Terrence &mdash; Co-founder of X-FRONT &mdash; Direct Action for Mutant Liberation',
-      system: 'Marvel Multiverse RPG',
-      campaign: 'X-FRONT',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Taran</span>',
-      plain: 'Taran',
-      file: 'Taran_Dossier.html',
-      image: 'thumbs/taran.jpg',
-      eyebrow: 'Soldier First Class &middot; The Hearth',
-      subtitle: 'Boggart &mdash; sworn to the household, bound to make it safe',
-      system: 'Household',
-      campaign: 'The Hearth',
-      role: 'pc',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-taran-th8Q5N54MGUbJ66X.json' }],
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Taran</span> O&rsquo;Damhri',
-      plain: 'Taran O\'Damhri',
-      file: 'Taran_ODamhri_Dossier.html',
-      image: 'thumbs/taran_odamhri.jpg',
-      eyebrow: 'Mountain Dwarf &middot; Artificer (Artillerist)',
-      subtitle: 'Mountain Dwarf &mdash; Artificer Artillerist Lv. 11',
-      system: 'D&D 5e',
-      campaign: 'Wyldwolf Axis',
-      role: 'pc',
-      sheets: [{ vtt: 'alchemy', file: 'taran-odamhri.json' }],
-      campaignStatus: 'one-shot'
-    },
-    {
-      name: '<span class="given">Tepshe</span>',
-      plain: 'Tepshe',
-      file: 'Tepshe_Dossier.html',
-      image: 'thumbs/tepshe.jpg',
-      eyebrow: 'Jinxed Tengu &middot; Inventor',
-      subtitle: 'Scavenger of misfortune &mdash; architect of controlled catastrophe',
-      system: 'Pathfinder 2e',
-      campaign: 'Convention One-Shot',
-      role: 'pc',
-      campaignStatus: 'one-shot'
-    },
-    {
-      name: '<span class="given">Tig</span>',
-      plain: 'Tig',
-      file: 'Tig_Dossier.html',
-      image: 'thumbs/tig.jpg',
-      eyebrow: 'Human (Variant) &middot; Fighter (Battle Master)',
-      subtitle: 'Battle Master Lv. 14 &mdash; City Watch &amp; Investigator',
-      system: 'D&D 5e',
-      campaign: 'Convention One-Shot',
-      role: 'pc',
-      sheets: [{ vtt: 'alchemy', file: 'tig.json' }],
-      campaignStatus: 'one-shot'
-    },
-    {
-      name: '<span class="given">Tiphaine</span> merc&#39;h Riwall',
-      plain: 'Tiphaine merc\'h Riwall',
-      file: 'tiphaine_dossier.html',
-      image: 'thumbs/tiphaine.jpg',
-      eyebrow: 'Squire &middot; Salisbury &middot; A.D. 465',
-      subtitle: 'of the Three Oaks &mdash; Daughter of a Slain Knight &mdash; Wolves of Vagon',
-      system: 'Pendragon 6e',
-      campaign: 'Salisbury',
-      role: 'support',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-squire-tiphaine-(jordan)-KRHLSxhiJ2rLmty3.json' }],
-      campaignStatus: 'active'
-    },
-    {
-      name: '<span class="given">Tomisława</span> z Białowieży',
-      plain: 'Tomisława z Białowieży',
-      file: 'tomislawa_household_dossier.html',
-      image: 'thumbs/tomi.png',
-      eyebrow: 'Tzimisce &middot; Koldun &middot; Via Regalis',
-      subtitle: 'Dark Ages &mdash; Household of Białowieży &mdash; 1242',
-      system: 'Vampire: the Masquerade 5e',
-      campaign: 'War of Princes',
-      role: 'pc',
-      campaignStatus: 'active'
-    },
-    {
-      name: '<span class="given">Torsten</span> Fabricatus',
-      plain: 'Torsten Fabricatus',
-      file: 'Torsten_Fabricatus_Dossier.html',
-      image: 'thumbs/torsten.jpg',
-      eyebrow: 'House Verditius &middot; Maritime Enchantment &middot; Bergen Shipyards',
-      subtitle: 'The Maker &mdash; Maritime Enchanter &mdash; The Right Way or Not at All',
-      system: 'Ars Magica 5e',
-      campaign: 'Solving\'s Mystery',
-      role: 'pre-gen',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-torsten-fabricatus-d305Zh6Hq2K7WLBa.json' }],
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Tulele</span> Einarsvard',
-      plain: 'Tulele Einarsvard',
-      file: 'Tulele_Dossier.html',
-      image: 'thumbs/tulele.jpg',
-      eyebrow: 'Barbarian / Bard &middot; Far Traveler &middot; Dragon Heist',
-      subtitle: 'Insulter-for-Hire &mdash; Proprietor of Knuckleheads &mdash; Waterdeep',
-      system: 'D&D 5e',
-      campaign: 'Dragon Heist',
-      role: 'pc',
-      sheets: [{ vtt: 'alchemy', file: 'tulele.json' }],
-      campaignStatus: 'past'
-    },
-    {
-      name: 'Tsume <span class="given">Kunimichi</span>',
-      plain: 'Tsume Kunimichi',
-      file: 'Tsume_Kunimichi_Dossier.html',
-      image: 'thumbs/tsume-kunimichi.jpg',
-      eyebrow: 'Crane Clan &middot; Daidoji Harrier',
-      subtitle: 'Daidoji Harrier',
-      system: 'Legend of the Five Rings 5e',
-      campaign: 'The Bushi Oni',
-      role: 'pre-gen',
-      sheets: [
-        { vtt: 'foundry', file: 'fvtt-Actor-tsume-kunimichi-0-xp-X6mcVfFgcs8OzILh.json', label: '0 XP' },
-        { vtt: 'foundry', file: 'fvtt-Actor-tsume-kunimichi-20-xp-(rank-2)-ZZ1PguzJan2hK0u0.json', label: '20 XP — Rank 2' },
-        { vtt: 'foundry', file: 'fvtt-Actor-tsume-kunimichi-49-xp-(rank-3)-mk4X2a3CKwKeFJbs.json', label: '49 XP — Rank 3' },
-        { vtt: 'foundry', file: 'fvtt-Actor-tsume-kunimichi-92-xp-(master-saboteur,-rank-3)-MuW0K9mF1N9oJfVy.json', label: '92 XP — Master Saboteur, Rank 3' },
-      ],
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Vaetra</span>',
-      plain: 'Vaetra',
-      file: 'Vaetra_Dossier.html',
-      image: 'thumbs/vaetra.jpg',
-      eyebrow: 'Ridgeborne Giant &middot; Bard (Wordsmith)',
-      subtitle: 'Ridgeborne Shargan &mdash; Bard of Grace &mdash; Tried to Keep Ygva from Leaving',
-      system: 'Daggerheart',
-      campaign: 'Caul',
-      role: 'support',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-vaetra-rbMWcooo8GIPgYfD.json' }],
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Valerian</span> de Castellane',
-      plain: 'Valerian de Castellane',
-      file: 'Valerian_de_Castellane_Dossier.html',
-      image: 'thumbs/valerian-portrait.jpg',
-      eyebrow: 'Qu&aelig;sitor &middot; House Guernicus',
-      subtitle: 'Chief Enforcer of the Normandy Tribunal &mdash; The Granite Inquisitor',
-      system: 'Ars Magica 5e',
-      campaign: 'Sj&oacute;rseiðr',
-      role: 'gm-pc',
-      campaignStatus: 'active'
-    },
-    {
-      name: '<span class="given">Yanos</span> Pelagos Benthos',
-      plain: 'Yanos Pelagos Benthos',
-      file: 'Yanos_Pelagos_Benthos_Dossier.html',
-      image: 'thumbs/yanos.jpg',
-      eyebrow: 'Triton &middot; Cleric / Warlock',
-      subtitle: 'Navigator by faith &mdash; He heard a voice in the shell. He never thought to ask whose.',
-      system: 'D&D 5e',
-      campaign: 'Seas Above & Below',
-      role: 'pc',
-      sheets: [{ vtt: 'alchemy', file: 'yanos-pelagos-benthos.json' }],
-      campaignStatus: 'past'
-    },
-    {
-      name: '<span class="given">Ygva</span>',
-      plain: 'Ygva',
-      file: 'Ygva_Dossier.html',
-      image: 'thumbs/ygva.jpg',
-      eyebrow: 'Ridgeborne Giant &middot; Witch (Moon)',
-      subtitle: 'Ridgeborne Shargan &mdash; Witch of the Moon &mdash; Domains: Dread &amp; Sage',
-      system: 'Daggerheart',
-      campaign: 'Caul',
-      role: 'gm-pc',
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-ygva-PeaTQ7hkCEnIxoKU.json' }],
-      campaignStatus: 'hiatus'
-    },
-    {
-      name: '<span class="given">Zehra</span> of the Spinning Veil',
-      plain: 'Zehra of the Spinning Veil',
-      file: 'Zehra_of_the_Spinning_Veil_Dossier.html',
-      image: 'thumbs/zehra.jpg',
-      eyebrow: 'Monk &middot; The Crescent City',
-      subtitle: 'Dervish of the Galata Lodge &mdash; Whirling Dervish',
-      system: 'D&D 5e',
-      campaign: 'The Crescent City',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Zuno</span>',
-      plain: 'Zuno',
-      file: 'Zuno_Dossier.html',
-      image: 'thumbs/zuno.jpg',
-      eyebrow: 'Forest Gnome &middot; Telepath &middot; House Kath',
-      subtitle: 'Majordomo of House Kath &mdash; Forest Gnome Telepath-Bard &mdash; Ptolus',
-      system: 'D&D 5e',
-      campaign: 'Ptolus: Velvet Glove, Iron Fist',
-      role: 'gm-pc',
-      featured: true,
-      sheets: [{ vtt: 'foundry', file: 'fvtt-Actor-zuno-(majordomo-of-house-kath)-fJnFjwKIXPCkGTeY.json' }],
-      campaignStatus: 'unplayed'
-    },
-    // ── The Fallow Season ────────────────────────────────────────────────────
-    {
-      name: '<span class="given">Aegiron</span> Metrykos',
-      plain: 'Aegiron Metrykos',
-      file: 'Aegiron_Metrykos_Dossier.html',
-      image: null,
-      eyebrow: 'Returned &middot; Fighter &middot; Wanderer from the Necropolis',
-      subtitle: 'A noble of Odunos who died and came back wearing a beaten-gold mask &mdash; honor-bound to debts he can no longer name.',
-      system: 'D&D 5e',
-      campaign: 'The Fallow Season',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Alesta</span> Centaur-Speaker',
-      plain: 'Alesta Centaur-Speaker',
-      file: 'Alesta_Centaur_Speaker_Dossier.html',
-      image: null,
-      eyebrow: 'Human &middot; Druid &middot; Druid of Nylea',
-      subtitle: 'A Nyxborn fragment of divinity wearing a human shape, born on the spring equinox at dawn and dedicated to Nylea on the same morning &mdash; her laughter causes birds to erupt in song.',
-      system: 'D&D 5e',
-      campaign: 'The Fallow Season',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Chrythra</span> Thanessa',
-      plain: 'Chrythra Thanessa',
-      file: 'Chrythra_Thanessa_Dossier.html',
-      image: null,
-      eyebrow: 'Gorgon &middot; Cleric &middot; Apothecary-Priest of Pharika',
-      subtitle: 'Golden light at the end of life, softened death &mdash; a Gorgon herbalist who attends births and deaths with equal interest, and is not convinced this fallow season should be averted.',
-      system: 'D&D 5e',
-      campaign: 'The Fallow Season',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Erytheia</span> of the Umbral Tide',
-      plain: 'Erytheia of the Umbral Tide',
-      file: 'Erytheia_of_the_Umbral_Tide_Dossier.html',
-      image: null,
-      eyebrow: 'Human &middot; Warlock &middot; Pact-Bound of Athreos',
-      subtitle: 'Sphinx-raised, temple-foundling, white-haired and bright-eyed &mdash; a Celestial-warlock whose light is cold, and whose mercies arrive at the moment of death.',
-      system: 'D&D 5e',
-      campaign: 'The Fallow Season',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Helena</span> of Akros',
-      plain: 'Helena of Akros',
-      file: 'Helena_of_Akros_Dossier.html',
-      image: 'thumbs/helena.png',
-      eyebrow: 'Human &middot; Paladin &middot; Champion of Heliod',
-      subtitle: 'A young knight of Heliod, polished sword and polished armor, asking the questions a knight is not supposed to ask.',
-      system: 'D&D 5e',
-      campaign: 'The Fallow Season',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Ilios</span> Anvilwrought',
-      plain: 'Ilios Anvilwrought',
-      file: 'Ilios_Anvilwrought_Dossier.html',
-      image: null,
-      eyebrow: 'Anvilwrought &middot; Artificer &middot; Anvilwrought of Purphoros',
-      subtitle: 'Forge-orphaned, forge-rebuilt &mdash; a man of iron sheen and visible joints who has not slept in the mortal sense since the night the forge burned. His art is the only language he and Purphoros still share.',
-      system: 'D&D 5e',
-      campaign: 'The Fallow Season',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Kragar</span> Stonehorn',
-      plain: 'Kragar Stonehorn',
-      file: 'Kragar_Stonehorn_Dossier.html',
-      image: null,
-      eyebrow: 'Minotaur &middot; Barbarian &middot; Berserker of Iroas',
-      subtitle: 'Named for a great minotaur oracle and bathed in hydra\'s blood as an infant &mdash; the wounds he takes close too quickly to become mortal.',
-      system: 'D&D 5e',
-      campaign: 'The Fallow Season',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Lyra</span> Hindparts',
-      plain: 'Lyra Hindparts',
-      file: 'Lyra_Hindparts_Dossier.html',
-      image: 'thumbs/lyra.png',
-      eyebrow: 'Satyr &middot; Bard &middot; Bard of Kruphix\'s Mystery',
-      subtitle: 'Charisma and optimism in equal measure &mdash; open and genuine, remarkably cagey about certain topics, and ear-trained for the songs that catch in nobody else.',
-      system: 'D&D 5e',
-      campaign: 'The Fallow Season',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Maelis</span> of Skola Vale',
-      plain: 'Maelis of Skola Vale',
-      file: 'Maelis_of_Skola_Vale_Dossier.html',
-      image: null,
-      eyebrow: 'Human &middot; Witch &middot; Oracle of Pharika\'s Coven',
-      subtitle: 'A recluse-witch in a serpent-haunted valley; Pharika visited her there, and the visions came afterward &mdash; in a language she did not learn but somehow understands.',
-      system: 'D&D 5e',
-      campaign: 'The Fallow Season',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Miele</span> Nyx-Sighted',
-      plain: 'Miele Nyx-Sighted',
-      file: 'Miele_Nyx_Sighted_Dossier.html',
-      image: null,
-      eyebrow: 'Satyr &middot; Talent &middot; Kruphix\'s Nyx-Sighted',
-      subtitle: 'A Satyr who sees Nyx where others see only night &mdash; a psionic Talent destined, she suspects, to uncover the secret of the gods\' power.',
-      system: 'D&D 5e',
-      campaign: 'The Fallow Season',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Nyklos</span> the Nightshade',
-      plain: 'Nyklos the Nightshade',
-      file: 'Nyklos_the_Nightshade_Dossier.html',
-      image: null,
-      eyebrow: 'Human &middot; Sorcerer &middot; Erebos\'s Nightshade',
-      subtitle: 'Cold to the touch and inside, much the same &mdash; a courtier whose service to Erebos is, in his own telling, a mercy.',
-      system: 'D&D 5e',
-      campaign: 'The Fallow Season',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Orion</span> Swiftarrow',
-      plain: 'Orion Swiftarrow',
-      file: 'Orion_Swiftarrow_Dossier.html',
-      image: null,
-      eyebrow: 'Centaur &middot; Ranger &middot; Klothys\'s Outrider',
-      subtitle: 'More comfortable around animals than around people, watching over his friends as though they were a litter of newborn pups &mdash; a champion of Heliod once, until Klothys showed him the danger of the Sun-God\'s hubris.',
-      system: 'D&D 5e',
-      campaign: 'The Fallow Season',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Scorian</span> Klythos',
-      plain: 'Scorian Klythos',
-      file: 'Scorian_Klythos_Dossier.html',
-      image: 'thumbs/scorian.png',
-      eyebrow: 'Oread &middot; Sorcerer &middot; Oread Sorcerer of the Forge',
-      subtitle: 'Born the moment Mount Velus erupted &mdash; the chaos inside him is a flame to be tended, not extinguished.',
-      system: 'D&D 5e',
-      campaign: 'The Fallow Season',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Selene</span> Shadowfoot',
-      plain: 'Selene Shadowfoot',
-      file: 'Selene_Shadowfoot_Dossier.html',
-      image: null,
-      eyebrow: 'Satyr &middot; Rogue &middot; Phenax\'s Trickster',
-      subtitle: 'All wit and silver tongue &mdash; always one step from the big score, always one step ahead of the wrong person she\'s already fleeced.',
-      system: 'D&D 5e',
-      campaign: 'The Fallow Season',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Skotia</span> Drephina',
-      plain: 'Skotia Drephina',
-      file: 'Skotia_Drephina_Dossier.html',
-      image: 'thumbs/skotia.png',
-      eyebrow: 'Lampad &middot; Rogue &middot; Iconoclast Wanderer',
-      subtitle: 'A Lampad nymph who walks the shadowed paths between worlds, and who answers to no god &mdash; though several have noticed her.',
-      system: 'D&D 5e',
-      campaign: 'The Fallow Season',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Thalassa</span> Wavebinder',
-      plain: 'Thalassa Wavebinder',
-      file: 'Thalassa_Wavebinder_Dossier.html',
-      image: null,
-      eyebrow: 'Triton &middot; Wizard &middot; Thassa\'s Evoker',
-      subtitle: 'A Triton evoker of the deep, whose interest in the slow secrets of the ocean and the slow turning of the heavens are, to her, two faces of the same study.',
-      system: 'D&D 5e',
-      campaign: 'The Fallow Season',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Thectra</span> Deepcaller',
-      plain: 'Thectra Deepcaller',
-      file: 'Thectra_Deepcaller_Dossier.html',
-      image: 'thumbs/thectra.png',
-      eyebrow: 'Triton &middot; Cleric &middot; Oracle of Keranos',
-      subtitle: 'An exiled Triton oracle, branded heretic by Thassa\'s priests for the visions Keranos sends through her chest like lightning.',
-      system: 'D&D 5e',
-      campaign: 'The Fallow Season',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Xemnon</span> Sunguides',
-      plain: 'Xemnon Sunguides',
-      file: 'Xemnon_Sunguides_Dossier.html',
-      image: 'thumbs/xemnon.png',
-      eyebrow: 'Leonin &middot; Fighter &middot; Pride of Heliod',
-      subtitle: 'The epitome of physical and mental fortitude, with a lionhearted courage and resilience &mdash; and a quiet envy of those who still believe the gods are looking out for them.',
-      system: 'D&D 5e',
-      campaign: 'The Fallow Season',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Zephyrus</span> of Sitrium',
-      plain: 'Zephyrus of Sitrium',
-      file: 'Zephyrus_of_Sitrium_Dossier.html',
-      image: null,
-      eyebrow: 'Human &middot; Monk &middot; Iconoclast of the Open Hand',
-      subtitle: 'A famous runner who believes the gods want him dead, and intends to stay one step ahead of them &mdash; physically as much as spiritually.',
-      system: 'D&D 5e',
-      campaign: 'The Fallow Season',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    // ── Empires of the Silk Road ──────────────────────────────────────────────
-    {
-      name: '<span class="given">Aftab</span> Singh the Arbiter',
-      plain: 'Aftab Singh the Arbiter',
-      file: 'Aftab_Singh_the_Arbiter_Dossier.html',
-      image: 'thumbs/aftab.png',
-      eyebrow: 'Oath of Karma &middot; Manumitted Ghulam of the Sind',
-      subtitle: 'he says the names of the executed at sunset; none is a man he should not have executed',
-      system: 'D&D 5e',
-      campaign: 'Empires of the Silk Road',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Arman</span> of the Black Forge',
-      plain: 'Arman of the Black Forge',
-      file: 'Arman_of_the_Black_Forge_Dossier.html',
-      image: 'thumbs/arman.png',
-      eyebrow: 'The Smith of the Dark Furnace &middot; Bargained at the Bellows',
-      subtitle: 'the fire that lit him still answers when he calls',
-      system: 'D&D 5e',
-      campaign: 'Empires of the Silk Road',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Aymara</span> Flameshaper',
-      plain: 'Aymara Flameshaper',
-      file: 'Aymara_Flameshaper_Dossier.html',
-      image: 'thumbs/aymara.png',
-      eyebrow: 'Djinnbound of the Clan-Flames &middot; Chosen of Al-Ghaib',
-      subtitle: 'the djinn rides her shoulder unseen',
-      system: 'D&D 5e',
-      campaign: 'Empires of the Silk Road',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Farideh</span> al-Saffar',
-      plain: 'Farideh al-Saffar',
-      file: 'Farideh_al-Saffar_Dossier.html',
-      image: 'thumbs/farideh.png',
-      eyebrow: 'Perfumer of Baghdad &middot; The Coppersmith\'s Granddaughter',
-      subtitle: 'she reads strangers by their scent before she greets them',
-      system: 'D&D 5e',
-      campaign: 'Empires of the Silk Road',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Khalid</span> ibn Sinan al-Alamuti',
-      plain: 'Khalid ibn Sinan al-Alamuti',
-      file: 'Khalid_ibn_Sinan_al-Alamuti_Dossier.html',
-      image: 'thumbs/khalid.png',
-      eyebrow: 'Hashashin of the Eagle\'s Nest &middot; The Order\'s Quiet Hand',
-      subtitle: 'has answered to six names in twenty-four years; <em>Khalid</em> is one of them',
-      system: 'D&D 5e',
-      campaign: 'Empires of the Silk Road',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Nazim</span> ibn Yusuf the Stone-Bound',
-      plain: 'Nazim ibn Yusuf the Stone-Bound',
-      file: 'Nazim_the_Stone-Bound_Dossier.html',
-      image: 'thumbs/nazim.png',
-      eyebrow: 'the Stone-Bound &middot; Qara Bitigchi of the Kurgan-Stones',
-      subtitle: 'he measures a place by what is carved into its oldest stone',
-      system: 'D&D 5e',
-      campaign: 'Empires of the Silk Road',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Orkhan</span> the Grinning Mask',
-      plain: 'Orkhan the Grinning Mask',
-      file: 'Orkhan_the_Grinning_Mask_Dossier.html',
-      image: 'thumbs/orkhan.png',
-      eyebrow: 'Cuman Masked Warrior &middot; Tegin of the Yamak, Caravan-Brotherhood Captain',
-      subtitle: 'the mask is steel, leering &mdash; the rictus grin he hammered into the face plate by his own hand',
-      system: 'D&D 5e',
-      campaign: 'Empires of the Silk Road',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Safiyya</span> bint Tariq al-Qıpçaq',
-      plain: 'Safiyya bint Tariq al-Qıpçaq',
-      file: 'Safiyya_bint_Tariq_al-Qipchaq_Dossier.html',
-      image: 'thumbs/safiyya.png',
-      eyebrow: 'Blood of the Forebears &middot; The Cloud-Eyed Seer-Daughter',
-      subtitle: 'her eyes go pale, cloud-colored, when the woman in the back of her mind speaks',
-      system: 'D&D 5e',
-      campaign: 'Empires of the Silk Road',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Temir</span> of the Skyborn',
-      plain: 'Temir of the Skyborn',
-      file: 'Temir_of_the_Skyborn_Dossier.html',
-      image: 'thumbs/temir.png',
-      eyebrow: 'Shaman of Kök-Tengri &middot; The Iron of the Blue Sky',
-      subtitle: 'he does not interrupt the spirits, or anyone else',
-      system: 'D&D 5e',
-      campaign: 'Empires of the Silk Road',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Yakub</span> the Riftwalker',
-      plain: 'Yakub the Riftwalker',
-      file: 'Yakub_the_Riftwalker_Dossier.html',
-      image: 'thumbs/yakub.png',
-      eyebrow: 'Brother of the Mystic Order of Samarkand &middot; Voice of Eris',
-      subtitle: 'discord made him make sense',
-      system: 'D&D 5e',
-      campaign: 'Empires of the Silk Road',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Yasmina</span> al-Khorasani',
-      plain: 'Yasmina al-Khorasani',
-      file: 'Yasmina_al-Khorasani_Dossier.html',
-      image: 'thumbs/yasmina.png',
-      eyebrow: 'Mirage Seeker of the Kara-Kum &middot; The Compass-Lost Guide',
-      subtitle: 'she reads the dunes the way others read faces',
-      system: 'D&D 5e',
-      campaign: 'Empires of the Silk Road',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Zerah</span> the Kindler',
-      plain: 'Zerah the Kindler',
-      file: 'Zerah_the_Kindler_Dossier.html',
-      image: 'thumbs/zerah.png',
-      eyebrow: 'Monk of the Fire Sage &middot; Bearer of the Everlasting Ember',
-      subtitle: 'he has held a coal in his palm',
-      system: 'D&D 5e',
-      campaign: 'Empires of the Silk Road',
-      role: 'pre-gen',
-      campaignStatus: 'unplayed'
-    },
+  // ----- Utilities -----
+  const entityBox = document.createElement('textarea');
+  function decodeEntities(s) { entityBox.innerHTML = s; return entityBox.value; }
+  // fold: entity-decode, strip diacritics, lowercase — so "Bialowiezy" finds "Białowieży"
+  function fold(s) {
+    return decodeEntities(s || '')
+      .normalize('NFD').replace(/\p{Diacritic}/gu, '')
+      .replace(/ł/g, 'l').replace(/Ł/g, 'L')
+      .toLowerCase();
+  }
 
-    // ── Convention & one-shot PCs ──────────────────────────────────────────
-    {
-      name: '<span class="given">Cain</span>',
-      plain: 'Cain',
-      file: 'Cain_Dossier.html',
-      image: 'thumbs/cain.png',
-      eyebrow: 'Dragon Knight &middot; Censor &middot; Exorcist of War',
-      subtitle: 'Level 1 Censor &mdash; Exorcist subclass, War Domain &mdash; Dragon Knight',
-      system: 'Draw Steel',
-      campaign: 'Breakout Con 2026',
-      role: 'pc',
-      campaignStatus: 'one-shot'
-    },
-    {
-      name: '<span class="given">Gilbert</span> Fisher',
-      plain: 'Gilbert Fisher',
-      file: 'Gilbert_Fisher_Dossier.html',
-      image: 'thumbs/gilbert.png',
-      eyebrow: 'High School Student &middot; Witness &middot; Person of Interest',
-      subtitle: 'Boyfriend &mdash; Devil\'s Fork High &mdash; Case File DF-2003-007',
-      system: 'Fear Itself',
-      campaign: 'WPGRPGCON 2026',
-      role: 'pc',
-      campaignStatus: 'one-shot'
-    },
-    {
-      name: 'Dame <span class="given">Eleanor</span> d\'Agen',
-      plain: 'Dame Eleanor d\'Agen',
-      file: 'Eleanor_dAgen_Dossier.html',
-      image: 'thumbs/eleanor.png',
-      eyebrow: 'Errant Knight &middot; Aquitaine &middot; Sworn to the Lady of the Lake',
-      subtitle: 'Checky azure and argent &mdash; sent forth to bring good unto the land',
-      system: 'Pendragon 6e',
-      campaign: 'WPGRPGCON 2026',
-      role: 'pc',
-      campaignStatus: 'one-shot'
-    },
-    {
-      name: '<span class="given">Dexid</span>',
-      plain: 'Dexid',
-      file: 'Dexid_Dossier.html',
-      image: 'thumbs/dexid.png',
-      eyebrow: 'Classless Scvm &middot; Voidbirth &middot; M&ouml;rk Borg',
-      subtitle: 'A Scvm of Voidbirth &mdash; deceased &mdash; drowned in sludge',
-      system: 'Mörk Borg',
-      campaign: 'WPGRPGCON 2026',
-      role: 'pc',
-      campaignStatus: 'one-shot'
-    },
-    {
-      name: '<span class="given">Haro</span>',
-      plain: 'Haro',
-      file: 'Haro_Dossier.html',
-      image: 'thumbs/haro.png',
-      eyebrow: 'Clever Nano &middot; Ninth World &middot; Numenera',
-      subtitle: 'I am Haro, a Clever Nano &mdash; temple-trained in the unnamed god\'s sorcery',
-      system: 'Numenera 1e',
-      campaign: 'WPGRPGCON 2026',
-      role: 'pc',
-      campaignStatus: 'one-shot'
-    },
-    {
-      name: '<span class="given">Pacha</span>',
-      plain: 'Pacha',
-      file: 'Pacha_Dossier.html',
-      image: 'thumbs/pasha.png',
-      eyebrow: 'Human &middot; Null &middot; Metakinetic Farmer',
-      subtitle: 'Level 1 Null &mdash; Metakinetic subclass &mdash; a farmer who learned to push without touching',
-      system: 'Draw Steel',
-      campaign: 'WPGRPGCON 2026',
-      role: 'pc',
-      campaignStatus: 'one-shot'
-    },
-    {
-      name: '<span class="given">Cricket Wife</span>',
-      plain: 'Cricket Wife',
-      file: 'Cricket_Wife_Dossier.html',
-      image: 'thumbs/cricket-wife.png',
-      eyebrow: 'Spectral Yokai &middot; Pilgrim 7 &middot; Path of Justice',
-      subtitle: 'She walks barefoot a finger\'s breadth above the road',
-      system: 'Adventures in Rokugan',
-      campaign: 'Adventures in Rokugan',
-      role: 'pc',
-      campaignStatus: 'unplayed'
-    },
-    {
-      name: '<span class="given">Mariah</span> Redwing',
-      plain: 'Mariah Redwing',
-      file: 'Mariah_Redwing_Dossier.html',
-      image: 'thumbs/mariah.png',
-      eyebrow: 'Tenebrate &middot; Murder Princess &middot; BREAK!!',
-      subtitle: 'Violet-skinned girl with antlers sized for someone three times her height',
-      system: 'BREAK!!',
-      campaign: 'Tower Games 2025',
-      role: 'pc',
-      campaignStatus: 'one-shot'
-    }
-  ];
-
-  // ----- Shuffle + roster -----
   function shuffle(arr) {
     const a = arr.slice();
     for (let i = a.length - 1; i > 0; i--) {
@@ -2461,81 +726,46 @@
   }
 
   const roster = shuffle(characters);
+  characters.forEach(c => { c._hay = fold([c.plain, c.campaign, c.system, c.setting, c.eyebrow, c.subtitle].filter(Boolean).join(' | ')); });
 
-  // ----- Preset views -----
-  const PRESETS = {
-    'now-playing':   { statuses: ['active'],   roles: ['pc'],      campaign: '',                system: '' },
-    'bushi-oni':     { statuses: ['unplayed'], roles: ['pre-gen'], campaign: 'The Bushi Oni',   system: '' },
-    'collateral':    { statuses: ['active'],   roles: ['pre-gen'], campaign: 'Collateral',      system: '' },
-    'crescent-city': { statuses: ['unplayed'], roles: ['pre-gen'], campaign: 'The Crescent City', system: '' },
-    'fallow-season':    { statuses: ['unplayed'], roles: ['pre-gen'], campaign: 'The Fallow Season',        system: 'D&D 5e' },
-    'silk-road':        { statuses: ['unplayed'], roles: ['pre-gen'], campaign: 'Empires of the Silk Road', system: 'D&D 5e' },
-    'wpgrpgcon-2026':   { statuses: ['one-shot'], roles: ['pc'],      campaign: 'WPGRPGCON 2026',           system: '' },
-    'retired':          { statuses: ['past'],     roles: ['pc'],      campaign: '',                         system: '' },
-  };
-
-  // ----- System logo abbreviations -----
-  const SYSTEM_LOGOS = {
-    'Ars Magica 5e':                      { abbr: 'ArM5', src: 'logos/arm5.png' },
-    'Call of Cthulhu 7e':                 { abbr: 'CoC',  src: 'logos/coc7.png' },
-    'Cortex Prime':                       { abbr: 'Ctx',  src: 'logos/ctx.png' },
-    'Cyberpunk RED':                      { abbr: 'CPRED', src: 'logos/cpred.png' },
-    'D&D 5e':                             { abbr: 'D&D',  src: 'logos/dnd5e.png' },
-    'DIE':                                { abbr: 'DIE',  src: 'logos/die.png' },
-    'Daggerheart':                        { abbr: 'DH',   src: 'logos/dh.png' },
-    'Delta Green':                        { abbr: 'DG',   src: 'logos/dg.png' },
-    'Draw Steel':                         { abbr: 'DS',   src: 'logos/ds.png' },
-    'Fate of the Norns: Ragnarok':        { abbr: 'FotN', src: 'logos/fotn.png' },
-    'Feng Shui 1e':                       { abbr: 'FS',   src: 'logos/fs.png' },
-    'Good Society':                       { abbr: 'GS',   src: 'logos/gs.png' },
-    'Household':                          'HH',
-    'Invisible Sun':                      { abbr: 'IS',   src: 'logos/is.png' },
-    'Kerberos Club (FATE)':               { abbr: 'KC',   src: 'logos/kc.png' },
-    'Legend of the Five Rings 5e':        { abbr: 'L5R',  src: 'logos/l5r.png' },
-    'Legends of Wulin':                   { abbr: 'LoW',  src: 'logos/low.png' },
-    'Marvel Multiverse RPG':              { abbr: 'MaMu', src: 'logos/mamu.png' },
-    'Monsterhearts 2e':                   { abbr: 'MH',   src: 'logos/mh2.png' },
-    'Monster of the Week':                { abbr: 'MotW', src: 'logos/motw.png' },
-    'Old School Essentials':              { abbr: 'OSE',  src: 'logos/ose.png' },
-    'Pathfinder 2e':                      { abbr: 'PF2e', src: 'logos/pf2e.png' },
-    'Pendragon 6e':                       'KAP',
-    'Shadowdark RPG':                     { abbr: 'SDK',  src: 'logos/sdk.png' },
-    'The One Ring 2e':                    { abbr: 'TOR2', src: 'logos/tor2.png' },
-    'Vaesen':                             { abbr: 'Vsn',  src: 'logos/vsn.png' },
-    'Vampire: the Masquerade 5e':         { abbr: 'VtM',  src: 'logos/vtm5.png' },
-    'Weird of Hali':                      { abbr: 'WoH',  src: 'logos/woh.png' },
-    'Werewolf: The Apocalypse 5e':        { abbr: 'WtA',  src: 'logos/wta5.png' },
-    'Adventures in Rokugan':              'AiR',
-    'BREAK!!':                            'BRK',
-    'Fear Itself':                        'FI',
-    'Mörk Borg':                          'MöB',
-    'Numenera 1e':                        'Num',
-  };
-
-  // ----- VTT display labels -----
-  const VTT_LABELS = {
-    'foundry':     'FVTT',
-    'alchemy':     'ALCM',
-    'forge-steel': 'FGST',
+  const STATUS_LABELS = { active: 'Active', hiatus: 'Hiatus', past: 'Past', 'one-shot': 'One-shot', unplayed: 'Unplayed' };
+  const SORTS = {
+    name:     (a, b) => fold(a.plain).localeCompare(fold(b.plain)),
+    campaign: (a, b) => fold(a.campaign).localeCompare(fold(b.campaign)) || fold(a.plain).localeCompare(fold(b.plain)),
+    system:   (a, b) => fold(a.system).localeCompare(fold(b.system)) || fold(a.plain).localeCompare(fold(b.plain)),
+    added:    (a, b) => (b.added || '').localeCompare(a.added || '') || fold(a.plain).localeCompare(fold(b.plain)),
   };
 
   // ----- Filter state -----
   let featuredMode   = true;
   let activeStatuses = new Set(['active']);
   let activeRoles    = new Set(['pc']);
+  let sortMode       = 'shuffle';
+  let viewMode       = 'grid';
 
-  // ----- Render -----
-  const gridEl = document.getElementById('grid');
+  // ----- Elements -----
+  const gridEl  = document.getElementById('grid');
   const countEl = document.getElementById('result-count');
-  const sysInput = document.getElementById('filter-system');
-  const campInput = document.getElementById('filter-campaign');
-  const sysSugg = document.getElementById('suggestions-system');
-  const campSugg = document.getElementById('suggestions-campaign');
+  const qInput  = document.getElementById('filter-q');
+  const qSugg   = document.getElementById('suggestions-q');
+  const sortSel = document.getElementById('sort-select');
 
+  // ----- Static counts on toggles -----
+  for (const btn of document.querySelectorAll('.toggle[data-status]')) {
+    const n = characters.filter(c => c.campaignStatus === btn.dataset.status).length;
+    btn.innerHTML += ` <span class="count">${n}</span>`;
+  }
+  for (const btn of document.querySelectorAll('.toggle[data-role]')) {
+    const n = characters.filter(c => c.role === btn.dataset.role).length;
+    btn.innerHTML += ` <span class="count">${n}</span>`;
+  }
+
+  // ----- Cards -----
   function cardHTML(c) {
+    const chip = `<span class="status-chip" style="--chip: var(--st-${c.campaignStatus})">${STATUS_LABELS[c.campaignStatus] || c.campaignStatus}</span>`;
     const img = c.image
-      ? `<div class="card-image"><img src="${encodeURI(c.image)}" alt="Portrait of ${c.plain}" loading="lazy"></div>`
-      : `<div class="card-image placeholder"><span class="monogram">${c.monogram || c.plain.charAt(0)}</span></div>`;
+      ? `<div class="card-image"><img src="${encodeURI(c.image)}" alt="Portrait of ${c.plain}" loading="lazy">${chip}</div>`
+      : `<div class="card-image placeholder"><span class="monogram">${c.monogram || c.plain.charAt(0)}</span>${chip}</div>`;
     // System logo/badge (bottom-left)
     const sysEntry = SYSTEM_LOGOS[c.system];
     const sysAbbr = sysEntry ? (sysEntry.abbr || sysEntry) : '';
@@ -2562,6 +792,9 @@
       ).join('');
       vttHtml = `<div class="vtt-area"><button class="vtt-btn" type="button" title="Download ${lbl} character sheet">${lbl} &#9662;</button><div class="vtt-dropdown">${items}</div></div>`;
     }
+    const settingRow = c.setting
+      ? `<div class="meta-row"><span class="meta-label">Setting</span><span class="meta-value">${c.setting}</span></div>`
+      : '';
     return `
       <div class="card" data-href="${encodeURI(c.file)}" tabindex="0" role="link" aria-label="${c.plain}">
         ${img}
@@ -2571,12 +804,111 @@
           <p class="card-subtitle">${c.subtitle}</p>
           <div class="card-meta">
             <div class="meta-row"><span class="meta-label">Campaign</span><span class="meta-value">${c.campaign}</span></div>
+            ${settingRow}
           </div>
         </div>
         <div class="card-footer">${sysHtml}${vttHtml}</div>
       </div>`;
   }
 
+  // ----- Filtering + sorting -----
+  function filteredList() {
+    if (featuredMode) return roster.filter(c => c.featured);
+    const q = fold(qInput.value.trim());
+    return roster.filter(c =>
+      activeStatuses.has(c.campaignStatus) &&
+      activeRoles.has(c.role) &&
+      (!q || c._hay.includes(q))
+    );
+  }
+
+  function sortedList(list) {
+    if (sortMode === 'shuffle') return list; // roster is pre-shuffled
+    return list.slice().sort(SORTS[sortMode]);
+  }
+
+  function render() {
+    let list = sortedList(filteredList());
+    if (list.length === 0) {
+      gridEl.innerHTML = `<div class="empty-state">No dossiers match the current filters.</div>`;
+    } else if (viewMode === 'campaign') {
+      const groups = new Map();
+      for (const c of list) {
+        if (!groups.has(c.campaign)) groups.set(c.campaign, []);
+        groups.get(c.campaign).push(c);
+      }
+      const keys = [...groups.keys()].sort((a, b) => fold(a).localeCompare(fold(b)));
+      let html = '';
+      for (const k of keys) {
+        const members = groups.get(k);
+        if (sortMode === 'shuffle') members.sort(SORTS.name);
+        const systems = [...new Set(members.map(c => c.system))].join(' / ');
+        html += `
+          <div class="group-head">
+            <span class="group-title">${k}</span>
+            <span class="group-rule"></span>
+            <span class="group-meta">${members.length} &middot; ${systems}</span>
+          </div>`;
+        html += members.map(cardHTML).join('');
+      }
+      gridEl.innerHTML = html;
+    } else {
+      gridEl.innerHTML = list.map(cardHTML).join('');
+    }
+    countEl.textContent = featuredMode
+      ? `${list.length} featured`
+      : list.length === roster.length
+        ? `${roster.length} ${roster.length === 1 ? 'dossier' : 'dossiers'} on file`
+        : `${list.length} of ${roster.length} shown`;
+    syncURL();
+  }
+
+  // ----- URL state -----
+  // Featured (default) = clean URL. Anything else lives in the querystring,
+  // so any filtered view can be bookmarked or shared. #hash = preset alias.
+  let currentPreset = '';
+  function syncURL() {
+    if (currentPreset) { history.replaceState(null, '', location.pathname + '#' + currentPreset); return; }
+    if (featuredMode) { history.replaceState(null, '', location.pathname); return; }
+    const p = new URLSearchParams();
+    p.set('status', [...activeStatuses].join(','));
+    p.set('role', [...activeRoles].join(','));
+    if (qInput.value.trim()) p.set('q', qInput.value.trim());
+    if (sortMode !== 'shuffle') p.set('sort', sortMode);
+    if (viewMode !== 'grid') p.set('view', viewMode);
+    history.replaceState(null, '', location.pathname + '?' + p.toString());
+  }
+
+  function initFromURL() {
+    const key = location.hash.slice(1);
+    if (key && PRESETS[key]) {
+      document.getElementById('preset-select').value = key;
+      applyPreset(key);
+      return;
+    }
+    const p = new URLSearchParams(location.search);
+    if ([...p.keys()].length === 0) { render(); return; }
+    featuredMode = false;
+    document.getElementById('featured-btn').classList.remove('on');
+    if (p.get('status')) activeStatuses = new Set(p.get('status').split(',').filter(s => STATUS_LABELS[s]));
+    if (p.get('role')) activeRoles = new Set(p.get('role').split(','));
+    if (p.get('q')) { qInput.value = p.get('q'); qInput.parentElement.querySelector('.clear-btn').classList.add('visible'); }
+    if (p.get('sort') && (p.get('sort') === 'shuffle' || SORTS[p.get('sort')])) { sortMode = p.get('sort'); sortSel.value = sortMode; }
+    if (p.get('view') === 'campaign') viewMode = 'campaign';
+    refreshToggleClasses();
+    render();
+  }
+
+  function refreshToggleClasses() {
+    document.querySelectorAll('.toggle[data-status]').forEach(btn =>
+      btn.classList.toggle('on', activeStatuses.has(btn.dataset.status)));
+    document.querySelectorAll('.toggle[data-role]').forEach(btn =>
+      btn.classList.toggle('on', activeRoles.has(btn.dataset.role)));
+    document.querySelectorAll('.toggle[data-view]').forEach(btn =>
+      btn.classList.toggle('on', viewMode === btn.dataset.view));
+  }
+
+  // ----- Featured / presets -----
   function exitFeatured() {
     if (featuredMode) {
       featuredMode = false;
@@ -2585,66 +917,29 @@
   }
 
   function clearPreset() {
+    currentPreset = '';
     const sel = document.getElementById('preset-select');
     if (sel && sel.value) {
       sel.value = '';
       sel.classList.remove('active');
-      history.replaceState(null, '', location.pathname + location.search);
     }
   }
 
   function applyPreset(key) {
     const p = PRESETS[key];
     if (!p) return;
-    // Update state
+    featuredMode = false;
+    document.getElementById('featured-btn').classList.remove('on');
     activeStatuses = new Set(p.statuses);
     activeRoles    = new Set(p.roles);
-    // Update status toggles
-    document.querySelectorAll('.toggle[data-status]').forEach(btn => {
-      btn.classList.toggle('on', activeStatuses.has(btn.dataset.status));
-    });
-    // Update role toggles
-    document.querySelectorAll('.toggle[data-role]').forEach(btn => {
-      btn.classList.toggle('on', activeRoles.has(btn.dataset.role));
-    });
-    // Update text inputs
-    sysInput.value  = p.system;
-    campInput.value = p.campaign;
-    sysInput.parentElement.querySelector('.clear-btn').classList.toggle('visible', p.system.length > 0);
-    campInput.parentElement.querySelector('.clear-btn').classList.toggle('visible', p.campaign.length > 0);
-    // Style the select
+    qInput.value   = p.campaign || p.system || '';
+    qInput.parentElement.querySelector('.clear-btn').classList.toggle('visible', qInput.value.length > 0);
+    refreshToggleClasses();
     document.getElementById('preset-select').classList.add('active');
+    currentPreset = key;
     render();
-    history.replaceState(null, '', '#' + key);
   }
 
-  function render() {
-    let filtered;
-    if (featuredMode) {
-      filtered = roster.filter(c => c.featured);
-    } else {
-      const sysQ  = sysInput.value.trim().toLowerCase();
-      const campQ = campInput.value.trim().toLowerCase();
-      filtered = roster.filter(c =>
-        activeStatuses.has(c.campaignStatus) &&
-        activeRoles.has(c.role) &&
-        (!sysQ  || c.system.toLowerCase().includes(sysQ)) &&
-        (!campQ || c.campaign.toLowerCase().includes(campQ))
-      );
-    }
-    if (filtered.length === 0) {
-      gridEl.innerHTML = `<div class="empty-state">No dossiers match the current filters.</div>`;
-    } else {
-      gridEl.innerHTML = filtered.map(cardHTML).join('');
-    }
-    countEl.textContent = featuredMode
-      ? `${filtered.length} featured`
-      : filtered.length === roster.length
-        ? `${roster.length} ${roster.length === 1 ? 'dossier' : 'dossiers'} on file`
-        : `${filtered.length} of ${roster.length} shown`;
-  }
-
-  // ----- Toggle handlers -----
   document.getElementById('featured-btn').addEventListener('click', () => {
     featuredMode = true;
     document.getElementById('featured-btn').classList.add('on');
@@ -2652,6 +947,13 @@
     render();
   });
 
+  document.getElementById('preset-select').addEventListener('change', (e) => {
+    const key = e.target.value;
+    if (!key) { e.target.classList.remove('active'); currentPreset = ''; render(); return; }
+    applyPreset(key);
+  });
+
+  // ----- Toggle handlers -----
   document.querySelectorAll('.toggle[data-status]').forEach(btn => {
     btn.addEventListener('click', () => {
       exitFeatured();
@@ -2674,14 +976,26 @@
     });
   });
 
+  document.querySelectorAll('.toggle[data-view]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      viewMode = btn.dataset.view;
+      refreshToggleClasses();
+      render();
+    });
+  });
+
+  sortSel.addEventListener('change', () => {
+    sortMode = sortSel.value;
+    render();
+  });
+
   // ----- Card navigation + VTT download -----
   function closeAllVttDropdowns() {
     document.querySelectorAll('.vtt-dropdown.open').forEach(d => d.classList.remove('open'));
     document.querySelectorAll('.vtt-btn.active').forEach(b => b.classList.remove('active'));
   }
 
-  document.getElementById('grid').addEventListener('click', e => {
-    // VTT multi-sheet dropdown toggle
+  gridEl.addEventListener('click', e => {
     const vttBtn = e.target.closest('.vtt-btn[type="button"]');
     if (vttBtn) {
       e.stopPropagation();
@@ -2691,20 +1005,17 @@
       if (!isOpen) { dropdown.classList.add('open'); vttBtn.classList.add('active'); }
       return;
     }
-    // Download link: close dropdown, allow default download
     if (e.target.closest('.vtt-dl-item')) {
       e.stopPropagation();
       closeAllVttDropdowns();
       return;
     }
-    // Anything else in vtt-area: don't navigate card
     if (e.target.closest('.vtt-area')) return;
-    // Card navigation
     const card = e.target.closest('.card[data-href]');
     if (card) window.location.href = card.dataset.href;
   });
 
-  document.getElementById('grid').addEventListener('keydown', e => {
+  gridEl.addEventListener('keydown', e => {
     if (e.key !== 'Enter' && e.key !== ' ') return;
     const card = e.target.closest('.card[data-href]');
     if (!card) return;
@@ -2716,138 +1027,136 @@
     if (!e.target.closest('.vtt-area')) closeAllVttDropdowns();
   });
 
-  // ----- Autocomplete -----
-  function uniqueValues(field) {
-    return [...new Set(characters.map(c => c[field]))].sort((a, b) => a.localeCompare(b));
+  // ----- Omnisearch autocomplete -----
+  // Suggestion pools: characters by name, campaigns, systems, settings.
+  const SUGG_SECTIONS = [
+    { label: 'Campaigns',  items: [...new Set(characters.map(c => c.campaign))] },
+    { label: 'Systems',    items: [...new Set(characters.map(c => c.system))] },
+    { label: 'Settings',   items: [...new Set(characters.map(c => c.setting).filter(Boolean))] },
+    { label: 'Characters', items: [...new Set(characters.map(c => c.plain))] },
+  ].map(sec => ({
+    label: sec.label,
+    // display: entity-decoded, so highlight slicing lines up with fold() indexes
+    items: sec.items
+      .map(v => ({ display: decodeEntities(v), folded: fold(v) }))
+      .sort((a, b) => a.folded.localeCompare(b.folded)),
+  }));
+
+  function highlight(display, q) {
+    if (!q) return display;
+    const i = fold(display).indexOf(q);
+    if (i === -1) return display;
+    // diacritic-stripping is length-preserving on our precomposed data, so folded indexes map 1:1
+    return display.slice(0, i) +
+      `<span class="match">${display.slice(i, i + q.length)}</span>` +
+      display.slice(i + q.length);
   }
 
-  function highlight(value, query) {
-    if (!query) return value;
-    const i = value.toLowerCase().indexOf(query.toLowerCase());
-    if (i === -1) return value;
-    return value.slice(0, i) +
-      `<span class="match">${value.slice(i, i + query.length)}</span>` +
-      value.slice(i + query.length);
+  let suggActiveIdx = -1;
+  const qClearBtn = qInput.parentElement.querySelector('.clear-btn');
+
+  function refreshSuggestions() {
+    const q = fold(qInput.value.trim());
+    let html = '';
+    let shown = 0;
+    for (const sec of SUGG_SECTIONS) {
+      // On an empty query, offer campaigns and systems to browse — 147 names is not a menu.
+      if (!q && (sec.label === 'Characters' || sec.label === 'Settings')) continue;
+      const matches = q ? sec.items.filter(it => it.folded.includes(q)) : sec.items;
+      if (!matches.length) continue;
+      html += `<div class="sugg-group">${sec.label}</div>`;
+      for (const it of matches.slice(0, 8)) {
+        html += `<div class="suggestion" role="option" data-value="${it.display.replace(/"/g, '&quot;')}">${highlight(it.display, q)}</div>`;
+        shown++;
+      }
+    }
+    suggActiveIdx = -1;
+    qSugg.innerHTML = html || `<div class="suggestion empty">No matches</div>`;
   }
 
-  function setupAutocomplete(input, suggEl, field) {
-    const all = uniqueValues(field);
-    let activeIdx = -1;
-    const clearBtn = input.parentElement.querySelector('.clear-btn');
+  function openSugg() { refreshSuggestions(); qSugg.classList.add('open'); }
+  function closeSugg() { qSugg.classList.remove('open'); suggActiveIdx = -1; }
 
-    function refreshSuggestions() {
-      const q = input.value.trim().toLowerCase();
-      const matches = q
-        ? all.filter(v => v.toLowerCase().includes(q))
-        : all;
-      activeIdx = -1;
-      if (matches.length === 0) {
-        suggEl.innerHTML = `<div class="suggestion empty">No matches</div>`;
-      } else {
-        suggEl.innerHTML = matches.map((v, i) =>
-          `<div class="suggestion" role="option" data-value="${v.replace(/"/g, '&quot;')}" data-idx="${i}">${highlight(v, q)}</div>`
-        ).join('');
-      }
-    }
-
-    function open() {
-      refreshSuggestions();
-      suggEl.classList.add('open');
-    }
-    function close() {
-      suggEl.classList.remove('open');
-      activeIdx = -1;
-    }
-
-    input.addEventListener('focus', open);
-    input.addEventListener('input', () => {
-      exitFeatured();
-      clearPreset();
-      clearBtn.classList.toggle('visible', input.value.length > 0);
-      refreshSuggestions();
-      suggEl.classList.add('open');
-      render();
-    });
-    input.addEventListener('keydown', (e) => {
-      const items = [...suggEl.querySelectorAll('.suggestion:not(.empty)')];
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        if (!suggEl.classList.contains('open')) open();
-        if (items.length === 0) return;
-        activeIdx = (activeIdx + 1) % items.length;
-        updateActive(items);
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        if (items.length === 0) return;
-        activeIdx = activeIdx <= 0 ? items.length - 1 : activeIdx - 1;
-        updateActive(items);
-      } else if (e.key === 'Enter') {
-        if (activeIdx >= 0 && items[activeIdx]) {
-          e.preventDefault();
-          selectValue(items[activeIdx].dataset.value);
-        } else {
-          close();
-        }
-      } else if (e.key === 'Escape') {
-        close();
-        input.blur();
-      }
-    });
-
-    function updateActive(items) {
-      items.forEach((el, i) => el.classList.toggle('active', i === activeIdx));
-      if (items[activeIdx]) {
-        items[activeIdx].scrollIntoView({ block: 'nearest' });
-      }
-    }
-
-    suggEl.addEventListener('mousedown', (e) => {
-      const item = e.target.closest('.suggestion');
-      if (!item || item.classList.contains('empty')) return;
-      e.preventDefault(); // keep focus
-      selectValue(item.dataset.value);
-    });
-
-    function selectValue(v) {
-      exitFeatured();
-      input.value = v;
-      clearBtn.classList.add('visible');
-      close();
-      render();
-    }
-
-    clearBtn.addEventListener('click', () => {
-      input.value = '';
-      clearBtn.classList.remove('visible');
-      close();
-      render();
-      input.focus();
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!input.parentElement.contains(e.target)) close();
-    });
-  }
-
-  document.getElementById('preset-select').addEventListener('change', (e) => {
-    const key = e.target.value;
-    if (!key) { e.target.classList.remove('active'); return; }
+  qInput.addEventListener('focus', openSugg);
+  qInput.addEventListener('input', () => {
     exitFeatured();
-    applyPreset(key);
+    clearPreset();
+    qClearBtn.classList.toggle('visible', qInput.value.length > 0);
+    refreshSuggestions();
+    qSugg.classList.add('open');
+    render();
   });
 
-  setupAutocomplete(sysInput, sysSugg, 'system');
-  setupAutocomplete(campInput, campSugg, 'campaign');
-  (function() {
-    const key = location.hash.slice(1);
-    if (key && PRESETS[key]) {
-      document.getElementById('preset-select').value = key;
-      exitFeatured();
-      applyPreset(key);
-    } else {
-      render();
+  qInput.addEventListener('keydown', (e) => {
+    const items = [...qSugg.querySelectorAll('.suggestion:not(.empty)')];
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (!qSugg.classList.contains('open')) openSugg();
+      if (items.length === 0) return;
+      suggActiveIdx = (suggActiveIdx + 1) % items.length;
+      updateActiveSugg(items);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (items.length === 0) return;
+      suggActiveIdx = suggActiveIdx <= 0 ? items.length - 1 : suggActiveIdx - 1;
+      updateActiveSugg(items);
+    } else if (e.key === 'Enter') {
+      if (suggActiveIdx >= 0 && items[suggActiveIdx]) {
+        e.preventDefault();
+        selectSuggestion(items[suggActiveIdx].dataset.value);
+      } else {
+        closeSugg();
+      }
+    } else if (e.key === 'Escape') {
+      closeSugg();
+      qInput.blur();
     }
-  })();
+  });
+
+  function updateActiveSugg(items) {
+    items.forEach((el, i) => el.classList.toggle('active', i === suggActiveIdx));
+    if (items[suggActiveIdx]) items[suggActiveIdx].scrollIntoView({ block: 'nearest' });
+  }
+
+  qSugg.addEventListener('mousedown', (e) => {
+    const item = e.target.closest('.suggestion');
+    if (!item || item.classList.contains('empty')) return;
+    e.preventDefault();
+    selectSuggestion(item.dataset.value);
+  });
+
+  function selectSuggestion(v) {
+    exitFeatured();
+    clearPreset();
+    qInput.value = v;
+    qClearBtn.classList.add('visible');
+    closeSugg();
+    render();
+  }
+
+  qClearBtn.addEventListener('click', () => {
+    qInput.value = '';
+    qClearBtn.classList.remove('visible');
+    closeSugg();
+    render();
+    qInput.focus();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!qInput.parentElement.contains(e.target)) closeSugg();
+  });
+
+  // "/" focuses search from anywhere
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) {
+      e.preventDefault();
+      qInput.focus();
+      qInput.select();
+    }
+  });
+
+  // ----- Boot -----
+  initFromURL();
 </script>
 </body>
 </html>
