@@ -197,16 +197,17 @@ const characters = [
       campaignStatus: 'publication'
     },
     {
-      name: '<span class="given">Celenneth</span> of the D&uacute;nedain',
-      plain: 'Celenneth of the Dúnedain',
+      name: '<span class="given">Celenneth</span>',
+      plain: 'Celenneth',
       file: 'characters/celenneth-of-the-dunedain/dossier.html',
       added: '2026-05-14',
       image: 'characters/celenneth-of-the-dunedain/thumb.jpg',
       eyebrow: 'D&uacute;nedain Ranger &middot; Messenger',
       subtitle: 'Daughter of the North &mdash; She Who Ran at Nine and Stopped Running at Thirty-Eight',
       system: 'The One Ring 2e',
+      setting: 'Middle Earth',
       campaign: 'The Angle',
-      role: 'pc',
+      role: 'solo',
       campaignStatus: 'hiatus'
     },
     {
