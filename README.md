@@ -1,5 +1,5 @@
 # The Register — Player Character Dossiers
-Sortilege 2026
+Sortilege 2026*
 
 A static site cataloguing player characters across systems and campaigns,
 served via GitHub Pages at <https://sortilege-inc.github.io/dossiers/>.
