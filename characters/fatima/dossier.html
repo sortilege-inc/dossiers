@@ -345,16 +345,14 @@
   .mech-card .stat-cell .stat-value {
     font-family: "Special Elite", monospace;
     font-size: 1.4rem;
-    color: var(--ink-faint);
+    color: var(--ink);
     line-height: 1;
     margin-top: 0.2rem;
   }
-  .mech-card .stat-cell .stat-value::after {
-    content: " ?";
-    font-size: 0.7rem;
-    color: var(--pink);
-    vertical-align: super;
-  }
+  .mech-card .stat-cell.peak { border-color: var(--pink-deep); }
+  .mech-card .stat-cell.peak .stat-value { color: var(--pink-deep); }
+  .mech-card .stat-cell.dilemma { border-color: var(--teal-rot); }
+  .mech-card .stat-cell.dilemma .stat-value { color: var(--teal-rot); }
 
   /* harm clock */
   .harm-clock {
@@ -370,6 +368,9 @@
     background: transparent;
   }
   .harm-pip.faded { border-color: var(--ink-faint); border-style: dashed; }
+  .harm-pip.filled { background: var(--blood); border-color: var(--blood); }
+  .harm-pip.xp { border-color: var(--pink-deep); }
+  .harm-pip.xp.filled { background: var(--pink-deep); }
   .harm-label {
     font-size: 10px;
     text-transform: uppercase;
@@ -433,6 +434,121 @@
     font-weight: normal;
   }
   .darkest em { color: var(--lavender); font-style: italic; }
+  .darkest strong { color: var(--teal-pale); font-weight: bold; }
+
+  /* the player's marginalia, in pink pen */
+  .marginalia {
+    background: var(--bg-page-shade);
+    border-left: 3px solid var(--blood);
+    padding: 0.7rem 0.9rem;
+    margin: 0.7rem 0;
+    font-family: "Courier Prime", monospace;
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .marginalia::before {
+    content: "( the player's notes, in the margins \2014 pink pen )";
+    display: block;
+    font-size: 10px;
+    color: var(--blood);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.4rem;
+  }
+  .marginalia ul { list-style: none; padding: 0; margin: 0; }
+  .marginalia ul li {
+    padding-left: 1rem;
+    position: relative;
+    margin-bottom: 0.3rem;
+  }
+  .marginalia ul li:last-child { margin-bottom: 0; }
+  .marginalia ul li::before {
+    content: "\2192";
+    position: absolute;
+    left: 0;
+    color: var(--blood);
+    font-size: 0.9rem;
+  }
+
+  /* a stat modifier in a table cell */
+  .mod {
+    font-family: "Special Elite", monospace;
+    color: var(--ink);
+  }
+  .mod.plus { color: var(--pink-deep); }
+  .mod.minus { color: var(--teal-rot); }
+
+  /* moves — printed rules text kept visibly apart from the commentary */
+  .move-entry {
+    border-bottom: 1px dotted var(--rule);
+    padding: 0.6rem 0;
+  }
+  .move-entry:last-child { border-bottom: none; padding-bottom: 0; }
+  .move-head { margin-bottom: 0.35rem; }
+  .move-name {
+    font-family: "Special Elite", monospace;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+  .move-src {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: lowercase;
+    color: var(--ink-faint);
+    margin-left: 0.45rem;
+  }
+  .move-entry .rules-text {
+    font-family: "Courier Prime", monospace;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    background: var(--bg-page-shade);
+    border-left: 2px solid var(--rule);
+    padding: 0.4rem 0.65rem;
+    margin: 0 0 0.4rem;
+  }
+  .move-entry .rules-text strong { color: var(--pink-deep); font-weight: bold; }
+  .move-entry .gloss {
+    font-size: 11.5px;
+    font-style: italic;
+    color: var(--ink);
+    margin: 0;
+    padding-left: 0.65rem;
+  }
+  .move-entry .rules-text ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.35rem 0 0;
+  }
+  .move-entry .rules-text li {
+    padding-left: 0.95rem;
+    position: relative;
+    margin-bottom: 0.2rem;
+  }
+  .move-entry .rules-text li::before {
+    content: "\2726";
+    position: absolute;
+    left: 0;
+    color: var(--pink);
+    font-size: 0.8rem;
+  }
+  .move-entry .rules-text em { color: var(--ink-faint); font-style: italic; }
+  .move-entry .move-mod {
+    font-family: "Special Elite", monospace;
+    font-size: 11px;
+    margin-left: 0.45rem;
+    padding: 0 5px;
+    border: 1px solid var(--rule);
+    background: var(--bg-page-shade);
+  }
+  .move-entry .move-mod.plus { color: var(--pink-deep); border-color: var(--pink); }
+  .move-entry .move-mod.minus { color: var(--teal-rot); border-color: var(--teal-rot); }
+  .rules-note {
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+    margin: 0 0 0.5rem;
+  }
 
   /* comments */
   .comments {
@@ -658,42 +774,258 @@
       </div>
       <div class="entry-body">
         <p style="font-size: 11px; color: var(--ink-faint); font-style: italic;">
-          ( This is the part that lives on the paper sheet, which I don't have in front of me right now. Filling in skeleton; will return for specifics. )
+          ( Transcribed off the paper sheet. The Ghost, a Skin for Monsterhearts 2 by Avery Alder. )
         </p>
 
         <div class="mech-card">
           <h4>♡ skin: the Ghost</h4>
           <p style="font-size: 11.5px; margin: 0 0 0.5rem;">
-            A teenager who died and didn't move on. Tethered to the place or the person of their unfinished business. Other people can see her but never quite manage to remember her properly afterward. Cold to the touch. No scent. Often present, rarely accounted for.
+            A teenager who died and didn't move on. Lonely, wounded, caring and creepy — she has the potential to provide care and healing, and the habit of ignoring personal and physical boundaries. Cold to the touch. No scent. Often present, rarely accounted for.
+          </p>
+
+          <p style="font-size: 11px; color: var(--ink-soft); margin: 0 0 0.6rem;">
+            <strong>eyes:</strong> pained &middot;
+            <strong>look:</strong> forlorn, brooding &middot;
+            <strong>origin:</strong> <em>a confused death</em>
           </p>
 
           <div class="stat-grid">
-            <div class="stat-cell"><div class="stat-name">Hot</div><div class="stat-value">—</div></div>
-            <div class="stat-cell"><div class="stat-name">Cold</div><div class="stat-value">—</div></div>
-            <div class="stat-cell"><div class="stat-name">Volatile</div><div class="stat-value">—</div></div>
-            <div class="stat-cell"><div class="stat-name">Dark</div><div class="stat-value">—</div></div>
+            <div class="stat-cell dilemma"><div class="stat-name">Hot</div><div class="stat-value">−1</div></div>
+            <div class="stat-cell"><div class="stat-name">Cold</div><div class="stat-value">−1</div></div>
+            <div class="stat-cell"><div class="stat-name">Volatile</div><div class="stat-value">+1</div></div>
+            <div class="stat-cell peak"><div class="stat-name">Dark</div><div class="stat-value">+2</div></div>
           </div>
+
+          <p style="font-size: 11px; color: var(--ink-soft); margin: 0 0 0.6rem;">
+            The scary-and-moody array, of the Ghost's two. The low Hot is the skin's built-in dilemma: she is <em>bad at being wanted</em>, and everything she does is an attempt to route around that.
+          </p>
 
           <div class="harm-clock">
             <span class="harm-label">harm:</span>
-            <div class="harm-pip faded"></div>
-            <div class="harm-pip faded"></div>
-            <div class="harm-pip faded"></div>
-            <div class="harm-pip faded"></div>
+            <div class="harm-pip filled"></div>
+            <div class="harm-pip filled"></div>
+            <div class="harm-pip filled"></div>
+            <div class="harm-pip"></div>
+          </div>
+
+          <div class="harm-clock">
+            <span class="harm-label">experience:</span>
+            <div class="harm-pip xp filled"></div>
+            <div class="harm-pip xp filled"></div>
+            <div class="harm-pip xp filled"></div>
+            <div class="harm-pip xp"></div>
+            <div class="harm-pip xp"></div>
           </div>
 
           <p style="font-size: 11px; color: var(--ink-soft); margin-top: 0.6rem;">
-            <strong>moves chosen:</strong> <em>to be filled in from physical sheet</em><br>
-            <strong>sex move:</strong> the Ghost's — <em>used in play</em> (Nov 6, with Ashby).<br>
-            <strong>advances:</strong> <em>to be filled in</em>.<br>
-            <strong>strings:</strong> <em>to be filled in</em>.<br>
-            <strong>conditions:</strong> <em>to be filled in</em>.
+            <strong>advances spent (2):</strong> <em>take another Ghost move</em> &middot; <em>take a move from any Skin</em>.<br>
+            <strong>conditions:</strong> <em>not recorded on the sheet</em>.
           </p>
         </div>
 
+        <h3>her moves</h3>
+        <p class="rules-note">Boxed text is the move as printed on the sheet. Everything under it in italics is mine.</p>
+
+        <div class="move-entry">
+          <div class="move-head"><span class="move-name">Unresolved Trauma</span><span class="move-src">the Ghost &mdash; automatic</span></div>
+          <div class="rules-text">Whenever something brings to mind your death, you choke up and gain the Condition <strong>traumatized</strong> if you don't have it already. Whenever someone helps you resolve this Condition, you both mark experience.</div>
+          <p class="gloss">The one move she didn't choose — the skin hands it to every Ghost. Note the exit: someone else has to help her resolve it, and the rules pay them both for it. Nobody ever did.</p>
+        </div>
+
+        <div class="move-entry">
+          <div class="move-head"><span class="move-name">Projected Blame</span><span class="move-src">the Ghost</span></div>
+          <div class="rules-text">While you've got the Condition <strong>traumatized</strong>, you may act as though others had the Condition <strong>at fault for my death</strong>.</div>
+          <p class="gloss">The whole character in one move: a standing licence to treat whoever is nearest as her killer, available precisely whenever she is hurting. And she gets <em>traumatized</em> for free, from the move above, every time anything reminds her of how she died.</p>
+        </div>
+
+        <div class="move-entry">
+          <div class="move-head"><span class="move-name">Creep</span><span class="move-src">the Ghost</span></div>
+          <div class="rules-text">When you silently witness someone in one of their most private moments, perhaps sleeping or putting on makeup, gain a String on them.</div>
+          <p class="gloss">It pays her a String for the thing she was going to do anyway. She had been in Ashby's bedroom while he slept before the campaign even started — that is written into her backstory.</p>
+        </div>
+
+        <div class="move-entry">
+          <div class="move-head"><span class="move-name">Limitless</span><span class="move-src">the Ghost</span></div>
+          <div class="rules-text">You can walk through walls and fly.</div>
+          <p class="gloss">Four words, and no door in Shoalsburg is closed to her. Held together with <em>Creep</em>, there is nowhere in town she cannot be and no reason not to be there.</p>
+        </div>
+
+        <div class="move-entry">
+          <div class="move-head"><span class="move-name">Lure</span><span class="move-src">another Skin &mdash; bought with an advance</span></div>
+          <div class="rules-text">Whenever someone makes a promise to you, they mark XP. Whenever someone breaks a promise to you, you mark XP.</div>
+          <p class="gloss">Her one borrowed move, and the one she chose most deliberately. It pays her for being let down. For a girl whose entire identity is <em>being wronged</em>, it converts the grievance into advancement — she gets better at being a ghost every time someone fails her.</p>
+        </div>
+
+        <div class="move-entry">
+          <div class="move-head"><span class="move-name">Sex Move</span><span class="move-src">the Ghost</span></div>
+          <div class="rules-text">When you have sex with someone, you both get to ask a question of one another. This can be asked in character or player-to-player. They must answer honestly and directly.</div>
+          <p class="gloss">Used once in play: Nov 6, with Ashby — the morning he woke up to her already there.</p>
+        </div>
+
+        <p style="font-size: 11px; color: var(--ink-soft);">
+          Note the shape of the four Ghost moves she took. <em>Creep</em> and <em>Limitless</em> are the voyeur's pair — no boundary holds. <em>Unresolved Trauma</em> and <em>Projected Blame</em> are the mean-and-spiteful pair — the grievance becomes a weapon aimed at whoever's nearest. She took all four. She took none of the moves that point toward giving, or healing, or being helped.
+        </p>
+
+        <h3>basic moves — her numbers</h3>
+        <table class="rel-table">
+          <thead>
+            <tr><th>move</th><th>rolls with</th><th>fatima</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Turn Someone On</td><td>Hot</td><td><span class="mod minus">−1</span></td></tr>
+            <tr><td>Shut Someone Down</td><td>Cold</td><td><span class="mod minus">−1</span></td></tr>
+            <tr><td>Keep Your Cool</td><td>Cold</td><td><span class="mod minus">−1</span></td></tr>
+            <tr><td>Lash Out Physically</td><td>Volatile</td><td><span class="mod plus">+1</span></td></tr>
+            <tr><td>Run Away</td><td>Volatile</td><td><span class="mod plus">+1</span></td></tr>
+            <tr><td>Gaze Into the Abyss</td><td>Dark</td><td><span class="mod plus">+2</span></td></tr>
+          </tbody>
+        </table>
+        <p style="font-size: 11px; color: var(--ink-faint); font-style: italic;">
+          ( She is worst at asking to be loved and best at staring into the dark. She stared into the dark. )
+        </p>
+
+        <h3>basic moves — as printed</h3>
+        <p class="rules-note">The sheet, verbatim. Italics under a box are mine.</p>
+
+        <div class="move-entry">
+          <div class="move-head"><span class="move-name">Turn Someone On</span><span class="move-mod minus">−1</span></div>
+          <div class="rules-text"><strong>When you turn someone on</strong>, roll with Hot. On a 10 up, gain a String on them and they choose a reaction from below. On a 7-9, they can either give you a String or choose one of the reactions.
+            <ul>
+              <li>I give myself to you,</li>
+              <li>I promise something I think you want, or</li>
+              <li>I get embarrassed and act awkward.</li>
+            </ul>
+            <em>For rules on asexuality and non-attraction, turn to page 49.</em>
+          </div>
+          <p class="gloss">The move she needs most and rolls worst. At −1 she fails it more often than not — and every failure marks experience, which is the cruellest joke on the sheet: she advances by being rejected.</p>
+        </div>
+
+        <div class="move-entry">
+          <div class="move-head"><span class="move-name">Shut Someone Down</span><span class="move-mod minus">−1</span></div>
+          <div class="rules-text"><strong>When you shut someone down</strong>, roll with Cold. On a 10 up, choose one from below. On a 7-9, choose one from below, but you come across poorly, and they give you a Condition in return.
+            <ul>
+              <li>They lose a String on you,</li>
+              <li>If they have no Strings on you, gain one on them,</li>
+              <li>They gain a Condition, or</li>
+              <li>You take 1 Forward.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="move-entry">
+          <div class="move-head"><span class="move-name">Keep Your Cool</span><span class="move-mod minus">−1</span></div>
+          <div class="rules-text"><strong>When you keep your cool and act despite fear</strong>, name what you're afraid of and roll with Cold. On a 10 up, you keep your cool and gain insight: ask the MC a question about the situation and take 1 Forward to acting on that information. On a 7-9, the MC will tell you how your actions would leave you vulnerable, and you can choose to back down or go through with it.</div>
+        </div>
+
+        <div class="move-entry">
+          <div class="move-head"><span class="move-name">Lash Out Physically</span><span class="move-mod plus">+1</span></div>
+          <div class="rules-text"><strong>When you lash out physically</strong>, roll with Volatile. On a 10 up, you deal them harm, and they choke up momentarily before they can react. On a 7-9, you harm them but choose one:
+            <ul>
+              <li>They learn something about your true nature and gain a String on you,</li>
+              <li>The MC decides how bad the harm turns out,</li>
+              <li>You become your Darkest Self.</li>
+            </ul>
+          </div>
+          <p class="gloss">Oct 9, at the party: she sucked the breath out of Joey's lungs with this. Ashby lashed out at her in return and his claws went straight through — the one direction the move doesn't run.</p>
+        </div>
+
+        <div class="move-entry">
+          <div class="move-head"><span class="move-name">Run Away</span><span class="move-mod plus">+1</span></div>
+          <div class="rules-text"><strong>When you run away</strong>, roll with Volatile. On a 10 up, you get away to a safe place. On a 7-9, you get away but choose one:
+            <ul>
+              <li>You run into something worse,</li>
+              <li>You cause a big scene, or</li>
+              <li>You leave something behind.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="move-entry">
+          <div class="move-head"><span class="move-name">Gaze Into the Abyss</span><span class="move-mod plus">+2</span></div>
+          <div class="rules-text"><strong>When you gaze into the abyss</strong>, name what you're looking for and roll with Dark. On a 10 up, the abyss shows you lucid visions, and you take 1 Forward to addressing them. On a 7-9, the abyss shows you confusing and alarming visions, but you get your answer nonetheless.</div>
+          <p class="gloss">Her best roll on the sheet by a full point. Note the 7-9: <em>you get your answer nonetheless</em>. The abyss never refuses her. It is the only thing in Shoalsburg that doesn't.</p>
+        </div>
+
+        <div class="move-entry">
+          <div class="move-head"><span class="move-name">Experience</span></div>
+          <div class="rules-text"><strong>Whenever you fail a roll</strong>, mark experience.</div>
+        </div>
+
+        <div class="move-entry">
+          <div class="move-head"><span class="move-name">Pulling Strings</span></div>
+          <div class="rules-text"><strong>When you spend a String on someone</strong>, choose one:
+            <ul>
+              <li>Tempt them to do what you want,</li>
+              <li>Give them a Condition,</li>
+              <li>Add 1 to your roll against them, or</li>
+              <li>Add 1 to the harm you deal them.</li>
+            </ul>
+            <em>To learn about tempting someone, turn to page 26.</em>
+          </div>
+          <p class="gloss">She ended holding two on Ashby, one each on Manuel and Gina. Gina held two back on her, Ashby one. She was never as far ahead as she believed.</p>
+        </div>
+
+        <div class="move-entry">
+          <div class="move-head"><span class="move-name">Healing</span></div>
+          <div class="rules-text"><strong>When you take time to tend to your wounds</strong>, once per session you may heal 1 Harm. If someone else is there with you, tending to your wounds delicately and <em>intimately</em> - and perhaps with erotic subtext - you may heal an additional 1 Harm.</div>
+          <p class="gloss">She sat on 3 harm. The second Harm requires someone to tend to her. There was no one.</p>
+        </div>
+
+        <div class="move-entry">
+          <div class="move-head"><span class="move-name">Skirting Death</span></div>
+          <div class="rules-text"><strong>To avoid death</strong>, erase all harm and choose one:
+            <ul>
+              <li>Become your Darkest Self,</li>
+              <li>Lose all Strings you have on everybody.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="move-entry">
+          <div class="move-head"><span class="move-name">Conditions</span></div>
+          <div class="rules-text">If you take advantage of someone's Condition while making a move against them, add 1 to your roll. A Condition goes away when the character suffering it takes appropriate action to alleviate it.</div>
+          <p class="gloss">The rule <em>Projected Blame</em> runs on. It also names her exact problem: a Condition only lifts when the sufferer takes appropriate action. She never took any.</p>
+        </div>
+
+        <div class="move-entry">
+          <div class="move-head"><span class="move-name">Gangs</span></div>
+          <div class="rules-text">Gangs add +1 to your rolls and harm as applicable.</div>
+        </div>
+
+        <h3>strings</h3>
+        <table class="rel-table">
+          <thead>
+            <tr><th>held by</th><th>on</th><th>count</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Fatima</td><td>ashby</td><td><span class="mod">2</span></td></tr>
+            <tr><td>Fatima</td><td>manuel</td><td><span class="mod">1</span></td></tr>
+            <tr><td>Fatima</td><td>gina</td><td><span class="mod">1</span></td></tr>
+            <tr><td>Gina</td><td>fatima</td><td><span class="mod">2</span></td></tr>
+            <tr><td>Ashby</td><td>fatima</td><td><span class="mod">1</span></td></tr>
+          </tbody>
+        </table>
+
+        <h3>backstory, as chosen</h3>
+        <ul class="skull">
+          <li><strong>Gina</strong> knows that Fatima is dead, and how she died. That is where Gina's two Strings come from — the only person in town holding the actual story.</li>
+          <li>Fatima has been inside <strong>Ashby's</strong> bedroom while he was sleeping. That is where one of her Strings on him comes from. It is also, per <em>Creep</em>, a move she is mechanically rewarded for repeating.</li>
+        </ul>
+
         <div class="darkest">
           <h4>♱ darkest self</h4>
-          <p>Triggered at least twice during the campaign. Specifics not recorded here — but in general: the Ghost's Darkest Self is what happens when the grievance becomes the whole self. <em>You can't leave the place of the wrong. You lash out at anyone who tries to make you see past it.</em> For Fatima, the wrong was him not loving her back. Of course it was.</p>
+          <p>She becomes invisible, unnoticeable — no one can see her, feel her, or hear her voice. She can still affect inanimate objects, but that is her only avenue of communication. <em>She escapes when someone acknowledges her presence and demonstrates how much they want her around.</em></p>
+          <p>The sheet names <strong>Ashby</strong> beside it. The exit condition for her worst state is the one thing she has no way to earn, from the one person who was never going to give it — so the Darkest Self is less a punishment than a description of her ordinary Tuesday.</p>
+        </div>
+
+        <div class="marginalia">
+          <ul>
+            <li>died the summer between sophomore and junior year</li>
+            <li>cannot accept the fact that it was <em>her</em> failure to act</li>
+            <li>projects onto everyone, always the victim</li>
+            <li>doesn't communicate, then blames others for miscommunication</li>
+            <li>"I insist that I'll be dearly missed."</li>
+          </ul>
         </div>
       </div>
       <div class="tags-row">
@@ -701,7 +1033,8 @@
         <span class="tag teal">the ghost</span>
         <span class="tag">mechanics</span>
         <span class="tag">monsterhearts 2</span>
-        <span class="tag">tbd</span>
+        <span class="tag teal">the sheet</span>
+        <span class="tag">avery alder</span>
       </div>
     </article>
 
